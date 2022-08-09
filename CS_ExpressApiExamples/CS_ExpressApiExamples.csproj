@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;_WIN64</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE;_WIN64</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ifcengine.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Compile Include="..\bin\Debug\net5.0\IFC2x3.cs" />
+    <Compile Include="..\bin\Debug\net5.0\IFC4.cs" />
+    <Compile Include="..\bin\Debug\net5.0\IFC4x3.cs" />
+    <Compile Include="..\bin\Debug\net5.0\AP242.cs" />
+    <Compile Include="..\bin\Debug\net5.0\CIS2.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Compile Include="..\bin\Release\net5.0\IFC2x3.cs" />
+    <Compile Include="..\bin\Release\net5.0\IFC4.cs" />
+    <Compile Include="..\bin\Release\net5.0\IFC4x3.cs" />
+    <Compile Include="..\bin\Release\net5.0\AP242.cs" />
+    <Compile Include="..\bin\Release\net5.0\CIS2.cs" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CS_IFC": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

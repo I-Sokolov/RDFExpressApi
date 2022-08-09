@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+    <DefineConstants>TRACE;DEBUG;_WIN64</DefineConstants>
+    <NoWarn>1701;1702;CA1416</NoWarn>
+    <WarningsAsErrors>NU1605</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;CA1416</NoWarn>
+    <WarningsAsErrors>NU1605</WarningsAsErrors>
+    <DefineConstants>TRACE;_WIN64</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="*ExpressApiExamples\**" />
+    <EmbeddedResource Remove="*ExpressApiExamples\**" />
+    <None Remove="*ExpressApiExamples\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="EngineEx_Template.cs" />
+    <EmbeddedResource Include="EngineEx_Template.h" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="System.CodeDom" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <None Include="O:\DevArea\RDF\a.out\x64\Debug\ifcengine.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <None Include="O:\DevArea\RDF\a.out\x64\Release\ifcengine.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
