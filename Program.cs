@@ -96,14 +96,22 @@ namespace RDFWrappers
 
             string baseName = System.IO.Path.GetFileNameWithoutExtension(options.schema);
 
+            string defaultOutDir = @"..\..\..\API.generated\";
+            if (!System.IO.Directory.Exists(defaultOutDir))
+            {
+                defaultOutDir = "";
+            }
+
             if (string.IsNullOrWhiteSpace(options.csFile))
             {
-                options.csFile = baseName + ".cs";
+                options.csFile = defaultOutDir + baseName + ".cs";
+                options.csFile = System.IO.Path.GetFullPath(options.csFile);
             }
 
             if (string.IsNullOrWhiteSpace(options.hFile))
             {
-                options.hFile = baseName + ".h";
+                options.hFile = defaultOutDir + baseName + ".h";
+                options.hFile = System.IO.Path.GetFullPath(options.hFile);
             }
 
             if (string.IsNullOrWhiteSpace(options.Namespace))

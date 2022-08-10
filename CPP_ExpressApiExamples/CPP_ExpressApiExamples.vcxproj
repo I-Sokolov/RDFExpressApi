@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\bin\$(Configuration)\net5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\API.generated\net5.0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,7 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\bin\$(Configuration)\net5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\API.generated\net5.0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\bin\$(Configuration)\net5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\API.generated\net5.0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\bin\$(Configuration)\net5.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>O:\DevArea\RDF\IFCEngine\ifcengine\Code\include;$(ProjectDir)\..\..\API.generated\net5.0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
