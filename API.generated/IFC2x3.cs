@@ -8144,11 +8144,7 @@ namespace IFC2x3
         public static implicit operator IfcRepresentationItem(SdaiInstance instance) => new IfcRepresentationItem(instance);
 
         public SetOfIfcPresentationLayerAssignment get_LayerAssignments() { return (new SetOfIfcPresentationLayerAssignmentSerializer()).FromAttr(m_instance, "LayerAssignments"); }
-        public void put_LayerAssignments(IEnumerable<IfcPresentationLayerAssignment> lst) { (new SetOfIfcPresentationLayerAssignmentSerializer()).ToSdaiAggr(lst, m_instance, "LayerAssignments"); }
-        //public void put_LayerAssignments_untyped(IEnumerable lst) { (new SetOfIfcPresentationLayerAssignmentSerializer()).ToSdaiAggr(lst, m_instance, "LayerAssignments"); }
         public SetOfIfcStyledItem get_StyledByItem() { return (new SetOfIfcStyledItemSerializer()).FromAttr(m_instance, "StyledByItem"); }
-        public void put_StyledByItem(IEnumerable<IfcStyledItem> lst) { (new SetOfIfcStyledItemSerializer()).ToSdaiAggr(lst, m_instance, "StyledByItem"); }
-        //public void put_StyledByItem_untyped(IEnumerable lst) { (new SetOfIfcStyledItemSerializer()).ToSdaiAggr(lst, m_instance, "StyledByItem"); }
 
         protected override TextValue EntityName() { return "IfcRepresentationItem"; }
     };
@@ -8313,17 +8309,9 @@ namespace IFC2x3
         public static implicit operator IfcObjectDefinition(SdaiInstance instance) => new IfcObjectDefinition(instance);
 
         public SetOfIfcRelAssigns get_HasAssignments() { return (new SetOfIfcRelAssignsSerializer()).FromAttr(m_instance, "HasAssignments"); }
-        public void put_HasAssignments(IEnumerable<IfcRelAssigns> lst) { (new SetOfIfcRelAssignsSerializer()).ToSdaiAggr(lst, m_instance, "HasAssignments"); }
-        //public void put_HasAssignments_untyped(IEnumerable lst) { (new SetOfIfcRelAssignsSerializer()).ToSdaiAggr(lst, m_instance, "HasAssignments"); }
         public SetOfIfcRelDecomposes get_IsDecomposedBy() { return (new SetOfIfcRelDecomposesSerializer()).FromAttr(m_instance, "IsDecomposedBy"); }
-        public void put_IsDecomposedBy(IEnumerable<IfcRelDecomposes> lst) { (new SetOfIfcRelDecomposesSerializer()).ToSdaiAggr(lst, m_instance, "IsDecomposedBy"); }
-        //public void put_IsDecomposedBy_untyped(IEnumerable lst) { (new SetOfIfcRelDecomposesSerializer()).ToSdaiAggr(lst, m_instance, "IsDecomposedBy"); }
         public SetOfIfcRelDecomposes get_Decomposes() { return (new SetOfIfcRelDecomposesSerializer()).FromAttr(m_instance, "Decomposes"); }
-        public void put_Decomposes(IEnumerable<IfcRelDecomposes> lst) { (new SetOfIfcRelDecomposesSerializer()).ToSdaiAggr(lst, m_instance, "Decomposes"); }
-        //public void put_Decomposes_untyped(IEnumerable lst) { (new SetOfIfcRelDecomposesSerializer()).ToSdaiAggr(lst, m_instance, "Decomposes"); }
         public SetOfIfcRelAssociates get_HasAssociations() { return (new SetOfIfcRelAssociatesSerializer()).FromAttr(m_instance, "HasAssociations"); }
-        public void put_HasAssociations(IEnumerable<IfcRelAssociates> lst) { (new SetOfIfcRelAssociatesSerializer()).ToSdaiAggr(lst, m_instance, "HasAssociations"); }
-        //public void put_HasAssociations_untyped(IEnumerable lst) { (new SetOfIfcRelAssociatesSerializer()).ToSdaiAggr(lst, m_instance, "HasAssociations"); }
 
         protected override TextValue EntityName() { return "IfcObjectDefinition"; }
     };
@@ -8347,8 +8335,6 @@ namespace IFC2x3
         public TextValue get_ObjectType() { return get_string("ObjectType", ifcengine.sdaiSTRING); }
         public void put_ObjectType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ObjectType", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRelDefines get_IsDefinedBy() { return (new SetOfIfcRelDefinesSerializer()).FromAttr(m_instance, "IsDefinedBy"); }
-        public void put_IsDefinedBy(IEnumerable<IfcRelDefines> lst) { (new SetOfIfcRelDefinesSerializer()).ToSdaiAggr(lst, m_instance, "IsDefinedBy"); }
-        //public void put_IsDefinedBy_untyped(IEnumerable lst) { (new SetOfIfcRelDefinesSerializer()).ToSdaiAggr(lst, m_instance, "IsDefinedBy"); }
 
         protected override TextValue EntityName() { return "IfcObject"; }
     };
@@ -8370,8 +8356,6 @@ namespace IFC2x3
         public static implicit operator IfcControl(SdaiInstance instance) => new IfcControl(instance);
 
         public SetOfIfcRelAssignsToControl get_Controls() { return (new SetOfIfcRelAssignsToControlSerializer()).FromAttr(m_instance, "Controls"); }
-        public void put_Controls(IEnumerable<IfcRelAssignsToControl> lst) { (new SetOfIfcRelAssignsToControlSerializer()).ToSdaiAggr(lst, m_instance, "Controls"); }
-        //public void put_Controls_untyped(IEnumerable lst) { (new SetOfIfcRelAssignsToControlSerializer()).ToSdaiAggr(lst, m_instance, "Controls"); }
 
         protected override TextValue EntityName() { return "IfcControl"; }
     };
@@ -8428,8 +8412,6 @@ namespace IFC2x3
         public IfcActorSelect_get get_TheActor() { return new IfcActorSelect_get(m_instance, "TheActor", 0); }
         public IfcActorSelect_put put_TheActor() { return new IfcActorSelect_put(m_instance, "TheActor", 0); }
         public SetOfIfcRelAssignsToActor get_IsActingUpon() { return (new SetOfIfcRelAssignsToActorSerializer()).FromAttr(m_instance, "IsActingUpon"); }
-        public void put_IsActingUpon(IEnumerable<IfcRelAssignsToActor> lst) { (new SetOfIfcRelAssignsToActorSerializer()).ToSdaiAggr(lst, m_instance, "IsActingUpon"); }
-        //public void put_IsActingUpon_untyped(IEnumerable lst) { (new SetOfIfcRelAssignsToActorSerializer()).ToSdaiAggr(lst, m_instance, "IsActingUpon"); }
 
         protected override TextValue EntityName() { return "IfcActor"; }
     };
@@ -8492,8 +8474,6 @@ namespace IFC2x3
         public void put_HasPropertySets(IEnumerable<IfcPropertySetDefinition> lst) { (new SetOfIfcPropertySetDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "HasPropertySets"); }
         //public void put_HasPropertySets_untyped(IEnumerable lst) { (new SetOfIfcPropertySetDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "HasPropertySets"); }
         public SetOfIfcRelDefinesByType get_ObjectTypeOf() { return (new SetOfIfcRelDefinesByTypeSerializer()).FromAttr(m_instance, "ObjectTypeOf"); }
-        public void put_ObjectTypeOf(IEnumerable<IfcRelDefinesByType> lst) { (new SetOfIfcRelDefinesByTypeSerializer()).ToSdaiAggr(lst, m_instance, "ObjectTypeOf"); }
-        //public void put_ObjectTypeOf_untyped(IEnumerable lst) { (new SetOfIfcRelDefinesByTypeSerializer()).ToSdaiAggr(lst, m_instance, "ObjectTypeOf"); }
 
         protected override TextValue EntityName() { return "IfcTypeObject"; }
     };
@@ -8645,11 +8625,7 @@ namespace IFC2x3
         public TextValue get_UserDefinedPurpose() { return get_string("UserDefinedPurpose", ifcengine.sdaiSTRING); }
         public void put_UserDefinedPurpose(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedPurpose", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPerson get_OfPerson() { return (new SetOfIfcPersonSerializer()).FromAttr(m_instance, "OfPerson"); }
-        public void put_OfPerson(IEnumerable<IfcPerson> lst) { (new SetOfIfcPersonSerializer()).ToSdaiAggr(lst, m_instance, "OfPerson"); }
-        //public void put_OfPerson_untyped(IEnumerable lst) { (new SetOfIfcPersonSerializer()).ToSdaiAggr(lst, m_instance, "OfPerson"); }
         public SetOfIfcOrganization get_OfOrganization() { return (new SetOfIfcOrganizationSerializer()).FromAttr(m_instance, "OfOrganization"); }
-        public void put_OfOrganization(IEnumerable<IfcOrganization> lst) { (new SetOfIfcOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "OfOrganization"); }
-        //public void put_OfOrganization_untyped(IEnumerable lst) { (new SetOfIfcOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "OfOrganization"); }
 
         protected override TextValue EntityName() { return "IfcAddress"; }
     };
@@ -8867,11 +8843,7 @@ namespace IFC2x3
         public void put_Contents(IEnumerable<IfcDraughtingCalloutElement> lst) { (new SetOfIfcDraughtingCalloutElementSerializer()).ToSdaiAggr(lst, m_instance, "Contents"); }
         //public void put_Contents_untyped(IEnumerable lst) { (new SetOfIfcDraughtingCalloutElementSerializer()).ToSdaiAggr(lst, m_instance, "Contents"); }
         public SetOfIfcDraughtingCalloutRelationship get_IsRelatedFromCallout() { return (new SetOfIfcDraughtingCalloutRelationshipSerializer()).FromAttr(m_instance, "IsRelatedFromCallout"); }
-        public void put_IsRelatedFromCallout(IEnumerable<IfcDraughtingCalloutRelationship> lst) { (new SetOfIfcDraughtingCalloutRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedFromCallout"); }
-        //public void put_IsRelatedFromCallout_untyped(IEnumerable lst) { (new SetOfIfcDraughtingCalloutRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedFromCallout"); }
         public SetOfIfcDraughtingCalloutRelationship get_IsRelatedToCallout() { return (new SetOfIfcDraughtingCalloutRelationshipSerializer()).FromAttr(m_instance, "IsRelatedToCallout"); }
-        public void put_IsRelatedToCallout(IEnumerable<IfcDraughtingCalloutRelationship> lst) { (new SetOfIfcDraughtingCalloutRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedToCallout"); }
-        //public void put_IsRelatedToCallout_untyped(IEnumerable lst) { (new SetOfIfcDraughtingCalloutRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedToCallout"); }
 
         protected override TextValue EntityName() { return "IfcDraughtingCallout"; }
     };
@@ -8947,8 +8919,6 @@ namespace IFC2x3
         public IfcProductRepresentation get_Representation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Representation", ifcengine.sdaiINSTANCE, out inst); return new IfcProductRepresentation (inst); }
         public void put_Representation(IfcProductRepresentation inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Representation", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcRelAssignsToProduct get_ReferencedBy() { return (new SetOfIfcRelAssignsToProductSerializer()).FromAttr(m_instance, "ReferencedBy"); }
-        public void put_ReferencedBy(IEnumerable<IfcRelAssignsToProduct> lst) { (new SetOfIfcRelAssignsToProductSerializer()).ToSdaiAggr(lst, m_instance, "ReferencedBy"); }
-        //public void put_ReferencedBy_untyped(IEnumerable lst) { (new SetOfIfcRelAssignsToProductSerializer()).ToSdaiAggr(lst, m_instance, "ReferencedBy"); }
 
         protected override TextValue EntityName() { return "IfcProduct"; }
     };
@@ -8975,8 +8945,6 @@ namespace IFC2x3
         public static new IfcAnnotation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAnnotation"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelContainedInSpatialStructure get_ContainedInStructure() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainedInStructure"); }
-        public void put_ContainedInStructure(IEnumerable<IfcRelContainedInSpatialStructure> lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
-        //public void put_ContainedInStructure_untyped(IEnumerable lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
 
         protected override TextValue EntityName() { return "IfcAnnotation"; }
     };
@@ -9286,14 +9254,8 @@ namespace IFC2x3
         public IfcDateTimeSelect_get get_FixedUntilDate() { return new IfcDateTimeSelect_get(m_instance, "FixedUntilDate", 0); }
         public IfcDateTimeSelect_put put_FixedUntilDate() { return new IfcDateTimeSelect_put(m_instance, "FixedUntilDate", 0); }
         public SetOfIfcReferencesValueDocument get_ValuesReferenced() { return (new SetOfIfcReferencesValueDocumentSerializer()).FromAttr(m_instance, "ValuesReferenced"); }
-        public void put_ValuesReferenced(IEnumerable<IfcReferencesValueDocument> lst) { (new SetOfIfcReferencesValueDocumentSerializer()).ToSdaiAggr(lst, m_instance, "ValuesReferenced"); }
-        //public void put_ValuesReferenced_untyped(IEnumerable lst) { (new SetOfIfcReferencesValueDocumentSerializer()).ToSdaiAggr(lst, m_instance, "ValuesReferenced"); }
         public SetOfIfcAppliedValueRelationship get_ValueOfComponents() { return (new SetOfIfcAppliedValueRelationshipSerializer()).FromAttr(m_instance, "ValueOfComponents"); }
-        public void put_ValueOfComponents(IEnumerable<IfcAppliedValueRelationship> lst) { (new SetOfIfcAppliedValueRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "ValueOfComponents"); }
-        //public void put_ValueOfComponents_untyped(IEnumerable lst) { (new SetOfIfcAppliedValueRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "ValueOfComponents"); }
         public SetOfIfcAppliedValueRelationship get_IsComponentIn() { return (new SetOfIfcAppliedValueRelationshipSerializer()).FromAttr(m_instance, "IsComponentIn"); }
-        public void put_IsComponentIn(IEnumerable<IfcAppliedValueRelationship> lst) { (new SetOfIfcAppliedValueRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsComponentIn"); }
-        //public void put_IsComponentIn_untyped(IEnumerable lst) { (new SetOfIfcAppliedValueRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsComponentIn"); }
 
         protected override TextValue EntityName() { return "IfcAppliedValue"; }
     };
@@ -9371,14 +9333,8 @@ namespace IFC2x3
         public TextValue get_Identifier() { return get_string("Identifier", ifcengine.sdaiSTRING); }
         public void put_Identifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Identifier", ifcengine.sdaiSTRING, value); }
         public SetOfIfcApprovalActorRelationship get_Actors() { return (new SetOfIfcApprovalActorRelationshipSerializer()).FromAttr(m_instance, "Actors"); }
-        public void put_Actors(IEnumerable<IfcApprovalActorRelationship> lst) { (new SetOfIfcApprovalActorRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Actors"); }
-        //public void put_Actors_untyped(IEnumerable lst) { (new SetOfIfcApprovalActorRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Actors"); }
         public SetOfIfcApprovalRelationship get_IsRelatedWith() { return (new SetOfIfcApprovalRelationshipSerializer()).FromAttr(m_instance, "IsRelatedWith"); }
-        public void put_IsRelatedWith(IEnumerable<IfcApprovalRelationship> lst) { (new SetOfIfcApprovalRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedWith"); }
-        //public void put_IsRelatedWith_untyped(IEnumerable lst) { (new SetOfIfcApprovalRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedWith"); }
         public SetOfIfcApprovalRelationship get_Relates() { return (new SetOfIfcApprovalRelationshipSerializer()).FromAttr(m_instance, "Relates"); }
-        public void put_Relates(IEnumerable<IfcApprovalRelationship> lst) { (new SetOfIfcApprovalRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Relates"); }
-        //public void put_Relates_untyped(IEnumerable lst) { (new SetOfIfcApprovalRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Relates"); }
 
         protected override TextValue EntityName() { return "IfcApproval"; }
     };
@@ -9606,7 +9562,6 @@ namespace IFC2x3
         public static new IfcGroup Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGroup"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRelAssignsToGroup get_IsGroupedBy() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "IsGroupedBy", ifcengine.sdaiINSTANCE, out inst); return new IfcRelAssignsToGroup (inst); }
-        public void put_IsGroupedBy(IfcRelAssignsToGroup inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "IsGroupedBy", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcGroup"; }
     };
@@ -9870,41 +9825,17 @@ namespace IFC2x3
         public TextValue get_Tag() { return get_string("Tag", ifcengine.sdaiSTRING); }
         public void put_Tag(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Tag", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRelConnectsStructuralElement get_HasStructuralMember() { return (new SetOfIfcRelConnectsStructuralElementSerializer()).FromAttr(m_instance, "HasStructuralMember"); }
-        public void put_HasStructuralMember(IEnumerable<IfcRelConnectsStructuralElement> lst) { (new SetOfIfcRelConnectsStructuralElementSerializer()).ToSdaiAggr(lst, m_instance, "HasStructuralMember"); }
-        //public void put_HasStructuralMember_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsStructuralElementSerializer()).ToSdaiAggr(lst, m_instance, "HasStructuralMember"); }
         public SetOfIfcRelFillsElement get_FillsVoids() { return (new SetOfIfcRelFillsElementSerializer()).FromAttr(m_instance, "FillsVoids"); }
-        public void put_FillsVoids(IEnumerable<IfcRelFillsElement> lst) { (new SetOfIfcRelFillsElementSerializer()).ToSdaiAggr(lst, m_instance, "FillsVoids"); }
-        //public void put_FillsVoids_untyped(IEnumerable lst) { (new SetOfIfcRelFillsElementSerializer()).ToSdaiAggr(lst, m_instance, "FillsVoids"); }
         public SetOfIfcRelConnectsElements get_ConnectedTo() { return (new SetOfIfcRelConnectsElementsSerializer()).FromAttr(m_instance, "ConnectedTo"); }
-        public void put_ConnectedTo(IEnumerable<IfcRelConnectsElements> lst) { (new SetOfIfcRelConnectsElementsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedTo"); }
-        //public void put_ConnectedTo_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsElementsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedTo"); }
         public SetOfIfcRelCoversBldgElements get_HasCoverings() { return (new SetOfIfcRelCoversBldgElementsSerializer()).FromAttr(m_instance, "HasCoverings"); }
-        public void put_HasCoverings(IEnumerable<IfcRelCoversBldgElements> lst) { (new SetOfIfcRelCoversBldgElementsSerializer()).ToSdaiAggr(lst, m_instance, "HasCoverings"); }
-        //public void put_HasCoverings_untyped(IEnumerable lst) { (new SetOfIfcRelCoversBldgElementsSerializer()).ToSdaiAggr(lst, m_instance, "HasCoverings"); }
         public SetOfIfcRelProjectsElement get_HasProjections() { return (new SetOfIfcRelProjectsElementSerializer()).FromAttr(m_instance, "HasProjections"); }
-        public void put_HasProjections(IEnumerable<IfcRelProjectsElement> lst) { (new SetOfIfcRelProjectsElementSerializer()).ToSdaiAggr(lst, m_instance, "HasProjections"); }
-        //public void put_HasProjections_untyped(IEnumerable lst) { (new SetOfIfcRelProjectsElementSerializer()).ToSdaiAggr(lst, m_instance, "HasProjections"); }
         public SetOfIfcRelReferencedInSpatialStructure get_ReferencedInStructures() { return (new SetOfIfcRelReferencedInSpatialStructureSerializer()).FromAttr(m_instance, "ReferencedInStructures"); }
-        public void put_ReferencedInStructures(IEnumerable<IfcRelReferencedInSpatialStructure> lst) { (new SetOfIfcRelReferencedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ReferencedInStructures"); }
-        //public void put_ReferencedInStructures_untyped(IEnumerable lst) { (new SetOfIfcRelReferencedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ReferencedInStructures"); }
         public SetOfIfcRelConnectsPortToElement get_HasPorts() { return (new SetOfIfcRelConnectsPortToElementSerializer()).FromAttr(m_instance, "HasPorts"); }
-        public void put_HasPorts(IEnumerable<IfcRelConnectsPortToElement> lst) { (new SetOfIfcRelConnectsPortToElementSerializer()).ToSdaiAggr(lst, m_instance, "HasPorts"); }
-        //public void put_HasPorts_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsPortToElementSerializer()).ToSdaiAggr(lst, m_instance, "HasPorts"); }
         public SetOfIfcRelVoidsElement get_HasOpenings() { return (new SetOfIfcRelVoidsElementSerializer()).FromAttr(m_instance, "HasOpenings"); }
-        public void put_HasOpenings(IEnumerable<IfcRelVoidsElement> lst) { (new SetOfIfcRelVoidsElementSerializer()).ToSdaiAggr(lst, m_instance, "HasOpenings"); }
-        //public void put_HasOpenings_untyped(IEnumerable lst) { (new SetOfIfcRelVoidsElementSerializer()).ToSdaiAggr(lst, m_instance, "HasOpenings"); }
         public SetOfIfcRelConnectsWithRealizingElements get_IsConnectionRealization() { return (new SetOfIfcRelConnectsWithRealizingElementsSerializer()).FromAttr(m_instance, "IsConnectionRealization"); }
-        public void put_IsConnectionRealization(IEnumerable<IfcRelConnectsWithRealizingElements> lst) { (new SetOfIfcRelConnectsWithRealizingElementsSerializer()).ToSdaiAggr(lst, m_instance, "IsConnectionRealization"); }
-        //public void put_IsConnectionRealization_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsWithRealizingElementsSerializer()).ToSdaiAggr(lst, m_instance, "IsConnectionRealization"); }
         public SetOfIfcRelSpaceBoundary get_ProvidesBoundaries() { return (new SetOfIfcRelSpaceBoundarySerializer()).FromAttr(m_instance, "ProvidesBoundaries"); }
-        public void put_ProvidesBoundaries(IEnumerable<IfcRelSpaceBoundary> lst) { (new SetOfIfcRelSpaceBoundarySerializer()).ToSdaiAggr(lst, m_instance, "ProvidesBoundaries"); }
-        //public void put_ProvidesBoundaries_untyped(IEnumerable lst) { (new SetOfIfcRelSpaceBoundarySerializer()).ToSdaiAggr(lst, m_instance, "ProvidesBoundaries"); }
         public SetOfIfcRelConnectsElements get_ConnectedFrom() { return (new SetOfIfcRelConnectsElementsSerializer()).FromAttr(m_instance, "ConnectedFrom"); }
-        public void put_ConnectedFrom(IEnumerable<IfcRelConnectsElements> lst) { (new SetOfIfcRelConnectsElementsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedFrom"); }
-        //public void put_ConnectedFrom_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsElementsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedFrom"); }
         public SetOfIfcRelContainedInSpatialStructure get_ContainedInStructure() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainedInStructure"); }
-        public void put_ContainedInStructure(IEnumerable<IfcRelContainedInSpatialStructure> lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
-        //public void put_ContainedInStructure_untyped(IEnumerable lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
 
         protected override TextValue EntityName() { return "IfcElement"; }
     };
@@ -10561,14 +10492,8 @@ namespace IFC2x3
         public IfcElementCompositionEnum? get_CompositionType() { var str = get_string("CompositionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElementCompositionEnum_); return EnumValue<IfcElementCompositionEnum>.FromIndex(ind); }
         public void put_CompositionType(IfcElementCompositionEnum value) { var str = EnumString<IfcElementCompositionEnum>.FromValue(value, EnumNames.IfcElementCompositionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "CompositionType", ifcengine.sdaiENUM, str); }
         public SetOfIfcRelReferencedInSpatialStructure get_ReferencesElements() { return (new SetOfIfcRelReferencedInSpatialStructureSerializer()).FromAttr(m_instance, "ReferencesElements"); }
-        public void put_ReferencesElements(IEnumerable<IfcRelReferencedInSpatialStructure> lst) { (new SetOfIfcRelReferencedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ReferencesElements"); }
-        //public void put_ReferencesElements_untyped(IEnumerable lst) { (new SetOfIfcRelReferencedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ReferencesElements"); }
         public SetOfIfcRelServicesBuildings get_ServicedBySystems() { return (new SetOfIfcRelServicesBuildingsSerializer()).FromAttr(m_instance, "ServicedBySystems"); }
-        public void put_ServicedBySystems(IEnumerable<IfcRelServicesBuildings> lst) { (new SetOfIfcRelServicesBuildingsSerializer()).ToSdaiAggr(lst, m_instance, "ServicedBySystems"); }
-        //public void put_ServicedBySystems_untyped(IEnumerable lst) { (new SetOfIfcRelServicesBuildingsSerializer()).ToSdaiAggr(lst, m_instance, "ServicedBySystems"); }
         public SetOfIfcRelContainedInSpatialStructure get_ContainsElements() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainsElements"); }
-        public void put_ContainsElements(IEnumerable<IfcRelContainedInSpatialStructure> lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainsElements"); }
-        //public void put_ContainsElements_untyped(IEnumerable lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainsElements"); }
 
         protected override TextValue EntityName() { return "IfcSpatialStructureElement"; }
     };
@@ -11130,7 +11055,6 @@ namespace IFC2x3
         public static implicit operator IfcFeatureElementSubtraction(SdaiInstance instance) => new IfcFeatureElementSubtraction(instance);
 
         public IfcRelVoidsElement get_VoidsElements() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VoidsElements", ifcengine.sdaiINSTANCE, out inst); return new IfcRelVoidsElement (inst); }
-        public void put_VoidsElements(IfcRelVoidsElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "VoidsElements", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcFeatureElementSubtraction"; }
     };
@@ -11347,8 +11271,6 @@ namespace IFC2x3
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public SetOfIfcClassificationItem get_Contains() { return (new SetOfIfcClassificationItemSerializer()).FromAttr(m_instance, "Contains"); }
-        public void put_Contains(IEnumerable<IfcClassificationItem> lst) { (new SetOfIfcClassificationItemSerializer()).ToSdaiAggr(lst, m_instance, "Contains"); }
-        //public void put_Contains_untyped(IEnumerable lst) { (new SetOfIfcClassificationItemSerializer()).ToSdaiAggr(lst, m_instance, "Contains"); }
 
         protected override TextValue EntityName() { return "IfcClassification"; }
     };
@@ -11381,11 +11303,7 @@ namespace IFC2x3
         public TextValue get_Title() { return get_string("Title", ifcengine.sdaiSTRING); }
         public void put_Title(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Title", ifcengine.sdaiSTRING, value); }
         public SetOfIfcClassificationItemRelationship get_IsClassifiedItemIn() { return (new SetOfIfcClassificationItemRelationshipSerializer()).FromAttr(m_instance, "IsClassifiedItemIn"); }
-        public void put_IsClassifiedItemIn(IEnumerable<IfcClassificationItemRelationship> lst) { (new SetOfIfcClassificationItemRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsClassifiedItemIn"); }
-        //public void put_IsClassifiedItemIn_untyped(IEnumerable lst) { (new SetOfIfcClassificationItemRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsClassifiedItemIn"); }
         public SetOfIfcClassificationItemRelationship get_IsClassifyingItemIn() { return (new SetOfIfcClassificationItemRelationshipSerializer()).FromAttr(m_instance, "IsClassifyingItemIn"); }
-        public void put_IsClassifyingItemIn(IEnumerable<IfcClassificationItemRelationship> lst) { (new SetOfIfcClassificationItemRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsClassifyingItemIn"); }
-        //public void put_IsClassifyingItemIn_untyped(IEnumerable lst) { (new SetOfIfcClassificationItemRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsClassifyingItemIn"); }
 
         protected override TextValue EntityName() { return "IfcClassificationItem"; }
     };
@@ -11754,14 +11672,8 @@ namespace IFC2x3
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPropertyDependencyRelationship get_PropertyForDependance() { return (new SetOfIfcPropertyDependencyRelationshipSerializer()).FromAttr(m_instance, "PropertyForDependance"); }
-        public void put_PropertyForDependance(IEnumerable<IfcPropertyDependencyRelationship> lst) { (new SetOfIfcPropertyDependencyRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "PropertyForDependance"); }
-        //public void put_PropertyForDependance_untyped(IEnumerable lst) { (new SetOfIfcPropertyDependencyRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "PropertyForDependance"); }
         public SetOfIfcPropertyDependencyRelationship get_PropertyDependsOn() { return (new SetOfIfcPropertyDependencyRelationshipSerializer()).FromAttr(m_instance, "PropertyDependsOn"); }
-        public void put_PropertyDependsOn(IEnumerable<IfcPropertyDependencyRelationship> lst) { (new SetOfIfcPropertyDependencyRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "PropertyDependsOn"); }
-        //public void put_PropertyDependsOn_untyped(IEnumerable lst) { (new SetOfIfcPropertyDependencyRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "PropertyDependsOn"); }
         public SetOfIfcComplexProperty get_PartOfComplex() { return (new SetOfIfcComplexPropertySerializer()).FromAttr(m_instance, "PartOfComplex"); }
-        public void put_PartOfComplex(IEnumerable<IfcComplexProperty> lst) { (new SetOfIfcComplexPropertySerializer()).ToSdaiAggr(lst, m_instance, "PartOfComplex"); }
-        //public void put_PartOfComplex_untyped(IEnumerable lst) { (new SetOfIfcComplexPropertySerializer()).ToSdaiAggr(lst, m_instance, "PartOfComplex"); }
 
         protected override TextValue EntityName() { return "IfcProperty"; }
     };
@@ -11824,8 +11736,6 @@ namespace IFC2x3
         public IfcCurve get_ParentCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ParentCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
         public void put_ParentCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ParentCurve", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcCompositeCurve get_UsingCurves() { return (new SetOfIfcCompositeCurveSerializer()).FromAttr(m_instance, "UsingCurves"); }
-        public void put_UsingCurves(IEnumerable<IfcCompositeCurve> lst) { (new SetOfIfcCompositeCurveSerializer()).ToSdaiAggr(lst, m_instance, "UsingCurves"); }
-        //public void put_UsingCurves_untyped(IEnumerable lst) { (new SetOfIfcCompositeCurveSerializer()).ToSdaiAggr(lst, m_instance, "UsingCurves"); }
 
         protected override TextValue EntityName() { return "IfcCompositeCurveSegment"; }
     };
@@ -12200,23 +12110,11 @@ namespace IFC2x3
         public TextValue get_UserDefinedGrade() { return get_string("UserDefinedGrade", ifcengine.sdaiSTRING); }
         public void put_UserDefinedGrade(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedGrade", ifcengine.sdaiSTRING, value); }
         public SetOfIfcConstraintClassificationRelationship get_ClassifiedAs() { return (new SetOfIfcConstraintClassificationRelationshipSerializer()).FromAttr(m_instance, "ClassifiedAs"); }
-        public void put_ClassifiedAs(IEnumerable<IfcConstraintClassificationRelationship> lst) { (new SetOfIfcConstraintClassificationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "ClassifiedAs"); }
-        //public void put_ClassifiedAs_untyped(IEnumerable lst) { (new SetOfIfcConstraintClassificationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "ClassifiedAs"); }
         public SetOfIfcConstraintRelationship get_RelatesConstraints() { return (new SetOfIfcConstraintRelationshipSerializer()).FromAttr(m_instance, "RelatesConstraints"); }
-        public void put_RelatesConstraints(IEnumerable<IfcConstraintRelationship> lst) { (new SetOfIfcConstraintRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "RelatesConstraints"); }
-        //public void put_RelatesConstraints_untyped(IEnumerable lst) { (new SetOfIfcConstraintRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "RelatesConstraints"); }
         public SetOfIfcConstraintRelationship get_IsRelatedWith() { return (new SetOfIfcConstraintRelationshipSerializer()).FromAttr(m_instance, "IsRelatedWith"); }
-        public void put_IsRelatedWith(IEnumerable<IfcConstraintRelationship> lst) { (new SetOfIfcConstraintRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedWith"); }
-        //public void put_IsRelatedWith_untyped(IEnumerable lst) { (new SetOfIfcConstraintRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedWith"); }
         public SetOfIfcPropertyConstraintRelationship get_PropertiesForConstraint() { return (new SetOfIfcPropertyConstraintRelationshipSerializer()).FromAttr(m_instance, "PropertiesForConstraint"); }
-        public void put_PropertiesForConstraint(IEnumerable<IfcPropertyConstraintRelationship> lst) { (new SetOfIfcPropertyConstraintRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "PropertiesForConstraint"); }
-        //public void put_PropertiesForConstraint_untyped(IEnumerable lst) { (new SetOfIfcPropertyConstraintRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "PropertiesForConstraint"); }
         public SetOfIfcConstraintAggregationRelationship get_Aggregates() { return (new SetOfIfcConstraintAggregationRelationshipSerializer()).FromAttr(m_instance, "Aggregates"); }
-        public void put_Aggregates(IEnumerable<IfcConstraintAggregationRelationship> lst) { (new SetOfIfcConstraintAggregationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Aggregates"); }
-        //public void put_Aggregates_untyped(IEnumerable lst) { (new SetOfIfcConstraintAggregationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Aggregates"); }
         public SetOfIfcConstraintAggregationRelationship get_IsAggregatedIn() { return (new SetOfIfcConstraintAggregationRelationshipSerializer()).FromAttr(m_instance, "IsAggregatedIn"); }
-        public void put_IsAggregatedIn(IEnumerable<IfcConstraintAggregationRelationship> lst) { (new SetOfIfcConstraintAggregationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsAggregatedIn"); }
-        //public void put_IsAggregatedIn_untyped(IEnumerable lst) { (new SetOfIfcConstraintAggregationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsAggregatedIn"); }
 
         protected override TextValue EntityName() { return "IfcConstraint"; }
     };
@@ -12338,8 +12236,6 @@ namespace IFC2x3
         public static implicit operator IfcResource(SdaiInstance instance) => new IfcResource(instance);
 
         public SetOfIfcRelAssignsToResource get_ResourceOf() { return (new SetOfIfcRelAssignsToResourceSerializer()).FromAttr(m_instance, "ResourceOf"); }
-        public void put_ResourceOf(IEnumerable<IfcRelAssignsToResource> lst) { (new SetOfIfcRelAssignsToResourceSerializer()).ToSdaiAggr(lst, m_instance, "ResourceOf"); }
-        //public void put_ResourceOf_untyped(IEnumerable lst) { (new SetOfIfcRelAssignsToResourceSerializer()).ToSdaiAggr(lst, m_instance, "ResourceOf"); }
 
         protected override TextValue EntityName() { return "IfcResource"; }
     };
@@ -12768,11 +12664,7 @@ namespace IFC2x3
         public IfcCoveringTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCoveringTypeEnum_); return EnumValue<IfcCoveringTypeEnum>.FromIndex(ind); }
         public void put_PredefinedType(IfcCoveringTypeEnum value) { var str = EnumString<IfcCoveringTypeEnum>.FromValue(value, EnumNames.IfcCoveringTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public SetOfIfcRelCoversSpaces get_CoversSpaces() { return (new SetOfIfcRelCoversSpacesSerializer()).FromAttr(m_instance, "CoversSpaces"); }
-        public void put_CoversSpaces(IEnumerable<IfcRelCoversSpaces> lst) { (new SetOfIfcRelCoversSpacesSerializer()).ToSdaiAggr(lst, m_instance, "CoversSpaces"); }
-        //public void put_CoversSpaces_untyped(IEnumerable lst) { (new SetOfIfcRelCoversSpacesSerializer()).ToSdaiAggr(lst, m_instance, "CoversSpaces"); }
         public SetOfIfcRelCoversBldgElements get_Covers() { return (new SetOfIfcRelCoversBldgElementsSerializer()).FromAttr(m_instance, "Covers"); }
-        public void put_Covers(IEnumerable<IfcRelCoversBldgElements> lst) { (new SetOfIfcRelCoversBldgElementsSerializer()).ToSdaiAggr(lst, m_instance, "Covers"); }
-        //public void put_Covers_untyped(IEnumerable lst) { (new SetOfIfcRelCoversBldgElementsSerializer()).ToSdaiAggr(lst, m_instance, "Covers"); }
 
         protected override TextValue EntityName() { return "IfcCovering"; }
     };
@@ -13594,8 +13486,6 @@ namespace IFC2x3
         public static new IfcDimensionCurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDimensionCurve"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcTerminatorSymbol get_AnnotatedBySymbols() { return (new SetOfIfcTerminatorSymbolSerializer()).FromAttr(m_instance, "AnnotatedBySymbols"); }
-        public void put_AnnotatedBySymbols(IEnumerable<IfcTerminatorSymbol> lst) { (new SetOfIfcTerminatorSymbolSerializer()).ToSdaiAggr(lst, m_instance, "AnnotatedBySymbols"); }
-        //public void put_AnnotatedBySymbols_untyped(IEnumerable lst) { (new SetOfIfcTerminatorSymbolSerializer()).ToSdaiAggr(lst, m_instance, "AnnotatedBySymbols"); }
 
         protected override TextValue EntityName() { return "IfcDimensionCurve"; }
     };
@@ -13844,8 +13734,6 @@ namespace IFC2x3
         public static new IfcDistributionFlowElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDistributionFlowElement"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelFlowControlElements get_HasControlElements() { return (new SetOfIfcRelFlowControlElementsSerializer()).FromAttr(m_instance, "HasControlElements"); }
-        public void put_HasControlElements(IEnumerable<IfcRelFlowControlElements> lst) { (new SetOfIfcRelFlowControlElementsSerializer()).ToSdaiAggr(lst, m_instance, "HasControlElements"); }
-        //public void put_HasControlElements_untyped(IEnumerable lst) { (new SetOfIfcRelFlowControlElementsSerializer()).ToSdaiAggr(lst, m_instance, "HasControlElements"); }
 
         protected override TextValue EntityName() { return "IfcDistributionFlowElement"; }
     };
@@ -13926,8 +13814,6 @@ namespace IFC2x3
         public TextValue get_ControlElementId() { return get_string("ControlElementId", ifcengine.sdaiSTRING); }
         public void put_ControlElementId(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ControlElementId", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRelFlowControlElements get_AssignedToFlowElement() { return (new SetOfIfcRelFlowControlElementsSerializer()).FromAttr(m_instance, "AssignedToFlowElement"); }
-        public void put_AssignedToFlowElement(IEnumerable<IfcRelFlowControlElements> lst) { (new SetOfIfcRelFlowControlElementsSerializer()).ToSdaiAggr(lst, m_instance, "AssignedToFlowElement"); }
-        //public void put_AssignedToFlowElement_untyped(IEnumerable lst) { (new SetOfIfcRelFlowControlElementsSerializer()).ToSdaiAggr(lst, m_instance, "AssignedToFlowElement"); }
 
         protected override TextValue EntityName() { return "IfcDistributionControlElement"; }
     };
@@ -13949,13 +13835,8 @@ namespace IFC2x3
         public static implicit operator IfcPort(SdaiInstance instance) => new IfcPort(instance);
 
         public IfcRelConnectsPortToElement get_ContainedIn() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ContainedIn", ifcengine.sdaiINSTANCE, out inst); return new IfcRelConnectsPortToElement (inst); }
-        public void put_ContainedIn(IfcRelConnectsPortToElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ContainedIn", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcRelConnectsPorts get_ConnectedFrom() { return (new SetOfIfcRelConnectsPortsSerializer()).FromAttr(m_instance, "ConnectedFrom"); }
-        public void put_ConnectedFrom(IEnumerable<IfcRelConnectsPorts> lst) { (new SetOfIfcRelConnectsPortsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedFrom"); }
-        //public void put_ConnectedFrom_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsPortsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedFrom"); }
         public SetOfIfcRelConnectsPorts get_ConnectedTo() { return (new SetOfIfcRelConnectsPortsSerializer()).FromAttr(m_instance, "ConnectedTo"); }
-        public void put_ConnectedTo(IEnumerable<IfcRelConnectsPorts> lst) { (new SetOfIfcRelConnectsPortsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedTo"); }
-        //public void put_ConnectedTo_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsPortsSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedTo"); }
 
         protected override TextValue EntityName() { return "IfcPort"; }
     };
@@ -14077,11 +13958,7 @@ namespace IFC2x3
         public IfcDocumentStatusEnum? get_Status() { var str = get_string("Status", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDocumentStatusEnum_); return EnumValue<IfcDocumentStatusEnum>.FromIndex(ind); }
         public void put_Status(IfcDocumentStatusEnum value) { var str = EnumString<IfcDocumentStatusEnum>.FromValue(value, EnumNames.IfcDocumentStatusEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Status", ifcengine.sdaiENUM, str); }
         public SetOfIfcDocumentInformationRelationship get_IsPointedTo() { return (new SetOfIfcDocumentInformationRelationshipSerializer()).FromAttr(m_instance, "IsPointedTo"); }
-        public void put_IsPointedTo(IEnumerable<IfcDocumentInformationRelationship> lst) { (new SetOfIfcDocumentInformationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsPointedTo"); }
-        //public void put_IsPointedTo_untyped(IEnumerable lst) { (new SetOfIfcDocumentInformationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsPointedTo"); }
         public SetOfIfcDocumentInformationRelationship get_IsPointer() { return (new SetOfIfcDocumentInformationRelationshipSerializer()).FromAttr(m_instance, "IsPointer"); }
-        public void put_IsPointer(IEnumerable<IfcDocumentInformationRelationship> lst) { (new SetOfIfcDocumentInformationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsPointer"); }
-        //public void put_IsPointer_untyped(IEnumerable lst) { (new SetOfIfcDocumentInformationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsPointer"); }
 
         protected override TextValue EntityName() { return "IfcDocumentInformation"; }
     };
@@ -14140,8 +14017,6 @@ namespace IFC2x3
         public static new IfcDocumentReference Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDocumentReference"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcDocumentInformation get_ReferenceToDocument() { return (new SetOfIfcDocumentInformationSerializer()).FromAttr(m_instance, "ReferenceToDocument"); }
-        public void put_ReferenceToDocument(IEnumerable<IfcDocumentInformation> lst) { (new SetOfIfcDocumentInformationSerializer()).ToSdaiAggr(lst, m_instance, "ReferenceToDocument"); }
-        //public void put_ReferenceToDocument_untyped(IEnumerable lst) { (new SetOfIfcDocumentInformationSerializer()).ToSdaiAggr(lst, m_instance, "ReferenceToDocument"); }
 
         protected override TextValue EntityName() { return "IfcDocumentReference"; }
     };
@@ -14192,8 +14067,6 @@ namespace IFC2x3
         public static implicit operator IfcPropertyDefinition(SdaiInstance instance) => new IfcPropertyDefinition(instance);
 
         public SetOfIfcRelAssociates get_HasAssociations() { return (new SetOfIfcRelAssociatesSerializer()).FromAttr(m_instance, "HasAssociations"); }
-        public void put_HasAssociations(IEnumerable<IfcRelAssociates> lst) { (new SetOfIfcRelAssociatesSerializer()).ToSdaiAggr(lst, m_instance, "HasAssociations"); }
-        //public void put_HasAssociations_untyped(IEnumerable lst) { (new SetOfIfcRelAssociatesSerializer()).ToSdaiAggr(lst, m_instance, "HasAssociations"); }
 
         protected override TextValue EntityName() { return "IfcPropertyDefinition"; }
     };
@@ -14215,11 +14088,7 @@ namespace IFC2x3
         public static implicit operator IfcPropertySetDefinition(SdaiInstance instance) => new IfcPropertySetDefinition(instance);
 
         public SetOfIfcRelDefinesByProperties get_PropertyDefinitionOf() { return (new SetOfIfcRelDefinesByPropertiesSerializer()).FromAttr(m_instance, "PropertyDefinitionOf"); }
-        public void put_PropertyDefinitionOf(IEnumerable<IfcRelDefinesByProperties> lst) { (new SetOfIfcRelDefinesByPropertiesSerializer()).ToSdaiAggr(lst, m_instance, "PropertyDefinitionOf"); }
-        //public void put_PropertyDefinitionOf_untyped(IEnumerable lst) { (new SetOfIfcRelDefinesByPropertiesSerializer()).ToSdaiAggr(lst, m_instance, "PropertyDefinitionOf"); }
         public SetOfIfcTypeObject get_DefinesType() { return (new SetOfIfcTypeObjectSerializer()).FromAttr(m_instance, "DefinesType"); }
-        public void put_DefinesType(IEnumerable<IfcTypeObject> lst) { (new SetOfIfcTypeObjectSerializer()).ToSdaiAggr(lst, m_instance, "DefinesType"); }
-        //public void put_DefinesType_untyped(IEnumerable lst) { (new SetOfIfcTypeObjectSerializer()).ToSdaiAggr(lst, m_instance, "DefinesType"); }
 
         protected override TextValue EntityName() { return "IfcPropertySetDefinition"; }
     };
@@ -14800,8 +14669,6 @@ namespace IFC2x3
         public static new IfcSystem Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSystem"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelServicesBuildings get_ServicesBuildings() { return (new SetOfIfcRelServicesBuildingsSerializer()).FromAttr(m_instance, "ServicesBuildings"); }
-        public void put_ServicesBuildings(IEnumerable<IfcRelServicesBuildings> lst) { (new SetOfIfcRelServicesBuildingsSerializer()).ToSdaiAggr(lst, m_instance, "ServicesBuildings"); }
-        //public void put_ServicesBuildings_untyped(IEnumerable lst) { (new SetOfIfcRelServicesBuildingsSerializer()).ToSdaiAggr(lst, m_instance, "ServicesBuildings"); }
 
         protected override TextValue EntityName() { return "IfcSystem"; }
     };
@@ -15965,7 +15832,6 @@ namespace IFC2x3
         public static implicit operator IfcFeatureElementAddition(SdaiInstance instance) => new IfcFeatureElementAddition(instance);
 
         public IfcRelProjectsElement get_ProjectsElements() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ProjectsElements", ifcengine.sdaiINSTANCE, out inst); return new IfcRelProjectsElement (inst); }
-        public void put_ProjectsElements(IfcRelProjectsElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ProjectsElements", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcFeatureElementAddition"; }
     };
@@ -16765,8 +16631,6 @@ namespace IFC2x3
         public TextValue get_ContextType() { return get_string("ContextType", ifcengine.sdaiSTRING); }
         public void put_ContextType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ContextType", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRepresentation get_RepresentationsInContext() { return (new SetOfIfcRepresentationSerializer()).FromAttr(m_instance, "RepresentationsInContext"); }
-        public void put_RepresentationsInContext(IEnumerable<IfcRepresentation> lst) { (new SetOfIfcRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationsInContext"); }
-        //public void put_RepresentationsInContext_untyped(IEnumerable lst) { (new SetOfIfcRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationsInContext"); }
 
         protected override TextValue EntityName() { return "IfcRepresentationContext"; }
     };
@@ -16802,8 +16666,6 @@ namespace IFC2x3
         public IfcDirection get_TrueNorth() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TrueNorth", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
         public void put_TrueNorth(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TrueNorth", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcGeometricRepresentationSubContext get_HasSubContexts() { return (new SetOfIfcGeometricRepresentationSubContextSerializer()).FromAttr(m_instance, "HasSubContexts"); }
-        public void put_HasSubContexts(IEnumerable<IfcGeometricRepresentationSubContext> lst) { (new SetOfIfcGeometricRepresentationSubContextSerializer()).ToSdaiAggr(lst, m_instance, "HasSubContexts"); }
-        //public void put_HasSubContexts_untyped(IEnumerable lst) { (new SetOfIfcGeometricRepresentationSubContextSerializer()).ToSdaiAggr(lst, m_instance, "HasSubContexts"); }
 
         protected override TextValue EntityName() { return "IfcGeometricRepresentationContext"; }
     };
@@ -16872,8 +16734,6 @@ namespace IFC2x3
         public void put_WAxes(IEnumerable<IfcGridAxis> lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "WAxes"); }
         //public void put_WAxes_untyped(IEnumerable lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "WAxes"); }
         public SetOfIfcRelContainedInSpatialStructure get_ContainedInStructure() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainedInStructure"); }
-        public void put_ContainedInStructure(IEnumerable<IfcRelContainedInSpatialStructure> lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
-        //public void put_ContainedInStructure_untyped(IEnumerable lst) { (new SetOfIfcRelContainedInSpatialStructureSerializer()).ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
 
         protected override TextValue EntityName() { return "IfcGrid"; }
     };
@@ -16906,17 +16766,9 @@ namespace IFC2x3
         public bool? get_SameSense() { return get_bool("SameSense", ifcengine.sdaiBOOLEAN);}
         public void put_SameSense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "SameSense", ifcengine.sdaiBOOLEAN, ref value); }
         public SetOfIfcGrid get_PartOfW() { return (new SetOfIfcGridSerializer()).FromAttr(m_instance, "PartOfW"); }
-        public void put_PartOfW(IEnumerable<IfcGrid> lst) { (new SetOfIfcGridSerializer()).ToSdaiAggr(lst, m_instance, "PartOfW"); }
-        //public void put_PartOfW_untyped(IEnumerable lst) { (new SetOfIfcGridSerializer()).ToSdaiAggr(lst, m_instance, "PartOfW"); }
         public SetOfIfcGrid get_PartOfV() { return (new SetOfIfcGridSerializer()).FromAttr(m_instance, "PartOfV"); }
-        public void put_PartOfV(IEnumerable<IfcGrid> lst) { (new SetOfIfcGridSerializer()).ToSdaiAggr(lst, m_instance, "PartOfV"); }
-        //public void put_PartOfV_untyped(IEnumerable lst) { (new SetOfIfcGridSerializer()).ToSdaiAggr(lst, m_instance, "PartOfV"); }
         public SetOfIfcGrid get_PartOfU() { return (new SetOfIfcGridSerializer()).FromAttr(m_instance, "PartOfU"); }
-        public void put_PartOfU(IEnumerable<IfcGrid> lst) { (new SetOfIfcGridSerializer()).ToSdaiAggr(lst, m_instance, "PartOfU"); }
-        //public void put_PartOfU_untyped(IEnumerable lst) { (new SetOfIfcGridSerializer()).ToSdaiAggr(lst, m_instance, "PartOfU"); }
         public SetOfIfcVirtualGridIntersection get_HasIntersections() { return (new SetOfIfcVirtualGridIntersectionSerializer()).FromAttr(m_instance, "HasIntersections"); }
-        public void put_HasIntersections(IEnumerable<IfcVirtualGridIntersection> lst) { (new SetOfIfcVirtualGridIntersectionSerializer()).ToSdaiAggr(lst, m_instance, "HasIntersections"); }
-        //public void put_HasIntersections_untyped(IEnumerable lst) { (new SetOfIfcVirtualGridIntersectionSerializer()).ToSdaiAggr(lst, m_instance, "HasIntersections"); }
 
         protected override TextValue EntityName() { return "IfcGridAxis"; }
     };
@@ -16938,11 +16790,7 @@ namespace IFC2x3
         public static implicit operator IfcObjectPlacement(SdaiInstance instance) => new IfcObjectPlacement(instance);
 
         public SetOfIfcProduct get_PlacesObject() { return (new SetOfIfcProductSerializer()).FromAttr(m_instance, "PlacesObject"); }
-        public void put_PlacesObject(IEnumerable<IfcProduct> lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "PlacesObject"); }
-        //public void put_PlacesObject_untyped(IEnumerable lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "PlacesObject"); }
         public SetOfIfcLocalPlacement get_ReferencedByPlacements() { return (new SetOfIfcLocalPlacementSerializer()).FromAttr(m_instance, "ReferencedByPlacements"); }
-        public void put_ReferencedByPlacements(IEnumerable<IfcLocalPlacement> lst) { (new SetOfIfcLocalPlacementSerializer()).ToSdaiAggr(lst, m_instance, "ReferencedByPlacements"); }
-        //public void put_ReferencedByPlacements_untyped(IEnumerable lst) { (new SetOfIfcLocalPlacementSerializer()).ToSdaiAggr(lst, m_instance, "ReferencedByPlacements"); }
 
         protected override TextValue EntityName() { return "IfcObjectPlacement"; }
     };
@@ -17167,8 +17015,6 @@ namespace IFC2x3
         public IfcUnit_get get_Unit() { return new IfcUnit_get(m_instance, "Unit", 0); }
         public IfcUnit_put put_Unit() { return new IfcUnit_put(m_instance, "Unit", 0); }
         public SetOfIfcTimeSeriesReferenceRelationship get_DocumentedBy() { return (new SetOfIfcTimeSeriesReferenceRelationshipSerializer()).FromAttr(m_instance, "DocumentedBy"); }
-        public void put_DocumentedBy(IEnumerable<IfcTimeSeriesReferenceRelationship> lst) { (new SetOfIfcTimeSeriesReferenceRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "DocumentedBy"); }
-        //public void put_DocumentedBy_untyped(IEnumerable lst) { (new SetOfIfcTimeSeriesReferenceRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "DocumentedBy"); }
 
         protected override TextValue EntityName() { return "IfcTimeSeries"; }
     };
@@ -17371,8 +17217,6 @@ namespace IFC2x3
         public static new IfcLibraryReference Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLibraryReference"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcLibraryInformation get_ReferenceIntoLibrary() { return (new SetOfIfcLibraryInformationSerializer()).FromAttr(m_instance, "ReferenceIntoLibrary"); }
-        public void put_ReferenceIntoLibrary(IEnumerable<IfcLibraryInformation> lst) { (new SetOfIfcLibraryInformationSerializer()).ToSdaiAggr(lst, m_instance, "ReferenceIntoLibrary"); }
-        //public void put_ReferenceIntoLibrary_untyped(IEnumerable lst) { (new SetOfIfcLibraryInformationSerializer()).ToSdaiAggr(lst, m_instance, "ReferenceIntoLibrary"); }
 
         protected override TextValue EntityName() { return "IfcLibraryReference"; }
     };
@@ -17866,11 +17710,7 @@ namespace IFC2x3
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public SetOfIfcMaterialDefinitionRepresentation get_HasRepresentation() { return (new SetOfIfcMaterialDefinitionRepresentationSerializer()).FromAttr(m_instance, "HasRepresentation"); }
-        public void put_HasRepresentation(IEnumerable<IfcMaterialDefinitionRepresentation> lst) { (new SetOfIfcMaterialDefinitionRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "HasRepresentation"); }
-        //public void put_HasRepresentation_untyped(IEnumerable lst) { (new SetOfIfcMaterialDefinitionRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "HasRepresentation"); }
         public SetOfIfcMaterialClassificationRelationship get_ClassifiedAs() { return (new SetOfIfcMaterialClassificationRelationshipSerializer()).FromAttr(m_instance, "ClassifiedAs"); }
-        public void put_ClassifiedAs(IEnumerable<IfcMaterialClassificationRelationship> lst) { (new SetOfIfcMaterialClassificationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "ClassifiedAs"); }
-        //public void put_ClassifiedAs_untyped(IEnumerable lst) { (new SetOfIfcMaterialClassificationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "ClassifiedAs"); }
 
         protected override TextValue EntityName() { return "IfcMaterial"; }
     };
@@ -17992,7 +17832,6 @@ namespace IFC2x3
         public LOGICAL_VALUE? get_IsVentilated() { var str = get_string("IsVentilated", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
         public void put_IsVentilated(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "IsVentilated", ifcengine.sdaiENUM, str); }
         public IfcMaterialLayerSet get_ToMaterialLayerSet() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ToMaterialLayerSet", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterialLayerSet (inst); }
-        public void put_ToMaterialLayerSet(IfcMaterialLayerSet inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ToMaterialLayerSet", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcMaterialLayer"; }
     };
@@ -18440,14 +18279,8 @@ namespace IFC2x3
         public static implicit operator IfcProcess(SdaiInstance instance) => new IfcProcess(instance);
 
         public SetOfIfcRelAssignsToProcess get_OperatesOn() { return (new SetOfIfcRelAssignsToProcessSerializer()).FromAttr(m_instance, "OperatesOn"); }
-        public void put_OperatesOn(IEnumerable<IfcRelAssignsToProcess> lst) { (new SetOfIfcRelAssignsToProcessSerializer()).ToSdaiAggr(lst, m_instance, "OperatesOn"); }
-        //public void put_OperatesOn_untyped(IEnumerable lst) { (new SetOfIfcRelAssignsToProcessSerializer()).ToSdaiAggr(lst, m_instance, "OperatesOn"); }
         public SetOfIfcRelSequence get_IsSuccessorFrom() { return (new SetOfIfcRelSequenceSerializer()).FromAttr(m_instance, "IsSuccessorFrom"); }
-        public void put_IsSuccessorFrom(IEnumerable<IfcRelSequence> lst) { (new SetOfIfcRelSequenceSerializer()).ToSdaiAggr(lst, m_instance, "IsSuccessorFrom"); }
-        //public void put_IsSuccessorFrom_untyped(IEnumerable lst) { (new SetOfIfcRelSequenceSerializer()).ToSdaiAggr(lst, m_instance, "IsSuccessorFrom"); }
         public SetOfIfcRelSequence get_IsPredecessorTo() { return (new SetOfIfcRelSequenceSerializer()).FromAttr(m_instance, "IsPredecessorTo"); }
-        public void put_IsPredecessorTo(IEnumerable<IfcRelSequence> lst) { (new SetOfIfcRelSequenceSerializer()).ToSdaiAggr(lst, m_instance, "IsPredecessorTo"); }
-        //public void put_IsPredecessorTo_untyped(IEnumerable lst) { (new SetOfIfcRelSequenceSerializer()).ToSdaiAggr(lst, m_instance, "IsPredecessorTo"); }
 
         protected override TextValue EntityName() { return "IfcProcess"; }
     };
@@ -18692,8 +18525,6 @@ namespace IFC2x3
         public static new IfcOpeningElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOpeningElement"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelFillsElement get_HasFillings() { return (new SetOfIfcRelFillsElementSerializer()).FromAttr(m_instance, "HasFillings"); }
-        public void put_HasFillings(IEnumerable<IfcRelFillsElement> lst) { (new SetOfIfcRelFillsElementSerializer()).ToSdaiAggr(lst, m_instance, "HasFillings"); }
-        //public void put_HasFillings_untyped(IEnumerable lst) { (new SetOfIfcRelFillsElementSerializer()).ToSdaiAggr(lst, m_instance, "HasFillings"); }
 
         protected override TextValue EntityName() { return "IfcOpeningElement"; }
     };
@@ -18827,14 +18658,8 @@ namespace IFC2x3
         public void put_Addresses(IEnumerable<IfcAddress> lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         //public void put_Addresses_untyped(IEnumerable lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         public SetOfIfcOrganizationRelationship get_IsRelatedBy() { return (new SetOfIfcOrganizationRelationshipSerializer()).FromAttr(m_instance, "IsRelatedBy"); }
-        public void put_IsRelatedBy(IEnumerable<IfcOrganizationRelationship> lst) { (new SetOfIfcOrganizationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedBy"); }
-        //public void put_IsRelatedBy_untyped(IEnumerable lst) { (new SetOfIfcOrganizationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "IsRelatedBy"); }
         public SetOfIfcOrganizationRelationship get_Relates() { return (new SetOfIfcOrganizationRelationshipSerializer()).FromAttr(m_instance, "Relates"); }
-        public void put_Relates(IEnumerable<IfcOrganizationRelationship> lst) { (new SetOfIfcOrganizationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Relates"); }
-        //public void put_Relates_untyped(IEnumerable lst) { (new SetOfIfcOrganizationRelationshipSerializer()).ToSdaiAggr(lst, m_instance, "Relates"); }
         public SetOfIfcPersonAndOrganization get_Engages() { return (new SetOfIfcPersonAndOrganizationSerializer()).FromAttr(m_instance, "Engages"); }
-        public void put_Engages(IEnumerable<IfcPersonAndOrganization> lst) { (new SetOfIfcPersonAndOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "Engages"); }
-        //public void put_Engages_untyped(IEnumerable lst) { (new SetOfIfcPersonAndOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "Engages"); }
 
         protected override TextValue EntityName() { return "IfcOrganization"; }
     };
@@ -19130,8 +18955,6 @@ namespace IFC2x3
         public void put_Addresses(IEnumerable<IfcAddress> lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         //public void put_Addresses_untyped(IEnumerable lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         public SetOfIfcPersonAndOrganization get_EngagedIn() { return (new SetOfIfcPersonAndOrganizationSerializer()).FromAttr(m_instance, "EngagedIn"); }
-        public void put_EngagedIn(IEnumerable<IfcPersonAndOrganization> lst) { (new SetOfIfcPersonAndOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "EngagedIn"); }
-        //public void put_EngagedIn_untyped(IEnumerable lst) { (new SetOfIfcPersonAndOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "EngagedIn"); }
 
         protected override TextValue EntityName() { return "IfcPerson"; }
     };
@@ -19189,8 +19012,6 @@ namespace IFC2x3
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPhysicalComplexQuantity get_PartOfComplex() { return (new SetOfIfcPhysicalComplexQuantitySerializer()).FromAttr(m_instance, "PartOfComplex"); }
-        public void put_PartOfComplex(IEnumerable<IfcPhysicalComplexQuantity> lst) { (new SetOfIfcPhysicalComplexQuantitySerializer()).ToSdaiAggr(lst, m_instance, "PartOfComplex"); }
-        //public void put_PartOfComplex_untyped(IEnumerable lst) { (new SetOfIfcPhysicalComplexQuantitySerializer()).ToSdaiAggr(lst, m_instance, "PartOfComplex"); }
 
         protected override TextValue EntityName() { return "IfcPhysicalQuantity"; }
     };
@@ -19931,11 +19752,7 @@ namespace IFC2x3
         public static new IfcProductDefinitionShape Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProductDefinitionShape"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProduct get_ShapeOfProduct() { return (new SetOfIfcProductSerializer()).FromAttr(m_instance, "ShapeOfProduct"); }
-        public void put_ShapeOfProduct(IEnumerable<IfcProduct> lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "ShapeOfProduct"); }
-        //public void put_ShapeOfProduct_untyped(IEnumerable lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "ShapeOfProduct"); }
         public SetOfIfcShapeAspect get_HasShapeAspects() { return (new SetOfIfcShapeAspectSerializer()).FromAttr(m_instance, "HasShapeAspects"); }
-        public void put_HasShapeAspects(IEnumerable<IfcShapeAspect> lst) { (new SetOfIfcShapeAspectSerializer()).ToSdaiAggr(lst, m_instance, "HasShapeAspects"); }
-        //public void put_HasShapeAspects_untyped(IEnumerable lst) { (new SetOfIfcShapeAspectSerializer()).ToSdaiAggr(lst, m_instance, "HasShapeAspects"); }
 
         protected override TextValue EntityName() { return "IfcProductDefinitionShape"; }
     };
@@ -22731,14 +22548,8 @@ namespace IFC2x3
         public void put_Items(IEnumerable<IfcRepresentationItem> lst) { (new SetOfIfcRepresentationItemSerializer()).ToSdaiAggr(lst, m_instance, "Items"); }
         //public void put_Items_untyped(IEnumerable lst) { (new SetOfIfcRepresentationItemSerializer()).ToSdaiAggr(lst, m_instance, "Items"); }
         public SetOfIfcRepresentationMap get_RepresentationMap() { return (new SetOfIfcRepresentationMapSerializer()).FromAttr(m_instance, "RepresentationMap"); }
-        public void put_RepresentationMap(IEnumerable<IfcRepresentationMap> lst) { (new SetOfIfcRepresentationMapSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationMap"); }
-        //public void put_RepresentationMap_untyped(IEnumerable lst) { (new SetOfIfcRepresentationMapSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationMap"); }
         public SetOfIfcPresentationLayerAssignment get_LayerAssignments() { return (new SetOfIfcPresentationLayerAssignmentSerializer()).FromAttr(m_instance, "LayerAssignments"); }
-        public void put_LayerAssignments(IEnumerable<IfcPresentationLayerAssignment> lst) { (new SetOfIfcPresentationLayerAssignmentSerializer()).ToSdaiAggr(lst, m_instance, "LayerAssignments"); }
-        //public void put_LayerAssignments_untyped(IEnumerable lst) { (new SetOfIfcPresentationLayerAssignmentSerializer()).ToSdaiAggr(lst, m_instance, "LayerAssignments"); }
         public SetOfIfcProductRepresentation get_OfProductRepresentation() { return (new SetOfIfcProductRepresentationSerializer()).FromAttr(m_instance, "OfProductRepresentation"); }
-        public void put_OfProductRepresentation(IEnumerable<IfcProductRepresentation> lst) { (new SetOfIfcProductRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "OfProductRepresentation"); }
-        //public void put_OfProductRepresentation_untyped(IEnumerable lst) { (new SetOfIfcProductRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "OfProductRepresentation"); }
 
         protected override TextValue EntityName() { return "IfcRepresentation"; }
     };
@@ -22770,8 +22581,6 @@ namespace IFC2x3
         public IfcRepresentation get_MappedRepresentation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "MappedRepresentation", ifcengine.sdaiINSTANCE, out inst); return new IfcRepresentation (inst); }
         public void put_MappedRepresentation(IfcRepresentation inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "MappedRepresentation", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcMappedItem get_MapUsage() { return (new SetOfIfcMappedItemSerializer()).FromAttr(m_instance, "MapUsage"); }
-        public void put_MapUsage(IEnumerable<IfcMappedItem> lst) { (new SetOfIfcMappedItemSerializer()).ToSdaiAggr(lst, m_instance, "MapUsage"); }
-        //public void put_MapUsage_untyped(IEnumerable lst) { (new SetOfIfcMappedItemSerializer()).ToSdaiAggr(lst, m_instance, "MapUsage"); }
 
         protected override TextValue EntityName() { return "IfcRepresentationMap"; }
     };
@@ -23073,7 +22882,6 @@ namespace IFC2x3
         public double? get_Completion() { return get_double("Completion", ifcengine.sdaiREAL);}
         public void put_Completion(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Completion", ifcengine.sdaiREAL, ref value); }
         public IfcRelAssignsTasks get_ScheduleTimeControlAssigned() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ScheduleTimeControlAssigned", ifcengine.sdaiINSTANCE, out inst); return new IfcRelAssignsTasks (inst); }
-        public void put_ScheduleTimeControlAssigned(IfcRelAssignsTasks inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ScheduleTimeControlAssigned", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcScheduleTimeControl"; }
     };
@@ -23325,8 +23133,6 @@ namespace IFC2x3
         public static implicit operator IfcShapeModel(SdaiInstance instance) => new IfcShapeModel(instance);
 
         public SetOfIfcShapeAspect get_OfShapeAspect() { return (new SetOfIfcShapeAspectSerializer()).FromAttr(m_instance, "OfShapeAspect"); }
-        public void put_OfShapeAspect(IEnumerable<IfcShapeAspect> lst) { (new SetOfIfcShapeAspectSerializer()).ToSdaiAggr(lst, m_instance, "OfShapeAspect"); }
-        //public void put_OfShapeAspect_untyped(IEnumerable lst) { (new SetOfIfcShapeAspectSerializer()).ToSdaiAggr(lst, m_instance, "OfShapeAspect"); }
 
         protected override TextValue EntityName() { return "IfcShapeModel"; }
     };
@@ -23625,11 +23431,7 @@ namespace IFC2x3
         public double? get_ElevationWithFlooring() { return get_double("ElevationWithFlooring", ifcengine.sdaiREAL);}
         public void put_ElevationWithFlooring(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ElevationWithFlooring", ifcengine.sdaiREAL, ref value); }
         public SetOfIfcRelCoversSpaces get_HasCoverings() { return (new SetOfIfcRelCoversSpacesSerializer()).FromAttr(m_instance, "HasCoverings"); }
-        public void put_HasCoverings(IEnumerable<IfcRelCoversSpaces> lst) { (new SetOfIfcRelCoversSpacesSerializer()).ToSdaiAggr(lst, m_instance, "HasCoverings"); }
-        //public void put_HasCoverings_untyped(IEnumerable lst) { (new SetOfIfcRelCoversSpacesSerializer()).ToSdaiAggr(lst, m_instance, "HasCoverings"); }
         public SetOfIfcRelSpaceBoundary get_BoundedBy() { return (new SetOfIfcRelSpaceBoundarySerializer()).FromAttr(m_instance, "BoundedBy"); }
-        public void put_BoundedBy(IEnumerable<IfcRelSpaceBoundary> lst) { (new SetOfIfcRelSpaceBoundarySerializer()).ToSdaiAggr(lst, m_instance, "BoundedBy"); }
-        //public void put_BoundedBy_untyped(IEnumerable lst) { (new SetOfIfcRelSpaceBoundarySerializer()).ToSdaiAggr(lst, m_instance, "BoundedBy"); }
 
         protected override TextValue EntityName() { return "IfcSpace"; }
     };
@@ -23693,11 +23495,7 @@ namespace IFC2x3
         public double? get_StandardRequiredArea() { return get_double("StandardRequiredArea", ifcengine.sdaiREAL);}
         public void put_StandardRequiredArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "StandardRequiredArea", ifcengine.sdaiREAL, ref value); }
         public SetOfIfcRelInteractionRequirements get_HasInteractionReqsFrom() { return (new SetOfIfcRelInteractionRequirementsSerializer()).FromAttr(m_instance, "HasInteractionReqsFrom"); }
-        public void put_HasInteractionReqsFrom(IEnumerable<IfcRelInteractionRequirements> lst) { (new SetOfIfcRelInteractionRequirementsSerializer()).ToSdaiAggr(lst, m_instance, "HasInteractionReqsFrom"); }
-        //public void put_HasInteractionReqsFrom_untyped(IEnumerable lst) { (new SetOfIfcRelInteractionRequirementsSerializer()).ToSdaiAggr(lst, m_instance, "HasInteractionReqsFrom"); }
         public SetOfIfcRelInteractionRequirements get_HasInteractionReqsTo() { return (new SetOfIfcRelInteractionRequirementsSerializer()).FromAttr(m_instance, "HasInteractionReqsTo"); }
-        public void put_HasInteractionReqsTo(IEnumerable<IfcRelInteractionRequirements> lst) { (new SetOfIfcRelInteractionRequirementsSerializer()).ToSdaiAggr(lst, m_instance, "HasInteractionReqsTo"); }
-        //public void put_HasInteractionReqsTo_untyped(IEnumerable lst) { (new SetOfIfcRelInteractionRequirementsSerializer()).ToSdaiAggr(lst, m_instance, "HasInteractionReqsTo"); }
 
         protected override TextValue EntityName() { return "IfcSpaceProgram"; }
     };
@@ -23956,7 +23754,6 @@ namespace IFC2x3
         public IfcGlobalOrLocalEnum? get_GlobalOrLocal() { var str = get_string("GlobalOrLocal", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcGlobalOrLocalEnum_); return EnumValue<IfcGlobalOrLocalEnum>.FromIndex(ind); }
         public void put_GlobalOrLocal(IfcGlobalOrLocalEnum value) { var str = EnumString<IfcGlobalOrLocalEnum>.FromValue(value, EnumNames.IfcGlobalOrLocalEnum_); ifcengine.sdaiPutAttrBN(m_instance, "GlobalOrLocal", ifcengine.sdaiENUM, str); }
         public IfcRelConnectsStructuralActivity get_AssignedToStructuralItem() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AssignedToStructuralItem", ifcengine.sdaiINSTANCE, out inst); return new IfcRelConnectsStructuralActivity (inst); }
-        public void put_AssignedToStructuralItem(IfcRelConnectsStructuralActivity inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AssignedToStructuralItem", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcStructuralActivity"; }
     };
@@ -24037,8 +23834,6 @@ namespace IFC2x3
         public static implicit operator IfcStructuralItem(SdaiInstance instance) => new IfcStructuralItem(instance);
 
         public SetOfIfcRelConnectsStructuralActivity get_AssignedStructuralActivity() { return (new SetOfIfcRelConnectsStructuralActivitySerializer()).FromAttr(m_instance, "AssignedStructuralActivity"); }
-        public void put_AssignedStructuralActivity(IEnumerable<IfcRelConnectsStructuralActivity> lst) { (new SetOfIfcRelConnectsStructuralActivitySerializer()).ToSdaiAggr(lst, m_instance, "AssignedStructuralActivity"); }
-        //public void put_AssignedStructuralActivity_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsStructuralActivitySerializer()).ToSdaiAggr(lst, m_instance, "AssignedStructuralActivity"); }
 
         protected override TextValue EntityName() { return "IfcStructuralItem"; }
     };
@@ -24062,8 +23857,6 @@ namespace IFC2x3
         public IfcBoundaryCondition get_AppliedCondition() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AppliedCondition", ifcengine.sdaiINSTANCE, out inst); return new IfcBoundaryCondition (inst); }
         public void put_AppliedCondition(IfcBoundaryCondition inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AppliedCondition", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcRelConnectsStructuralMember get_ConnectsStructuralMembers() { return (new SetOfIfcRelConnectsStructuralMemberSerializer()).FromAttr(m_instance, "ConnectsStructuralMembers"); }
-        public void put_ConnectsStructuralMembers(IEnumerable<IfcRelConnectsStructuralMember> lst) { (new SetOfIfcRelConnectsStructuralMemberSerializer()).ToSdaiAggr(lst, m_instance, "ConnectsStructuralMembers"); }
-        //public void put_ConnectsStructuralMembers_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsStructuralMemberSerializer()).ToSdaiAggr(lst, m_instance, "ConnectsStructuralMembers"); }
 
         protected override TextValue EntityName() { return "IfcStructuralConnection"; }
     };
@@ -24110,11 +23903,7 @@ namespace IFC2x3
         public static implicit operator IfcStructuralMember(SdaiInstance instance) => new IfcStructuralMember(instance);
 
         public SetOfIfcRelConnectsStructuralElement get_ReferencesElement() { return (new SetOfIfcRelConnectsStructuralElementSerializer()).FromAttr(m_instance, "ReferencesElement"); }
-        public void put_ReferencesElement(IEnumerable<IfcRelConnectsStructuralElement> lst) { (new SetOfIfcRelConnectsStructuralElementSerializer()).ToSdaiAggr(lst, m_instance, "ReferencesElement"); }
-        //public void put_ReferencesElement_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsStructuralElementSerializer()).ToSdaiAggr(lst, m_instance, "ReferencesElement"); }
         public SetOfIfcRelConnectsStructuralMember get_ConnectedBy() { return (new SetOfIfcRelConnectsStructuralMemberSerializer()).FromAttr(m_instance, "ConnectedBy"); }
-        public void put_ConnectedBy(IEnumerable<IfcRelConnectsStructuralMember> lst) { (new SetOfIfcRelConnectsStructuralMemberSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedBy"); }
-        //public void put_ConnectedBy_untyped(IEnumerable lst) { (new SetOfIfcRelConnectsStructuralMemberSerializer()).ToSdaiAggr(lst, m_instance, "ConnectedBy"); }
 
         protected override TextValue EntityName() { return "IfcStructuralMember"; }
     };
@@ -24282,11 +24071,7 @@ namespace IFC2x3
         public TextValue get_Purpose() { return get_string("Purpose", ifcengine.sdaiSTRING); }
         public void put_Purpose(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Purpose", ifcengine.sdaiSTRING, value); }
         public SetOfIfcStructuralResultGroup get_SourceOfResultGroup() { return (new SetOfIfcStructuralResultGroupSerializer()).FromAttr(m_instance, "SourceOfResultGroup"); }
-        public void put_SourceOfResultGroup(IEnumerable<IfcStructuralResultGroup> lst) { (new SetOfIfcStructuralResultGroupSerializer()).ToSdaiAggr(lst, m_instance, "SourceOfResultGroup"); }
-        //public void put_SourceOfResultGroup_untyped(IEnumerable lst) { (new SetOfIfcStructuralResultGroupSerializer()).ToSdaiAggr(lst, m_instance, "SourceOfResultGroup"); }
         public SetOfIfcStructuralAnalysisModel get_LoadGroupFor() { return (new SetOfIfcStructuralAnalysisModelSerializer()).FromAttr(m_instance, "LoadGroupFor"); }
-        public void put_LoadGroupFor(IEnumerable<IfcStructuralAnalysisModel> lst) { (new SetOfIfcStructuralAnalysisModelSerializer()).ToSdaiAggr(lst, m_instance, "LoadGroupFor"); }
-        //public void put_LoadGroupFor_untyped(IEnumerable lst) { (new SetOfIfcStructuralAnalysisModelSerializer()).ToSdaiAggr(lst, m_instance, "LoadGroupFor"); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadGroup"; }
     };
@@ -24662,8 +24447,6 @@ namespace IFC2x3
         public static implicit operator IfcStructuralReaction(SdaiInstance instance) => new IfcStructuralReaction(instance);
 
         public SetOfIfcStructuralAction get_Causes() { return (new SetOfIfcStructuralActionSerializer()).FromAttr(m_instance, "Causes"); }
-        public void put_Causes(IEnumerable<IfcStructuralAction> lst) { (new SetOfIfcStructuralActionSerializer()).ToSdaiAggr(lst, m_instance, "Causes"); }
-        //public void put_Causes_untyped(IEnumerable lst) { (new SetOfIfcStructuralActionSerializer()).ToSdaiAggr(lst, m_instance, "Causes"); }
 
         protected override TextValue EntityName() { return "IfcStructuralReaction"; }
     };
@@ -24778,8 +24561,6 @@ namespace IFC2x3
         public bool? get_IsLinear() { return get_bool("IsLinear", ifcengine.sdaiBOOLEAN);}
         public void put_IsLinear(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsLinear", ifcengine.sdaiBOOLEAN, ref value); }
         public SetOfIfcStructuralAnalysisModel get_ResultGroupFor() { return (new SetOfIfcStructuralAnalysisModelSerializer()).FromAttr(m_instance, "ResultGroupFor"); }
-        public void put_ResultGroupFor(IEnumerable<IfcStructuralAnalysisModel> lst) { (new SetOfIfcStructuralAnalysisModelSerializer()).ToSdaiAggr(lst, m_instance, "ResultGroupFor"); }
-        //public void put_ResultGroupFor_untyped(IEnumerable lst) { (new SetOfIfcStructuralAnalysisModelSerializer()).ToSdaiAggr(lst, m_instance, "ResultGroupFor"); }
 
         protected override TextValue EntityName() { return "IfcStructuralResultGroup"; }
     };
@@ -25507,7 +25288,6 @@ namespace IFC2x3
         public bool? get_IsHeading() { return get_bool("IsHeading", ifcengine.sdaiBOOLEAN);}
         public void put_IsHeading(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsHeading", ifcengine.sdaiBOOLEAN, ref value); }
         public IfcTable get_OfTable() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OfTable", ifcengine.sdaiINSTANCE, out inst); return new IfcTable (inst); }
-        public void put_OfTable(IfcTable inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OfTable", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcTableRow"; }
     };
@@ -25902,8 +25682,6 @@ namespace IFC2x3
         public static implicit operator IfcTextureCoordinate(SdaiInstance instance) => new IfcTextureCoordinate(instance);
 
         public SetOfIfcAnnotationSurface get_AnnotatedSurface() { return (new SetOfIfcAnnotationSurfaceSerializer()).FromAttr(m_instance, "AnnotatedSurface"); }
-        public void put_AnnotatedSurface(IEnumerable<IfcAnnotationSurface> lst) { (new SetOfIfcAnnotationSurfaceSerializer()).ToSdaiAggr(lst, m_instance, "AnnotatedSurface"); }
-        //public void put_AnnotatedSurface_untyped(IEnumerable lst) { (new SetOfIfcAnnotationSurfaceSerializer()).ToSdaiAggr(lst, m_instance, "AnnotatedSurface"); }
 
         protected override TextValue EntityName() { return "IfcTextureCoordinate"; }
     };

@@ -5890,20 +5890,8 @@ namespace CIS2
         //TList may be set_of_element or list of converible elements
         template <typename TList> void get_component_elements(TList& lst) { set_of_elementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "component_elements"); }
 
-        //TList may be set_of_element or list of converible elements
-        template <typename TList> void put_component_elements(TList& lst) { set_of_elementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "component_elements"); }
-
-        //TArrayElem[] may be element[] or array of convertible elements
-        template <typename TArrayElem> void put_component_elements(TArrayElem arr[], size_t n) { set_of_element lst; ArrayToList(arr, n, lst); put_component_elements(lst); }
-
         //TList may be set_of_node or list of converible elements
         template <typename TList> void get_component_nodes(TList& lst) { set_of_nodeSerializer<TList> sr; sr.FromAttr(lst, m_instance, "component_nodes"); }
-
-        //TList may be set_of_node or list of converible elements
-        template <typename TList> void put_component_nodes(TList& lst) { set_of_nodeSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "component_nodes"); }
-
-        //TArrayElem[] may be node[] or array of convertible elements
-        template <typename TArrayElem> void put_component_nodes(TArrayElem arr[], size_t n) { set_of_node lst; ArrayToList(arr, n, lst); put_component_nodes(lst); }
     };
 
 
@@ -8721,12 +8709,6 @@ namespace CIS2
 
         //TList may be set_of_node or list of converible elements
         template <typename TList> void get_restrained_nodes(TList& lst) { set_of_nodeSerializer<TList> sr; sr.FromAttr(lst, m_instance, "restrained_nodes"); }
-
-        //TList may be set_of_node or list of converible elements
-        template <typename TList> void put_restrained_nodes(TList& lst) { set_of_nodeSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "restrained_nodes"); }
-
-        //TArrayElem[] may be node[] or array of convertible elements
-        template <typename TArrayElem> void put_restrained_nodes(TArrayElem arr[], size_t n) { set_of_node lst; ArrayToList(arr, n, lst); put_restrained_nodes(lst); }
     };
 
 
@@ -9984,12 +9966,6 @@ namespace CIS2
 
         //TList may be bag_of_composite_curve or list of converible elements
         template <typename TList> void get_using_curves(TList& lst) { bag_of_composite_curveSerializer<TList> sr; sr.FromAttr(lst, m_instance, "using_curves"); }
-
-        //TList may be bag_of_composite_curve or list of converible elements
-        template <typename TList> void put_using_curves(TList& lst) { bag_of_composite_curveSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "using_curves"); }
-
-        //TArrayElem[] may be composite_curve[] or array of convertible elements
-        template <typename TArrayElem> void put_using_curves(TArrayElem arr[], size_t n) { bag_of_composite_curve lst; ArrayToList(arr, n, lst); put_using_curves(lst); }
     };
 
 
@@ -11074,12 +11050,6 @@ namespace CIS2
 
         //TList may be set_of_assembly_design or list of converible elements
         template <typename TList> void get_governed_assemblies(TList& lst) { set_of_assembly_designSerializer<TList> sr; sr.FromAttr(lst, m_instance, "governed_assemblies"); }
-
-        //TList may be set_of_assembly_design or list of converible elements
-        template <typename TList> void put_governed_assemblies(TList& lst) { set_of_assembly_designSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "governed_assemblies"); }
-
-        //TArrayElem[] may be assembly_design[] or array of convertible elements
-        template <typename TArrayElem> void put_governed_assemblies(TArrayElem arr[], size_t n) { set_of_assembly_design lst; ArrayToList(arr, n, lst); put_governed_assemblies(lst); }
     };
 
 
@@ -11593,12 +11563,6 @@ namespace CIS2
 
         //TList may be set_of_document_representation_type or list of converible elements
         template <typename TList> void get_representation_types(TList& lst) { set_of_document_representation_typeSerializer<TList> sr; sr.FromAttr(lst, m_instance, "representation_types"); }
-
-        //TList may be set_of_document_representation_type or list of converible elements
-        template <typename TList> void put_representation_types(TList& lst) { set_of_document_representation_typeSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "representation_types"); }
-
-        //TArrayElem[] may be document_representation_type[] or array of convertible elements
-        template <typename TArrayElem> void put_representation_types(TArrayElem arr[], size_t n) { set_of_document_representation_type lst; ArrayToList(arr, n, lst); put_representation_types(lst); }
     };
 
 
@@ -11711,12 +11675,6 @@ namespace CIS2
 
         //TList may be set_of_document_usage_constraint or list of converible elements
         template <typename TList> void get_relevant_clauses(TList& lst) { set_of_document_usage_constraintSerializer<TList> sr; sr.FromAttr(lst, m_instance, "relevant_clauses"); }
-
-        //TList may be set_of_document_usage_constraint or list of converible elements
-        template <typename TList> void put_relevant_clauses(TList& lst) { set_of_document_usage_constraintSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "relevant_clauses"); }
-
-        //TArrayElem[] may be document_usage_constraint[] or array of convertible elements
-        template <typename TArrayElem> void put_relevant_clauses(TArrayElem arr[], size_t n) { set_of_document_usage_constraint lst; ArrayToList(arr, n, lst); put_relevant_clauses(lst); }
     };
 
 
@@ -12117,12 +12075,6 @@ namespace CIS2
 
         //TList may be set_of_element_node_connectivity or list of converible elements
         template <typename TList> void get_connectivity(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "connectivity"); }
-
-        //TList may be set_of_element_node_connectivity or list of converible elements
-        template <typename TList> void put_connectivity(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "connectivity"); }
-
-        //TArrayElem[] may be element_node_connectivity[] or array of convertible elements
-        template <typename TArrayElem> void put_connectivity(TArrayElem arr[], size_t n) { set_of_element_node_connectivity lst; ArrayToList(arr, n, lst); put_connectivity(lst); }
     };
 
 
@@ -12255,12 +12207,6 @@ namespace CIS2
 
         //TList may be set_of_element_node_connectivity or list of converible elements
         template <typename TList> void get_eccentric_connectivities(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "eccentric_connectivities"); }
-
-        //TList may be set_of_element_node_connectivity or list of converible elements
-        template <typename TList> void put_eccentric_connectivities(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "eccentric_connectivities"); }
-
-        //TArrayElem[] may be element_node_connectivity[] or array of convertible elements
-        template <typename TArrayElem> void put_eccentric_connectivities(TArrayElem arr[], size_t n) { set_of_element_node_connectivity lst; ArrayToList(arr, n, lst); put_eccentric_connectivities(lst); }
     };
 
 
@@ -15075,12 +15021,6 @@ namespace CIS2
 
         //TList may be set_of_assembly_design or list of converible elements
         template <typename TList> void get_role_for_assemblies(TList& lst) { set_of_assembly_designSerializer<TList> sr; sr.FromAttr(lst, m_instance, "role_for_assemblies"); }
-
-        //TList may be set_of_assembly_design or list of converible elements
-        template <typename TList> void put_role_for_assemblies(TList& lst) { set_of_assembly_designSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "role_for_assemblies"); }
-
-        //TArrayElem[] may be assembly_design[] or array of convertible elements
-        template <typename TArrayElem> void put_role_for_assemblies(TArrayElem arr[], size_t n) { set_of_assembly_design lst; ArrayToList(arr, n, lst); put_role_for_assemblies(lst); }
     };
 
 
@@ -15211,12 +15151,6 @@ namespace CIS2
 
         //TList may be set_of_representation or list of converible elements
         template <typename TList> void get_representations_in_context(TList& lst) { set_of_representationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "representations_in_context"); }
-
-        //TList may be set_of_representation or list of converible elements
-        template <typename TList> void put_representations_in_context(TList& lst) { set_of_representationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "representations_in_context"); }
-
-        //TArrayElem[] may be representation[] or array of convertible elements
-        template <typename TArrayElem> void put_representations_in_context(TArrayElem arr[], size_t n) { set_of_representation lst; ArrayToList(arr, n, lst); put_representations_in_context(lst); }
     };
 
 
@@ -15403,12 +15337,6 @@ namespace CIS2
 
         //TList may be set_of_gridline or list of converible elements
         template <typename TList> void get_constituent_lines(TList& lst) { set_of_gridlineSerializer<TList> sr; sr.FromAttr(lst, m_instance, "constituent_lines"); }
-
-        //TList may be set_of_gridline or list of converible elements
-        template <typename TList> void put_constituent_lines(TList& lst) { set_of_gridlineSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "constituent_lines"); }
-
-        //TArrayElem[] may be gridline[] or array of convertible elements
-        template <typename TArrayElem> void put_constituent_lines(TArrayElem arr[], size_t n) { set_of_gridline lst; ArrayToList(arr, n, lst); put_constituent_lines(lst); }
     };
 
 
@@ -15772,12 +15700,6 @@ namespace CIS2
 
         //TList may be set_of_gridline or list of converible elements
         template <typename TList> void get_succeeding_line(TList& lst) { set_of_gridlineSerializer<TList> sr; sr.FromAttr(lst, m_instance, "succeeding_line"); }
-
-        //TList may be set_of_gridline or list of converible elements
-        template <typename TList> void put_succeeding_line(TList& lst) { set_of_gridlineSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "succeeding_line"); }
-
-        //TArrayElem[] may be gridline[] or array of convertible elements
-        template <typename TArrayElem> void put_succeeding_line(TArrayElem arr[], size_t n) { set_of_gridline lst; ArrayToList(arr, n, lst); put_succeeding_line(lst); }
     };
 
 
@@ -16543,12 +16465,6 @@ namespace CIS2
 
         //TList may be set_of_item_reference_library or list of converible elements
         template <typename TList> void get_library_items(TList& lst) { set_of_item_reference_librarySerializer<TList> sr; sr.FromAttr(lst, m_instance, "library_items"); }
-
-        //TList may be set_of_item_reference_library or list of converible elements
-        template <typename TList> void put_library_items(TList& lst) { set_of_item_reference_librarySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "library_items"); }
-
-        //TArrayElem[] may be item_reference_library[] or array of convertible elements
-        template <typename TArrayElem> void put_library_items(TArrayElem arr[], size_t n) { set_of_item_reference_library lst; ArrayToList(arr, n, lst); put_library_items(lst); }
     };
 
 
@@ -16586,12 +16502,6 @@ namespace CIS2
 
         //TList may be set_of_item_reference_proprietary or list of converible elements
         template <typename TList> void get_proprietary_items(TList& lst) { set_of_item_reference_proprietarySerializer<TList> sr; sr.FromAttr(lst, m_instance, "proprietary_items"); }
-
-        //TList may be set_of_item_reference_proprietary or list of converible elements
-        template <typename TList> void put_proprietary_items(TList& lst) { set_of_item_reference_proprietarySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "proprietary_items"); }
-
-        //TArrayElem[] may be item_reference_proprietary[] or array of convertible elements
-        template <typename TArrayElem> void put_proprietary_items(TArrayElem arr[], size_t n) { set_of_item_reference_proprietary lst; ArrayToList(arr, n, lst); put_proprietary_items(lst); }
     };
 
 
@@ -16629,12 +16539,6 @@ namespace CIS2
 
         //TList may be set_of_item_reference_standard or list of converible elements
         template <typename TList> void get_standard_items(TList& lst) { set_of_item_reference_standardSerializer<TList> sr; sr.FromAttr(lst, m_instance, "standard_items"); }
-
-        //TList may be set_of_item_reference_standard or list of converible elements
-        template <typename TList> void put_standard_items(TList& lst) { set_of_item_reference_standardSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "standard_items"); }
-
-        //TArrayElem[] may be item_reference_standard[] or array of convertible elements
-        template <typename TArrayElem> void put_standard_items(TArrayElem arr[], size_t n) { set_of_item_reference_standard lst; ArrayToList(arr, n, lst); put_standard_items(lst); }
     };
 
 
@@ -17314,12 +17218,6 @@ namespace CIS2
 
         //TList may be set_of_load or list of converible elements
         template <typename TList> void get_loads(TList& lst) { set_of_loadSerializer<TList> sr; sr.FromAttr(lst, m_instance, "loads"); }
-
-        //TList may be set_of_load or list of converible elements
-        template <typename TList> void put_loads(TList& lst) { set_of_loadSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "loads"); }
-
-        //TArrayElem[] may be load[] or array of convertible elements
-        template <typename TArrayElem> void put_loads(TArrayElem arr[], size_t n) { set_of_load lst; ArrayToList(arr, n, lst); put_loads(lst); }
     };
 
 
@@ -17952,12 +17850,6 @@ namespace CIS2
 
         //TList may be set_of_load_combination_occurrence or list of converible elements
         template <typename TList> void get_load_cases(TList& lst) { set_of_load_combination_occurrenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "load_cases"); }
-
-        //TList may be set_of_load_combination_occurrence or list of converible elements
-        template <typename TList> void put_load_cases(TList& lst) { set_of_load_combination_occurrenceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "load_cases"); }
-
-        //TArrayElem[] may be load_combination_occurrence[] or array of convertible elements
-        template <typename TArrayElem> void put_load_cases(TArrayElem arr[], size_t n) { set_of_load_combination_occurrence lst; ArrayToList(arr, n, lst); put_load_cases(lst); }
     };
 
 
@@ -18564,12 +18456,6 @@ namespace CIS2
 
         //TList may be set_of_managed_data_item or list of converible elements
         template <typename TList> void get_processed_items(TList& lst) { set_of_managed_data_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "processed_items"); }
-
-        //TList may be set_of_managed_data_item or list of converible elements
-        template <typename TList> void put_processed_items(TList& lst) { set_of_managed_data_itemSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "processed_items"); }
-
-        //TArrayElem[] may be managed_data_item[] or array of convertible elements
-        template <typename TArrayElem> void put_processed_items(TArrayElem arr[], size_t n) { set_of_managed_data_item lst; ArrayToList(arr, n, lst); put_processed_items(lst); }
     };
 
 
@@ -21728,12 +21614,6 @@ namespace CIS2
 
         //TList may be set_of_structural_frame_item_priced or list of converible elements
         template <typename TList> void get_prices(TList& lst) { set_of_structural_frame_item_pricedSerializer<TList> sr; sr.FromAttr(lst, m_instance, "prices"); }
-
-        //TList may be set_of_structural_frame_item_priced or list of converible elements
-        template <typename TList> void put_prices(TList& lst) { set_of_structural_frame_item_pricedSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "prices"); }
-
-        //TArrayElem[] may be structural_frame_item_priced[] or array of convertible elements
-        template <typename TArrayElem> void put_prices(TArrayElem arr[], size_t n) { set_of_structural_frame_item_priced lst; ArrayToList(arr, n, lst); put_prices(lst); }
     };
 
 
@@ -21846,12 +21726,6 @@ namespace CIS2
 
         //TList may be set_of_project_plan_item or list of converible elements
         template <typename TList> void get_items(TList& lst) { set_of_project_plan_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "items"); }
-
-        //TList may be set_of_project_plan_item or list of converible elements
-        template <typename TList> void put_items(TList& lst) { set_of_project_plan_itemSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "items"); }
-
-        //TArrayElem[] may be project_plan_item[] or array of convertible elements
-        template <typename TArrayElem> void put_items(TArrayElem arr[], size_t n) { set_of_project_plan_item lst; ArrayToList(arr, n, lst); put_items(lst); }
     };
 
 
@@ -22668,12 +22542,6 @@ namespace CIS2
 
         //TList may be set_of_element_node_connectivity or list of converible elements
         template <typename TList> void get_release_for_element_nodes(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "release_for_element_nodes"); }
-
-        //TList may be set_of_element_node_connectivity or list of converible elements
-        template <typename TList> void put_release_for_element_nodes(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "release_for_element_nodes"); }
-
-        //TArrayElem[] may be element_node_connectivity[] or array of convertible elements
-        template <typename TArrayElem> void put_release_for_element_nodes(TArrayElem arr[], size_t n) { set_of_element_node_connectivity lst; ArrayToList(arr, n, lst); put_release_for_element_nodes(lst); }
     };
 
 
@@ -22875,12 +22743,6 @@ namespace CIS2
 
         //TList may be set_of_mapped_item or list of converible elements
         template <typename TList> void get_map_usage(TList& lst) { set_of_mapped_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "map_usage"); }
-
-        //TList may be set_of_mapped_item or list of converible elements
-        template <typename TList> void put_map_usage(TList& lst) { set_of_mapped_itemSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "map_usage"); }
-
-        //TArrayElem[] may be mapped_item[] or array of convertible elements
-        template <typename TArrayElem> void put_map_usage(TArrayElem arr[], size_t n) { set_of_mapped_item lst; ArrayToList(arr, n, lst); put_map_usage(lst); }
     };
 
 
@@ -22976,12 +22838,6 @@ namespace CIS2
 
         //TList may be set_of_design_result or list of converible elements
         template <typename TList> void get_results(TList& lst) { set_of_design_resultSerializer<TList> sr; sr.FromAttr(lst, m_instance, "results"); }
-
-        //TList may be set_of_design_result or list of converible elements
-        template <typename TList> void put_results(TList& lst) { set_of_design_resultSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "results"); }
-
-        //TArrayElem[] may be design_result[] or array of convertible elements
-        template <typename TArrayElem> void put_results(TArrayElem arr[], size_t n) { set_of_design_result lst; ArrayToList(arr, n, lst); put_results(lst); }
     };
 
 
@@ -24719,12 +24575,6 @@ namespace CIS2
 
         //TList may be set_of_group_assignment or list of converible elements
         template <typename TList> void get_selected_content(TList& lst) { set_of_group_assignmentSerializer<TList> sr; sr.FromAttr(lst, m_instance, "selected_content"); }
-
-        //TList may be set_of_group_assignment or list of converible elements
-        template <typename TList> void put_selected_content(TList& lst) { set_of_group_assignmentSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "selected_content"); }
-
-        //TArrayElem[] may be group_assignment[] or array of convertible elements
-        template <typename TArrayElem> void put_selected_content(TArrayElem arr[], size_t n) { set_of_group_assignment lst; ArrayToList(arr, n, lst); put_selected_content(lst); }
     };
 
 
@@ -25163,12 +25013,6 @@ namespace CIS2
 
         //TList may be bag_of_rectangular_composite_surface or list of converible elements
         template <typename TList> void get_using_surfaces(TList& lst) { bag_of_rectangular_composite_surfaceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "using_surfaces"); }
-
-        //TList may be bag_of_rectangular_composite_surface or list of converible elements
-        template <typename TList> void put_using_surfaces(TList& lst) { bag_of_rectangular_composite_surfaceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "using_surfaces"); }
-
-        //TArrayElem[] may be rectangular_composite_surface[] or array of convertible elements
-        template <typename TArrayElem> void put_using_surfaces(TArrayElem arr[], size_t n) { bag_of_rectangular_composite_surface lst; ArrayToList(arr, n, lst); put_using_surfaces(lst); }
     };
 
 

@@ -7105,11 +7105,7 @@ namespace CIS2
         public IntValue? get_coordinate_space_dimension() { return get_IntValue("coordinate_space_dimension", ifcengine.sdaiINTEGER);}
         public void put_coordinate_space_dimension(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "coordinate_space_dimension", ifcengine.sdaiINTEGER, ref value); }
         public set_of_element get_component_elements() { return (new set_of_elementSerializer()).FromAttr(m_instance, "component_elements"); }
-        public void put_component_elements(IEnumerable<element> lst) { (new set_of_elementSerializer()).ToSdaiAggr(lst, m_instance, "component_elements"); }
-        //public void put_component_elements_untyped(IEnumerable lst) { (new set_of_elementSerializer()).ToSdaiAggr(lst, m_instance, "component_elements"); }
         public set_of_node get_component_nodes() { return (new set_of_nodeSerializer()).FromAttr(m_instance, "component_nodes"); }
-        public void put_component_nodes(IEnumerable<node> lst) { (new set_of_nodeSerializer()).ToSdaiAggr(lst, m_instance, "component_nodes"); }
-        //public void put_component_nodes_untyped(IEnumerable lst) { (new set_of_nodeSerializer()).ToSdaiAggr(lst, m_instance, "component_nodes"); }
 
         protected override TextValue EntityName() { return "analysis_model"; }
     };
@@ -9830,8 +9826,6 @@ namespace CIS2
         public TextValue get_boundary_condition_description() { return get_string("boundary_condition_description", ifcengine.sdaiSTRING); }
         public void put_boundary_condition_description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "boundary_condition_description", ifcengine.sdaiSTRING, value); }
         public set_of_node get_restrained_nodes() { return (new set_of_nodeSerializer()).FromAttr(m_instance, "restrained_nodes"); }
-        public void put_restrained_nodes(IEnumerable<node> lst) { (new set_of_nodeSerializer()).ToSdaiAggr(lst, m_instance, "restrained_nodes"); }
-        //public void put_restrained_nodes_untyped(IEnumerable lst) { (new set_of_nodeSerializer()).ToSdaiAggr(lst, m_instance, "restrained_nodes"); }
 
         protected override TextValue EntityName() { return "boundary_condition"; }
     };
@@ -11082,8 +11076,6 @@ namespace CIS2
         public curve get_parent_curve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "parent_curve", ifcengine.sdaiINSTANCE, out inst); return new curve (inst); }
         public void put_parent_curve(curve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "parent_curve", ifcengine.sdaiINSTANCE, i); }
         public bag_of_composite_curve get_using_curves() { return (new bag_of_composite_curveSerializer()).FromAttr(m_instance, "using_curves"); }
-        public void put_using_curves(IEnumerable<composite_curve> lst) { (new bag_of_composite_curveSerializer()).ToSdaiAggr(lst, m_instance, "using_curves"); }
-        //public void put_using_curves_untyped(IEnumerable lst) { (new bag_of_composite_curveSerializer()).ToSdaiAggr(lst, m_instance, "using_curves"); }
 
         protected override TextValue EntityName() { return "composite_curve_segment"; }
     };
@@ -12177,8 +12169,6 @@ namespace CIS2
         public TextValue get_design_assumptions() { return get_string("design_assumptions", ifcengine.sdaiSTRING); }
         public void put_design_assumptions(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "design_assumptions", ifcengine.sdaiSTRING, value); }
         public set_of_assembly_design get_governed_assemblies() { return (new set_of_assembly_designSerializer()).FromAttr(m_instance, "governed_assemblies"); }
-        public void put_governed_assemblies(IEnumerable<assembly_design> lst) { (new set_of_assembly_designSerializer()).ToSdaiAggr(lst, m_instance, "governed_assemblies"); }
-        //public void put_governed_assemblies_untyped(IEnumerable lst) { (new set_of_assembly_designSerializer()).ToSdaiAggr(lst, m_instance, "governed_assemblies"); }
 
         protected override TextValue EntityName() { return "design_criterion"; }
     };
@@ -12664,8 +12654,6 @@ namespace CIS2
         public document_type get_kind() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "kind", ifcengine.sdaiINSTANCE, out inst); return new document_type (inst); }
         public void put_kind(document_type inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "kind", ifcengine.sdaiINSTANCE, i); }
         public set_of_document_representation_type get_representation_types() { return (new set_of_document_representation_typeSerializer()).FromAttr(m_instance, "representation_types"); }
-        public void put_representation_types(IEnumerable<document_representation_type> lst) { (new set_of_document_representation_typeSerializer()).ToSdaiAggr(lst, m_instance, "representation_types"); }
-        //public void put_representation_types_untyped(IEnumerable lst) { (new set_of_document_representation_typeSerializer()).ToSdaiAggr(lst, m_instance, "representation_types"); }
 
         protected override TextValue EntityName() { return "document"; }
     };
@@ -12781,8 +12769,6 @@ namespace CIS2
         public static new document_standard Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "document_standard"); Debug.Assert(inst != 0); return inst; }
 
         public set_of_document_usage_constraint get_relevant_clauses() { return (new set_of_document_usage_constraintSerializer()).FromAttr(m_instance, "relevant_clauses"); }
-        public void put_relevant_clauses(IEnumerable<document_usage_constraint> lst) { (new set_of_document_usage_constraintSerializer()).ToSdaiAggr(lst, m_instance, "relevant_clauses"); }
-        //public void put_relevant_clauses_untyped(IEnumerable lst) { (new set_of_document_usage_constraintSerializer()).ToSdaiAggr(lst, m_instance, "relevant_clauses"); }
 
         protected override TextValue EntityName() { return "document_standard"; }
     };
@@ -13149,8 +13135,6 @@ namespace CIS2
         public IntValue? get_element_dimensionality() { return get_IntValue("element_dimensionality", ifcengine.sdaiINTEGER);}
         public void put_element_dimensionality(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "element_dimensionality", ifcengine.sdaiINTEGER, ref value); }
         public set_of_element_node_connectivity get_connectivity() { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivity"); }
-        public void put_connectivity(IEnumerable<element_node_connectivity> lst) { (new set_of_element_node_connectivitySerializer()).ToSdaiAggr(lst, m_instance, "connectivity"); }
-        //public void put_connectivity_untyped(IEnumerable lst) { (new set_of_element_node_connectivitySerializer()).ToSdaiAggr(lst, m_instance, "connectivity"); }
 
         protected override TextValue EntityName() { return "element"; }
     };
@@ -13271,8 +13255,6 @@ namespace CIS2
         public length_measure_with_unit get_z_eccentricity() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "z_eccentricity", ifcengine.sdaiINSTANCE, out inst); return new length_measure_with_unit (inst); }
         public void put_z_eccentricity(length_measure_with_unit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "z_eccentricity", ifcengine.sdaiINSTANCE, i); }
         public set_of_element_node_connectivity get_eccentric_connectivities() { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "eccentric_connectivities"); }
-        public void put_eccentric_connectivities(IEnumerable<element_node_connectivity> lst) { (new set_of_element_node_connectivitySerializer()).ToSdaiAggr(lst, m_instance, "eccentric_connectivities"); }
-        //public void put_eccentric_connectivities_untyped(IEnumerable lst) { (new set_of_element_node_connectivitySerializer()).ToSdaiAggr(lst, m_instance, "eccentric_connectivities"); }
 
         protected override TextValue EntityName() { return "element_eccentricity"; }
     };
@@ -16168,8 +16150,6 @@ namespace CIS2
         public TextValue get_functional_role_description() { return get_string("functional_role_description", ifcengine.sdaiSTRING); }
         public void put_functional_role_description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "functional_role_description", ifcengine.sdaiSTRING, value); }
         public set_of_assembly_design get_role_for_assemblies() { return (new set_of_assembly_designSerializer()).FromAttr(m_instance, "role_for_assemblies"); }
-        public void put_role_for_assemblies(IEnumerable<assembly_design> lst) { (new set_of_assembly_designSerializer()).ToSdaiAggr(lst, m_instance, "role_for_assemblies"); }
-        //public void put_role_for_assemblies_untyped(IEnumerable lst) { (new set_of_assembly_designSerializer()).ToSdaiAggr(lst, m_instance, "role_for_assemblies"); }
 
         protected override TextValue EntityName() { return "functional_role"; }
     };
@@ -16333,8 +16313,6 @@ namespace CIS2
         public TextValue get_context_type() { return get_string("context_type", ifcengine.sdaiSTRING); }
         public void put_context_type(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "context_type", ifcengine.sdaiSTRING, value); }
         public set_of_representation get_representations_in_context() { return (new set_of_representationSerializer()).FromAttr(m_instance, "representations_in_context"); }
-        public void put_representations_in_context(IEnumerable<representation> lst) { (new set_of_representationSerializer()).ToSdaiAggr(lst, m_instance, "representations_in_context"); }
-        //public void put_representations_in_context_untyped(IEnumerable lst) { (new set_of_representationSerializer()).ToSdaiAggr(lst, m_instance, "representations_in_context"); }
 
         protected override TextValue EntityName() { return "representation_context"; }
     };
@@ -16516,8 +16494,6 @@ namespace CIS2
         public TextValue get_grid_use() { return get_string("grid_use", ifcengine.sdaiSTRING); }
         public void put_grid_use(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "grid_use", ifcengine.sdaiSTRING, value); }
         public set_of_gridline get_constituent_lines() { return (new set_of_gridlineSerializer()).FromAttr(m_instance, "constituent_lines"); }
-        public void put_constituent_lines(IEnumerable<gridline> lst) { (new set_of_gridlineSerializer()).ToSdaiAggr(lst, m_instance, "constituent_lines"); }
-        //public void put_constituent_lines_untyped(IEnumerable lst) { (new set_of_gridlineSerializer()).ToSdaiAggr(lst, m_instance, "constituent_lines"); }
 
         protected override TextValue EntityName() { return "grid"; }
     };
@@ -16862,8 +16838,6 @@ namespace CIS2
         public gridline get_preceding_line() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "preceding_line", ifcengine.sdaiINSTANCE, out inst); return new gridline (inst); }
         public void put_preceding_line(gridline inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "preceding_line", ifcengine.sdaiINSTANCE, i); }
         public set_of_gridline get_succeeding_line() { return (new set_of_gridlineSerializer()).FromAttr(m_instance, "succeeding_line"); }
-        public void put_succeeding_line(IEnumerable<gridline> lst) { (new set_of_gridlineSerializer()).ToSdaiAggr(lst, m_instance, "succeeding_line"); }
-        //public void put_succeeding_line_untyped(IEnumerable lst) { (new set_of_gridlineSerializer()).ToSdaiAggr(lst, m_instance, "succeeding_line"); }
 
         protected override TextValue EntityName() { return "gridline"; }
     };
@@ -17653,8 +17627,6 @@ namespace CIS2
         public TextValue get_version_of_library() { return get_string("version_of_library", ifcengine.sdaiSTRING); }
         public void put_version_of_library(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "version_of_library", ifcengine.sdaiSTRING, value); }
         public set_of_item_reference_library get_library_items() { return (new set_of_item_reference_librarySerializer()).FromAttr(m_instance, "library_items"); }
-        public void put_library_items(IEnumerable<item_reference_library> lst) { (new set_of_item_reference_librarySerializer()).ToSdaiAggr(lst, m_instance, "library_items"); }
-        //public void put_library_items_untyped(IEnumerable lst) { (new set_of_item_reference_librarySerializer()).ToSdaiAggr(lst, m_instance, "library_items"); }
 
         protected override TextValue EntityName() { return "item_ref_source_library"; }
     };
@@ -17689,8 +17661,6 @@ namespace CIS2
         public TextValue get_version_of_range() { return get_string("version_of_range", ifcengine.sdaiSTRING); }
         public void put_version_of_range(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "version_of_range", ifcengine.sdaiSTRING, value); }
         public set_of_item_reference_proprietary get_proprietary_items() { return (new set_of_item_reference_proprietarySerializer()).FromAttr(m_instance, "proprietary_items"); }
-        public void put_proprietary_items(IEnumerable<item_reference_proprietary> lst) { (new set_of_item_reference_proprietarySerializer()).ToSdaiAggr(lst, m_instance, "proprietary_items"); }
-        //public void put_proprietary_items_untyped(IEnumerable lst) { (new set_of_item_reference_proprietarySerializer()).ToSdaiAggr(lst, m_instance, "proprietary_items"); }
 
         protected override TextValue EntityName() { return "item_ref_source_proprietary"; }
     };
@@ -17725,8 +17695,6 @@ namespace CIS2
         public TextValue get_version_of_standard() { return get_string("version_of_standard", ifcengine.sdaiSTRING); }
         public void put_version_of_standard(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "version_of_standard", ifcengine.sdaiSTRING, value); }
         public set_of_item_reference_standard get_standard_items() { return (new set_of_item_reference_standardSerializer()).FromAttr(m_instance, "standard_items"); }
-        public void put_standard_items(IEnumerable<item_reference_standard> lst) { (new set_of_item_reference_standardSerializer()).ToSdaiAggr(lst, m_instance, "standard_items"); }
-        //public void put_standard_items_untyped(IEnumerable lst) { (new set_of_item_reference_standardSerializer()).ToSdaiAggr(lst, m_instance, "standard_items"); }
 
         protected override TextValue EntityName() { return "item_ref_source_standard"; }
     };
@@ -18433,8 +18401,6 @@ namespace CIS2
         public physical_action get_time_variation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "time_variation", ifcengine.sdaiINSTANCE, out inst); return new physical_action (inst); }
         public void put_time_variation(physical_action inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "time_variation", ifcengine.sdaiINSTANCE, i); }
         public set_of_load get_loads() { return (new set_of_loadSerializer()).FromAttr(m_instance, "loads"); }
-        public void put_loads(IEnumerable<load> lst) { (new set_of_loadSerializer()).ToSdaiAggr(lst, m_instance, "loads"); }
-        //public void put_loads_untyped(IEnumerable lst) { (new set_of_loadSerializer()).ToSdaiAggr(lst, m_instance, "loads"); }
 
         protected override TextValue EntityName() { return "load_case"; }
     };
@@ -19070,8 +19036,6 @@ namespace CIS2
         public analysis_model get_loaded_model() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "loaded_model", ifcengine.sdaiINSTANCE, out inst); return new analysis_model (inst); }
         public void put_loaded_model(analysis_model inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "loaded_model", ifcengine.sdaiINSTANCE, i); }
         public set_of_load_combination_occurrence get_load_cases() { return (new set_of_load_combination_occurrenceSerializer()).FromAttr(m_instance, "load_cases"); }
-        public void put_load_cases(IEnumerable<load_combination_occurrence> lst) { (new set_of_load_combination_occurrenceSerializer()).ToSdaiAggr(lst, m_instance, "load_cases"); }
-        //public void put_load_cases_untyped(IEnumerable lst) { (new set_of_load_combination_occurrenceSerializer()).ToSdaiAggr(lst, m_instance, "load_cases"); }
 
         protected override TextValue EntityName() { return "loading_combination"; }
     };
@@ -19671,8 +19635,6 @@ namespace CIS2
         public TextValue get_transaction_description() { return get_string("transaction_description", ifcengine.sdaiSTRING); }
         public void put_transaction_description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "transaction_description", ifcengine.sdaiSTRING, value); }
         public set_of_managed_data_item get_processed_items() { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "processed_items"); }
-        public void put_processed_items(IEnumerable<managed_data_item> lst) { (new set_of_managed_data_itemSerializer()).ToSdaiAggr(lst, m_instance, "processed_items"); }
-        //public void put_processed_items_untyped(IEnumerable lst) { (new set_of_managed_data_itemSerializer()).ToSdaiAggr(lst, m_instance, "processed_items"); }
 
         protected override TextValue EntityName() { return "managed_data_transaction"; }
     };
@@ -22881,8 +22843,6 @@ namespace CIS2
         public void put_delivery_dates(IEnumerable<calendar_date> lst) { (new list_of_calendar_dateSerializer()).ToSdaiAggr(lst, m_instance, "delivery_dates"); }
         //public void put_delivery_dates_untyped(IEnumerable lst) { (new list_of_calendar_dateSerializer()).ToSdaiAggr(lst, m_instance, "delivery_dates"); }
         public set_of_structural_frame_item_priced get_prices() { return (new set_of_structural_frame_item_pricedSerializer()).FromAttr(m_instance, "prices"); }
-        public void put_prices(IEnumerable<structural_frame_item_priced> lst) { (new set_of_structural_frame_item_pricedSerializer()).ToSdaiAggr(lst, m_instance, "prices"); }
-        //public void put_prices_untyped(IEnumerable lst) { (new set_of_structural_frame_item_pricedSerializer()).ToSdaiAggr(lst, m_instance, "prices"); }
 
         protected override TextValue EntityName() { return "procure"; }
     };
@@ -22998,8 +22958,6 @@ namespace CIS2
         public project get_related_project() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "related_project", ifcengine.sdaiINSTANCE, out inst); return new project (inst); }
         public void put_related_project(project inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "related_project", ifcengine.sdaiINSTANCE, i); }
         public set_of_project_plan_item get_items() { return (new set_of_project_plan_itemSerializer()).FromAttr(m_instance, "items"); }
-        public void put_items(IEnumerable<project_plan_item> lst) { (new set_of_project_plan_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
-        //public void put_items_untyped(IEnumerable lst) { (new set_of_project_plan_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
         protected override TextValue EntityName() { return "project_plan"; }
     };
@@ -23796,8 +23754,6 @@ namespace CIS2
         public TextValue get_release_description() { return get_string("release_description", ifcengine.sdaiSTRING); }
         public void put_release_description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "release_description", ifcengine.sdaiSTRING, value); }
         public set_of_element_node_connectivity get_release_for_element_nodes() { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "release_for_element_nodes"); }
-        public void put_release_for_element_nodes(IEnumerable<element_node_connectivity> lst) { (new set_of_element_node_connectivitySerializer()).ToSdaiAggr(lst, m_instance, "release_for_element_nodes"); }
-        //public void put_release_for_element_nodes_untyped(IEnumerable lst) { (new set_of_element_node_connectivitySerializer()).ToSdaiAggr(lst, m_instance, "release_for_element_nodes"); }
 
         protected override TextValue EntityName() { return "release"; }
     };
@@ -23987,8 +23943,6 @@ namespace CIS2
         public representation get_mapped_representation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "mapped_representation", ifcengine.sdaiINSTANCE, out inst); return new representation (inst); }
         public void put_mapped_representation(representation inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "mapped_representation", ifcengine.sdaiINSTANCE, i); }
         public set_of_mapped_item get_map_usage() { return (new set_of_mapped_itemSerializer()).FromAttr(m_instance, "map_usage"); }
-        public void put_map_usage(IEnumerable<mapped_item> lst) { (new set_of_mapped_itemSerializer()).ToSdaiAggr(lst, m_instance, "map_usage"); }
-        //public void put_map_usage_untyped(IEnumerable lst) { (new set_of_mapped_itemSerializer()).ToSdaiAggr(lst, m_instance, "map_usage"); }
 
         protected override TextValue EntityName() { return "representation_map"; }
     };
@@ -24081,8 +24035,6 @@ namespace CIS2
         public global_or_local_resistance? get_local_or_global() { var str = get_string("local_or_global", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.global_or_local_resistance_); return EnumValue<global_or_local_resistance>.FromIndex(ind); }
         public void put_local_or_global(global_or_local_resistance value) { var str = EnumString<global_or_local_resistance>.FromValue(value, EnumNames.global_or_local_resistance_); ifcengine.sdaiPutAttrBN(m_instance, "local_or_global", ifcengine.sdaiENUM, str); }
         public set_of_design_result get_results() { return (new set_of_design_resultSerializer()).FromAttr(m_instance, "results"); }
-        public void put_results(IEnumerable<design_result> lst) { (new set_of_design_resultSerializer()).ToSdaiAggr(lst, m_instance, "results"); }
-        //public void put_results_untyped(IEnumerable lst) { (new set_of_design_resultSerializer()).ToSdaiAggr(lst, m_instance, "results"); }
 
         protected override TextValue EntityName() { return "resistance"; }
     };
@@ -25802,8 +25754,6 @@ namespace CIS2
         public static new step_file Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "step_file"); Debug.Assert(inst != 0); return inst; }
 
         public set_of_group_assignment get_selected_content() { return (new set_of_group_assignmentSerializer()).FromAttr(m_instance, "selected_content"); }
-        public void put_selected_content(IEnumerable<group_assignment> lst) { (new set_of_group_assignmentSerializer()).ToSdaiAggr(lst, m_instance, "selected_content"); }
-        //public void put_selected_content_untyped(IEnumerable lst) { (new set_of_group_assignmentSerializer()).ToSdaiAggr(lst, m_instance, "selected_content"); }
 
         protected override TextValue EntityName() { return "step_file"; }
     };
@@ -26250,8 +26200,6 @@ namespace CIS2
         public bool? get_v_sense() { return get_bool("v_sense", ifcengine.sdaiBOOLEAN);}
         public void put_v_sense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "v_sense", ifcengine.sdaiBOOLEAN, ref value); }
         public bag_of_rectangular_composite_surface get_using_surfaces() { return (new bag_of_rectangular_composite_surfaceSerializer()).FromAttr(m_instance, "using_surfaces"); }
-        public void put_using_surfaces(IEnumerable<rectangular_composite_surface> lst) { (new bag_of_rectangular_composite_surfaceSerializer()).ToSdaiAggr(lst, m_instance, "using_surfaces"); }
-        //public void put_using_surfaces_untyped(IEnumerable lst) { (new bag_of_rectangular_composite_surfaceSerializer()).ToSdaiAggr(lst, m_instance, "using_surfaces"); }
 
         protected override TextValue EntityName() { return "surface_patch"; }
     };

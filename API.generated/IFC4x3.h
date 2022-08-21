@@ -9400,65 +9400,23 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssigns or list of converible elements
         template <typename TList> void get_HasAssignments(TList& lst) { SetOfIfcRelAssignsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasAssignments"); }
 
-        //TList may be SetOfIfcRelAssigns or list of converible elements
-        template <typename TList> void put_HasAssignments(TList& lst) { SetOfIfcRelAssignsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasAssignments"); }
-
-        //TArrayElem[] may be IfcRelAssigns[] or array of convertible elements
-        template <typename TArrayElem> void put_HasAssignments(TArrayElem arr[], size_t n) { SetOfIfcRelAssigns lst; ArrayToList(arr, n, lst); put_HasAssignments(lst); }
-
         //TList may be SetOfIfcRelNests or list of converible elements
         template <typename TList> void get_Nests(TList& lst) { SetOfIfcRelNestsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Nests"); }
 
         //TList may be SetOfIfcRelNests or list of converible elements
-        template <typename TList> void put_Nests(TList& lst) { SetOfIfcRelNestsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Nests"); }
-
-        //TArrayElem[] may be IfcRelNests[] or array of convertible elements
-        template <typename TArrayElem> void put_Nests(TArrayElem arr[], size_t n) { SetOfIfcRelNests lst; ArrayToList(arr, n, lst); put_Nests(lst); }
-
-        //TList may be SetOfIfcRelNests or list of converible elements
         template <typename TList> void get_IsNestedBy(TList& lst) { SetOfIfcRelNestsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsNestedBy"); }
-
-        //TList may be SetOfIfcRelNests or list of converible elements
-        template <typename TList> void put_IsNestedBy(TList& lst) { SetOfIfcRelNestsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsNestedBy"); }
-
-        //TArrayElem[] may be IfcRelNests[] or array of convertible elements
-        template <typename TArrayElem> void put_IsNestedBy(TArrayElem arr[], size_t n) { SetOfIfcRelNests lst; ArrayToList(arr, n, lst); put_IsNestedBy(lst); }
 
         //TList may be SetOfIfcRelDeclares or list of converible elements
         template <typename TList> void get_HasContext(TList& lst) { SetOfIfcRelDeclaresSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasContext"); }
-
-        //TList may be SetOfIfcRelDeclares or list of converible elements
-        template <typename TList> void put_HasContext(TList& lst) { SetOfIfcRelDeclaresSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasContext"); }
-
-        //TArrayElem[] may be IfcRelDeclares[] or array of convertible elements
-        template <typename TArrayElem> void put_HasContext(TArrayElem arr[], size_t n) { SetOfIfcRelDeclares lst; ArrayToList(arr, n, lst); put_HasContext(lst); }
 
         //TList may be SetOfIfcRelAggregates or list of converible elements
         template <typename TList> void get_IsDecomposedBy(TList& lst) { SetOfIfcRelAggregatesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsDecomposedBy"); }
 
         //TList may be SetOfIfcRelAggregates or list of converible elements
-        template <typename TList> void put_IsDecomposedBy(TList& lst) { SetOfIfcRelAggregatesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsDecomposedBy"); }
-
-        //TArrayElem[] may be IfcRelAggregates[] or array of convertible elements
-        template <typename TArrayElem> void put_IsDecomposedBy(TArrayElem arr[], size_t n) { SetOfIfcRelAggregates lst; ArrayToList(arr, n, lst); put_IsDecomposedBy(lst); }
-
-        //TList may be SetOfIfcRelAggregates or list of converible elements
         template <typename TList> void get_Decomposes(TList& lst) { SetOfIfcRelAggregatesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Decomposes"); }
-
-        //TList may be SetOfIfcRelAggregates or list of converible elements
-        template <typename TList> void put_Decomposes(TList& lst) { SetOfIfcRelAggregatesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Decomposes"); }
-
-        //TArrayElem[] may be IfcRelAggregates[] or array of convertible elements
-        template <typename TArrayElem> void put_Decomposes(TArrayElem arr[], size_t n) { SetOfIfcRelAggregates lst; ArrayToList(arr, n, lst); put_Decomposes(lst); }
 
         //TList may be SetOfIfcRelAssociates or list of converible elements
         template <typename TList> void get_HasAssociations(TList& lst) { SetOfIfcRelAssociatesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasAssociations"); }
-
-        //TList may be SetOfIfcRelAssociates or list of converible elements
-        template <typename TList> void put_HasAssociations(TList& lst) { SetOfIfcRelAssociatesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasAssociations"); }
-
-        //TArrayElem[] may be IfcRelAssociates[] or array of convertible elements
-        template <typename TArrayElem> void put_HasAssociations(TArrayElem arr[], size_t n) { SetOfIfcRelAssociates lst; ArrayToList(arr, n, lst); put_HasAssociations(lst); }
     };
 
 
@@ -9485,37 +9443,13 @@ namespace IFC4x3
         template <typename TList> void get_IsDeclaredBy(TList& lst) { SetOfIfcRelDefinesByObjectSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsDeclaredBy"); }
 
         //TList may be SetOfIfcRelDefinesByObject or list of converible elements
-        template <typename TList> void put_IsDeclaredBy(TList& lst) { SetOfIfcRelDefinesByObjectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsDeclaredBy"); }
-
-        //TArrayElem[] may be IfcRelDefinesByObject[] or array of convertible elements
-        template <typename TArrayElem> void put_IsDeclaredBy(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByObject lst; ArrayToList(arr, n, lst); put_IsDeclaredBy(lst); }
-
-        //TList may be SetOfIfcRelDefinesByObject or list of converible elements
         template <typename TList> void get_Declares(TList& lst) { SetOfIfcRelDefinesByObjectSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Declares"); }
-
-        //TList may be SetOfIfcRelDefinesByObject or list of converible elements
-        template <typename TList> void put_Declares(TList& lst) { SetOfIfcRelDefinesByObjectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Declares"); }
-
-        //TArrayElem[] may be IfcRelDefinesByObject[] or array of convertible elements
-        template <typename TArrayElem> void put_Declares(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByObject lst; ArrayToList(arr, n, lst); put_Declares(lst); }
 
         //TList may be SetOfIfcRelDefinesByType or list of converible elements
         template <typename TList> void get_IsTypedBy(TList& lst) { SetOfIfcRelDefinesByTypeSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsTypedBy"); }
 
-        //TList may be SetOfIfcRelDefinesByType or list of converible elements
-        template <typename TList> void put_IsTypedBy(TList& lst) { SetOfIfcRelDefinesByTypeSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsTypedBy"); }
-
-        //TArrayElem[] may be IfcRelDefinesByType[] or array of convertible elements
-        template <typename TArrayElem> void put_IsTypedBy(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByType lst; ArrayToList(arr, n, lst); put_IsTypedBy(lst); }
-
         //TList may be SetOfIfcRelDefinesByProperties or list of converible elements
         template <typename TList> void get_IsDefinedBy(TList& lst) { SetOfIfcRelDefinesByPropertiesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsDefinedBy"); }
-
-        //TList may be SetOfIfcRelDefinesByProperties or list of converible elements
-        template <typename TList> void put_IsDefinedBy(TList& lst) { SetOfIfcRelDefinesByPropertiesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsDefinedBy"); }
-
-        //TArrayElem[] may be IfcRelDefinesByProperties[] or array of convertible elements
-        template <typename TArrayElem> void put_IsDefinedBy(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByProperties lst; ArrayToList(arr, n, lst); put_IsDefinedBy(lst); }
     };
 
 
@@ -9540,12 +9474,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssignsToControl or list of converible elements
         template <typename TList> void get_Controls(TList& lst) { SetOfIfcRelAssignsToControlSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Controls"); }
-
-        //TList may be SetOfIfcRelAssignsToControl or list of converible elements
-        template <typename TList> void put_Controls(TList& lst) { SetOfIfcRelAssignsToControlSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Controls"); }
-
-        //TArrayElem[] may be IfcRelAssignsToControl[] or array of convertible elements
-        template <typename TArrayElem> void put_Controls(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToControl lst; ArrayToList(arr, n, lst); put_Controls(lst); }
     };
 
 
@@ -9605,12 +9533,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssignsToActor or list of converible elements
         template <typename TList> void get_IsActingUpon(TList& lst) { SetOfIfcRelAssignsToActorSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsActingUpon"); }
-
-        //TList may be SetOfIfcRelAssignsToActor or list of converible elements
-        template <typename TList> void put_IsActingUpon(TList& lst) { SetOfIfcRelAssignsToActorSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsActingUpon"); }
-
-        //TArrayElem[] may be IfcRelAssignsToActor[] or array of convertible elements
-        template <typename TArrayElem> void put_IsActingUpon(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToActor lst; ArrayToList(arr, n, lst); put_IsActingUpon(lst); }
     };
 
 
@@ -9645,12 +9567,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReference"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReference"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReference(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReference(lst); }
     };
 
 
@@ -9679,29 +9595,11 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssignsToProduct or list of converible elements
         template <typename TList> void get_ReferencedBy(TList& lst) { SetOfIfcRelAssignsToProductSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferencedBy"); }
 
-        //TList may be SetOfIfcRelAssignsToProduct or list of converible elements
-        template <typename TList> void put_ReferencedBy(TList& lst) { SetOfIfcRelAssignsToProductSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ReferencedBy"); }
-
-        //TArrayElem[] may be IfcRelAssignsToProduct[] or array of convertible elements
-        template <typename TArrayElem> void put_ReferencedBy(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToProduct lst; ArrayToList(arr, n, lst); put_ReferencedBy(lst); }
-
         //TList may be SetOfIfcRelPositions or list of converible elements
         template <typename TList> void get_PositionedRelativeTo(TList& lst) { SetOfIfcRelPositionsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PositionedRelativeTo"); }
 
-        //TList may be SetOfIfcRelPositions or list of converible elements
-        template <typename TList> void put_PositionedRelativeTo(TList& lst) { SetOfIfcRelPositionsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PositionedRelativeTo"); }
-
-        //TArrayElem[] may be IfcRelPositions[] or array of convertible elements
-        template <typename TArrayElem> void put_PositionedRelativeTo(TArrayElem arr[], size_t n) { SetOfIfcRelPositions lst; ArrayToList(arr, n, lst); put_PositionedRelativeTo(lst); }
-
         //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
         template <typename TList> void get_ReferencedInStructures(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferencedInStructures"); }
-
-        //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ReferencedInStructures(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ReferencedInStructures"); }
-
-        //TArrayElem[] may be IfcRelReferencedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ReferencedInStructures(TArrayElem arr[], size_t n) { SetOfIfcRelReferencedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ReferencedInStructures(lst); }
     };
 
 
@@ -9727,110 +9625,38 @@ namespace IFC4x3
         //TList may be SetOfIfcRelFillsElement or list of converible elements
         template <typename TList> void get_FillsVoids(TList& lst) { SetOfIfcRelFillsElementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "FillsVoids"); }
 
-        //TList may be SetOfIfcRelFillsElement or list of converible elements
-        template <typename TList> void put_FillsVoids(TList& lst) { SetOfIfcRelFillsElementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "FillsVoids"); }
-
-        //TArrayElem[] may be IfcRelFillsElement[] or array of convertible elements
-        template <typename TArrayElem> void put_FillsVoids(TArrayElem arr[], size_t n) { SetOfIfcRelFillsElement lst; ArrayToList(arr, n, lst); put_FillsVoids(lst); }
-
         //TList may be SetOfIfcRelConnectsElements or list of converible elements
         template <typename TList> void get_ConnectedTo(TList& lst) { SetOfIfcRelConnectsElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ConnectedTo"); }
-
-        //TList may be SetOfIfcRelConnectsElements or list of converible elements
-        template <typename TList> void put_ConnectedTo(TList& lst) { SetOfIfcRelConnectsElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ConnectedTo"); }
-
-        //TArrayElem[] may be IfcRelConnectsElements[] or array of convertible elements
-        template <typename TArrayElem> void put_ConnectedTo(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsElements lst; ArrayToList(arr, n, lst); put_ConnectedTo(lst); }
 
         //TList may be SetOfIfcRelInterferesElements or list of converible elements
         template <typename TList> void get_IsInterferedByElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsInterferedByElements"); }
 
         //TList may be SetOfIfcRelInterferesElements or list of converible elements
-        template <typename TList> void put_IsInterferedByElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsInterferedByElements"); }
-
-        //TArrayElem[] may be IfcRelInterferesElements[] or array of convertible elements
-        template <typename TArrayElem> void put_IsInterferedByElements(TArrayElem arr[], size_t n) { SetOfIfcRelInterferesElements lst; ArrayToList(arr, n, lst); put_IsInterferedByElements(lst); }
-
-        //TList may be SetOfIfcRelInterferesElements or list of converible elements
         template <typename TList> void get_InterferesElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "InterferesElements"); }
-
-        //TList may be SetOfIfcRelInterferesElements or list of converible elements
-        template <typename TList> void put_InterferesElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "InterferesElements"); }
-
-        //TArrayElem[] may be IfcRelInterferesElements[] or array of convertible elements
-        template <typename TArrayElem> void put_InterferesElements(TArrayElem arr[], size_t n) { SetOfIfcRelInterferesElements lst; ArrayToList(arr, n, lst); put_InterferesElements(lst); }
 
         //TList may be SetOfIfcRelProjectsElement or list of converible elements
         template <typename TList> void get_HasProjections(TList& lst) { SetOfIfcRelProjectsElementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasProjections"); }
 
-        //TList may be SetOfIfcRelProjectsElement or list of converible elements
-        template <typename TList> void put_HasProjections(TList& lst) { SetOfIfcRelProjectsElementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasProjections"); }
-
-        //TArrayElem[] may be IfcRelProjectsElement[] or array of convertible elements
-        template <typename TArrayElem> void put_HasProjections(TArrayElem arr[], size_t n) { SetOfIfcRelProjectsElement lst; ArrayToList(arr, n, lst); put_HasProjections(lst); }
-
         //TList may be SetOfIfcRelVoidsElement or list of converible elements
         template <typename TList> void get_HasOpenings(TList& lst) { SetOfIfcRelVoidsElementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasOpenings"); }
-
-        //TList may be SetOfIfcRelVoidsElement or list of converible elements
-        template <typename TList> void put_HasOpenings(TList& lst) { SetOfIfcRelVoidsElementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasOpenings"); }
-
-        //TArrayElem[] may be IfcRelVoidsElement[] or array of convertible elements
-        template <typename TArrayElem> void put_HasOpenings(TArrayElem arr[], size_t n) { SetOfIfcRelVoidsElement lst; ArrayToList(arr, n, lst); put_HasOpenings(lst); }
 
         //TList may be SetOfIfcRelConnectsWithRealizingElements or list of converible elements
         template <typename TList> void get_IsConnectionRealization(TList& lst) { SetOfIfcRelConnectsWithRealizingElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsConnectionRealization"); }
 
-        //TList may be SetOfIfcRelConnectsWithRealizingElements or list of converible elements
-        template <typename TList> void put_IsConnectionRealization(TList& lst) { SetOfIfcRelConnectsWithRealizingElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsConnectionRealization"); }
-
-        //TArrayElem[] may be IfcRelConnectsWithRealizingElements[] or array of convertible elements
-        template <typename TArrayElem> void put_IsConnectionRealization(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsWithRealizingElements lst; ArrayToList(arr, n, lst); put_IsConnectionRealization(lst); }
-
         //TList may be SetOfIfcRelSpaceBoundary or list of converible elements
         template <typename TList> void get_ProvidesBoundaries(TList& lst) { SetOfIfcRelSpaceBoundarySerializer<TList> sr; sr.FromAttr(lst, m_instance, "ProvidesBoundaries"); }
-
-        //TList may be SetOfIfcRelSpaceBoundary or list of converible elements
-        template <typename TList> void put_ProvidesBoundaries(TList& lst) { SetOfIfcRelSpaceBoundarySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ProvidesBoundaries"); }
-
-        //TArrayElem[] may be IfcRelSpaceBoundary[] or array of convertible elements
-        template <typename TArrayElem> void put_ProvidesBoundaries(TArrayElem arr[], size_t n) { SetOfIfcRelSpaceBoundary lst; ArrayToList(arr, n, lst); put_ProvidesBoundaries(lst); }
 
         //TList may be SetOfIfcRelConnectsElements or list of converible elements
         template <typename TList> void get_ConnectedFrom(TList& lst) { SetOfIfcRelConnectsElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ConnectedFrom"); }
 
-        //TList may be SetOfIfcRelConnectsElements or list of converible elements
-        template <typename TList> void put_ConnectedFrom(TList& lst) { SetOfIfcRelConnectsElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ConnectedFrom"); }
-
-        //TArrayElem[] may be IfcRelConnectsElements[] or array of convertible elements
-        template <typename TArrayElem> void put_ConnectedFrom(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsElements lst; ArrayToList(arr, n, lst); put_ConnectedFrom(lst); }
-
         //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
         template <typename TList> void get_ContainedInStructure(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ContainedInStructure"); }
-
-        //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ContainedInStructure(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
-
-        //TArrayElem[] may be IfcRelContainedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ContainedInStructure(TArrayElem arr[], size_t n) { SetOfIfcRelContainedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ContainedInStructure(lst); }
 
         //TList may be SetOfIfcRelCoversBldgElements or list of converible elements
         template <typename TList> void get_HasCoverings(TList& lst) { SetOfIfcRelCoversBldgElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasCoverings"); }
 
-        //TList may be SetOfIfcRelCoversBldgElements or list of converible elements
-        template <typename TList> void put_HasCoverings(TList& lst) { SetOfIfcRelCoversBldgElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasCoverings"); }
-
-        //TArrayElem[] may be IfcRelCoversBldgElements[] or array of convertible elements
-        template <typename TArrayElem> void put_HasCoverings(TArrayElem arr[], size_t n) { SetOfIfcRelCoversBldgElements lst; ArrayToList(arr, n, lst); put_HasCoverings(lst); }
-
         //TList may be SetOfIfcRelAdheresToElement or list of converible elements
         template <typename TList> void get_HasSurfaceFeatures(TList& lst) { SetOfIfcRelAdheresToElementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasSurfaceFeatures"); }
-
-        //TList may be SetOfIfcRelAdheresToElement or list of converible elements
-        template <typename TList> void put_HasSurfaceFeatures(TList& lst) { SetOfIfcRelAdheresToElementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasSurfaceFeatures"); }
-
-        //TArrayElem[] may be IfcRelAdheresToElement[] or array of convertible elements
-        template <typename TArrayElem> void put_HasSurfaceFeatures(TArrayElem arr[], size_t n) { SetOfIfcRelAdheresToElement lst; ArrayToList(arr, n, lst); put_HasSurfaceFeatures(lst); }
     };
 
 
@@ -9856,12 +9682,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelConnectsPortToElement or list of converible elements
         template <typename TList> void get_HasPorts(TList& lst) { SetOfIfcRelConnectsPortToElementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasPorts"); }
-
-        //TList may be SetOfIfcRelConnectsPortToElement or list of converible elements
-        template <typename TList> void put_HasPorts(TList& lst) { SetOfIfcRelConnectsPortToElementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasPorts"); }
-
-        //TArrayElem[] may be IfcRelConnectsPortToElement[] or array of convertible elements
-        template <typename TArrayElem> void put_HasPorts(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsPortToElement lst; ArrayToList(arr, n, lst); put_HasPorts(lst); }
     };
 
 
@@ -9887,12 +9707,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelFlowControlElements or list of converible elements
         template <typename TList> void get_AssignedToFlowElement(TList& lst) { SetOfIfcRelFlowControlElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "AssignedToFlowElement"); }
-
-        //TList may be SetOfIfcRelFlowControlElements or list of converible elements
-        template <typename TList> void put_AssignedToFlowElement(TList& lst) { SetOfIfcRelFlowControlElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "AssignedToFlowElement"); }
-
-        //TArrayElem[] may be IfcRelFlowControlElements[] or array of convertible elements
-        template <typename TArrayElem> void put_AssignedToFlowElement(TArrayElem arr[], size_t n) { SetOfIfcRelFlowControlElements lst; ArrayToList(arr, n, lst); put_AssignedToFlowElement(lst); }
     };
 
 
@@ -9955,12 +9769,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelDefinesByType or list of converible elements
         template <typename TList> void get_Types(TList& lst) { SetOfIfcRelDefinesByTypeSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Types"); }
-
-        //TList may be SetOfIfcRelDefinesByType or list of converible elements
-        template <typename TList> void put_Types(TList& lst) { SetOfIfcRelDefinesByTypeSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Types"); }
-
-        //TArrayElem[] may be IfcRelDefinesByType[] or array of convertible elements
-        template <typename TArrayElem> void put_Types(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByType lst; ArrayToList(arr, n, lst); put_Types(lst); }
     };
 
 
@@ -9998,12 +9806,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssignsToProduct or list of converible elements
         template <typename TList> void get_ReferencedBy(TList& lst) { SetOfIfcRelAssignsToProductSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferencedBy"); }
-
-        //TList may be SetOfIfcRelAssignsToProduct or list of converible elements
-        template <typename TList> void put_ReferencedBy(TList& lst) { SetOfIfcRelAssignsToProductSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ReferencedBy"); }
-
-        //TArrayElem[] may be IfcRelAssignsToProduct[] or array of convertible elements
-        template <typename TArrayElem> void put_ReferencedBy(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToProduct lst; ArrayToList(arr, n, lst); put_ReferencedBy(lst); }
     };
 
 
@@ -10121,20 +9923,8 @@ namespace IFC4x3
         //TList may be SetOfIfcPerson or list of converible elements
         template <typename TList> void get_OfPerson(TList& lst) { SetOfIfcPersonSerializer<TList> sr; sr.FromAttr(lst, m_instance, "OfPerson"); }
 
-        //TList may be SetOfIfcPerson or list of converible elements
-        template <typename TList> void put_OfPerson(TList& lst) { SetOfIfcPersonSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "OfPerson"); }
-
-        //TArrayElem[] may be IfcPerson[] or array of convertible elements
-        template <typename TArrayElem> void put_OfPerson(TArrayElem arr[], size_t n) { SetOfIfcPerson lst; ArrayToList(arr, n, lst); put_OfPerson(lst); }
-
         //TList may be SetOfIfcOrganization or list of converible elements
         template <typename TList> void get_OfOrganization(TList& lst) { SetOfIfcOrganizationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "OfOrganization"); }
-
-        //TList may be SetOfIfcOrganization or list of converible elements
-        template <typename TList> void put_OfOrganization(TList& lst) { SetOfIfcOrganizationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "OfOrganization"); }
-
-        //TArrayElem[] may be IfcOrganization[] or array of convertible elements
-        template <typename TArrayElem> void put_OfOrganization(TArrayElem arr[], size_t n) { SetOfIfcOrganization lst; ArrayToList(arr, n, lst); put_OfOrganization(lst); }
     };
 
 
@@ -10157,20 +9947,8 @@ namespace IFC4x3
         //TList may be SetOfIfcPresentationLayerAssignment or list of converible elements
         template <typename TList> void get_LayerAssignment(TList& lst) { SetOfIfcPresentationLayerAssignmentSerializer<TList> sr; sr.FromAttr(lst, m_instance, "LayerAssignment"); }
 
-        //TList may be SetOfIfcPresentationLayerAssignment or list of converible elements
-        template <typename TList> void put_LayerAssignment(TList& lst) { SetOfIfcPresentationLayerAssignmentSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "LayerAssignment"); }
-
-        //TArrayElem[] may be IfcPresentationLayerAssignment[] or array of convertible elements
-        template <typename TArrayElem> void put_LayerAssignment(TArrayElem arr[], size_t n) { SetOfIfcPresentationLayerAssignment lst; ArrayToList(arr, n, lst); put_LayerAssignment(lst); }
-
         //TList may be SetOfIfcStyledItem or list of converible elements
         template <typename TList> void get_StyledByItem(TList& lst) { SetOfIfcStyledItemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "StyledByItem"); }
-
-        //TList may be SetOfIfcStyledItem or list of converible elements
-        template <typename TList> void put_StyledByItem(TList& lst) { SetOfIfcStyledItemSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "StyledByItem"); }
-
-        //TArrayElem[] may be IfcStyledItem[] or array of convertible elements
-        template <typename TArrayElem> void put_StyledByItem(TArrayElem arr[], size_t n) { SetOfIfcStyledItem lst; ArrayToList(arr, n, lst); put_StyledByItem(lst); }
     };
 
 
@@ -10333,12 +10111,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcTextureMap or list of converible elements
         template <typename TList> void get_HasTextureMaps(TList& lst) { SetOfIfcTextureMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasTextureMaps"); }
-
-        //TList may be SetOfIfcTextureMap or list of converible elements
-        template <typename TList> void put_HasTextureMaps(TList& lst) { SetOfIfcTextureMapSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasTextureMaps"); }
-
-        //TArrayElem[] may be IfcTextureMap[] or array of convertible elements
-        template <typename TArrayElem> void put_HasTextureMaps(TArrayElem arr[], size_t n) { SetOfIfcTextureMap lst; ArrayToList(arr, n, lst); put_HasTextureMaps(lst); }
     };
 
 
@@ -10414,12 +10186,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelFlowControlElements or list of converible elements
         template <typename TList> void get_HasControlElements(TList& lst) { SetOfIfcRelFlowControlElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasControlElements"); }
-
-        //TList may be SetOfIfcRelFlowControlElements or list of converible elements
-        template <typename TList> void put_HasControlElements(TList& lst) { SetOfIfcRelFlowControlElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasControlElements"); }
-
-        //TArrayElem[] may be IfcRelFlowControlElements[] or array of convertible elements
-        template <typename TArrayElem> void put_HasControlElements(TArrayElem arr[], size_t n) { SetOfIfcRelFlowControlElements lst; ArrayToList(arr, n, lst); put_HasControlElements(lst); }
     };
 
 
@@ -10780,20 +10546,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
         template <typename TList> void get_ContainedInStructure(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ContainedInStructure"); }
 
-        //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ContainedInStructure(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
-
-        //TArrayElem[] may be IfcRelContainedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ContainedInStructure(TArrayElem arr[], size_t n) { SetOfIfcRelContainedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ContainedInStructure(lst); }
-
         //TList may be SetOfIfcRelPositions or list of converible elements
         template <typename TList> void get_Positions(TList& lst) { SetOfIfcRelPositionsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Positions"); }
-
-        //TList may be SetOfIfcRelPositions or list of converible elements
-        template <typename TList> void put_Positions(TList& lst) { SetOfIfcRelPositionsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Positions"); }
-
-        //TArrayElem[] may be IfcRelPositions[] or array of convertible elements
-        template <typename TArrayElem> void put_Positions(TArrayElem arr[], size_t n) { SetOfIfcRelPositions lst; ArrayToList(arr, n, lst); put_Positions(lst); }
     };
 
 
@@ -11138,12 +10892,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
         template <typename TList> void get_ContainedInStructure(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ContainedInStructure"); }
-
-        //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ContainedInStructure(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ContainedInStructure"); }
-
-        //TArrayElem[] may be IfcRelContainedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ContainedInStructure(TArrayElem arr[], size_t n) { SetOfIfcRelContainedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ContainedInStructure(lst); }
     };
 
 
@@ -11273,12 +11021,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReference"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReference"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReference(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReference(lst); }
     };
 
 
@@ -11332,47 +11074,17 @@ namespace IFC4x3
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReferences"); }
 
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReferences"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReferences(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReferences(lst); }
-
         //TList may be SetOfIfcRelAssociatesApproval or list of converible elements
         template <typename TList> void get_ApprovedObjects(TList& lst) { SetOfIfcRelAssociatesApprovalSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ApprovedObjects"); }
 
-        //TList may be SetOfIfcRelAssociatesApproval or list of converible elements
-        template <typename TList> void put_ApprovedObjects(TList& lst) { SetOfIfcRelAssociatesApprovalSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ApprovedObjects"); }
-
-        //TArrayElem[] may be IfcRelAssociatesApproval[] or array of convertible elements
-        template <typename TArrayElem> void put_ApprovedObjects(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesApproval lst; ArrayToList(arr, n, lst); put_ApprovedObjects(lst); }
-
         //TList may be SetOfIfcResourceApprovalRelationship or list of converible elements
         template <typename TList> void get_ApprovedResources(TList& lst) { SetOfIfcResourceApprovalRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ApprovedResources"); }
-
-        //TList may be SetOfIfcResourceApprovalRelationship or list of converible elements
-        template <typename TList> void put_ApprovedResources(TList& lst) { SetOfIfcResourceApprovalRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ApprovedResources"); }
-
-        //TArrayElem[] may be IfcResourceApprovalRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_ApprovedResources(TArrayElem arr[], size_t n) { SetOfIfcResourceApprovalRelationship lst; ArrayToList(arr, n, lst); put_ApprovedResources(lst); }
 
         //TList may be SetOfIfcApprovalRelationship or list of converible elements
         template <typename TList> void get_IsRelatedWith(TList& lst) { SetOfIfcApprovalRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsRelatedWith"); }
 
         //TList may be SetOfIfcApprovalRelationship or list of converible elements
-        template <typename TList> void put_IsRelatedWith(TList& lst) { SetOfIfcApprovalRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsRelatedWith"); }
-
-        //TArrayElem[] may be IfcApprovalRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_IsRelatedWith(TArrayElem arr[], size_t n) { SetOfIfcApprovalRelationship lst; ArrayToList(arr, n, lst); put_IsRelatedWith(lst); }
-
-        //TList may be SetOfIfcApprovalRelationship or list of converible elements
         template <typename TList> void get_Relates(TList& lst) { SetOfIfcApprovalRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Relates"); }
-
-        //TList may be SetOfIfcApprovalRelationship or list of converible elements
-        template <typename TList> void put_Relates(TList& lst) { SetOfIfcApprovalRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Relates"); }
-
-        //TArrayElem[] may be IfcApprovalRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_Relates(TArrayElem arr[], size_t n) { SetOfIfcApprovalRelationship lst; ArrayToList(arr, n, lst); put_Relates(lst); }
     };
 
 
@@ -11463,20 +11175,8 @@ namespace IFC4x3
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReference"); }
 
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReference"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReference(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReference(lst); }
-
         //TList may be SetOfIfcProfileProperties or list of converible elements
         template <typename TList> void get_HasProperties(TList& lst) { SetOfIfcProfilePropertiesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasProperties"); }
-
-        //TList may be SetOfIfcProfileProperties or list of converible elements
-        template <typename TList> void put_HasProperties(TList& lst) { SetOfIfcProfilePropertiesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasProperties"); }
-
-        //TArrayElem[] may be IfcProfileProperties[] or array of convertible elements
-        template <typename TArrayElem> void put_HasProperties(TArrayElem arr[], size_t n) { SetOfIfcProfileProperties lst; ArrayToList(arr, n, lst); put_HasProperties(lst); }
     };
 
 
@@ -11584,20 +11284,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssignsToGroup or list of converible elements
         template <typename TList> void get_IsGroupedBy(TList& lst) { SetOfIfcRelAssignsToGroupSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsGroupedBy"); }
 
-        //TList may be SetOfIfcRelAssignsToGroup or list of converible elements
-        template <typename TList> void put_IsGroupedBy(TList& lst) { SetOfIfcRelAssignsToGroupSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsGroupedBy"); }
-
-        //TArrayElem[] may be IfcRelAssignsToGroup[] or array of convertible elements
-        template <typename TArrayElem> void put_IsGroupedBy(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToGroup lst; ArrayToList(arr, n, lst); put_IsGroupedBy(lst); }
-
         //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
         template <typename TList> void get_ReferencedInStructures(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferencedInStructures"); }
-
-        //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ReferencedInStructures(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ReferencedInStructures"); }
-
-        //TArrayElem[] may be IfcRelReferencedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ReferencedInStructures(TArrayElem arr[], size_t n) { SetOfIfcRelReferencedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ReferencedInStructures(lst); }
     };
 
 
@@ -12108,20 +11796,8 @@ namespace IFC4x3
         //TList may be SetOfIfcTextureCoordinate or list of converible elements
         template <typename TList> void get_IsMappedBy(TList& lst) { SetOfIfcTextureCoordinateSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsMappedBy"); }
 
-        //TList may be SetOfIfcTextureCoordinate or list of converible elements
-        template <typename TList> void put_IsMappedBy(TList& lst) { SetOfIfcTextureCoordinateSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsMappedBy"); }
-
-        //TArrayElem[] may be IfcTextureCoordinate[] or array of convertible elements
-        template <typename TArrayElem> void put_IsMappedBy(TArrayElem arr[], size_t n) { SetOfIfcTextureCoordinate lst; ArrayToList(arr, n, lst); put_IsMappedBy(lst); }
-
         //TList may be SetOfIfcSurfaceStyleWithTextures or list of converible elements
         template <typename TList> void get_UsedInStyles(TList& lst) { SetOfIfcSurfaceStyleWithTexturesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "UsedInStyles"); }
-
-        //TList may be SetOfIfcSurfaceStyleWithTextures or list of converible elements
-        template <typename TList> void put_UsedInStyles(TList& lst) { SetOfIfcSurfaceStyleWithTexturesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "UsedInStyles"); }
-
-        //TArrayElem[] may be IfcSurfaceStyleWithTextures[] or array of convertible elements
-        template <typename TArrayElem> void put_UsedInStyles(TArrayElem arr[], size_t n) { SetOfIfcSurfaceStyleWithTextures lst; ArrayToList(arr, n, lst); put_UsedInStyles(lst); }
     };
 
 
@@ -12782,47 +12458,17 @@ namespace IFC4x3
         //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
         template <typename TList> void get_ContainsElements(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ContainsElements"); }
 
-        //TList may be SetOfIfcRelContainedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ContainsElements(TList& lst) { SetOfIfcRelContainedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ContainsElements"); }
-
-        //TArrayElem[] may be IfcRelContainedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ContainsElements(TArrayElem arr[], size_t n) { SetOfIfcRelContainedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ContainsElements(lst); }
-
         //TList may be SetOfIfcRelServicesBuildings or list of converible elements
         template <typename TList> void get_ServicedBySystems(TList& lst) { SetOfIfcRelServicesBuildingsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ServicedBySystems"); }
 
-        //TList may be SetOfIfcRelServicesBuildings or list of converible elements
-        template <typename TList> void put_ServicedBySystems(TList& lst) { SetOfIfcRelServicesBuildingsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ServicedBySystems"); }
-
-        //TArrayElem[] may be IfcRelServicesBuildings[] or array of convertible elements
-        template <typename TArrayElem> void put_ServicedBySystems(TArrayElem arr[], size_t n) { SetOfIfcRelServicesBuildings lst; ArrayToList(arr, n, lst); put_ServicedBySystems(lst); }
-
         //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
         template <typename TList> void get_ReferencesElements(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferencesElements"); }
-
-        //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ReferencesElements(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ReferencesElements"); }
-
-        //TArrayElem[] may be IfcRelReferencedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ReferencesElements(TArrayElem arr[], size_t n) { SetOfIfcRelReferencedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ReferencesElements(lst); }
 
         //TList may be SetOfIfcRelInterferesElements or list of converible elements
         template <typename TList> void get_IsInterferedByElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsInterferedByElements"); }
 
         //TList may be SetOfIfcRelInterferesElements or list of converible elements
-        template <typename TList> void put_IsInterferedByElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsInterferedByElements"); }
-
-        //TArrayElem[] may be IfcRelInterferesElements[] or array of convertible elements
-        template <typename TArrayElem> void put_IsInterferedByElements(TArrayElem arr[], size_t n) { SetOfIfcRelInterferesElements lst; ArrayToList(arr, n, lst); put_IsInterferedByElements(lst); }
-
-        //TList may be SetOfIfcRelInterferesElements or list of converible elements
         template <typename TList> void get_InterferesElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "InterferesElements"); }
-
-        //TList may be SetOfIfcRelInterferesElements or list of converible elements
-        template <typename TList> void put_InterferesElements(TList& lst) { SetOfIfcRelInterferesElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "InterferesElements"); }
-
-        //TArrayElem[] may be IfcRelInterferesElements[] or array of convertible elements
-        template <typename TArrayElem> void put_InterferesElements(TArrayElem arr[], size_t n) { SetOfIfcRelInterferesElements lst; ArrayToList(arr, n, lst); put_InterferesElements(lst); }
     };
 
 
@@ -13340,20 +12986,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelServicesBuildings or list of converible elements
         template <typename TList> void get_ServicesBuildings(TList& lst) { SetOfIfcRelServicesBuildingsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ServicesBuildings"); }
 
-        //TList may be SetOfIfcRelServicesBuildings or list of converible elements
-        template <typename TList> void put_ServicesBuildings(TList& lst) { SetOfIfcRelServicesBuildingsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ServicesBuildings"); }
-
-        //TArrayElem[] may be IfcRelServicesBuildings[] or array of convertible elements
-        template <typename TArrayElem> void put_ServicesBuildings(TArrayElem arr[], size_t n) { SetOfIfcRelServicesBuildings lst; ArrayToList(arr, n, lst); put_ServicesBuildings(lst); }
-
         //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
         template <typename TList> void get_ServicesFacilities(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ServicesFacilities"); }
-
-        //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
-        template <typename TList> void put_ServicesFacilities(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ServicesFacilities"); }
-
-        //TArrayElem[] may be IfcRelReferencedInSpatialStructure[] or array of convertible elements
-        template <typename TArrayElem> void put_ServicesFacilities(TArrayElem arr[], size_t n) { SetOfIfcRelReferencedInSpatialStructure lst; ArrayToList(arr, n, lst); put_ServicesFacilities(lst); }
     };
 
 
@@ -14441,20 +14075,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssociatesClassification or list of converible elements
         template <typename TList> void get_ClassificationForObjects(TList& lst) { SetOfIfcRelAssociatesClassificationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ClassificationForObjects"); }
 
-        //TList may be SetOfIfcRelAssociatesClassification or list of converible elements
-        template <typename TList> void put_ClassificationForObjects(TList& lst) { SetOfIfcRelAssociatesClassificationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ClassificationForObjects"); }
-
-        //TArrayElem[] may be IfcRelAssociatesClassification[] or array of convertible elements
-        template <typename TArrayElem> void put_ClassificationForObjects(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesClassification lst; ArrayToList(arr, n, lst); put_ClassificationForObjects(lst); }
-
         //TList may be SetOfIfcClassificationReference or list of converible elements
         template <typename TList> void get_HasReferences(TList& lst) { SetOfIfcClassificationReferenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasReferences"); }
-
-        //TList may be SetOfIfcClassificationReference or list of converible elements
-        template <typename TList> void put_HasReferences(TList& lst) { SetOfIfcClassificationReferenceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasReferences"); }
-
-        //TArrayElem[] may be IfcClassificationReference[] or array of convertible elements
-        template <typename TArrayElem> void put_HasReferences(TArrayElem arr[], size_t n) { SetOfIfcClassificationReference lst; ArrayToList(arr, n, lst); put_HasReferences(lst); }
     };
 
 
@@ -14485,12 +14107,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_ExternalReferenceForResources(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ExternalReferenceForResources"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_ExternalReferenceForResources(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ExternalReferenceForResources"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_ExternalReferenceForResources(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_ExternalReferenceForResources(lst); }
     };
 
 
@@ -14526,20 +14142,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssociatesClassification or list of converible elements
         template <typename TList> void get_ClassificationRefForObjects(TList& lst) { SetOfIfcRelAssociatesClassificationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ClassificationRefForObjects"); }
 
-        //TList may be SetOfIfcRelAssociatesClassification or list of converible elements
-        template <typename TList> void put_ClassificationRefForObjects(TList& lst) { SetOfIfcRelAssociatesClassificationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ClassificationRefForObjects"); }
-
-        //TArrayElem[] may be IfcRelAssociatesClassification[] or array of convertible elements
-        template <typename TArrayElem> void put_ClassificationRefForObjects(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesClassification lst; ArrayToList(arr, n, lst); put_ClassificationRefForObjects(lst); }
-
         //TList may be SetOfIfcClassificationReference or list of converible elements
         template <typename TList> void get_HasReferences(TList& lst) { SetOfIfcClassificationReferenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasReferences"); }
-
-        //TList may be SetOfIfcClassificationReference or list of converible elements
-        template <typename TList> void put_HasReferences(TList& lst) { SetOfIfcClassificationReferenceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasReferences"); }
-
-        //TArrayElem[] may be IfcClassificationReference[] or array of convertible elements
-        template <typename TArrayElem> void put_HasReferences(TArrayElem arr[], size_t n) { SetOfIfcClassificationReference lst; ArrayToList(arr, n, lst); put_HasReferences(lst); }
     };
 
 
@@ -14890,12 +14494,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReferences"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReferences"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReferences(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReferences(lst); }
     };
 
 
@@ -14924,56 +14522,20 @@ namespace IFC4x3
         //TList may be SetOfIfcPropertySet or list of converible elements
         template <typename TList> void get_PartOfPset(TList& lst) { SetOfIfcPropertySetSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfPset"); }
 
-        //TList may be SetOfIfcPropertySet or list of converible elements
-        template <typename TList> void put_PartOfPset(TList& lst) { SetOfIfcPropertySetSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfPset"); }
-
-        //TArrayElem[] may be IfcPropertySet[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfPset(TArrayElem arr[], size_t n) { SetOfIfcPropertySet lst; ArrayToList(arr, n, lst); put_PartOfPset(lst); }
-
         //TList may be SetOfIfcPropertyDependencyRelationship or list of converible elements
         template <typename TList> void get_PropertyForDependance(TList& lst) { SetOfIfcPropertyDependencyRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PropertyForDependance"); }
 
         //TList may be SetOfIfcPropertyDependencyRelationship or list of converible elements
-        template <typename TList> void put_PropertyForDependance(TList& lst) { SetOfIfcPropertyDependencyRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PropertyForDependance"); }
-
-        //TArrayElem[] may be IfcPropertyDependencyRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_PropertyForDependance(TArrayElem arr[], size_t n) { SetOfIfcPropertyDependencyRelationship lst; ArrayToList(arr, n, lst); put_PropertyForDependance(lst); }
-
-        //TList may be SetOfIfcPropertyDependencyRelationship or list of converible elements
         template <typename TList> void get_PropertyDependsOn(TList& lst) { SetOfIfcPropertyDependencyRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PropertyDependsOn"); }
-
-        //TList may be SetOfIfcPropertyDependencyRelationship or list of converible elements
-        template <typename TList> void put_PropertyDependsOn(TList& lst) { SetOfIfcPropertyDependencyRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PropertyDependsOn"); }
-
-        //TArrayElem[] may be IfcPropertyDependencyRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_PropertyDependsOn(TArrayElem arr[], size_t n) { SetOfIfcPropertyDependencyRelationship lst; ArrayToList(arr, n, lst); put_PropertyDependsOn(lst); }
 
         //TList may be SetOfIfcComplexProperty or list of converible elements
         template <typename TList> void get_PartOfComplex(TList& lst) { SetOfIfcComplexPropertySerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfComplex"); }
 
-        //TList may be SetOfIfcComplexProperty or list of converible elements
-        template <typename TList> void put_PartOfComplex(TList& lst) { SetOfIfcComplexPropertySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfComplex"); }
-
-        //TArrayElem[] may be IfcComplexProperty[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfComplex(TArrayElem arr[], size_t n) { SetOfIfcComplexProperty lst; ArrayToList(arr, n, lst); put_PartOfComplex(lst); }
-
         //TList may be SetOfIfcResourceConstraintRelationship or list of converible elements
         template <typename TList> void get_HasConstraints(TList& lst) { SetOfIfcResourceConstraintRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasConstraints"); }
 
-        //TList may be SetOfIfcResourceConstraintRelationship or list of converible elements
-        template <typename TList> void put_HasConstraints(TList& lst) { SetOfIfcResourceConstraintRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasConstraints"); }
-
-        //TArrayElem[] may be IfcResourceConstraintRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasConstraints(TArrayElem arr[], size_t n) { SetOfIfcResourceConstraintRelationship lst; ArrayToList(arr, n, lst); put_HasConstraints(lst); }
-
         //TList may be SetOfIfcResourceApprovalRelationship or list of converible elements
         template <typename TList> void get_HasApprovals(TList& lst) { SetOfIfcResourceApprovalRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasApprovals"); }
-
-        //TList may be SetOfIfcResourceApprovalRelationship or list of converible elements
-        template <typename TList> void put_HasApprovals(TList& lst) { SetOfIfcResourceApprovalRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasApprovals"); }
-
-        //TArrayElem[] may be IfcResourceApprovalRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasApprovals(TArrayElem arr[], size_t n) { SetOfIfcResourceApprovalRelationship lst; ArrayToList(arr, n, lst); put_HasApprovals(lst); }
     };
 
 
@@ -15030,20 +14592,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelDeclares or list of converible elements
         template <typename TList> void get_HasContext(TList& lst) { SetOfIfcRelDeclaresSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasContext"); }
 
-        //TList may be SetOfIfcRelDeclares or list of converible elements
-        template <typename TList> void put_HasContext(TList& lst) { SetOfIfcRelDeclaresSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasContext"); }
-
-        //TArrayElem[] may be IfcRelDeclares[] or array of convertible elements
-        template <typename TArrayElem> void put_HasContext(TArrayElem arr[], size_t n) { SetOfIfcRelDeclares lst; ArrayToList(arr, n, lst); put_HasContext(lst); }
-
         //TList may be SetOfIfcRelAssociates or list of converible elements
         template <typename TList> void get_HasAssociations(TList& lst) { SetOfIfcRelAssociatesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasAssociations"); }
-
-        //TList may be SetOfIfcRelAssociates or list of converible elements
-        template <typename TList> void put_HasAssociations(TList& lst) { SetOfIfcRelAssociatesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasAssociations"); }
-
-        //TArrayElem[] may be IfcRelAssociates[] or array of convertible elements
-        template <typename TArrayElem> void put_HasAssociations(TArrayElem arr[], size_t n) { SetOfIfcRelAssociates lst; ArrayToList(arr, n, lst); put_HasAssociations(lst); }
     };
 
 
@@ -15084,20 +14634,8 @@ namespace IFC4x3
         //TList may be SetOfIfcComplexPropertyTemplate or list of converible elements
         template <typename TList> void get_PartOfComplexTemplate(TList& lst) { SetOfIfcComplexPropertyTemplateSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfComplexTemplate"); }
 
-        //TList may be SetOfIfcComplexPropertyTemplate or list of converible elements
-        template <typename TList> void put_PartOfComplexTemplate(TList& lst) { SetOfIfcComplexPropertyTemplateSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfComplexTemplate"); }
-
-        //TArrayElem[] may be IfcComplexPropertyTemplate[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfComplexTemplate(TArrayElem arr[], size_t n) { SetOfIfcComplexPropertyTemplate lst; ArrayToList(arr, n, lst); put_PartOfComplexTemplate(lst); }
-
         //TList may be SetOfIfcPropertySetTemplate or list of converible elements
         template <typename TList> void get_PartOfPsetTemplate(TList& lst) { SetOfIfcPropertySetTemplateSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfPsetTemplate"); }
-
-        //TList may be SetOfIfcPropertySetTemplate or list of converible elements
-        template <typename TList> void put_PartOfPsetTemplate(TList& lst) { SetOfIfcPropertySetTemplateSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfPsetTemplate"); }
-
-        //TArrayElem[] may be IfcPropertySetTemplate[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfPsetTemplate(TArrayElem arr[], size_t n) { SetOfIfcPropertySetTemplate lst; ArrayToList(arr, n, lst); put_PartOfPsetTemplate(lst); }
     };
 
 
@@ -15159,12 +14697,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcCompositeCurve or list of converible elements
         template <typename TList> void get_UsingCurves(TList& lst) { SetOfIfcCompositeCurveSerializer<TList> sr; sr.FromAttr(lst, m_instance, "UsingCurves"); }
-
-        //TList may be SetOfIfcCompositeCurve or list of converible elements
-        template <typename TList> void put_UsingCurves(TList& lst) { SetOfIfcCompositeCurveSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "UsingCurves"); }
-
-        //TArrayElem[] may be IfcCompositeCurve[] or array of convertible elements
-        template <typename TArrayElem> void put_UsingCurves(TArrayElem arr[], size_t n) { SetOfIfcCompositeCurve lst; ArrayToList(arr, n, lst); put_UsingCurves(lst); }
     };
 
 
@@ -15571,20 +15103,8 @@ namespace IFC4x3
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReferences"); }
 
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReferences"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReferences(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReferences(lst); }
-
         //TList may be SetOfIfcResourceConstraintRelationship or list of converible elements
         template <typename TList> void get_PropertiesForConstraint(TList& lst) { SetOfIfcResourceConstraintRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PropertiesForConstraint"); }
-
-        //TList may be SetOfIfcResourceConstraintRelationship or list of converible elements
-        template <typename TList> void put_PropertiesForConstraint(TList& lst) { SetOfIfcResourceConstraintRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PropertiesForConstraint"); }
-
-        //TArrayElem[] may be IfcResourceConstraintRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_PropertiesForConstraint(TArrayElem arr[], size_t n) { SetOfIfcResourceConstraintRelationship lst; ArrayToList(arr, n, lst); put_PropertiesForConstraint(lst); }
     };
 
 
@@ -15612,12 +15132,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssignsToResource or list of converible elements
         template <typename TList> void get_ResourceOf(TList& lst) { SetOfIfcRelAssignsToResourceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ResourceOf"); }
-
-        //TList may be SetOfIfcRelAssignsToResource or list of converible elements
-        template <typename TList> void put_ResourceOf(TList& lst) { SetOfIfcRelAssignsToResourceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ResourceOf"); }
-
-        //TArrayElem[] may be IfcRelAssignsToResource[] or array of convertible elements
-        template <typename TArrayElem> void put_ResourceOf(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToResource lst; ArrayToList(arr, n, lst); put_ResourceOf(lst); }
     };
 
 
@@ -15706,12 +15220,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssignsToResource or list of converible elements
         template <typename TList> void get_ResourceOf(TList& lst) { SetOfIfcRelAssignsToResourceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ResourceOf"); }
-
-        //TList may be SetOfIfcRelAssignsToResource or list of converible elements
-        template <typename TList> void put_ResourceOf(TList& lst) { SetOfIfcRelAssignsToResourceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ResourceOf"); }
-
-        //TArrayElem[] may be IfcRelAssignsToResource[] or array of convertible elements
-        template <typename TArrayElem> void put_ResourceOf(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToResource lst; ArrayToList(arr, n, lst); put_ResourceOf(lst); }
     };
 
 
@@ -15910,20 +15418,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelDefinesByProperties or list of converible elements
         template <typename TList> void get_IsDefinedBy(TList& lst) { SetOfIfcRelDefinesByPropertiesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsDefinedBy"); }
 
-        //TList may be SetOfIfcRelDefinesByProperties or list of converible elements
-        template <typename TList> void put_IsDefinedBy(TList& lst) { SetOfIfcRelDefinesByPropertiesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsDefinedBy"); }
-
-        //TArrayElem[] may be IfcRelDefinesByProperties[] or array of convertible elements
-        template <typename TArrayElem> void put_IsDefinedBy(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByProperties lst; ArrayToList(arr, n, lst); put_IsDefinedBy(lst); }
-
         //TList may be SetOfIfcRelDeclares or list of converible elements
         template <typename TList> void get_Declares(TList& lst) { SetOfIfcRelDeclaresSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Declares"); }
-
-        //TList may be SetOfIfcRelDeclares or list of converible elements
-        template <typename TList> void put_Declares(TList& lst) { SetOfIfcRelDeclaresSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Declares"); }
-
-        //TArrayElem[] may be IfcRelDeclares[] or array of convertible elements
-        template <typename TArrayElem> void put_Declares(TArrayElem arr[], size_t n) { SetOfIfcRelDeclares lst; ArrayToList(arr, n, lst); put_Declares(lst); }
     };
 
 
@@ -15976,12 +15472,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReference"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReference"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReference(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReference(lst); }
     };
 
 
@@ -16063,12 +15553,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReference"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReference"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReference(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReference(lst); }
     };
 
 
@@ -16301,12 +15785,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcCoordinateOperation or list of converible elements
         template <typename TList> void get_HasCoordinateOperation(TList& lst) { SetOfIfcCoordinateOperationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasCoordinateOperation"); }
-
-        //TList may be SetOfIfcCoordinateOperation or list of converible elements
-        template <typename TList> void put_HasCoordinateOperation(TList& lst) { SetOfIfcCoordinateOperationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasCoordinateOperation"); }
-
-        //TArrayElem[] may be IfcCoordinateOperation[] or array of convertible elements
-        template <typename TArrayElem> void put_HasCoordinateOperation(TArrayElem arr[], size_t n) { SetOfIfcCoordinateOperation lst; ArrayToList(arr, n, lst); put_HasCoordinateOperation(lst); }
     };
 
 
@@ -16513,20 +15991,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelCoversSpaces or list of converible elements
         template <typename TList> void get_CoversSpaces(TList& lst) { SetOfIfcRelCoversSpacesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "CoversSpaces"); }
 
-        //TList may be SetOfIfcRelCoversSpaces or list of converible elements
-        template <typename TList> void put_CoversSpaces(TList& lst) { SetOfIfcRelCoversSpacesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "CoversSpaces"); }
-
-        //TArrayElem[] may be IfcRelCoversSpaces[] or array of convertible elements
-        template <typename TArrayElem> void put_CoversSpaces(TArrayElem arr[], size_t n) { SetOfIfcRelCoversSpaces lst; ArrayToList(arr, n, lst); put_CoversSpaces(lst); }
-
         //TList may be SetOfIfcRelCoversBldgElements or list of converible elements
         template <typename TList> void get_CoversElements(TList& lst) { SetOfIfcRelCoversBldgElementsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "CoversElements"); }
-
-        //TList may be SetOfIfcRelCoversBldgElements or list of converible elements
-        template <typename TList> void put_CoversElements(TList& lst) { SetOfIfcRelCoversBldgElementsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "CoversElements"); }
-
-        //TArrayElem[] may be IfcRelCoversBldgElements[] or array of convertible elements
-        template <typename TArrayElem> void put_CoversElements(TArrayElem arr[], size_t n) { SetOfIfcRelCoversBldgElements lst; ArrayToList(arr, n, lst); put_CoversElements(lst); }
     };
 
 
@@ -17596,29 +17062,11 @@ namespace IFC4x3
         //TList may be SetOfIfcRelConnectsPortToElement or list of converible elements
         template <typename TList> void get_ContainedIn(TList& lst) { SetOfIfcRelConnectsPortToElementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ContainedIn"); }
 
-        //TList may be SetOfIfcRelConnectsPortToElement or list of converible elements
-        template <typename TList> void put_ContainedIn(TList& lst) { SetOfIfcRelConnectsPortToElementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ContainedIn"); }
-
-        //TArrayElem[] may be IfcRelConnectsPortToElement[] or array of convertible elements
-        template <typename TArrayElem> void put_ContainedIn(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsPortToElement lst; ArrayToList(arr, n, lst); put_ContainedIn(lst); }
-
         //TList may be SetOfIfcRelConnectsPorts or list of converible elements
         template <typename TList> void get_ConnectedFrom(TList& lst) { SetOfIfcRelConnectsPortsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ConnectedFrom"); }
 
         //TList may be SetOfIfcRelConnectsPorts or list of converible elements
-        template <typename TList> void put_ConnectedFrom(TList& lst) { SetOfIfcRelConnectsPortsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ConnectedFrom"); }
-
-        //TArrayElem[] may be IfcRelConnectsPorts[] or array of convertible elements
-        template <typename TArrayElem> void put_ConnectedFrom(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsPorts lst; ArrayToList(arr, n, lst); put_ConnectedFrom(lst); }
-
-        //TList may be SetOfIfcRelConnectsPorts or list of converible elements
         template <typename TList> void get_ConnectedTo(TList& lst) { SetOfIfcRelConnectsPortsSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ConnectedTo"); }
-
-        //TList may be SetOfIfcRelConnectsPorts or list of converible elements
-        template <typename TList> void put_ConnectedTo(TList& lst) { SetOfIfcRelConnectsPortsSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ConnectedTo"); }
-
-        //TArrayElem[] may be IfcRelConnectsPorts[] or array of convertible elements
-        template <typename TArrayElem> void put_ConnectedTo(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsPorts lst; ArrayToList(arr, n, lst); put_ConnectedTo(lst); }
     };
 
 
@@ -17730,38 +17178,14 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssociatesDocument or list of converible elements
         template <typename TList> void get_DocumentInfoForObjects(TList& lst) { SetOfIfcRelAssociatesDocumentSerializer<TList> sr; sr.FromAttr(lst, m_instance, "DocumentInfoForObjects"); }
 
-        //TList may be SetOfIfcRelAssociatesDocument or list of converible elements
-        template <typename TList> void put_DocumentInfoForObjects(TList& lst) { SetOfIfcRelAssociatesDocumentSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "DocumentInfoForObjects"); }
-
-        //TArrayElem[] may be IfcRelAssociatesDocument[] or array of convertible elements
-        template <typename TArrayElem> void put_DocumentInfoForObjects(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesDocument lst; ArrayToList(arr, n, lst); put_DocumentInfoForObjects(lst); }
-
         //TList may be SetOfIfcDocumentReference or list of converible elements
         template <typename TList> void get_HasDocumentReferences(TList& lst) { SetOfIfcDocumentReferenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasDocumentReferences"); }
-
-        //TList may be SetOfIfcDocumentReference or list of converible elements
-        template <typename TList> void put_HasDocumentReferences(TList& lst) { SetOfIfcDocumentReferenceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasDocumentReferences"); }
-
-        //TArrayElem[] may be IfcDocumentReference[] or array of convertible elements
-        template <typename TArrayElem> void put_HasDocumentReferences(TArrayElem arr[], size_t n) { SetOfIfcDocumentReference lst; ArrayToList(arr, n, lst); put_HasDocumentReferences(lst); }
 
         //TList may be SetOfIfcDocumentInformationRelationship or list of converible elements
         template <typename TList> void get_IsPointedTo(TList& lst) { SetOfIfcDocumentInformationRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsPointedTo"); }
 
         //TList may be SetOfIfcDocumentInformationRelationship or list of converible elements
-        template <typename TList> void put_IsPointedTo(TList& lst) { SetOfIfcDocumentInformationRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsPointedTo"); }
-
-        //TArrayElem[] may be IfcDocumentInformationRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_IsPointedTo(TArrayElem arr[], size_t n) { SetOfIfcDocumentInformationRelationship lst; ArrayToList(arr, n, lst); put_IsPointedTo(lst); }
-
-        //TList may be SetOfIfcDocumentInformationRelationship or list of converible elements
         template <typename TList> void get_IsPointer(TList& lst) { SetOfIfcDocumentInformationRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsPointer"); }
-
-        //TList may be SetOfIfcDocumentInformationRelationship or list of converible elements
-        template <typename TList> void put_IsPointer(TList& lst) { SetOfIfcDocumentInformationRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsPointer"); }
-
-        //TArrayElem[] may be IfcDocumentInformationRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_IsPointer(TArrayElem arr[], size_t n) { SetOfIfcDocumentInformationRelationship lst; ArrayToList(arr, n, lst); put_IsPointer(lst); }
     };
 
 
@@ -17830,12 +17254,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssociatesDocument or list of converible elements
         template <typename TList> void get_DocumentRefForObjects(TList& lst) { SetOfIfcRelAssociatesDocumentSerializer<TList> sr; sr.FromAttr(lst, m_instance, "DocumentRefForObjects"); }
-
-        //TList may be SetOfIfcRelAssociatesDocument or list of converible elements
-        template <typename TList> void put_DocumentRefForObjects(TList& lst) { SetOfIfcRelAssociatesDocumentSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "DocumentRefForObjects"); }
-
-        //TArrayElem[] may be IfcRelAssociatesDocument[] or array of convertible elements
-        template <typename TArrayElem> void put_DocumentRefForObjects(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesDocument lst; ArrayToList(arr, n, lst); put_DocumentRefForObjects(lst); }
     };
 
 
@@ -17895,29 +17313,11 @@ namespace IFC4x3
         //TList may be SetOfIfcTypeObject or list of converible elements
         template <typename TList> void get_DefinesType(TList& lst) { SetOfIfcTypeObjectSerializer<TList> sr; sr.FromAttr(lst, m_instance, "DefinesType"); }
 
-        //TList may be SetOfIfcTypeObject or list of converible elements
-        template <typename TList> void put_DefinesType(TList& lst) { SetOfIfcTypeObjectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "DefinesType"); }
-
-        //TArrayElem[] may be IfcTypeObject[] or array of convertible elements
-        template <typename TArrayElem> void put_DefinesType(TArrayElem arr[], size_t n) { SetOfIfcTypeObject lst; ArrayToList(arr, n, lst); put_DefinesType(lst); }
-
         //TList may be SetOfIfcRelDefinesByTemplate or list of converible elements
         template <typename TList> void get_IsDefinedBy(TList& lst) { SetOfIfcRelDefinesByTemplateSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsDefinedBy"); }
 
-        //TList may be SetOfIfcRelDefinesByTemplate or list of converible elements
-        template <typename TList> void put_IsDefinedBy(TList& lst) { SetOfIfcRelDefinesByTemplateSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsDefinedBy"); }
-
-        //TArrayElem[] may be IfcRelDefinesByTemplate[] or array of convertible elements
-        template <typename TArrayElem> void put_IsDefinedBy(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByTemplate lst; ArrayToList(arr, n, lst); put_IsDefinedBy(lst); }
-
         //TList may be SetOfIfcRelDefinesByProperties or list of converible elements
         template <typename TList> void get_DefinesOccurrence(TList& lst) { SetOfIfcRelDefinesByPropertiesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "DefinesOccurrence"); }
-
-        //TList may be SetOfIfcRelDefinesByProperties or list of converible elements
-        template <typename TList> void put_DefinesOccurrence(TList& lst) { SetOfIfcRelDefinesByPropertiesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "DefinesOccurrence"); }
-
-        //TArrayElem[] may be IfcRelDefinesByProperties[] or array of convertible elements
-        template <typename TArrayElem> void put_DefinesOccurrence(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByProperties lst; ArrayToList(arr, n, lst); put_DefinesOccurrence(lst); }
     };
 
 
@@ -18397,7 +17797,6 @@ namespace IFC4x3
 
 
         IfcRelVoidsElement get_VoidsElements();
-        void put_VoidsElements(IfcRelVoidsElement inst);
     };
 
 
@@ -19309,28 +18708,10 @@ namespace IFC4x3
         template <typename TList> void get_IsPredecessorTo(TList& lst) { SetOfIfcRelSequenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsPredecessorTo"); }
 
         //TList may be SetOfIfcRelSequence or list of converible elements
-        template <typename TList> void put_IsPredecessorTo(TList& lst) { SetOfIfcRelSequenceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsPredecessorTo"); }
-
-        //TArrayElem[] may be IfcRelSequence[] or array of convertible elements
-        template <typename TArrayElem> void put_IsPredecessorTo(TArrayElem arr[], size_t n) { SetOfIfcRelSequence lst; ArrayToList(arr, n, lst); put_IsPredecessorTo(lst); }
-
-        //TList may be SetOfIfcRelSequence or list of converible elements
         template <typename TList> void get_IsSuccessorFrom(TList& lst) { SetOfIfcRelSequenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsSuccessorFrom"); }
-
-        //TList may be SetOfIfcRelSequence or list of converible elements
-        template <typename TList> void put_IsSuccessorFrom(TList& lst) { SetOfIfcRelSequenceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsSuccessorFrom"); }
-
-        //TArrayElem[] may be IfcRelSequence[] or array of convertible elements
-        template <typename TArrayElem> void put_IsSuccessorFrom(TArrayElem arr[], size_t n) { SetOfIfcRelSequence lst; ArrayToList(arr, n, lst); put_IsSuccessorFrom(lst); }
 
         //TList may be SetOfIfcRelAssignsToProcess or list of converible elements
         template <typename TList> void get_OperatesOn(TList& lst) { SetOfIfcRelAssignsToProcessSerializer<TList> sr; sr.FromAttr(lst, m_instance, "OperatesOn"); }
-
-        //TList may be SetOfIfcRelAssignsToProcess or list of converible elements
-        template <typename TList> void put_OperatesOn(TList& lst) { SetOfIfcRelAssignsToProcessSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "OperatesOn"); }
-
-        //TArrayElem[] may be IfcRelAssignsToProcess[] or array of convertible elements
-        template <typename TArrayElem> void put_OperatesOn(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToProcess lst; ArrayToList(arr, n, lst); put_OperatesOn(lst); }
     };
 
 
@@ -19456,12 +18837,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssignsToProcess or list of converible elements
         template <typename TList> void get_OperatesOn(TList& lst) { SetOfIfcRelAssignsToProcessSerializer<TList> sr; sr.FromAttr(lst, m_instance, "OperatesOn"); }
-
-        //TList may be SetOfIfcRelAssignsToProcess or list of converible elements
-        template <typename TList> void put_OperatesOn(TList& lst) { SetOfIfcRelAssignsToProcessSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "OperatesOn"); }
-
-        //TArrayElem[] may be IfcRelAssignsToProcess[] or array of convertible elements
-        template <typename TArrayElem> void put_OperatesOn(TArrayElem arr[], size_t n) { SetOfIfcRelAssignsToProcess lst; ArrayToList(arr, n, lst); put_OperatesOn(lst); }
     };
 
 
@@ -19669,12 +19044,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelSpaceBoundary or list of converible elements
         template <typename TList> void get_BoundedBy(TList& lst) { SetOfIfcRelSpaceBoundarySerializer<TList> sr; sr.FromAttr(lst, m_instance, "BoundedBy"); }
-
-        //TList may be SetOfIfcRelSpaceBoundary or list of converible elements
-        template <typename TList> void put_BoundedBy(TList& lst) { SetOfIfcRelSpaceBoundarySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "BoundedBy"); }
-
-        //TArrayElem[] may be IfcRelSpaceBoundary[] or array of convertible elements
-        template <typename TArrayElem> void put_BoundedBy(TArrayElem arr[], size_t n) { SetOfIfcRelSpaceBoundary lst; ArrayToList(arr, n, lst); put_BoundedBy(lst); }
     };
 
 
@@ -20068,7 +19437,6 @@ namespace IFC4x3
 
 
         IfcRelProjectsElement get_ProjectsElements();
-        void put_ProjectsElements(IfcRelProjectsElement inst);
     };
 
 
@@ -20654,12 +20022,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRepresentation or list of converible elements
         template <typename TList> void get_RepresentationsInContext(TList& lst) { SetOfIfcRepresentationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "RepresentationsInContext"); }
-
-        //TList may be SetOfIfcRepresentation or list of converible elements
-        template <typename TList> void put_RepresentationsInContext(TList& lst) { SetOfIfcRepresentationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "RepresentationsInContext"); }
-
-        //TArrayElem[] may be IfcRepresentation[] or array of convertible elements
-        template <typename TArrayElem> void put_RepresentationsInContext(TArrayElem arr[], size_t n) { SetOfIfcRepresentation lst; ArrayToList(arr, n, lst); put_RepresentationsInContext(lst); }
     };
 
 
@@ -20698,20 +20060,8 @@ namespace IFC4x3
         //TList may be SetOfIfcGeometricRepresentationSubContext or list of converible elements
         template <typename TList> void get_HasSubContexts(TList& lst) { SetOfIfcGeometricRepresentationSubContextSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasSubContexts"); }
 
-        //TList may be SetOfIfcGeometricRepresentationSubContext or list of converible elements
-        template <typename TList> void put_HasSubContexts(TList& lst) { SetOfIfcGeometricRepresentationSubContextSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasSubContexts"); }
-
-        //TArrayElem[] may be IfcGeometricRepresentationSubContext[] or array of convertible elements
-        template <typename TArrayElem> void put_HasSubContexts(TArrayElem arr[], size_t n) { SetOfIfcGeometricRepresentationSubContext lst; ArrayToList(arr, n, lst); put_HasSubContexts(lst); }
-
         //TList may be SetOfIfcCoordinateOperation or list of converible elements
         template <typename TList> void get_HasCoordinateOperation(TList& lst) { SetOfIfcCoordinateOperationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasCoordinateOperation"); }
-
-        //TList may be SetOfIfcCoordinateOperation or list of converible elements
-        template <typename TList> void put_HasCoordinateOperation(TList& lst) { SetOfIfcCoordinateOperationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasCoordinateOperation"); }
-
-        //TArrayElem[] may be IfcCoordinateOperation[] or array of convertible elements
-        template <typename TArrayElem> void put_HasCoordinateOperation(TArrayElem arr[], size_t n) { SetOfIfcCoordinateOperation lst; ArrayToList(arr, n, lst); put_HasCoordinateOperation(lst); }
     };
 
 
@@ -20931,37 +20281,13 @@ namespace IFC4x3
         template <typename TList> void get_PartOfW(TList& lst) { SetOfIfcGridSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfW"); }
 
         //TList may be SetOfIfcGrid or list of converible elements
-        template <typename TList> void put_PartOfW(TList& lst) { SetOfIfcGridSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfW"); }
-
-        //TArrayElem[] may be IfcGrid[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfW(TArrayElem arr[], size_t n) { SetOfIfcGrid lst; ArrayToList(arr, n, lst); put_PartOfW(lst); }
-
-        //TList may be SetOfIfcGrid or list of converible elements
         template <typename TList> void get_PartOfV(TList& lst) { SetOfIfcGridSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfV"); }
-
-        //TList may be SetOfIfcGrid or list of converible elements
-        template <typename TList> void put_PartOfV(TList& lst) { SetOfIfcGridSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfV"); }
-
-        //TArrayElem[] may be IfcGrid[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfV(TArrayElem arr[], size_t n) { SetOfIfcGrid lst; ArrayToList(arr, n, lst); put_PartOfV(lst); }
 
         //TList may be SetOfIfcGrid or list of converible elements
         template <typename TList> void get_PartOfU(TList& lst) { SetOfIfcGridSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfU"); }
 
-        //TList may be SetOfIfcGrid or list of converible elements
-        template <typename TList> void put_PartOfU(TList& lst) { SetOfIfcGridSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfU"); }
-
-        //TArrayElem[] may be IfcGrid[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfU(TArrayElem arr[], size_t n) { SetOfIfcGrid lst; ArrayToList(arr, n, lst); put_PartOfU(lst); }
-
         //TList may be SetOfIfcVirtualGridIntersection or list of converible elements
         template <typename TList> void get_HasIntersections(TList& lst) { SetOfIfcVirtualGridIntersectionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasIntersections"); }
-
-        //TList may be SetOfIfcVirtualGridIntersection or list of converible elements
-        template <typename TList> void put_HasIntersections(TList& lst) { SetOfIfcVirtualGridIntersectionSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasIntersections"); }
-
-        //TArrayElem[] may be IfcVirtualGridIntersection[] or array of convertible elements
-        template <typename TArrayElem> void put_HasIntersections(TArrayElem arr[], size_t n) { SetOfIfcVirtualGridIntersection lst; ArrayToList(arr, n, lst); put_HasIntersections(lst); }
     };
 
 
@@ -20987,20 +20313,8 @@ namespace IFC4x3
         //TList may be SetOfIfcProduct or list of converible elements
         template <typename TList> void get_PlacesObject(TList& lst) { SetOfIfcProductSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PlacesObject"); }
 
-        //TList may be SetOfIfcProduct or list of converible elements
-        template <typename TList> void put_PlacesObject(TList& lst) { SetOfIfcProductSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PlacesObject"); }
-
-        //TArrayElem[] may be IfcProduct[] or array of convertible elements
-        template <typename TArrayElem> void put_PlacesObject(TArrayElem arr[], size_t n) { SetOfIfcProduct lst; ArrayToList(arr, n, lst); put_PlacesObject(lst); }
-
         //TList may be SetOfIfcObjectPlacement or list of converible elements
         template <typename TList> void get_ReferencedByPlacements(TList& lst) { SetOfIfcObjectPlacementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferencedByPlacements"); }
-
-        //TList may be SetOfIfcObjectPlacement or list of converible elements
-        template <typename TList> void put_ReferencedByPlacements(TList& lst) { SetOfIfcObjectPlacementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ReferencedByPlacements"); }
-
-        //TArrayElem[] may be IfcObjectPlacement[] or array of convertible elements
-        template <typename TArrayElem> void put_ReferencedByPlacements(TArrayElem arr[], size_t n) { SetOfIfcObjectPlacement lst; ArrayToList(arr, n, lst); put_ReferencedByPlacements(lst); }
     };
 
 
@@ -21331,20 +20645,8 @@ namespace IFC4x3
         //TList may be SetOfIfcPolygonalFaceSet or list of converible elements
         template <typename TList> void get_ToFaceSet(TList& lst) { SetOfIfcPolygonalFaceSetSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ToFaceSet"); }
 
-        //TList may be SetOfIfcPolygonalFaceSet or list of converible elements
-        template <typename TList> void put_ToFaceSet(TList& lst) { SetOfIfcPolygonalFaceSetSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ToFaceSet"); }
-
-        //TArrayElem[] may be IfcPolygonalFaceSet[] or array of convertible elements
-        template <typename TArrayElem> void put_ToFaceSet(TArrayElem arr[], size_t n) { SetOfIfcPolygonalFaceSet lst; ArrayToList(arr, n, lst); put_ToFaceSet(lst); }
-
         //TList may be SetOfIfcTextureCoordinateIndices or list of converible elements
         template <typename TList> void get_HasTexCoords(TList& lst) { SetOfIfcTextureCoordinateIndicesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasTexCoords"); }
-
-        //TList may be SetOfIfcTextureCoordinateIndices or list of converible elements
-        template <typename TList> void put_HasTexCoords(TList& lst) { SetOfIfcTextureCoordinateIndicesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasTexCoords"); }
-
-        //TArrayElem[] may be IfcTextureCoordinateIndices[] or array of convertible elements
-        template <typename TArrayElem> void put_HasTexCoords(TArrayElem arr[], size_t n) { SetOfIfcTextureCoordinateIndices lst; ArrayToList(arr, n, lst); put_HasTexCoords(lst); }
     };
 
 
@@ -21683,12 +20985,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReference"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReference(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReference"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReference(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReference(lst); }
     };
 
 
@@ -22066,20 +21362,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssociatesLibrary or list of converible elements
         template <typename TList> void get_LibraryInfoForObjects(TList& lst) { SetOfIfcRelAssociatesLibrarySerializer<TList> sr; sr.FromAttr(lst, m_instance, "LibraryInfoForObjects"); }
 
-        //TList may be SetOfIfcRelAssociatesLibrary or list of converible elements
-        template <typename TList> void put_LibraryInfoForObjects(TList& lst) { SetOfIfcRelAssociatesLibrarySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "LibraryInfoForObjects"); }
-
-        //TArrayElem[] may be IfcRelAssociatesLibrary[] or array of convertible elements
-        template <typename TArrayElem> void put_LibraryInfoForObjects(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesLibrary lst; ArrayToList(arr, n, lst); put_LibraryInfoForObjects(lst); }
-
         //TList may be SetOfIfcLibraryReference or list of converible elements
         template <typename TList> void get_HasLibraryReferences(TList& lst) { SetOfIfcLibraryReferenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasLibraryReferences"); }
-
-        //TList may be SetOfIfcLibraryReference or list of converible elements
-        template <typename TList> void put_HasLibraryReferences(TList& lst) { SetOfIfcLibraryReferenceSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasLibraryReferences"); }
-
-        //TArrayElem[] may be IfcLibraryReference[] or array of convertible elements
-        template <typename TArrayElem> void put_HasLibraryReferences(TArrayElem arr[], size_t n) { SetOfIfcLibraryReference lst; ArrayToList(arr, n, lst); put_HasLibraryReferences(lst); }
     };
 
 
@@ -22114,12 +21398,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssociatesLibrary or list of converible elements
         template <typename TList> void get_LibraryRefForObjects(TList& lst) { SetOfIfcRelAssociatesLibrarySerializer<TList> sr; sr.FromAttr(lst, m_instance, "LibraryRefForObjects"); }
-
-        //TList may be SetOfIfcRelAssociatesLibrary or list of converible elements
-        template <typename TList> void put_LibraryRefForObjects(TList& lst) { SetOfIfcRelAssociatesLibrarySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "LibraryRefForObjects"); }
-
-        //TArrayElem[] may be IfcRelAssociatesLibrary[] or array of convertible elements
-        template <typename TArrayElem> void put_LibraryRefForObjects(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesLibrary lst; ArrayToList(arr, n, lst); put_LibraryRefForObjects(lst); }
     };
 
 
@@ -22752,29 +22030,11 @@ namespace IFC4x3
         //TList may be SetOfIfcRelAssociatesMaterial or list of converible elements
         template <typename TList> void get_AssociatedTo(TList& lst) { SetOfIfcRelAssociatesMaterialSerializer<TList> sr; sr.FromAttr(lst, m_instance, "AssociatedTo"); }
 
-        //TList may be SetOfIfcRelAssociatesMaterial or list of converible elements
-        template <typename TList> void put_AssociatedTo(TList& lst) { SetOfIfcRelAssociatesMaterialSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "AssociatedTo"); }
-
-        //TArrayElem[] may be IfcRelAssociatesMaterial[] or array of convertible elements
-        template <typename TArrayElem> void put_AssociatedTo(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesMaterial lst; ArrayToList(arr, n, lst); put_AssociatedTo(lst); }
-
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReferences"); }
 
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReferences"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReferences(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReferences(lst); }
-
         //TList may be SetOfIfcMaterialProperties or list of converible elements
         template <typename TList> void get_HasProperties(TList& lst) { SetOfIfcMaterialPropertiesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasProperties"); }
-
-        //TList may be SetOfIfcMaterialProperties or list of converible elements
-        template <typename TList> void put_HasProperties(TList& lst) { SetOfIfcMaterialPropertiesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasProperties"); }
-
-        //TArrayElem[] may be IfcMaterialProperties[] or array of convertible elements
-        template <typename TArrayElem> void put_HasProperties(TArrayElem arr[], size_t n) { SetOfIfcMaterialProperties lst; ArrayToList(arr, n, lst); put_HasProperties(lst); }
     };
 
 
@@ -22810,29 +22070,11 @@ namespace IFC4x3
         //TList may be SetOfIfcMaterialDefinitionRepresentation or list of converible elements
         template <typename TList> void get_HasRepresentation(TList& lst) { SetOfIfcMaterialDefinitionRepresentationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasRepresentation"); }
 
-        //TList may be SetOfIfcMaterialDefinitionRepresentation or list of converible elements
-        template <typename TList> void put_HasRepresentation(TList& lst) { SetOfIfcMaterialDefinitionRepresentationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasRepresentation"); }
-
-        //TArrayElem[] may be IfcMaterialDefinitionRepresentation[] or array of convertible elements
-        template <typename TArrayElem> void put_HasRepresentation(TArrayElem arr[], size_t n) { SetOfIfcMaterialDefinitionRepresentation lst; ArrayToList(arr, n, lst); put_HasRepresentation(lst); }
-
         //TList may be SetOfIfcMaterialRelationship or list of converible elements
         template <typename TList> void get_IsRelatedWith(TList& lst) { SetOfIfcMaterialRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsRelatedWith"); }
 
         //TList may be SetOfIfcMaterialRelationship or list of converible elements
-        template <typename TList> void put_IsRelatedWith(TList& lst) { SetOfIfcMaterialRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsRelatedWith"); }
-
-        //TArrayElem[] may be IfcMaterialRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_IsRelatedWith(TArrayElem arr[], size_t n) { SetOfIfcMaterialRelationship lst; ArrayToList(arr, n, lst); put_IsRelatedWith(lst); }
-
-        //TList may be SetOfIfcMaterialRelationship or list of converible elements
         template <typename TList> void get_RelatesTo(TList& lst) { SetOfIfcMaterialRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "RelatesTo"); }
-
-        //TList may be SetOfIfcMaterialRelationship or list of converible elements
-        template <typename TList> void put_RelatesTo(TList& lst) { SetOfIfcMaterialRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "RelatesTo"); }
-
-        //TArrayElem[] may be IfcMaterialRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_RelatesTo(TArrayElem arr[], size_t n) { SetOfIfcMaterialRelationship lst; ArrayToList(arr, n, lst); put_RelatesTo(lst); }
     };
 
 
@@ -22903,7 +22145,6 @@ namespace IFC4x3
         void put_Category(IfcLabel value) { sdaiPutAttrBN(m_instance, "Category", sdaiSTRING, value); }
 
         IfcMaterialConstituentSet get_ToMaterialConstituentSet();
-        void put_ToMaterialConstituentSet(IfcMaterialConstituentSet inst);
     };
 
 
@@ -23044,7 +22285,6 @@ namespace IFC4x3
         void put_Priority(IfcInteger value) { sdaiPutAttrBN(m_instance, "Priority", sdaiINTEGER, &value); }
 
         IfcMaterialLayerSet get_ToMaterialLayerSet();
-        void put_ToMaterialLayerSet(IfcMaterialLayerSet inst);
     };
 
 
@@ -23103,12 +22343,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelAssociatesMaterial or list of converible elements
         template <typename TList> void get_AssociatedTo(TList& lst) { SetOfIfcRelAssociatesMaterialSerializer<TList> sr; sr.FromAttr(lst, m_instance, "AssociatedTo"); }
-
-        //TList may be SetOfIfcRelAssociatesMaterial or list of converible elements
-        template <typename TList> void put_AssociatedTo(TList& lst) { SetOfIfcRelAssociatesMaterialSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "AssociatedTo"); }
-
-        //TArrayElem[] may be IfcRelAssociatesMaterial[] or array of convertible elements
-        template <typename TArrayElem> void put_AssociatedTo(TArrayElem arr[], size_t n) { SetOfIfcRelAssociatesMaterial lst; ArrayToList(arr, n, lst); put_AssociatedTo(lst); }
     };
 
 
@@ -23253,7 +22487,6 @@ namespace IFC4x3
         void put_Category(IfcLabel value) { sdaiPutAttrBN(m_instance, "Category", sdaiSTRING, value); }
 
         IfcMaterialProfileSet get_ToMaterialProfileSet();
-        void put_ToMaterialProfileSet(IfcMaterialProfileSet inst);
     };
 
 
@@ -24179,12 +23412,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelFillsElement or list of converible elements
         template <typename TList> void get_HasFillings(TList& lst) { SetOfIfcRelFillsElementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasFillings"); }
-
-        //TList may be SetOfIfcRelFillsElement or list of converible elements
-        template <typename TList> void put_HasFillings(TList& lst) { SetOfIfcRelFillsElementSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasFillings"); }
-
-        //TArrayElem[] may be IfcRelFillsElement[] or array of convertible elements
-        template <typename TArrayElem> void put_HasFillings(TArrayElem arr[], size_t n) { SetOfIfcRelFillsElement lst; ArrayToList(arr, n, lst); put_HasFillings(lst); }
     };
 
 
@@ -24261,28 +23488,10 @@ namespace IFC4x3
         template <typename TList> void get_IsRelatedBy(TList& lst) { SetOfIfcOrganizationRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsRelatedBy"); }
 
         //TList may be SetOfIfcOrganizationRelationship or list of converible elements
-        template <typename TList> void put_IsRelatedBy(TList& lst) { SetOfIfcOrganizationRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "IsRelatedBy"); }
-
-        //TArrayElem[] may be IfcOrganizationRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_IsRelatedBy(TArrayElem arr[], size_t n) { SetOfIfcOrganizationRelationship lst; ArrayToList(arr, n, lst); put_IsRelatedBy(lst); }
-
-        //TList may be SetOfIfcOrganizationRelationship or list of converible elements
         template <typename TList> void get_Relates(TList& lst) { SetOfIfcOrganizationRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Relates"); }
-
-        //TList may be SetOfIfcOrganizationRelationship or list of converible elements
-        template <typename TList> void put_Relates(TList& lst) { SetOfIfcOrganizationRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Relates"); }
-
-        //TArrayElem[] may be IfcOrganizationRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_Relates(TArrayElem arr[], size_t n) { SetOfIfcOrganizationRelationship lst; ArrayToList(arr, n, lst); put_Relates(lst); }
 
         //TList may be SetOfIfcPersonAndOrganization or list of converible elements
         template <typename TList> void get_Engages(TList& lst) { SetOfIfcPersonAndOrganizationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Engages"); }
-
-        //TList may be SetOfIfcPersonAndOrganization or list of converible elements
-        template <typename TList> void put_Engages(TList& lst) { SetOfIfcPersonAndOrganizationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Engages"); }
-
-        //TArrayElem[] may be IfcPersonAndOrganization[] or array of convertible elements
-        template <typename TArrayElem> void put_Engages(TArrayElem arr[], size_t n) { SetOfIfcPersonAndOrganization lst; ArrayToList(arr, n, lst); put_Engages(lst); }
     };
 
 
@@ -24747,12 +23956,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcPersonAndOrganization or list of converible elements
         template <typename TList> void get_EngagedIn(TList& lst) { SetOfIfcPersonAndOrganizationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "EngagedIn"); }
-
-        //TList may be SetOfIfcPersonAndOrganization or list of converible elements
-        template <typename TList> void put_EngagedIn(TList& lst) { SetOfIfcPersonAndOrganizationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "EngagedIn"); }
-
-        //TArrayElem[] may be IfcPersonAndOrganization[] or array of convertible elements
-        template <typename TArrayElem> void put_EngagedIn(TArrayElem arr[], size_t n) { SetOfIfcPersonAndOrganization lst; ArrayToList(arr, n, lst); put_EngagedIn(lst); }
     };
 
 
@@ -24818,20 +24021,8 @@ namespace IFC4x3
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReferences"); }
 
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReferences"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReferences(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReferences(lst); }
-
         //TList may be SetOfIfcPhysicalComplexQuantity or list of converible elements
         template <typename TList> void get_PartOfComplex(TList& lst) { SetOfIfcPhysicalComplexQuantitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfComplex"); }
-
-        //TList may be SetOfIfcPhysicalComplexQuantity or list of converible elements
-        template <typename TList> void put_PartOfComplex(TList& lst) { SetOfIfcPhysicalComplexQuantitySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "PartOfComplex"); }
-
-        //TArrayElem[] may be IfcPhysicalComplexQuantity[] or array of convertible elements
-        template <typename TArrayElem> void put_PartOfComplex(TArrayElem arr[], size_t n) { SetOfIfcPhysicalComplexQuantity lst; ArrayToList(arr, n, lst); put_PartOfComplex(lst); }
     };
 
 
@@ -25363,20 +24554,8 @@ namespace IFC4x3
         //TList may be SetOfIfcIndexedColourMap or list of converible elements
         template <typename TList> void get_HasColours(TList& lst) { SetOfIfcIndexedColourMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasColours"); }
 
-        //TList may be SetOfIfcIndexedColourMap or list of converible elements
-        template <typename TList> void put_HasColours(TList& lst) { SetOfIfcIndexedColourMapSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasColours"); }
-
-        //TArrayElem[] may be IfcIndexedColourMap[] or array of convertible elements
-        template <typename TArrayElem> void put_HasColours(TArrayElem arr[], size_t n) { SetOfIfcIndexedColourMap lst; ArrayToList(arr, n, lst); put_HasColours(lst); }
-
         //TList may be SetOfIfcIndexedTextureMap or list of converible elements
         template <typename TList> void get_HasTextures(TList& lst) { SetOfIfcIndexedTextureMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasTextures"); }
-
-        //TList may be SetOfIfcIndexedTextureMap or list of converible elements
-        template <typename TList> void put_HasTextures(TList& lst) { SetOfIfcIndexedTextureMapSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasTextures"); }
-
-        //TArrayElem[] may be IfcIndexedTextureMap[] or array of convertible elements
-        template <typename TArrayElem> void put_HasTextures(TArrayElem arr[], size_t n) { SetOfIfcIndexedTextureMap lst; ArrayToList(arr, n, lst); put_HasTextures(lst); }
     };
 
 
@@ -25769,20 +24948,8 @@ namespace IFC4x3
         //TList may be SetOfIfcProduct or list of converible elements
         template <typename TList> void get_ShapeOfProduct(TList& lst) { SetOfIfcProductSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ShapeOfProduct"); }
 
-        //TList may be SetOfIfcProduct or list of converible elements
-        template <typename TList> void put_ShapeOfProduct(TList& lst) { SetOfIfcProductSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ShapeOfProduct"); }
-
-        //TArrayElem[] may be IfcProduct[] or array of convertible elements
-        template <typename TArrayElem> void put_ShapeOfProduct(TArrayElem arr[], size_t n) { SetOfIfcProduct lst; ArrayToList(arr, n, lst); put_ShapeOfProduct(lst); }
-
         //TList may be SetOfIfcShapeAspect or list of converible elements
         template <typename TList> void get_HasShapeAspects(TList& lst) { SetOfIfcShapeAspectSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasShapeAspects"); }
-
-        //TList may be SetOfIfcShapeAspect or list of converible elements
-        template <typename TList> void put_HasShapeAspects(TList& lst) { SetOfIfcShapeAspectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasShapeAspects"); }
-
-        //TArrayElem[] may be IfcShapeAspect[] or array of convertible elements
-        template <typename TArrayElem> void put_HasShapeAspects(TArrayElem arr[], size_t n) { SetOfIfcShapeAspect lst; ArrayToList(arr, n, lst); put_HasShapeAspects(lst); }
     };
 
 
@@ -26217,12 +25384,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelDefinesByTemplate or list of converible elements
         template <typename TList> void get_Defines(TList& lst) { SetOfIfcRelDefinesByTemplateSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Defines"); }
-
-        //TList may be SetOfIfcRelDefinesByTemplate or list of converible elements
-        template <typename TList> void put_Defines(TList& lst) { SetOfIfcRelDefinesByTemplateSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Defines"); }
-
-        //TArrayElem[] may be IfcRelDefinesByTemplate[] or array of convertible elements
-        template <typename TArrayElem> void put_Defines(TArrayElem arr[], size_t n) { SetOfIfcRelDefinesByTemplate lst; ArrayToList(arr, n, lst); put_Defines(lst); }
     };
 
 
@@ -29035,12 +28196,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelSpaceBoundary1stLevel or list of converible elements
         template <typename TList> void get_InnerBoundaries(TList& lst) { SetOfIfcRelSpaceBoundary1stLevelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "InnerBoundaries"); }
-
-        //TList may be SetOfIfcRelSpaceBoundary1stLevel or list of converible elements
-        template <typename TList> void put_InnerBoundaries(TList& lst) { SetOfIfcRelSpaceBoundary1stLevelSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "InnerBoundaries"); }
-
-        //TArrayElem[] may be IfcRelSpaceBoundary1stLevel[] or array of convertible elements
-        template <typename TArrayElem> void put_InnerBoundaries(TArrayElem arr[], size_t n) { SetOfIfcRelSpaceBoundary1stLevel lst; ArrayToList(arr, n, lst); put_InnerBoundaries(lst); }
     };
 
 
@@ -29069,12 +28224,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelSpaceBoundary2ndLevel or list of converible elements
         template <typename TList> void get_Corresponds(TList& lst) { SetOfIfcRelSpaceBoundary2ndLevelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Corresponds"); }
-
-        //TList may be SetOfIfcRelSpaceBoundary2ndLevel or list of converible elements
-        template <typename TList> void put_Corresponds(TList& lst) { SetOfIfcRelSpaceBoundary2ndLevelSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Corresponds"); }
-
-        //TArrayElem[] may be IfcRelSpaceBoundary2ndLevel[] or array of convertible elements
-        template <typename TArrayElem> void put_Corresponds(TArrayElem arr[], size_t n) { SetOfIfcRelSpaceBoundary2ndLevel lst; ArrayToList(arr, n, lst); put_Corresponds(lst); }
     };
 
 
@@ -29168,29 +28317,11 @@ namespace IFC4x3
         //TList may be SetOfIfcRepresentationMap or list of converible elements
         template <typename TList> void get_RepresentationMap(TList& lst) { SetOfIfcRepresentationMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "RepresentationMap"); }
 
-        //TList may be SetOfIfcRepresentationMap or list of converible elements
-        template <typename TList> void put_RepresentationMap(TList& lst) { SetOfIfcRepresentationMapSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "RepresentationMap"); }
-
-        //TArrayElem[] may be IfcRepresentationMap[] or array of convertible elements
-        template <typename TArrayElem> void put_RepresentationMap(TArrayElem arr[], size_t n) { SetOfIfcRepresentationMap lst; ArrayToList(arr, n, lst); put_RepresentationMap(lst); }
-
         //TList may be SetOfIfcPresentationLayerAssignment or list of converible elements
         template <typename TList> void get_LayerAssignments(TList& lst) { SetOfIfcPresentationLayerAssignmentSerializer<TList> sr; sr.FromAttr(lst, m_instance, "LayerAssignments"); }
 
-        //TList may be SetOfIfcPresentationLayerAssignment or list of converible elements
-        template <typename TList> void put_LayerAssignments(TList& lst) { SetOfIfcPresentationLayerAssignmentSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "LayerAssignments"); }
-
-        //TArrayElem[] may be IfcPresentationLayerAssignment[] or array of convertible elements
-        template <typename TArrayElem> void put_LayerAssignments(TArrayElem arr[], size_t n) { SetOfIfcPresentationLayerAssignment lst; ArrayToList(arr, n, lst); put_LayerAssignments(lst); }
-
         //TList may be SetOfIfcProductRepresentation or list of converible elements
         template <typename TList> void get_OfProductRepresentation(TList& lst) { SetOfIfcProductRepresentationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "OfProductRepresentation"); }
-
-        //TList may be SetOfIfcProductRepresentation or list of converible elements
-        template <typename TList> void put_OfProductRepresentation(TList& lst) { SetOfIfcProductRepresentationSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "OfProductRepresentation"); }
-
-        //TArrayElem[] may be IfcProductRepresentation[] or array of convertible elements
-        template <typename TArrayElem> void put_OfProductRepresentation(TArrayElem arr[], size_t n) { SetOfIfcProductRepresentation lst; ArrayToList(arr, n, lst); put_OfProductRepresentation(lst); }
     };
 
 
@@ -29223,20 +28354,8 @@ namespace IFC4x3
         //TList may be SetOfIfcShapeAspect or list of converible elements
         template <typename TList> void get_HasShapeAspects(TList& lst) { SetOfIfcShapeAspectSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasShapeAspects"); }
 
-        //TList may be SetOfIfcShapeAspect or list of converible elements
-        template <typename TList> void put_HasShapeAspects(TList& lst) { SetOfIfcShapeAspectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasShapeAspects"); }
-
-        //TArrayElem[] may be IfcShapeAspect[] or array of convertible elements
-        template <typename TArrayElem> void put_HasShapeAspects(TArrayElem arr[], size_t n) { SetOfIfcShapeAspect lst; ArrayToList(arr, n, lst); put_HasShapeAspects(lst); }
-
         //TList may be SetOfIfcMappedItem or list of converible elements
         template <typename TList> void get_MapUsage(TList& lst) { SetOfIfcMappedItemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "MapUsage"); }
-
-        //TList may be SetOfIfcMappedItem or list of converible elements
-        template <typename TList> void put_MapUsage(TList& lst) { SetOfIfcMappedItemSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "MapUsage"); }
-
-        //TArrayElem[] may be IfcMappedItem[] or array of convertible elements
-        template <typename TArrayElem> void put_MapUsage(TArrayElem arr[], size_t n) { SetOfIfcMappedItem lst; ArrayToList(arr, n, lst); put_MapUsage(lst); }
     };
 
 
@@ -30147,12 +29266,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
         template <typename TList> void get_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasExternalReferences"); }
-
-        //TList may be SetOfIfcExternalReferenceRelationship or list of converible elements
-        template <typename TList> void put_HasExternalReferences(TList& lst) { SetOfIfcExternalReferenceRelationshipSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasExternalReferences"); }
-
-        //TArrayElem[] may be IfcExternalReferenceRelationship[] or array of convertible elements
-        template <typename TArrayElem> void put_HasExternalReferences(TArrayElem arr[], size_t n) { SetOfIfcExternalReferenceRelationship lst; ArrayToList(arr, n, lst); put_HasExternalReferences(lst); }
     };
 
 
@@ -30174,12 +29287,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcShapeAspect or list of converible elements
         template <typename TList> void get_OfShapeAspect(TList& lst) { SetOfIfcShapeAspectSerializer<TList> sr; sr.FromAttr(lst, m_instance, "OfShapeAspect"); }
-
-        //TList may be SetOfIfcShapeAspect or list of converible elements
-        template <typename TList> void put_OfShapeAspect(TList& lst) { SetOfIfcShapeAspectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "OfShapeAspect"); }
-
-        //TArrayElem[] may be IfcShapeAspect[] or array of convertible elements
-        template <typename TArrayElem> void put_OfShapeAspect(TArrayElem arr[], size_t n) { SetOfIfcShapeAspect lst; ArrayToList(arr, n, lst); put_OfShapeAspect(lst); }
     };
 
 
@@ -30647,20 +29754,8 @@ namespace IFC4x3
         //TList may be SetOfIfcRelCoversSpaces or list of converible elements
         template <typename TList> void get_HasCoverings(TList& lst) { SetOfIfcRelCoversSpacesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasCoverings"); }
 
-        //TList may be SetOfIfcRelCoversSpaces or list of converible elements
-        template <typename TList> void put_HasCoverings(TList& lst) { SetOfIfcRelCoversSpacesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "HasCoverings"); }
-
-        //TArrayElem[] may be IfcRelCoversSpaces[] or array of convertible elements
-        template <typename TArrayElem> void put_HasCoverings(TArrayElem arr[], size_t n) { SetOfIfcRelCoversSpaces lst; ArrayToList(arr, n, lst); put_HasCoverings(lst); }
-
         //TList may be SetOfIfcRelSpaceBoundary or list of converible elements
         template <typename TList> void get_BoundedBy(TList& lst) { SetOfIfcRelSpaceBoundarySerializer<TList> sr; sr.FromAttr(lst, m_instance, "BoundedBy"); }
-
-        //TList may be SetOfIfcRelSpaceBoundary or list of converible elements
-        template <typename TList> void put_BoundedBy(TList& lst) { SetOfIfcRelSpaceBoundarySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "BoundedBy"); }
-
-        //TArrayElem[] may be IfcRelSpaceBoundary[] or array of convertible elements
-        template <typename TArrayElem> void put_BoundedBy(TArrayElem arr[], size_t n) { SetOfIfcRelSpaceBoundary lst; ArrayToList(arr, n, lst); put_BoundedBy(lst); }
     };
 
 
@@ -31070,12 +30165,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelConnectsStructuralActivity or list of converible elements
         template <typename TList> void get_AssignedToStructuralItem(TList& lst) { SetOfIfcRelConnectsStructuralActivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "AssignedToStructuralItem"); }
-
-        //TList may be SetOfIfcRelConnectsStructuralActivity or list of converible elements
-        template <typename TList> void put_AssignedToStructuralItem(TList& lst) { SetOfIfcRelConnectsStructuralActivitySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "AssignedToStructuralItem"); }
-
-        //TArrayElem[] may be IfcRelConnectsStructuralActivity[] or array of convertible elements
-        template <typename TArrayElem> void put_AssignedToStructuralItem(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsStructuralActivity lst; ArrayToList(arr, n, lst); put_AssignedToStructuralItem(lst); }
     };
 
 
@@ -31167,12 +30256,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelConnectsStructuralActivity or list of converible elements
         template <typename TList> void get_AssignedStructuralActivity(TList& lst) { SetOfIfcRelConnectsStructuralActivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "AssignedStructuralActivity"); }
-
-        //TList may be SetOfIfcRelConnectsStructuralActivity or list of converible elements
-        template <typename TList> void put_AssignedStructuralActivity(TList& lst) { SetOfIfcRelConnectsStructuralActivitySerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "AssignedStructuralActivity"); }
-
-        //TArrayElem[] may be IfcRelConnectsStructuralActivity[] or array of convertible elements
-        template <typename TArrayElem> void put_AssignedStructuralActivity(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsStructuralActivity lst; ArrayToList(arr, n, lst); put_AssignedStructuralActivity(lst); }
     };
 
 
@@ -31197,12 +30280,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelConnectsStructuralMember or list of converible elements
         template <typename TList> void get_ConnectsStructuralMembers(TList& lst) { SetOfIfcRelConnectsStructuralMemberSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ConnectsStructuralMembers"); }
-
-        //TList may be SetOfIfcRelConnectsStructuralMember or list of converible elements
-        template <typename TList> void put_ConnectsStructuralMembers(TList& lst) { SetOfIfcRelConnectsStructuralMemberSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ConnectsStructuralMembers"); }
-
-        //TArrayElem[] may be IfcRelConnectsStructuralMember[] or array of convertible elements
-        template <typename TArrayElem> void put_ConnectsStructuralMembers(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsStructuralMember lst; ArrayToList(arr, n, lst); put_ConnectsStructuralMembers(lst); }
     };
 
 
@@ -31277,12 +30354,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcRelConnectsStructuralMember or list of converible elements
         template <typename TList> void get_ConnectedBy(TList& lst) { SetOfIfcRelConnectsStructuralMemberSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ConnectedBy"); }
-
-        //TList may be SetOfIfcRelConnectsStructuralMember or list of converible elements
-        template <typename TList> void put_ConnectedBy(TList& lst) { SetOfIfcRelConnectsStructuralMemberSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ConnectedBy"); }
-
-        //TArrayElem[] may be IfcRelConnectsStructuralMember[] or array of convertible elements
-        template <typename TArrayElem> void put_ConnectedBy(TArrayElem arr[], size_t n) { SetOfIfcRelConnectsStructuralMember lst; ArrayToList(arr, n, lst); put_ConnectedBy(lst); }
     };
 
 
@@ -31460,20 +30531,8 @@ namespace IFC4x3
         //TList may be SetOfIfcStructuralResultGroup or list of converible elements
         template <typename TList> void get_SourceOfResultGroup(TList& lst) { SetOfIfcStructuralResultGroupSerializer<TList> sr; sr.FromAttr(lst, m_instance, "SourceOfResultGroup"); }
 
-        //TList may be SetOfIfcStructuralResultGroup or list of converible elements
-        template <typename TList> void put_SourceOfResultGroup(TList& lst) { SetOfIfcStructuralResultGroupSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "SourceOfResultGroup"); }
-
-        //TArrayElem[] may be IfcStructuralResultGroup[] or array of convertible elements
-        template <typename TArrayElem> void put_SourceOfResultGroup(TArrayElem arr[], size_t n) { SetOfIfcStructuralResultGroup lst; ArrayToList(arr, n, lst); put_SourceOfResultGroup(lst); }
-
         //TList may be SetOfIfcStructuralAnalysisModel or list of converible elements
         template <typename TList> void get_LoadGroupFor(TList& lst) { SetOfIfcStructuralAnalysisModelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "LoadGroupFor"); }
-
-        //TList may be SetOfIfcStructuralAnalysisModel or list of converible elements
-        template <typename TList> void put_LoadGroupFor(TList& lst) { SetOfIfcStructuralAnalysisModelSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "LoadGroupFor"); }
-
-        //TArrayElem[] may be IfcStructuralAnalysisModel[] or array of convertible elements
-        template <typename TArrayElem> void put_LoadGroupFor(TArrayElem arr[], size_t n) { SetOfIfcStructuralAnalysisModel lst; ArrayToList(arr, n, lst); put_LoadGroupFor(lst); }
     };
 
 
@@ -31963,12 +31022,6 @@ namespace IFC4x3
 
         //TList may be SetOfIfcStructuralAnalysisModel or list of converible elements
         template <typename TList> void get_ResultGroupFor(TList& lst) { SetOfIfcStructuralAnalysisModelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ResultGroupFor"); }
-
-        //TList may be SetOfIfcStructuralAnalysisModel or list of converible elements
-        template <typename TList> void put_ResultGroupFor(TList& lst) { SetOfIfcStructuralAnalysisModelSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ResultGroupFor"); }
-
-        //TArrayElem[] may be IfcStructuralAnalysisModel[] or array of convertible elements
-        template <typename TArrayElem> void put_ResultGroupFor(TArrayElem arr[], size_t n) { SetOfIfcStructuralAnalysisModel lst; ArrayToList(arr, n, lst); put_ResultGroupFor(lst); }
     };
 
 
@@ -32270,7 +31323,6 @@ namespace IFC4x3
         void put_PredefinedType(IfcSurfaceFeatureTypeEnum value) { TextValue val = IfcSurfaceFeatureTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
 
         IfcRelAdheresToElement get_AdheresToElement();
-        void put_AdheresToElement(IfcRelAdheresToElement inst);
     };
 
 
@@ -33596,7 +32648,6 @@ namespace IFC4x3
         void put_TexCoordsOf(IfcIndexedPolygonalFace inst);
 
         IfcIndexedPolygonalTextureMap get_ToTexMap();
-        void put_ToTexMap(IfcIndexedPolygonalTextureMap inst);
     };
 
 
@@ -36000,7 +35051,6 @@ namespace IFC4x3
     inline IfcShapeAspect IfcDoorPanelProperties::get_ShapeAspectStyle() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ShapeAspectStyle", sdaiINSTANCE, &inst); return inst; }
     inline void IfcDoorPanelProperties::put_ShapeAspectStyle(IfcShapeAspect inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ShapeAspectStyle", sdaiINSTANCE, (void*) i); }
     inline IfcRelVoidsElement IfcFeatureElementSubtraction::get_VoidsElements() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "VoidsElements", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcFeatureElementSubtraction::put_VoidsElements(IfcRelVoidsElement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "VoidsElements", sdaiINSTANCE, (void*) i); }
     inline IfcVertex IfcEdge::get_EdgeStart() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "EdgeStart", sdaiINSTANCE, &inst); return inst; }
     inline void IfcEdge::put_EdgeStart(IfcVertex inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "EdgeStart", sdaiINSTANCE, (void*) i); }
     inline IfcVertex IfcEdge::get_EdgeEnd() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "EdgeEnd", sdaiINSTANCE, &inst); return inst; }
@@ -36018,7 +35068,6 @@ namespace IFC4x3
     inline IfcLoop IfcFaceBound::get_Bound() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Bound", sdaiINSTANCE, &inst); return inst; }
     inline void IfcFaceBound::put_Bound(IfcLoop inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Bound", sdaiINSTANCE, (void*) i); }
     inline IfcRelProjectsElement IfcFeatureElementAddition::get_ProjectsElements() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ProjectsElements", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcFeatureElementAddition::put_ProjectsElements(IfcRelProjectsElement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ProjectsElements", sdaiINSTANCE, (void*) i); }
     inline IfcCurveStyle IfcFillAreaStyleHatching::get_HatchLineAppearance() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "HatchLineAppearance", sdaiINSTANCE, &inst); return inst; }
     inline void IfcFillAreaStyleHatching::put_HatchLineAppearance(IfcCurveStyle inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "HatchLineAppearance", sdaiINSTANCE, (void*) i); }
     inline IfcCartesianPoint IfcFillAreaStyleHatching::get_PointOfReferenceHatchLine() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "PointOfReferenceHatchLine", sdaiINSTANCE, &inst); return inst; }
@@ -36086,13 +35135,11 @@ namespace IFC4x3
     inline IfcMaterial IfcMaterialConstituent::get_Material() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Material", sdaiINSTANCE, &inst); return inst; }
     inline void IfcMaterialConstituent::put_Material(IfcMaterial inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Material", sdaiINSTANCE, (void*) i); }
     inline IfcMaterialConstituentSet IfcMaterialConstituent::get_ToMaterialConstituentSet() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ToMaterialConstituentSet", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcMaterialConstituent::put_ToMaterialConstituentSet(IfcMaterialConstituentSet inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ToMaterialConstituentSet", sdaiINSTANCE, (void*) i); }
     inline IfcMaterial IfcMaterialDefinitionRepresentation::get_RepresentedMaterial() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "RepresentedMaterial", sdaiINSTANCE, &inst); return inst; }
     inline void IfcMaterialDefinitionRepresentation::put_RepresentedMaterial(IfcMaterial inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "RepresentedMaterial", sdaiINSTANCE, (void*) i); }
     inline IfcMaterial IfcMaterialLayer::get_Material() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Material", sdaiINSTANCE, &inst); return inst; }
     inline void IfcMaterialLayer::put_Material(IfcMaterial inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Material", sdaiINSTANCE, (void*) i); }
     inline IfcMaterialLayerSet IfcMaterialLayer::get_ToMaterialLayerSet() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ToMaterialLayerSet", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcMaterialLayer::put_ToMaterialLayerSet(IfcMaterialLayerSet inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ToMaterialLayerSet", sdaiINSTANCE, (void*) i); }
     inline IfcMaterialLayerSet IfcMaterialLayerSetUsage::get_ForLayerSet() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ForLayerSet", sdaiINSTANCE, &inst); return inst; }
     inline void IfcMaterialLayerSetUsage::put_ForLayerSet(IfcMaterialLayerSet inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ForLayerSet", sdaiINSTANCE, (void*) i); }
     inline IfcMaterial IfcMaterialProfile::get_Material() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Material", sdaiINSTANCE, &inst); return inst; }
@@ -36100,7 +35147,6 @@ namespace IFC4x3
     inline IfcProfileDef IfcMaterialProfile::get_Profile() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Profile", sdaiINSTANCE, &inst); return inst; }
     inline void IfcMaterialProfile::put_Profile(IfcProfileDef inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Profile", sdaiINSTANCE, (void*) i); }
     inline IfcMaterialProfileSet IfcMaterialProfile::get_ToMaterialProfileSet() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ToMaterialProfileSet", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcMaterialProfile::put_ToMaterialProfileSet(IfcMaterialProfileSet inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ToMaterialProfileSet", sdaiINSTANCE, (void*) i); }
     inline IfcCompositeProfileDef IfcMaterialProfileSet::get_CompositeProfile() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "CompositeProfile", sdaiINSTANCE, &inst); return inst; }
     inline void IfcMaterialProfileSet::put_CompositeProfile(IfcCompositeProfileDef inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "CompositeProfile", sdaiINSTANCE, (void*) i); }
     inline IfcMaterialProfileSet IfcMaterialProfileSetUsage::get_ForProfileSet() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ForProfileSet", sdaiINSTANCE, &inst); return inst; }
@@ -36330,7 +35376,6 @@ namespace IFC4x3
     inline IfcSurface IfcSurfaceCurveSweptAreaSolid::get_ReferenceSurface() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ReferenceSurface", sdaiINSTANCE, &inst); return inst; }
     inline void IfcSurfaceCurveSweptAreaSolid::put_ReferenceSurface(IfcSurface inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ReferenceSurface", sdaiINSTANCE, (void*) i); }
     inline IfcRelAdheresToElement IfcSurfaceFeature::get_AdheresToElement() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "AdheresToElement", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcSurfaceFeature::put_AdheresToElement(IfcRelAdheresToElement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "AdheresToElement", sdaiINSTANCE, (void*) i); }
     inline IfcProfileDef IfcSweptSurface::get_SweptCurve() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "SweptCurve", sdaiINSTANCE, &inst); return inst; }
     inline void IfcSweptSurface::put_SweptCurve(IfcProfileDef inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "SweptCurve", sdaiINSTANCE, (void*) i); }
     inline IfcAxis2Placement3D IfcSweptSurface::get_Position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Position", sdaiINSTANCE, &inst); return inst; }
@@ -36366,7 +35411,6 @@ namespace IFC4x3
     inline IfcIndexedPolygonalFace IfcTextureCoordinateIndices::get_TexCoordsOf() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "TexCoordsOf", sdaiINSTANCE, &inst); return inst; }
     inline void IfcTextureCoordinateIndices::put_TexCoordsOf(IfcIndexedPolygonalFace inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "TexCoordsOf", sdaiINSTANCE, (void*) i); }
     inline IfcIndexedPolygonalTextureMap IfcTextureCoordinateIndices::get_ToTexMap() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ToTexMap", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcTextureCoordinateIndices::put_ToTexMap(IfcIndexedPolygonalTextureMap inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ToTexMap", sdaiINSTANCE, (void*) i); }
     inline IfcFace IfcTextureMap::get_MappedTo() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "MappedTo", sdaiINSTANCE, &inst); return inst; }
     inline void IfcTextureMap::put_MappedTo(IfcFace inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "MappedTo", sdaiINSTANCE, (void*) i); }
     inline IfcCurve IfcTrimmedCurve::get_BasisCurve() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "BasisCurve", sdaiINSTANCE, &inst); return inst; }
