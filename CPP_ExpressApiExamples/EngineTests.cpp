@@ -91,6 +91,14 @@ static void TestBinaries(SdaiModel ifcModel)
         assert(0 == strcmp(code, rasterCode));
     }
 
+    const char* argName = NULL;
+    engiGetEntityArgumentName(entityBlobTexture, 1, sdaiSTRING, &argName);
+    assert(0 == strcmp(argName, "RepeatT"));
+
+    int_t argType;
+    engiGetEntityArgumentType(entityBlobTexture, 1, &argType);
+    assert(argType == sdaiBOOLEAN);
+
     auto entityPixelTexture = sdaiGetEntity(readModel, "IfcPixelTexture");
     auto pixelTextureAggr = sdaiGetEntityExtent(readModel, entityPixelTexture);
     N = sdaiGetMemberCount(pixelTextureAggr);
@@ -194,7 +202,7 @@ extern void EngineTests(void)
 
     TestBinaries(ifcModel);
     TestPutAttr(ifcModel);
-
+    
     sdaiSaveModelBN(ifcModel, FILE_NAME);
     sdaiCloseModel(ifcModel);
 }
