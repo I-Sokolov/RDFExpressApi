@@ -391,7 +391,7 @@ extern void IFC4_test()
     auto points = IfcCartesianPointList2D::Create(ifcModel);
 
     ListOfListOfIfcLengthMeasure lstCoords; 
-    for (int i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         lstCoords.push_back(ListOfIfcLengthMeasure());
         for (int j = 0; j < 2; j++) {
             lstCoords.back().push_back(rpt[2 * i + j]);
@@ -564,7 +564,7 @@ extern void IFC4_test()
     int_t* rels = sdaiGetEntityExtent(ifcModel, entityIfcRelDefinesByProperties);
     auto N_rels = sdaiGetMemberCount(rels);
     assert(N_rels == 1);
-    for (int_t i = 0; i < N_rels; i++) {
+    for (i = 0; i < N_rels; i++) {
 
         int_t rel = 0;
         engiGetAggrElement(rels, i, sdaiINSTANCE, &rel);
