@@ -235,6 +235,14 @@ static void test_multi_parent()
     const char* NAME = "sey Name";
     inst.put_name(NAME);
 
+    oriented_edge edge[2];
+    edge[0] = oriented_edge::Create(model);
+    edge[1] = oriented_edge::Create(model);
+
+    auto eloop = edge_loop::Create(model);
+    eloop.put_name(NAME);
+    eloop.put_edge_list(edge, 2);
+
     sdaiSaveModelBN(model, "Test.ap");
     sdaiCloseModel(model);
 
@@ -255,6 +263,26 @@ static void test_multi_parent()
 
         auto name = a3m_equivalence_criterion(item).get_name();
         assert(!strcmp(name, NAME));
+    }
+
+
+    entity = sdaiGetEntity(modelRead, "edge_loop");
+    assert(entity);
+    items = sdaiGetEntityExtent(modelRead, entity);
+    N_items = sdaiGetMemberCount(items);
+    assert(N_items == 1);
+    for (int_t i = 0; i < N_items; i++) {
+
+        int_t item = 0;
+        engiGetAggrElement(items, i, sdaiINSTANCE, &item);
+
+        eloop = edge_loop(item);
+        auto name = eloop.get_name();
+        assert(!strcmp(name, NAME));
+
+        std::list<oriented_edge> lst;
+        eloop.get_edge_list(lst);
+        assert(lst.size() == 2);
     }
 
     sdaiCloseModel(modelRead);

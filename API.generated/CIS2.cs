@@ -6634,6 +6634,8 @@ namespace CIS2
     class set_of_document_representation_typeSerializer : AggrSerializerInstance<document_representation_type, set_of_document_representation_type> { }
     public class set_of_connected_edge_set : List<connected_edge_set> { }
     class set_of_connected_edge_setSerializer : AggrSerializerInstance<connected_edge_set, set_of_connected_edge_set> { }
+    public class list_of_oriented_edge : List<oriented_edge> { }
+    class list_of_oriented_edgeSerializer : AggrSerializerInstance<oriented_edge, list_of_oriented_edge> { }
     public class set_of_element_node_connectivity : List<element_node_connectivity> { }
     class set_of_element_node_connectivitySerializer : AggrSerializerInstance<element_node_connectivity, set_of_element_node_connectivity> { }
     public class list_of_section_profile : List<section_profile> { }
@@ -6726,8 +6728,6 @@ namespace CIS2
     class set_of_value_qualifierSerializer : AggrSerializerSelect<value_qualifier, set_of_value_qualifier> { }
     public class list_of_person_and_organization : List<person_and_organization> { }
     class list_of_person_and_organizationSerializer : AggrSerializerInstance<person_and_organization, list_of_person_and_organization> { }
-    public class list_of_oriented_edge : List<oriented_edge> { }
-    class list_of_oriented_edgeSerializer : AggrSerializerInstance<oriented_edge, list_of_oriented_edge> { }
     public class set_of_organization : List<organization> { }
     class set_of_organizationSerializer : AggrSerializerInstance<organization, set_of_organization> { }
     public class list_of_label : List<TextValue> { }
@@ -10626,6 +10626,8 @@ namespace CIS2
         /// </summary>
         public static new cartesian_transformation_operator Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "cartesian_transformation_operator"); Debug.Assert(inst != 0); return inst; }
 
+        public TextValue get_description() { return get_string("description", ifcengine.sdaiSTRING); }
+        public void put_description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
         public direction get_axis1() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis1", ifcengine.sdaiINSTANCE, out inst); return new direction (inst); }
         public void put_axis1(direction inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "axis1", ifcengine.sdaiINSTANCE, i); }
         public direction get_axis2() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis2", ifcengine.sdaiINSTANCE, out inst); return new direction (inst); }
@@ -13066,6 +13068,9 @@ namespace CIS2
         /// </summary>
         public static new edge_loop Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "edge_loop"); Debug.Assert(inst != 0); return inst; }
 
+        public list_of_oriented_edge get_edge_list() { return (new list_of_oriented_edgeSerializer()).FromAttr(m_instance, "edge_list"); }
+        public void put_edge_list(IEnumerable<oriented_edge> lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
+        //public void put_edge_list_untyped(IEnumerable lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
 
         protected override TextValue EntityName() { return "edge_loop"; }
     };

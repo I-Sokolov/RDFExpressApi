@@ -180,6 +180,14 @@ namespace CS_IFC
             string NAME = "sey Name";
             inst.put_name(NAME);
 
+            list_of_oriented_edge edge= new list_of_oriented_edge();
+            edge.Add (oriented_edge.Create(model));
+            edge.Add (oriented_edge.Create(model));
+
+            var eloop = edge_loop.Create(model);
+            eloop.put_name(NAME);
+            eloop.put_edge_list(edge);
+
             RDF.ifcengine.sdaiSaveModelBN(model, "Test.ap");
             RDF.ifcengine.sdaiCloseModel(model);
 
@@ -189,7 +197,6 @@ namespace CS_IFC
 
             var entity = RDF.ifcengine.sdaiGetEntity(modelRead, "a3m_equivalence_criterion_with_specified_elements");// "a3m_equivalence_criterion");
             assert(entity!=0);
-
             var items = RDF.ifcengine.sdaiGetEntityExtent(modelRead, entity);
             var N_items = RDF.ifcengine.sdaiGetMemberCount(items);
             assert(N_items == 1);
@@ -202,6 +209,26 @@ namespace CS_IFC
                 var name = ((a3m_equivalence_criterion)item).get_name();
                 assert(!strcmp(name, NAME));
             }
+
+            entity = RDF.ifcengine.sdaiGetEntity(modelRead, "edge_loop");
+            assert(entity!=0);
+            items = RDF.ifcengine.sdaiGetEntityExtent(modelRead, entity);
+            N_items = RDF.ifcengine.sdaiGetMemberCount(items);
+            assert(N_items == 1);
+            for (long i = 0; i < N_items; i++)
+            {
+
+                long item = 0;
+                RDF.ifcengine.engiGetAggrElement(items, i, RDF.ifcengine.sdaiINSTANCE, out item);
+
+                eloop = (edge_loop)item;
+                var name = eloop.get_name();
+                assert(name == NAME);
+
+                var lst = eloop.get_edge_list();
+                assert(lst.Count == 2);
+            }
+
 
             RDF.ifcengine.sdaiCloseModel(modelRead);
 
