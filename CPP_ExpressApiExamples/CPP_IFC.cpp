@@ -585,6 +585,35 @@ extern void IFC4_test()
 
     instance = internalGetInstanceFromP21Line(ifcModel, 319);
 
+    SdaiAggr listValues = 0;
+    sdaiGetAttrBN(instance, "ListValues", sdaiAGGR, &listValues);
+
+    auto count = sdaiGetMemberCount(listValues);
+    for (int i = 0; i<count; i++){
+        void* adbValue = NULL;
+        engiGetAggrElement(listValues, i, sdaiADB, &adbValue);
+        
+        int_t inst = 0;
+        auto res = engiGetAggrElement(listValues, i, sdaiINSTANCE, &inst);
+
+        int intVal = 0;
+        double doubleVal = 0;
+        const char* textVal = 0;
+        if (sdaiGetADBValue(adbValue, sdaiINTEGER, &intVal)) {
+            printf("value[%d] = int %d\n", i, intVal);
+        }
+        else if (sdaiGetADBValue(adbValue, sdaiREAL, &doubleVal)) {
+            printf("value[%d] = double %g\n", i, doubleVal);
+        }
+        else if (sdaiGetADBValue(adbValue, sdaiSTRING, &textVal)) {
+            printf("value[%d] = text %s\n", i, textVal);
+        }
+        else {
+            printf("something else\n");
+        }
+    }
+
+
     IFC4::IfcPropertyListValue propListValue(instance);
     ASSERT(propListValue);
 
