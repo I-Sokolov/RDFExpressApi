@@ -579,4 +579,50 @@ extern void IFC4_test()
     }
 
     sdaiCloseModel(ifcModel);
+
+    ///
+    ifcModel = sdaiOpenModelBN(NULL, "IFC4_test.ifc", "IFC4");
+
+    instance = internalGetInstanceFromP21Line(ifcModel, 319);
+
+    IFC4::IfcPropertyListValue propListValue(instance);
+    ASSERT(propListValue);
+
+    IFC4::ListOfIfcValue lstIfcValue;
+    propListValue.get_ListValues(lstIfcValue);
+    ASSERT(lstIfcValue.size() == 3);
+
+    int ind = 0;
+    for (auto& value : lstIfcValue) {
+        ind++;
+
+        IFC4::IfcLabel label = value._IfcSimpleValue().get_IfcLabel();
+        if (label) {
+            //printf("value[%d] = IfcLabel '%s'\n", ind, label);
+            ASSERT(ind == 1 && !strcmp(label, "List value 2"));
+            continue;
+        }
+
+        auto intVal = value._IfcSimpleValue().get_IfcInteger();
+        if (!intVal.IsNull()) {
+            //printf("value[%d] = IfcInteger %d\n", ind, intVal.Value());
+            ASSERT(ind == 2 && intVal.Value() == 13);
+            continue;
+        }
+
+        auto length = value._IfcMeasureValue().get_IfcLengthMeasure();
+        if (!length.IsNull()) {
+            //printf("value[%d] = IfcLengthMeasure %g\n", ind, length.Value());
+            ASSERT(ind == 3 && length.Value() == 8.5);
+            continue;
+        }
+
+        //add other variants that can be stored in IfcValue
+        //printf("Unandled variant\n");
+        ASSERT(false);
+    }
+
+    sdaiCloseModel(ifcModel);
 }
+
+
