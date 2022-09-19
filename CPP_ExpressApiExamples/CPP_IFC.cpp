@@ -600,16 +600,16 @@ extern void IFC4_test()
         double doubleVal = 0;
         const char* textVal = 0;
         if (sdaiGetADBValue(adbValue, sdaiINTEGER, &intVal)) {
-            printf("value[%d] = int %d\n", i, intVal);
+            ASSERT(i == 2 && intVal == 13);
         }
         else if (sdaiGetADBValue(adbValue, sdaiREAL, &doubleVal)) {
-            printf("value[%d] = double %g\n", i, doubleVal);
+            ASSERT(i == 3 && doubleVal == 8.5);
         }
         else if (sdaiGetADBValue(adbValue, sdaiSTRING, &textVal)) {
-            printf("value[%d] = text %s\n", i, textVal);
+            ASSERT(i == 1 && !strcmp(textVal, "List value 2"));
         }
         else {
-            printf("something else\n");
+            ASSERT(false);
         }
     }
 
