@@ -32,23 +32,25 @@ namespace RDFWrappers
             var nattr = ifcengine.engiGetEntityNoAttributes(inst);
             for (int i = 0; i < nattr; i++)
             {
-                IntPtr ptrName = IntPtr.Zero;
-                Int64 definingEntity, domainEntity, aggregation;
-                enum_express_attr_type attrType;
-                byte inverse, optional, unique;
+                var attribute = ifcengine.engiGetEntityAttributeByIndex(inst, i, true, true);
+                System.Diagnostics.Debug.Assert(attribute != 0);
 
-                byte ok = ifcengine.engiGetEntityAttribute
-                                (inst, i,
-                                out ptrName,
-                                out definingEntity, out inverse,
-                                out attrType, out domainEntity,
-                                out aggregation,
-                                out optional, out unique
-                                );
-                System.Diagnostics.Debug.Assert(ok != 0);
-
-                if (ok != 0)
+                if (attribute != 0)
                 {
+                    IntPtr ptrName = IntPtr.Zero;
+                    Int64 definingEntity, domainEntity, aggregation;
+                    enum_express_attr_type attrType;
+                    byte inverse, optional, unique;
+
+                    ifcengine.engiGetAttributeTraits
+                                    (attribute,
+                                    out ptrName,
+                                    out definingEntity, out inverse,
+                                    out attrType, out domainEntity,
+                                    out aggregation,
+                                    out optional, out unique
+                                    );
+
                     var prop = new Attribute
                     {
                         name = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptrName),
@@ -64,7 +66,7 @@ namespace RDFWrappers
                     //check duplications
                     bool add = true;
                     foreach (var a in ret)
-                    { 
+                    {
                         if (a.name == prop.name)
                         {
                             //see AP242 abstract_variable  System.Diagnostics.Debug.Assert(false);

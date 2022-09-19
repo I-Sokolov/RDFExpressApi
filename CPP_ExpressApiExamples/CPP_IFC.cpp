@@ -596,17 +596,17 @@ extern void IFC4_test()
         int_t inst = 0;
         auto res = engiGetAggrElement(listValues, i, sdaiINSTANCE, &inst);
 
-        int intVal = 0;
-        double doubleVal = 0;
-        const char* textVal = 0;
-        if (sdaiGetADBValue(adbValue, sdaiINTEGER, &intVal)) {
-            ASSERT(i == 2 && intVal == 13);
+        int_t intV = 0;
+        double doubleV = 0;
+        const char* textV = 0;
+        if (sdaiGetADBValue(adbValue, sdaiINTEGER, &intV)) {
+            ASSERT(i == 1 && intV == 13);
         }
-        else if (sdaiGetADBValue(adbValue, sdaiREAL, &doubleVal)) {
-            ASSERT(i == 3 && doubleVal == 8.5);
+        else if (sdaiGetADBValue(adbValue, sdaiREAL, &doubleV)) {
+            ASSERT(i == 2 && doubleV == 8.5);
         }
-        else if (sdaiGetADBValue(adbValue, sdaiSTRING, &textVal)) {
-            ASSERT(i == 1 && !strcmp(textVal, "List value 2"));
+        else if (sdaiGetADBValue(adbValue, sdaiSTRING, &textV)) {
+            ASSERT(i == 0 && !strcmp(textV, "List value 2"));
         }
         else {
             ASSERT(false);
@@ -632,10 +632,10 @@ extern void IFC4_test()
             continue;
         }
 
-        auto intVal = value._IfcSimpleValue().get_IfcInteger();
-        if (!intVal.IsNull()) {
+        auto intVal2 = value._IfcSimpleValue().get_IfcInteger();
+        if (!intVal2.IsNull()) {
             //printf("value[%d] = IfcInteger %d\n", ind, intVal.Value());
-            ASSERT(ind == 2 && intVal.Value() == 13);
+            ASSERT(ind == 2 && intVal2.Value() == 13);
             continue;
         }
 

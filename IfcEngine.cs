@@ -789,12 +789,20 @@ namespace RDF
 		}
 
 		/// <summary>
+		///		engiGetEntityAttributeByIndex                      (http://rdf.bg/ifcdoc/CS64/engiGetEntityAttributeByIndex.html)
+		///
+		///	...
+		/// </summary>
+		[DllImport(IFCEngineDLL, EntryPoint = "engiGetEntityAttributeByIndex")]
+		public static extern int_t engiGetEntityAttributeByIndex(int_t entity, int_t index, bool countedWithParents, bool countedWithInverse);
+
+		/// <summary>
 		///		engiGetEntityAttribute                      (http://rdf.bg/ifcdoc/CS64/engiGetEntityAttribute.html)
 		///
 		///	...
 		/// </summary>
-		[DllImport(IFCEngineDLL, EntryPoint = "engiGetEntityAttribute")]
-		public static extern byte engiGetEntityAttribute(int_t entity, int_t index, out IntPtr name, out int_t definingEntity, out byte inverse, out enum_express_attr_type attrType, out int_t domainEntity, out int_t aggregationDescriptor, out byte optional, out byte unique);
+		[DllImport(IFCEngineDLL, EntryPoint = "engiGetAttributeTraits")]
+		public static extern void engiGetAttributeTraits(int_t attribute, out IntPtr name, out int_t definingEntity, out byte inverse, out enum_express_attr_type attrType, out int_t domainEntity, out int_t aggregationDescriptor, out byte optional, out byte unique);
 
 		/// <summary>
 		///		engiGetAggregation                          (http://rdf.bg/ifcdoc/CS64/engiGetAggregation.html)
