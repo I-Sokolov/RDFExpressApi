@@ -579,82 +579,342 @@ extern void IFC4_test()
     }
 
     sdaiCloseModel(ifcModel);
+}
 
+extern void ADB_test()
+{
     ///
-    ifcModel = sdaiOpenModelBN(NULL, "IFC4_test.ifc", "IFC4");
+    auto ifcModel = sdaiOpenModelBN(NULL, "IFC4_test.ifc", "IFC4");
 
-    instance = internalGetInstanceFromP21Line(ifcModel, 319);
+    auto instance = internalGetInstanceFromP21Line(ifcModel, 319);
 
     SdaiAggr listValues = 0;
     sdaiGetAttrBN(instance, "ListValues", sdaiAGGR, &listValues);
 
     auto count = sdaiGetMemberCount(listValues);
-    for (int i = 0; i<count; i++){
-        void* adbValue = NULL;
-        engiGetAggrElement(listValues, i, sdaiADB, &adbValue);
-        
-        int_t inst = 0;
-        auto res = engiGetAggrElement(listValues, i, sdaiINSTANCE, &inst);
+    ASSERT(count == 9);
 
-        int_t intV = 0;
-        double doubleV = 0;
-        const char* textV = 0;
-        if (sdaiGetADBValue(adbValue, sdaiINTEGER, &intV)) {
-            ASSERT(i == 1 && intV == 13);
-        }
-        else if (sdaiGetADBValue(adbValue, sdaiREAL, &doubleV)) {
-            ASSERT(i == 2 && doubleV == 8.5);
-        }
-        else if (sdaiGetADBValue(adbValue, sdaiSTRING, &textV)) {
-            ASSERT(i == 0 && !strcmp(textV, "List value 2"));
-            const wchar_t* wcV = nullptr;
-            sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV);
-            ASSERT(!wcscmp(wcV, L"List value 2"));
-        }
-        else {
-            ASSERT(false);
-        }
-    }
+    void* adbValue = NULL;
+    int_t intV = 0;
+    double doubleV = 0;
+    const char* textV = 0;
+    const wchar_t* wcV = nullptr;
+    bool boolV = false;
 
+     /// <summary>
+     /// 0-string
+     /// </summary>
+     engiGetAggrElement(listValues, 0, sdaiADB, &adbValue);
+     auto type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiSTRING);
 
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!textV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!strcmp(textV, "List value 2"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!strcmp(textV, "List value 2"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!strcmp(textV, "List value 2"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcscmp(wcV, L"List value 2"));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+
+     /// <summary>
+     /// 1-integer
+     /// </summary>
+     engiGetAggrElement(listValues, 1, sdaiADB, &adbValue);
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiINTEGER);
+
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 13);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 13);
+
+     /// <summary>
+     /// 2-real
+     /// </summary>
+     engiGetAggrElement(listValues, 2, sdaiADB, &adbValue);
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiREAL);
+
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 8.5);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+
+     /// <summary>
+     /// 3-boolean
+     /// </summary>
+     engiGetAggrElement(listValues, 3, sdaiADB, &adbValue);
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiENUM);
+
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!strcmp(textV, "T"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(boolV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!strcmp(textV, "T"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!strcmp(textV, "T"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!strcmp(textV, "T"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!strcmp(textV, "T"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcscmp(wcV, L"T"));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+
+     /// <summary>
+     /// 4-logical
+     /// </summary>
+     engiGetAggrElement(listValues, 4, sdaiADB, &adbValue);
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiENUM);
+
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!strcmp(textV, "U"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!strcmp(textV, "U"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!strcmp(textV, "U"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!strcmp(textV, "U"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!strcmp(textV, "U"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcscmp(wcV, L"U"));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+
+     /// <summary>
+     /// 5-binary
+     /// </summary>
+     engiGetAggrElement(listValues, 5, sdaiADB, &adbValue);
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiBINARY);
+
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!textV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!strcmp(textV, "02F"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!strcmp(textV, "02F"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!strcmp(textV, "02F"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcscmp(wcV, L"02F"));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+
+     /// <summary>
+     /// 6-instance
+     /// </summary>
+     engiGetAggrElement(listValues, 6, sdaiADB, &adbValue);
+     ASSERT(adbValue == 0);
+     engiGetAggrElement(listValues, 6, sdaiINSTANCE, &intV);
+     ASSERT(intV != 0);
+#if 0
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiINSTANCE);
+
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!textV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!strcmp(textV, "02F"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!strcmp(textV, "02F"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!strcmp(textV, "02F"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcscmp(wcV, L"02F"));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+#endif
+
+     /// <summary>
+     /// 7-aggregation
+     /// </summary>
+     engiGetAggrElement(listValues, 7, sdaiADB, &adbValue);
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiAGGR);
+
+     ASSERT(sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV != 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+
+     /// <summary>
+     /// 8-enum
+     /// </summary>
+     engiGetAggrElement(listValues, 8, sdaiADB, &adbValue);
+     type = sdaiGetADBType(adbValue);
+     ASSERT(type == sdaiENUM);
+
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
+     ASSERT(intV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     ASSERT(intV == 0);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!strcmp(textV, "BELL"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!boolV);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiENUM, &textV));
+     ASSERT(!strcmp(textV, "BELL"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!strcmp(textV, "BELL"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!strcmp(textV, "BELL"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!strcmp(textV, "BELL"));
+     ASSERT(sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcscmp(wcV, L"BELL"));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
+     ASSERT(doubleV == 0);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
+     ASSERT(intV == 0);
+
+    /// <summary>
+    /// 
+    /// </summary>
     IFC4::IfcPropertyListValue propListValue(instance);
     ASSERT(propListValue);
 
     IFC4::ListOfIfcValue lstIfcValue;
     propListValue.get_ListValues(lstIfcValue);
-    ASSERT(lstIfcValue.size() == 3);
+    ASSERT(lstIfcValue.size() == 8); // 9); - instance is missed here
 
-    int ind = 0;
-    for (auto& value : lstIfcValue) {
-        ind++;
+    auto it = lstIfcValue.begin();
+    auto label = it->_IfcSimpleValue().get_IfcLabel();
+    ASSERT(!strcmp(label, "List value 2"));
 
-        IFC4::IfcLabel label = value._IfcSimpleValue().get_IfcLabel();
-        if (label) {
-            //printf("value[%d] = IfcLabel '%s'\n", ind, label);
-            ASSERT(ind == 1 && !strcmp(label, "List value 2"));
-            continue;
-        }
+    it++;
+    auto in = it->_IfcSimpleValue().get_IfcInteger();
+    ASSERT(in.Value() == 13);
 
-        auto intVal2 = value._IfcSimpleValue().get_IfcInteger();
-        if (!intVal2.IsNull()) {
-            //printf("value[%d] = IfcInteger %d\n", ind, intVal.Value());
-            ASSERT(ind == 2 && intVal2.Value() == 13);
-            continue;
-        }
+    it++;
+    auto id = it->_IfcMeasureValue().get_IfcLengthMeasure();
+    ASSERT(id.Value() == 8.5);
 
-        auto length = value._IfcMeasureValue().get_IfcLengthMeasure();
-        if (!length.IsNull()) {
-            //printf("value[%d] = IfcLengthMeasure %g\n", ind, length.Value());
-            ASSERT(ind == 3 && length.Value() == 8.5);
-            continue;
-        }
+    it++;
+    auto ib = it->_IfcSimpleValue().get_IfcBoolean();
+    ASSERT(ib.Value() == true);
 
-        //add other variants that can be stored in IfcValue
-        //printf("Unandled variant\n");
-        ASSERT(false);
-    }
+    it++;
+    auto il = it->_IfcSimpleValue().get_IfcLogical();
+    ASSERT(il.Value() == LOGICAL_VALUE::Unknown);
+    
+    it++;
+    auto ibin = it->_IfcSimpleValue().get_IfcBinary();
+    ASSERT(!strcmp(ibin, "02F"));
+
+    //instance is missed!
+    it++;
+    std::list<double> ic;
+    it->_IfcMeasureValue().get_IfcComplexNumber(ic);
+    ASSERT(ic.back() == 1 && ic.front() == 1 && ic.size() == 2);
 
     sdaiCloseModel(ifcModel);
 }
-
-

@@ -4,9 +4,12 @@ extern void AP242_test();
 extern void HelloWall();
 extern void GuideExamples();
 extern void EngineTests(void);
+extern void ADB_test();
 
 extern int main()
 {
+    ADB_test();
+
     EngineTests();
 
     IFC4_test();
@@ -16,6 +19,6 @@ extern int main()
     HelloWall();
 
     GuideExamples();
-    
+
     return 0;
 }
