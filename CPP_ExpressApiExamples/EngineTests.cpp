@@ -3,6 +3,11 @@
 
 using namespace IFC4;
 
+#ifndef ASSERT
+#define ASSERT(c) {if (!(c)) { printf ("ASSERT at LINE %d FILE %s\n", __LINE__, __FILE__); assert (false);}}
+#endif
+
+
 #define FILE_NAME "EngineTests.ifc"
 
 static void TestBinaries(SdaiModel ifcModel)
@@ -24,19 +29,19 @@ static void TestBinaries(SdaiModel ifcModel)
     blobTexture.put_RasterFormat("PNG");
     blobTexture.put_Mode("MODULATE");
 
-    assert(blobTexture.get_RasterCode() == NULL);
+    ASSERT(blobTexture.get_RasterCode() == NULL);
     blobTexture.put_RasterCode(rasterCode);
-    assert(0 == strcmp(blobTexture.get_RasterCode(), rasterCode));
+    ASSERT(0 == strcmp(blobTexture.get_RasterCode(), rasterCode));
 
     //put/get with SDAI
     sdaiPutAttrBN(blobTexture, "RasterCode", sdaiBINARY, rasterCode);
     IfcBinary gotData = NULL;
     sdaiGetAttrBN(blobTexture, "RasterCode", sdaiBINARY, &gotData);
-    assert(!strcmp(gotData, rasterCode));
+    ASSERT(!strcmp(gotData, rasterCode));
 
     //can also get as string
     sdaiGetAttrBN(blobTexture, "RasterCode", sdaiSTRING, &gotData);
-    assert(!strcmp(gotData, rasterCode));
+    ASSERT(!strcmp(gotData, rasterCode));
 
     //
     //aggregation
@@ -44,7 +49,7 @@ static void TestBinaries(SdaiModel ifcModel)
 
     ListOfIfcBinary lstBin;
     pixelTexture.get_Pixel(lstBin);
-    assert(lstBin.size() == 0);
+    ASSERT(lstBin.size() == 0);
 
     lstBin.push_back(rasterCode);
     lstBin.push_back(rasterCode);
@@ -53,22 +58,22 @@ static void TestBinaries(SdaiModel ifcModel)
     
     lstBin.clear();
     pixelTexture.get_Pixel(lstBin);
-    assert(lstBin.size() == 2 && !strcmp(lstBin.front(), rasterCode) && !strcmp(lstBin.back(), rasterCode));
+    ASSERT(lstBin.size() == 2 && !strcmp(lstBin.front(), rasterCode) && !strcmp(lstBin.back(), rasterCode));
 
     //
     //select
     auto value = IfcAppliedValue::Create(ifcModel);
 
     auto bin = value.get_AppliedValue().get_IfcValue().get_IfcSimpleValue().get_IfcBinary();
-    assert(bin == 0);
+    ASSERT(bin == 0);
 
     value.put_AppliedValue().put_IfcValue().put_IfcSimpleValue().put_IfcBinary(rasterCode);
     bin = value.get_AppliedValue().get_IfcValue().get_IfcSimpleValue().get_IfcBinary();
-    assert(!strcmp(bin, rasterCode));
+    ASSERT(!strcmp(bin, rasterCode));
 
     //simplified form
     bin = value.get_AppliedValue().as_text();
-    assert(!strcmp(bin, rasterCode));
+    ASSERT(!strcmp(bin, rasterCode));
 
     //
     //save and read
@@ -83,43 +88,43 @@ static void TestBinaries(SdaiModel ifcModel)
     auto entityBlobTexture = sdaiGetEntity(readModel, "IfcBlobTexture");
     auto blobTextureAggr = sdaiGetEntityExtent(readModel, entityBlobTexture);
     auto N = sdaiGetMemberCount(blobTextureAggr);
-    assert(N == 1);
+    ASSERT(N == 1);
     for (int_t i = 0; i < N; i++) {
         int_t inst = 0;
         engiGetAggrElement(blobTextureAggr, i, sdaiINSTANCE, &inst);
         auto code = IfcBlobTexture(inst).get_RasterCode();
-        assert(0 == strcmp(code, rasterCode));
+        ASSERT(0 == strcmp(code, rasterCode));
     }
 
     const char* argName = NULL;
     engiGetEntityArgumentName(entityBlobTexture, 1, sdaiSTRING, &argName);
-    assert(0 == strcmp(argName, "RepeatT"));
+    ASSERT(0 == strcmp(argName, "RepeatT"));
 
     int_t argType;
     engiGetEntityArgumentType(entityBlobTexture, 1, &argType);
-    assert(argType == sdaiBOOLEAN);
+    ASSERT(argType == sdaiBOOLEAN);
 
     auto entityPixelTexture = sdaiGetEntity(readModel, "IfcPixelTexture");
     auto pixelTextureAggr = sdaiGetEntityExtent(readModel, entityPixelTexture);
     N = sdaiGetMemberCount(pixelTextureAggr);
-    assert(N == 1);
+    ASSERT(N == 1);
     for (int_t i = 0; i < N; i++) {
         int_t inst = 0;
         engiGetAggrElement(pixelTextureAggr, i, sdaiINSTANCE, &inst);
         ListOfIfcBinary lstBin2;
         IfcPixelTexture(inst).get_Pixel(lstBin2);
-        assert(lstBin2.size() == 2 && !strcmp(lstBin2.front(), rasterCode) && !strcmp(lstBin2.back(), rasterCode));
+        ASSERT(lstBin2.size() == 2 && !strcmp(lstBin2.front(), rasterCode) && !strcmp(lstBin2.back(), rasterCode));
     }
 
     auto entityValue = sdaiGetEntity(readModel, "IfcAppliedValue");
     auto valueAggr = sdaiGetEntityExtent(readModel, entityValue);
     N = sdaiGetMemberCount(pixelTextureAggr);
-    assert(N == 1);
+    ASSERT(N == 1);
     for (int_t i = 0; i < N; i++) {
         int_t inst = 0;
         engiGetAggrElement(valueAggr, i, sdaiINSTANCE, &inst);
         auto v = IfcAppliedValue(inst).get_AppliedValue().get_IfcValue().get_IfcSimpleValue().get_IfcBinary();
-        assert(!strcmp(v, rasterCode));
+        ASSERT(!strcmp(v, rasterCode));
     }
 
 }
@@ -128,17 +133,17 @@ static void TestPutAttr(SdaiModel model)
 {
     auto window = IfcWindow::Create(model);
 
-    assert(window.get_PredefinedType().IsNull());
+    ASSERT(window.get_PredefinedType().IsNull());
     window.put_PredefinedType(IfcWindowTypeEnum::SKYLIGHT);
-    assert(window.get_PredefinedType().Value()==IfcWindowTypeEnum::SKYLIGHT);
+    ASSERT(window.get_PredefinedType().Value()==IfcWindowTypeEnum::SKYLIGHT);
     sdaiPutAttrBN(window, "PredefinedType", sdaiENUM, NULL);
-    assert(window.get_PredefinedType().IsNull());
+    ASSERT(window.get_PredefinedType().IsNull());
 
-    assert(window.get_OverallWidth().IsNull());
+    ASSERT(window.get_OverallWidth().IsNull());
     window.put_OverallWidth(50);
-    assert(window.get_OverallWidth().Value() == 50);
+    ASSERT(window.get_OverallWidth().Value() == 50);
     sdaiPutAttrBN(window, "OverallWidth", sdaiREAL, NULL);
-    assert(window.get_OverallWidth().IsNull());
+    ASSERT(window.get_OverallWidth().IsNull());
 
     //*/$
     auto unit = IfcSIUnit::Create(model);
@@ -149,48 +154,48 @@ static void TestPutAttr(SdaiModel model)
     
     //make complex with logical
     measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcLogical(IfcLogical::True);
-    assert(measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcLogical().Value() == IfcLogical::True);
+    ASSERT(measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcLogical().Value() == IfcLogical::True);
 
     sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "F");
 
     auto adb = sdaiCreateEmptyADB();        
-    assert(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
+    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
     const char* eval = NULL;
-    assert(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiENUM, &eval)); //it is enum
-    assert(!strcmp(eval, "T")); //but keeps old value
+    ASSERT(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiENUM, &eval)); //it is enum
+    ASSERT(!strcmp(eval, "T")); //but keeps old value
 
     //make complex with string
     measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcText("Text1");
-    assert(!strcmp("Text1", measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcText()));
+    ASSERT(!strcmp("Text1", measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcText()));
 
     sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "New Text");
     adb = sdaiCreateEmptyADB();
-    assert(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
+    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
     eval = NULL;
-    assert(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, &eval)); //and this can not be casted to string
+    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, &eval)); //and this can not be casted to string
     //(in debugger I see arg->sdai_type is 0-type now)
     
     //make complex with integer
     measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcInteger(8);
-    assert(8==measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcInteger().Value());
+    ASSERT(8==measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcInteger().Value());
 
     sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "9");
     adb = sdaiCreateEmptyADB();
-    assert(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
+    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
     int ival = NULL;
-    assert(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiINTEGER, &ival)); //this is integer with old value
-    assert(ival == 8);
+    ASSERT(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiINTEGER, &ival)); //this is integer with old value
+    ASSERT(ival == 8);
 
     //make complex with real
     measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcReal(3.14);
-    assert(3.14 == measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcReal().Value());
+    ASSERT(3.14 == measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcReal().Value());
 
     sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "9");
     adb = sdaiCreateEmptyADB();
-    assert(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
+    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
     double dval = NULL;
-    assert(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiREAL, &dval)); //this is real with old value
-    assert(dval == 3.14);
+    ASSERT(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiREAL, &dval)); //this is real with old value
+    ASSERT(dval == 3.14);
 #endif
 }
 

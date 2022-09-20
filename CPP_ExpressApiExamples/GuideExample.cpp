@@ -2,6 +2,10 @@
 #include <vector>
 #include "IFC4.h"
 
+#ifndef ASSERT
+#define ASSERT(c) {if (!(c)) { printf ("ASSERT at LINE %d FILE %s\n", __LINE__, __FILE__); assert (false);}}
+#endif
+
 
 extern void GuideExamples()
 {
@@ -19,19 +23,19 @@ extern void GuideExamples()
 
     //whenever SDAI instance is required, model instance can be used with implicit conversion
     int_t ok = sdaiIsKindOfBN(wall, "IfcProduct");
-    assert(ok);
+    ASSERT(ok);
 
     SdaiInstance sdaiWall = wall;
     ok = sdaiIsKindOfBN(sdaiWall, "IfcSlab");
-    assert(!ok);
+    ASSERT(!ok);
 
     //other way, if you have SDAI instance you can construct model instance of appripriate type
 
     IFC4::IfcProduct product(sdaiWall);
-    assert(product); //check instance is valid
+    ASSERT(product); //check instance is valid
 
     IFC4::IfcSlab slab(sdaiWall);
-    assert(!slab); //wall is not a slab
+    ASSERT(!slab); //wall is not a slab
 
     //
     // use put_* and set_* methods to access attribute
@@ -39,7 +43,7 @@ extern void GuideExamples()
     // 
 
     wall.put_Name("MyWall");
-    assert(!- strcmp(wall.get_Name(), "MyWall"));
+    ASSERT(!- strcmp(wall.get_Name(), "MyWall"));
 
     //
     // Nullable values
@@ -47,23 +51,23 @@ extern void GuideExamples()
 
     // get_* method will return domain type if attribute domain includes NULL value
     IFC4::IfcText text = wall.get_Description();
-    assert(text == NULL); //not set
+    ASSERT(text == NULL); //not set
 
     // but if NULL value outside of domain type, get_* method will return Nullable<> type extension
     // use Nullable::IsNull and Nullable::Value
 
     IFC4::Nullable<double> width = door.get_OverallWidth();
-    assert(width.IsNull()); //not set
+    ASSERT(width.IsNull()); //not set
 
     door.put_OverallWidth(900);
 
     width = door.get_OverallWidth();
-    assert(!width.IsNull() && width.Value() == 900);
+    ASSERT(!width.IsNull() && width.Value() == 900);
 
     // Hint: use auto to simplify code
     
     auto height = door.get_OverallHeight();
-    assert(height.IsNull()); //not set
+    ASSERT(height.IsNull()); //not set
     
     //
     // Enumerations
@@ -74,11 +78,11 @@ extern void GuideExamples()
 
     // get_* methods will return Nullable extension
     IFC4::Nullable<IFC4::IfcWallTypeEnum> wallPredefinedType = wall.get_PredefinedType();
-    assert(wallPredefinedType.Value() == IFC4::IfcWallTypeEnum::MOVABLE);
+    ASSERT(wallPredefinedType.Value() == IFC4::IfcWallTypeEnum::MOVABLE);
 
     //Hint: simplify with auto
     auto doorPredefinedType = door.get_PredefinedType();
-    assert(doorPredefinedType.IsNull());
+    ASSERT(doorPredefinedType.IsNull());
 
     //
     // Definded types
@@ -95,7 +99,7 @@ extern void GuideExamples()
     //both are suitable to get
     IFC4::Nullable<IFC4::IfcPositiveLengthMeasure> getAsMeasure = door.get_OverallHeight();
     IFC4::Nullable<double> getAsDouble = door.get_OverallHeight();
-    assert(getAsMeasure.Value() == 2000 && getAsDouble.Value() == 2000);
+    ASSERT(getAsMeasure.Value() == 2000 && getAsDouble.Value() == 2000);
 
     //
     // SELECTs
@@ -116,23 +120,23 @@ extern void GuideExamples()
     //similary, attribute get_* methods return a get-selector and you can inquire content
     IFC4::IfcActorSelect_get getSelector = actor.get_TheActor();
     
-    assert(getSelector.is_IfcPerson());
-    assert(!getSelector.is_IfcOrganization());
+    ASSERT(getSelector.is_IfcPerson());
+    ASSERT(!getSelector.is_IfcOrganization());
 
     IFC4::IfcPerson gotPerson = getSelector.get_IfcPerson();
-    assert(gotPerson == person);
+    ASSERT(gotPerson == person);
 
     IFC4::IfcOrganization gotOrganization = getSelector.get_IfcOrganization();
-    assert(gotOrganization == 0);
+    ASSERT(gotOrganization == 0);
 
     //get-selector may provide a method to get as base C++ type without specifing IFC type
     
     SdaiInstance inst =  getSelector.as_instance();
     
     //check instance class
-    assert(IFC4::IfcPerson(inst));
-    assert(!IFC4::IfcOrganization(inst));
-    assert(sdaiIsKindOfBN(inst, "IfcPerson"));
+    ASSERT(IFC4::IfcPerson(inst));
+    ASSERT(!IFC4::IfcOrganization(inst));
+    ASSERT(sdaiIsKindOfBN(inst, "IfcPerson"));
 
 
     //work with nested SELECT
@@ -142,29 +146,29 @@ extern void GuideExamples()
     measure.put_ValueComponent().put_IfcSimpleValue().put_IfcInteger(75);
 
     //you can get with type path
-    assert(measure.get_ValueComponent().get_IfcSimpleValue().is_IfcInteger());
-    assert(!measure.get_ValueComponent().get_IfcMeasureValue().is_IfcAreaMeasure());
+    ASSERT(measure.get_ValueComponent().get_IfcSimpleValue().is_IfcInteger());
+    ASSERT(!measure.get_ValueComponent().get_IfcMeasureValue().is_IfcAreaMeasure());
 
     auto valueSelector = measure.get_ValueComponent(); //you can save selector in a variable
 
     auto gotInt = valueSelector.get_IfcSimpleValue().get_IfcInteger();
-    assert(!gotInt.IsNull() && gotInt.Value() == 75);
+    ASSERT(!gotInt.IsNull() && gotInt.Value() == 75);
 
     auto gotArea = measure.get_ValueComponent().get_IfcMeasureValue().get_IfcAreaMeasure();
-    assert(gotArea.IsNull());
+    ASSERT(gotArea.IsNull());
 
     //if you are not interested in type, you can get as C++ base type
     gotInt = valueSelector.as_int();
-    assert(!gotInt.IsNull() && gotInt.Value() == 75);
+    ASSERT(!gotInt.IsNull() && gotInt.Value() == 75);
 
     auto gotDouble = valueSelector.as_double();
-    assert(!gotDouble.IsNull() && gotDouble.Value() == 75);
+    ASSERT(!gotDouble.IsNull() && gotDouble.Value() == 75);
 
     auto gotText = measure.get_ValueComponent().as_text();
-    assert(gotText != NULL && !strcmp(gotText, "75"));
+    ASSERT(gotText != NULL && !strcmp(gotText, "75"));
 
     auto gotBool = valueSelector.as_bool();
-    assert(gotBool.IsNull()); //IfcInteger is not convertable to bool
+    ASSERT(gotBool.IsNull()); //IfcInteger is not convertable to bool
 
     //
     // AGGRAGATIONS
@@ -187,7 +191,7 @@ extern void GuideExamples()
 
     IFC4::IfcCompoundPlaneAngleMeasure gotPlaneAngle;
     site.get_RefLatitude(gotPlaneAngle);
-    assert(gotPlaneAngle.size() == 3 && gotPlaneAngle.front() == 44);
+    ASSERT(gotPlaneAngle.size() == 3 && gotPlaneAngle.front() == 44);
 
     //to put you can use lists of convertable types or array
     std::list<int_t> lstInt;
@@ -200,11 +204,11 @@ extern void GuideExamples()
     //and get as list of convertable type
     std::vector<int_t> vector;
     site.get_RefLongitude(vector);
-    assert(vector.size() == 4 && vector[2] == 3);
+    ASSERT(vector.size() == 4 && vector[2] == 3);
 
     IFC4::ListOfIfcInteger lstIfcInt;
     site.get_RefLatitude(lstIfcInt);
-    assert(lstIfcInt.size() == 1 && lstIfcInt.front() == 56);
+    ASSERT(lstIfcInt.size() == 1 && lstIfcInt.front() == 56);
 
     //
     // RELATIONSHIPS is an example of aggregations of entities
@@ -216,7 +220,7 @@ extern void GuideExamples()
 
     IFC4::SetOfIfcObjectDefinition gotGroup;
     group.get_RelatedObjects(gotGroup);
-    assert(gotGroup.size() == 2 && gotGroup.front() == wall && gotGroup.back() == site);
+    ASSERT(gotGroup.size() == 2 && gotGroup.front() == wall && gotGroup.back() == site);
         
     //
     // AGGERGATION OF SELECT
@@ -238,11 +242,11 @@ extern void GuideExamples()
 
     IFC4::ListOfIfcValue gotValues;
     propEnumValue.get_EnumerationValues(gotValues);
-    assert(gotValues.size() == 2);
+    ASSERT(gotValues.size() == 2);
     const char* v1 = gotValues.front()._IfcSimpleValue().get_IfcLabel();
-    assert(v1!=NULL && !strcmp(v1, "MyLabel"));
+    ASSERT(v1!=NULL && !strcmp(v1, "MyLabel"));
     IFC4::Nullable<double> v2 = gotValues.back()._IfcMeasureValue().get_IfcCountMeasure();
-    assert(!v2.IsNull() && v2.Value() == 4);
+    ASSERT(!v2.IsNull() && v2.Value() == 4);
 
     //
     // AGGREGATION OF AGGREGATION
@@ -267,7 +271,7 @@ extern void GuideExamples()
 
     IFC4::ListOfListOfIfcLengthMeasure coordListCheck;
     pointList.get_CoordList(coordListCheck);
-    assert(coordList == coordListCheck);
+    ASSERT(coordList == coordListCheck);
 
     //
     // SELECT OF AGGREGATION
@@ -279,6 +283,6 @@ extern void GuideExamples()
 
     IFC4::IfcComplexNumber cplxNum;
     prop.get_NominalValue().get_IfcMeasureValue().get_IfcComplexNumber(cplxNum);
-    assert(cplxNum.size() == 2 && cplxNum.front() == 2.1 && cplxNum.back() == 1.5);
+    ASSERT(cplxNum.size() == 2 && cplxNum.front() == 2.1 && cplxNum.back() == 1.5);
 
 }

@@ -10,7 +10,7 @@
 using namespace IFC4;
 
 #ifndef ASSERT
-#define ASSERT assert
+#define ASSERT(c) {if (!(c)) { printf ("ASSERT at LINE %d FILE %s\n", __LINE__, __FILE__); assert (false);}}
 #endif
 
 extern void IFC4_test()
