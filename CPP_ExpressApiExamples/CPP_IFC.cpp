@@ -607,6 +607,9 @@ extern void IFC4_test()
         }
         else if (sdaiGetADBValue(adbValue, sdaiSTRING, &textV)) {
             ASSERT(i == 0 && !strcmp(textV, "List value 2"));
+            const wchar_t* wcV = nullptr;
+            sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV);
+            ASSERT(!wcscmp(wcV, L"List value 2"));
         }
         else {
             ASSERT(false);
