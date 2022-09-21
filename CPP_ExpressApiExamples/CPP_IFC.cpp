@@ -790,10 +790,14 @@ extern void ADB_test()
 
      ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
      ASSERT(intV == 0);
+
      ASSERT(sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
      intV = sdaiGetInstanceType(intV);
      engiGetEntityName(intV, sdaiSTRING, &textV);
      ASSERT(!strcmp(textV, "IfcPropertyListValue"));
+     auto typePath = sdaiGetADBTypePath(adbValue, 0);
+     ASSERT(!strcmp(typePath, ""));
+
      ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
      ASSERT(!textV);
      ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
