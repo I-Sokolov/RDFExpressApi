@@ -171,10 +171,10 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\bin\Debug\net5.0\AP242.h" />
-    <ClInclude Include="..\..\bin\Debug\net5.0\IFC4.h" />
-    <ClInclude Include="..\..\bin\Debug\net5.0\IFC4x3.h" />
-    <ClInclude Include="..\..\EngineEx_Template.h" />
+    <None Include="IFC4_test.ifc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\EngineEx_Template.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -35,16 +35,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\EngineEx_Template.h">
+    <None Include="IFC4_test.ifc">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\bin\Debug\net5.0\IFC4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\bin\Debug\net5.0\AP242.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\bin\Debug\net5.0\IFC4x3.h">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\EngineEx_Template.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

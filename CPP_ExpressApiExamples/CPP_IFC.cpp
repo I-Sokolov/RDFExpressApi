@@ -696,7 +696,7 @@ extern void ADB_test()
      /// </summary>
      engiGetAggrElement(listValues, 3, sdaiADB, &adbValue);
      type = sdaiGetADBType(adbValue);
-     ASSERT(type == sdaiENUM);
+     ASSERT(type == sdaiBOOLEAN);
 
      ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
      ASSERT(intV == 0);
@@ -726,7 +726,7 @@ extern void ADB_test()
      /// </summary>
      engiGetAggrElement(listValues, 4, sdaiADB, &adbValue);
      type = sdaiGetADBType(adbValue);
-     ASSERT(type == sdaiENUM);
+     ASSERT(type == sdaiLOGICAL);
 
      ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
      ASSERT(intV == 0);
@@ -734,7 +734,7 @@ extern void ADB_test()
      ASSERT(intV == 0);
      ASSERT(sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
      ASSERT(!strcmp(textV, "U"));
-     ASSERT(sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
      ASSERT(!boolV);
      ASSERT(sdaiGetADBValue(adbValue, sdaiENUM, &textV));
      ASSERT(!strcmp(textV, "U"));
@@ -785,36 +785,34 @@ extern void ADB_test()
      /// 6-instance
      /// </summary>
      engiGetAggrElement(listValues, 6, sdaiADB, &adbValue);
-     ASSERT(adbValue == 0);
-     engiGetAggrElement(listValues, 6, sdaiINSTANCE, &intV);
-     ASSERT(intV != 0);
-#if 0
      type = sdaiGetADBType(adbValue);
      ASSERT(type == sdaiINSTANCE);
 
      ASSERT(!sdaiGetADBValue(adbValue, sdaiAGGR, &intV));
      ASSERT(intV == 0);
-     ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
-     ASSERT(intV == 0);
+     ASSERT(sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+     intV = sdaiGetInstanceType(intV);
+     engiGetEntityName(intV, sdaiSTRING, &textV);
+     ASSERT(!strcmp(textV, "IfcPropertyListValue"));
      ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
      ASSERT(!textV);
      ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
      ASSERT(!boolV);
      ASSERT(!sdaiGetADBValue(adbValue, sdaiENUM, &textV));
      ASSERT(!textV);
-     ASSERT(sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
-     ASSERT(!strcmp(textV, "02F"));
-     ASSERT(sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
-     ASSERT(!strcmp(textV, "02F"));
-     ASSERT(sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
-     ASSERT(!strcmp(textV, "02F"));
-     ASSERT(sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
-     ASSERT(!wcscmp(wcV, L"02F"));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBINARY, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiEXPRESSSTRING, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiUNICODE, &wcV));
+     ASSERT(!wcV);
      ASSERT(!sdaiGetADBValue(adbValue, sdaiREAL, &doubleV));
      ASSERT(doubleV == 0);
      ASSERT(!sdaiGetADBValue(adbValue, sdaiINTEGER, &intV));
      ASSERT(intV == 0);
-#endif
+
 
      /// <summary>
      /// 7-aggregation
@@ -857,9 +855,9 @@ extern void ADB_test()
      ASSERT(intV == 0);
      ASSERT(!sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
      ASSERT(intV == 0);
-     ASSERT(sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
-     ASSERT(!strcmp(textV, "BELL"));
-     ASSERT(sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiLOGICAL, &textV));
+     ASSERT(!textV);
+     ASSERT(!sdaiGetADBValue(adbValue, sdaiBOOLEAN, &boolV));
      ASSERT(!boolV);
      ASSERT(sdaiGetADBValue(adbValue, sdaiENUM, &textV));
      ASSERT(!strcmp(textV, "BELL"));
@@ -884,7 +882,7 @@ extern void ADB_test()
 
     IFC4::ListOfIfcValue lstIfcValue;
     propListValue.get_ListValues(lstIfcValue);
-    ASSERT(lstIfcValue.size() == 8); // 9); - instance is missed here
+    ASSERT(lstIfcValue.size() == 9);
 
     auto it = lstIfcValue.begin();
     auto label = it->_IfcSimpleValue().get_IfcLabel();
@@ -910,7 +908,16 @@ extern void ADB_test()
     auto ibin = it->_IfcSimpleValue().get_IfcBinary();
     ASSERT(!strcmp(ibin, "02F"));
 
-    //instance is missed!
+    it++;//instance but no access functions because it violates schema
+    ASSERT(it->_IfcMeasureValue().get_IfcAreaMeasure().IsNull());
+    adbValue = it->ADB();
+    type = sdaiGetADBType(adbValue);
+    ASSERT(type == sdaiINSTANCE);
+    ASSERT(sdaiGetADBValue(adbValue, sdaiINSTANCE, &intV));
+    intV = sdaiGetInstanceType(intV);
+    engiGetEntityName(intV, sdaiSTRING, &textV);
+    ASSERT(!strcmp(textV, "IfcPropertyListValue"));
+
     it++;
     std::list<double> ic;
     it->_IfcMeasureValue().get_IfcComplexNumber(ic);
