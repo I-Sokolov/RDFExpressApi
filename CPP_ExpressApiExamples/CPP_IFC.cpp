@@ -18,7 +18,7 @@ extern void IFC4_test()
     int_t  ifcModel = sdaiCreateModelBN(0, NULL, "IFC4");
     ASSERT(ifcModel);
     SetSPFFHeaderItem(ifcModel, 9, 0, sdaiSTRING, "IFC4");
-    SetSPFFHeaderItem(ifcModel, 9, 1, sdaiSTRING, 0);
+    SetSPFFHeaderItem(ifcModel, 9, 1, sdaiSTRING, 0);         
 
     auto ownerHistory = IfcOwnerHistory::Create(ifcModel);
 
@@ -927,5 +927,15 @@ extern void ADB_test()
     it->_IfcMeasureValue().get_IfcComplexNumber(ic);
     ASSERT(ic.back() == 1 && ic.front() == 1 && ic.size() == 2);
 
+    //
+    auto entityCtx = sdaiGetEntity(ifcModel, "IfcContext");
+    auto ind = engiGetEntityAttributeIndex(entityCtx, "UnitsInContext");
+    ASSERT(ind == 15);
+    ind = engiGetEntityAttributeIndexEx(entityCtx, "UnitsInContext", true, false);
+    ASSERT(ind == 8);
+    ind = engiGetEntityAttributeIndexEx(entityCtx, "UnitsInContext", false, false);
+    ASSERT(ind == 4);
+
+    //
     sdaiCloseModel(ifcModel);
 }
