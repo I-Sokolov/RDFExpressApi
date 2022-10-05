@@ -226,7 +226,7 @@ static void test_multi_parent()
     const int_t rTypes[] =
         {sdaiSTRING, sdaiINSTANCE, sdaiAGGR, sdaiAGGR, sdaiENUM, sdaiAGGR, sdaiAGGR};
     for (int i = 0; i < 7; i++) {
-        int_t attribute = engiGetEntityAttributeByIndex(entity, i, true, true);
+        auto attribute = engiGetEntityAttributeByIndex(entity, i, true, true);
         const char* name = NULL;
         engiGetAttributeTraits(attribute, &name, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
         ASSERT(!strcmp(name, rAttr[i]));

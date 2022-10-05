@@ -199,6 +199,30 @@ static void TestPutAttr(SdaiModel model)
 #endif
 }
 
+static void TestGetAttrType(SdaiModel ifcModel, const char* entityName, const char* attrName, int_t expected)
+{
+    SdaiEntity entity = sdaiGetEntity(ifcModel, entityName);
+    auto attr = sdaiGetAttrDefinition(entity, attrName);
+    auto type = engiGetAttrType(attr);
+    ASSERT(type == expected);
+}
+
+static void TestGetAttrType(SdaiModel ifcModel)
+{
+    TestGetAttrType(ifcModel, "IfcWall", "GlobalId", sdaiSTRING);
+    TestGetAttrType(ifcModel, "IfcWall", "OwnerHistory", sdaiINSTANCE);
+    TestGetAttrType(ifcModel, "IfcWall", "IsDecomposedBy", sdaiINSTANCE | engiTypeFlagAggr);
+    TestGetAttrType(ifcModel, "IfcWall", "PredefinedType", sdaiENUM);
+    TestGetAttrType(ifcModel, "IfcPolyLoop", "Polygon", sdaiINSTANCE | engiTypeFlagAggr);
+    TestGetAttrType(ifcModel, "IfcPolygonalFaceSet", "PnIndex", sdaiINTEGER | engiTypeFlagAggr);
+    TestGetAttrType(ifcModel, "IfcRelDefinesByProperties", "RelatingPropertyDefinition", sdaiINSTANCE | engiTypeFlagAggrOption);
+    TestGetAttrType(ifcModel, "IfcMeasureWithUnit", "ValueComponent", sdaiADB);
+    TestGetAttrType(ifcModel, "IfcFeatureElementAddition", "ProjectsElements", sdaiINSTANCE);
+    TestGetAttrType(ifcModel, "IfcSite", "RefLatitude", sdaiINTEGER | engiTypeFlagAggr);
+    TestGetAttrType(ifcModel, "IfcRationalBSplineCurveWithKnots", "WeightsData", sdaiREAL | engiTypeFlagAggr);
+}
+
+
 extern void EngineTests(void)
 {
     SdaiModel  ifcModel = sdaiCreateModelBN(0, NULL, "IFC4");
@@ -207,6 +231,7 @@ extern void EngineTests(void)
 
     TestBinaries(ifcModel);
     TestPutAttr(ifcModel);
+    TestGetAttrType(ifcModel);
     
     sdaiSaveModelBN(ifcModel, FILE_NAME);
     sdaiCloseModel(ifcModel);
