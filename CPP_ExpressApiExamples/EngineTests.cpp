@@ -148,55 +148,23 @@ static void TestPutAttr(SdaiModel model)
     //*/$
     auto unit = IfcSIUnit::Create(model);
 
-#if 0
-    //check sdaiPutAttr (sdaiSTRING) over complex argument
+    //
     IfcMeasureWithUnit measureWithUnit = IfcMeasureWithUnit::Create(model);
     
     //make complex with logical
     measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcLogical(IfcLogical::True);
     ASSERT(measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcLogical().Value() == IfcLogical::True);
 
-    sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "F");
+    auto ifcMeasureWithUnit = sdaiGetEntity(model, "IfcMeasureWithUnit");
+    auto index = engiGetEntityAttributeIndexEx(ifcMeasureWithUnit, "ValueComponent", true, false);
+    auto type = engiGetAttrDataType(measureWithUnit, index);
+    ASSERT(type == sdaiADB);
 
     auto adb = sdaiCreateEmptyADB();        
-    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
-    const char* eval = NULL;
-    ASSERT(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiENUM, &eval)); //it is enum
-    ASSERT(!strcmp(eval, "T")); //but keeps old value
+    ASSERT(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb));
 
-    //make complex with string
-    measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcText("Text1");
-    ASSERT(!strcmp("Text1", measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcText()));
-
-    sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "New Text");
-    adb = sdaiCreateEmptyADB();
-    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
-    eval = NULL;
-    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, &eval)); //and this can not be casted to string
-    //(in debugger I see arg->sdai_type is 0-type now)
-    
-    //make complex with integer
-    measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcInteger(8);
-    ASSERT(8==measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcInteger().Value());
-
-    sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "9");
-    adb = sdaiCreateEmptyADB();
-    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
-    int ival = NULL;
-    ASSERT(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiINTEGER, &ival)); //this is integer with old value
-    ASSERT(ival == 8);
-
-    //make complex with real
-    measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcReal(3.14);
-    ASSERT(3.14 == measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcReal().Value());
-
-    sdaiPutAttrBN(measureWithUnit, "ValueComponent", sdaiSTRING, "9");
-    adb = sdaiCreateEmptyADB();
-    ASSERT(!sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiADB, &adb)); //it is not a complex now
-    double dval = NULL;
-    ASSERT(sdaiGetAttrBN(measureWithUnit, "ValueComponent", sdaiREAL, &dval)); //this is real with old value
-    ASSERT(dval == 3.14);
-#endif
+    type = sdaiGetADBType(adb);
+    ASSERT(type == sdaiENUM);
 }
 
 static void TestGetAttrType(SdaiModel ifcModel, const char* entityName, const char* attrName, int_t expected)
