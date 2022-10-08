@@ -155,9 +155,11 @@ static void TestPutAttr(SdaiModel model)
     measureWithUnit.put_ValueComponent().put_IfcSimpleValue().put_IfcLogical(IfcLogical::True);
     ASSERT(measureWithUnit.get_ValueComponent().get_IfcSimpleValue().get_IfcLogical().Value() == IfcLogical::True);
 
+    auto type = engiGetInstanceAttrTypeBN(measureWithUnit, "ValueComponent");
+    ASSERT(type == sdaiADB);
+
     auto ifcMeasureWithUnit = sdaiGetEntity(model, "IfcMeasureWithUnit");
-    auto index = engiGetEntityAttributeIndexEx(ifcMeasureWithUnit, "ValueComponent", true, false);
-    auto type = engiGetAttrDataType(measureWithUnit, index);
+    type = engiGetAttrTypeBN(ifcMeasureWithUnit, "ValueComponent");
     ASSERT(type == sdaiADB);
 
     type = engiGetAttrTypeBN(measureWithUnit, "ValueComponent");
@@ -168,6 +170,9 @@ static void TestPutAttr(SdaiModel model)
 
     type = sdaiGetADBType(adb);
     ASSERT(type == sdaiENUM);
+
+    type = engiGetInstanceAttrTypeBN(window, "FillsVoids");
+    ASSERT(type == 0);
 }
 
 static void TestGetAttrType(SdaiModel ifcModel, const char* entityName, const char* attrName, int_t expected)
@@ -194,6 +199,7 @@ static void TestGetAttrType(SdaiModel ifcModel)
     TestGetAttrType(ifcModel, "IfcFeatureElementAddition", "ProjectsElements", sdaiINSTANCE);
     TestGetAttrType(ifcModel, "IfcSite", "RefLatitude", sdaiINTEGER | engiTypeFlagAggr);
     TestGetAttrType(ifcModel, "IfcRationalBSplineCurveWithKnots", "WeightsData", sdaiREAL | engiTypeFlagAggr);
+    TestGetAttrType(ifcModel, "IfcWindow", "FillsVoids", sdaiINSTANCE | engiTypeFlagAggr);
 }
 
 
