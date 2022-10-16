@@ -203,11 +203,9 @@ static void TestGetAttrType(SdaiModel ifcModel)
 }
 
 
-static void TestGetADBValue()
+static void TestGetADBValue(SdaiModel ifcModel)
 {
     ///
-    auto ifcModel = sdaiOpenModelBN(NULL, "IFC4_test.ifc", "IFC4");
-
     auto instance = internalGetInstanceFromP21Line(ifcModel, 319);
 
     SdaiAggr listValues = 0;
@@ -557,9 +555,54 @@ static void TestGetADBValue()
     ASSERT(ind == 8);
     ind = engiGetEntityAttributeIndexEx(entityCtx, "UnitsInContext", false, false);
     ASSERT(ind == 4);
+}
 
-    //
-    sdaiCloseModel(ifcModel);
+static void TestAttrIndex(SdaiModel ifcModel)
+{
+    auto wall = internalGetInstanceFromP21Line(ifcModel, 8);
+
+    //direct attribute
+    auto attr = engiGetEntityAttributeByIndex(wall, 0, false, false);
+
+    const char* attrName = nullptr;
+    bool inverse = false;
+    engiGetAttributeTraits(attr, &attrName, nullptr, &inverse, nullptr, nullptr, nullptr, nullptr, nullptr);
+    ASSERT(!inverse && !strcmp(attrName, "PredefinedType"));
+
+    const char* type = NULL;
+    sdaiGetAttr(wall, attr, sdaiENUM, &type);
+    ASSERT(!strcmp(type, "SOLIDWALL"));
+
+    sdaiGetAttrBN(wall, "PredefinedType", sdaiENUM, &type);
+    ASSERT(!strcmp(type, "SOLIDWALL"));
+
+    auto ind = engiGetEntityAttributeIndexEx(wall, "PredefinedType", true, true);
+    ASSERT(ind == 32);
+    ind = engiGetEntityAttributeIndexEx(wall, "PredefinedType", true, false);
+    ASSERT(ind == 8);
+    ind = engiGetEntityAttributeIndexEx(wall, "PredefinedType", false, true);
+    ASSERT(ind == 0);
+
+    //inverse attribute
+    auto story = internalGetInstanceFromP21Line(ifcModel, 6);
+    
+    attr = engiGetEntityAttributeByIndex(wall, 9, true, true);
+
+    SdaiInstance building = 0;
+    sdaiGetAttr(story, attr, sdaiINSTANCE, &building);
+    auto stepId = internalGetP21Line(building);
+    ASSERT(stepId == 7);
+
+    sdaiGetAttrBN(story, "Decomposes", sdaiINSTANCE, &building);
+    stepId = internalGetP21Line(building);
+    ASSERT(stepId == 7);
+
+    ind = engiGetEntityAttributeIndexEx(wall, "Decomposes", true, true);
+    ASSERT(ind == 9);
+    ind = engiGetEntityAttributeIndexEx(wall, "Decomposes", true, false);
+    ASSERT(ind == -1);
+    ind = engiGetEntityAttributeIndexEx(wall, "Decomposes", false, true);
+    ASSERT(ind == -1);
 }
 
 extern void EngineTests(void)
@@ -575,6 +618,11 @@ extern void EngineTests(void)
     sdaiSaveModelBN(ifcModel, FILE_NAME);
     sdaiCloseModel(ifcModel);
 
-    TestGetADBValue();
+    //
+    ifcModel = sdaiOpenModelBN(NULL, "IFC4_test.ifc", "IFC4");
 
+    TestAttrIndex(ifcModel);
+    TestGetADBValue(ifcModel);
+
+    sdaiCloseModel(ifcModel);
 }
