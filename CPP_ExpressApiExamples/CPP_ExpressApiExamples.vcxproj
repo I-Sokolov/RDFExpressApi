@@ -161,12 +161,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GuideExample.cpp" />
-    <ClCompile Include="EngineTests.cpp" />
-    <ClCompile Include="CPP_AP242.cpp">
-      <FunctionLevelLinking Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</FunctionLevelLinking>
-      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <ClCompile Include="CPP_IFC.cpp" />
     <ClCompile Include="HelloWall.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
