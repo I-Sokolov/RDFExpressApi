@@ -78,6 +78,7 @@ namespace RDFWrappers
             Generate("IFC2x3");
             Generate("IFC4");
             Generate("IFC4x3");
+            Generate("IFC4x4");
             Generate("AP242");
             Generate("CIS2");
         }
