@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath></OutputPath>
     <DefineConstants>TRACE;DEBUG;_WIN64</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
     <WarningsAsErrors>NU1605</WarningsAsErrors>
@@ -24,6 +23,13 @@
     <None Remove="*ExpressApiExamples\**" />
   </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="ifcEngine\**" />
+        <EmbeddedResource Remove="ifcEngine\**" />
+        <None Remove="ifcEngine\**" />
+        <Compile Include="ifcEngine\ifcEngine.cs" />
+    </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="EngineEx_Template.cs" />
     <EmbeddedResource Include="EngineEx_Template.h" />
@@ -34,16 +40,12 @@
     <PackageReference Include="System.CodeDom" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <None Include="O:\DevArea\RDF\a.out\x64\Debug\ifcengine.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="&#xD;&#xA;echo Check IFC Engine includes&#xD;&#xA;if .%25RDF_IFC_ENGINE_INCLUDE%25.==.. goto IncUpdated&#xD;&#xA;echo Update IFC Engine includes &#xD;&#xA;copy %25RDF_IFC_ENGINE_INCLUDE%25ifcengine.h ifcEngine /Y&#xD;&#xA;copy %25RDF_IFC_ENGINE_INCLUDE%25engdef.h ifcEngine /Y&#xD;&#xA;:IncUpdated&#xD;&#xA;&#xD;&#xA;echo Check IFC Engine binaries&#xD;&#xA;if .%25RDF_IFC_ENGINE_LIB%25.==.. goto LibUpdated&#xD;&#xA;echo Update IFC Engine binaries&#xD;&#xA;copy %25RDF_IFC_ENGINE_LIB%25Debug\ifcengine.lib ifcEngine\Debug /Y&#xD;&#xA;copy %25RDF_IFC_ENGINE_LIB%25Debug\ifcengine.dll ifcEngine\Debug /Y&#xD;&#xA;copy %25RDF_IFC_ENGINE_LIB%25Release\ifcengine.lib ifcEngine\Release /Y&#xD;&#xA;copy %25RDF_IFC_ENGINE_LIB%25Release\ifcengine.dll ifcEngine\Release /Y&#xD;&#xA;:LibUpdated&#xD;&#xA;" />
+    </Target>
 
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <None Include="O:\DevArea\RDF\a.out\x64\Release\ifcengine.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="@echo copy ifcEngine\$(ConfigurationName)\ifcEngine.dll $(OutDir) /Y&#xD;&#xA;copy ifcEngine\$(ConfigurationName)\ifcEngine.dll $(OutDir) /Y" />
+    </Target>
 
 </Project>

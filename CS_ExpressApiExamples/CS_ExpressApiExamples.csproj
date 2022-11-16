@@ -16,23 +16,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\ifcengine.cs" />
+    <Compile Include="..\ifcengine\ifcengine.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <ItemGroup>
     <Compile Include="..\API.generated\IFC2x3.cs" />
     <Compile Include="..\API.generated\IFC4.cs" />
     <Compile Include="..\API.generated\IFC4x3.cs" />
     <Compile Include="..\API.generated\AP242.cs" />
     <Compile Include="..\API.generated\CIS2.cs" />
   </ItemGroup>
-
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <Compile Include="..\API.generated\IFC2x3.cs" />
-        <Compile Include="..\API.generated\IFC4.cs" />
-        <Compile Include="..\API.generated\IFC4x3.cs" />
-        <Compile Include="..\API.generated\AP242.cs" />
-        <Compile Include="..\API.generated\CIS2.cs" />
-    </ItemGroup>
 
 </Project>
