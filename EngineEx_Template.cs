@@ -494,7 +494,7 @@ namespace NAMESPACE_NAME
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, bool elem)
         {
-            ifcengine.sdaiAppend(aggr, ifcengine.sdaiREAL, elem);
+            ifcengine.sdaiAppend(aggr, ifcengine.sdaiBOOLEAN, ref elem);
         }
     };
 

@@ -1264,7 +1264,7 @@ namespace RDF
 		public static extern void sdaiAppend(int_t list, int_t valueType, string value);
 
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiAppend")]
-		public static extern void sdaiAppend(int_t list, int_t valueType, bool value);
+		public static extern void sdaiAppend(int_t list, int_t valueType, ref bool value);
 
 		/// <summary>
 		///		sdaiAdd                                     (http://rdf.bg/ifcdoc/CS64/sdaiAdd.html)
