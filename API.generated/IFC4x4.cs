@@ -482,7 +482,7 @@ namespace IFC4x4
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, bool elem)
         {
-            ifcengine.sdaiAppend(aggr, ifcengine.sdaiREAL, elem);
+            ifcengine.sdaiAppend(aggr, ifcengine.sdaiBOOLEAN, ref elem);
         }
     };
 
