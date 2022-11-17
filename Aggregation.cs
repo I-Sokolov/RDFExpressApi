@@ -265,8 +265,21 @@ namespace RDFWrappers
                             template = Generator.Template.AggregationOfSelect;
                             break;
                         default:
-                            Console.WriteLine("Unexpected foundation type " + foundation.declarationType.ToString() + " in aggregation of " + typeDef.ToString());
-                            System.Diagnostics.Debug.Assert(false);
+                            switch (foundation.attrType)
+                            {
+                                case enum_express_attr_type.__LOGICAL:
+                                    elemIfcType = definedType.name;
+                                    elemApiType = "LOGICAL_VALUE";
+                                    sdaiType = "sdaiLOGICAL";
+                                    enumValues = "LOGICAL_VALUE_";
+                                    template = Generator.Template.AggregationOfEnum;
+                                    break;
+
+                                default:
+                                    Console.WriteLine("Unexpected foundation type " + foundation.declarationType.ToString() + " in aggregation of " + typeDef.ToString());
+                                    System.Diagnostics.Debug.Assert(false);
+                                    break;
+                            }
                             break;
                     }
                 }
