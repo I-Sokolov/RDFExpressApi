@@ -4682,7 +4682,7 @@ ENTITY IfcBridge
  SUBTYPE OF (IfcFacility);
 	PredefinedType : IfcBridgeTypeEnum;
  WHERE
-	HasObjectType : (PredefinedType &lt;&gt; IfcBridgePartTypeEnum.USERDEFINED) OR 
+	HasObjectType : (PredefinedType <> IfcBridgePartTypeEnum.USERDEFINED) OR 
 
 EXISTS(SELF\IfcObject.ObjectType);
 END_ENTITY;
@@ -4691,7 +4691,7 @@ ENTITY IfcBridgePart
  SUBTYPE OF (IfcFacilityPart);
 	PredefinedType : IfcBridgePartTypeEnum;
  WHERE
-	HasObjectType : (PredefinedType &lt;&gt; IfcBridgePartTypeEnum.USERDEFINED) OR 
+	HasObjectType : (PredefinedType <> IfcBridgePartTypeEnum.USERDEFINED) OR 
 
 EXISTS(SELF\IfcObject.ObjectType);
 END_ENTITY;
@@ -6974,7 +6974,7 @@ ENTITY IfcFacilityPartCommon
  SUBTYPE OF (IfcFacilityPart);
 	PredefinedType : IfcFacilityPartCommonTypeEnum;
  WHERE
-	HasObjectType : (PredefinedType &lt;&gt; IfcBridgePartTypeEnum.USERDEFINED) OR 
+	HasObjectType : (PredefinedType <> IfcBridgePartTypeEnum.USERDEFINED) OR 
 
 EXISTS(SELF\IfcObject.ObjectType);
 END_ENTITY;
@@ -7719,7 +7719,7 @@ ENTITY IfcImpactProtectionDevice
  WHERE
 	CorrectPredefinedType : NOT(EXISTS(PredefinedType)) OR
 (PredefinedType <> IfcImpactProtectionDeviceTypeEnum.USERDEFINED) OR
-((PredefinedType = IfcImpactProtectionDeviceTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcObject.ObjectType));;
+((PredefinedType = IfcImpactProtectionDeviceTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcObject.ObjectType));
 	CorrectTypeAssigned : (SIZEOF(IsTypedBy) = 0) OR
 ('IFC4X4.IFCIMPACTPROTECTIONDEVICETYPE' IN TYPEOF(SELF\IfcObject.IsTypedBy[1].RelatingType));
 END_ENTITY;
@@ -7729,7 +7729,7 @@ ENTITY IfcImpactProtectionDeviceType
 	PredefinedType : IfcImpactProtectionDeviceTypeEnum;
  WHERE
 	CorrectPredefinedType : (PredefinedType <> IfcImpactProtectionDeviceTypeEnum.USERDEFINED) OR
- ((PredefinedType = IfcImpactProtectionDeviceTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcElementType.ElementType));;
+ ((PredefinedType = IfcImpactProtectionDeviceTypeEnum.USERDEFINED) AND EXISTS (SELF\IfcElementType.ElementType));
 END_ENTITY;
 
 ENTITY IfcImprovedGround
