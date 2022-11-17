@@ -434,6 +434,7 @@ namespace IFC4x4
             return FromSdaiAggr(inst, aggr);
         }
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -465,6 +466,23 @@ namespace IFC4x4
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, double elem)
         {
             ifcengine.sdaiAppend(aggr, ifcengine.sdaiREAL, ref elem);
+        }
+    };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    class AggrSerializer_bool<TElem, TList> : AggrSerializer<bool, TList>
+        where TList : List<bool>, new()
+    {
+        protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out bool elem)
+        {
+            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiBOOLEAN, out elem);
+            return true;
+        }
+        protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, bool elem)
+        {
+            ifcengine.sdaiAppend(aggr, ifcengine.sdaiREAL, elem);
         }
     };
 
@@ -11039,9 +11057,9 @@ namespace IFC4x4
     class ListOfIfcLuminousIntensityDistributionMeasureSerializer : AggrSerializer_double<double, ListOfIfcLuminousIntensityDistributionMeasure> { }
     public class ListOfIfcLightDistributionData : List<IfcLightDistributionData> { }
     class ListOfIfcLightDistributionDataSerializer : AggrSerializerInstance<IfcLightDistributionData, ListOfIfcLightDistributionData> { }
-    public class ArrayOfIfcLogical : List<IfcLogical> { }
-    class ArrayOfIfcLogicalSerializer : AggrSerializerEnum<IfcLogical, ArrayOfIfcLogical> { public ArrayOfIfcLogicalSerializer() : base(EnumNames.LOGICAL_VALUE_, ifcengine.sdaiLOGICAL) { } };
-    //class ArrayOfIfcLogicalSerializer : AggrSerializerEnum<IfcLogical, ArrayOfIfcLogical> { public ArrayOfIfcLogicalSerializer() : base(EnumNames.LOGICAL_VALUE_, ifcengine.sdaiENUM) { } };
+    public class ArrayOfIfcLogical : List<LOGICAL_VALUE> { }
+    class ArrayOfIfcLogicalSerializer : AggrSerializerEnum<LOGICAL_VALUE, ArrayOfIfcLogical> { public ArrayOfIfcLogicalSerializer() : base(EnumNames.LOGICAL_VALUE_, ifcengine.sdaiLOGICAL) { } };
+    //class ArrayOfIfcLogicalSerializer : AggrSerializerEnum<LOGICAL_VALUE, ArrayOfIfcLogical> { public ArrayOfIfcLogicalSerializer() : base(EnumNames.LOGICAL_VALUE_, ifcengine.sdaiENUM) { } };
     public class SetOfIfcRelAssociatesMaterial : List<IfcRelAssociatesMaterial> { }
     class SetOfIfcRelAssociatesMaterialSerializer : AggrSerializerInstance<IfcRelAssociatesMaterial, SetOfIfcRelAssociatesMaterial> { }
     public class SetOfIfcMaterialProperties : List<IfcMaterialProperties> { }
@@ -24311,7 +24329,7 @@ namespace IFC4x4
         public static new IfcLogicalVoxelData Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLogicalVoxelData"); Debug.Assert(inst != 0); return inst; }
 
         public ArrayOfIfcLogical get_Values() { return (new ArrayOfIfcLogicalSerializer()).FromAttr(m_instance, "Values"); }
-        public void put_Values(IEnumerable<IfcLogical> lst) { (new ArrayOfIfcLogicalSerializer()).ToSdaiAggr(lst, m_instance, "Values"); }
+        public void put_Values(IEnumerable<LOGICAL_VALUE> lst) { (new ArrayOfIfcLogicalSerializer()).ToSdaiAggr(lst, m_instance, "Values"); }
         //public void put_Values_untyped(IEnumerable lst) { (new ArrayOfIfcLogicalSerializer()).ToSdaiAggr(lst, m_instance, "Values"); }
 
         protected override TextValue EntityName() { return "IfcLogicalVoxelData"; }

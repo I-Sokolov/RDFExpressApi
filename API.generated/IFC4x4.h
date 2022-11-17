@@ -9430,7 +9430,7 @@ namespace IFC4x4
     typedef std::list<IfcLightDistributionData> ListOfIfcLightDistributionData;
     template <typename TList> class ListOfIfcLightDistributionDataSerializer : public AggrSerializerInstance<TList, IfcLightDistributionData> {};
     typedef std::list<IfcLogical> ArrayOfIfcLogical;
-    template <typename TList> class ArrayOfIfcLogicalSerializer : public AggrSerializerEnum<TList, IfcLogical, LOGICAL_VALUE_, sdaiLOGICAL> {};
+    template <typename TList> class ArrayOfIfcLogicalSerializer : public AggrSerializerEnum<TList, LOGICAL_VALUE, LOGICAL_VALUE_, sdaiLOGICAL> {};
     typedef std::list<IfcRelAssociatesMaterial> SetOfIfcRelAssociatesMaterial;
     template <typename TList> class SetOfIfcRelAssociatesMaterialSerializer : public AggrSerializerInstance<TList, IfcRelAssociatesMaterial> {};
     typedef std::list<IfcMaterialProperties> SetOfIfcMaterialProperties;
@@ -22631,7 +22631,7 @@ namespace IFC4x4
         //TList may be ArrayOfIfcLogical or list of converible elements
         template <typename TList> void put_Values(TList& lst) { ArrayOfIfcLogicalSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Values"); }
 
-        //TArrayElem[] may be IfcLogical[] or array of convertible elements
+        //TArrayElem[] may be LOGICAL_VALUE[] or array of convertible elements
         template <typename TArrayElem> void put_Values(TArrayElem arr[], size_t n) { ArrayOfIfcLogical lst; ArrayToList(arr, n, lst); put_Values(lst); }
     };
 
