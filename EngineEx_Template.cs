@@ -446,6 +446,7 @@ namespace NAMESPACE_NAME
             return FromSdaiAggr(inst, aggr);
         }
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -477,6 +478,23 @@ namespace NAMESPACE_NAME
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, double elem)
         {
             ifcengine.sdaiAppend(aggr, ifcengine.sdaiREAL, ref elem);
+        }
+    };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    class AggrSerializer_bool<TElem, TList> : AggrSerializer<bool, TList>
+        where TList : List<bool>, new()
+    {
+        protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out bool elem)
+        {
+            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiBOOLEAN, out elem);
+            return true;
+        }
+        protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, bool elem)
+        {
+            ifcengine.sdaiAppend(aggr, ifcengine.sdaiREAL, elem);
         }
     };
 

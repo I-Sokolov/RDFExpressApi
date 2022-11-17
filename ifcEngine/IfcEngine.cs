@@ -939,6 +939,9 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "engiGetAggrElement")]
 		public static extern int_t engiGetAggrElement(int_t aggregate, int_t index, int_t valueType, out IntPtr value);
 
+		[DllImport(IFCEngineDLL, EntryPoint = "engiGetAggrElement")]
+		public static extern int_t engiGetAggrElement(int_t aggregate, int_t index, int_t valueType, out bool value);
+
 		/// <summary>
 		///		sdaiGetAggrByIndex                          (http://rdf.bg/ifcdoc/CS64/sdaiGetAggrByIndex.html)
 		///
@@ -1259,6 +1262,9 @@ namespace RDF
 
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiAppend")]
 		public static extern void sdaiAppend(int_t list, int_t valueType, string value);
+
+		[DllImport(IFCEngineDLL, EntryPoint = "sdaiAppend")]
+		public static extern void sdaiAppend(int_t list, int_t valueType, bool value);
 
 		/// <summary>
 		///		sdaiAdd                                     (http://rdf.bg/ifcdoc/CS64/sdaiAdd.html)
