@@ -133,6 +133,30 @@ enum class enum_express_aggr : unsigned char
 	__SET
 };
 
+struct ValidationResults;
+struct ValidationIssue;
+typedef int_t ValidationIssueLevel;
+
+enum class ValidationIssueType : unsigned char
+{
+	Undef = 0,
+	WrongNumberOfArguments,
+	WrongArgumentType,
+	MissedNonOptionalArgument,
+	UnexpectedStar,
+	ExpectedAggregation,
+	UnexpectedAggregation,
+	WrongAggregationSize,
+	UnexpectedValueType,
+	UnresolvedReference,
+	AbstractEntity,
+	InternalError,
+	UniqueRuleViolation,
+	AggrElementValueNotUnique,
+	InvalidParameter,
+	MissedComplexInstanceEntity,
+	WhereRuleViolation
+};
 
 
 #ifdef __cplusplus
@@ -397,6 +421,19 @@ void		DECL STDC	sdaiSaveModelAsJsonBN(
 void		DECL STDC	sdaiSaveModelAsJsonBNUnicode(
 									int_t				model,
 									const wchar_t		* fileName
+								);
+
+
+//
+//		engiSaveExpressSchema                (http://rdf.bg/ifcdoc/CP64/engiSaveExpressSchema.html)
+//				SdaiModel			model								IN
+//				const wchar_t		* fileName							IN
+//
+//				bool				returns
+//
+bool		DECL STDC	engiSaveExpressSchema(
+									SdaiModel			model, 
+									const char			* filePath
 								);
 
 //
@@ -3243,10 +3280,82 @@ int_t		DECL STDC	initializeModellingInstanceEx(
 //
 //	This call is deprecated, please contact us if you use this call.
 //
-void		DECL STDC	exportModellingAsOWL(
+void			DECL STDC	exportModellingAsOWL(
 									int_t				model,
 									const char			* fileName
 								);
+
+//
+// Model validation
+//
+//
+//void UsageExample(SdaiModel model)
+//{
+//	//set oprions if you need
+//	validateSetLimits(10, 100); //limit the work by 10 secs and first 100 issues
+//	validateSuppressIssueType(ValidationIssueType::WhereRuleViolation); //do not check where rules
+//	validateSuppressIssueType(ValidationIssueType::UniqueRuleViolation); //do not check where rules
+//
+//	ValidationResults* results = validateModel(model);
+//
+//	for (ValidationIssue* issue = validateGetFirstIssue(results); issue; issue = validateGetNextIssue(issue)) {
+//		int64_t stepId = validateGetStepId(issue);
+//		const char* descr = validateGetDescription(issue);
+//		printf("Instance #%lld: %s\n", stepId, descr);
+//	}
+//
+//	if (!validateIsComplete(results)) {
+//		printf("There may be more issues, increase limits\n");
+//	}
+//
+//	validateFreeResults(results);
+//}
+
+
+void		 		DECL STDC   validateSetLimits(
+									int_t				timeLimit,
+									int_t				issueCntLimit
+								);
+
+void				DECL STDC	validateSuppressIssueType(
+									ValidationIssueType	issueType    //Undef will enable all issues
+								);
+
+ValidationResults*	DECL STDC	validateModel(
+									SdaiModel				model
+								);
+
+ValidationResults*	DECL STDC	validateInstance(
+									SdaiInstance			instance
+								);
+
+void				DECL STDC	validateFreeResults(
+									ValidationResults		* results
+								);
+
+ValidationIssue*	DECL STDC	validateGetFirstIssue(
+									ValidationResults		* results
+								);
+
+ValidationIssue*	DECL STDC	validateGetNextIssue(
+									ValidationIssue			* issue
+								);
+
+bool				DECL STDC	validateIsComplete(
+									ValidationResults		* results
+								);
+
+
+ValidationIssueType  DECL STDC  validateGetIssueType	(ValidationIssue * issue);
+int64_t				 DECL STDC	validateGetStepId		(ValidationIssue * issue);       //step ID of the STEP record where the issue is happend or -1
+const char*			 DECL STDC  validateGetEntityName	(ValidationIssue * issue);   //entity name or NULL
+const char*			 DECL STDC  validateGetAttrName		(ValidationIssue * issue);     //attribute name or NULL
+int_t				 DECL STDC	validateGetAttrIndex	(ValidationIssue * issue);    //0-based index of direct attribute (position in STEP record) or -1
+ValidationIssueLevel DECL STDC	validateGetAggrLevel	(ValidationIssue * issue);    //specifies nesting level of aggregation or 0
+const int_t*		 DECL STDC	validateGetAggrIndArray	(ValidationIssue * issue); //array of indecies for each aggregation lsize is aggrLevel
+int_t				 DECL STDC	validateGetIssueLevel	(ValidationIssue * issue);
+const char*			 DECL STDC	validateGetDescription	(ValidationIssue * issue);  //description text
+
 
 
 #ifdef __cplusplus

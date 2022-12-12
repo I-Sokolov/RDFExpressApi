@@ -1,4 +1,8 @@
-﻿using System;
+﻿#pragma warning disable CS1587
+#pragma warning disable CS1573
+#pragma warning disable CS1591
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,7 +189,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
         private void WriteForwardDeclarations()
         {
             foreach (var cls in m_schema.m_declarations[RDF.enum_express_declaration.__ENTITY])
@@ -215,7 +218,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
         private void WriteDefinedTypes()
         {
             WriteByTemplate(Template.DefinedTypesBegin);
@@ -232,7 +234,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
         private void WriteEnumerations()
         {
             WriteByTemplate(Template.EnumerationsBegin);
@@ -257,8 +258,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="enumeraion"></param>
         private void WriteEnumerationClass(Enumeraion enumeraion)
         {
             m_replacements[KWD_ENUMERATION_NAME] = enumeraion.name;
@@ -321,7 +320,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
         private void WriteEntities ()
         {
             WriteByTemplate(Template.EntitiesBegin);
@@ -338,8 +336,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="entity"></param>
         private void WriteEntity(Entity entity, HashSet<ExpressHandle> wroteEntities)
         {
             if (!wroteEntities.Add(entity.inst))
@@ -426,8 +422,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="template"></param>
         public void WriteByTemplate(Template template)
         {
             string str = StringByTemplate(template);
@@ -461,9 +455,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="entity"></param>
-        /// <param name="exportedAttributes"></param>
         private void WriteAttributes(Entity entity, HashSet<string> exportedAttributes)
         {
             var attribs = entity.GetAttributes();
@@ -488,8 +479,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="attr"></param>
         private void WriteSingeAttribute(Attribute attr)
         {
             string expressType = null;
@@ -596,8 +585,6 @@ namespace RDFWrappers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="attr"></param>
         public void WriteSelectAttribute(Attribute attr, string selectName)
         {
             Generator generator = this;

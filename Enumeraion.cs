@@ -1,4 +1,8 @@
-﻿using System;
+﻿#pragma warning disable CS1587
+#pragma warning disable CS1573
+#pragma warning disable CS1591
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

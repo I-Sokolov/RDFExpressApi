@@ -1,3 +1,7 @@
+
+#pragma warning disable CS1587
+#pragma warning disable CS1591
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -154,6 +158,9 @@ namespace RDF
 		__BINARY,
 		__BINARY_32,
 		__BOOLEAN,
+		/// <summary>
+		/// 
+		/// </summary>
 		__ENUMERATION,
 		__INTEGER,
 		__LOGICAL,
