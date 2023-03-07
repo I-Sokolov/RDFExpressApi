@@ -118,11 +118,6 @@ namespace IFC4x3
             }
         }
 
-        ~Select()
-        {
-            sdaiDeleteADB(m_adb);
-        }
-
         void SetADB(void* adb)
         {
             if (m_outerSelect) {

@@ -118,11 +118,6 @@ namespace NAMESPACE_NAME
             }
         }
 
-        ~Select()
-        {
-            sdaiDeleteADB(m_adb);
-        }
-
         void SetADB(void* adb)
         {
             if (m_outerSelect) {
