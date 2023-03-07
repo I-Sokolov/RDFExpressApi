@@ -99,7 +99,6 @@ namespace IFC4x3
 
             if (m_adb == 0 && m_instance != 0 && m_attrName != null)
             {
-                m_adb = ifcengine.sdaiCreateEmptyADB();
                 if (0 == ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiADB, out m_adb))
                 {
                     ifcengine.sdaiDeleteADB(m_adb);

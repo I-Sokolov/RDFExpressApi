@@ -93,7 +93,6 @@ namespace CIS2
             }
 
             if (!m_adb && m_instance && m_attrName) {
-                m_adb = sdaiCreateEmptyADB();
                 if (!sdaiGetAttrBN(m_instance, m_attrName, sdaiADB, &m_adb)) {
                     sdaiDeleteADB(m_adb);
                     m_adb = NULL;
@@ -117,6 +116,11 @@ namespace CIS2
             if (m_outerSelect) {
                 m_instance = m_outerSelect->m_instance;
             }
+        }
+
+        ~Select()
+        {
+            sdaiDeleteADB(m_adb);
         }
 
         void SetADB(void* adb)
