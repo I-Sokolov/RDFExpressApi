@@ -248,10 +248,10 @@ namespace IFC4
             var adb = ADB();
             if (CheckADBType(adb, typeName))
             {
-                IntPtr ptr = IntPtr.Zero;
-                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out ptr) != 0)
+                string val;
+                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
                 {
-                    ret = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+                    ret = val;
                 }
             }
             return ret;
@@ -272,10 +272,9 @@ namespace IFC4
             var adb = ADB();
             if (CheckADBType(adb, typeName))
             {
-                IntPtr ptr = IntPtr.Zero;
-                if (0 != ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiENUM, out ptr))
+                string value;
+                if (0 != ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiENUM, out value))
                 {
-                    var value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
                     ret = EnumIndex.FromString(value, rEnumValues);
                 }
             }
@@ -446,7 +445,7 @@ namespace IFC4
     {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out IntValue elem)
         {
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiINTEGER, out elem);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiINTEGER, out elem);
             return true;
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue elem)
@@ -463,7 +462,7 @@ namespace IFC4
     {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out double elem)
         {
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiREAL, out elem);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiREAL, out elem);
             return true;
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, double elem)
@@ -480,7 +479,7 @@ namespace IFC4
     {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out bool elem)
         {
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiBOOLEAN, out elem);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiBOOLEAN, out elem);
             return true;
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, bool elem)
@@ -501,9 +500,7 @@ namespace IFC4
         }
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TextValue elem)
         {
-            IntPtr ptr = IntPtr.Zero;
-            ifcengine.engiGetAggrElement(aggr, i, m_sdaiType, out ptr);
-            elem = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out elem);
             return (elem != null);
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, TextValue elem)
@@ -519,7 +516,7 @@ namespace IFC4
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TElem elem)
         {
             SdaiInstance val = 0;
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiINSTANCE, out val);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiINSTANCE, out val);
             elem = new TElem();
             elem.Set(val);
             return (elem != 0);
@@ -548,9 +545,8 @@ namespace IFC4
         //
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TEnum elem)
         {
-            IntPtr ptr = IntPtr.Zero;
-            ifcengine.engiGetAggrElement(aggr, i, m_sdaiType, out ptr);
-            var value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+            string value;
+            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out value);
             var ind = EnumIndex.FromString(value, m_EnumValues);
             var val = EnumValue<TEnum>.FromIndex(ind);
             if (val.HasValue)
@@ -581,7 +577,7 @@ namespace IFC4
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TNestedAggr elem)
         {
             SdaiAggr nested = 0;
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiAGGR, out nested);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiAGGR, out nested);
             if (nested != 0)
             {
                 var nestedSerializer = new TNestedSerializer();
@@ -609,7 +605,7 @@ namespace IFC4
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TSelect elem)
         {
             IntValue adb = 0;
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiADB, out adb);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiADB, out adb);
             if (adb != 0)
             {
                 elem = new TSelect();
@@ -670,11 +666,10 @@ namespace IFC4
 
         protected TextValue get_string(TextValue attrName, IntValue sdaiType)
         {
-            IntPtr ptr = IntPtr.Zero;
-            if (0 != ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out ptr))
+            string value;
+            if (0 != ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out value))
             {
-                var name = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
-                return name;
+                return value;
             }
             else
             {
@@ -4281,7 +4276,7 @@ namespace IFC4
         public double? get_IfcVolumeMeasure() { return get_double("IFCVOLUMEMEASURE", ifcengine.sdaiREAL); }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
     };
 
 
@@ -4463,7 +4458,7 @@ namespace IFC4
         public bool is_IfcTimeStamp() { return IsADBType("IFCTIMESTAMP"); }
         public IntValue? get_IfcTimeStamp() { return get_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER); }
 
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
         public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
@@ -4565,7 +4560,7 @@ namespace IFC4
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
     };
 
@@ -4661,7 +4656,7 @@ namespace IFC4
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
     };
 
@@ -6851,7 +6846,7 @@ namespace IFC4
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
     };
 
@@ -8464,7 +8459,7 @@ namespace IFC4
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
 
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
     };
 
@@ -9289,7 +9284,7 @@ namespace IFC4
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
 
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
     };
 

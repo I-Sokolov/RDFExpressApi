@@ -896,29 +896,31 @@ int_t			DECL STDC	engiGetAttrOptionalBN(
 								);
 
 //
-//		engiGetEntityIsAbstract                                 (http://rdf.bg/ifcdoc/CP64/engiGetEntityIsAbstract.html)
+//		engiGetAttrDerived                                      (http://rdf.bg/ifcdoc/CP64/engiGetAttrDerived.html)
 //				SdaiEntity				entity								IN
+//				SdaiAttr				attribute							IN
 //
 //				int_t					returns								OUT
 //
-//	This call can be used to check if an entity is abstract
+//	This call can be used to check if an attribute is defined schema wise in the context of a certain entity
 //
-int_t			DECL STDC	engiGetEntityIsAbstract(
-									SdaiEntity				entity
+int_t			DECL STDC	engiGetAttrDerived(
+									SdaiEntity				entity,
+									SdaiAttr				attribute
 								);
 
 //
-//		engiGetEntityIsAbstractBN                               (http://rdf.bg/ifcdoc/CP64/engiGetEntityIsAbstractBN.html)
-//				SdaiModel				model								IN
-//				const char				* entityName						IN
+//		engiGetAttrDerivedBN                                    (http://rdf.bg/ifcdoc/CP64/engiGetAttrDerivedBN.html)
+//				SdaiEntity				entity								IN
+//				const char				* attributeName						IN
 //
 //				int_t					returns								OUT
 //
-//	This call can be used to check if an entity is abstract
+//	This call can be used to check if an attribute is defined schema wise in the context of a certain entity
 //
-int_t			DECL STDC	engiGetEntityIsAbstractBN(
-									SdaiModel				model,
-									const char				* entityName
+int_t			DECL STDC	engiGetAttrDerivedBN(
+									SdaiEntity				entity,
+									const char				* attributeName
 								);
 
 //
@@ -943,16 +945,6 @@ int_t			DECL STDC	engiGetAttrInverse(
 //	This call can be used to check if an attribute is an inverse relation
 //
 int_t			DECL STDC	engiGetAttrInverseBN(
-									SdaiEntity				entity,
-									const char				* attributeName
-								);
-
-int_t			DECL STDC	engiGetAttrDerived(
-									SdaiEntity				entity,
-									SdaiAttr				attribute
-								);
-
-int_t			DECL STDC	engiGetAttrDerivedBN(
 									SdaiEntity				entity,
 									const char				* attributeName
 								);
@@ -985,6 +977,32 @@ void			DECL STDC	engiGetAttrDomainBN(
 									SdaiEntity				entity,
 									const char				* attributeName,
 									char					** domainName
+								);
+
+//
+//		engiGetEntityIsAbstract                                 (http://rdf.bg/ifcdoc/CP64/engiGetEntityIsAbstract.html)
+//				SdaiEntity				entity								IN
+//
+//				int_t					returns								OUT
+//
+//	This call can be used to check if an entity is abstract
+//
+int_t			DECL STDC	engiGetEntityIsAbstract(
+									SdaiEntity				entity
+								);
+
+//
+//		engiGetEntityIsAbstractBN                               (http://rdf.bg/ifcdoc/CP64/engiGetEntityIsAbstractBN.html)
+//				SdaiModel				model								IN
+//				const char				* entityName						IN
+//
+//				int_t					returns								OUT
+//
+//	This call can be used to check if an entity is abstract
+//
+int_t			DECL STDC	engiGetEntityIsAbstractBN(
+									SdaiModel				model,
+									const char				* entityName
 								);
 
 //
@@ -2261,6 +2279,17 @@ void			DECL STDC	internalGetXMLID(
 //
 int_t			DECL STDC	setStringUnicode(
 									int_t					unicode
+								);
+
+//
+//		getStringUnicode                                        (http://rdf.bg/ifcdoc/CP64/getStringUnicode.html)
+//
+//				int_t					returns								OUT
+//
+//	...
+//
+int_t			DECL STDC	getStringUnicode(
+									void
 								);
 
 //

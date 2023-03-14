@@ -324,7 +324,7 @@ namespace IFC2x3
             IntValue  cnt = sdaiGetMemberCount(aggr);
             for (IntValue i = 0; i < cnt; i++) {
                 TElem val = 0;
-                engiGetAggrElement(aggr, i, sdaiType, &val);
+                sdaiGetAggrByIndex(aggr, i, sdaiType, &val);
                 lst.push_back(val);
             }
         }
@@ -354,7 +354,7 @@ namespace IFC2x3
             IntValue  cnt = sdaiGetMemberCount(aggr);
             for (IntValue i = 0; i < cnt; i++) {
                 TextValue val;
-                engiGetAggrElement(aggr, i, sdaiType, &val);
+                sdaiGetAggrByIndex(aggr, i, sdaiType, &val);
                 lst.push_back(val);
             }
         }
@@ -383,7 +383,7 @@ namespace IFC2x3
             auto  cnt = sdaiGetMemberCount(aggr);
             for (IntValue i = 0; i < cnt; i++) {
                 SdaiInstance val = 0;
-                engiGetAggrElement(aggr, i, sdaiINSTANCE, &val);
+                sdaiGetAggrByIndex(aggr, i, sdaiINSTANCE, &val);
                 TElem elem(val);
                 if (val) {
                     lst.push_back(val);
@@ -418,7 +418,7 @@ namespace IFC2x3
             IntValue  cnt = sdaiGetMemberCount(aggr);
             for (IntValue i = 0; i < cnt; i++) {
                 TextValue value = NULL;
-                engiGetAggrElement(aggr, i, sdaiType, &value);
+                sdaiGetAggrByIndex(aggr, i, sdaiType, &value);
                 int val = EnumerationNameToIndex(rEnumValues, value);
                 if (val >= 0) {
                     lst.push_back((TElem) val);
@@ -450,7 +450,7 @@ namespace IFC2x3
             IntValue  cnt = sdaiGetMemberCount(aggr);
             for (IntValue i = 0; i < cnt; i++) {
                 SdaiAggr nested = 0;
-                engiGetAggrElement(aggr, i, sdaiAGGR, &nested);
+                sdaiGetAggrByIndex(aggr, i, sdaiAGGR, &nested);
                 if (nested) {
                     lst.push_back(TNestedAggr());
                     TNestedSerializer nestedSerializer;
@@ -481,7 +481,7 @@ namespace IFC2x3
             IntValue  cnt = sdaiGetMemberCount(aggr);
             for (IntValue i = 0; i < cnt; i++) {
                 void* adb = 0;
-                engiGetAggrElement(aggr, i, sdaiADB, &adb);
+                sdaiGetAggrByIndex(aggr, i, sdaiADB, &adb);
                 if (adb) {
                     lst.push_back(TElem(instance, NULL, adb));
                 }
