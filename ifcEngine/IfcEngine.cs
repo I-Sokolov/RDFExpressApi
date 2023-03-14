@@ -916,12 +916,30 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetADBValue")]
 		public static extern int_t sdaiGetADBValue(int_t ADB, int_t valueType, out IntPtr value);
 
-		/// <summary>
-		///		sdaiCreateEmptyADB                          (http://rdf.bg/ifcdoc/CS64/sdaiCreateEmptyADB.html)
-		///
-		///	...
-		/// </summary>
-		[DllImport(IFCEngineDLL, EntryPoint = "sdaiCreateEmptyADB")]
+        public static int_t sdaiGetADBValue(int_t ADB, int_t valueType, out string value)
+        {
+            value = null;
+            valueType = getStringType(valueType);
+            if (valueType != 0)
+            {
+                IntPtr ptr = IntPtr.Zero;
+                var ret = sdaiGetADBValue(ADB, valueType, out ptr);
+                if (ret != 0 && ptr != IntPtr.Zero)
+                {
+                    value = marshalPtrToString(valueType, ptr);
+                    return ret;
+                }
+            }
+            return 0;
+        }
+
+
+        /// <summary>
+        ///		sdaiCreateEmptyADB                          (http://rdf.bg/ifcdoc/CS64/sdaiCreateEmptyADB.html)
+        ///
+        ///	...
+        /// </summary>
+        [DllImport(IFCEngineDLL, EntryPoint = "sdaiCreateEmptyADB")]
 		public static extern int_t sdaiCreateEmptyADB();
 
 		/// <summary>
@@ -963,12 +981,29 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAggrByIndex")]
 		public static extern int_t sdaiGetAggrByIndex(int_t aggregate, int_t index, int_t valueType, out IntPtr value);
 
-		/// <summary>
-		///		engiGetAggrType                             (http://rdf.bg/ifcdoc/CS64/engiGetAggrType.html)
-		///
-		///	...
-		/// </summary>
-		[DllImport(IFCEngineDLL, EntryPoint = "engiGetAggrType")]
+        public static int_t sdaiGetAggrByIndex(int_t aggregate, int_t index, int_t valueType, out string value)
+        {
+            value = null;
+            valueType = getStringType(valueType);
+            if (valueType != 0)
+            {
+                IntPtr ptr = IntPtr.Zero;
+                var ret = sdaiGetAggrByIndex(aggregate, index, valueType, out ptr);
+                if (ret != 0 && ptr != IntPtr.Zero)
+                {
+                    value = marshalPtrToString(valueType, ptr);
+                    return ret;
+                }
+            }
+            return 0;
+        }
+
+        /// <summary>
+        ///		engiGetAggrType                             (http://rdf.bg/ifcdoc/CS64/engiGetAggrType.html)
+        ///
+        ///	...
+        /// </summary>
+        [DllImport(IFCEngineDLL, EntryPoint = "engiGetAggrType")]
 		public static extern void engiGetAggrType(int_t aggregate, out int_t aggregateType);
 
 		/// <summary>
@@ -993,12 +1028,29 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttr")]
 		public static extern int_t sdaiGetAttr(int_t instance, int_t attribute, int_t valueType, out IntPtr value);
 
-		/// <summary>
-		///		sdaiGetAttrBN                               (http://rdf.bg/ifcdoc/CS64/sdaiGetAttrBN.html)
-		///
-		///	...
-		/// </summary>
-		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
+		public static int_t sdaiGetAttr(int_t instance, int_t attribute, int_t valueType, out string value)
+		{
+			value = null;
+			valueType = getStringType(valueType);
+			if (valueType != 0)
+			{
+				IntPtr ptr = IntPtr.Zero;
+				var ret = sdaiGetAttr(instance, attribute, valueType, out ptr);
+				if (ret != 0 && ptr != IntPtr.Zero)
+				{
+					value = marshalPtrToString(valueType, ptr);
+					return ret;
+				}
+			}
+			return 0;
+		}
+
+        /// <summary>
+        ///		sdaiGetAttrBN                               (http://rdf.bg/ifcdoc/CS64/sdaiGetAttrBN.html)
+        ///
+        ///	...
+        /// </summary>
+        [DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
 		public static extern int_t sdaiGetAttrBN(int_t instance, string attributeName, int_t valueType, out int_t value);
 
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
@@ -1010,7 +1062,24 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
 		public static extern int_t sdaiGetAttrBN(int_t instance, string attributeName, int_t valueType, out IntPtr value);
 
-		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
+        public static int_t sdaiGetAttrBN(int_t instance, string attrName, int_t valueType, out string value)
+        {
+            value = null;
+            valueType = getStringType(valueType);
+            if (valueType != 0)
+            {
+                IntPtr ptr = IntPtr.Zero;
+                var ret = sdaiGetAttrBN(instance, attrName, valueType, out ptr);
+                if (ret != 0 && ptr != IntPtr.Zero)
+                {
+                    value = marshalPtrToString(valueType, ptr);
+                    return ret;
+                }
+            }
+            return 0;
+        }
+
+        [DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
 		public static extern int_t sdaiGetAttrBN(int_t instance, byte[] attributeName, int_t valueType, out int_t value);
 
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
@@ -1019,12 +1088,12 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBN")]
 		public static extern int_t sdaiGetAttrBN(int_t instance, byte[] attributeName, int_t valueType, out IntPtr value);
 
-		/// <summary>
-		///		sdaiGetAttrBNUnicode                        (http://rdf.bg/ifcdoc/CS64/sdaiGetAttrBNUnicode.html)
-		///
-		///	...
-		/// </summary>
-		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBNUnicode")]
+        /// <summary>
+        ///		sdaiGetAttrBNUnicode                        (http://rdf.bg/ifcdoc/CS64/sdaiGetAttrBNUnicode.html)
+        ///
+        ///	...
+        /// </summary>
+        [DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBNUnicode")]
 		public static extern int_t sdaiGetAttrBNUnicode(int_t instance, string attributeName, string buffer, int_t bufferLength);
 
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAttrBNUnicode")]
@@ -1682,12 +1751,20 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "setStringUnicode")]
 		public static extern int_t setStringUnicode(int_t unicode);
 
-		/// <summary>
-		///		setFilter                                   (http://rdf.bg/ifcdoc/CS64/setFilter.html)
-		///
-		///	...
-		/// </summary>
-		[DllImport(IFCEngineDLL, EntryPoint = "setFilter")]
+        /// <summary>
+        ///		setStringUnicode                            (http://rdf.bg/ifcdoc/CS64/setStringUnicode.html)
+        ///
+        ///	...
+        /// </summary>
+        [DllImport(IFCEngineDLL, EntryPoint = "getStringUnicode")]
+        public static extern int_t getStringUnicode();
+
+        /// <summary>
+        ///		setFilter                                   (http://rdf.bg/ifcdoc/CS64/setFilter.html)
+        ///
+        ///	...
+        /// </summary>
+        [DllImport(IFCEngineDLL, EntryPoint = "setFilter")]
 		public static extern void setFilter(int_t model, int_t setting, int_t mask);
 
 		/// <summary>
@@ -2219,5 +2296,54 @@ namespace RDF
 
 		[DllImport(IFCEngineDLL, EntryPoint = "exportModellingAsOWL")]
 		public static extern void exportModellingAsOWL(int_t model, byte[] fileName);
+
+		/// <summary>
+		/// 
+		/// </summary>
+        private static int_t getStringType(int_t valueType)
+        {
+            switch (valueType)
+            {
+                case sdaiSTRING:
+                case sdaiUNICODE:
+                    return sdaiUNICODE;
+
+                case sdaiEXPRESSSTRING:
+                case sdaiENUM:
+                case sdaiLOGICAL:
+				case sdaiBINARY:
+                    return valueType;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static string marshalPtrToString(int_t valueType, IntPtr ptr)
+        {
+            switch (valueType)
+            {
+                case sdaiUNICODE:
+                    return Marshal.PtrToStringUni(ptr);
+
+                case sdaiEXPRESSSTRING:
+					return Marshal.PtrToStringAnsi(ptr);
+
+                case sdaiENUM:
+                case sdaiLOGICAL:
+				case sdaiBINARY:
+                    {
+                        var unicode = getStringUnicode();
+                        if (unicode == 0)
+                            return Marshal.PtrToStringAnsi(ptr);
+                        else if (unicode == 1 || unicode == 2)
+                            return Marshal.PtrToStringUni(ptr);
+                    }
+                    break;
+            }
+            return null;
+        }
+
     }
 }
