@@ -260,10 +260,10 @@ namespace NAMESPACE_NAME
             var adb = ADB();
             if (CheckADBType(adb, typeName))
             {
-                IntPtr ptr = IntPtr.Zero;
-                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out ptr) != 0)
+                string val;
+                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
                 {
-                    ret = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+                    ret = val;
                 }
             }
             return ret;
@@ -284,10 +284,9 @@ namespace NAMESPACE_NAME
             var adb = ADB();
             if (CheckADBType(adb, typeName))
             {
-                IntPtr ptr = IntPtr.Zero;
-                if (0 != ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiENUM, out ptr))
+                string value;
+                if (0 != ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiENUM, out value))
                 {
-                    var value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
                     ret = EnumIndex.FromString(value, rEnumValues);
                 }
             }
@@ -513,9 +512,7 @@ namespace NAMESPACE_NAME
         }
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TextValue elem)
         {
-            IntPtr ptr = IntPtr.Zero;
-            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out ptr);
-            elem = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out elem);
             return (elem != null);
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, TextValue elem)
@@ -560,9 +557,8 @@ namespace NAMESPACE_NAME
         //
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TEnum elem)
         {
-            IntPtr ptr = IntPtr.Zero;
-            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out ptr);
-            var value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+            string value;
+            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out value);
             var ind = EnumIndex.FromString(value, m_EnumValues);
             var val = EnumValue<TEnum>.FromIndex(ind);
             if (val.HasValue)
@@ -683,11 +679,10 @@ namespace NAMESPACE_NAME
         protected BaseCType? get_BaseCType(TextValue attrName, IntValue sdaiType) { return null; } //##IGNORE
         protected TextValue get_string(TextValue attrName, IntValue sdaiType)
         {
-            IntPtr ptr = IntPtr.Zero;
-            if (0 != ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out ptr))
+            string value;
+            if (0 != ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out value))
             {
-                var name = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
-                return name;
+                return value;
             }
             else
             {
@@ -901,7 +896,7 @@ namespace NAMESPACE_NAME
         //## SelectGetAsBool
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
         //## SelectGetAsText
-        public TextValue as_text() { IntPtr ptr = IntPtr.Zero; ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out ptr); return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr); }
+        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         //## SelectGetAsEntity
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         //## SelectAccessorEnd
