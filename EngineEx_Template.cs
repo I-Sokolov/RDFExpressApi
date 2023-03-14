@@ -458,7 +458,7 @@ namespace NAMESPACE_NAME
     {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out IntValue elem)
         {
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiINTEGER, out elem);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiINTEGER, out elem);
             return true;
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue elem)
@@ -475,7 +475,7 @@ namespace NAMESPACE_NAME
     {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out double elem)
         {
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiREAL, out elem);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiREAL, out elem);
             return true;
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, double elem)
@@ -492,7 +492,7 @@ namespace NAMESPACE_NAME
     {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out bool elem)
         {
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiBOOLEAN, out elem);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiBOOLEAN, out elem);
             return true;
         }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, bool elem)
@@ -514,7 +514,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TextValue elem)
         {
             IntPtr ptr = IntPtr.Zero;
-            ifcengine.engiGetAggrElement(aggr, i, m_sdaiType, out ptr);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out ptr);
             elem = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
             return (elem != null);
         }
@@ -531,7 +531,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TElem elem)
         {
             SdaiInstance val = 0;
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiINSTANCE, out val);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiINSTANCE, out val);
             elem = new TElem();
             elem.Set(val);
             return (elem != 0);
@@ -561,7 +561,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TEnum elem)
         {
             IntPtr ptr = IntPtr.Zero;
-            ifcengine.engiGetAggrElement(aggr, i, m_sdaiType, out ptr);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out ptr);
             var value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
             var ind = EnumIndex.FromString(value, m_EnumValues);
             var val = EnumValue<TEnum>.FromIndex(ind);
@@ -593,7 +593,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TNestedAggr elem)
         {
             SdaiAggr nested = 0;
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiAGGR, out nested);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiAGGR, out nested);
             if (nested != 0)
             {
                 var nestedSerializer = new TNestedSerializer();
@@ -621,7 +621,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TSelect elem)
         {
             IntValue adb = 0;
-            ifcengine.engiGetAggrElement(aggr, i, ifcengine.sdaiADB, out adb);
+            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiADB, out adb);
             if (adb != 0)
             {
                 elem = new TSelect();
