@@ -981,6 +981,9 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAggrByIndex")]
 		public static extern int_t sdaiGetAggrByIndex(int_t aggregate, int_t index, int_t valueType, out IntPtr value);
 
+		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetAggrByIndex")]
+		public static extern int_t sdaiGetAggrByIndex(int_t aggregate, int_t index, int_t valueType, out bool value);
+
         public static int_t sdaiGetAggrByIndex(int_t aggregate, int_t index, int_t valueType, out string value)
         {
             value = null;
