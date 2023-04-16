@@ -335,7 +335,7 @@ namespace IFC4
             SdaiAggr aggr = sdaiCreateAggrBN(instance, attrName);
             for (auto const& v : lst) {
                 TElem val = v;
-                sdaiAppend((IntValue) aggr, sdaiType, &val);
+                sdaiAppend(aggr, sdaiType, &val);
             }
             return aggr;
         }
@@ -364,7 +364,7 @@ namespace IFC4
             SdaiAggr aggr = sdaiCreateAggrBN(instance, attrName);
             for (auto& val : lst) {
                 TextValue v = val;
-                sdaiAppend((IntValue) aggr, sdaiType, v);
+                sdaiAppend(aggr, sdaiType, v);
             }
             return aggr;
         }
@@ -397,7 +397,7 @@ namespace IFC4
             auto aggr = sdaiCreateAggrBN(instance, attrName);
             for (auto& val : lst) {
                 SdaiInstance v = val;
-                sdaiAppend((IntValue) aggr, sdaiINSTANCE, (void*) v);
+                sdaiAppend(aggr, sdaiINSTANCE, (void*) v);
             }
             return aggr;
         }
@@ -432,7 +432,7 @@ namespace IFC4
             SdaiAggr aggr = sdaiCreateAggrBN(instance, attrName);
             for (auto const& val : lst) {
                 TextValue value = rEnumValues[(IntValue) val];
-                sdaiAppend((IntValue) aggr, sdaiType, value);
+                sdaiAppend(aggr, sdaiType, value);
             }
             return aggr;
         }
@@ -466,7 +466,7 @@ namespace IFC4
             for (TNestedAggr& val : lst) {
                 TNestedSerializer nestedSerializer;
                 SdaiAggr nested = nestedSerializer.ToSdaiAggr(val, instance, NULL);
-                sdaiAppend((IntValue) aggr, sdaiAGGR, nested);
+                sdaiAppend(aggr, sdaiAGGR, nested);
             }
             return aggr;
         }
@@ -495,7 +495,7 @@ namespace IFC4
             for (auto& val : lst) {
                 void* adb = val.ADB();
                 if (adb) {
-                    sdaiAppend((IntValue) aggr, sdaiADB, adb);
+                    sdaiAppend(aggr, sdaiADB, adb);
                 }
             }
             return aggr;
