@@ -138,7 +138,7 @@ namespace AP203
         {
             Nullable<T> ret;
             if (void* adb = ADB()) {
-                char* path = sdaiGetADBTypePath(adb, 0);
+                const char* path = sdaiGetADBTypePath(adb, 0);
                 if (typeName == NULL || path && 0 == _stricmp(path, typeName)) {
                     T val = (T) 0;
                     if (sdaiGetADBValue(adb, sdaiType, &val)) {
@@ -162,7 +162,7 @@ namespace AP203
         {
             TextValue ret = NULL;
             if (void* adb = ADB()) {
-                char* path = sdaiGetADBTypePath(adb, 0);
+                const char* path = sdaiGetADBTypePath(adb, 0);
                 if (typeName == NULL || path && 0 == _stricmp(path, typeName)) {
                     if (!sdaiGetADBValue(adb, sdaiType, &ret)) {
                         ret = NULL;
@@ -185,7 +185,7 @@ namespace AP203
         {
             int ret = -1;
             if (void* adb = ADB()) {
-                char* path = sdaiGetADBTypePath(adb, 0);
+                const char* path = sdaiGetADBTypePath(adb, 0);
                 if (typeName == NULL || path && 0 == _stricmp(path, typeName)) {
                     TextValue value = NULL;
                     if (sdaiGetADBValue(adb, sdaiENUM, &value)) {
@@ -236,7 +236,7 @@ namespace AP203
         {
             SdaiAggr ret = NULL;
             if (void* adb = ADB()) {
-                char* path = sdaiGetADBTypePath(adb, 0);
+                const char* path = sdaiGetADBTypePath(adb, 0);
                 if (typeName == NULL || path && 0 == _stricmp(path, typeName)) {
                     if (!sdaiGetADBValue(adb, sdaiAGGR, &ret)) {
                         ret = NULL;
@@ -258,7 +258,7 @@ namespace AP203
         bool IsADBType(TextValue typeName)
         {
             if (void* adb = ADB()) {
-                char* path = sdaiGetADBTypePath(adb, 0);
+                const char* path = sdaiGetADBTypePath(adb, 0);
                 if (0 == _stricmp(path, typeName)) {
                     return true;
                 }

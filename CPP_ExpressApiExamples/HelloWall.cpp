@@ -12,7 +12,7 @@ extern void HelloWall()
 {
     int_t  model = sdaiCreateModelBN(0, NULL, "IFC4");
     SetSPFFHeaderItem(model, 9, 0, sdaiSTRING, "IFC4");
-    SetSPFFHeaderItem(model, 9, 1, sdaiSTRING, 0);
+    SetSPFFHeaderItem(model, 9, 1, sdaiSTRING, (const char*)0);
 
     //spatial structure
     //
