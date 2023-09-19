@@ -912,15 +912,15 @@ namespace IFC4x3
 
     public enum IfcAnnotationTypeEnum
     {
-        ASBUILTAREA = 0,
-        ASBUILTLINE = 1,
-        ASBUILTPOINT = 2,
-        ASSUMEDAREA = 3,
-        ASSUMEDLINE = 4,
-        ASSUMEDPOINT = 5,
-        NON_PHYSICAL_SIGNAL = 6,
-        SUPERELEVATIONEVENT = 7,
-        WIDTHEVENT = 8,
+        CONTOURLINE = 0,
+        DIMENSION = 1,
+        ISOBAR = 2,
+        ISOLUX = 3,
+        ISOTHERM = 4,
+        LEADER = 5,
+        SURVEY = 6,
+        SYMBOL = 7,
+        TEXT = 8,
         USERDEFINED = 9,
         NOTDEFINED = 10,
     };
@@ -929,8 +929,9 @@ namespace IFC4x3
     {
         ADD = 0,
         DIVIDE = 1,
-        MULTIPLY = 2,
-        SUBTRACT = 3,
+        MODULO = 2,
+        MULTIPLY = 3,
+        SUBTRACT = 4,
     };
 
     public enum IfcAssemblyPlaceEnum
@@ -2817,16 +2818,17 @@ namespace IFC4x3
 
     public enum IfcRailwayPartTypeEnum
     {
-        DILATATIONSUPERSTRUCTURE = 0,
-        LINESIDESTRUCTURE = 1,
-        LINESIDESTRUCTUREPART = 2,
-        PLAINTRACKSUPERSTRUCTURE = 3,
-        SUPERSTRUCTURE = 4,
-        TRACKSTRUCTURE = 5,
-        TRACKSTRUCTUREPART = 6,
-        TURNOUTSUPERSTRUCTURE = 7,
-        USERDEFINED = 8,
-        NOTDEFINED = 9,
+        ABOVETRACK = 0,
+        DILATIONTRACK = 1,
+        LINESIDE = 2,
+        LINESIDEPART = 3,
+        PLAINTRACK = 4,
+        SUBSTRUCTURE = 5,
+        TRACK = 6,
+        TRACKPART = 7,
+        TURNOUTTRACK = 8,
+        USERDEFINED = 9,
+        NOTDEFINED = 10,
     };
 
     public enum IfcRailwayTypeEnum
@@ -2877,8 +2879,10 @@ namespace IFC4x3
         POSITION = 5,
         REFERENCEMARKER = 6,
         STATION = 7,
-        USERDEFINED = 8,
-        NOTDEFINED = 9,
+        SUPERELEVATIONEVENT = 8,
+        WIDTHEVENT = 9,
+        USERDEFINED = 10,
+        NOTDEFINED = 11,
     };
 
     public enum IfcReflectanceMethodEnum
@@ -3837,8 +3841,8 @@ namespace IFC4x3
         public static TextValue[] IfcAlignmentVerticalSegmentTypeEnum_ = { "CIRCULARARC", "CLOTHOID", "CONSTANTGRADIENT", "PARABOLICARC" };
         public static TextValue[] IfcAnalysisModelTypeEnum_ = { "IN_PLANE_LOADING_2D", "LOADING_3D", "OUT_PLANE_LOADING_2D", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcAnalysisTheoryTypeEnum_ = { "FIRST_ORDER_THEORY", "FULL_NONLINEAR_THEORY", "SECOND_ORDER_THEORY", "THIRD_ORDER_THEORY", "USERDEFINED", "NOTDEFINED" };
-        public static TextValue[] IfcAnnotationTypeEnum_ = { "ASBUILTAREA", "ASBUILTLINE", "ASBUILTPOINT", "ASSUMEDAREA", "ASSUMEDLINE", "ASSUMEDPOINT", "NON_PHYSICAL_SIGNAL", "SUPERELEVATIONEVENT", "WIDTHEVENT", "USERDEFINED", "NOTDEFINED" };
-        public static TextValue[] IfcArithmeticOperatorEnum_ = { "ADD", "DIVIDE", "MULTIPLY", "SUBTRACT" };
+        public static TextValue[] IfcAnnotationTypeEnum_ = { "CONTOURLINE", "DIMENSION", "ISOBAR", "ISOLUX", "ISOTHERM", "LEADER", "SURVEY", "SYMBOL", "TEXT", "USERDEFINED", "NOTDEFINED" };
+        public static TextValue[] IfcArithmeticOperatorEnum_ = { "ADD", "DIVIDE", "MODULO", "MULTIPLY", "SUBTRACT" };
         public static TextValue[] IfcAssemblyPlaceEnum_ = { "FACTORY", "SITE", "NOTDEFINED" };
         public static TextValue[] IfcAudioVisualApplianceTypeEnum_ = { "AMPLIFIER", "CAMERA", "COMMUNICATIONTERMINAL", "DISPLAY", "MICROPHONE", "PLAYER", "PROJECTOR", "RECEIVER", "RECORDINGEQUIPMENT", "SPEAKER", "SWITCHER", "TELEPHONE", "TUNER", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcBeamTypeEnum_ = { "BEAM", "CORNICE", "DIAPHRAGM", "EDGEBEAM", "GIRDER_SEGMENT", "HATSTONE", "HOLLOWCORE", "JOIST", "LINTEL", "PIERCAP", "SPANDREL", "T_BEAM", "USERDEFINED", "NOTDEFINED" };
@@ -3989,12 +3993,12 @@ namespace IFC4x3
         public static TextValue[] IfcPumpTypeEnum_ = { "CIRCULATOR", "ENDSUCTION", "SPLITCASE", "SUBMERSIBLEPUMP", "SUMPPUMP", "VERTICALINLINE", "VERTICALTURBINE", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcRailingTypeEnum_ = { "BALUSTRADE", "FENCE", "GUARDRAIL", "HANDRAIL", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcRailTypeEnum_ = { "BLADE", "CHECKRAIL", "GUARDRAIL", "RACKRAIL", "RAIL", "STOCKRAIL", "USERDEFINED", "NOTDEFINED" };
-        public static TextValue[] IfcRailwayPartTypeEnum_ = { "DILATATIONSUPERSTRUCTURE", "LINESIDESTRUCTURE", "LINESIDESTRUCTUREPART", "PLAINTRACKSUPERSTRUCTURE", "SUPERSTRUCTURE", "TRACKSTRUCTURE", "TRACKSTRUCTUREPART", "TURNOUTSUPERSTRUCTURE", "USERDEFINED", "NOTDEFINED" };
+        public static TextValue[] IfcRailwayPartTypeEnum_ = { "ABOVETRACK", "DILATIONTRACK", "LINESIDE", "LINESIDEPART", "PLAINTRACK", "SUBSTRUCTURE", "TRACK", "TRACKPART", "TURNOUTTRACK", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcRailwayTypeEnum_ = { "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcRampFlightTypeEnum_ = { "SPIRAL", "STRAIGHT", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcRampTypeEnum_ = { "HALF_TURN_RAMP", "QUARTER_TURN_RAMP", "SPIRAL_RAMP", "STRAIGHT_RUN_RAMP", "TWO_QUARTER_TURN_RAMP", "TWO_STRAIGHT_RUN_RAMP", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcRecurrenceTypeEnum_ = { "BY_DAY_COUNT", "BY_WEEKDAY_COUNT", "DAILY", "MONTHLY_BY_DAY_OF_MONTH", "MONTHLY_BY_POSITION", "WEEKLY", "YEARLY_BY_DAY_OF_MONTH", "YEARLY_BY_POSITION" };
-        public static TextValue[] IfcReferentTypeEnum_ = { "BOUNDARY", "INTERSECTION", "KILOPOINT", "LANDMARK", "MILEPOINT", "POSITION", "REFERENCEMARKER", "STATION", "USERDEFINED", "NOTDEFINED" };
+        public static TextValue[] IfcReferentTypeEnum_ = { "BOUNDARY", "INTERSECTION", "KILOPOINT", "LANDMARK", "MILEPOINT", "POSITION", "REFERENCEMARKER", "STATION", "SUPERELEVATIONEVENT", "WIDTHEVENT", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcReflectanceMethodEnum_ = { "BLINN", "FLAT", "GLASS", "MATT", "METAL", "MIRROR", "PHONG", "PHYSICAL", "PLASTIC", "STRAUSS", "NOTDEFINED" };
         public static TextValue[] IfcReinforcedSoilTypeEnum_ = { "DYNAMICALLYCOMPACTED", "GROUTED", "REPLACED", "ROLLERCOMPACTED", "SURCHARGEPRELOADED", "VERTICALLYDRAINED", "USERDEFINED", "NOTDEFINED" };
         public static TextValue[] IfcReinforcingBarRoleEnum_ = { "ANCHORING", "EDGE", "LIGATURE", "MAIN", "PUNCHING", "RING", "SHEAR", "STUD", "USERDEFINED", "NOTDEFINED" };
@@ -5067,6 +5071,10 @@ namespace IFC4x3
         public bool is_IfcTimeStamp() { return IsADBType("IFCTIMESTAMP"); }
         public IntValue? get_IfcTimeStamp() { return get_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER); }
         public void put_IfcTimeStamp (IntValue value) { put_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER, value); }
+
+        public bool is_IfcURIReference() { return IsADBType("IFCURIREFERENCE"); }
+        public TextValue get_IfcURIReference() { return getTextValue("IFCURIREFERENCE", ifcengine.sdaiSTRING); }
+        public void put_IfcURIReference(TextValue value) { putTextValue("IFCURIREFERENCE", ifcengine.sdaiSTRING, value); }
     };
 
 
@@ -5119,6 +5127,8 @@ namespace IFC4x3
         public TextValue get_IfcTime() { return getTextValue("IFCTIME", ifcengine.sdaiSTRING); }
         public bool is_IfcTimeStamp() { return IsADBType("IFCTIMESTAMP"); }
         public IntValue? get_IfcTimeStamp() { return get_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER); }
+        public bool is_IfcURIReference() { return IsADBType("IFCURIREFERENCE"); }
+        public TextValue get_IfcURIReference() { return getTextValue("IFCURIREFERENCE", ifcengine.sdaiSTRING); }
 
         public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
@@ -5162,6 +5172,7 @@ namespace IFC4x3
         public void put_IfcText(TextValue value) { putTextValue("IFCTEXT", ifcengine.sdaiSTRING, value); }
         public void put_IfcTime(TextValue value) { putTextValue("IFCTIME", ifcengine.sdaiSTRING, value); }
         public void put_IfcTimeStamp (IntValue value) { put_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER, value); }
+        public void put_IfcURIReference(TextValue value) { putTextValue("IFCURIREFERENCE", ifcengine.sdaiSTRING, value); }
     };
 
 
@@ -6359,9 +6370,9 @@ namespace IFC4x3
         public IfcCurveMeasureSelect() : base(null) { }
 
 
-        public bool is_IfcNonNegativeLengthMeasure() { return IsADBType("IFCNONNEGATIVELENGTHMEASURE"); }
-        public double? get_IfcNonNegativeLengthMeasure() { return get_double("IFCNONNEGATIVELENGTHMEASURE", ifcengine.sdaiREAL); }
-        public void put_IfcNonNegativeLengthMeasure (double value) { put_double("IFCNONNEGATIVELENGTHMEASURE", ifcengine.sdaiREAL, value); }
+        public bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        public double? get_IfcLengthMeasure() { return get_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL); }
+        public void put_IfcLengthMeasure (double value) { put_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
         public double? get_IfcParameterValue() { return get_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL); }
@@ -6390,8 +6401,8 @@ namespace IFC4x3
         /// </summary>
         public IfcCurveMeasureSelect_get() : base(null) { }
 
-        public bool is_IfcNonNegativeLengthMeasure() { return IsADBType("IFCNONNEGATIVELENGTHMEASURE"); }
-        public double? get_IfcNonNegativeLengthMeasure() { return get_double("IFCNONNEGATIVELENGTHMEASURE", ifcengine.sdaiREAL); }
+        public bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        public double? get_IfcLengthMeasure() { return get_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL); }
         public bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
         public double? get_IfcParameterValue() { return get_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL); }
 
@@ -6420,7 +6431,7 @@ namespace IFC4x3
         /// </summary>
         public IfcCurveMeasureSelect_put() : base(null) { }
 
-        public void put_IfcNonNegativeLengthMeasure (double value) { put_double("IFCNONNEGATIVELENGTHMEASURE", ifcengine.sdaiREAL, value); }
+        public void put_IfcLengthMeasure (double value) { put_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcParameterValue (double value) { put_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL, value); }
     };
 
@@ -17331,6 +17342,8 @@ namespace IFC4x3
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
+        public TextValue get_GeodeticDatum() { return get_string("GeodeticDatum", ifcengine.sdaiSTRING); }
+        public void put_GeodeticDatum(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "GeodeticDatum", ifcengine.sdaiSTRING, value); }
         public SetOfIfcCoordinateOperation get_HasCoordinateOperation() { return (new SetOfIfcCoordinateOperationSerializer()).FromAttr(m_instance, "HasCoordinateOperation"); }
         public SetOfIfcWellKnownText get_WellKnownText() { return (new SetOfIfcWellKnownTextSerializer()).FromAttr(m_instance, "WellKnownText"); }
 
@@ -21541,12 +21554,12 @@ namespace IFC4x3
         /// </summary>
         public static new IfcGeographicCRS Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGeographicCRS"); Debug.Assert(inst != 0); return inst; }
 
-        public TextValue get_GeodeticDatum() { return get_string("GeodeticDatum", ifcengine.sdaiSTRING); }
-        public void put_GeodeticDatum(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "GeodeticDatum", ifcengine.sdaiSTRING, value); }
         public TextValue get_PrimeMeridian() { return get_string("PrimeMeridian", ifcengine.sdaiSTRING); }
         public void put_PrimeMeridian(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "PrimeMeridian", ifcengine.sdaiSTRING, value); }
-        public IfcNamedUnit get_Unit() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Unit", ifcengine.sdaiINSTANCE, out inst); return new IfcNamedUnit (inst); }
-        public void put_Unit(IfcNamedUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Unit", ifcengine.sdaiINSTANCE, i); }
+        public IfcNamedUnit get_AngleUnit() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AngleUnit", ifcengine.sdaiINSTANCE, out inst); return new IfcNamedUnit (inst); }
+        public void put_AngleUnit(IfcNamedUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AngleUnit", ifcengine.sdaiINSTANCE, i); }
+        public IfcNamedUnit get_HeightUnit() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "HeightUnit", ifcengine.sdaiINSTANCE, out inst); return new IfcNamedUnit (inst); }
+        public void put_HeightUnit(IfcNamedUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "HeightUnit", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcGeographicCRS"; }
     };
@@ -23560,12 +23573,12 @@ namespace IFC4x3
         /// </summary>
         public static new IfcMapConversionScaled Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMapConversionScaled"); Debug.Assert(inst != 0); return inst; }
 
-        public double? get_ScaleX() { return get_double("ScaleX", ifcengine.sdaiREAL);}
-        public void put_ScaleX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ScaleX", ifcengine.sdaiREAL, ref value); }
-        public double? get_ScaleY() { return get_double("ScaleY", ifcengine.sdaiREAL);}
-        public void put_ScaleY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ScaleY", ifcengine.sdaiREAL, ref value); }
-        public double? get_ScaleZ() { return get_double("ScaleZ", ifcengine.sdaiREAL);}
-        public void put_ScaleZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ScaleZ", ifcengine.sdaiREAL, ref value); }
+        public double? get_FactorX() { return get_double("FactorX", ifcengine.sdaiREAL);}
+        public void put_FactorX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FactorX", ifcengine.sdaiREAL, ref value); }
+        public double? get_FactorY() { return get_double("FactorY", ifcengine.sdaiREAL);}
+        public void put_FactorY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FactorY", ifcengine.sdaiREAL, ref value); }
+        public double? get_FactorZ() { return get_double("FactorZ", ifcengine.sdaiREAL);}
+        public void put_FactorZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FactorZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcMapConversionScaled"; }
     };
@@ -26530,8 +26543,6 @@ namespace IFC4x3
         /// </summary>
         public static new IfcProjectedCRS Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProjectedCRS"); Debug.Assert(inst != 0); return inst; }
 
-        public TextValue get_GeodeticDatum() { return get_string("GeodeticDatum", ifcengine.sdaiSTRING); }
-        public void put_GeodeticDatum(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "GeodeticDatum", ifcengine.sdaiSTRING, value); }
         public TextValue get_VerticalDatum() { return get_string("VerticalDatum", ifcengine.sdaiSTRING); }
         public void put_VerticalDatum(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "VerticalDatum", ifcengine.sdaiSTRING, value); }
         public TextValue get_MapProjection() { return get_string("MapProjection", ifcengine.sdaiSTRING); }
