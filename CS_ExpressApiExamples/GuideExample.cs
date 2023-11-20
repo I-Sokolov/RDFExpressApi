@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 
-using SdaiInstance = System.Int64;
+#if _WIN64
+        using int_t = System.Int64;
+#else
+        using int_t = System.Int32;
+#endif
 
 namespace CS_IFC
 {
+    using SdaiInstance = int_t;
+
     class GuideExample
     {
         public static void Run()
         {
 
-            long model = RDF.ifcengine.sdaiCreateModelBN(0, null as string, "IFC4");
+            int_t model = RDF.ifcengine.sdaiCreateModelBN(0, null as string, "IFC4");
             RDF.ifcengine.SetSPFFHeaderItem(model, 9, 0, RDF.ifcengine.sdaiSTRING, "IFC4");
             RDF.ifcengine.SetSPFFHeaderItem(model, 9, 1, RDF.ifcengine.sdaiSTRING, null as string);
 
@@ -195,15 +201,15 @@ namespace CS_IFC
             assert(gotPlaneAngle.Count == 3 && gotPlaneAngle.First() == 44 && gotPlaneAngle[1]==34 && gotPlaneAngle[2]==3);
 
             //to put you can use any IEnumerable of base type
-            var lstInt = new List<long> () ;
+            var lstInt = new List<int_t> () ;
             lstInt.Add(56);
             site.put_RefLatitude(lstInt);
 
-            long[] arrInt = { 43, 17, 3, 4 };
+            int_t[] arrInt = { 43, 17, 3, 4 };
             site.put_RefLongitude(arrInt);
 
             //get_* method will return a subclass of List<> of base type
-            List<long> gotLongitued = site.get_RefLongitude();
+            List<int_t> gotLongitued = site.get_RefLongitude();
             assert(gotLongitued.Count == 4 && gotLongitued[2] == 3);
 
             IFC4.IfcCompoundPlaneAngleMeasure gotLatitude = site.get_RefLatitude();

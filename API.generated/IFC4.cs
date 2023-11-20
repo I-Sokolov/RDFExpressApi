@@ -11,13 +11,19 @@ using System.Collections;
 using System.Collections.Generic;
 using RDF;
 
+#if _WIN64
+        using int_t = System.Int64;
+#else
+		using int_t = System.Int32;
+#endif
+
 namespace IFC4
 {
-    using SdaiModel = Int64;
-    using SdaiInstance = Int64;
-    using SdaiAggr = Int64;
+    using SdaiModel = int_t;
+    using SdaiInstance = int_t;
+    using SdaiAggr = int_t;
 
-    using IntValue = Int64;
+    using IntValue = int_t;
     using TextValue = String;
 
     /// <summary>

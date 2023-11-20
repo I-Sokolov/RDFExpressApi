@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 using RDF;
 using IFC4;
 
+#if _WIN64
+        using int_t = System.Int64;
+#else
+        using int_t = System.Int32;
+#endif
+
 namespace CS_IFC
 {
     class HelloWall
@@ -52,7 +58,7 @@ namespace CS_IFC
             ifcengine.sdaiCloseModel(model);
         }
 
-        private static void SetupAggregation(Int64 model, IfcObjectDefinition aggregator, IfcObjectDefinition part)
+        private static void SetupAggregation(int_t model, IfcObjectDefinition aggregator, IfcObjectDefinition part)
         {
             var aggregate = IfcRelAggregates.Create(model);
             aggregate.put_RelatingObject(aggregator);
@@ -62,7 +68,7 @@ namespace CS_IFC
             aggregate.put_RelatedObjects(aggregated);
         }
 
-        private static void SetupContainment(Int64 model, IfcSpatialStructureElement spatialElement, IfcProduct product)
+        private static void SetupContainment(int_t model, IfcSpatialStructureElement spatialElement, IfcProduct product)
         {
             var contain = IfcRelContainedInSpatialStructure.Create(model);
             contain.put_RelatingStructure(spatialElement);
@@ -72,7 +78,7 @@ namespace CS_IFC
             contain.put_RelatedElements(products);
         }
 
-        private static void CreateGeometry(Int64 model, IfcWall wall)
+        private static void CreateGeometry(int_t model, IfcWall wall)
         {
             IfcCurve footprint = CreateFootprintCurve(model);
 
@@ -107,7 +113,7 @@ namespace CS_IFC
 
         class Point2D : ListOfIfcLengthMeasure { public Point2D(double x, double y) { Add(x); Add(y); } };
 
-        private static IfcIndexedPolyCurve CreateFootprintCurve(Int64 model)
+        private static IfcIndexedPolyCurve CreateFootprintCurve(int_t model)
         {
             var poly = IfcIndexedPolyCurve.Create(model);
             ////////
@@ -129,19 +135,19 @@ namespace CS_IFC
             //////
 
             var arc1 = new IfcSegmentIndexSelect(poly);
-            long[] _arc1 = { 1, 2, 3 };
+            int_t[] _arc1 = { 1, 2, 3 };
             arc1.put_IfcArcIndex(_arc1);
 
             var line1 = new IfcSegmentIndexSelect(poly);
-            long[] _line1 = { 3, 4 };
+            int_t[] _line1 = { 3, 4 };
             line1.put_IfcLineIndex(_line1);
 
             var arc2 = new IfcSegmentIndexSelect(poly);
-            long[] _arc2 = { 4, 5, 6 };
+            int_t[] _arc2 = { 4, 5, 6 };
             arc2.put_IfcArcIndex(_arc2);
 
             var line2 = new IfcSegmentIndexSelect(poly);
-            long[] _line2 = { 6, 1 };
+            int_t[] _line2 = { 6, 1 };
             line2.put_IfcLineIndex(_line2);
 
 
