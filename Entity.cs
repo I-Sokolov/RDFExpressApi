@@ -40,7 +40,7 @@ namespace RDFWrappers
                     IntPtr ptrName = IntPtr.Zero;
                     Int64 definingEntity, domainEntity, aggregation;
                     enum_express_attr_type attrType;
-                    byte inverse, optional, unique;
+                    byte inverse, optional;
 
                     ifcengine.engiGetAttributeTraits
                                     (attribute,
@@ -48,7 +48,7 @@ namespace RDFWrappers
                                     out definingEntity, out inverse,
                                     out attrType, out domainEntity,
                                     out aggregation,
-                                    out optional, out unique
+                                    out optional
                                     );
 
                     var prop = new Attribute
@@ -59,8 +59,7 @@ namespace RDFWrappers
                         attrType = attrType,
                         domain = domainEntity,
                         aggregation = aggregation,
-                        optional = optional != 0 ? true : false,
-                        unique = unique != 0 ? true : false
+                        optional = optional != 0 ? true : false                        
                     };
 
                     //check duplications

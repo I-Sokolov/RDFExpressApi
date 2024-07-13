@@ -176,23 +176,24 @@ namespace RDF
 	public enum enum_validation_type : System.UInt64
 	{
 		__NONE						= 0,
-		__NO_OF_ARGUMENTS			= 1 << 0,	//number of arguments
-		__ARGUMENT_EXPRESS_TYPE		= 1 << 1,	//argument value is correct entity, defined type or enumeration value
-		__ARGUMENT_PRIM_TYPE		= 1 << 2,	//argument value has correct primitive type
-		__REQUIRED_ARGUMENTS		= 1 << 3,	//non-optional arguments values are provided
-		__ARRGEGATION_EXPECTED		= 1 << 4,	//aggregation is provided when expected
-		__AGGREGATION_NOT_EXPECTED	= 1 << 5,   //aggregation is not used when not expected
-		__AGGREGATION_SIZE			= 1 << 6,   //aggregation size
-		__AGGREGATION_UNIQUE		= 1 << 7,	//elements in aggregations are unique when required
-		__COMPLEX_INSTANCE			= 1 << 8,	//complex instances contains full parent chains
-		__REFERENCE_EXISTS			= 1 << 9,	//referenced instance exists
-		__ABSTRACT_ENTITY			= 1 << 10,  //abstract entity should not instantiate
-		__WHERE_RULE				= 1 << 11,  //where-rule check
-		__UNIQUE_RULE				= 1 << 12,	//unique-rule check
-		__STAR_USAGE				= 1 << 13,  //* is used only for derived arguments
-		__CALL_ARGUMENT				= 1 << 14,  //validateModel/validateInstance function argument should be model/instance
-		__INTERNAL_ERROR			= 1 << 15   //unspecified error
-	};
+		__KNOWN_ENTITY				= 1 << 0,   //  entity is defined in the schema
+		__NO_OF_ARGUMENTS			= 1 << 1,   //	number of arguments
+		__ARGUMENT_EXPRESS_TYPE		= 1 << 2,   //	argument value is correct entity, defined type or enumeration value
+		__ARGUMENT_PRIM_TYPE		= 1 << 3,   //	argument value has correct primitive type
+		__REQUIRED_ARGUMENTS		= 1 << 4,   //	non-optional arguments values are provided
+		__ARRGEGATION_EXPECTED		= 1 << 5,   //	aggregation is provided when expected
+		__AGGREGATION_NOT_EXPECTED	= 1 << 6,   //	aggregation is not used when not expected
+		__AGGREGATION_SIZE			= 1 << 7,   //	aggregation size
+		__AGGREGATION_UNIQUE		= 1 << 8,   //	elements in aggregations are unique when required
+		__COMPLEX_INSTANCE			= 1 << 9,   //	complex instances contains full parent chains
+		__REFERENCE_EXISTS			= 1 << 10,  //	referenced instance exists
+		__ABSTRACT_ENTITY			= 1 << 11,  //	abstract entity should not instantiate
+		__WHERE_RULE				= 1 << 12,  //	where-rule check
+		__UNIQUE_RULE				= 1 << 13,  //	unique-rule check
+		__STAR_USAGE				= 1 << 14,  //	* is used only for derived arguments
+		__CALL_ARGUMENT				= 1 << 15,  //	validateModel / validateInstance function argument should be model / instance
+		__INTERNAL_ERROR = ((UInt64)1) << 63	//	unspecified error
+		};
 
 	public enum enum_validation_status : byte
 	{
@@ -258,10 +259,10 @@ namespace RDF
 		///	A handle to the model will be returned, or 0 in case something went wrong.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiCreateModelBN")]
-		public static extern int_t sdaiCreateModelBN(int_t repository, string filePath, string schemaName);
+		public static extern int_t sdaiCreateModelBN(int_t repository, string fileName, string schemaName);
 
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiCreateModelBN")]
-		public static extern int_t sdaiCreateModelBN(int_t repository, byte[] filePath, byte[] schemaName);
+		public static extern int_t sdaiCreateModelBN(int_t repository, byte[] fileName, byte[] schemaName);
 
 		/// <summary>
 		///		sdaiCreateModelBNUnicode                                (http://rdf.bg/ifcdoc/CS64/sdaiCreateModelBNUnicode.html)
@@ -902,7 +903,7 @@ namespace RDF
 		///	...
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "engiGetAttributeTraits")]
-		public static extern void engiGetAttributeTraits(int_t attribute, out IntPtr name, out int_t definingEntity, out byte inverse, out enum_express_attr_type attrType, out int_t domainEntity, out int_t aggregationDescriptor, out byte optional, out byte unique);
+		public static extern void engiGetAttributeTraits(int_t attribute, out IntPtr name, out int_t definingEntity, out byte inverse, out enum_express_attr_type attrType, out int_t domainEntity, out int_t aggregationDescriptor, out byte optional);
 
 		/// <summary>
 		///		engiGetAggregation                                      (http://rdf.bg/ifcdoc/CS64/engiGetAggregation.html)
@@ -1601,9 +1602,17 @@ namespace RDF
 		public static extern int_t sdaiGetAttrDefinition(int_t entity, byte[] attributeName);
 
 		/// <summary>
+		///		sdaiGetInstanceModel                                    (http://rdf.bg/ifcdoc/CS64/sdaiGetInstanceModel.html)
+		///
+		///	Returns the model based on an instance.
+		/// </summary>
+		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetInstanceModel")]
+		public static extern int_t sdaiGetInstanceModel(int_t instance);
+
+		/// <summary>
 		///		sdaiGetInstanceType                                     (http://rdf.bg/ifcdoc/CS64/sdaiGetInstanceType.html)
 		///
-		///	...
+		///	Returns the entity based on an instance.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "sdaiGetInstanceType")]
 		public static extern int_t sdaiGetInstanceType(int_t instance);
@@ -2746,7 +2755,14 @@ namespace RDF
 		/// <summary>
 		///		setSegmentation                                         (http://rdf.bg/ifcdoc/CS64/setSegmentation.html)
 		///
-		///	...
+		///	This call sets the segmentation for any curved part of an object in case it is defined by a circle, ellipse, nurbs etc.
+		///
+		///	If segmentationParts is set to 0 it will fallback on the default setting (i.e. 36),
+		///	it makes sense to change the segmentation depending on the entity type that is visualized.
+		///
+		///	in case segmentationLength is non-zero, this is the maximum length (in file length unit definition) of a segment
+		///	For example a slightly curved wall with large size will get much more precise segmentation as the segmentLength
+		///	will force the segmentation for the wall to increase.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "setSegmentation")]
 		public static extern void setSegmentation(int_t model, int_t segmentationParts, double segmentationLength);
@@ -2754,7 +2770,11 @@ namespace RDF
 		/// <summary>
 		///		getSegmentation                                         (http://rdf.bg/ifcdoc/CS64/getSegmentation.html)
 		///
-		///	...
+		///	This returns the set values for segmentationParts and segmentationLength. Both attributes are optional.
+		///	The values can be changed through the API call setSegmentation().
+		///	The default values are
+		///		segmentationParts  = 36
+		///		segmentationLength = 0.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "getSegmentation")]
 		public static extern void getSegmentation(int_t model, out int_t segmentationParts, out double segmentationLength);
@@ -2782,7 +2802,12 @@ namespace RDF
 		/// <summary>
 		///		circleSegments                                          (http://rdf.bg/ifcdoc/CS64/circleSegments.html)
 		///
-		///	...
+		///	Please use the setSegmentation call, note it is now a call that is model dependent.
+		///
+		///	The circleSegments(circles, smallCircles) can be replaced with
+		///		double	segmentationLength = 0.;
+		///		getSegmentation(model, nullptr, &segmentationLength);
+		///		setSegmentation(model, circles, segmentationLength);
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "circleSegments")]
 		public static extern void circleSegments(int_t circles, int_t smallCircles);
@@ -2790,26 +2815,64 @@ namespace RDF
 		/// <summary>
 		///		setMaximumSegmentationLength                            (http://rdf.bg/ifcdoc/CS64/setMaximumSegmentationLength.html)
 		///
-		///	...
+		///	Please use setSegmentation call
+		///
+		///	The callsetMaximumSegmentationLength(model, length) can be replaced with
+		///		int_t segmentationParts = 0;
+		///		getSegmentation(model, &segmentationParts, nullptr);
+		///		setSegmentation(model, segmentationParts, length);
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "setMaximumSegmentationLength")]
 		public static extern void setMaximumSegmentationLength(int_t model, double length);
 
 		/// <summary>
-		///		getUnitConversionFactor                                 (http://rdf.bg/ifcdoc/CS64/getUnitConversionFactor.html)
+		///		getProjectUnitConversionFactor                          (http://rdf.bg/ifcdoc/CS64/getProjectUnitConversionFactor.html)
 		///
 		///	...
 		/// </summary>
-		[DllImport(IFCEngineDLL, EntryPoint = "getUnitConversionFactor")]
-		public static extern double getUnitConversionFactor(int_t model, string unitType, out IntPtr unitPrefix, out IntPtr unitName, out IntPtr SIUnitName);
+		[DllImport(IFCEngineDLL, EntryPoint = "getProjectUnitConversionFactor")]
+		public static extern double getProjectUnitConversionFactor(int_t model, string unitType, out IntPtr unitPrefix, out IntPtr unitName, out IntPtr SIUnitName);
 
-		[DllImport(IFCEngineDLL, EntryPoint = "getUnitConversionFactor")]
-		public static extern double getUnitConversionFactor(int_t model, byte[] unitType, out IntPtr unitPrefix, out IntPtr unitName, out IntPtr SIUnitName);
+		[DllImport(IFCEngineDLL, EntryPoint = "getProjectUnitConversionFactor")]
+		public static extern double getProjectUnitConversionFactor(int_t model, byte[] unitType, out IntPtr unitPrefix, out IntPtr unitName, out IntPtr SIUnitName);
+
+		/// <summary>
+		///		getUnitInstanceConversionFactor                         (http://rdf.bg/ifcdoc/CS64/getUnitInstanceConversionFactor.html)
+		///
+		///	...
+		/// </summary>
+		[DllImport(IFCEngineDLL, EntryPoint = "getUnitInstanceConversionFactor")]
+		public static extern double getUnitInstanceConversionFactor(int_t unitInstance, out IntPtr unitPrefix, out IntPtr unitName, out IntPtr SIUnitName);
 
 		/// <summary>
 		///		setBRepProperties                                       (http://rdf.bg/ifcdoc/CS64/setBRepProperties.html)
 		///
-		///	...
+		///	This call can be used to optimize Boundary Representation geometries
+		///
+		///		consistencyCheck
+		///			bit0  (1)		merge elements in the vertex array are duplicated (epsilon used as distance)
+		///			bit1  (2)		remove elements in the vertex array that are not referenced by elements in the index array (interpreted as SET if flags are defined)
+		///			bit2  (4)		merge polygons placed in the same plane and sharing at least one edge
+		///			bit3  (8)		merge polygons advanced (check of polygons have the opposite direction and are overlapping, but don't share points)
+		///			bit4  (16)		check if faces are wrongly turned opposite from each other
+		///			bit5  (32)		check if faces are inside-out
+		///			bit6  (64)		check if faces result in solid, if not generate both sided faces
+		///			bit7  (128)		invert direction of the faces / normals
+		///			bit8  (256)		export all faces as one conceptual face
+		///			bit9  (512)		remove irrelevant intermediate points on lines
+		///			bit10 (1024)	check and repair faces that are not defined in a perfect plane
+		///
+		///		fraction
+		///			To compare adjecent faces, they will be defined as being part of the same conceptual face if the fraction
+		///			value is larger then the dot product of the normal vector's of the individual faces.
+		///
+		///		epsilon
+		///			This value is used to compare vertex elements, if vertex elements should be merged and the distance is smaller than this epsilon value
+		///			then it will be defined as equal
+		///
+		///		maxVerticesSize
+		///			if 0 this setting is applied to BoundaryRepresentation based geometries
+		///			if larger than 0 it is applied to all BoundaryRepresentation based geometries with vertices size smaller or equal to the given number
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "setBRepProperties")]
 		public static extern void setBRepProperties(int_t model, Int64 consistencyCheck, double fraction, double epsilon, int_t maxVerticesSize);
@@ -2817,7 +2880,12 @@ namespace RDF
 		/// <summary>
 		///		cleanMemory                                             (http://rdf.bg/ifcdoc/CS64/cleanMemory.html)
 		///
-		///	...
+		///	This call forces cleaning of memory allocated.
+		///	The following mode values are effected:
+		///		0	non-cached geometry tree structures
+		///		1	cached and non-cached geometry tree structures + resetting buffers for internally used Geometry Kernel instance
+		///		3	cached and non-cached geometry tree structures
+		///		4	clean memory allocated within a session for ADB structures and string values (including enumerations requested as wide char).
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "cleanMemory")]
 		public static extern void cleanMemory(int_t model, int_t mode);
@@ -2825,7 +2893,7 @@ namespace RDF
 		/// <summary>
 		///		internalGetP21Line                                      (http://rdf.bg/ifcdoc/CS64/internalGetP21Line.html)
 		///
-		///	...
+		///	Returns the line STEP / Express ID of an instance
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "internalGetP21Line")]
 		public static extern Int64 internalGetP21Line(int_t instance);
@@ -2833,7 +2901,7 @@ namespace RDF
 		/// <summary>
 		///		internalForceInstanceFromP21Line                        (http://rdf.bg/ifcdoc/CS64/internalForceInstanceFromP21Line.html)
 		///
-		///	...
+		///	Returns an instance based on the model and STEP / Express ID (even when the instance itself might be non-existant)
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "internalForceInstanceFromP21Line")]
 		public static extern int_t internalForceInstanceFromP21Line(int_t model, Int64 P21Line);
@@ -2841,7 +2909,7 @@ namespace RDF
 		/// <summary>
 		///		internalGetInstanceFromP21Line                          (http://rdf.bg/ifcdoc/CS64/internalGetInstanceFromP21Line.html)
 		///
-		///	...
+		///	Returns an instance based on the model and STEP / Express ID
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "internalGetInstanceFromP21Line")]
 		public static extern int_t internalGetInstanceFromP21Line(int_t model, Int64 P21Line);
@@ -2926,7 +2994,7 @@ namespace RDF
 		/// <summary>
 		///		xxxxGetAllInstances                                     (http://rdf.bg/ifcdoc/CS64/xxxxGetAllInstances.html)
 		///
-		///	...
+		///	This call returns an aggregation containing all instances.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "xxxxGetAllInstances")]
 		public static extern int_t xxxxGetAllInstances(int_t model);
@@ -2934,7 +3002,9 @@ namespace RDF
 		/// <summary>
 		///		xxxxGetInstancesUsing                                   (http://rdf.bg/ifcdoc/CS64/xxxxGetInstancesUsing.html)
 		///
-		///	...
+		///	This call returns an aggregation containing all instances referencing the given instance.
+		///
+		///	note: this is independent from if there are inverse relations defining such an aggregation or parts of it.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "xxxxGetInstancesUsing")]
 		public static extern int_t xxxxGetInstancesUsing(int_t instance);
@@ -3187,7 +3257,11 @@ namespace RDF
 		/// <summary>
 		///		owlGetModel                                             (http://rdf.bg/ifcdoc/CS64/owlGetModel.html)
 		///
-		///	...
+		///	Returns a handle to the model within the Geometry Kernel.
+		///
+		///	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+		///		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP model handle also,
+		///		  however most correct would be to get and use the Geometry Kernel handle.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "owlGetModel")]
 		public static extern void owlGetModel(int_t model, out Int64 owlModel);
@@ -3195,7 +3269,11 @@ namespace RDF
 		/// <summary>
 		///		owlGetInstance                                          (http://rdf.bg/ifcdoc/CS64/owlGetInstance.html)
 		///
-		///	...
+		///	Returns a handle to the instance representing the head of design tree within the Geometry Kernel.
+		///
+		///	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+		///		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP instance handle also,
+		///		  however most correct would be to get and use the Geometry Kernel handle.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "owlGetInstance")]
 		public static extern void owlGetInstance(int_t model, int_t instance, out Int64 owlInstance);
@@ -3211,7 +3289,12 @@ namespace RDF
 		/// <summary>
 		///		owlBuildInstance                                        (http://rdf.bg/ifcdoc/CS64/owlBuildInstance.html)
 		///
-		///	...
+		///	Returns a handle to the instance representing the head of design tree within the Geometry Kernel.
+		///	If no design tree is created yet it will be created on-the-fly.
+		///
+		///	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+		///		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP instance handle also,
+		///		  however most correct would be to get and use the Geometry Kernel handle.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "owlBuildInstance")]
 		public static extern void owlBuildInstance(int_t model, int_t instance, out Int64 owlInstance);
@@ -3219,7 +3302,12 @@ namespace RDF
 		/// <summary>
 		///		owlBuildInstanceInContext                               (http://rdf.bg/ifcdoc/CS64/owlBuildInstanceInContext.html)
 		///
-		///	...
+		///	Returns a handle to the instance representing the head of design tree within the Geometry Kernel.
+		///	If no design tree is created yet it will be created on-the-fly.
+		///
+		///	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+		///		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP instance handle also,
+		///		  however most correct would be to get and use the Geometry Kernel handle.
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "owlBuildInstanceInContext")]
 		public static extern void owlBuildInstanceInContext(int_t instanceBase, int_t instanceContext, out Int64 owlInstance);
@@ -3347,7 +3435,15 @@ namespace RDF
 		/// <summary>
 		///		inferenceInstance                                       (http://rdf.bg/ifcdoc/CS64/inferenceInstance.html)
 		///
-		///	...
+		///	This call allows certain constructs to complete implicitely already available data
+		///	Specifically for IFC4.3 and higher calls using the instances of the following entities are supported:
+		///		IfcAlignment	   => in case business logic is defined and not geometricaly representation is available yet
+		///							  the geometrical representation will be constructed on the fly, i.e.
+		///							  an IfcCompositeCurve with IfcCurveSegment instances for the horizontal alignment 
+		///							  an IfcGradientCurve with IfcCurveSegment instances for the vertical alignment 
+		///							  an IfcSegmentedReferenceCurve with IfcCurveSegment instances for the cant alignment
+		///		IfcLinearPlacement => in case CartesianPosition is empty the internally calculated matrix will be
+		///							  represented as an IfcAxis2Placement
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "inferenceInstance")]
 		public static extern int_t inferenceInstance(int_t instance);
@@ -3688,7 +3784,7 @@ namespace RDF
 		///		bit 15:	(__INTERNAL_ERROR)					unspecified error
 		/// </summary>
 		[DllImport(IFCEngineDLL, EntryPoint = "validateGetIssueType")]
-		public static extern UInt64 validateGetIssueType(int_t issue);
+		public static extern enum_validation_type validateGetIssueType (int_t issue);
 
 		/// <summary>
 		///		validateGetInstance                                     (http://rdf.bg/ifcdoc/CS64/validateGetInstance.html)
@@ -3754,9 +3850,16 @@ namespace RDF
 		[DllImport(IFCEngineDLL, EntryPoint = "validateGetDescription")]
 		public static extern IntPtr validateGetDescription(int_t issue);
 
-        //
-        //  Deprecated API Calls (GEOMETRY)
-        //
+		public static string validateGetDescriptionString (int_t issue)
+			{
+			IntPtr descr = validateGetDescription(issue);
+			return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(descr);
+			}
+
+
+		//
+		//  Deprecated API Calls (GEOMETRY)
+		//
 
 		/// <summary>
 		///		initializeModellingInstance                             (http://rdf.bg/ifcdoc/CS64/initializeModellingInstance.html)

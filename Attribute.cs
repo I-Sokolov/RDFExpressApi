@@ -18,8 +18,6 @@ namespace RDFWrappers
         public ExpressHandle definingEntity;
         public bool inverse;
         public bool optional;
-        public bool unique;
-
 
         private string DefiningEntity { get { return Schema.GetNameOfDeclaration(definingEntity); } }
         //private string Domain { get { return ExpressSchema.GetNameOfDeclaration(domain); } }

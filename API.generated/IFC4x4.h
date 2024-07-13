@@ -581,6 +581,8 @@ namespace IFC4x4
     class IfcArbitraryClosedProfileDef;
     class IfcArbitraryOpenProfileDef;
     class IfcArbitraryProfileDefWithVoids;
+    class IfcArchElement;
+    class IfcArchElementType;
     class IfcAsset;
     class IfcAsymmetricIShapeProfileDef;
     class IfcAudioVisualAppliance;
@@ -600,6 +602,7 @@ namespace IFC4x4
     class IfcBooleanClippingResult;
     class IfcBooleanResult;
     class IfcBorehole;
+    class IfcBoreholeType;
     class IfcBoundaryCondition;
     class IfcBoundaryCurve;
     class IfcBoundaryEdgeCondition;
@@ -772,7 +775,6 @@ namespace IFC4x4
     class IfcDoor;
     class IfcDoorLiningProperties;
     class IfcDoorPanelProperties;
-    class IfcDoorStyle;
     class IfcDoorType;
     class IfcDraughtingPreDefinedColour;
     class IfcDraughtingPreDefinedCurveFont;
@@ -840,6 +842,7 @@ namespace IFC4x4
     class IfcFace;
     class IfcFaceBasedSurfaceModel;
     class IfcFaceBound;
+    class IfcFaceExcavation;
     class IfcFaceOuterBound;
     class IfcFaceSurface;
     class IfcFacetedBrep;
@@ -899,19 +902,22 @@ namespace IFC4x4
     class IfcGeometricSet;
     class IfcGeomodel;
     class IfcGeoScienceElement;
+    class IfcGeoScienceElementType;
     class IfcGeoScienceFeature;
+    class IfcGeoScienceFeatureType;
     class IfcGeoScienceModel;
+    class IfcGeoScienceModelType;
     class IfcGeoScienceObservation;
     class IfcGeoslice;
     class IfcGeotechnicalAssembly;
     class IfcGeotechnicalElement;
     class IfcGeotechnicalStratum;
-    class IfcGeotechTypicalSection;
     class IfcGradientCurve;
     class IfcGrid;
     class IfcGridAxis;
     class IfcGridPlacement;
     class IfcGroundReinforcementElement;
+    class IfcGroundReinforcementElementType;
     class IfcGroup;
     class IfcHalfSpaceSolid;
     class IfcHeatExchanger;
@@ -926,6 +932,7 @@ namespace IFC4x4
     class IfcIndexedPolyCurve;
     class IfcIndexedPolygonalFace;
     class IfcIndexedPolygonalFaceWithVoids;
+    class IfcIndexedPolygonalTextureMap;
     class IfcIndexedTextureMap;
     class IfcIndexedTriangleTextureMap;
     class IfcIntegerVoxelData;
@@ -1114,16 +1121,17 @@ namespace IFC4x4
     class IfcProtectiveDeviceTrippingUnit;
     class IfcProtectiveDeviceTrippingUnitType;
     class IfcProtectiveDeviceType;
-    class IfcProxy;
     class IfcPump;
     class IfcPumpType;
     class IfcQuantityArea;
     class IfcQuantityCount;
     class IfcQuantityLength;
+    class IfcQuantityNumber;
     class IfcQuantitySet;
     class IfcQuantityTime;
     class IfcQuantityVolume;
     class IfcQuantityWeight;
+    class IfcRadialExcavation;
     class IfcRail;
     class IfcRailing;
     class IfcRailingType;
@@ -1145,6 +1153,7 @@ namespace IFC4x4
     class IfcReference;
     class IfcReferent;
     class IfcRegularTimeSeries;
+    class IfcReinforcedSoil;
     class IfcReinforcementBarProperties;
     class IfcReinforcementDefinitionProperties;
     class IfcReinforcingBar;
@@ -1263,7 +1272,6 @@ namespace IFC4x4
     class IfcSolarDevice;
     class IfcSolarDeviceType;
     class IfcSolidModel;
-    class IfcSolidStratum;
     class IfcSpace;
     class IfcSpaceHeater;
     class IfcSpaceHeaterType;
@@ -1375,6 +1383,8 @@ namespace IFC4x4
     class IfcTextStyleTextModel;
     class IfcTextureCoordinate;
     class IfcTextureCoordinateGenerator;
+    class IfcTextureCoordinateIndices;
+    class IfcTextureCoordinateIndicesWithVoids;
     class IfcTextureMap;
     class IfcTextureVertex;
     class IfcTextureVertexList;
@@ -1402,6 +1412,7 @@ namespace IFC4x4
     class IfcTubeBundleType;
     class IfcTunnel;
     class IfcTunnelPart;
+    class IfcTunnelTypicalSection;
     class IfcTypeObject;
     class IfcTypeProcess;
     class IfcTypeProduct;
@@ -1429,7 +1440,6 @@ namespace IFC4x4
     class IfcVirtualElement;
     class IfcVirtualGridIntersection;
     class IfcVoidingFeature;
-    class IfcVoidStratum;
     class IfcVoxelData;
     class IfcVoxelGrid;
     class IfcWall;
@@ -1437,12 +1447,10 @@ namespace IFC4x4
     class IfcWallType;
     class IfcWasteTerminal;
     class IfcWasteTerminalType;
-    class IfcWaterStratum;
     class IfcWellKnownText;
     class IfcWindow;
     class IfcWindowLiningProperties;
     class IfcWindowPanelProperties;
-    class IfcWindowStyle;
     class IfcWindowType;
     class IfcWorkCalendar;
     class IfcWorkControl;
@@ -1836,17 +1844,27 @@ namespace IFC4x4
 
     enum class IfcAnnotationTypeEnum
     {
-        ASSUMEDPOINT = 0,
-        ASBUILTAREA = 1,
-        ASBUILTLINE = 2,
-        NON_PHYSICAL_SIGNAL = 3,
-        ASSUMEDLINE = 4,
-        WIDTHEVENT = 5,
-        ASSUMEDAREA = 6,
-        SUPERELEVATIONEVENT = 7,
-        ASBUILTPOINT = 8,
+        CONTOURLINE = 0,
+        DIMENSION = 1,
+        ISOBAR = 2,
+        ISOLUX = 3,
+        ISOTHERM = 4,
+        LEADER = 5,
+        SURVEY = 6,
+        SYMBOL = 7,
+        TEXT = 8,
         USERDEFINED = 9,
         NOTDEFINED = 10,
+        ___unk = -1
+    };
+
+    enum class IfcArchElementTypeEnum
+    {
+        SEGMENT = 0,
+        LINING = 1,
+        STEELRIB = 2,
+        USERDEFINED = 3,
+        NOTDEFINED = 4,
         ___unk = -1
     };
 
@@ -1856,6 +1874,7 @@ namespace IFC4x4
         DIVIDE = 1,
         MULTIPLY = 2,
         SUBTRACT = 3,
+        MODULO = 4,
         ___unk = -1
     };
 
@@ -1882,10 +1901,10 @@ namespace IFC4x4
         TUNER = 10,
         COMMUNICATIONTERMINAL = 11,
         RECORDINGEQUIPMENT = 12,
-        USERDEFINED = 13,
-        NOTDEFINED = 14,
-        SIREN = 15,
-        BEACON = 16,
+        SIREN = 13,
+        BEACON = 14,
+        USERDEFINED = 15,
+        NOTDEFINED = 16,
         ___unk = -1
     };
 
@@ -1905,16 +1924,6 @@ namespace IFC4x4
         EDGEBEAM = 11,
         USERDEFINED = 12,
         NOTDEFINED = 13,
-        ___unk = -1
-    };
-
-    enum class IfcBearingTypeDisplacementEnum
-    {
-        FIXED_MOVEMENT = 0,
-        GUIDED_LONGITUDINAL = 1,
-        GUIDED_TRANSVERSAL = 2,
-        FREE_MOVEMENT = 3,
-        NOTDEFINED = 4,
         ___unk = -1
     };
 
@@ -1970,8 +1979,9 @@ namespace IFC4x4
         COREDRILLING = 0,
         DESTRUCTIVEDRILLING = 1,
         TRIALPIT = 2,
-        USERDEFINED = 3,
-        NOTDEFINED = 4,
+        DEWATERING = 3,
+        USERDEFINED = 4,
+        NOTDEFINED = 5,
         ___unk = -1
     };
 
@@ -2106,11 +2116,14 @@ namespace IFC4x4
     enum class IfcCableCarrierFittingTypeEnum
     {
         BEND = 0,
-        CROSS = 1,
-        REDUCER = 2,
-        TEE = 3,
-        USERDEFINED = 4,
-        NOTDEFINED = 5,
+        CONNECTOR = 1,
+        CROSS = 2,
+        REDUCER = 3,
+        JUNCTION = 4,
+        TEE = 5,
+        TRANSITION = 6,
+        USERDEFINED = 7,
+        NOTDEFINED = 8,
         ___unk = -1
     };
 
@@ -2686,8 +2699,8 @@ namespace IFC4x4
         FIXEDTRANSMISSIONNETWORK = 45,
         OPERATIONALTELEPHONYSYSTEM = 46,
         MOBILENETWORK = 47,
-        MONITORINGSYSTEM = 48,
-        SAFETY = 49,
+        SAFETY = 48,
+        MONITORINGSYSTEM = 49,
         USERDEFINED = 50,
         NOTDEFINED = 51,
         ___unk = -1
@@ -2737,21 +2750,19 @@ namespace IFC4x4
         ___unk = -1
     };
 
-    enum class IfcDoorStyleConstructionEnum
+    enum class IfcDoorTypeEnum
     {
-        ALUMINIUM = 0,
-        HIGH_GRADE_STEEL = 1,
-        STEEL = 2,
-        WOOD = 3,
-        ALUMINIUM_WOOD = 4,
-        ALUMINIUM_PLASTIC = 5,
-        PLASTIC = 6,
-        USERDEFINED = 7,
-        NOTDEFINED = 8,
+        DOOR = 0,
+        GATE = 1,
+        TRAPDOOR = 2,
+        BOOM_BARRIER = 3,
+        TURNSTILE = 4,
+        USERDEFINED = 5,
+        NOTDEFINED = 6,
         ___unk = -1
     };
 
-    enum class IfcDoorStyleOperationEnum
+    enum class IfcDoorTypeOperationEnum
     {
         SINGLE_SWING_LEFT = 0,
         SINGLE_SWING_RIGHT = 1,
@@ -2769,44 +2780,9 @@ namespace IFC4x4
         DOUBLE_DOOR_FOLDING = 13,
         REVOLVING = 14,
         ROLLINGUP = 15,
-        USERDEFINED = 16,
-        NOTDEFINED = 17,
-        ___unk = -1
-    };
-
-    enum class IfcDoorTypeEnum
-    {
-        DOOR = 0,
-        GATE = 1,
-        TRAPDOOR = 2,
-        BOOM_BARRIER = 3,
-        TURNSTILE = 4,
-        USERDEFINED = 5,
-        NOTDEFINED = 6,
-        ___unk = -1
-    };
-
-    enum class IfcDoorTypeOperationEnum
-    {
-        SINGLE_SWING_LEFT = 0,
-        SINGLE_SWING_RIGHT = 1,
-        DOUBLE_PANEL_SINGLE_SWING = 2,
-        DOUBLE_PANEL_SINGLE_SWING_OPPOSITE_LEFT = 3,
-        DOUBLE_PANEL_SINGLE_SWING_OPPOSITE_RIGHT = 4,
-        DOUBLE_SWING_LEFT = 5,
-        DOUBLE_SWING_RIGHT = 6,
-        DOUBLE_PANEL_DOUBLE_SWING = 7,
-        SLIDING_TO_LEFT = 8,
-        SLIDING_TO_RIGHT = 9,
-        DOUBLE_PANEL_SLIDING = 10,
-        FOLDING_TO_LEFT = 11,
-        FOLDING_TO_RIGHT = 12,
-        DOUBLE_PANEL_FOLDING = 13,
-        REVOLVING_HORIZONTAL = 14,
-        ROLLINGUP = 15,
         SWING_FIXED_LEFT = 16,
         SWING_FIXED_RIGHT = 17,
-        DOUBLE_PANEL_LIFTING_VERTICAL = 18,
+        DOUBLE_DOOR_LIFTING_VERTICAL = 18,
         LIFTING_HORIZONTAL = 19,
         LIFTING_VERTICAL_LEFT = 20,
         LIFTING_VERTICAL_RIGHT = 21,
@@ -2856,8 +2832,8 @@ namespace IFC4x4
         GROUNDINGROD = 2,
         FIXEDTERMINAL = 3,
         GROUNDINGMESH = 4,
-        NOTDEFINED = 5,
-        USERDEFINED = 6,
+        USERDEFINED = 5,
+        NOTDEFINED = 6,
         ___unk = -1
     };
 
@@ -3015,9 +2991,11 @@ namespace IFC4x4
         SUMPBUSTER = 26,
         TRAFFIC_CALMING_DEVICE = 27,
         DUCTBANK = 28,
-        UMBRELLAVAULT = 29,
-        USERDEFINED = 30,
-        NOTDEFINED = 31,
+        PRESUPPORTVAULT = 29,
+        PRESUPPORTFACE = 30,
+        RING = 31,
+        USERDEFINED = 32,
+        NOTDEFINED = 33,
         ___unk = -1
     };
 
@@ -3099,6 +3077,19 @@ namespace IFC4x4
         ___unk = -1
     };
 
+    enum class IfcFaceExcavationTypeEnum
+    {
+        FULLFACE = 0,
+        STAGED = 1,
+        PILOTBORE = 2,
+        SHAFT = 3,
+        CROSSCONNECTION = 4,
+        REAMING = 5,
+        USERDEFINED = 6,
+        NOTDEFINED = 7,
+        ___unk = -1
+    };
+
     enum class IfcFacilityPartCommonTypeEnum
     {
         SEGMENT = 0,
@@ -3154,8 +3145,8 @@ namespace IFC4x4
     {
         INVERTFILL = 0,
         ANNULARGAPFILL = 1,
-        NOTDEFINED = 2,
-        USERDEFINED = 3,
+        USERDEFINED = 2,
+        NOTDEFINED = 3,
         ___unk = -1
     };
 
@@ -3253,8 +3244,9 @@ namespace IFC4x4
     {
         TERRAIN = 0,
         SOIL_BORING_POINT = 1,
-        USERDEFINED = 2,
-        NOTDEFINED = 3,
+        VEGETATION = 2,
+        USERDEFINED = 3,
+        NOTDEFINED = 4,
         ___unk = -1
     };
 
@@ -3312,15 +3304,18 @@ namespace IFC4x4
         MAPPEDFEATURE = 3,
         LOCALINFORMATION = 4,
         GEOPHYSICALSURVEYRESULT = 5,
-        NOTDEFINED = 6,
-        USERDEFINED = 7,
+        USERDEFINED = 6,
+        NOTDEFINED = 7,
         ___unk = -1
     };
 
-    enum class IfcGeotechTypicalSectionTypeEnum
+    enum class IfcGeotechnicalStratumTypeEnum
     {
-        NOTDEFINED = 0,
-        USERDEFINED = 1,
+        SOLID = 0,
+        VOID = 1,
+        WATER = 2,
+        USERDEFINED = 3,
+        NOTDEFINED = 4,
         ___unk = -1
     };
 
@@ -3344,10 +3339,15 @@ namespace IFC4x4
 
     enum class IfcGroundReinforcementElementTypeEnum
     {
-        SPILINGBOLT = 0,
-        ROCKSUPPORTBOLT = 1,
-        NOTDEFINED = 2,
-        USERDEFINED = 3,
+        PILE = 0,
+        TUBE = 1,
+        BAR = 2,
+        PLATE = 3,
+        BOLT = 4,
+        TENDON = 5,
+        FABRIC = 6,
+        USERDEFINED = 7,
+        NOTDEFINED = 8,
         ___unk = -1
     };
 
@@ -3399,12 +3399,14 @@ namespace IFC4x4
         DYNAMICALLYCOMPACTED = 2,
         REPLACED = 3,
         ROLLERCOMPACTED = 4,
-        GROUTED = 5,
-        DEEPMIXED = 6,
-        LATERALLYDRAINED = 7,
-        FROZEN = 8,
-        USERDEFINED = 9,
-        NOTDEFINED = 10,
+        INJECTIONGROUTED = 5,
+        JETGROUTED = 6,
+        DEEPMIXED = 7,
+        LATERALLYDRAINED = 8,
+        FROZEN = 9,
+        DEWATERED = 10,
+        USERDEFINED = 11,
+        NOTDEFINED = 12,
         ___unk = -1
     };
 
@@ -3765,19 +3767,6 @@ namespace IFC4x4
         ___unk = -1
     };
 
-    enum class IfcObjectTypeEnum
-    {
-        PRODUCT = 0,
-        PROCESS = 1,
-        CONTROL = 2,
-        RESOURCE = 3,
-        ACTOR = 4,
-        GROUP = 5,
-        PROJECT = 6,
-        NOTDEFINED = 7,
-        ___unk = -1
-    };
-
     enum class IfcOccupantTypeEnum
     {
         ASSIGNEE = 0,
@@ -3917,8 +3906,8 @@ namespace IFC4x4
         GUSSET_PLATE = 5,
         COVER_PLATE = 6,
         SPLICE_PLATE = 7,
-        BASE_PLATE = 8,
-        LAGGING = 9,
+        LAGGING = 8,
+        BASE_PLATE = 9,
         USERDEFINED = 10,
         NOTDEFINED = 11,
         ___unk = -1
@@ -4038,6 +4027,16 @@ namespace IFC4x4
         ___unk = -1
     };
 
+    enum class IfcRadialExcavationTypeEnum
+    {
+        PROFILEENLARGEMENT = 0,
+        REPROFILING = 1,
+        NICHE = 2,
+        USERDEFINED = 3,
+        NOTDEFINED = 4,
+        ___unk = -1
+    };
+
     enum class IfcRailingTypeEnum
     {
         HANDRAIL = 0,
@@ -4064,16 +4063,17 @@ namespace IFC4x4
 
     enum class IfcRailwayPartTypeEnum
     {
-        TRACKSTRUCTURE = 0,
-        TRACKSTRUCTUREPART = 1,
-        LINESIDESTRUCTUREPART = 2,
-        DILATATIONSUPERSTRUCTURE = 3,
-        PLAINTRACKSUPERSTRUCTURE = 4,
-        LINESIDESTRUCTURE = 5,
-        SUPERSTRUCTURE = 6,
-        TURNOUTSUPERSTRUCTURE = 7,
-        USERDEFINED = 8,
-        NOTDEFINED = 9,
+        ABOVETRACK = 0,
+        DILATIONTRACK = 1,
+        LINESIDE = 2,
+        LINESIDEPART = 3,
+        PLAINTRACK = 4,
+        SUBSTRUCTURE = 5,
+        TRACK = 6,
+        TRACKPART = 7,
+        TURNOUTTRACK = 8,
+        USERDEFINED = 9,
+        NOTDEFINED = 10,
         ___unk = -1
     };
 
@@ -4121,14 +4121,18 @@ namespace IFC4x4
 
     enum class IfcReferentTypeEnum
     {
-        STATION = 0,
-        REFERENCEMARKER = 1,
-        LANDMARK = 2,
-        BOUNDARY = 3,
-        INTERSECTION = 4,
+        BOUNDARY = 0,
+        INTERSECTION = 1,
+        KILOPOINT = 2,
+        LANDMARK = 3,
+        MILEPOINT = 4,
         POSITION = 5,
-        USERDEFINED = 6,
-        NOTDEFINED = 7,
+        REFERENCEMARKER = 6,
+        STATION = 7,
+        SUPERELEVATIONEVENT = 8,
+        WIDTHEVENT = 9,
+        USERDEFINED = 10,
+        NOTDEFINED = 11,
         ___unk = -1
     };
 
@@ -4145,6 +4149,19 @@ namespace IFC4x4
         PLASTIC = 8,
         STRAUSS = 9,
         NOTDEFINED = 10,
+        ___unk = -1
+    };
+
+    enum class IfcReinforcedSoilTypeEnum
+    {
+        DYNAMICALLYCOMPACTED = 0,
+        GROUTED = 1,
+        REPLACED = 2,
+        ROLLERCOMPACTED = 3,
+        SURCHARGEPRELOADED = 4,
+        VERTICALLYDRAINED = 5,
+        USERDEFINED = 6,
+        NOTDEFINED = 7,
         ___unk = -1
     };
 
@@ -4188,8 +4205,9 @@ namespace IFC4x4
 
     enum class IfcReinforcingMeshTypeEnum
     {
-        USERDEFINED = 0,
-        NOTDEFINED = 1,
+        STEELSTRAPS = 0,
+        USERDEFINED = 1,
+        NOTDEFINED = 2,
         ___unk = -1
     };
 
@@ -4397,6 +4415,7 @@ namespace IFC4x4
         Q_COUNT = 9,
         Q_WEIGHT = 10,
         Q_TIME = 11,
+        Q_NUMBER = 12,
         ___unk = -1
     };
 
@@ -4872,8 +4891,8 @@ namespace IFC4x4
         CROSSWAY = 1,
         RINGSECTION = 2,
         PORTAL = 3,
-        NOTDEFINED = 4,
-        USERDEFINED = 5,
+        USERDEFINED = 4,
+        NOTDEFINED = 5,
         ___unk = -1
     };
 
@@ -4891,17 +4910,18 @@ namespace IFC4x4
         MAINTENANCE = 9,
         UNDERGROUND_FACILITIES = 10,
         RAMP = 11,
-        NOTDEFINED = 12,
-        USERDEFINED = 13,
+        USERDEFINED = 12,
+        NOTDEFINED = 13,
         ___unk = -1
     };
 
-    enum class IfcUndergroundExcavationTypeEnum
+    enum class IfcTunnelTypicalSectionTypeEnum
     {
-        FACEEXCAVATION = 0,
-        RADIALEXCAVATION = 1,
-        USERDEFINED = 2,
-        NOTDEFINED = 3,
+        GEOTECH = 0,
+        EXCAVATIONSUPPORT = 1,
+        RISK = 2,
+        USERDEFINED = 3,
+        NOTDEFINED = 4,
         ___unk = -1
     };
 
@@ -5034,6 +5054,16 @@ namespace IFC4x4
         ___unk = -1
     };
 
+    enum class IfcVirtualElementTypeEnum
+    {
+        BOUNDARY = 0,
+        CLEARANCE = 1,
+        PROVISIONFORVOID = 2,
+        USERDEFINED = 3,
+        NOTDEFINED = 4,
+        ___unk = -1
+    };
+
     enum class IfcVoidingFeatureTypeEnum
     {
         CUTOUT = 0,
@@ -5109,35 +5139,6 @@ namespace IFC4x4
         ___unk = -1
     };
 
-    enum class IfcWindowStyleConstructionEnum
-    {
-        ALUMINIUM = 0,
-        HIGH_GRADE_STEEL = 1,
-        STEEL = 2,
-        WOOD = 3,
-        ALUMINIUM_WOOD = 4,
-        PLASTIC = 5,
-        OTHER_CONSTRUCTION = 6,
-        NOTDEFINED = 7,
-        ___unk = -1
-    };
-
-    enum class IfcWindowStyleOperationEnum
-    {
-        SINGLE_PANEL = 0,
-        DOUBLE_PANEL_VERTICAL = 1,
-        DOUBLE_PANEL_HORIZONTAL = 2,
-        TRIPLE_PANEL_VERTICAL = 3,
-        TRIPLE_PANEL_BOTTOM = 4,
-        TRIPLE_PANEL_TOP = 5,
-        TRIPLE_PANEL_LEFT = 6,
-        TRIPLE_PANEL_RIGHT = 7,
-        TRIPLE_PANEL_HORIZONTAL = 8,
-        USERDEFINED = 9,
-        NOTDEFINED = 10,
-        ___unk = -1
-    };
-
     enum class IfcWindowTypeEnum
     {
         WINDOW = 0,
@@ -5209,17 +5210,17 @@ namespace IFC4x4
     static TextValue IfcAlignmentVerticalSegmentTypeEnum_[] = {"CONSTANTGRADIENT", "CIRCULARARC", "PARABOLICARC", "CLOTHOID", NULL};
     static TextValue IfcAnalysisModelTypeEnum_[] = {"IN_PLANE_LOADING_2D", "OUT_PLANE_LOADING_2D", "LOADING_3D", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcAnalysisTheoryTypeEnum_[] = {"FIRST_ORDER_THEORY", "SECOND_ORDER_THEORY", "THIRD_ORDER_THEORY", "FULL_NONLINEAR_THEORY", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcAnnotationTypeEnum_[] = {"ASSUMEDPOINT", "ASBUILTAREA", "ASBUILTLINE", "NON_PHYSICAL_SIGNAL", "ASSUMEDLINE", "WIDTHEVENT", "ASSUMEDAREA", "SUPERELEVATIONEVENT", "ASBUILTPOINT", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcArithmeticOperatorEnum_[] = {"ADD", "DIVIDE", "MULTIPLY", "SUBTRACT", NULL};
+    static TextValue IfcAnnotationTypeEnum_[] = {"CONTOURLINE", "DIMENSION", "ISOBAR", "ISOLUX", "ISOTHERM", "LEADER", "SURVEY", "SYMBOL", "TEXT", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcArchElementTypeEnum_[] = {"SEGMENT", "LINING", "STEELRIB", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcArithmeticOperatorEnum_[] = {"ADD", "DIVIDE", "MULTIPLY", "SUBTRACT", "MODULO", NULL};
     static TextValue IfcAssemblyPlaceEnum_[] = {"SITE", "FACTORY", "NOTDEFINED", NULL};
-    static TextValue IfcAudioVisualApplianceTypeEnum_[] = {"AMPLIFIER", "CAMERA", "DISPLAY", "MICROPHONE", "PLAYER", "PROJECTOR", "RECEIVER", "SPEAKER", "SWITCHER", "TELEPHONE", "TUNER", "COMMUNICATIONTERMINAL", "RECORDINGEQUIPMENT", "USERDEFINED", "NOTDEFINED", "SIREN", "BEACON", NULL};
+    static TextValue IfcAudioVisualApplianceTypeEnum_[] = {"AMPLIFIER", "CAMERA", "DISPLAY", "MICROPHONE", "PLAYER", "PROJECTOR", "RECEIVER", "SPEAKER", "SWITCHER", "TELEPHONE", "TUNER", "COMMUNICATIONTERMINAL", "RECORDINGEQUIPMENT", "SIREN", "BEACON", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBeamTypeEnum_[] = {"BEAM", "JOIST", "HOLLOWCORE", "LINTEL", "SPANDREL", "T_BEAM", "GIRDER_SEGMENT", "DIAPHRAGM", "PIERCAP", "HATSTONE", "CORNICE", "EDGEBEAM", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcBearingTypeDisplacementEnum_[] = {"FIXED_MOVEMENT", "GUIDED_LONGITUDINAL", "GUIDED_TRANSVERSAL", "FREE_MOVEMENT", "NOTDEFINED", NULL};
     static TextValue IfcBearingTypeEnum_[] = {"CYLINDRICAL", "SPHERICAL", "ELASTOMERIC", "POT", "GUIDE", "ROCKER", "ROLLER", "DISK", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBenchmarkEnum_[] = {"GREATERTHAN", "GREATERTHANOREQUALTO", "LESSTHAN", "LESSTHANOREQUALTO", "EQUALTO", "NOTEQUALTO", "INCLUDES", "NOTINCLUDES", "INCLUDEDIN", "NOTINCLUDEDIN", NULL};
     static TextValue IfcBoilerTypeEnum_[] = {"WATER", "STEAM", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBooleanOperator_[] = {"UNION", "INTERSECTION", "DIFFERENCE", NULL};
-    static TextValue IfcBoreholeTypeEnum_[] = {"COREDRILLING", "DESTRUCTIVEDRILLING", "TRIALPIT", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcBoreholeTypeEnum_[] = {"COREDRILLING", "DESTRUCTIVEDRILLING", "TRIALPIT", "DEWATERING", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBridgePartTypeEnum_[] = {"ABUTMENT", "DECK", "DECK_SEGMENT", "FOUNDATION", "PIER", "PIER_SEGMENT", "PYLON", "SUBSTRUCTURE", "SUPERSTRUCTURE", "SURFACESTRUCTURE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBridgeTypeEnum_[] = {"ARCHED", "CABLE_STAYED", "CANTILEVER", "CULVERT", "FRAMEWORK", "GIRDER", "SUSPENSION", "TRUSS", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBSplineCurveForm_[] = {"POLYLINE_FORM", "CIRCULAR_ARC", "ELLIPTIC_ARC", "PARABOLIC_ARC", "HYPERBOLIC_ARC", "UNSPECIFIED", NULL};
@@ -5229,7 +5230,7 @@ namespace IFC4x4
     static TextValue IfcBuildingSystemTypeEnum_[] = {"FENESTRATION", "FOUNDATION", "LOADBEARING", "OUTERSHELL", "SHADING", "TRANSPORT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBuiltSystemTypeEnum_[] = {"REINFORCING", "MOORING", "OUTERSHELL", "TRACKCIRCUIT", "EROSIONPREVENTION", "FOUNDATION", "LOADBEARING", "SHADING", "FENESTRATION", "TRANSPORT", "PRESTRESSING", "RAILWAYLINE", "RAILWAYTRACK", "TUNNEL_PRESUPPORT", "TUNNEL_SUPPORT", "TUNNEL_LINING", "WATERPROOFING", "FIREPROTECTION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcBurnerTypeEnum_[] = {"USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcCableCarrierFittingTypeEnum_[] = {"BEND", "CROSS", "REDUCER", "TEE", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcCableCarrierFittingTypeEnum_[] = {"BEND", "CONNECTOR", "CROSS", "REDUCER", "JUNCTION", "TEE", "TRANSITION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcCableCarrierSegmentTypeEnum_[] = {"CABLELADDERSEGMENT", "CABLETRAYSEGMENT", "CABLETRUNKINGSEGMENT", "CONDUITSEGMENT", "CABLEBRACKET", "CATENARYWIRE", "DROPPER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcCableFittingTypeEnum_[] = {"CONNECTOR", "ENTRY", "EXIT", "JUNCTION", "TRANSITION", "FANOUT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcCableSegmentTypeEnum_[] = {"BUSBARSEGMENT", "CABLESEGMENT", "CONDUCTORSEGMENT", "CORESEGMENT", "CONTACTWIRESEGMENT", "FIBERSEGMENT", "FIBERTUBE", "OPTICALCABLESEGMENT", "STITCHWIRE", "WIREPAIRSEGMENT", "USERDEFINED", "NOTDEFINED", NULL};
@@ -5267,19 +5268,17 @@ namespace IFC4x4
     static TextValue IfcDistributionBoardTypeEnum_[] = {"SWITCHBOARD", "CONSUMERUNIT", "MOTORCONTROLCENTRE", "DISTRIBUTIONFRAME", "DISTRIBUTIONBOARD", "DISPATCHINGBOARD", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDistributionChamberElementTypeEnum_[] = {"FORMEDDUCT", "INSPECTIONCHAMBER", "INSPECTIONPIT", "MANHOLE", "METERCHAMBER", "SUMP", "TRENCH", "VALVECHAMBER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDistributionPortTypeEnum_[] = {"CABLE", "CABLECARRIER", "DUCT", "PIPE", "WIRELESS", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcDistributionSystemEnum_[] = {"AIRCONDITIONING", "AUDIOVISUAL", "CHEMICAL", "CHILLEDWATER", "COMMUNICATION", "COMPRESSEDAIR", "CONDENSERWATER", "CONTROL", "CONVEYING", "DATA", "DISPOSAL", "DOMESTICCOLDWATER", "DOMESTICHOTWATER", "DRAINAGE", "EARTHING", "ELECTRICAL", "ELECTROACOUSTIC", "EXHAUST", "FIREPROTECTION", "FUEL", "GAS", "HAZARDOUS", "HEATING", "LIGHTING", "LIGHTNINGPROTECTION", "MUNICIPALSOLIDWASTE", "OIL", "OPERATIONAL", "POWERGENERATION", "RAINWATER", "REFRIGERATION", "SECURITY", "SEWAGE", "SIGNAL", "STORMWATER", "TELEPHONE", "TV", "VACUUM", "VENT", "VENTILATION", "WASTEWATER", "WATERSUPPLY", "CATENARY_SYSTEM", "OVERHEAD_CONTACTLINE_SYSTEM", "RETURN_CIRCUIT", "FIXEDTRANSMISSIONNETWORK", "OPERATIONALTELEPHONYSYSTEM", "MOBILENETWORK", "MONITORINGSYSTEM", "SAFETY", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcDistributionSystemEnum_[] = {"AIRCONDITIONING", "AUDIOVISUAL", "CHEMICAL", "CHILLEDWATER", "COMMUNICATION", "COMPRESSEDAIR", "CONDENSERWATER", "CONTROL", "CONVEYING", "DATA", "DISPOSAL", "DOMESTICCOLDWATER", "DOMESTICHOTWATER", "DRAINAGE", "EARTHING", "ELECTRICAL", "ELECTROACOUSTIC", "EXHAUST", "FIREPROTECTION", "FUEL", "GAS", "HAZARDOUS", "HEATING", "LIGHTING", "LIGHTNINGPROTECTION", "MUNICIPALSOLIDWASTE", "OIL", "OPERATIONAL", "POWERGENERATION", "RAINWATER", "REFRIGERATION", "SECURITY", "SEWAGE", "SIGNAL", "STORMWATER", "TELEPHONE", "TV", "VACUUM", "VENT", "VENTILATION", "WASTEWATER", "WATERSUPPLY", "CATENARY_SYSTEM", "OVERHEAD_CONTACTLINE_SYSTEM", "RETURN_CIRCUIT", "FIXEDTRANSMISSIONNETWORK", "OPERATIONALTELEPHONYSYSTEM", "MOBILENETWORK", "SAFETY", "MONITORINGSYSTEM", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDocumentConfidentialityEnum_[] = {"PUBLIC", "RESTRICTED", "CONFIDENTIAL", "PERSONAL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDocumentStatusEnum_[] = {"DRAFT", "FINALDRAFT", "FINAL", "REVISION", "NOTDEFINED", NULL};
     static TextValue IfcDoorPanelOperationEnum_[] = {"SWINGING", "DOUBLE_ACTING", "SLIDING", "FOLDING", "REVOLVING", "ROLLINGUP", "FIXEDPANEL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDoorPanelPositionEnum_[] = {"LEFT", "MIDDLE", "RIGHT", "NOTDEFINED", NULL};
-    static TextValue IfcDoorStyleConstructionEnum_[] = {"ALUMINIUM", "HIGH_GRADE_STEEL", "STEEL", "WOOD", "ALUMINIUM_WOOD", "ALUMINIUM_PLASTIC", "PLASTIC", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcDoorStyleOperationEnum_[] = {"SINGLE_SWING_LEFT", "SINGLE_SWING_RIGHT", "DOUBLE_DOOR_SINGLE_SWING", "DOUBLE_DOOR_SINGLE_SWING_OPPOSITE_LEFT", "DOUBLE_DOOR_SINGLE_SWING_OPPOSITE_RIGHT", "DOUBLE_SWING_LEFT", "DOUBLE_SWING_RIGHT", "DOUBLE_DOOR_DOUBLE_SWING", "SLIDING_TO_LEFT", "SLIDING_TO_RIGHT", "DOUBLE_DOOR_SLIDING", "FOLDING_TO_LEFT", "FOLDING_TO_RIGHT", "DOUBLE_DOOR_FOLDING", "REVOLVING", "ROLLINGUP", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDoorTypeEnum_[] = {"DOOR", "GATE", "TRAPDOOR", "BOOM_BARRIER", "TURNSTILE", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcDoorTypeOperationEnum_[] = {"SINGLE_SWING_LEFT", "SINGLE_SWING_RIGHT", "DOUBLE_PANEL_SINGLE_SWING", "DOUBLE_PANEL_SINGLE_SWING_OPPOSITE_LEFT", "DOUBLE_PANEL_SINGLE_SWING_OPPOSITE_RIGHT", "DOUBLE_SWING_LEFT", "DOUBLE_SWING_RIGHT", "DOUBLE_PANEL_DOUBLE_SWING", "SLIDING_TO_LEFT", "SLIDING_TO_RIGHT", "DOUBLE_PANEL_SLIDING", "FOLDING_TO_LEFT", "FOLDING_TO_RIGHT", "DOUBLE_PANEL_FOLDING", "REVOLVING_HORIZONTAL", "ROLLINGUP", "SWING_FIXED_LEFT", "SWING_FIXED_RIGHT", "DOUBLE_PANEL_LIFTING_VERTICAL", "LIFTING_HORIZONTAL", "LIFTING_VERTICAL_LEFT", "LIFTING_VERTICAL_RIGHT", "REVOLVING_VERTICAL", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcDoorTypeOperationEnum_[] = {"SINGLE_SWING_LEFT", "SINGLE_SWING_RIGHT", "DOUBLE_DOOR_SINGLE_SWING", "DOUBLE_DOOR_SINGLE_SWING_OPPOSITE_LEFT", "DOUBLE_DOOR_SINGLE_SWING_OPPOSITE_RIGHT", "DOUBLE_SWING_LEFT", "DOUBLE_SWING_RIGHT", "DOUBLE_DOOR_DOUBLE_SWING", "SLIDING_TO_LEFT", "SLIDING_TO_RIGHT", "DOUBLE_DOOR_SLIDING", "FOLDING_TO_LEFT", "FOLDING_TO_RIGHT", "DOUBLE_DOOR_FOLDING", "REVOLVING", "ROLLINGUP", "SWING_FIXED_LEFT", "SWING_FIXED_RIGHT", "DOUBLE_DOOR_LIFTING_VERTICAL", "LIFTING_HORIZONTAL", "LIFTING_VERTICAL_LEFT", "LIFTING_VERTICAL_RIGHT", "REVOLVING_VERTICAL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDuctFittingTypeEnum_[] = {"BEND", "CONNECTOR", "ENTRY", "EXIT", "JUNCTION", "OBSTRUCTION", "TRANSITION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDuctSegmentTypeEnum_[] = {"RIGIDSEGMENT", "FLEXIBLESEGMENT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcDuctSilencerTypeEnum_[] = {"FLATOVAL", "RECTANGULAR", "ROUND", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcEarthingElementTypeEnum_[] = {"EARTHINGSTRIP", "GROUNDINGPLATE", "GROUNDINGROD", "FIXEDTERMINAL", "GROUNDINGMESH", "NOTDEFINED", "USERDEFINED", NULL};
+    static TextValue IfcEarthingElementTypeEnum_[] = {"EARTHINGSTRIP", "GROUNDINGPLATE", "GROUNDINGROD", "FIXEDTERMINAL", "GROUNDINGMESH", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcEarthworksCutTypeEnum_[] = {"TRENCH", "DREDGING", "EXCAVATION", "OVEREXCAVATION", "TOPSOILREMOVAL", "STEPEXCAVATION", "PAVEMENTMILLING", "CUT", "BASE_EXCAVATION", "CONFINEDOPENEXCAVATION", "ANCHOREDOPENEXCAVATION", "BRACEDOPENEXCAVATION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcEarthworksFillTypeEnum_[] = {"BACKFILL", "COUNTERWEIGHT", "SUBGRADE", "EMBANKMENT", "TRANSITIONSECTION", "SUBGRADEBED", "SLOPEFILL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcElectricApplianceTypeEnum_[] = {"DISHWASHER", "ELECTRICCOOKER", "FREESTANDINGELECTRICHEATER", "FREESTANDINGFAN", "FREESTANDINGWATERHEATER", "FREESTANDINGWATERCOOLER", "FREEZER", "FRIDGE_FREEZER", "HANDDRYER", "KITCHENMACHINE", "MICROWAVE", "PHOTOCOPIER", "REFRIGERATOR", "TUMBLEDRYER", "VENDINGMACHINE", "WASHINGMACHINE", "USERDEFINED", "NOTDEFINED", NULL};
@@ -5289,7 +5288,7 @@ namespace IFC4x4
     static TextValue IfcElectricGeneratorTypeEnum_[] = {"CHP", "ENGINEGENERATOR", "STANDALONE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcElectricMotorTypeEnum_[] = {"DC", "INDUCTION", "POLYPHASE", "RELUCTANCESYNCHRONOUS", "SYNCHRONOUS", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcElectricTimeControlTypeEnum_[] = {"TIMECLOCK", "TIMEDELAY", "RELAY", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcElementAssemblyTypeEnum_[] = {"ACCESSORY_ASSEMBLY", "ARCH", "BEAM_GRID", "BRACED_FRAME", "GIRDER", "REINFORCEMENT_UNIT", "RIGID_FRAME", "SLAB_FIELD", "TRUSS", "ABUTMENT", "PIER", "PYLON", "CROSS_BRACING", "DECK", "MAST", "SIGNALASSEMBLY", "GRID", "SHELTER", "SUPPORTINGASSEMBLY", "SUSPENSIONASSEMBLY", "TRACTION_SWITCHING_ASSEMBLY", "TRACKPANEL", "TURNOUTPANEL", "DILATATIONPANEL", "RAIL_MECHANICAL_EQUIPMENT_ASSEMBLY", "ENTRANCEWORKS", "SUMPBUSTER", "TRAFFIC_CALMING_DEVICE", "DUCTBANK", "UMBRELLAVAULT", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcElementAssemblyTypeEnum_[] = {"ACCESSORY_ASSEMBLY", "ARCH", "BEAM_GRID", "BRACED_FRAME", "GIRDER", "REINFORCEMENT_UNIT", "RIGID_FRAME", "SLAB_FIELD", "TRUSS", "ABUTMENT", "PIER", "PYLON", "CROSS_BRACING", "DECK", "MAST", "SIGNALASSEMBLY", "GRID", "SHELTER", "SUPPORTINGASSEMBLY", "SUSPENSIONASSEMBLY", "TRACTION_SWITCHING_ASSEMBLY", "TRACKPANEL", "TURNOUTPANEL", "DILATATIONPANEL", "RAIL_MECHANICAL_EQUIPMENT_ASSEMBLY", "ENTRANCEWORKS", "SUMPBUSTER", "TRAFFIC_CALMING_DEVICE", "DUCTBANK", "PRESUPPORTVAULT", "PRESUPPORTFACE", "RING", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcElementCompositionEnum_[] = {"COMPLEX", "ELEMENT", "PARTIAL", NULL};
     static TextValue IfcEngineTypeEnum_[] = {"EXTERNALCOMBUSTION", "INTERNALCOMBUSTION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcEvaporativeCoolerTypeEnum_[] = {"DIRECTEVAPORATIVERANDOMMEDIAAIRCOOLER", "DIRECTEVAPORATIVERIGIDMEDIAAIRCOOLER", "DIRECTEVAPORATIVESLINGERSPACKAGEDAIRCOOLER", "DIRECTEVAPORATIVEPACKAGEDROTARYAIRCOOLER", "DIRECTEVAPORATIVEAIRWASHER", "INDIRECTEVAPORATIVEPACKAGEAIRCOOLER", "INDIRECTEVAPORATIVEWETCOIL", "INDIRECTEVAPORATIVECOOLINGTOWERORCOILCOOLER", "INDIRECTDIRECTCOMBINATION", "USERDEFINED", "NOTDEFINED", NULL};
@@ -5297,11 +5296,12 @@ namespace IFC4x4
     static TextValue IfcEventTriggerTypeEnum_[] = {"EVENTRULE", "EVENTMESSAGE", "EVENTTIME", "EVENTCOMPLEX", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcEventTypeEnum_[] = {"STARTEVENT", "ENDEVENT", "INTERMEDIATEEVENT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcExternalSpatialElementTypeEnum_[] = {"EXTERNAL", "EXTERNAL_EARTH", "EXTERNAL_WATER", "EXTERNAL_FIRE", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcFaceExcavationTypeEnum_[] = {"FULLFACE", "STAGED", "PILOTBORE", "SHAFT", "CROSSCONNECTION", "REAMING", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFacilityPartCommonTypeEnum_[] = {"SEGMENT", "ABOVEGROUND", "JUNCTION", "LEVELCROSSING", "BELOWGROUND", "SUBSTRUCTURE", "TERMINAL", "SUPERSTRUCTURE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFacilityUsageEnum_[] = {"LATERAL", "REGION", "VERTICAL", "LONGITUDINAL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFanTypeEnum_[] = {"CENTRIFUGALFORWARDCURVED", "CENTRIFUGALRADIAL", "CENTRIFUGALBACKWARDINCLINEDCURVED", "CENTRIFUGALAIRFOIL", "TUBEAXIAL", "VANEAXIAL", "PROPELLORAXIAL", "USERDEFINED", "NOTDEFINED", "JET", NULL};
     static TextValue IfcFastenerTypeEnum_[] = {"GLUE", "MORTAR", "WELD", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcFillElementTypeEnum_[] = {"INVERTFILL", "ANNULARGAPFILL", "NOTDEFINED", "USERDEFINED", NULL};
+    static TextValue IfcFillElementTypeEnum_[] = {"INVERTFILL", "ANNULARGAPFILL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFilterTypeEnum_[] = {"AIRPARTICLEFILTER", "COMPRESSEDAIRFILTER", "ODORFILTER", "OILFILTER", "STRAINER", "WATERFILTER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFireSuppressionTerminalTypeEnum_[] = {"BREECHINGINLET", "FIREHYDRANT", "HOSEREEL", "SPRINKLER", "SPRINKLERDEFLECTOR", "FIREMONITOR", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFlowDirectionEnum_[] = {"SOURCE", "SINK", "SOURCEANDSINK", "NOTDEFINED", NULL};
@@ -5309,19 +5309,19 @@ namespace IFC4x4
     static TextValue IfcFlowMeterTypeEnum_[] = {"ENERGYMETER", "GASMETER", "OILMETER", "WATERMETER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFootingTypeEnum_[] = {"CAISSON_FOUNDATION", "FOOTING_BEAM", "PAD_FOOTING", "PILE_CAP", "STRIP_FOOTING", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcFurnitureTypeEnum_[] = {"CHAIR", "TABLE", "DESK", "BED", "FILECABINET", "SHELF", "SOFA", "TECHNICALCABINET", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcGeographicElementTypeEnum_[] = {"TERRAIN", "SOIL_BORING_POINT", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcGeographicElementTypeEnum_[] = {"TERRAIN", "SOIL_BORING_POINT", "VEGETATION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcGeometricProjectionEnum_[] = {"GRAPH_VIEW", "SKETCH_VIEW", "MODEL_VIEW", "PLAN_VIEW", "REFLECTED_PLAN_VIEW", "SECTION_VIEW", "ELEVATION_VIEW", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcGeoScienceFeatureTypeEnum_[] = {"DISCRETEDISCONTINUITY", "FOLD", "FLUIDBODY", "PIEZOMETRICWATERLEVEL", "VOIDBODY", "GEOLOGICUNIT", "GEOTECHNICALUNIT", "HAZARDAREA", "HYDROGEOUNIT", "FAULT", "CONTACT", "PHYSICALPROPERTYDISTRIBUTION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcGeoScienceModelTypeEnum_[] = {"GEOTECHMODEL", "HYDROGEOMODEL", "GEOLOGYMODEL", "GEOTECHSYNTHESISMODEL", "PHYSICALPROPERTYDISTIBUTIONMODEL", "GEOHAZARDMODEL", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcGeoScienceObservationTypeEnum_[] = {"INSITUTESTRESULT", "LABTESTRESULT", "BOREHOLELOG", "MAPPEDFEATURE", "LOCALINFORMATION", "GEOPHYSICALSURVEYRESULT", "NOTDEFINED", "USERDEFINED", NULL};
-    static TextValue IfcGeotechTypicalSectionTypeEnum_[] = {"NOTDEFINED", "USERDEFINED", NULL};
+    static TextValue IfcGeoScienceObservationTypeEnum_[] = {"INSITUTESTRESULT", "LABTESTRESULT", "BOREHOLELOG", "MAPPEDFEATURE", "LOCALINFORMATION", "GEOPHYSICALSURVEYRESULT", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcGeotechnicalStratumTypeEnum_[] = {"SOLID", "VOID", "WATER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcGlobalOrLocalEnum_[] = {"GLOBAL_COORDS", "LOCAL_COORDS", NULL};
     static TextValue IfcGridTypeEnum_[] = {"RECTANGULAR", "RADIAL", "TRIANGULAR", "IRREGULAR", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcGroundReinforcementElementTypeEnum_[] = {"SPILINGBOLT", "ROCKSUPPORTBOLT", "NOTDEFINED", "USERDEFINED", NULL};
+    static TextValue IfcGroundReinforcementElementTypeEnum_[] = {"PILE", "TUBE", "BAR", "PLATE", "BOLT", "TENDON", "FABRIC", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcHeatExchangerTypeEnum_[] = {"PLATE", "SHELLANDTUBE", "TURNOUTHEATING", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcHumidifierTypeEnum_[] = {"STEAMINJECTION", "ADIABATICAIRWASHER", "ADIABATICPAN", "ADIABATICWETTEDELEMENT", "ADIABATICATOMIZING", "ADIABATICULTRASONIC", "ADIABATICRIGIDMEDIA", "ADIABATICCOMPRESSEDAIRNOZZLE", "ASSISTEDELECTRIC", "ASSISTEDNATURALGAS", "ASSISTEDPROPANE", "ASSISTEDBUTANE", "ASSISTEDSTEAM", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcImpactProtectionDeviceTypeEnum_[] = {"CRASHCUSHION", "DAMPINGSYSTEM", "FENDER", "BUMPER", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcImprovedGroundTypeEnum_[] = {"SURCHARGEPRELOADED", "VERTICALLYDRAINED", "DYNAMICALLYCOMPACTED", "REPLACED", "ROLLERCOMPACTED", "GROUTED", "DEEPMIXED", "LATERALLYDRAINED", "FROZEN", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcImprovedGroundTypeEnum_[] = {"SURCHARGEPRELOADED", "VERTICALLYDRAINED", "DYNAMICALLYCOMPACTED", "REPLACED", "ROLLERCOMPACTED", "INJECTIONGROUTED", "JETGROUTED", "DEEPMIXED", "LATERALLYDRAINED", "FROZEN", "DEWATERED", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcInterceptorTypeEnum_[] = {"CYCLONIC", "GREASE", "OIL", "PETROL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcInternalOrExternalEnum_[] = {"INTERNAL", "EXTERNAL", "EXTERNAL_EARTH", "EXTERNAL_WATER", "EXTERNAL_FIRE", "NOTDEFINED", NULL};
     static TextValue IfcInventoryTypeEnum_[] = {"ASSETINVENTORY", "SPACEINVENTORY", "FURNITUREINVENTORY", "USERDEFINED", "NOTDEFINED", NULL};
@@ -5347,7 +5347,6 @@ namespace IFC4x4
     static TextValue IfcMotorConnectionTypeEnum_[] = {"BELTDRIVE", "COUPLING", "DIRECTDRIVE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcNavigationElementTypeEnum_[] = {"BEACON", "BUOY", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcObjectiveEnum_[] = {"CODECOMPLIANCE", "CODEWAIVER", "DESIGNINTENT", "EXTERNAL", "HEALTHANDSAFETY", "MERGECONFLICT", "MODELVIEW", "PARAMETER", "REQUIREMENT", "SPECIFICATION", "TRIGGERCONDITION", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcObjectTypeEnum_[] = {"PRODUCT", "PROCESS", "CONTROL", "RESOURCE", "ACTOR", "GROUP", "PROJECT", "NOTDEFINED", NULL};
     static TextValue IfcOccupantTypeEnum_[] = {"ASSIGNEE", "ASSIGNOR", "LESSEE", "LESSOR", "LETTINGAGENT", "OWNER", "TENANT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcOpeningElementTypeEnum_[] = {"OPENING", "RECESS", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcOutletTypeEnum_[] = {"AUDIOVISUALOUTLET", "COMMUNICATIONSOUTLET", "POWEROUTLET", "DATAOUTLET", "TELEPHONEOUTLET", "USERDEFINED", "NOTDEFINED", NULL};
@@ -5360,7 +5359,7 @@ namespace IFC4x4
     static TextValue IfcPileTypeEnum_[] = {"BORED", "DRIVEN", "JETGROUTING", "COHESION", "FRICTION", "SUPPORT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcPipeFittingTypeEnum_[] = {"BEND", "CONNECTOR", "ENTRY", "EXIT", "JUNCTION", "OBSTRUCTION", "TRANSITION", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcPipeSegmentTypeEnum_[] = {"CULVERT", "FLEXIBLESEGMENT", "RIGIDSEGMENT", "GUTTER", "SPOOL", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcPlateTypeEnum_[] = {"CURTAIN_PANEL", "SHEET", "FLANGE_PLATE", "WEB_PLATE", "STIFFENER_PLATE", "GUSSET_PLATE", "COVER_PLATE", "SPLICE_PLATE", "BASE_PLATE", "LAGGING", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcPlateTypeEnum_[] = {"CURTAIN_PANEL", "SHEET", "FLANGE_PLATE", "WEB_PLATE", "STIFFENER_PLATE", "GUSSET_PLATE", "COVER_PLATE", "SPLICE_PLATE", "LAGGING", "BASE_PLATE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcPreferredSurfaceCurveRepresentation_[] = {"CURVE3D", "PCURVE_S1", "PCURVE_S2", NULL};
     static TextValue IfcProcedureTypeEnum_[] = {"ADVICE_CAUTION", "ADVICE_NOTE", "ADVICE_WARNING", "CALIBRATION", "DIAGNOSTIC", "SHUTDOWN", "STARTUP", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcProfileTypeEnum_[] = {"CURVE", "AREA", NULL};
@@ -5371,19 +5370,21 @@ namespace IFC4x4
     static TextValue IfcProtectiveDeviceTrippingUnitTypeEnum_[] = {"ELECTRONIC", "ELECTROMAGNETIC", "RESIDUALCURRENT", "THERMAL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcProtectiveDeviceTypeEnum_[] = {"CIRCUITBREAKER", "EARTHLEAKAGECIRCUITBREAKER", "EARTHINGSWITCH", "FUSEDISCONNECTOR", "RESIDUALCURRENTCIRCUITBREAKER", "RESIDUALCURRENTSWITCH", "VARISTOR", "ANTI_ARCING_DEVICE", "SPARKGAP", "VOLTAGELIMITER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcPumpTypeEnum_[] = {"CIRCULATOR", "ENDSUCTION", "SPLITCASE", "SUBMERSIBLEPUMP", "SUMPPUMP", "VERTICALINLINE", "VERTICALTURBINE", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcRadialExcavationTypeEnum_[] = {"PROFILEENLARGEMENT", "REPROFILING", "NICHE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRailingTypeEnum_[] = {"HANDRAIL", "GUARDRAIL", "BALUSTRADE", "FENCE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRailTypeEnum_[] = {"RACKRAIL", "BLADE", "GUARDRAIL", "STOCKRAIL", "CHECKRAIL", "RAIL", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcRailwayPartTypeEnum_[] = {"TRACKSTRUCTURE", "TRACKSTRUCTUREPART", "LINESIDESTRUCTUREPART", "DILATATIONSUPERSTRUCTURE", "PLAINTRACKSUPERSTRUCTURE", "LINESIDESTRUCTURE", "SUPERSTRUCTURE", "TURNOUTSUPERSTRUCTURE", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcRailwayPartTypeEnum_[] = {"ABOVETRACK", "DILATIONTRACK", "LINESIDE", "LINESIDEPART", "PLAINTRACK", "SUBSTRUCTURE", "TRACK", "TRACKPART", "TURNOUTTRACK", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRailwayTypeEnum_[] = {"USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRampFlightTypeEnum_[] = {"STRAIGHT", "SPIRAL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRampTypeEnum_[] = {"STRAIGHT_RUN_RAMP", "TWO_STRAIGHT_RUN_RAMP", "QUARTER_TURN_RAMP", "TWO_QUARTER_TURN_RAMP", "HALF_TURN_RAMP", "SPIRAL_RAMP", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRecurrenceTypeEnum_[] = {"DAILY", "WEEKLY", "MONTHLY_BY_DAY_OF_MONTH", "MONTHLY_BY_POSITION", "BY_DAY_COUNT", "BY_WEEKDAY_COUNT", "YEARLY_BY_DAY_OF_MONTH", "YEARLY_BY_POSITION", NULL};
-    static TextValue IfcReferentTypeEnum_[] = {"STATION", "REFERENCEMARKER", "LANDMARK", "BOUNDARY", "INTERSECTION", "POSITION", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcReferentTypeEnum_[] = {"BOUNDARY", "INTERSECTION", "KILOPOINT", "LANDMARK", "MILEPOINT", "POSITION", "REFERENCEMARKER", "STATION", "SUPERELEVATIONEVENT", "WIDTHEVENT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcReflectanceMethodEnum_[] = {"BLINN", "FLAT", "GLASS", "MATT", "METAL", "MIRROR", "PHONG", "PHYSICAL", "PLASTIC", "STRAUSS", "NOTDEFINED", NULL};
+    static TextValue IfcReinforcedSoilTypeEnum_[] = {"DYNAMICALLYCOMPACTED", "GROUTED", "REPLACED", "ROLLERCOMPACTED", "SURCHARGEPRELOADED", "VERTICALLYDRAINED", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcReinforcingBarRoleEnum_[] = {"MAIN", "SHEAR", "LIGATURE", "STUD", "PUNCHING", "EDGE", "RING", "ANCHORING", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcReinforcingBarSurfaceEnum_[] = {"PLAIN", "TEXTURED", NULL};
     static TextValue IfcReinforcingBarTypeEnum_[] = {"ANCHORING", "EDGE", "LIGATURE", "MAIN", "PUNCHING", "RING", "SHEAR", "STUD", "SPACEBAR", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcReinforcingMeshTypeEnum_[] = {"USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcReinforcingMeshTypeEnum_[] = {"STEELSTRAPS", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRoadPartTypeEnum_[] = {"ROADSIDEPART", "BUS_STOP", "HARDSHOULDER", "INTERSECTION", "PASSINGBAY", "ROADWAYPLATEAU", "ROADSIDE", "REFUGEISLAND", "TOLLPLAZA", "CENTRALRESERVE", "SIDEWALK", "PARKINGBAY", "RAILWAYCROSSING", "PEDESTRIAN_CROSSING", "SOFTSHOULDER", "BICYCLECROSSING", "CENTRALISLAND", "SHOULDER", "TRAFFICLANE", "ROADSEGMENT", "ROUNDABOUT", "LAYBY", "CARRIAGEWAY", "TRAFFICISLAND", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRoadTypeEnum_[] = {"USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcRoleEnum_[] = {"SUPPLIER", "MANUFACTURER", "CONTRACTOR", "SUBCONTRACTOR", "ARCHITECT", "STRUCTURALENGINEER", "COSTENGINEER", "CLIENT", "BUILDINGOWNER", "BUILDINGOPERATOR", "MECHANICALENGINEER", "ELECTRICALENGINEER", "PROJECTMANAGER", "FACILITIESMANAGER", "CIVILENGINEER", "COMMISSIONINGENGINEER", "ENGINEER", "OWNER", "CONSULTANT", "CONSTRUCTIONMANAGER", "FIELDCONSTRUCTIONMANAGER", "RESELLER", "USERDEFINED", NULL};
@@ -5395,7 +5396,7 @@ namespace IFC4x4
     static TextValue IfcShadingDeviceTypeEnum_[] = {"JALOUSIE", "SHUTTER", "AWNING", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcSignalTypeEnum_[] = {"VISUAL", "AUDIO", "MIXED", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcSignTypeEnum_[] = {"MARKER", "PICTORAL", "MIRROR", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcSimplePropertyTemplateTypeEnum_[] = {"P_SINGLEVALUE", "P_ENUMERATEDVALUE", "P_BOUNDEDVALUE", "P_LISTVALUE", "P_TABLEVALUE", "P_REFERENCEVALUE", "Q_LENGTH", "Q_AREA", "Q_VOLUME", "Q_COUNT", "Q_WEIGHT", "Q_TIME", NULL};
+    static TextValue IfcSimplePropertyTemplateTypeEnum_[] = {"P_SINGLEVALUE", "P_ENUMERATEDVALUE", "P_BOUNDEDVALUE", "P_LISTVALUE", "P_TABLEVALUE", "P_REFERENCEVALUE", "Q_LENGTH", "Q_AREA", "Q_VOLUME", "Q_COUNT", "Q_WEIGHT", "Q_TIME", "Q_NUMBER", NULL};
     static TextValue IfcSIPrefix_[] = {"EXA", "PETA", "TERA", "GIGA", "MEGA", "KILO", "HECTO", "DECA", "DECI", "CENTI", "MILLI", "MICRO", "NANO", "PICO", "FEMTO", "ATTO", NULL};
     static TextValue IfcSIUnitName_[] = {"AMPERE", "BECQUEREL", "CANDELA", "COULOMB", "CUBIC_METRE", "DEGREE_CELSIUS", "FARAD", "GRAM", "GRAY", "HENRY", "HERTZ", "JOULE", "KELVIN", "LUMEN", "LUX", "METRE", "MOLE", "NEWTON", "OHM", "PASCAL", "RADIAN", "SECOND", "SIEMENS", "SIEVERT", "SQUARE_METRE", "STERADIAN", "TESLA", "VOLT", "WATT", "WEBER", NULL};
     static TextValue IfcSlabTypeEnum_[] = {"FLOOR", "ROOF", "LANDING", "BASESLAB", "APPROACH_SLAB", "PAVING", "WEARING", "SIDEWALK", "TRACKSLAB", "USERDEFINED", "NOTDEFINED", NULL};
@@ -5430,9 +5431,9 @@ namespace IFC4x4
     static TextValue IfcTransportElementTypeEnum_[] = {"ELEVATOR", "ESCALATOR", "MOVINGWALKWAY", "CRANEWAY", "LIFTINGGEAR", "HAULINGGEAR", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcTrimmingPreference_[] = {"CARTESIAN", "PARAMETER", "UNSPECIFIED", NULL};
     static TextValue IfcTubeBundleTypeEnum_[] = {"FINNED", "USERDEFINED", "NOTDEFINED", NULL};
-    static TextValue IfcTunnelPartTypeEnum_[] = {"TUNNELSECTION", "CROSSWAY", "RINGSECTION", "PORTAL", "NOTDEFINED", "USERDEFINED", NULL};
-    static TextValue IfcTunnelTypeEnum_[] = {"ACCESSTUNNEL", "SHAFT", "UTILITIES", "RAILWAY", "ROAD", "PEDESTRIAN", "METRO", "BICYCLE", "BYPASS", "MAINTENANCE", "UNDERGROUND_FACILITIES", "RAMP", "NOTDEFINED", "USERDEFINED", NULL};
-    static TextValue IfcUndergroundExcavationTypeEnum_[] = {"FACEEXCAVATION", "RADIALEXCAVATION", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcTunnelPartTypeEnum_[] = {"TUNNELSECTION", "CROSSWAY", "RINGSECTION", "PORTAL", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcTunnelTypeEnum_[] = {"ACCESSTUNNEL", "SHAFT", "UTILITIES", "RAILWAY", "ROAD", "PEDESTRIAN", "METRO", "BICYCLE", "BYPASS", "MAINTENANCE", "UNDERGROUND_FACILITIES", "RAMP", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcTunnelTypicalSectionTypeEnum_[] = {"GEOTECH", "EXCAVATIONSUPPORT", "RISK", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcUnitaryControlElementTypeEnum_[] = {"ALARMPANEL", "CONTROLPANEL", "GASDETECTIONPANEL", "INDICATORPANEL", "MIMICPANEL", "HUMIDISTAT", "THERMOSTAT", "WEATHERSTATION", "COMBINED", "BASESTATIONCONTROLLER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcUnitaryEquipmentTypeEnum_[] = {"AIRHANDLER", "AIRCONDITIONINGUNIT", "DEHUMIDIFIER", "SPLITSYSTEM", "ROOFTOPUNIT", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcUnitEnum_[] = {"ABSORBEDDOSEUNIT", "AMOUNTOFSUBSTANCEUNIT", "AREAUNIT", "DOSEEQUIVALENTUNIT", "ELECTRICCAPACITANCEUNIT", "ELECTRICCHARGEUNIT", "ELECTRICCONDUCTANCEUNIT", "ELECTRICCURRENTUNIT", "ELECTRICRESISTANCEUNIT", "ELECTRICVOLTAGEUNIT", "ENERGYUNIT", "FORCEUNIT", "FREQUENCYUNIT", "ILLUMINANCEUNIT", "INDUCTANCEUNIT", "LENGTHUNIT", "LUMINOUSFLUXUNIT", "LUMINOUSINTENSITYUNIT", "MAGNETICFLUXDENSITYUNIT", "MAGNETICFLUXUNIT", "MASSUNIT", "PLANEANGLEUNIT", "POWERUNIT", "PRESSUREUNIT", "RADIOACTIVITYUNIT", "SOLIDANGLEUNIT", "THERMODYNAMICTEMPERATUREUNIT", "TIMEUNIT", "VOLUMEUNIT", "USERDEFINED", NULL};
@@ -5440,13 +5441,12 @@ namespace IFC4x4
     static TextValue IfcVehicleTypeEnum_[] = {"VEHICLE", "VEHICLETRACKED", "ROLLINGSTOCK", "VEHICLEWHEELED", "VEHICLEAIR", "CARGO", "VEHICLEMARINE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcVibrationDamperTypeEnum_[] = {"BENDING_YIELD", "SHEAR_YIELD", "AXIAL_YIELD", "FRICTION", "VISCOUS", "RUBBER", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcVibrationIsolatorTypeEnum_[] = {"COMPRESSION", "SPRING", "BASE", "USERDEFINED", "NOTDEFINED", NULL};
+    static TextValue IfcVirtualElementTypeEnum_[] = {"BOUNDARY", "CLEARANCE", "PROVISIONFORVOID", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcVoidingFeatureTypeEnum_[] = {"CUTOUT", "NOTCH", "HOLE", "MITER", "CHAMFER", "EDGE", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcWallTypeEnum_[] = {"MOVABLE", "PARAPET", "PARTITIONING", "PLUMBINGWALL", "SHEAR", "SOLIDWALL", "STANDARD", "POLYGONAL", "ELEMENTEDWALL", "RETAININGWALL", "WAVEWALL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcWasteTerminalTypeEnum_[] = {"FLOORTRAP", "FLOORWASTE", "GULLYSUMP", "GULLYTRAP", "ROOFDRAIN", "WASTEDISPOSALUNIT", "WASTETRAP", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcWindowPanelOperationEnum_[] = {"SIDEHUNGRIGHTHAND", "SIDEHUNGLEFTHAND", "TILTANDTURNRIGHTHAND", "TILTANDTURNLEFTHAND", "TOPHUNG", "BOTTOMHUNG", "PIVOTHORIZONTAL", "PIVOTVERTICAL", "SLIDINGHORIZONTAL", "SLIDINGVERTICAL", "REMOVABLECASEMENT", "FIXEDCASEMENT", "OTHEROPERATION", "NOTDEFINED", NULL};
     static TextValue IfcWindowPanelPositionEnum_[] = {"LEFT", "MIDDLE", "RIGHT", "BOTTOM", "TOP", "NOTDEFINED", NULL};
-    static TextValue IfcWindowStyleConstructionEnum_[] = {"ALUMINIUM", "HIGH_GRADE_STEEL", "STEEL", "WOOD", "ALUMINIUM_WOOD", "PLASTIC", "OTHER_CONSTRUCTION", "NOTDEFINED", NULL};
-    static TextValue IfcWindowStyleOperationEnum_[] = {"SINGLE_PANEL", "DOUBLE_PANEL_VERTICAL", "DOUBLE_PANEL_HORIZONTAL", "TRIPLE_PANEL_VERTICAL", "TRIPLE_PANEL_BOTTOM", "TRIPLE_PANEL_TOP", "TRIPLE_PANEL_LEFT", "TRIPLE_PANEL_RIGHT", "TRIPLE_PANEL_HORIZONTAL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcWindowTypeEnum_[] = {"WINDOW", "SKYLIGHT", "LIGHTDOME", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcWindowTypePartitioningEnum_[] = {"SINGLE_PANEL", "DOUBLE_PANEL_VERTICAL", "DOUBLE_PANEL_HORIZONTAL", "TRIPLE_PANEL_VERTICAL", "TRIPLE_PANEL_BOTTOM", "TRIPLE_PANEL_TOP", "TRIPLE_PANEL_LEFT", "TRIPLE_PANEL_RIGHT", "TRIPLE_PANEL_HORIZONTAL", "USERDEFINED", "NOTDEFINED", NULL};
     static TextValue IfcWorkCalendarTypeEnum_[] = {"FIRSTSHIFT", "SECONDSHIFT", "THIRDSHIFT", "USERDEFINED", "NOTDEFINED", NULL};
@@ -5476,7 +5476,7 @@ namespace IFC4x4
     typedef std::list<IntValue> IfcCompoundPlaneAngleMeasure;
     template <typename TList> class IfcCompoundPlaneAngleMeasureSerializer : public AggrSerializerSimple<TList, IntValue, sdaiINTEGER> {};
     typedef double IfcContextDependentMeasure;
-    typedef double IfcCountMeasure;
+    typedef IntValue IfcCountMeasure;
     typedef double IfcCurvatureMeasure;
     typedef TextValue IfcDate;
     typedef TextValue IfcDateTime;
@@ -5487,6 +5487,7 @@ namespace IFC4x4
     typedef double IfcDoseEquivalentMeasure;
     typedef TextValue IfcDuration;
     typedef double IfcDynamicViscosityMeasure;
+    typedef double IfcElectricalResistivityMeasure;
     typedef double IfcElectricCapacitanceMeasure;
     typedef double IfcElectricChargeMeasure;
     typedef double IfcElectricConductanceMeasure;
@@ -5568,6 +5569,7 @@ namespace IFC4x4
     typedef double IfcSpecificHeatCapacityMeasure;
     typedef double IfcSpecularExponent;
     typedef double IfcSpecularRoughness;
+    typedef bool IfcStrippedOptional;
     typedef double IfcTemperatureGradientMeasure;
     typedef double IfcTemperatureRateOfChangeMeasure;
     typedef TextValue IfcText;
@@ -5704,6 +5706,10 @@ namespace IFC4x4
         bool is_IfcElectricVoltageMeasure() { return IsADBType("IFCELECTRICVOLTAGEMEASURE"); }
         Nullable<IfcElectricVoltageMeasure> get_IfcElectricVoltageMeasure() { return getSimpleValue<IfcElectricVoltageMeasure>("IFCELECTRICVOLTAGEMEASURE", sdaiREAL); }
         void put_IfcElectricVoltageMeasure(IfcElectricVoltageMeasure value) { putSimpleValue("IFCELECTRICVOLTAGEMEASURE", sdaiREAL, value); }
+
+        bool is_IfcElectricalResistivityMeasure() { return IsADBType("IFCELECTRICALRESISTIVITYMEASURE"); }
+        Nullable<IfcElectricalResistivityMeasure> get_IfcElectricalResistivityMeasure() { return getSimpleValue<IfcElectricalResistivityMeasure>("IFCELECTRICALRESISTIVITYMEASURE", sdaiREAL); }
+        void put_IfcElectricalResistivityMeasure(IfcElectricalResistivityMeasure value) { putSimpleValue("IFCELECTRICALRESISTIVITYMEASURE", sdaiREAL, value); }
 
         bool is_IfcEnergyMeasure() { return IsADBType("IFCENERGYMEASURE"); }
         Nullable<IfcEnergyMeasure> get_IfcEnergyMeasure() { return getSimpleValue<IfcEnergyMeasure>("IFCENERGYMEASURE", sdaiREAL); }
@@ -5972,6 +5978,8 @@ namespace IFC4x4
         Nullable<IfcElectricResistanceMeasure> get_IfcElectricResistanceMeasure() { return getSimpleValue<IfcElectricResistanceMeasure>("IFCELECTRICRESISTANCEMEASURE", sdaiREAL); }
         bool is_IfcElectricVoltageMeasure() { return IsADBType("IFCELECTRICVOLTAGEMEASURE"); }
         Nullable<IfcElectricVoltageMeasure> get_IfcElectricVoltageMeasure() { return getSimpleValue<IfcElectricVoltageMeasure>("IFCELECTRICVOLTAGEMEASURE", sdaiREAL); }
+        bool is_IfcElectricalResistivityMeasure() { return IsADBType("IFCELECTRICALRESISTIVITYMEASURE"); }
+        Nullable<IfcElectricalResistivityMeasure> get_IfcElectricalResistivityMeasure() { return getSimpleValue<IfcElectricalResistivityMeasure>("IFCELECTRICALRESISTIVITYMEASURE", sdaiREAL); }
         bool is_IfcEnergyMeasure() { return IsADBType("IFCENERGYMEASURE"); }
         Nullable<IfcEnergyMeasure> get_IfcEnergyMeasure() { return getSimpleValue<IfcEnergyMeasure>("IFCENERGYMEASURE", sdaiREAL); }
         bool is_IfcForceMeasure() { return IsADBType("IFCFORCEMEASURE"); }
@@ -6117,6 +6125,7 @@ namespace IFC4x4
         void put_IfcElectricConductanceMeasure(IfcElectricConductanceMeasure value) { putSimpleValue("IFCELECTRICCONDUCTANCEMEASURE", sdaiREAL, value); }
         void put_IfcElectricResistanceMeasure(IfcElectricResistanceMeasure value) { putSimpleValue("IFCELECTRICRESISTANCEMEASURE", sdaiREAL, value); }
         void put_IfcElectricVoltageMeasure(IfcElectricVoltageMeasure value) { putSimpleValue("IFCELECTRICVOLTAGEMEASURE", sdaiREAL, value); }
+        void put_IfcElectricalResistivityMeasure(IfcElectricalResistivityMeasure value) { putSimpleValue("IFCELECTRICALRESISTIVITYMEASURE", sdaiREAL, value); }
         void put_IfcEnergyMeasure(IfcEnergyMeasure value) { putSimpleValue("IFCENERGYMEASURE", sdaiREAL, value); }
         void put_IfcForceMeasure(IfcForceMeasure value) { putSimpleValue("IFCFORCEMEASURE", sdaiREAL, value); }
         void put_IfcFrequencyMeasure(IfcFrequencyMeasure value) { putSimpleValue("IFCFREQUENCYMEASURE", sdaiREAL, value); }
@@ -6208,8 +6217,8 @@ namespace IFC4x4
         void put_IfcContextDependentMeasure(IfcContextDependentMeasure value) { putSimpleValue("IFCCONTEXTDEPENDENTMEASURE", sdaiREAL, value); }
 
         bool is_IfcCountMeasure() { return IsADBType("IFCCOUNTMEASURE"); }
-        Nullable<IfcCountMeasure> get_IfcCountMeasure() { return getSimpleValue<IfcCountMeasure>("IFCCOUNTMEASURE", sdaiREAL); }
-        void put_IfcCountMeasure(IfcCountMeasure value) { putSimpleValue("IFCCOUNTMEASURE", sdaiREAL, value); }
+        Nullable<IfcCountMeasure> get_IfcCountMeasure() { return getSimpleValue<IfcCountMeasure>("IFCCOUNTMEASURE", sdaiINTEGER); }
+        void put_IfcCountMeasure(IfcCountMeasure value) { putSimpleValue("IFCCOUNTMEASURE", sdaiINTEGER, value); }
 
         bool is_IfcDescriptiveMeasure() { return IsADBType("IFCDESCRIPTIVEMEASURE"); }
         IfcDescriptiveMeasure get_IfcDescriptiveMeasure() { return getTextValue("IFCDESCRIPTIVEMEASURE", sdaiSTRING); }
@@ -6301,7 +6310,7 @@ namespace IFC4x4
         bool is_IfcContextDependentMeasure() { return IsADBType("IFCCONTEXTDEPENDENTMEASURE"); }
         Nullable<IfcContextDependentMeasure> get_IfcContextDependentMeasure() { return getSimpleValue<IfcContextDependentMeasure>("IFCCONTEXTDEPENDENTMEASURE", sdaiREAL); }
         bool is_IfcCountMeasure() { return IsADBType("IFCCOUNTMEASURE"); }
-        Nullable<IfcCountMeasure> get_IfcCountMeasure() { return getSimpleValue<IfcCountMeasure>("IFCCOUNTMEASURE", sdaiREAL); }
+        Nullable<IfcCountMeasure> get_IfcCountMeasure() { return getSimpleValue<IfcCountMeasure>("IFCCOUNTMEASURE", sdaiINTEGER); }
         bool is_IfcDescriptiveMeasure() { return IsADBType("IFCDESCRIPTIVEMEASURE"); }
         IfcDescriptiveMeasure get_IfcDescriptiveMeasure() { return getTextValue("IFCDESCRIPTIVEMEASURE", sdaiSTRING); }
         bool is_IfcElectricCurrentMeasure() { return IsADBType("IFCELECTRICCURRENTMEASURE"); }
@@ -6340,6 +6349,7 @@ namespace IFC4x4
         Nullable<IfcVolumeMeasure> get_IfcVolumeMeasure() { return getSimpleValue<IfcVolumeMeasure>("IFCVOLUMEMEASURE", sdaiREAL); }
 
         Nullable<double> as_double() { double val = 0; if (sdaiGetAttrBN(m_instance, m_attrName, sdaiREAL, &val)) return val; else return Nullable<double>(); }
+        Nullable<IntValue> as_int() { IntValue val = 0; if (sdaiGetAttrBN(m_instance, m_attrName, sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
         TextValue as_text() { TextValue val = NULL; sdaiGetAttrBN(m_instance, m_attrName, sdaiSTRING, &val); return val; }
     };
 
@@ -6358,7 +6368,7 @@ namespace IFC4x4
                 //TArrayElem[] may be double[] or array of convertible elements
         template <typename TArrayElem> void put_IfcComplexNumber(TArrayElem arr[], size_t n) { IfcComplexNumber lst; ArrayToList(arr, n, lst); put_IfcComplexNumber(lst); }
         void put_IfcContextDependentMeasure(IfcContextDependentMeasure value) { putSimpleValue("IFCCONTEXTDEPENDENTMEASURE", sdaiREAL, value); }
-        void put_IfcCountMeasure(IfcCountMeasure value) { putSimpleValue("IFCCOUNTMEASURE", sdaiREAL, value); }
+        void put_IfcCountMeasure(IfcCountMeasure value) { putSimpleValue("IFCCOUNTMEASURE", sdaiINTEGER, value); }
         void put_IfcDescriptiveMeasure(IfcDescriptiveMeasure value) { putTextValue("IFCDESCRIPTIVEMEASURE", sdaiSTRING, value); }
         void put_IfcElectricCurrentMeasure(IfcElectricCurrentMeasure value) { putSimpleValue("IFCELECTRICCURRENTMEASURE", sdaiREAL, value); }
         void put_IfcLengthMeasure(IfcLengthMeasure value) { putSimpleValue("IFCLENGTHMEASURE", sdaiREAL, value); }
@@ -6441,6 +6451,10 @@ namespace IFC4x4
         bool is_IfcTimeStamp() { return IsADBType("IFCTIMESTAMP"); }
         Nullable<IfcTimeStamp> get_IfcTimeStamp() { return getSimpleValue<IfcTimeStamp>("IFCTIMESTAMP", sdaiINTEGER); }
         void put_IfcTimeStamp(IfcTimeStamp value) { putSimpleValue("IFCTIMESTAMP", sdaiINTEGER, value); }
+
+        bool is_IfcURIReference() { return IsADBType("IFCURIREFERENCE"); }
+        IfcURIReference get_IfcURIReference() { return getTextValue("IFCURIREFERENCE", sdaiSTRING); }
+        void put_IfcURIReference(IfcURIReference value) { putTextValue("IFCURIREFERENCE", sdaiSTRING, value); }
     };
 
 
@@ -6477,6 +6491,8 @@ namespace IFC4x4
         IfcTime get_IfcTime() { return getTextValue("IFCTIME", sdaiSTRING); }
         bool is_IfcTimeStamp() { return IsADBType("IFCTIMESTAMP"); }
         Nullable<IfcTimeStamp> get_IfcTimeStamp() { return getSimpleValue<IfcTimeStamp>("IFCTIMESTAMP", sdaiINTEGER); }
+        bool is_IfcURIReference() { return IsADBType("IFCURIREFERENCE"); }
+        IfcURIReference get_IfcURIReference() { return getTextValue("IFCURIREFERENCE", sdaiSTRING); }
 
         TextValue as_text() { TextValue val = NULL; sdaiGetAttrBN(m_instance, m_attrName, sdaiSTRING, &val); return val; }
         Nullable<bool> as_bool() { bool val = 0; if (sdaiGetAttrBN(m_instance, m_attrName, sdaiBOOLEAN, &val)) return val; else return Nullable<bool>(); }
@@ -6504,6 +6520,7 @@ namespace IFC4x4
         void put_IfcText(IfcText value) { putTextValue("IFCTEXT", sdaiSTRING, value); }
         void put_IfcTime(IfcTime value) { putTextValue("IFCTIME", sdaiSTRING, value); }
         void put_IfcTimeStamp(IfcTimeStamp value) { putSimpleValue("IFCTIMESTAMP", sdaiINTEGER, value); }
+        void put_IfcURIReference(IfcURIReference value) { putTextValue("IFCURIREFERENCE", sdaiSTRING, value); }
     };
 
 
@@ -7061,9 +7078,9 @@ namespace IFC4x4
         IfcCurveMeasureSelect(SdaiInstance instance, TextValue attrName = NULL, void* adb = NULL) : Select(instance, attrName, adb) {}
         IfcCurveMeasureSelect(Select* outer) : Select(outer) {}
 
-        bool is_IfcNonNegativeLengthMeasure() { return IsADBType("IFCNONNEGATIVELENGTHMEASURE"); }
-        Nullable<IfcNonNegativeLengthMeasure> get_IfcNonNegativeLengthMeasure() { return getSimpleValue<IfcNonNegativeLengthMeasure>("IFCNONNEGATIVELENGTHMEASURE", sdaiREAL); }
-        void put_IfcNonNegativeLengthMeasure(IfcNonNegativeLengthMeasure value) { putSimpleValue("IFCNONNEGATIVELENGTHMEASURE", sdaiREAL, value); }
+        bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        Nullable<IfcLengthMeasure> get_IfcLengthMeasure() { return getSimpleValue<IfcLengthMeasure>("IFCLENGTHMEASURE", sdaiREAL); }
+        void put_IfcLengthMeasure(IfcLengthMeasure value) { putSimpleValue("IFCLENGTHMEASURE", sdaiREAL, value); }
 
         bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
         Nullable<IfcParameterValue> get_IfcParameterValue() { return getSimpleValue<IfcParameterValue>("IFCPARAMETERVALUE", sdaiREAL); }
@@ -7076,8 +7093,8 @@ namespace IFC4x4
     public:
         IfcCurveMeasureSelect_get(SdaiInstance instance, TextValue attrName = NULL, void* adb = NULL) : Select(instance, attrName, adb) {}
         IfcCurveMeasureSelect_get(Select* outer) : Select(outer) {}
-        bool is_IfcNonNegativeLengthMeasure() { return IsADBType("IFCNONNEGATIVELENGTHMEASURE"); }
-        Nullable<IfcNonNegativeLengthMeasure> get_IfcNonNegativeLengthMeasure() { return getSimpleValue<IfcNonNegativeLengthMeasure>("IFCNONNEGATIVELENGTHMEASURE", sdaiREAL); }
+        bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        Nullable<IfcLengthMeasure> get_IfcLengthMeasure() { return getSimpleValue<IfcLengthMeasure>("IFCLENGTHMEASURE", sdaiREAL); }
         bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
         Nullable<IfcParameterValue> get_IfcParameterValue() { return getSimpleValue<IfcParameterValue>("IFCPARAMETERVALUE", sdaiREAL); }
 
@@ -7090,7 +7107,7 @@ namespace IFC4x4
     public:
         IfcCurveMeasureSelect_put(SdaiInstance instance, TextValue attrName = NULL, void* adb = NULL) : Select(instance, attrName, adb) {}
         IfcCurveMeasureSelect_put(Select* outer) : Select(outer) {}
-        void put_IfcNonNegativeLengthMeasure(IfcNonNegativeLengthMeasure value) { putSimpleValue("IFCNONNEGATIVELENGTHMEASURE", sdaiREAL, value); }
+        void put_IfcLengthMeasure(IfcLengthMeasure value) { putSimpleValue("IFCLENGTHMEASURE", sdaiREAL, value); }
         void put_IfcParameterValue(IfcParameterValue value) { putSimpleValue("IFCPARAMETERVALUE", sdaiREAL, value); }
     };
 
@@ -9314,6 +9331,8 @@ namespace IFC4x4
     template <typename TList> class SetOfIfcComplexPropertySerializer : public AggrSerializerInstance<TList, IfcComplexProperty> {};
     typedef std::list<IfcResourceConstraintRelationship> SetOfIfcResourceConstraintRelationship;
     template <typename TList> class SetOfIfcResourceConstraintRelationshipSerializer : public AggrSerializerInstance<TList, IfcResourceConstraintRelationship> {};
+    typedef std::list<IfcExtendedProperties> SetOfIfcExtendedProperties;
+    template <typename TList> class SetOfIfcExtendedPropertiesSerializer : public AggrSerializerInstance<TList, IfcExtendedProperties> {};
     typedef std::list<IfcProperty> SetOfIfcProperty;
     template <typename TList> class SetOfIfcPropertySerializer : public AggrSerializerInstance<TList, IfcProperty> {};
     typedef std::list<IfcComplexPropertyTemplate> SetOfIfcComplexPropertyTemplate;
@@ -9332,6 +9351,8 @@ namespace IFC4x4
     template <typename TList> class SetOfIfcRepresentationContextSerializer : public AggrSerializerInstance<TList, IfcRepresentationContext> {};
     typedef std::list<IfcCoordinateOperation> SetOfIfcCoordinateOperation;
     template <typename TList> class SetOfIfcCoordinateOperationSerializer : public AggrSerializerInstance<TList, IfcCoordinateOperation> {};
+    typedef std::list<IfcWellKnownText> SetOfIfcWellKnownText;
+    template <typename TList> class SetOfIfcWellKnownTextSerializer : public AggrSerializerInstance<TList, IfcWellKnownText> {};
     typedef std::list<IfcCostValue> ListOfIfcCostValue;
     template <typename TList> class ListOfIfcCostValueSerializer : public AggrSerializerInstance<TList, IfcCostValue> {};
     typedef std::list<IfcPhysicalQuantity> ListOfIfcPhysicalQuantity;
@@ -9402,22 +9423,22 @@ namespace IFC4x4
     template <typename TList> class ListOfIfcPositiveIntegerSerializer : public AggrSerializerSimple<TList, IfcPositiveInteger, sdaiINTEGER> {};
     typedef std::list<IfcSegmentIndexSelect> ListOfIfcSegmentIndexSelect;
     template <typename TList> class ListOfIfcSegmentIndexSelectSerializer : public AggrSerializerSelect<TList, IfcSegmentIndexSelect> {};
+    typedef std::list<IfcIndexedColourMap> SetOfIfcIndexedColourMap;
+    template <typename TList> class SetOfIfcIndexedColourMapSerializer : public AggrSerializerInstance<TList, IfcIndexedColourMap> {};
     typedef std::list<IfcPolygonalFaceSet> SetOfIfcPolygonalFaceSet;
     template <typename TList> class SetOfIfcPolygonalFaceSetSerializer : public AggrSerializerInstance<TList, IfcPolygonalFaceSet> {};
+    typedef std::list<IfcTextureCoordinateIndices> SetOfIfcTextureCoordinateIndices;
+    template <typename TList> class SetOfIfcTextureCoordinateIndicesSerializer : public AggrSerializerInstance<TList, IfcTextureCoordinateIndices> {};
     typedef std::list<ListOfIfcPositiveInteger> ListOfListOfIfcPositiveInteger;
     template <typename TList> class ListOfListOfIfcPositiveIntegerSerializer : public AggrSerializerAggr<TList, ListOfIfcPositiveInteger, ListOfIfcPositiveIntegerSerializer<ListOfIfcPositiveInteger>> {};
     typedef std::list<IfcSurfaceTexture> ListOfIfcSurfaceTexture;
     template <typename TList> class ListOfIfcSurfaceTextureSerializer : public AggrSerializerInstance<TList, IfcSurfaceTexture> {};
-    typedef std::list<IfcInteger> ArrayOfIfcInteger;
-    template <typename TList> class ArrayOfIfcIntegerSerializer : public AggrSerializerSimple<TList, IfcInteger, sdaiINTEGER> {};
     typedef std::list<IfcPcurve> ListOfIfcPcurve;
     template <typename TList> class ListOfIfcPcurveSerializer : public AggrSerializerInstance<TList, IfcPcurve> {};
     typedef std::list<IfcIrregularTimeSeriesValue> ListOfIfcIrregularTimeSeriesValue;
     template <typename TList> class ListOfIfcIrregularTimeSeriesValueSerializer : public AggrSerializerInstance<TList, IfcIrregularTimeSeriesValue> {};
     typedef std::list<IfcValue> ListOfIfcValue;
     template <typename TList> class ListOfIfcValueSerializer : public AggrSerializerSelect<TList, IfcValue> {};
-    typedef std::list<StringValue> ArrayOfIfcLabel;
-    template <typename TList> class ArrayOfIfcLabelSerializer : public AggrSerializerText<ArrayOfIfcLabel, IfcLabel, sdaiSTRING> {};
     typedef std::list<IfcRelAssociatesLibrary> SetOfIfcRelAssociatesLibrary;
     template <typename TList> class SetOfIfcRelAssociatesLibrarySerializer : public AggrSerializerInstance<TList, IfcRelAssociatesLibrary> {};
     typedef std::list<IfcLibraryReference> SetOfIfcLibraryReference;
@@ -9428,8 +9449,8 @@ namespace IFC4x4
     template <typename TList> class ListOfIfcLuminousIntensityDistributionMeasureSerializer : public AggrSerializerSimple<TList, IfcLuminousIntensityDistributionMeasure, sdaiREAL> {};
     typedef std::list<IfcLightDistributionData> ListOfIfcLightDistributionData;
     template <typename TList> class ListOfIfcLightDistributionDataSerializer : public AggrSerializerInstance<TList, IfcLightDistributionData> {};
-    typedef std::list<IfcLogical> ArrayOfIfcLogical;
-    template <typename TList> class ArrayOfIfcLogicalSerializer : public AggrSerializerEnum<TList, LOGICAL_VALUE, LOGICAL_VALUE_, sdaiLOGICAL> {};
+    typedef std::list<IfcLogical> ListOfIfcLogical;
+    template <typename TList> class ListOfIfcLogicalSerializer : public AggrSerializerEnum<TList, LOGICAL_VALUE, LOGICAL_VALUE_, sdaiLOGICAL> {};
     typedef std::list<IfcRelAssociatesMaterial> SetOfIfcRelAssociatesMaterial;
     template <typename TList> class SetOfIfcRelAssociatesMaterialSerializer : public AggrSerializerInstance<TList, IfcRelAssociatesMaterial> {};
     typedef std::list<IfcMaterialProperties> SetOfIfcMaterialProperties;
@@ -9472,8 +9493,6 @@ namespace IFC4x4
     template <typename TList> class SetOfIfcPhysicalComplexQuantitySerializer : public AggrSerializerInstance<TList, IfcPhysicalComplexQuantity> {};
     typedef std::list<StringValue> ListOfIfcBinary;
     template <typename TList> class ListOfIfcBinarySerializer : public AggrSerializerText<ListOfIfcBinary, IfcBinary, sdaiBINARY> {};
-    typedef std::list<IfcIndexedColourMap> SetOfIfcIndexedColourMap;
-    template <typename TList> class SetOfIfcIndexedColourMapSerializer : public AggrSerializerInstance<TList, IfcIndexedColourMap> {};
     typedef std::list<IfcIndexedTextureMap> SetOfIfcIndexedTextureMap;
     template <typename TList> class SetOfIfcIndexedTextureMapSerializer : public AggrSerializerInstance<TList, IfcIndexedTextureMap> {};
     typedef std::list<IfcIndexedPolygonalFace> ListOfIfcIndexedPolygonalFace;
@@ -9486,8 +9505,6 @@ namespace IFC4x4
     template <typename TList> class SetOfIfcShapeAspectSerializer : public AggrSerializerInstance<TList, IfcShapeAspect> {};
     typedef std::list<ListOfIfcReal> ListOfListOfIfcReal;
     template <typename TList> class ListOfListOfIfcRealSerializer : public AggrSerializerAggr<TList, ListOfIfcReal, ListOfIfcRealSerializer<ListOfIfcReal>> {};
-    typedef std::list<IfcReal> ArrayOfIfcReal;
-    template <typename TList> class ArrayOfIfcRealSerializer : public AggrSerializerSimple<TList, IfcReal, sdaiREAL> {};
     typedef std::list<IfcDayInMonthNumber> SetOfIfcDayInMonthNumber;
     template <typename TList> class SetOfIfcDayInMonthNumberSerializer : public AggrSerializerSimple<TList, IfcDayInMonthNumber, sdaiINTEGER> {};
     typedef std::list<IfcDayInWeekNumber> SetOfIfcDayInWeekNumber;
@@ -9578,10 +9595,8 @@ namespace IFC4x4
     template <typename TList> class SetOfIfcTrimmingSelectSerializer : public AggrSerializerSelect<TList, IfcTrimmingSelect> {};
     typedef std::list<IfcUnit> SetOfIfcUnit;
     template <typename TList> class SetOfIfcUnitSerializer : public AggrSerializerSelect<TList, IfcUnit> {};
-    typedef std::list<IfcVector> ArrayOfIfcVector;
-    template <typename TList> class ArrayOfIfcVectorSerializer : public AggrSerializerInstance<TList, IfcVector> {};
-    typedef std::list<IfcBoolean> ListOfIfcBoolean;
-    template <typename TList> class ListOfIfcBooleanSerializer : public AggrSerializerSimple<TList, IfcBoolean, sdaiBOOLEAN> {};
+    typedef std::list<IfcBoolean> ArrayOfIfcBoolean;
+    template <typename TList> class ArrayOfIfcBooleanSerializer : public AggrSerializerSimple<TList, IfcBoolean, sdaiBOOLEAN> {};
     typedef std::list<IfcWorkTime> SetOfIfcWorkTime;
     template <typename TList> class SetOfIfcWorkTimeSerializer : public AggrSerializerInstance<TList, IfcWorkTime> {};
 
@@ -11501,6 +11516,100 @@ namespace IFC4x4
 
 
         /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcBuiltElement
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcBuiltElement : public virtual IfcElement
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcBuiltElement
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcBuiltElement(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcBuiltElement")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcBuiltElement and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcBuiltElement Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcBuiltElement"); assert(inst); return inst; }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcArchElement
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcArchElement : public virtual IfcBuiltElement
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcArchElement
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcArchElement(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcArchElement")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcArchElement and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcArchElement Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcArchElement"); assert(inst); return inst; }
+
+        Nullable<IfcArchElementTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcArchElementTypeEnum_); if (v >= 0) return (IfcArchElementTypeEnum) v; else return Nullable<IfcArchElementTypeEnum>(); }
+        void put_PredefinedType(IfcArchElementTypeEnum value) { TextValue val = IfcArchElementTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcBuiltElementType
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcBuiltElementType : public virtual IfcElementType
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcBuiltElementType
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcBuiltElementType(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcBuiltElementType")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcBuiltElementType and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcBuiltElementType Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcBuiltElementType"); assert(inst); return inst; }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcArchElementType
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcArchElementType : public virtual IfcBuiltElementType
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcArchElementType
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcArchElementType(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcArchElementType")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcArchElementType and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcArchElementType Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcArchElementType"); assert(inst); return inst; }
+
+        Nullable<IfcArchElementTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcArchElementTypeEnum_); if (v >= 0) return (IfcArchElementTypeEnum) v; else return Nullable<IfcArchElementTypeEnum>(); }
+        void put_PredefinedType(IfcArchElementTypeEnum value) { TextValue val = IfcArchElementTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcGroup
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -11522,6 +11631,9 @@ namespace IFC4x4
 
         //TList may be SetOfIfcRelAssignsToGroup or list of converible elements
         template <typename TList> void get_IsGroupedBy(TList& lst) { SetOfIfcRelAssignsToGroupSerializer<TList> sr; sr.FromAttr(lst, m_instance, "IsGroupedBy"); }
+
+        //TList may be SetOfIfcRelReferencedInSpatialStructure or list of converible elements
+        template <typename TList> void get_ReferencedInStructures(TList& lst) { SetOfIfcRelReferencedInSpatialStructureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferencedInStructures"); }
     };
 
 
@@ -11831,28 +11943,6 @@ namespace IFC4x4
 
 
         /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcBuiltElement
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcBuiltElement : public virtual IfcElement
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcBuiltElement
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcBuiltElement(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcBuiltElement")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcBuiltElement and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcBuiltElement Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcBuiltElement"); assert(inst); return inst; }
-    };
-
-
-        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcBeam
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -11874,28 +11964,6 @@ namespace IFC4x4
 
         Nullable<IfcBeamTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcBeamTypeEnum_); if (v >= 0) return (IfcBeamTypeEnum) v; else return Nullable<IfcBeamTypeEnum>(); }
         void put_PredefinedType(IfcBeamTypeEnum value) { TextValue val = IfcBeamTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
-    };
-
-
-        /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcBuiltElementType
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcBuiltElementType : public virtual IfcElementType
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcBuiltElementType
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcBuiltElementType(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcBuiltElementType")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcBuiltElementType and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcBuiltElementType Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcBuiltElementType"); assert(inst); return inst; }
     };
 
 
@@ -12257,6 +12325,49 @@ namespace IFC4x4
                 /// Create new instace of IfcBorehole and returns object of this C++ class to interact with
                 /// </summary>
         static IfcBorehole Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcBorehole"); assert(inst); return inst; }
+
+        Nullable<IfcBoreholeTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcBoreholeTypeEnum_); if (v >= 0) return (IfcBoreholeTypeEnum) v; else return Nullable<IfcBoreholeTypeEnum>(); }
+        void put_PredefinedType(IfcBoreholeTypeEnum value) { TextValue val = IfcBoreholeTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcGeoScienceElementType
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcGeoScienceElementType : public virtual IfcElementType
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcGeoScienceElementType
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcGeoScienceElementType(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcGeoScienceElementType")
+        {}
+
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcBoreholeType
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcBoreholeType : public virtual IfcGeoScienceElementType
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcBoreholeType
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcBoreholeType(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcBoreholeType")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcBoreholeType and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcBoreholeType Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcBoreholeType"); assert(inst); return inst; }
 
         Nullable<IfcBoreholeTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcBoreholeTypeEnum_); if (v >= 0) return (IfcBoreholeTypeEnum) v; else return Nullable<IfcBoreholeTypeEnum>(); }
         void put_PredefinedType(IfcBoreholeTypeEnum value) { TextValue val = IfcBoreholeTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
@@ -14281,8 +14392,8 @@ namespace IFC4x4
         IfcText get_Description() { IfcText val = NULL; if (sdaiGetAttrBN(m_instance, "Description", sdaiSTRING, &val)) return val; else return NULL; }
         void put_Description(IfcText value) { sdaiPutAttrBN(m_instance, "Description", sdaiSTRING, value); }
 
-        IfcURIReference get_Location() { IfcURIReference val = NULL; if (sdaiGetAttrBN(m_instance, "Location", sdaiSTRING, &val)) return val; else return NULL; }
-        void put_Location(IfcURIReference value) { sdaiPutAttrBN(m_instance, "Location", sdaiSTRING, value); }
+        IfcURIReference get_Specification() { IfcURIReference val = NULL; if (sdaiGetAttrBN(m_instance, "Specification", sdaiSTRING, &val)) return val; else return NULL; }
+        void put_Specification(IfcURIReference value) { sdaiPutAttrBN(m_instance, "Specification", sdaiSTRING, value); }
 
         //TList may be ListOfIfcIdentifier or list of converible elements
         template <typename TList> void get_ReferenceTokens(TList& lst) { ListOfIfcIdentifierSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ReferenceTokens"); }
@@ -14775,6 +14886,9 @@ namespace IFC4x4
 
         //TList may be SetOfIfcResourceApprovalRelationship or list of converible elements
         template <typename TList> void get_HasApprovals(TList& lst) { SetOfIfcResourceApprovalRelationshipSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasApprovals"); }
+
+        //TList may be SetOfIfcExtendedProperties or list of converible elements
+        template <typename TList> void get_PartOfMaterialOrProfileProperties(TList& lst) { SetOfIfcExtendedPropertiesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "PartOfMaterialOrProfileProperties"); }
     };
 
 
@@ -16022,7 +16136,8 @@ namespace IFC4x4
         //TList may be SetOfIfcCoordinateOperation or list of converible elements
         template <typename TList> void get_HasCoordinateOperation(TList& lst) { SetOfIfcCoordinateOperationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasCoordinateOperation"); }
 
-        IfcWellKnownText get_HasWellKnowTextRepresentation();
+        //TList may be SetOfIfcWellKnownText or list of converible elements
+        template <typename TList> void get_WellKnownText(TList& lst) { SetOfIfcWellKnownTextSerializer<TList> sr; sr.FromAttr(lst, m_instance, "WellKnownText"); }
     };
 
 
@@ -16678,8 +16793,8 @@ namespace IFC4x4
         IfcLabel get_Name() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "Name", sdaiSTRING, &val)) return val; else return NULL; }
         void put_Name(IfcLabel value) { sdaiPutAttrBN(m_instance, "Name", sdaiSTRING, value); }
 
-        IfcCurveStyleFontSelect_get get_CurveFont() { return IfcCurveStyleFontSelect_get(m_instance, "CurveFont", NULL); }
-        IfcCurveStyleFontSelect_put put_CurveFont() { return IfcCurveStyleFontSelect_put(m_instance, "CurveFont", NULL); }
+        IfcCurveStyleFontSelect_get get_CurveStyleFont() { return IfcCurveStyleFontSelect_get(m_instance, "CurveStyleFont", NULL); }
+        IfcCurveStyleFontSelect_put put_CurveStyleFont() { return IfcCurveStyleFontSelect_put(m_instance, "CurveStyleFont", NULL); }
 
         Nullable<IfcPositiveRatioMeasure> get_CurveFontScaling() { IfcPositiveRatioMeasure val = (IfcPositiveRatioMeasure) 0; if (sdaiGetAttrBN(m_instance, "CurveFontScaling", sdaiREAL, &val)) return val; else return Nullable<IfcPositiveRatioMeasure>(); }
         void put_CurveFontScaling(IfcPositiveRatioMeasure value) { sdaiPutAttrBN(m_instance, "CurveFontScaling", sdaiREAL, &value); }
@@ -17737,40 +17852,6 @@ namespace IFC4x4
 
         IfcShapeAspect get_ShapeAspectStyle();
         void put_ShapeAspectStyle(IfcShapeAspect inst);
-    };
-
-
-        /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcDoorStyle
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcDoorStyle : public virtual IfcTypeProduct
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcDoorStyle
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcDoorStyle(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcDoorStyle")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcDoorStyle and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcDoorStyle Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcDoorStyle"); assert(inst); return inst; }
-
-        Nullable<IfcDoorStyleOperationEnum> get_OperationType() { int v = getENUM("OperationType", IfcDoorStyleOperationEnum_); if (v >= 0) return (IfcDoorStyleOperationEnum) v; else return Nullable<IfcDoorStyleOperationEnum>(); }
-        void put_OperationType(IfcDoorStyleOperationEnum value) { TextValue val = IfcDoorStyleOperationEnum_[(int) value]; sdaiPutAttrBN(m_instance, "OperationType", sdaiENUM, val); }
-
-        Nullable<IfcDoorStyleConstructionEnum> get_ConstructionType() { int v = getENUM("ConstructionType", IfcDoorStyleConstructionEnum_); if (v >= 0) return (IfcDoorStyleConstructionEnum) v; else return Nullable<IfcDoorStyleConstructionEnum>(); }
-        void put_ConstructionType(IfcDoorStyleConstructionEnum value) { TextValue val = IfcDoorStyleConstructionEnum_[(int) value]; sdaiPutAttrBN(m_instance, "ConstructionType", sdaiENUM, val); }
-
-        Nullable<IfcBoolean> get_ParameterTakesPrecedence() { IfcBoolean val = (IfcBoolean) 0; if (sdaiGetAttrBN(m_instance, "ParameterTakesPrecedence", sdaiBOOLEAN, &val)) return val; else return Nullable<IfcBoolean>(); }
-        void put_ParameterTakesPrecedence(IfcBoolean value) { sdaiPutAttrBN(m_instance, "ParameterTakesPrecedence", sdaiBOOLEAN, &value); }
-
-        Nullable<IfcBoolean> get_Sizeable() { IfcBoolean val = (IfcBoolean) 0; if (sdaiGetAttrBN(m_instance, "Sizeable", sdaiBOOLEAN, &val)) return val; else return Nullable<IfcBoolean>(); }
-        void put_Sizeable(IfcBoolean value) { sdaiPutAttrBN(m_instance, "Sizeable", sdaiBOOLEAN, &value); }
     };
 
 
@@ -19565,6 +19646,49 @@ namespace IFC4x4
 
 
         /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcUndergroundExcavation
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcUndergroundExcavation : public virtual IfcExcavation
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcUndergroundExcavation
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcUndergroundExcavation(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcUndergroundExcavation")
+        {}
+
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcFaceExcavation
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcFaceExcavation : public virtual IfcUndergroundExcavation
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcFaceExcavation
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcFaceExcavation(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcFaceExcavation")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcFaceExcavation and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcFaceExcavation Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcFaceExcavation"); assert(inst); return inst; }
+
+        Nullable<IfcFaceExcavationTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcFaceExcavationTypeEnum_); if (v >= 0) return (IfcFaceExcavationTypeEnum) v; else return Nullable<IfcFaceExcavationTypeEnum>(); }
+        void put_PredefinedType(IfcFaceExcavationTypeEnum value) { TextValue val = IfcFaceExcavationTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcFaceOuterBound
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -20669,6 +20793,31 @@ namespace IFC4x4
 
 
         /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcGeoScienceFeatureType
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcGeoScienceFeatureType : public virtual IfcGeoScienceElementType
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcGeoScienceFeatureType
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcGeoScienceFeatureType(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcGeoScienceFeatureType")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcGeoScienceFeatureType and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcGeoScienceFeatureType Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcGeoScienceFeatureType"); assert(inst); return inst; }
+
+        Nullable<IfcGeoScienceFeatureTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcGeoScienceFeatureTypeEnum_); if (v >= 0) return (IfcGeoScienceFeatureTypeEnum) v; else return Nullable<IfcGeoScienceFeatureTypeEnum>(); }
+        void put_PredefinedType(IfcGeoScienceFeatureTypeEnum value) { TextValue val = IfcGeoScienceFeatureTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcGeoScienceModel
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -20687,6 +20836,31 @@ namespace IFC4x4
                 /// Create new instace of IfcGeoScienceModel and returns object of this C++ class to interact with
                 /// </summary>
         static IfcGeoScienceModel Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcGeoScienceModel"); assert(inst); return inst; }
+
+        Nullable<IfcGeoScienceModelTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcGeoScienceModelTypeEnum_); if (v >= 0) return (IfcGeoScienceModelTypeEnum) v; else return Nullable<IfcGeoScienceModelTypeEnum>(); }
+        void put_PredefinedType(IfcGeoScienceModelTypeEnum value) { TextValue val = IfcGeoScienceModelTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcGeoScienceModelType
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcGeoScienceModelType : public virtual IfcGeoScienceElementType
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcGeoScienceModelType
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcGeoScienceModelType(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcGeoScienceModelType")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcGeoScienceModelType and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcGeoScienceModelType Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcGeoScienceModelType"); assert(inst); return inst; }
 
         Nullable<IfcGeoScienceModelTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcGeoScienceModelTypeEnum_); if (v >= 0) return (IfcGeoScienceModelTypeEnum) v; else return Nullable<IfcGeoScienceModelTypeEnum>(); }
         void put_PredefinedType(IfcGeoScienceModelTypeEnum value) { TextValue val = IfcGeoScienceModelTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
@@ -20777,49 +20951,13 @@ namespace IFC4x4
             : Entity(instance, entityName ? entityName : "IfcGeotechnicalStratum")
         {}
 
-    };
-
-
-        /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcLinearZone
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcLinearZone : public virtual IfcLinearElement
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcLinearZone
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcLinearZone(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcLinearZone")
-        {}
-
-    };
-
-
-        /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcGeotechTypicalSection
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcGeotechTypicalSection : public virtual IfcLinearZone
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcGeotechTypicalSection
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcGeotechTypicalSection(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcGeotechTypicalSection")
-        {}
-
                 /// <summary>
-                /// Create new instace of IfcGeotechTypicalSection and returns object of this C++ class to interact with
+                /// Create new instace of IfcGeotechnicalStratum and returns object of this C++ class to interact with
                 /// </summary>
-        static IfcGeotechTypicalSection Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcGeotechTypicalSection"); assert(inst); return inst; }
+        static IfcGeotechnicalStratum Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcGeotechnicalStratum"); assert(inst); return inst; }
 
-        Nullable<IfcGeotechTypicalSectionTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcGeotechTypicalSectionTypeEnum_); if (v >= 0) return (IfcGeotechTypicalSectionTypeEnum) v; else return Nullable<IfcGeotechTypicalSectionTypeEnum>(); }
-        void put_PredefinedType(IfcGeotechTypicalSectionTypeEnum value) { TextValue val = IfcGeotechTypicalSectionTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+        Nullable<IfcGeotechnicalStratumTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcGeotechnicalStratumTypeEnum_); if (v >= 0) return (IfcGeotechnicalStratumTypeEnum) v; else return Nullable<IfcGeotechnicalStratumTypeEnum>(); }
+        void put_PredefinedType(IfcGeotechnicalStratumTypeEnum value) { TextValue val = IfcGeotechnicalStratumTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
     };
 
 
@@ -21020,6 +21158,31 @@ namespace IFC4x4
                 /// Create new instace of IfcGroundReinforcementElement and returns object of this C++ class to interact with
                 /// </summary>
         static IfcGroundReinforcementElement Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcGroundReinforcementElement"); assert(inst); return inst; }
+
+        Nullable<IfcGroundReinforcementElementTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcGroundReinforcementElementTypeEnum_); if (v >= 0) return (IfcGroundReinforcementElementTypeEnum) v; else return Nullable<IfcGroundReinforcementElementTypeEnum>(); }
+        void put_PredefinedType(IfcGroundReinforcementElementTypeEnum value) { TextValue val = IfcGroundReinforcementElementTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcGroundReinforcementElementType
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcGroundReinforcementElementType : public virtual IfcBuiltElementType
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcGroundReinforcementElementType
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcGroundReinforcementElementType(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcGroundReinforcementElementType")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcGroundReinforcementElementType and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcGroundReinforcementElementType Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcGroundReinforcementElementType"); assert(inst); return inst; }
 
         Nullable<IfcGroundReinforcementElementTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcGroundReinforcementElementTypeEnum_); if (v >= 0) return (IfcGroundReinforcementElementTypeEnum) v; else return Nullable<IfcGroundReinforcementElementTypeEnum>(); }
         void put_PredefinedType(IfcGroundReinforcementElementTypeEnum value) { TextValue val = IfcGroundReinforcementElementTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
@@ -21246,8 +21409,8 @@ namespace IFC4x4
                 /// </summary>
         static IfcIndexedColourMap Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcIndexedColourMap"); assert(inst); return inst; }
 
-        IfcTessellatedFaceSet get_MappedTo();
-        void put_MappedTo(IfcTessellatedFaceSet inst);
+        IfcTessellatedItem get_MappedTo();
+        void put_MappedTo(IfcTessellatedItem inst);
 
         Nullable<IfcNormalisedRatioMeasure> get_Opacity() { IfcNormalisedRatioMeasure val = (IfcNormalisedRatioMeasure) 0; if (sdaiGetAttrBN(m_instance, "Opacity", sdaiREAL, &val)) return val; else return Nullable<IfcNormalisedRatioMeasure>(); }
         void put_Opacity(IfcNormalisedRatioMeasure value) { sdaiPutAttrBN(m_instance, "Opacity", sdaiREAL, &value); }
@@ -21315,6 +21478,9 @@ namespace IFC4x4
             : Entity(instance, entityName ? entityName : "IfcTessellatedItem")
         {}
 
+
+        //TList may be SetOfIfcIndexedColourMap or list of converible elements
+        template <typename TList> void get_HasColours(TList& lst) { SetOfIfcIndexedColourMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasColours"); }
     };
 
 
@@ -21349,6 +21515,9 @@ namespace IFC4x4
 
         //TList may be SetOfIfcPolygonalFaceSet or list of converible elements
         template <typename TList> void get_ToFaceSet(TList& lst) { SetOfIfcPolygonalFaceSetSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ToFaceSet"); }
+
+        //TList may be SetOfIfcTextureCoordinateIndices or list of converible elements
+        template <typename TList> void get_HasTexCoords(TList& lst) { SetOfIfcTextureCoordinateIndicesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasTexCoords"); }
     };
 
 
@@ -21432,6 +21601,37 @@ namespace IFC4x4
 
 
         /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcIndexedPolygonalTextureMap
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcIndexedPolygonalTextureMap : public virtual IfcIndexedTextureMap
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcIndexedPolygonalTextureMap
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcIndexedPolygonalTextureMap(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcIndexedPolygonalTextureMap")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcIndexedPolygonalTextureMap and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcIndexedPolygonalTextureMap Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcIndexedPolygonalTextureMap"); assert(inst); return inst; }
+
+        //TList may be SetOfIfcTextureCoordinateIndices or list of converible elements
+        template <typename TList> void get_TexCoordIndices(TList& lst) { SetOfIfcTextureCoordinateIndicesSerializer<TList> sr; sr.FromAttr(lst, m_instance, "TexCoordIndices"); }
+
+        //TList may be SetOfIfcTextureCoordinateIndices or list of converible elements
+        template <typename TList> void put_TexCoordIndices(TList& lst) { SetOfIfcTextureCoordinateIndicesSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "TexCoordIndices"); }
+
+        //TArrayElem[] may be IfcTextureCoordinateIndices[] or array of convertible elements
+        template <typename TArrayElem> void put_TexCoordIndices(TArrayElem arr[], size_t n) { SetOfIfcTextureCoordinateIndices lst; ArrayToList(arr, n, lst); put_TexCoordIndices(lst); }
+    };
+
+
+        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcIndexedTriangleTextureMap
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -21500,14 +21700,14 @@ namespace IFC4x4
                 /// </summary>
         static IfcIntegerVoxelData Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcIntegerVoxelData"); assert(inst); return inst; }
 
-        //TList may be ArrayOfIfcInteger or list of converible elements
-        template <typename TList> void get_Values(TList& lst) { ArrayOfIfcIntegerSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcInteger or list of converible elements
+        template <typename TList> void get_ValueData(TList& lst) { ListOfIfcIntegerSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ValueData"); }
 
-        //TList may be ArrayOfIfcInteger or list of converible elements
-        template <typename TList> void put_Values(TList& lst) { ArrayOfIfcIntegerSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcInteger or list of converible elements
+        template <typename TList> void put_ValueData(TList& lst) { ListOfIfcIntegerSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ValueData"); }
 
         //TArrayElem[] may be IfcInteger[] or array of convertible elements
-        template <typename TArrayElem> void put_Values(TArrayElem arr[], size_t n) { ArrayOfIfcInteger lst; ArrayToList(arr, n, lst); put_Values(lst); }
+        template <typename TArrayElem> void put_ValueData(TArrayElem arr[], size_t n) { ListOfIfcInteger lst; ArrayToList(arr, n, lst); put_ValueData(lst); }
 
         IfcUnit_get get_Unit() { return IfcUnit_get(m_instance, "Unit", NULL); }
         IfcUnit_put put_Unit() { return IfcUnit_put(m_instance, "Unit", NULL); }
@@ -21939,14 +22139,14 @@ namespace IFC4x4
                 /// </summary>
         static IfcLabelVoxelData Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcLabelVoxelData"); assert(inst); return inst; }
 
-        //TList may be ArrayOfIfcLabel or list of converible elements
-        template <typename TList> void get_Values(TList& lst) { ArrayOfIfcLabelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcLabel or list of converible elements
+        template <typename TList> void get_ValueData(TList& lst) { ListOfIfcLabelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ValueData"); }
 
-        //TList may be ArrayOfIfcLabel or list of converible elements
-        template <typename TList> void put_Values(TList& lst) { ArrayOfIfcLabelSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcLabel or list of converible elements
+        template <typename TList> void put_ValueData(TList& lst) { ListOfIfcLabelSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ValueData"); }
 
         //TArrayElem[] may be IfcLabel[] or array of convertible elements
-        template <typename TArrayElem> void put_Values(TArrayElem arr[], size_t n) { ArrayOfIfcLabel lst; ArrayToList(arr, n, lst); put_Values(lst); }
+        template <typename TArrayElem> void put_ValueData(TArrayElem arr[], size_t n) { ListOfIfcLabel lst; ArrayToList(arr, n, lst); put_ValueData(lst); }
     };
 
 
@@ -22530,6 +22730,24 @@ namespace IFC4x4
 
 
         /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcLinearZone
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcLinearZone : public virtual IfcLinearElement
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcLinearZone
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcLinearZone(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcLinearZone")
+        {}
+
+    };
+
+
+        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcLiquidTerminal
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -22624,14 +22842,14 @@ namespace IFC4x4
                 /// </summary>
         static IfcLogicalVoxelData Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcLogicalVoxelData"); assert(inst); return inst; }
 
-        //TList may be ArrayOfIfcLogical or list of converible elements
-        template <typename TList> void get_Values(TList& lst) { ArrayOfIfcLogicalSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcLogical or list of converible elements
+        template <typename TList> void get_ValueData(TList& lst) { ListOfIfcLogicalSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ValueData"); }
 
-        //TList may be ArrayOfIfcLogical or list of converible elements
-        template <typename TList> void put_Values(TList& lst) { ArrayOfIfcLogicalSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcLogical or list of converible elements
+        template <typename TList> void put_ValueData(TList& lst) { ListOfIfcLogicalSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ValueData"); }
 
         //TArrayElem[] may be LOGICAL_VALUE[] or array of convertible elements
-        template <typename TArrayElem> void put_Values(TArrayElem arr[], size_t n) { ArrayOfIfcLogical lst; ArrayToList(arr, n, lst); put_Values(lst); }
+        template <typename TArrayElem> void put_ValueData(TArrayElem arr[], size_t n) { ListOfIfcLogical lst; ArrayToList(arr, n, lst); put_ValueData(lst); }
     };
 
 
@@ -22735,14 +22953,14 @@ namespace IFC4x4
                 /// </summary>
         static IfcMapConversionScaled Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcMapConversionScaled"); assert(inst); return inst; }
 
-        Nullable<IfcReal> get_ScaleX() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "ScaleX", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
-        void put_ScaleX(IfcReal value) { sdaiPutAttrBN(m_instance, "ScaleX", sdaiREAL, &value); }
+        Nullable<IfcReal> get_FactorX() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "FactorX", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
+        void put_FactorX(IfcReal value) { sdaiPutAttrBN(m_instance, "FactorX", sdaiREAL, &value); }
 
-        Nullable<IfcReal> get_ScaleY() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "ScaleY", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
-        void put_ScaleY(IfcReal value) { sdaiPutAttrBN(m_instance, "ScaleY", sdaiREAL, &value); }
+        Nullable<IfcReal> get_FactorY() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "FactorY", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
+        void put_FactorY(IfcReal value) { sdaiPutAttrBN(m_instance, "FactorY", sdaiREAL, &value); }
 
-        Nullable<IfcReal> get_ScaleZ() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "ScaleZ", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
-        void put_ScaleZ(IfcReal value) { sdaiPutAttrBN(m_instance, "ScaleZ", sdaiREAL, &value); }
+        Nullable<IfcReal> get_FactorZ() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "FactorZ", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
+        void put_FactorZ(IfcReal value) { sdaiPutAttrBN(m_instance, "FactorZ", sdaiREAL, &value); }
     };
 
 
@@ -23490,8 +23708,8 @@ namespace IFC4x4
         //TArrayElem[] may be IfcMaterial[] or array of convertible elements
         template <typename TArrayElem> void put_RelatedMaterials(TArrayElem arr[], size_t n) { SetOfIfcMaterial lst; ArrayToList(arr, n, lst); put_RelatedMaterials(lst); }
 
-        IfcLabel get_Expression() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "Expression", sdaiSTRING, &val)) return val; else return NULL; }
-        void put_Expression(IfcLabel value) { sdaiPutAttrBN(m_instance, "Expression", sdaiSTRING, value); }
+        IfcLabel get_MaterialExpression() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "MaterialExpression", sdaiSTRING, &val)) return val; else return NULL; }
+        void put_MaterialExpression(IfcLabel value) { sdaiPutAttrBN(m_instance, "MaterialExpression", sdaiSTRING, value); }
     };
 
 
@@ -25361,9 +25579,6 @@ namespace IFC4x4
         IfcCartesianPointList3D get_Coordinates();
         void put_Coordinates(IfcCartesianPointList3D inst);
 
-        //TList may be SetOfIfcIndexedColourMap or list of converible elements
-        template <typename TList> void get_HasColours(TList& lst) { SetOfIfcIndexedColourMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasColours"); }
-
         //TList may be SetOfIfcIndexedTextureMap or list of converible elements
         template <typename TList> void get_HasTextures(TList& lst) { SetOfIfcIndexedTextureMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasTextures"); }
     };
@@ -26378,34 +26593,6 @@ namespace IFC4x4
 
 
         /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcProxy
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcProxy : public virtual IfcProduct
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcProxy
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcProxy(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcProxy")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcProxy and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcProxy Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcProxy"); assert(inst); return inst; }
-
-        Nullable<IfcObjectTypeEnum> get_ProxyType() { int v = getENUM("ProxyType", IfcObjectTypeEnum_); if (v >= 0) return (IfcObjectTypeEnum) v; else return Nullable<IfcObjectTypeEnum>(); }
-        void put_ProxyType(IfcObjectTypeEnum value) { TextValue val = IfcObjectTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "ProxyType", sdaiENUM, val); }
-
-        IfcLabel get_Tag() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "Tag", sdaiSTRING, &val)) return val; else return NULL; }
-        void put_Tag(IfcLabel value) { sdaiPutAttrBN(m_instance, "Tag", sdaiSTRING, value); }
-    };
-
-
-        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcPump
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -26503,8 +26690,8 @@ namespace IFC4x4
                 /// </summary>
         static IfcQuantityCount Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcQuantityCount"); assert(inst); return inst; }
 
-        Nullable<IfcCountMeasure> get_CountValue() { IfcCountMeasure val = (IfcCountMeasure) 0; if (sdaiGetAttrBN(m_instance, "CountValue", sdaiREAL, &val)) return val; else return Nullable<IfcCountMeasure>(); }
-        void put_CountValue(IfcCountMeasure value) { sdaiPutAttrBN(m_instance, "CountValue", sdaiREAL, &value); }
+        Nullable<IfcCountMeasure> get_CountValue() { IfcCountMeasure val = (IfcCountMeasure) 0; if (sdaiGetAttrBN(m_instance, "CountValue", sdaiINTEGER, &val)) return val; else return Nullable<IfcCountMeasure>(); }
+        void put_CountValue(IfcCountMeasure value) { sdaiPutAttrBN(m_instance, "CountValue", sdaiINTEGER, &value); }
 
         IfcLabel get_Formula() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "Formula", sdaiSTRING, &val)) return val; else return NULL; }
         void put_Formula(IfcLabel value) { sdaiPutAttrBN(m_instance, "Formula", sdaiSTRING, value); }
@@ -26533,6 +26720,34 @@ namespace IFC4x4
 
         Nullable<IfcLengthMeasure> get_LengthValue() { IfcLengthMeasure val = (IfcLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "LengthValue", sdaiREAL, &val)) return val; else return Nullable<IfcLengthMeasure>(); }
         void put_LengthValue(IfcLengthMeasure value) { sdaiPutAttrBN(m_instance, "LengthValue", sdaiREAL, &value); }
+
+        IfcLabel get_Formula() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "Formula", sdaiSTRING, &val)) return val; else return NULL; }
+        void put_Formula(IfcLabel value) { sdaiPutAttrBN(m_instance, "Formula", sdaiSTRING, value); }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcQuantityNumber
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcQuantityNumber : public virtual IfcPhysicalSimpleQuantity
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcQuantityNumber
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcQuantityNumber(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcQuantityNumber")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcQuantityNumber and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcQuantityNumber Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcQuantityNumber"); assert(inst); return inst; }
+
+        Nullable<IfcNumericMeasure> get_NumberValue() { IfcNumericMeasure val = (IfcNumericMeasure) 0; if (sdaiGetAttrBN(m_instance, "NumberValue", sdaiREAL, &val)) return val; else return Nullable<IfcNumericMeasure>(); }
+        void put_NumberValue(IfcNumericMeasure value) { sdaiPutAttrBN(m_instance, "NumberValue", sdaiREAL, &value); }
 
         IfcLabel get_Formula() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "Formula", sdaiSTRING, &val)) return val; else return NULL; }
         void put_Formula(IfcLabel value) { sdaiPutAttrBN(m_instance, "Formula", sdaiSTRING, value); }
@@ -26620,6 +26835,31 @@ namespace IFC4x4
 
         IfcLabel get_Formula() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "Formula", sdaiSTRING, &val)) return val; else return NULL; }
         void put_Formula(IfcLabel value) { sdaiPutAttrBN(m_instance, "Formula", sdaiSTRING, value); }
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcRadialExcavation
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcRadialExcavation : public virtual IfcUndergroundExcavation
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcRadialExcavation
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcRadialExcavation(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcRadialExcavation")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcRadialExcavation and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcRadialExcavation Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcRadialExcavation"); assert(inst); return inst; }
+
+        Nullable<IfcRadialExcavationTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcRadialExcavationTypeEnum_); if (v >= 0) return (IfcRadialExcavationTypeEnum) v; else return Nullable<IfcRadialExcavationTypeEnum>(); }
+        void put_PredefinedType(IfcRadialExcavationTypeEnum value) { TextValue val = IfcRadialExcavationTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
     };
 
 
@@ -26952,14 +27192,14 @@ namespace IFC4x4
                 /// </summary>
         static IfcRealVoxelData Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcRealVoxelData"); assert(inst); return inst; }
 
-        //TList may be ArrayOfIfcReal or list of converible elements
-        template <typename TList> void get_Values(TList& lst) { ArrayOfIfcRealSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcReal or list of converible elements
+        template <typename TList> void get_ValueData(TList& lst) { ListOfIfcRealSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ValueData"); }
 
-        //TList may be ArrayOfIfcReal or list of converible elements
-        template <typename TList> void put_Values(TList& lst) { ArrayOfIfcRealSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcReal or list of converible elements
+        template <typename TList> void put_ValueData(TList& lst) { ListOfIfcRealSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ValueData"); }
 
         //TArrayElem[] may be IfcReal[] or array of convertible elements
-        template <typename TArrayElem> void put_Values(TArrayElem arr[], size_t n) { ArrayOfIfcReal lst; ArrayToList(arr, n, lst); put_Values(lst); }
+        template <typename TArrayElem> void put_ValueData(TArrayElem arr[], size_t n) { ListOfIfcReal lst; ArrayToList(arr, n, lst); put_ValueData(lst); }
 
         IfcUnit_get get_Unit() { return IfcUnit_get(m_instance, "Unit", NULL); }
         IfcUnit_put put_Unit() { return IfcUnit_put(m_instance, "Unit", NULL); }
@@ -27272,6 +27512,31 @@ namespace IFC4x4
 
 
         /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcReinforcedSoil
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcReinforcedSoil : public virtual IfcEarthworksElement
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcReinforcedSoil
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcReinforcedSoil(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcReinforcedSoil")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcReinforcedSoil and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcReinforcedSoil Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcReinforcedSoil"); assert(inst); return inst; }
+
+        Nullable<IfcReinforcedSoilTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcReinforcedSoilTypeEnum_); if (v >= 0) return (IfcReinforcedSoilTypeEnum) v; else return Nullable<IfcReinforcedSoilTypeEnum>(); }
+        void put_PredefinedType(IfcReinforcedSoilTypeEnum value) { TextValue val = IfcReinforcedSoilTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+    };
+
+
+        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcReinforcementBarProperties
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -27306,8 +27571,8 @@ namespace IFC4x4
         Nullable<IfcPositiveLengthMeasure> get_NominalBarDiameter() { IfcPositiveLengthMeasure val = (IfcPositiveLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "NominalBarDiameter", sdaiREAL, &val)) return val; else return Nullable<IfcPositiveLengthMeasure>(); }
         void put_NominalBarDiameter(IfcPositiveLengthMeasure value) { sdaiPutAttrBN(m_instance, "NominalBarDiameter", sdaiREAL, &value); }
 
-        Nullable<IfcCountMeasure> get_BarCount() { IfcCountMeasure val = (IfcCountMeasure) 0; if (sdaiGetAttrBN(m_instance, "BarCount", sdaiREAL, &val)) return val; else return Nullable<IfcCountMeasure>(); }
-        void put_BarCount(IfcCountMeasure value) { sdaiPutAttrBN(m_instance, "BarCount", sdaiREAL, &value); }
+        Nullable<IfcCountMeasure> get_BarCount() { IfcCountMeasure val = (IfcCountMeasure) 0; if (sdaiGetAttrBN(m_instance, "BarCount", sdaiINTEGER, &val)) return val; else return Nullable<IfcCountMeasure>(); }
+        void put_BarCount(IfcCountMeasure value) { sdaiPutAttrBN(m_instance, "BarCount", sdaiINTEGER, &value); }
     };
 
 
@@ -27703,8 +27968,8 @@ namespace IFC4x4
         //TArrayElem[] may be IfcObjectDefinition[] or array of convertible elements
         template <typename TArrayElem> void put_RelatedObjects(TArrayElem arr[], size_t n) { SetOfIfcObjectDefinition lst; ArrayToList(arr, n, lst); put_RelatedObjects(lst); }
 
-        Nullable<IfcObjectTypeEnum> get_RelatedObjectsType() { int v = getENUM("RelatedObjectsType", IfcObjectTypeEnum_); if (v >= 0) return (IfcObjectTypeEnum) v; else return Nullable<IfcObjectTypeEnum>(); }
-        void put_RelatedObjectsType(IfcObjectTypeEnum value) { TextValue val = IfcObjectTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "RelatedObjectsType", sdaiENUM, val); }
+        Nullable<IfcStrippedOptional> get_RelatedObjectsType() { IfcStrippedOptional val = (IfcStrippedOptional) 0; if (sdaiGetAttrBN(m_instance, "RelatedObjectsType", sdaiBOOLEAN, &val)) return val; else return Nullable<IfcStrippedOptional>(); }
+        void put_RelatedObjectsType(IfcStrippedOptional value) { sdaiPutAttrBN(m_instance, "RelatedObjectsType", sdaiBOOLEAN, &value); }
     };
 
 
@@ -30607,28 +30872,6 @@ namespace IFC4x4
 
 
         /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcSolidStratum
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcSolidStratum : public virtual IfcGeotechnicalStratum
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcSolidStratum
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcSolidStratum(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcSolidStratum")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcSolidStratum and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcSolidStratum Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcSolidStratum"); assert(inst); return inst; }
-    };
-
-
-        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcSpace
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -31234,8 +31477,8 @@ namespace IFC4x4
                 /// </summary>
         static IfcStructuralCurveConnection Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcStructuralCurveConnection"); assert(inst); return inst; }
 
-        IfcDirection get_Axis();
-        void put_Axis(IfcDirection inst);
+        IfcDirection get_AxisDirection();
+        void put_AxisDirection(IfcDirection inst);
     };
 
 
@@ -32601,8 +32844,8 @@ namespace IFC4x4
                 /// </summary>
         static IfcSweptDiskSolidPolygonal Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcSweptDiskSolidPolygonal"); assert(inst); return inst; }
 
-        Nullable<IfcPositiveLengthMeasure> get_FilletRadius() { IfcPositiveLengthMeasure val = (IfcPositiveLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "FilletRadius", sdaiREAL, &val)) return val; else return Nullable<IfcPositiveLengthMeasure>(); }
-        void put_FilletRadius(IfcPositiveLengthMeasure value) { sdaiPutAttrBN(m_instance, "FilletRadius", sdaiREAL, &value); }
+        Nullable<IfcNonNegativeLengthMeasure> get_FilletRadius() { IfcNonNegativeLengthMeasure val = (IfcNonNegativeLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "FilletRadius", sdaiREAL, &val)) return val; else return Nullable<IfcNonNegativeLengthMeasure>(); }
+        void put_FilletRadius(IfcNonNegativeLengthMeasure value) { sdaiPutAttrBN(m_instance, "FilletRadius", sdaiREAL, &value); }
     };
 
 
@@ -33519,6 +33762,70 @@ namespace IFC4x4
 
 
         /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcTextureCoordinateIndices
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcTextureCoordinateIndices : public virtual Entity
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcTextureCoordinateIndices
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcTextureCoordinateIndices(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcTextureCoordinateIndices")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcTextureCoordinateIndices and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcTextureCoordinateIndices Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcTextureCoordinateIndices"); assert(inst); return inst; }
+
+        //TList may be ListOfIfcPositiveInteger or list of converible elements
+        template <typename TList> void get_TexCoordIndex(TList& lst) { ListOfIfcPositiveIntegerSerializer<TList> sr; sr.FromAttr(lst, m_instance, "TexCoordIndex"); }
+
+        //TList may be ListOfIfcPositiveInteger or list of converible elements
+        template <typename TList> void put_TexCoordIndex(TList& lst) { ListOfIfcPositiveIntegerSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "TexCoordIndex"); }
+
+        //TArrayElem[] may be IfcPositiveInteger[] or array of convertible elements
+        template <typename TArrayElem> void put_TexCoordIndex(TArrayElem arr[], size_t n) { ListOfIfcPositiveInteger lst; ArrayToList(arr, n, lst); put_TexCoordIndex(lst); }
+
+        IfcIndexedPolygonalFace get_TexCoordsOf();
+        void put_TexCoordsOf(IfcIndexedPolygonalFace inst);
+
+        IfcIndexedPolygonalTextureMap get_ToTexMap();
+    };
+
+
+        /// <summary>
+        /// Provides utility methods to interact with an instnace of IfcTextureCoordinateIndicesWithVoids
+        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
+        /// </summary>
+    class IfcTextureCoordinateIndicesWithVoids : public virtual IfcTextureCoordinateIndices
+    {
+    public:
+        /// <summary>
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcTextureCoordinateIndicesWithVoids
+        /// </summary>
+        /// <param name="instance">An instance to interact with</param>
+        IfcTextureCoordinateIndicesWithVoids(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcTextureCoordinateIndicesWithVoids")
+        {}
+
+                /// <summary>
+                /// Create new instace of IfcTextureCoordinateIndicesWithVoids and returns object of this C++ class to interact with
+                /// </summary>
+        static IfcTextureCoordinateIndicesWithVoids Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcTextureCoordinateIndicesWithVoids"); assert(inst); return inst; }
+
+        //TList may be ListOfListOfIfcPositiveInteger or list of converible elements
+        template <typename TList> void get_InnerTexCoordIndices(TList& lst) { ListOfListOfIfcPositiveIntegerSerializer<TList> sr; sr.FromAttr(lst, m_instance, "InnerTexCoordIndices"); }
+
+        //TList may be ListOfListOfIfcPositiveInteger or list of converible elements
+        template <typename TList> void put_InnerTexCoordIndices(TList& lst) { ListOfListOfIfcPositiveIntegerSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "InnerTexCoordIndices"); }
+    };
+
+
+        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcTextureMap
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
@@ -33916,7 +34223,7 @@ namespace IFC4x4
         /// Provides utility methods to interact with an instnace of IfcTransportElementType
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
-    class IfcTransportElementType : public virtual IfcElementType
+    class IfcTransportElementType : public virtual IfcTransportationDeviceType
     {
     public:
         /// <summary>
@@ -34241,27 +34548,27 @@ namespace IFC4x4
 
 
         /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcUndergroundExcavation
+        /// Provides utility methods to interact with an instnace of IfcTunnelTypicalSection
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
-    class IfcUndergroundExcavation : public virtual IfcExcavation
+    class IfcTunnelTypicalSection : public virtual IfcLinearZone
     {
     public:
         /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcUndergroundExcavation
+        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcTunnelTypicalSection
         /// </summary>
         /// <param name="instance">An instance to interact with</param>
-        IfcUndergroundExcavation(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcUndergroundExcavation")
+        IfcTunnelTypicalSection(SdaiInstance instance = NULL, TextValue entityName = NULL)
+            : Entity(instance, entityName ? entityName : "IfcTunnelTypicalSection")
         {}
 
                 /// <summary>
-                /// Create new instace of IfcUndergroundExcavation and returns object of this C++ class to interact with
+                /// Create new instace of IfcTunnelTypicalSection and returns object of this C++ class to interact with
                 /// </summary>
-        static IfcUndergroundExcavation Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcUndergroundExcavation"); assert(inst); return inst; }
+        static IfcTunnelTypicalSection Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcTunnelTypicalSection"); assert(inst); return inst; }
 
-        Nullable<IfcUndergroundExcavationTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcUndergroundExcavationTypeEnum_); if (v >= 0) return (IfcUndergroundExcavationTypeEnum) v; else return Nullable<IfcUndergroundExcavationTypeEnum>(); }
-        void put_PredefinedType(IfcUndergroundExcavationTypeEnum value) { TextValue val = IfcUndergroundExcavationTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
+        Nullable<IfcTunnelTypicalSectionTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcTunnelTypicalSectionTypeEnum_); if (v >= 0) return (IfcTunnelTypicalSectionTypeEnum) v; else return Nullable<IfcTunnelTypicalSectionTypeEnum>(); }
+        void put_PredefinedType(IfcTunnelTypicalSectionTypeEnum value) { TextValue val = IfcTunnelTypicalSectionTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
     };
 
 
@@ -34534,14 +34841,14 @@ namespace IFC4x4
                 /// </summary>
         static IfcVectorVoxelData Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcVectorVoxelData"); assert(inst); return inst; }
 
-        //TList may be ArrayOfIfcVector or list of converible elements
-        template <typename TList> void get_Values(TList& lst) { ArrayOfIfcVectorSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcVector or list of converible elements
+        template <typename TList> void get_ValueData(TList& lst) { ListOfIfcVectorSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ValueData"); }
 
-        //TList may be ArrayOfIfcVector or list of converible elements
-        template <typename TList> void put_Values(TList& lst) { ArrayOfIfcVectorSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Values"); }
+        //TList may be ListOfIfcVector or list of converible elements
+        template <typename TList> void put_ValueData(TList& lst) { ListOfIfcVectorSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ValueData"); }
 
         //TArrayElem[] may be IfcVector[] or array of convertible elements
-        template <typename TArrayElem> void put_Values(TArrayElem arr[], size_t n) { ArrayOfIfcVector lst; ArrayToList(arr, n, lst); put_Values(lst); }
+        template <typename TArrayElem> void put_ValueData(TArrayElem arr[], size_t n) { ListOfIfcVector lst; ArrayToList(arr, n, lst); put_ValueData(lst); }
 
         IfcUnit_get get_Unit() { return IfcUnit_get(m_instance, "Unit", NULL); }
         IfcUnit_put put_Unit() { return IfcUnit_put(m_instance, "Unit", NULL); }
@@ -34789,6 +35096,9 @@ namespace IFC4x4
                 /// Create new instace of IfcVirtualElement and returns object of this C++ class to interact with
                 /// </summary>
         static IfcVirtualElement Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcVirtualElement"); assert(inst); return inst; }
+
+        Nullable<IfcVirtualElementTypeEnum> get_PredefinedType() { int v = getENUM("PredefinedType", IfcVirtualElementTypeEnum_); if (v >= 0) return (IfcVirtualElementTypeEnum) v; else return Nullable<IfcVirtualElementTypeEnum>(); }
+        void put_PredefinedType(IfcVirtualElementTypeEnum value) { TextValue val = IfcVirtualElementTypeEnum_[(int) value]; sdaiPutAttrBN(m_instance, "PredefinedType", sdaiENUM, val); }
     };
 
 
@@ -34858,32 +35168,10 @@ namespace IFC4x4
 
 
         /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcVoidStratum
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcVoidStratum : public virtual IfcGeotechnicalStratum
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcVoidStratum
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcVoidStratum(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcVoidStratum")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcVoidStratum and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcVoidStratum Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcVoidStratum"); assert(inst); return inst; }
-    };
-
-
-        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcVoxelGrid
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
-    class IfcVoxelGrid : public virtual IfcSolidModel
+    class IfcVoxelGrid : public virtual IfcTessellatedItem
     {
     public:
         /// <summary>
@@ -34908,23 +35196,23 @@ namespace IFC4x4
         Nullable<IfcNonNegativeLengthMeasure> get_VoxelSizeZ() { IfcNonNegativeLengthMeasure val = (IfcNonNegativeLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "VoxelSizeZ", sdaiREAL, &val)) return val; else return Nullable<IfcNonNegativeLengthMeasure>(); }
         void put_VoxelSizeZ(IfcNonNegativeLengthMeasure value) { sdaiPutAttrBN(m_instance, "VoxelSizeZ", sdaiREAL, &value); }
 
-        Nullable<IfcInteger> get_NumberOfVoxelsX() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfVoxelsX", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
-        void put_NumberOfVoxelsX(IfcInteger value) { sdaiPutAttrBN(m_instance, "NumberOfVoxelsX", sdaiINTEGER, &value); }
+        Nullable<IfcPositiveInteger> get_NumberOfVoxelsX() { IfcPositiveInteger val = (IfcPositiveInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfVoxelsX", sdaiINTEGER, &val)) return val; else return Nullable<IfcPositiveInteger>(); }
+        void put_NumberOfVoxelsX(IfcPositiveInteger value) { sdaiPutAttrBN(m_instance, "NumberOfVoxelsX", sdaiINTEGER, &value); }
 
-        Nullable<IfcInteger> get_NumberOfVoxelsY() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfVoxelsY", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
-        void put_NumberOfVoxelsY(IfcInteger value) { sdaiPutAttrBN(m_instance, "NumberOfVoxelsY", sdaiINTEGER, &value); }
+        Nullable<IfcPositiveInteger> get_NumberOfVoxelsY() { IfcPositiveInteger val = (IfcPositiveInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfVoxelsY", sdaiINTEGER, &val)) return val; else return Nullable<IfcPositiveInteger>(); }
+        void put_NumberOfVoxelsY(IfcPositiveInteger value) { sdaiPutAttrBN(m_instance, "NumberOfVoxelsY", sdaiINTEGER, &value); }
 
-        Nullable<IfcInteger> get_NumberOfVoxelsZ() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfVoxelsZ", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
-        void put_NumberOfVoxelsZ(IfcInteger value) { sdaiPutAttrBN(m_instance, "NumberOfVoxelsZ", sdaiINTEGER, &value); }
+        Nullable<IfcPositiveInteger> get_NumberOfVoxelsZ() { IfcPositiveInteger val = (IfcPositiveInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfVoxelsZ", sdaiINTEGER, &val)) return val; else return Nullable<IfcPositiveInteger>(); }
+        void put_NumberOfVoxelsZ(IfcPositiveInteger value) { sdaiPutAttrBN(m_instance, "NumberOfVoxelsZ", sdaiINTEGER, &value); }
 
-        //TList may be ListOfIfcBoolean or list of converible elements
-        template <typename TList> void get_Voxels(TList& lst) { ListOfIfcBooleanSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Voxels"); }
+        //TList may be ArrayOfIfcBoolean or list of converible elements
+        template <typename TList> void get_Voxels(TList& lst) { ArrayOfIfcBooleanSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Voxels"); }
 
-        //TList may be ListOfIfcBoolean or list of converible elements
-        template <typename TList> void put_Voxels(TList& lst) { ListOfIfcBooleanSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Voxels"); }
+        //TList may be ArrayOfIfcBoolean or list of converible elements
+        template <typename TList> void put_Voxels(TList& lst) { ArrayOfIfcBooleanSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Voxels"); }
 
         //TArrayElem[] may be IfcBoolean[] or array of convertible elements
-        template <typename TArrayElem> void put_Voxels(TArrayElem arr[], size_t n) { ListOfIfcBoolean lst; ArrayToList(arr, n, lst); put_Voxels(lst); }
+        template <typename TArrayElem> void put_Voxels(TArrayElem arr[], size_t n) { ArrayOfIfcBoolean lst; ArrayToList(arr, n, lst); put_Voxels(lst); }
     };
 
 
@@ -35051,32 +35339,10 @@ namespace IFC4x4
 
 
         /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcWaterStratum
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcWaterStratum : public virtual IfcGeotechnicalStratum
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcWaterStratum
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcWaterStratum(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcWaterStratum")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcWaterStratum and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcWaterStratum Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcWaterStratum"); assert(inst); return inst; }
-    };
-
-
-        /// <summary>
         /// Provides utility methods to interact with an instnace of IfcWellKnownText
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
-    class IfcWellKnownText : public virtual IfcGeometricRepresentationItem
+    class IfcWellKnownText : public virtual Entity
     {
     public:
         /// <summary>
@@ -35229,40 +35495,6 @@ namespace IFC4x4
 
         IfcShapeAspect get_ShapeAspectStyle();
         void put_ShapeAspectStyle(IfcShapeAspect inst);
-    };
-
-
-        /// <summary>
-        /// Provides utility methods to interact with an instnace of IfcWindowStyle
-        /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
-        /// </summary>
-    class IfcWindowStyle : public virtual IfcTypeProduct
-    {
-    public:
-        /// <summary>
-        /// Constructs object of this C++ class that wraps existing SdaiInstance of IfcWindowStyle
-        /// </summary>
-        /// <param name="instance">An instance to interact with</param>
-        IfcWindowStyle(SdaiInstance instance = NULL, TextValue entityName = NULL)
-            : Entity(instance, entityName ? entityName : "IfcWindowStyle")
-        {}
-
-                /// <summary>
-                /// Create new instace of IfcWindowStyle and returns object of this C++ class to interact with
-                /// </summary>
-        static IfcWindowStyle Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcWindowStyle"); assert(inst); return inst; }
-
-        Nullable<IfcWindowStyleConstructionEnum> get_ConstructionType() { int v = getENUM("ConstructionType", IfcWindowStyleConstructionEnum_); if (v >= 0) return (IfcWindowStyleConstructionEnum) v; else return Nullable<IfcWindowStyleConstructionEnum>(); }
-        void put_ConstructionType(IfcWindowStyleConstructionEnum value) { TextValue val = IfcWindowStyleConstructionEnum_[(int) value]; sdaiPutAttrBN(m_instance, "ConstructionType", sdaiENUM, val); }
-
-        Nullable<IfcWindowStyleOperationEnum> get_OperationType() { int v = getENUM("OperationType", IfcWindowStyleOperationEnum_); if (v >= 0) return (IfcWindowStyleOperationEnum) v; else return Nullable<IfcWindowStyleOperationEnum>(); }
-        void put_OperationType(IfcWindowStyleOperationEnum value) { TextValue val = IfcWindowStyleOperationEnum_[(int) value]; sdaiPutAttrBN(m_instance, "OperationType", sdaiENUM, val); }
-
-        Nullable<IfcBoolean> get_ParameterTakesPrecedence() { IfcBoolean val = (IfcBoolean) 0; if (sdaiGetAttrBN(m_instance, "ParameterTakesPrecedence", sdaiBOOLEAN, &val)) return val; else return Nullable<IfcBoolean>(); }
-        void put_ParameterTakesPrecedence(IfcBoolean value) { sdaiPutAttrBN(m_instance, "ParameterTakesPrecedence", sdaiBOOLEAN, &value); }
-
-        Nullable<IfcBoolean> get_Sizeable() { IfcBoolean val = (IfcBoolean) 0; if (sdaiGetAttrBN(m_instance, "Sizeable", sdaiBOOLEAN, &val)) return val; else return Nullable<IfcBoolean>(); }
-        void put_Sizeable(IfcBoolean value) { sdaiPutAttrBN(m_instance, "Sizeable", sdaiBOOLEAN, &value); }
     };
 
 
@@ -35461,11 +35693,11 @@ namespace IFC4x4
         IfcRecurrencePattern get_RecurrencePattern();
         void put_RecurrencePattern(IfcRecurrencePattern inst);
 
-        IfcDate get_Start() { IfcDate val = NULL; if (sdaiGetAttrBN(m_instance, "Start", sdaiSTRING, &val)) return val; else return NULL; }
-        void put_Start(IfcDate value) { sdaiPutAttrBN(m_instance, "Start", sdaiSTRING, value); }
+        IfcDate get_StartDate() { IfcDate val = NULL; if (sdaiGetAttrBN(m_instance, "StartDate", sdaiSTRING, &val)) return val; else return NULL; }
+        void put_StartDate(IfcDate value) { sdaiPutAttrBN(m_instance, "StartDate", sdaiSTRING, value); }
 
-        IfcDate get_Finish() { IfcDate val = NULL; if (sdaiGetAttrBN(m_instance, "Finish", sdaiSTRING, &val)) return val; else return NULL; }
-        void put_Finish(IfcDate value) { sdaiPutAttrBN(m_instance, "Finish", sdaiSTRING, value); }
+        IfcDate get_FinishDate() { IfcDate val = NULL; if (sdaiGetAttrBN(m_instance, "FinishDate", sdaiSTRING, &val)) return val; else return NULL; }
+        void put_FinishDate(IfcDate value) { sdaiPutAttrBN(m_instance, "FinishDate", sdaiSTRING, value); }
     };
 
 
@@ -36121,7 +36353,6 @@ namespace IFC4x4
     inline void IfcConversionBasedUnit::put_ConversionFactor(IfcMeasureWithUnit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ConversionFactor", sdaiINSTANCE, (void*) i); }
     inline IfcCoordinateReferenceSystem IfcCoordinateOperation::get_TargetCRS() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "TargetCRS", sdaiINSTANCE, &inst); return inst; }
     inline void IfcCoordinateOperation::put_TargetCRS(IfcCoordinateReferenceSystem inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "TargetCRS", sdaiINSTANCE, (void*) i); }
-    inline IfcWellKnownText IfcCoordinateReferenceSystem::get_HasWellKnowTextRepresentation() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "HasWellKnowTextRepresentation", sdaiINSTANCE, &inst); return inst; }
     inline IfcMonetaryUnit IfcCurrencyRelationship::get_RelatingMonetaryUnit() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "RelatingMonetaryUnit", sdaiINSTANCE, &inst); return inst; }
     inline void IfcCurrencyRelationship::put_RelatingMonetaryUnit(IfcMonetaryUnit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "RelatingMonetaryUnit", sdaiINSTANCE, (void*) i); }
     inline IfcMonetaryUnit IfcCurrencyRelationship::get_RelatedMonetaryUnit() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "RelatedMonetaryUnit", sdaiINSTANCE, &inst); return inst; }
@@ -36206,8 +36437,8 @@ namespace IFC4x4
     inline void IfcObjectPlacement::put_PlacementRelTo(IfcObjectPlacement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "PlacementRelTo", sdaiINSTANCE, (void*) i); }
     inline IfcVirtualGridIntersection IfcGridPlacement::get_PlacementLocation() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "PlacementLocation", sdaiINSTANCE, &inst); return inst; }
     inline void IfcGridPlacement::put_PlacementLocation(IfcVirtualGridIntersection inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "PlacementLocation", sdaiINSTANCE, (void*) i); }
-    inline IfcTessellatedFaceSet IfcIndexedColourMap::get_MappedTo() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "MappedTo", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcIndexedColourMap::put_MappedTo(IfcTessellatedFaceSet inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "MappedTo", sdaiINSTANCE, (void*) i); }
+    inline IfcTessellatedItem IfcIndexedColourMap::get_MappedTo() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "MappedTo", sdaiINSTANCE, &inst); return inst; }
+    inline void IfcIndexedColourMap::put_MappedTo(IfcTessellatedItem inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "MappedTo", sdaiINSTANCE, (void*) i); }
     inline IfcColourRgbList IfcIndexedColourMap::get_Colours() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Colours", sdaiINSTANCE, &inst); return inst; }
     inline void IfcIndexedColourMap::put_Colours(IfcColourRgbList inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Colours", sdaiINSTANCE, (void*) i); }
     inline IfcCartesianPointList IfcIndexedPolyCurve::get_Points() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Points", sdaiINSTANCE, &inst); return inst; }
@@ -36479,8 +36710,8 @@ namespace IFC4x4
     inline void IfcStructuralAnalysisModel::put_SharedPlacement(IfcObjectPlacement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "SharedPlacement", sdaiINSTANCE, (void*) i); }
     inline IfcBoundaryCondition IfcStructuralConnection::get_AppliedCondition() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "AppliedCondition", sdaiINSTANCE, &inst); return inst; }
     inline void IfcStructuralConnection::put_AppliedCondition(IfcBoundaryCondition inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "AppliedCondition", sdaiINSTANCE, (void*) i); }
-    inline IfcDirection IfcStructuralCurveConnection::get_Axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Axis", sdaiINSTANCE, &inst); return inst; }
-    inline void IfcStructuralCurveConnection::put_Axis(IfcDirection inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Axis", sdaiINSTANCE, (void*) i); }
+    inline IfcDirection IfcStructuralCurveConnection::get_AxisDirection() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "AxisDirection", sdaiINSTANCE, &inst); return inst; }
+    inline void IfcStructuralCurveConnection::put_AxisDirection(IfcDirection inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "AxisDirection", sdaiINSTANCE, (void*) i); }
     inline IfcDirection IfcStructuralCurveMember::get_Axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Axis", sdaiINSTANCE, &inst); return inst; }
     inline void IfcStructuralCurveMember::put_Axis(IfcDirection inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Axis", sdaiINSTANCE, (void*) i); }
     inline IfcAxis2Placement3D IfcStructuralPointConnection::get_ConditionCoordinateSystem() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ConditionCoordinateSystem", sdaiINSTANCE, &inst); return inst; }
@@ -36526,6 +36757,9 @@ namespace IFC4x4
     inline void IfcTextStyle::put_TextCharacterAppearance(IfcTextStyleForDefinedFont inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "TextCharacterAppearance", sdaiINSTANCE, (void*) i); }
     inline IfcTextStyleTextModel IfcTextStyle::get_TextStyle() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "TextStyle", sdaiINSTANCE, &inst); return inst; }
     inline void IfcTextStyle::put_TextStyle(IfcTextStyleTextModel inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "TextStyle", sdaiINSTANCE, (void*) i); }
+    inline IfcIndexedPolygonalFace IfcTextureCoordinateIndices::get_TexCoordsOf() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "TexCoordsOf", sdaiINSTANCE, &inst); return inst; }
+    inline void IfcTextureCoordinateIndices::put_TexCoordsOf(IfcIndexedPolygonalFace inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "TexCoordsOf", sdaiINSTANCE, (void*) i); }
+    inline IfcIndexedPolygonalTextureMap IfcTextureCoordinateIndices::get_ToTexMap() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ToTexMap", sdaiINSTANCE, &inst); return inst; }
     inline IfcFace IfcTextureMap::get_MappedTo() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "MappedTo", sdaiINSTANCE, &inst); return inst; }
     inline void IfcTextureMap::put_MappedTo(IfcFace inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "MappedTo", sdaiINSTANCE, (void*) i); }
     inline IfcCurve IfcTrimmedCurve::get_BasisCurve() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "BasisCurve", sdaiINSTANCE, &inst); return inst; }

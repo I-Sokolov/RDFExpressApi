@@ -185,6 +185,7 @@ enum class enum_validation_status : unsigned char
 //
 //		sdaiCreateModelBN                                       (http://rdf.bg/ifcdoc/CP64/sdaiCreateModelBN.html)
 //				SdaiRep					repository							IN
+//				const char				* fileName							IN
 //				const char				* schemaName						IN
 //
 //				SdaiModel				returns								OUT
@@ -195,7 +196,7 @@ enum class enum_validation_status : unsigned char
 //
 SdaiModel		DECL STDC	sdaiCreateModelBN(
 									SdaiRep					repository,
-									const char				* filePath,
+									const char				* fileName,
 									const char				* schemaName
 								);
 
@@ -207,12 +208,13 @@ SdaiModel		DECL STDC	sdaiCreateModelBN(
 //
 static	inline	SdaiModel	sdaiCreateModelBN(
 									SdaiRep					repository,
-									char					* filePath,
+									char					* fileName,
 									char					* schemaName
 								)
 {
 	return	sdaiCreateModelBN(
-					repository, filePath,
+					repository,
+					(const char*) fileName,
 					(const char*) schemaName
 				);
 }
@@ -224,6 +226,7 @@ static	inline	SdaiModel	sdaiCreateModelBN(
 //
 //		sdaiCreateModelBNUnicode                                (http://rdf.bg/ifcdoc/CP64/sdaiCreateModelBNUnicode.html)
 //				SdaiRep					repository							IN
+//				const wchar_t			* fileName							IN
 //				const wchar_t			* schemaName						IN
 //
 //				SdaiModel				returns								OUT
@@ -234,6 +237,7 @@ static	inline	SdaiModel	sdaiCreateModelBN(
 //
 SdaiModel		DECL STDC	sdaiCreateModelBNUnicode(
 									SdaiRep					repository,
+									const wchar_t			* fileName,
 									const wchar_t			* schemaName
 								);
 
@@ -245,11 +249,13 @@ SdaiModel		DECL STDC	sdaiCreateModelBNUnicode(
 //
 static	inline	SdaiModel	sdaiCreateModelBNUnicode(
 									SdaiRep					repository,
+									wchar_t					* fileName,
 									wchar_t					* schemaName
 								)
 {
 	return	sdaiCreateModelBNUnicode(
 					repository,
+					(const wchar_t*) fileName,
 					(const wchar_t*) schemaName
 				);
 }
@@ -1786,7 +1792,6 @@ SdaiAttr		DECL STDC	engiGetEntityAttributeByIndex(
 //				SdaiEntity				* domainEntity						IN / OUT
 //				SchemaAggr				* aggregationDescriptor				IN / OUT
 //				bool					* optional							IN / OUT
-//				bool					* unique							IN / OUT
 //
 //				void					returns
 //
@@ -1800,8 +1805,7 @@ void			DECL STDC	engiGetAttributeTraits(
 									enum_express_attr_type	* attrType,
 									SdaiEntity				* domainEntity,
 									SchemaAggr				* aggregationDescriptor,
-									bool					* optional,
-									bool					* unique
+									bool					* optional
 								);
 
 #ifdef __cplusplus
@@ -1818,8 +1822,7 @@ static	inline	void	engiGetAttributeTraits(
 								enum_express_attr_type	* attrType,
 								SdaiEntity				* domainEntity,
 								SchemaAggr				* aggregationDescriptor,
-								bool					* optional,
-								bool					* unique
+								bool					* optional
 							)
 {
 	return	engiGetAttributeTraits(
@@ -1830,8 +1833,7 @@ static	inline	void	engiGetAttributeTraits(
 					attrType,
 					domainEntity,
 					aggregationDescriptor,
-					optional,
-					unique
+					optional
 				);
 }
 
@@ -2171,59 +2173,6 @@ const char		DECL * STDC	sdaiGetADBTypePath(
 									const SdaiADB			ADB,
 									int_t					typeNameNumber
 								);
-
-//
-//		sdaiGetADBTypePathx                                     (http://rdf.bg/ifcdoc/CP64/sdaiGetADBTypePathx.html)
-//				const SdaiADB			ADB									IN
-//				int_t					typeNameNumber						IN
-//				const char				** path								IN / OUT
-//
-//				const char				* returns							OUT
-//
-//	This call is the same as sdaiGetADBTypePath, however can be used by porting to languages that have issues with returned char arrays.
-//
-const char		DECL * STDC	sdaiGetADBTypePathx(
-									const SdaiADB			ADB,
-									int_t					typeNameNumber,
-									const char				** path
-								);
-
-#ifdef __cplusplus
-	}
-#endif
-
-//
-//
-static	inline	const char	* sdaiGetADBTypePathx(
-									const SdaiADB			ADB,
-									int_t					typeNameNumber,
-									char					** path
-								)
-{
-	return	sdaiGetADBTypePathx(
-					ADB,
-					typeNameNumber,
-					(const char**) path
-				);
-}
-
-//
-//
-static	inline	const char	* sdaiGetADBTypePathx(
-									const SdaiADB			ADB,
-									int_t					typeNameNumber
-								)
-{
-	return	sdaiGetADBTypePathx(
-					ADB,
-					typeNameNumber,
-					(const char**) nullptr				//	path
-				);
-}
-
-#ifdef __cplusplus
-	extern "C" {
-#endif
 
 //
 //		sdaiGetADBValue                                         (http://rdf.bg/ifcdoc/CP64/sdaiGetADBValue.html)
@@ -2753,7 +2702,7 @@ static	inline	int_t	sdaiGetAttrBNUnicode(
 //				char					* returns							OUT
 //
 //	This function is a specific version of sdaiGetAttrBN(..), where the valueType is sdaiSTRING.
-//	This call can be usefull in case of specific programming languages that cannot map towards sdaiGetAttrBN(..) directly,
+//	This call can be useful in case of specific programming languages that cannot map towards sdaiGetAttrBN(..) directly,
 //	this function is useless for languages as C, C++, C#, JAVA, VB.NET, Delphi and similar as they are able to map sdaiGetAttrBN(..) directly.
 //
 //	Technically sdaiGetStringAttrBN will transform into the following call
@@ -2805,7 +2754,7 @@ static	inline	char	* sdaiGetStringAttrBN(
 //				SdaiInstance			returns								OUT
 //
 //	This function is a specific version of sdaiGetAttrBN(..), where the valueType is sdaiINSTANCE.
-//	This call can be usefull in case of specific programming languages that cannot map towards sdaiGetAttrBN(..) directly,
+//	This call can be useful in case of specific programming languages that cannot map towards sdaiGetAttrBN(..) directly,
 //	this function is useless for languages as C, C++, C#, JAVA, VB.NET, Delphi and similar as they are able to map sdaiGetAttrBN(..) directly.
 //
 //	Technically sdaiGetInstanceAttrBN will transform into the following call
@@ -2937,12 +2886,24 @@ static	inline	SdaiAttr	sdaiGetAttrDefinition(
 #endif
 
 //
+//		sdaiGetInstanceModel                                    (http://rdf.bg/ifcdoc/CP64/sdaiGetInstanceModel.html)
+//				SdaiInstance			instance							IN
+//
+//				SdaiModel				returns								OUT
+//
+//	Returns the model based on an instance.
+//
+SdaiModel		DECL STDC	sdaiGetInstanceModel(
+									SdaiInstance			instance
+								);
+
+//
 //		sdaiGetInstanceType                                     (http://rdf.bg/ifcdoc/CP64/sdaiGetInstanceType.html)
 //				SdaiInstance			instance							IN
 //
 //				SdaiEntity				returns								OUT
 //
-//	...
+//	Returns the entity based on an instance.
 //
 SdaiEntity		DECL STDC	sdaiGetInstanceType(
 									SdaiInstance			instance
@@ -3928,7 +3889,7 @@ static	inline	void	sdaiInsertByIndex(
 //	sdaiEXPRESSSTRING	 .			 .			 .			 .			 .			 .			Yes			 .			 .			 .
 //	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .			 .
 //	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes			 .
-//	sdaiADB				 .			 .			 . 			 . 			 . 			 . 			 . 			 .			 .			 .
+//	sdaiADB				 .			 .			 .			 .			 .			 .			 .			 .			 .			 .
 //
 SdaiADB			DECL STDC	sdaiCreateADB(
 									SdaiPrimitiveType		valueType,
@@ -3983,7 +3944,7 @@ SdaiAggr		DECL STDC	sdaiCreateAggr(
 //	This call creates an aggregation.
 //	The instance has to be present,
 //	the attributeName argument can be NULL (0) in case the aggregation is an nested aggregation for this specific instance,
-//	prefered use would be use of sdaiCreateNestedAggr in such a case.
+//	preferred use would be use of sdaiCreateNestedAggr in such a case.
 //
 //	Technically sdaiCreateAggrBN will transform into the following call
 //		(attributeName) ?
@@ -4652,7 +4613,14 @@ static	inline	SdaiInstance	sdaiCreateInstanceBNEI(
 //
 //				void					returns
 //
-//	...
+//	This call sets the segmentation for any curved part of an object in case it is defined by a circle, ellipse, nurbs etc.
+//
+//	If segmentationParts is set to 0 it will fallback on the default setting (i.e. 36),
+//	it makes sense to change the segmentation depending on the entity type that is visualized.
+//
+//	in case segmentationLength is non-zero, this is the maximum length (in file length unit definition) of a segment
+//	For example a slightly curved wall with large size will get much more precise segmentation as the segmentLength
+//	will force the segmentation for the wall to increase.
 //
 void			DECL STDC	setSegmentation(
 									SdaiModel				model,
@@ -4668,7 +4636,11 @@ void			DECL STDC	setSegmentation(
 //
 //				void					returns
 //
-//	...
+//	This returns the set values for segmentationParts and segmentationLength. Both attributes are optional.
+//	The values can be changed through the API call setSegmentation().
+//	The default values are
+//		segmentationParts  = 36
+//		segmentationLength = 0.
 //
 void			DECL STDC	getSegmentation(
 									SdaiModel				model,
@@ -4723,7 +4695,12 @@ int_t			DECL STDC	getEpsilon(
 //
 //				void					returns
 //
-//	...
+//	Please use the setSegmentation call, note it is now a call that is model dependent.
+//
+//	The circleSegments(circles, smallCircles) can be replaced with
+//		double	segmentationLength = 0.;
+//		getSegmentation(model, nullptr, &segmentationLength);
+//		setSegmentation(model, circles, segmentationLength);
 //
 void			DECL STDC	circleSegments(
 									int_t					circles,
@@ -4737,7 +4714,12 @@ void			DECL STDC	circleSegments(
 //
 //				void					returns
 //
-//	...
+//	Please use setSegmentation call
+//
+//	The call setMaximumSegmentationLength(model, length) can be replaced with
+//		int_t segmentationParts = 0;
+//		getSegmentation(model, &segmentationParts, nullptr);
+//		setSegmentation(model, segmentationParts, length);
 //
 void			DECL STDC	setMaximumSegmentationLength(
 									SdaiModel				model,
@@ -4745,7 +4727,7 @@ void			DECL STDC	setMaximumSegmentationLength(
 								);
 
 //
-//		getUnitConversionFactor                                 (http://rdf.bg/ifcdoc/CP64/getUnitConversionFactor.html)
+//		getProjectUnitConversionFactor                          (http://rdf.bg/ifcdoc/CP64/getProjectUnitConversionFactor.html)
 //				SdaiModel				model								IN
 //				const char				* unitType							IN
 //				const char				** unitPrefix						IN / OUT
@@ -4756,7 +4738,7 @@ void			DECL STDC	setMaximumSegmentationLength(
 //
 //	...
 //
-double			DECL STDC	getUnitConversionFactor(
+double			DECL STDC	getProjectUnitConversionFactor(
 									SdaiModel				model,
 									const char				* unitType,
 									const char				** unitPrefix,
@@ -4770,7 +4752,7 @@ double			DECL STDC	getUnitConversionFactor(
 
 //
 //
-static	inline	double	getUnitConversionFactor(
+static	inline	double	getProjectUnitConversionFactor(
 								SdaiModel				model,
 								char					* unitType,
 								char					** unitPrefix,
@@ -4778,9 +4760,52 @@ static	inline	double	getUnitConversionFactor(
 								char					** SIUnitName
 							)
 {
-	return	getUnitConversionFactor(
+	return	getProjectUnitConversionFactor(
 					model,
 					(const char*) unitType,
+					(const char**) unitPrefix,
+					(const char**) unitName,
+					(const char**) SIUnitName
+				);
+}
+
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
+//
+//		getUnitInstanceConversionFactor                         (http://rdf.bg/ifcdoc/CP64/getUnitInstanceConversionFactor.html)
+//				SdaiInstance			unitInstance						IN
+//				const char				** unitPrefix						IN / OUT
+//				const char				** unitName							IN / OUT
+//				const char				** SIUnitName						IN / OUT
+//
+//				double					returns								OUT
+//
+//	...
+//
+double			DECL STDC	getUnitInstanceConversionFactor(
+									SdaiInstance			unitInstance,
+									const char				** unitPrefix,
+									const char				** unitName,
+									const char				** SIUnitName
+								);
+
+#ifdef __cplusplus
+	}
+#endif
+
+//
+//
+static	inline	double	getUnitInstanceConversionFactor(
+								SdaiInstance			unitInstance,
+								char					** unitPrefix,
+								char					** unitName,
+								char					** SIUnitName
+							)
+{
+	return	getUnitInstanceConversionFactor(
+					unitInstance,
 					(const char**) unitPrefix,
 					(const char**) unitName,
 					(const char**) SIUnitName
@@ -4801,7 +4826,32 @@ static	inline	double	getUnitConversionFactor(
 //
 //				void					returns
 //
-//	...
+//	This call can be used to optimize Boundary Representation geometries
+//
+//		consistencyCheck
+//			bit0  (1)		merge elements in the vertex array are duplicated (epsilon used as distance)
+//			bit1  (2)		remove elements in the vertex array that are not referenced by elements in the index array (interpreted as SET if flags are defined)
+//			bit2  (4)		merge polygons placed in the same plane and sharing at least one edge
+//			bit3  (8)		merge polygons advanced (check of polygons have the opposite direction and are overlapping, but don't share points)
+//			bit4  (16)		check if faces are wrongly turned opposite from each other
+//			bit5  (32)		check if faces are inside-out
+//			bit6  (64)		check if faces result in solid, if not generate both sided faces
+//			bit7  (128)		invert direction of the faces / normal's
+//			bit8  (256)		export all faces as one conceptual face
+//			bit9  (512)		remove irrelevant intermediate points on lines
+//			bit10 (1024)	check and repair faces that are not defined in a perfect plane
+//
+//		fraction
+//			To compare adjacent faces, they will be defined as being part of the same conceptual face if the fraction
+//			value is larger then the dot product of the normal vector's of the individual faces.
+//
+//		epsilon
+//			This value is used to compare vertex elements, if vertex elements should be merged and the distance is smaller than this epsilon value
+//			then it will be defined as equal
+//
+//		maxVerticesSize
+//			if 0 this setting is applied to BoundaryRepresentation based geometries
+//			if larger than 0 it is applied to all BoundaryRepresentation based geometries with vertices size smaller or equal to the given number
 //
 void			DECL STDC	setBRepProperties(
 									SdaiModel				model,
@@ -4818,7 +4868,12 @@ void			DECL STDC	setBRepProperties(
 //
 //				void					returns
 //
-//	...
+//	This call forces cleaning of memory allocated.
+//	The following mode values are effected:
+//		0	non-cached geometry tree structures
+//		1	cached and non-cached geometry tree structures + resetting buffers for internally used Geometry Kernel instance
+//		3	cached and non-cached geometry tree structures
+//		4	clean memory allocated within a session for ADB structures and string values (including enumerations requested as wide char).
 //
 void			DECL STDC	cleanMemory(
 									SdaiModel				model,
@@ -4831,7 +4886,7 @@ void			DECL STDC	cleanMemory(
 //
 //				ExpressID				returns								OUT
 //
-//	...
+//	Returns the line STEP / Express ID of an instance
 //
 ExpressID		DECL STDC	internalGetP21Line(
 									SdaiInstance			instance
@@ -4844,7 +4899,7 @@ ExpressID		DECL STDC	internalGetP21Line(
 //
 //				SdaiInstance			returns								OUT
 //
-//	...
+//	Returns an instance based on the model and STEP / Express ID (even when the instance itself might be non-existant)
 //
 SdaiInstance	DECL STDC	internalForceInstanceFromP21Line(
 									SdaiModel				model,
@@ -4858,7 +4913,7 @@ SdaiInstance	DECL STDC	internalForceInstanceFromP21Line(
 //
 //				SdaiInstance			returns								OUT
 //
-//	...
+//	Returns an instance based on the model and STEP / Express ID
 //
 SdaiInstance	DECL STDC	internalGetInstanceFromP21Line(
 									SdaiModel				model,
@@ -5029,7 +5084,7 @@ static	inline	SdaiAggr	xxxxGetEntityAndSubTypesExtentBN(
 //
 //				SdaiAggr				returns								OUT
 //
-//	...
+//	This call returns an aggregation containing all instances.
 //
 SdaiAggr		DECL STDC	xxxxGetAllInstances(
 									SdaiModel				model
@@ -5041,7 +5096,9 @@ SdaiAggr		DECL STDC	xxxxGetAllInstances(
 //
 //				SdaiAggr				returns								OUT
 //
-//	...
+//	This call returns an aggregation containing all instances referencing the given instance.
+//
+//	note: this is independent from if there are inverse relations defining such an aggregation or parts of it.
 //
 SdaiAggr		DECL STDC	xxxxGetInstancesUsing(
 									SdaiInstance			instance
@@ -5139,7 +5196,7 @@ static	inline	const char	* xxxxGetAttrNameByIndex(
 //
 //				SdaiInstance			returns								OUT
 //
-//	This function interates over all available instances loaded in memory, it is the fastest way to find all instances.
+//	This function interate's over all available instances loaded in memory, it is the fastest way to find all instances.
 //	Argument entity and entityName are both optional and if non-zero are filled with respectively the entity handle and entity name as char array.
 //
 SdaiInstance	DECL STDC	iterateOverInstances(
@@ -5434,7 +5491,11 @@ int_t			DECL STDC	sdaiErrorQuery(
 //
 //				void					returns
 //
-//	...
+//	Returns a handle to the model within the Geometry Kernel.
+//
+//	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+//		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP model handle also,
+//		  however most correct would be to get and use the Geometry Kernel handle.
 //
 void			DECL STDC	owlGetModel(
 									SdaiModel				model,
@@ -5449,7 +5510,11 @@ void			DECL STDC	owlGetModel(
 //
 //				void					returns
 //
-//	...
+//	Returns a handle to the instance representing the head of design tree within the Geometry Kernel.
+//
+//	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+//		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP instance handle also,
+//		  however most correct would be to get and use the Geometry Kernel handle.
 //
 void			DECL STDC	owlGetInstance(
 									SdaiModel				model,
@@ -5481,7 +5546,12 @@ void			DECL STDC	owlMaterialInstance(
 //
 //				void					returns
 //
-//	...
+//	Returns a handle to the instance representing the head of design tree within the Geometry Kernel.
+//	If no design tree is created yet it will be created on-the-fly.
+//
+//	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+//		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP instance handle also,
+//		  however most correct would be to get and use the Geometry Kernel handle.
 //
 void			DECL STDC	owlBuildInstance(
 									SdaiModel				model,
@@ -5497,7 +5567,12 @@ void			DECL STDC	owlBuildInstance(
 //
 //				void					returns
 //
-//	...
+//	Returns a handle to the instance representing the head of design tree within the Geometry Kernel.
+//	If no design tree is created yet it will be created on-the-fly.
+//
+//	Note: the STEP Engine uses one or more models within the Geometry Kernel to generate design trees
+//		  within the Geometry Kernel. All Geometry Kernel calls can be called with the STEP instance handle also,
+//		  however most correct would be to get and use the Geometry Kernel handle.
 //
 void			DECL STDC	owlBuildInstanceInContext(
 									SdaiInstance			instanceBase,
@@ -5809,7 +5884,15 @@ int_t			DECL STDC	getInstanceReference(
 //
 //				int_t					returns								OUT
 //
-//	...
+//	This call allows certain constructs to complete implicitely already available data
+//	Specifically for IFC4.3 and higher calls using the instances of the following entities are supported:
+//		IfcAlignment	   => in case business logic is defined and not geometricaly representation is available yet
+//							  the geometrical representation will be constructed on the fly, i.e.
+//							  an IfcCompositeCurve with IfcCurveSegment instances for the horizontal alignment 
+//							  an IfcGradientCurve with IfcCurveSegment instances for the vertical alignment 
+//							  an IfcSegmentedReferenceCurve with IfcCurveSegment instances for the cant alignment
+//		IfcLinearPlacement => in case CartesianPosition is empty the internally calculated matrix will be
+//							  represented as an IfcAxis2Placement
 //
 int_t			DECL STDC	inferenceInstance(
 									SdaiInstance			instance
@@ -5948,6 +6031,59 @@ static	inline	SdaiAttr	engiGetEntityArgument(
 	return	engiGetEntityArgument(
 					entity,
 					(const char*) argumentName
+				);
+}
+
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
+//
+//		sdaiGetADBTypePathx                                     (http://rdf.bg/ifcdoc/CP64/sdaiGetADBTypePathx.html)
+//				const SdaiADB			ADB									IN
+//				int_t					typeNameNumber						IN
+//				const char				** path								IN / OUT
+//
+//				const char				* returns							OUT
+//
+//	This call is deprecated, please use call sdaiGetADBTypePath instead.
+//
+const char		DECL * STDC	sdaiGetADBTypePathx(
+									const SdaiADB			ADB,
+									int_t					typeNameNumber,
+									const char				** path
+								);
+
+#ifdef __cplusplus
+	}
+#endif
+
+//
+//
+static	inline	const char	* sdaiGetADBTypePathx(
+									const SdaiADB			ADB,
+									int_t					typeNameNumber,
+									char					** path
+								)
+{
+	return	sdaiGetADBTypePathx(
+					ADB,
+					typeNameNumber,
+					(const char**) path
+				);
+}
+
+//
+//
+static	inline	const char	* sdaiGetADBTypePathx(
+									const SdaiADB			ADB,
+									int_t					typeNameNumber
+								)
+{
+	return	sdaiGetADBTypePathx(
+					ADB,
+					typeNameNumber,
+					(const char**) nullptr				//	path
 				);
 }
 
@@ -6204,9 +6340,9 @@ int_t			DECL STDC	GetSPFFHeaderItemUnicode(
 //
 //				void					returns
 //
-//	Allows to set a timne limit in seconds, setting to 0 means no time limit.
+//	Allows to set a time limit in seconds, setting to 0 means no time limit.
 //	Allows to set a count limit, setting to 0 means no count limit.
-//	Allows to hide redundent issues.
+//	Allows to hide redundant issues.
 //
 //		bit 0:	(__NO_OF_ARGUMENTS)					number of arguments
 //		bit 1:	(__ARGUMENT_EXPRESS_TYPE)			argument value is correct entity, defined type or enumeration value
@@ -6242,9 +6378,9 @@ void			DECL STDC	validateSetOptions(
 //
 //				uint64_t				returns								OUT
 //
-//	Allows to get the timne limit in seconds, value 0 means no time limite, input can be left to NULL if not relevant.
+//	Allows to get the time limit in seconds, value 0 means no time limit, input can be left to NULL if not relevant.
 //	Allows to get the count limit, value 0 means no count limit, input can be left to NULL if not relevant.
-//	Allows to get hide redundent issues, input can be left to NULL if not relevant.
+//	Allows to get hide redundant issues, input can be left to NULL if not relevant.
 //	Return value is the issueTypes enabled according to the mask given.
 //
 //		bit 0:	(__NO_OF_ARGUMENTS)					number of arguments
@@ -6446,7 +6582,7 @@ ValidationIssueLevel	DECL STDC	validateGetAggrLevel(
 //
 //				const int_t				* returns							OUT
 //
-//	array of indecies for each aggregation lsize is aggrLevel
+//	array of indices for each aggregation size is aggrLevel
 //
 const int_t		DECL * STDC	validateGetAggrIndArray(
 									ValidationIssue			issue
@@ -6458,7 +6594,7 @@ const int_t		DECL * STDC	validateGetAggrIndArray(
 //
 //				int_t					returns								OUT
 //
-//	Returns the issue level (i.e. severaty of the issue) of the issue given as input
+//	Returns the issue level (i.e. severity of the issue) of the issue given as input
 //
 int_t			DECL STDC	validateGetIssueLevel(
 									ValidationIssue			issue
@@ -6627,7 +6763,7 @@ int_t			DECL STDC	getConceptualFaceEx(
 //
 //				void					returns
 //
-//	This call is deprecated, please use call ... .
+//	This call is deprecated, please use call owlBuildInstance.
 //
 void			DECL STDC	createGeometryConversion(
 									SdaiInstance			instance,
