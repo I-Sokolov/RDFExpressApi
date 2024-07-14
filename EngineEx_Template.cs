@@ -197,7 +197,7 @@ namespace NAMESPACE_NAME
                     }
                 else 
                     {
-                    return ifcengine.sdaiGetADBTypePathx(m_adb, 0);
+                    return ifcengine.sdaiGetADBTypePathx(adb, 0);
                     }
                 } 
             }
@@ -673,11 +673,13 @@ namespace NAMESPACE_NAME
         public long _stepID { get { return m_instance!=0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
         public string _entityName { get
                 {
-                var type = ifcengine.sdaiGetInstanceType(m_instance);
-                if (type != 0)
-                    return ifcengine.engiGetEntityName(type);
-                else
-                    return "-NULL TYPE-";
+                if (m_instance != 0)
+                    {
+                    var type = ifcengine.sdaiGetInstanceType(m_instance);
+                    if (type != 0)
+                        return ifcengine.engiGetEntityName(type);
+                    }
+                    return null;
                 } }
 
         //
