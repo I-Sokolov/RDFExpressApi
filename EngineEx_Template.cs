@@ -656,6 +656,7 @@ namespace NAMESPACE_NAME
 
         //
         public long _stepID { get { return ifcengine.internalGetP21Line(m_instance); } }
+        public string _entityName { get { return ifcengine.engiGetEntityName (ifcengine.sdaiGetInstanceType(m_instance)); } }
 
         //
         protected SdaiInstance m_instance = 0;
