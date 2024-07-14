@@ -655,6 +655,9 @@ namespace NAMESPACE_NAME
         public static Entity Create(SdaiModel model) { System.Diagnostics.Debug.Assert(false); return null; }
 
         //
+        public long _stepID { get { return ifcengine.internalGetP21Line(m_instance); } }
+
+        //
         protected SdaiInstance m_instance = 0;
 
         public Entity(SdaiInstance instance)
@@ -939,24 +942,29 @@ namespace NAMESPACE_NAME
 
         //## AttributeSimpleGet
         public BaseCType? get_ATTR_NAME() { return get_BaseCType("ATTR_NAME", ifcengine.sdaiTYPE);}
+        public BaseCType? _ATTR_NAME { get { return get_ATTR_NAME(); } }
         //## AttributeSimplePut
         public void put_ATTR_NAME(BaseCType value) { ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiTYPE, ref value); }
         //## AttributeTextGet
         public TextValue get_attr_NAME() { return get_string("ATTR_NAME", ifcengine.sdaiTYPE); }
+        public TextValue _attr_NAME { get { return get_attr_NAME(); } }
         //## AttributeTextPut
         public void put_ATTR_NAME(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiTYPE, value); }
         //## AttributeEntityGet
         public REF_ENTITY get_Attr_NAME() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, out inst); return new REF_ENTITY (inst); }
+        public REF_ENTITY _Attr_NAME { get { return get_Attr_NAME(); } }
         //## AttributeEntityPut
         public void put_Attr_NAME(REF_ENTITY inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, i); }
         //## AttributeEnumGet
         public ENUMERATION_NAME? get_ATtr_NAME() { var str = get_string("ATTR_NAME", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); }
+        public ENUMERATION_NAME? _ATtr_NAME { get { return get_ATtr_NAME(); } }
         //## AttributeEnumPut
         public void put_ATTR_NAME(ENUMERATION_NAME value) { var str = EnumString<ENUMERATION_NAME>.FromValue(value, EnumNames.ENUMERATION_VALUES_ARRAY); ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiENUM, str); }
         //## AttributeSelectAccessor        
         public GEN_TYPE_NAME_accessor getOrPut_ATTR_NAME() { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); }
         //## AttributeAggregationGet
         public AggregationType get_ATTr_NAME() { return (new AggregationTypeSerializer()).FromAttr(m_instance, "ATTR_NAME"); }
+        public AggregationType _ATTr_NAME { get { return get_ATTr_NAME(); } }
         //## AttributeAggregationPut
         public void put_ATTr_NAME(IEnumerable<SimpleType> lst) { (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, "ATTR_NAME"); }
         //public void put_ATTr_NAME_untyped(IEnumerable lst) { (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, "ATTR_NAME"); }
