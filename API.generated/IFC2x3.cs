@@ -177,6 +177,21 @@ namespace IFC2x3
             return path != null && path == typeName;
         }
 
+        public TextValue TypePath 
+            { get 
+                {
+                var adb = ADB();
+                if (adb == 0)
+                    {
+                    return null;
+                    }
+                else 
+                    {
+                    return ifcengine.sdaiGetADBTypePathx(adb, 0);
+                    }
+                } 
+            }
+
         //
         //
         protected IntValue? get_IntValue(TextValue typeName, IntValue sdaiType)
@@ -641,6 +656,19 @@ namespace IFC2x3
     public abstract class Entity : IEquatable<Entity>, IComparable, IComparable<Entity>
     {
         public static Entity Create(SdaiModel model) { System.Diagnostics.Debug.Assert(false); return null; }
+
+        //
+        public long _stepID { get { return m_instance!=0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
+        public string _entityName { get
+                {
+                if (m_instance != 0)
+                    {
+                    var type = ifcengine.sdaiGetInstanceType(m_instance);
+                    if (type != 0)
+                        return ifcengine.engiGetEntityName(type);
+                    }
+                    return null;
+                } }
 
         //
         protected SdaiInstance m_instance = 0;
@@ -2907,17 +2935,23 @@ namespace IFC2x3
 
 
         public bool is_IfcOrganization() { return IsADBEntity("IfcOrganization"); }
+        public bool _is_IfcOrganization { get { return is_IfcOrganization(); } }
         public IfcOrganization get_IfcOrganization() { return new IfcOrganization (getEntityInstance("IFCORGANIZATION")); }
+        public IfcOrganization _IfcOrganization { get { return get_IfcOrganization(); } }
         public void put_IfcOrganization(IfcOrganization inst) { putEntityInstance("IFCORGANIZATION", inst); }
 
         public bool is_IfcPerson() { return IsADBEntity("IfcPerson"); }
+        public bool _is_IfcPerson { get { return is_IfcPerson(); } }
         public IfcPerson get_IfcPerson() { return new IfcPerson (getEntityInstance("IFCPERSON")); }
+        public IfcPerson _IfcPerson { get { return get_IfcPerson(); } }
         public void put_IfcPerson(IfcPerson inst) { putEntityInstance("IFCPERSON", inst); }
 
         public bool is_IfcPersonAndOrganization() { return IsADBEntity("IfcPersonAndOrganization"); }
+        public bool _is_IfcPersonAndOrganization { get { return is_IfcPersonAndOrganization(); } }
         public IfcPersonAndOrganization get_IfcPersonAndOrganization() { return new IfcPersonAndOrganization (getEntityInstance("IFCPERSONANDORGANIZATION")); }
+        public IfcPersonAndOrganization _IfcPersonAndOrganization { get { return get_IfcPersonAndOrganization(); } }
         public void put_IfcPersonAndOrganization(IfcPersonAndOrganization inst) { putEntityInstance("IFCPERSONANDORGANIZATION", inst); }
-    };
+        };
 
 
     public class IfcActorSelect_get : Select
@@ -2942,14 +2976,20 @@ namespace IFC2x3
         public IfcActorSelect_get() : base(null) { }
 
         public bool is_IfcOrganization() { return IsADBEntity("IfcOrganization"); }
+        public bool _is_IfcOrganization { get { return is_IfcOrganization(); } }
         public IfcOrganization get_IfcOrganization() { return new IfcOrganization (getEntityInstance("IFCORGANIZATION")); }
+        public IfcOrganization _IfcOrganization { get { return get_IfcOrganization(); } }
         public bool is_IfcPerson() { return IsADBEntity("IfcPerson"); }
+        public bool _is_IfcPerson { get { return is_IfcPerson(); } }
         public IfcPerson get_IfcPerson() { return new IfcPerson (getEntityInstance("IFCPERSON")); }
+        public IfcPerson _IfcPerson { get { return get_IfcPerson(); } }
         public bool is_IfcPersonAndOrganization() { return IsADBEntity("IfcPersonAndOrganization"); }
+        public bool _is_IfcPersonAndOrganization { get { return is_IfcPersonAndOrganization(); } }
         public IfcPersonAndOrganization get_IfcPersonAndOrganization() { return new IfcPersonAndOrganization (getEntityInstance("IFCPERSONANDORGANIZATION")); }
+        public IfcPersonAndOrganization _IfcPersonAndOrganization { get { return get_IfcPersonAndOrganization(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcActorSelect_put : Select
@@ -2976,7 +3016,7 @@ namespace IFC2x3
         public void put_IfcOrganization(IfcOrganization inst) { putEntityInstance("IFCORGANIZATION", inst); }
         public void put_IfcPerson(IfcPerson inst) { putEntityInstance("IFCPERSON", inst); }
         public void put_IfcPersonAndOrganization(IfcPersonAndOrganization inst) { putEntityInstance("IFCPERSONANDORGANIZATION", inst); }
-    };
+        };
 
 
     public class IfcAppliedValueSelect : Select
@@ -3002,17 +3042,23 @@ namespace IFC2x3
 
 
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
+        //public bool _is_IfcRatioMeasure { get { return is_IfcRatioMeasure(); } }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRatioMeasure { get { return get_IfcRatioMeasure(); } }
         public void put_IfcRatioMeasure (double value) { put_double("IFCRATIOMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMeasureWithUnit() { return IsADBEntity("IfcMeasureWithUnit"); }
+        public bool _is_IfcMeasureWithUnit { get { return is_IfcMeasureWithUnit(); } }
         public IfcMeasureWithUnit get_IfcMeasureWithUnit() { return new IfcMeasureWithUnit (getEntityInstance("IFCMEASUREWITHUNIT")); }
+        public IfcMeasureWithUnit _IfcMeasureWithUnit { get { return get_IfcMeasureWithUnit(); } }
         public void put_IfcMeasureWithUnit(IfcMeasureWithUnit inst) { putEntityInstance("IFCMEASUREWITHUNIT", inst); }
 
         public bool is_IfcMonetaryMeasure() { return IsADBType("IFCMONETARYMEASURE"); }
+        //public bool _is_IfcMonetaryMeasure { get { return is_IfcMonetaryMeasure(); } }
         public double? get_IfcMonetaryMeasure() { return get_double("IFCMONETARYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMonetaryMeasure { get { return get_IfcMonetaryMeasure(); } }
         public void put_IfcMonetaryMeasure (double value) { put_double("IFCMONETARYMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcAppliedValueSelect_get : Select
@@ -3037,15 +3083,21 @@ namespace IFC2x3
         public IfcAppliedValueSelect_get() : base(null) { }
 
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
+        //public bool _is_IfcRatioMeasure { get { return is_IfcRatioMeasure(); } }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRatioMeasure { get { return get_IfcRatioMeasure(); } }
         public bool is_IfcMeasureWithUnit() { return IsADBEntity("IfcMeasureWithUnit"); }
+        public bool _is_IfcMeasureWithUnit { get { return is_IfcMeasureWithUnit(); } }
         public IfcMeasureWithUnit get_IfcMeasureWithUnit() { return new IfcMeasureWithUnit (getEntityInstance("IFCMEASUREWITHUNIT")); }
+        public IfcMeasureWithUnit _IfcMeasureWithUnit { get { return get_IfcMeasureWithUnit(); } }
         public bool is_IfcMonetaryMeasure() { return IsADBType("IFCMONETARYMEASURE"); }
+        //public bool _is_IfcMonetaryMeasure { get { return is_IfcMonetaryMeasure(); } }
         public double? get_IfcMonetaryMeasure() { return get_double("IFCMONETARYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMonetaryMeasure { get { return get_IfcMonetaryMeasure(); } }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcAppliedValueSelect_put : Select
@@ -3072,7 +3124,7 @@ namespace IFC2x3
         public void put_IfcRatioMeasure (double value) { put_double("IFCRATIOMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcMeasureWithUnit(IfcMeasureWithUnit inst) { putEntityInstance("IFCMEASUREWITHUNIT", inst); }
         public void put_IfcMonetaryMeasure (double value) { put_double("IFCMONETARYMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcAxis2Placement : Select
@@ -3098,13 +3150,17 @@ namespace IFC2x3
 
 
         public bool is_IfcAxis2Placement2D() { return IsADBEntity("IfcAxis2Placement2D"); }
+        public bool _is_IfcAxis2Placement2D { get { return is_IfcAxis2Placement2D(); } }
         public IfcAxis2Placement2D get_IfcAxis2Placement2D() { return new IfcAxis2Placement2D (getEntityInstance("IFCAXIS2PLACEMENT2D")); }
+        public IfcAxis2Placement2D _IfcAxis2Placement2D { get { return get_IfcAxis2Placement2D(); } }
         public void put_IfcAxis2Placement2D(IfcAxis2Placement2D inst) { putEntityInstance("IFCAXIS2PLACEMENT2D", inst); }
 
         public bool is_IfcAxis2Placement3D() { return IsADBEntity("IfcAxis2Placement3D"); }
+        public bool _is_IfcAxis2Placement3D { get { return is_IfcAxis2Placement3D(); } }
         public IfcAxis2Placement3D get_IfcAxis2Placement3D() { return new IfcAxis2Placement3D (getEntityInstance("IFCAXIS2PLACEMENT3D")); }
+        public IfcAxis2Placement3D _IfcAxis2Placement3D { get { return get_IfcAxis2Placement3D(); } }
         public void put_IfcAxis2Placement3D(IfcAxis2Placement3D inst) { putEntityInstance("IFCAXIS2PLACEMENT3D", inst); }
-    };
+        };
 
 
     public class IfcAxis2Placement_get : Select
@@ -3129,12 +3185,16 @@ namespace IFC2x3
         public IfcAxis2Placement_get() : base(null) { }
 
         public bool is_IfcAxis2Placement2D() { return IsADBEntity("IfcAxis2Placement2D"); }
+        public bool _is_IfcAxis2Placement2D { get { return is_IfcAxis2Placement2D(); } }
         public IfcAxis2Placement2D get_IfcAxis2Placement2D() { return new IfcAxis2Placement2D (getEntityInstance("IFCAXIS2PLACEMENT2D")); }
+        public IfcAxis2Placement2D _IfcAxis2Placement2D { get { return get_IfcAxis2Placement2D(); } }
         public bool is_IfcAxis2Placement3D() { return IsADBEntity("IfcAxis2Placement3D"); }
+        public bool _is_IfcAxis2Placement3D { get { return is_IfcAxis2Placement3D(); } }
         public IfcAxis2Placement3D get_IfcAxis2Placement3D() { return new IfcAxis2Placement3D (getEntityInstance("IFCAXIS2PLACEMENT3D")); }
+        public IfcAxis2Placement3D _IfcAxis2Placement3D { get { return get_IfcAxis2Placement3D(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcAxis2Placement_put : Select
@@ -3160,7 +3220,7 @@ namespace IFC2x3
 
         public void put_IfcAxis2Placement2D(IfcAxis2Placement2D inst) { putEntityInstance("IFCAXIS2PLACEMENT2D", inst); }
         public void put_IfcAxis2Placement3D(IfcAxis2Placement3D inst) { putEntityInstance("IFCAXIS2PLACEMENT3D", inst); }
-    };
+        };
 
 
     public class IfcBooleanOperand : Select
@@ -3186,21 +3246,29 @@ namespace IFC2x3
 
 
         public bool is_IfcSolidModel() { return IsADBEntity("IfcSolidModel"); }
+        public bool _is_IfcSolidModel { get { return is_IfcSolidModel(); } }
         public IfcSolidModel get_IfcSolidModel() { return new IfcSolidModel (getEntityInstance("IFCSOLIDMODEL")); }
+        public IfcSolidModel _IfcSolidModel { get { return get_IfcSolidModel(); } }
         public void put_IfcSolidModel(IfcSolidModel inst) { putEntityInstance("IFCSOLIDMODEL", inst); }
 
         public bool is_IfcHalfSpaceSolid() { return IsADBEntity("IfcHalfSpaceSolid"); }
+        public bool _is_IfcHalfSpaceSolid { get { return is_IfcHalfSpaceSolid(); } }
         public IfcHalfSpaceSolid get_IfcHalfSpaceSolid() { return new IfcHalfSpaceSolid (getEntityInstance("IFCHALFSPACESOLID")); }
+        public IfcHalfSpaceSolid _IfcHalfSpaceSolid { get { return get_IfcHalfSpaceSolid(); } }
         public void put_IfcHalfSpaceSolid(IfcHalfSpaceSolid inst) { putEntityInstance("IFCHALFSPACESOLID", inst); }
 
         public bool is_IfcBooleanResult() { return IsADBEntity("IfcBooleanResult"); }
+        public bool _is_IfcBooleanResult { get { return is_IfcBooleanResult(); } }
         public IfcBooleanResult get_IfcBooleanResult() { return new IfcBooleanResult (getEntityInstance("IFCBOOLEANRESULT")); }
+        public IfcBooleanResult _IfcBooleanResult { get { return get_IfcBooleanResult(); } }
         public void put_IfcBooleanResult(IfcBooleanResult inst) { putEntityInstance("IFCBOOLEANRESULT", inst); }
 
         public bool is_IfcCsgPrimitive3D() { return IsADBEntity("IfcCsgPrimitive3D"); }
+        public bool _is_IfcCsgPrimitive3D { get { return is_IfcCsgPrimitive3D(); } }
         public IfcCsgPrimitive3D get_IfcCsgPrimitive3D() { return new IfcCsgPrimitive3D (getEntityInstance("IFCCSGPRIMITIVE3D")); }
+        public IfcCsgPrimitive3D _IfcCsgPrimitive3D { get { return get_IfcCsgPrimitive3D(); } }
         public void put_IfcCsgPrimitive3D(IfcCsgPrimitive3D inst) { putEntityInstance("IFCCSGPRIMITIVE3D", inst); }
-    };
+        };
 
 
     public class IfcBooleanOperand_get : Select
@@ -3225,16 +3293,24 @@ namespace IFC2x3
         public IfcBooleanOperand_get() : base(null) { }
 
         public bool is_IfcSolidModel() { return IsADBEntity("IfcSolidModel"); }
+        public bool _is_IfcSolidModel { get { return is_IfcSolidModel(); } }
         public IfcSolidModel get_IfcSolidModel() { return new IfcSolidModel (getEntityInstance("IFCSOLIDMODEL")); }
+        public IfcSolidModel _IfcSolidModel { get { return get_IfcSolidModel(); } }
         public bool is_IfcHalfSpaceSolid() { return IsADBEntity("IfcHalfSpaceSolid"); }
+        public bool _is_IfcHalfSpaceSolid { get { return is_IfcHalfSpaceSolid(); } }
         public IfcHalfSpaceSolid get_IfcHalfSpaceSolid() { return new IfcHalfSpaceSolid (getEntityInstance("IFCHALFSPACESOLID")); }
+        public IfcHalfSpaceSolid _IfcHalfSpaceSolid { get { return get_IfcHalfSpaceSolid(); } }
         public bool is_IfcBooleanResult() { return IsADBEntity("IfcBooleanResult"); }
+        public bool _is_IfcBooleanResult { get { return is_IfcBooleanResult(); } }
         public IfcBooleanResult get_IfcBooleanResult() { return new IfcBooleanResult (getEntityInstance("IFCBOOLEANRESULT")); }
+        public IfcBooleanResult _IfcBooleanResult { get { return get_IfcBooleanResult(); } }
         public bool is_IfcCsgPrimitive3D() { return IsADBEntity("IfcCsgPrimitive3D"); }
+        public bool _is_IfcCsgPrimitive3D { get { return is_IfcCsgPrimitive3D(); } }
         public IfcCsgPrimitive3D get_IfcCsgPrimitive3D() { return new IfcCsgPrimitive3D (getEntityInstance("IFCCSGPRIMITIVE3D")); }
+        public IfcCsgPrimitive3D _IfcCsgPrimitive3D { get { return get_IfcCsgPrimitive3D(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcBooleanOperand_put : Select
@@ -3262,7 +3338,7 @@ namespace IFC2x3
         public void put_IfcHalfSpaceSolid(IfcHalfSpaceSolid inst) { putEntityInstance("IFCHALFSPACESOLID", inst); }
         public void put_IfcBooleanResult(IfcBooleanResult inst) { putEntityInstance("IFCBOOLEANRESULT", inst); }
         public void put_IfcCsgPrimitive3D(IfcCsgPrimitive3D inst) { putEntityInstance("IFCCSGPRIMITIVE3D", inst); }
-    };
+        };
 
 
     public class IfcCharacterStyleSelect : Select
@@ -3288,9 +3364,11 @@ namespace IFC2x3
 
 
         public bool is_IfcTextStyleForDefinedFont() { return IsADBEntity("IfcTextStyleForDefinedFont"); }
+        public bool _is_IfcTextStyleForDefinedFont { get { return is_IfcTextStyleForDefinedFont(); } }
         public IfcTextStyleForDefinedFont get_IfcTextStyleForDefinedFont() { return new IfcTextStyleForDefinedFont (getEntityInstance("IFCTEXTSTYLEFORDEFINEDFONT")); }
+        public IfcTextStyleForDefinedFont _IfcTextStyleForDefinedFont { get { return get_IfcTextStyleForDefinedFont(); } }
         public void put_IfcTextStyleForDefinedFont(IfcTextStyleForDefinedFont inst) { putEntityInstance("IFCTEXTSTYLEFORDEFINEDFONT", inst); }
-    };
+        };
 
 
     public class IfcCharacterStyleSelect_get : Select
@@ -3315,10 +3393,12 @@ namespace IFC2x3
         public IfcCharacterStyleSelect_get() : base(null) { }
 
         public bool is_IfcTextStyleForDefinedFont() { return IsADBEntity("IfcTextStyleForDefinedFont"); }
+        public bool _is_IfcTextStyleForDefinedFont { get { return is_IfcTextStyleForDefinedFont(); } }
         public IfcTextStyleForDefinedFont get_IfcTextStyleForDefinedFont() { return new IfcTextStyleForDefinedFont (getEntityInstance("IFCTEXTSTYLEFORDEFINEDFONT")); }
+        public IfcTextStyleForDefinedFont _IfcTextStyleForDefinedFont { get { return get_IfcTextStyleForDefinedFont(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcCharacterStyleSelect_put : Select
@@ -3343,7 +3423,7 @@ namespace IFC2x3
         public IfcCharacterStyleSelect_put() : base(null) { }
 
         public void put_IfcTextStyleForDefinedFont(IfcTextStyleForDefinedFont inst) { putEntityInstance("IFCTEXTSTYLEFORDEFINEDFONT", inst); }
-    };
+        };
 
 
     public class IfcClassificationNotationSelect : Select
@@ -3369,13 +3449,17 @@ namespace IFC2x3
 
 
         public bool is_IfcClassificationNotation() { return IsADBEntity("IfcClassificationNotation"); }
+        public bool _is_IfcClassificationNotation { get { return is_IfcClassificationNotation(); } }
         public IfcClassificationNotation get_IfcClassificationNotation() { return new IfcClassificationNotation (getEntityInstance("IFCCLASSIFICATIONNOTATION")); }
+        public IfcClassificationNotation _IfcClassificationNotation { get { return get_IfcClassificationNotation(); } }
         public void put_IfcClassificationNotation(IfcClassificationNotation inst) { putEntityInstance("IFCCLASSIFICATIONNOTATION", inst); }
 
         public bool is_IfcClassificationReference() { return IsADBEntity("IfcClassificationReference"); }
+        public bool _is_IfcClassificationReference { get { return is_IfcClassificationReference(); } }
         public IfcClassificationReference get_IfcClassificationReference() { return new IfcClassificationReference (getEntityInstance("IFCCLASSIFICATIONREFERENCE")); }
+        public IfcClassificationReference _IfcClassificationReference { get { return get_IfcClassificationReference(); } }
         public void put_IfcClassificationReference(IfcClassificationReference inst) { putEntityInstance("IFCCLASSIFICATIONREFERENCE", inst); }
-    };
+        };
 
 
     public class IfcClassificationNotationSelect_get : Select
@@ -3400,12 +3484,16 @@ namespace IFC2x3
         public IfcClassificationNotationSelect_get() : base(null) { }
 
         public bool is_IfcClassificationNotation() { return IsADBEntity("IfcClassificationNotation"); }
+        public bool _is_IfcClassificationNotation { get { return is_IfcClassificationNotation(); } }
         public IfcClassificationNotation get_IfcClassificationNotation() { return new IfcClassificationNotation (getEntityInstance("IFCCLASSIFICATIONNOTATION")); }
+        public IfcClassificationNotation _IfcClassificationNotation { get { return get_IfcClassificationNotation(); } }
         public bool is_IfcClassificationReference() { return IsADBEntity("IfcClassificationReference"); }
+        public bool _is_IfcClassificationReference { get { return is_IfcClassificationReference(); } }
         public IfcClassificationReference get_IfcClassificationReference() { return new IfcClassificationReference (getEntityInstance("IFCCLASSIFICATIONREFERENCE")); }
+        public IfcClassificationReference _IfcClassificationReference { get { return get_IfcClassificationReference(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcClassificationNotationSelect_put : Select
@@ -3431,7 +3519,7 @@ namespace IFC2x3
 
         public void put_IfcClassificationNotation(IfcClassificationNotation inst) { putEntityInstance("IFCCLASSIFICATIONNOTATION", inst); }
         public void put_IfcClassificationReference(IfcClassificationReference inst) { putEntityInstance("IFCCLASSIFICATIONREFERENCE", inst); }
-    };
+        };
 
 
     public class IfcColour : Select
@@ -3457,13 +3545,17 @@ namespace IFC2x3
 
 
         public bool is_IfcColourSpecification() { return IsADBEntity("IfcColourSpecification"); }
+        public bool _is_IfcColourSpecification { get { return is_IfcColourSpecification(); } }
         public IfcColourSpecification get_IfcColourSpecification() { return new IfcColourSpecification (getEntityInstance("IFCCOLOURSPECIFICATION")); }
+        public IfcColourSpecification _IfcColourSpecification { get { return get_IfcColourSpecification(); } }
         public void put_IfcColourSpecification(IfcColourSpecification inst) { putEntityInstance("IFCCOLOURSPECIFICATION", inst); }
 
         public bool is_IfcPreDefinedColour() { return IsADBEntity("IfcPreDefinedColour"); }
+        public bool _is_IfcPreDefinedColour { get { return is_IfcPreDefinedColour(); } }
         public IfcPreDefinedColour get_IfcPreDefinedColour() { return new IfcPreDefinedColour (getEntityInstance("IFCPREDEFINEDCOLOUR")); }
+        public IfcPreDefinedColour _IfcPreDefinedColour { get { return get_IfcPreDefinedColour(); } }
         public void put_IfcPreDefinedColour(IfcPreDefinedColour inst) { putEntityInstance("IFCPREDEFINEDCOLOUR", inst); }
-    };
+        };
 
 
     public class IfcColour_get : Select
@@ -3488,12 +3580,16 @@ namespace IFC2x3
         public IfcColour_get() : base(null) { }
 
         public bool is_IfcColourSpecification() { return IsADBEntity("IfcColourSpecification"); }
+        public bool _is_IfcColourSpecification { get { return is_IfcColourSpecification(); } }
         public IfcColourSpecification get_IfcColourSpecification() { return new IfcColourSpecification (getEntityInstance("IFCCOLOURSPECIFICATION")); }
+        public IfcColourSpecification _IfcColourSpecification { get { return get_IfcColourSpecification(); } }
         public bool is_IfcPreDefinedColour() { return IsADBEntity("IfcPreDefinedColour"); }
+        public bool _is_IfcPreDefinedColour { get { return is_IfcPreDefinedColour(); } }
         public IfcPreDefinedColour get_IfcPreDefinedColour() { return new IfcPreDefinedColour (getEntityInstance("IFCPREDEFINEDCOLOUR")); }
+        public IfcPreDefinedColour _IfcPreDefinedColour { get { return get_IfcPreDefinedColour(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcColour_put : Select
@@ -3519,7 +3615,7 @@ namespace IFC2x3
 
         public void put_IfcColourSpecification(IfcColourSpecification inst) { putEntityInstance("IFCCOLOURSPECIFICATION", inst); }
         public void put_IfcPreDefinedColour(IfcPreDefinedColour inst) { putEntityInstance("IFCPREDEFINEDCOLOUR", inst); }
-    };
+        };
 
 
     public class IfcColourOrFactor : Select
@@ -3545,13 +3641,17 @@ namespace IFC2x3
 
 
         public bool is_IfcColourRgb() { return IsADBEntity("IfcColourRgb"); }
+        public bool _is_IfcColourRgb { get { return is_IfcColourRgb(); } }
         public IfcColourRgb get_IfcColourRgb() { return new IfcColourRgb (getEntityInstance("IFCCOLOURRGB")); }
+        public IfcColourRgb _IfcColourRgb { get { return get_IfcColourRgb(); } }
         public void put_IfcColourRgb(IfcColourRgb inst) { putEntityInstance("IFCCOLOURRGB", inst); }
 
         public bool is_IfcNormalisedRatioMeasure() { return IsADBType("IFCNORMALISEDRATIOMEASURE"); }
+        //public bool _is_IfcNormalisedRatioMeasure { get { return is_IfcNormalisedRatioMeasure(); } }
         public double? get_IfcNormalisedRatioMeasure() { return get_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNormalisedRatioMeasure { get { return get_IfcNormalisedRatioMeasure(); } }
         public void put_IfcNormalisedRatioMeasure (double value) { put_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcColourOrFactor_get : Select
@@ -3576,13 +3676,17 @@ namespace IFC2x3
         public IfcColourOrFactor_get() : base(null) { }
 
         public bool is_IfcColourRgb() { return IsADBEntity("IfcColourRgb"); }
+        public bool _is_IfcColourRgb { get { return is_IfcColourRgb(); } }
         public IfcColourRgb get_IfcColourRgb() { return new IfcColourRgb (getEntityInstance("IFCCOLOURRGB")); }
+        public IfcColourRgb _IfcColourRgb { get { return get_IfcColourRgb(); } }
         public bool is_IfcNormalisedRatioMeasure() { return IsADBType("IFCNORMALISEDRATIOMEASURE"); }
+        //public bool _is_IfcNormalisedRatioMeasure { get { return is_IfcNormalisedRatioMeasure(); } }
         public double? get_IfcNormalisedRatioMeasure() { return get_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNormalisedRatioMeasure { get { return get_IfcNormalisedRatioMeasure(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcColourOrFactor_put : Select
@@ -3608,7 +3712,7 @@ namespace IFC2x3
 
         public void put_IfcColourRgb(IfcColourRgb inst) { putEntityInstance("IFCCOLOURRGB", inst); }
         public void put_IfcNormalisedRatioMeasure (double value) { put_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcConditionCriterionSelect : Select
@@ -3634,13 +3738,17 @@ namespace IFC2x3
 
 
         public bool is_IfcLabel() { return IsADBType("IFCLABEL"); }
+        public bool _isIfcLabel { get { return is_IfcLabel(); } }
         public TextValue get_IfcLabel() { return getTextValue("IFCLABEL", ifcengine.sdaiSTRING); }
+        public TextValue _IfcLabel { get { return get_IfcLabel(); } }
         public void put_IfcLabel(TextValue value) { putTextValue("IFCLABEL", ifcengine.sdaiSTRING, value); }
 
         public bool is_IfcMeasureWithUnit() { return IsADBEntity("IfcMeasureWithUnit"); }
+        public bool _is_IfcMeasureWithUnit { get { return is_IfcMeasureWithUnit(); } }
         public IfcMeasureWithUnit get_IfcMeasureWithUnit() { return new IfcMeasureWithUnit (getEntityInstance("IFCMEASUREWITHUNIT")); }
+        public IfcMeasureWithUnit _IfcMeasureWithUnit { get { return get_IfcMeasureWithUnit(); } }
         public void put_IfcMeasureWithUnit(IfcMeasureWithUnit inst) { putEntityInstance("IFCMEASUREWITHUNIT", inst); }
-    };
+        };
 
 
     public class IfcConditionCriterionSelect_get : Select
@@ -3665,13 +3773,17 @@ namespace IFC2x3
         public IfcConditionCriterionSelect_get() : base(null) { }
 
         public bool is_IfcLabel() { return IsADBType("IFCLABEL"); }
+        public bool _isIfcLabel { get { return is_IfcLabel(); } }
         public TextValue get_IfcLabel() { return getTextValue("IFCLABEL", ifcengine.sdaiSTRING); }
+        public TextValue _IfcLabel { get { return get_IfcLabel(); } }
         public bool is_IfcMeasureWithUnit() { return IsADBEntity("IfcMeasureWithUnit"); }
+        public bool _is_IfcMeasureWithUnit { get { return is_IfcMeasureWithUnit(); } }
         public IfcMeasureWithUnit get_IfcMeasureWithUnit() { return new IfcMeasureWithUnit (getEntityInstance("IFCMEASUREWITHUNIT")); }
+        public IfcMeasureWithUnit _IfcMeasureWithUnit { get { return get_IfcMeasureWithUnit(); } }
 
         public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcConditionCriterionSelect_put : Select
@@ -3697,7 +3809,7 @@ namespace IFC2x3
 
         public void put_IfcLabel(TextValue value) { putTextValue("IFCLABEL", ifcengine.sdaiSTRING, value); }
         public void put_IfcMeasureWithUnit(IfcMeasureWithUnit inst) { putEntityInstance("IFCMEASUREWITHUNIT", inst); }
-    };
+        };
 
 
     public class IfcCsgSelect : Select
@@ -3723,13 +3835,17 @@ namespace IFC2x3
 
 
         public bool is_IfcBooleanResult() { return IsADBEntity("IfcBooleanResult"); }
+        public bool _is_IfcBooleanResult { get { return is_IfcBooleanResult(); } }
         public IfcBooleanResult get_IfcBooleanResult() { return new IfcBooleanResult (getEntityInstance("IFCBOOLEANRESULT")); }
+        public IfcBooleanResult _IfcBooleanResult { get { return get_IfcBooleanResult(); } }
         public void put_IfcBooleanResult(IfcBooleanResult inst) { putEntityInstance("IFCBOOLEANRESULT", inst); }
 
         public bool is_IfcCsgPrimitive3D() { return IsADBEntity("IfcCsgPrimitive3D"); }
+        public bool _is_IfcCsgPrimitive3D { get { return is_IfcCsgPrimitive3D(); } }
         public IfcCsgPrimitive3D get_IfcCsgPrimitive3D() { return new IfcCsgPrimitive3D (getEntityInstance("IFCCSGPRIMITIVE3D")); }
+        public IfcCsgPrimitive3D _IfcCsgPrimitive3D { get { return get_IfcCsgPrimitive3D(); } }
         public void put_IfcCsgPrimitive3D(IfcCsgPrimitive3D inst) { putEntityInstance("IFCCSGPRIMITIVE3D", inst); }
-    };
+        };
 
 
     public class IfcCsgSelect_get : Select
@@ -3754,12 +3870,16 @@ namespace IFC2x3
         public IfcCsgSelect_get() : base(null) { }
 
         public bool is_IfcBooleanResult() { return IsADBEntity("IfcBooleanResult"); }
+        public bool _is_IfcBooleanResult { get { return is_IfcBooleanResult(); } }
         public IfcBooleanResult get_IfcBooleanResult() { return new IfcBooleanResult (getEntityInstance("IFCBOOLEANRESULT")); }
+        public IfcBooleanResult _IfcBooleanResult { get { return get_IfcBooleanResult(); } }
         public bool is_IfcCsgPrimitive3D() { return IsADBEntity("IfcCsgPrimitive3D"); }
+        public bool _is_IfcCsgPrimitive3D { get { return is_IfcCsgPrimitive3D(); } }
         public IfcCsgPrimitive3D get_IfcCsgPrimitive3D() { return new IfcCsgPrimitive3D (getEntityInstance("IFCCSGPRIMITIVE3D")); }
+        public IfcCsgPrimitive3D _IfcCsgPrimitive3D { get { return get_IfcCsgPrimitive3D(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcCsgSelect_put : Select
@@ -3785,7 +3905,7 @@ namespace IFC2x3
 
         public void put_IfcBooleanResult(IfcBooleanResult inst) { putEntityInstance("IFCBOOLEANRESULT", inst); }
         public void put_IfcCsgPrimitive3D(IfcCsgPrimitive3D inst) { putEntityInstance("IFCCSGPRIMITIVE3D", inst); }
-    };
+        };
 
 
     public class IfcCurveStyleFontSelect : Select
@@ -3811,13 +3931,17 @@ namespace IFC2x3
 
 
         public bool is_IfcPreDefinedCurveFont() { return IsADBEntity("IfcPreDefinedCurveFont"); }
+        public bool _is_IfcPreDefinedCurveFont { get { return is_IfcPreDefinedCurveFont(); } }
         public IfcPreDefinedCurveFont get_IfcPreDefinedCurveFont() { return new IfcPreDefinedCurveFont (getEntityInstance("IFCPREDEFINEDCURVEFONT")); }
+        public IfcPreDefinedCurveFont _IfcPreDefinedCurveFont { get { return get_IfcPreDefinedCurveFont(); } }
         public void put_IfcPreDefinedCurveFont(IfcPreDefinedCurveFont inst) { putEntityInstance("IFCPREDEFINEDCURVEFONT", inst); }
 
         public bool is_IfcCurveStyleFont() { return IsADBEntity("IfcCurveStyleFont"); }
+        public bool _is_IfcCurveStyleFont { get { return is_IfcCurveStyleFont(); } }
         public IfcCurveStyleFont get_IfcCurveStyleFont() { return new IfcCurveStyleFont (getEntityInstance("IFCCURVESTYLEFONT")); }
+        public IfcCurveStyleFont _IfcCurveStyleFont { get { return get_IfcCurveStyleFont(); } }
         public void put_IfcCurveStyleFont(IfcCurveStyleFont inst) { putEntityInstance("IFCCURVESTYLEFONT", inst); }
-    };
+        };
 
 
     public class IfcCurveStyleFontSelect_get : Select
@@ -3842,12 +3966,16 @@ namespace IFC2x3
         public IfcCurveStyleFontSelect_get() : base(null) { }
 
         public bool is_IfcPreDefinedCurveFont() { return IsADBEntity("IfcPreDefinedCurveFont"); }
+        public bool _is_IfcPreDefinedCurveFont { get { return is_IfcPreDefinedCurveFont(); } }
         public IfcPreDefinedCurveFont get_IfcPreDefinedCurveFont() { return new IfcPreDefinedCurveFont (getEntityInstance("IFCPREDEFINEDCURVEFONT")); }
+        public IfcPreDefinedCurveFont _IfcPreDefinedCurveFont { get { return get_IfcPreDefinedCurveFont(); } }
         public bool is_IfcCurveStyleFont() { return IsADBEntity("IfcCurveStyleFont"); }
+        public bool _is_IfcCurveStyleFont { get { return is_IfcCurveStyleFont(); } }
         public IfcCurveStyleFont get_IfcCurveStyleFont() { return new IfcCurveStyleFont (getEntityInstance("IFCCURVESTYLEFONT")); }
+        public IfcCurveStyleFont _IfcCurveStyleFont { get { return get_IfcCurveStyleFont(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcCurveStyleFontSelect_put : Select
@@ -3873,7 +4001,7 @@ namespace IFC2x3
 
         public void put_IfcPreDefinedCurveFont(IfcPreDefinedCurveFont inst) { putEntityInstance("IFCPREDEFINEDCURVEFONT", inst); }
         public void put_IfcCurveStyleFont(IfcCurveStyleFont inst) { putEntityInstance("IFCCURVESTYLEFONT", inst); }
-    };
+        };
 
 
     public class IfcCurveFontOrScaledCurveFontSelect : Select
@@ -3899,11 +4027,14 @@ namespace IFC2x3
 
 
         public IfcCurveStyleFontSelect _IfcCurveStyleFontSelect() { return new IfcCurveStyleFontSelect(this); }
+        public IfcCurveStyleFontSelect __IfcCurveStyleFontSelect { get { return _IfcCurveStyleFontSelect(); } }
 
         public bool is_IfcCurveStyleFontAndScaling() { return IsADBEntity("IfcCurveStyleFontAndScaling"); }
+        public bool _is_IfcCurveStyleFontAndScaling { get { return is_IfcCurveStyleFontAndScaling(); } }
         public IfcCurveStyleFontAndScaling get_IfcCurveStyleFontAndScaling() { return new IfcCurveStyleFontAndScaling (getEntityInstance("IFCCURVESTYLEFONTANDSCALING")); }
+        public IfcCurveStyleFontAndScaling _IfcCurveStyleFontAndScaling { get { return get_IfcCurveStyleFontAndScaling(); } }
         public void put_IfcCurveStyleFontAndScaling(IfcCurveStyleFontAndScaling inst) { putEntityInstance("IFCCURVESTYLEFONTANDSCALING", inst); }
-    };
+        };
 
 
     public class IfcCurveFontOrScaledCurveFontSelect_get : Select
@@ -3928,11 +4059,14 @@ namespace IFC2x3
         public IfcCurveFontOrScaledCurveFontSelect_get() : base(null) { }
 
         public IfcCurveStyleFontSelect_get get_IfcCurveStyleFontSelect() { return new IfcCurveStyleFontSelect_get(this); }
+        public IfcCurveStyleFontSelect_get __IfcCurveStyleFontSelect { get { return get_IfcCurveStyleFontSelect(); } }
         public bool is_IfcCurveStyleFontAndScaling() { return IsADBEntity("IfcCurveStyleFontAndScaling"); }
+        public bool _is_IfcCurveStyleFontAndScaling { get { return is_IfcCurveStyleFontAndScaling(); } }
         public IfcCurveStyleFontAndScaling get_IfcCurveStyleFontAndScaling() { return new IfcCurveStyleFontAndScaling (getEntityInstance("IFCCURVESTYLEFONTANDSCALING")); }
+        public IfcCurveStyleFontAndScaling _IfcCurveStyleFontAndScaling { get { return get_IfcCurveStyleFontAndScaling(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcCurveFontOrScaledCurveFontSelect_put : Select
@@ -3957,8 +4091,9 @@ namespace IFC2x3
         public IfcCurveFontOrScaledCurveFontSelect_put() : base(null) { }
 
         public IfcCurveStyleFontSelect_put put_IfcCurveStyleFontSelect() { return new IfcCurveStyleFontSelect_put(this); }
+        public IfcCurveStyleFontSelect_put __IfcCurveStyleFontSelect { get { return put_IfcCurveStyleFontSelect(); } }
         public void put_IfcCurveStyleFontAndScaling(IfcCurveStyleFontAndScaling inst) { putEntityInstance("IFCCURVESTYLEFONTANDSCALING", inst); }
-    };
+        };
 
 
     public class IfcCurveOrEdgeCurve : Select
@@ -3984,13 +4119,17 @@ namespace IFC2x3
 
 
         public bool is_IfcBoundedCurve() { return IsADBEntity("IfcBoundedCurve"); }
+        public bool _is_IfcBoundedCurve { get { return is_IfcBoundedCurve(); } }
         public IfcBoundedCurve get_IfcBoundedCurve() { return new IfcBoundedCurve (getEntityInstance("IFCBOUNDEDCURVE")); }
+        public IfcBoundedCurve _IfcBoundedCurve { get { return get_IfcBoundedCurve(); } }
         public void put_IfcBoundedCurve(IfcBoundedCurve inst) { putEntityInstance("IFCBOUNDEDCURVE", inst); }
 
         public bool is_IfcEdgeCurve() { return IsADBEntity("IfcEdgeCurve"); }
+        public bool _is_IfcEdgeCurve { get { return is_IfcEdgeCurve(); } }
         public IfcEdgeCurve get_IfcEdgeCurve() { return new IfcEdgeCurve (getEntityInstance("IFCEDGECURVE")); }
+        public IfcEdgeCurve _IfcEdgeCurve { get { return get_IfcEdgeCurve(); } }
         public void put_IfcEdgeCurve(IfcEdgeCurve inst) { putEntityInstance("IFCEDGECURVE", inst); }
-    };
+        };
 
 
     public class IfcCurveOrEdgeCurve_get : Select
@@ -4015,12 +4154,16 @@ namespace IFC2x3
         public IfcCurveOrEdgeCurve_get() : base(null) { }
 
         public bool is_IfcBoundedCurve() { return IsADBEntity("IfcBoundedCurve"); }
+        public bool _is_IfcBoundedCurve { get { return is_IfcBoundedCurve(); } }
         public IfcBoundedCurve get_IfcBoundedCurve() { return new IfcBoundedCurve (getEntityInstance("IFCBOUNDEDCURVE")); }
+        public IfcBoundedCurve _IfcBoundedCurve { get { return get_IfcBoundedCurve(); } }
         public bool is_IfcEdgeCurve() { return IsADBEntity("IfcEdgeCurve"); }
+        public bool _is_IfcEdgeCurve { get { return is_IfcEdgeCurve(); } }
         public IfcEdgeCurve get_IfcEdgeCurve() { return new IfcEdgeCurve (getEntityInstance("IFCEDGECURVE")); }
+        public IfcEdgeCurve _IfcEdgeCurve { get { return get_IfcEdgeCurve(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcCurveOrEdgeCurve_put : Select
@@ -4046,7 +4189,7 @@ namespace IFC2x3
 
         public void put_IfcBoundedCurve(IfcBoundedCurve inst) { putEntityInstance("IFCBOUNDEDCURVE", inst); }
         public void put_IfcEdgeCurve(IfcEdgeCurve inst) { putEntityInstance("IFCEDGECURVE", inst); }
-    };
+        };
 
 
     public class IfcDateTimeSelect : Select
@@ -4072,17 +4215,23 @@ namespace IFC2x3
 
 
         public bool is_IfcCalendarDate() { return IsADBEntity("IfcCalendarDate"); }
+        public bool _is_IfcCalendarDate { get { return is_IfcCalendarDate(); } }
         public IfcCalendarDate get_IfcCalendarDate() { return new IfcCalendarDate (getEntityInstance("IFCCALENDARDATE")); }
+        public IfcCalendarDate _IfcCalendarDate { get { return get_IfcCalendarDate(); } }
         public void put_IfcCalendarDate(IfcCalendarDate inst) { putEntityInstance("IFCCALENDARDATE", inst); }
 
         public bool is_IfcLocalTime() { return IsADBEntity("IfcLocalTime"); }
+        public bool _is_IfcLocalTime { get { return is_IfcLocalTime(); } }
         public IfcLocalTime get_IfcLocalTime() { return new IfcLocalTime (getEntityInstance("IFCLOCALTIME")); }
+        public IfcLocalTime _IfcLocalTime { get { return get_IfcLocalTime(); } }
         public void put_IfcLocalTime(IfcLocalTime inst) { putEntityInstance("IFCLOCALTIME", inst); }
 
         public bool is_IfcDateAndTime() { return IsADBEntity("IfcDateAndTime"); }
+        public bool _is_IfcDateAndTime { get { return is_IfcDateAndTime(); } }
         public IfcDateAndTime get_IfcDateAndTime() { return new IfcDateAndTime (getEntityInstance("IFCDATEANDTIME")); }
+        public IfcDateAndTime _IfcDateAndTime { get { return get_IfcDateAndTime(); } }
         public void put_IfcDateAndTime(IfcDateAndTime inst) { putEntityInstance("IFCDATEANDTIME", inst); }
-    };
+        };
 
 
     public class IfcDateTimeSelect_get : Select
@@ -4107,14 +4256,20 @@ namespace IFC2x3
         public IfcDateTimeSelect_get() : base(null) { }
 
         public bool is_IfcCalendarDate() { return IsADBEntity("IfcCalendarDate"); }
+        public bool _is_IfcCalendarDate { get { return is_IfcCalendarDate(); } }
         public IfcCalendarDate get_IfcCalendarDate() { return new IfcCalendarDate (getEntityInstance("IFCCALENDARDATE")); }
+        public IfcCalendarDate _IfcCalendarDate { get { return get_IfcCalendarDate(); } }
         public bool is_IfcLocalTime() { return IsADBEntity("IfcLocalTime"); }
+        public bool _is_IfcLocalTime { get { return is_IfcLocalTime(); } }
         public IfcLocalTime get_IfcLocalTime() { return new IfcLocalTime (getEntityInstance("IFCLOCALTIME")); }
+        public IfcLocalTime _IfcLocalTime { get { return get_IfcLocalTime(); } }
         public bool is_IfcDateAndTime() { return IsADBEntity("IfcDateAndTime"); }
+        public bool _is_IfcDateAndTime { get { return is_IfcDateAndTime(); } }
         public IfcDateAndTime get_IfcDateAndTime() { return new IfcDateAndTime (getEntityInstance("IFCDATEANDTIME")); }
+        public IfcDateAndTime _IfcDateAndTime { get { return get_IfcDateAndTime(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcDateTimeSelect_put : Select
@@ -4141,7 +4296,7 @@ namespace IFC2x3
         public void put_IfcCalendarDate(IfcCalendarDate inst) { putEntityInstance("IFCCALENDARDATE", inst); }
         public void put_IfcLocalTime(IfcLocalTime inst) { putEntityInstance("IFCLOCALTIME", inst); }
         public void put_IfcDateAndTime(IfcDateAndTime inst) { putEntityInstance("IFCDATEANDTIME", inst); }
-    };
+        };
 
 
     public class IfcDefinedSymbolSelect : Select
@@ -4167,13 +4322,17 @@ namespace IFC2x3
 
 
         public bool is_IfcPreDefinedSymbol() { return IsADBEntity("IfcPreDefinedSymbol"); }
+        public bool _is_IfcPreDefinedSymbol { get { return is_IfcPreDefinedSymbol(); } }
         public IfcPreDefinedSymbol get_IfcPreDefinedSymbol() { return new IfcPreDefinedSymbol (getEntityInstance("IFCPREDEFINEDSYMBOL")); }
+        public IfcPreDefinedSymbol _IfcPreDefinedSymbol { get { return get_IfcPreDefinedSymbol(); } }
         public void put_IfcPreDefinedSymbol(IfcPreDefinedSymbol inst) { putEntityInstance("IFCPREDEFINEDSYMBOL", inst); }
 
         public bool is_IfcExternallyDefinedSymbol() { return IsADBEntity("IfcExternallyDefinedSymbol"); }
+        public bool _is_IfcExternallyDefinedSymbol { get { return is_IfcExternallyDefinedSymbol(); } }
         public IfcExternallyDefinedSymbol get_IfcExternallyDefinedSymbol() { return new IfcExternallyDefinedSymbol (getEntityInstance("IFCEXTERNALLYDEFINEDSYMBOL")); }
+        public IfcExternallyDefinedSymbol _IfcExternallyDefinedSymbol { get { return get_IfcExternallyDefinedSymbol(); } }
         public void put_IfcExternallyDefinedSymbol(IfcExternallyDefinedSymbol inst) { putEntityInstance("IFCEXTERNALLYDEFINEDSYMBOL", inst); }
-    };
+        };
 
 
     public class IfcDefinedSymbolSelect_get : Select
@@ -4198,12 +4357,16 @@ namespace IFC2x3
         public IfcDefinedSymbolSelect_get() : base(null) { }
 
         public bool is_IfcPreDefinedSymbol() { return IsADBEntity("IfcPreDefinedSymbol"); }
+        public bool _is_IfcPreDefinedSymbol { get { return is_IfcPreDefinedSymbol(); } }
         public IfcPreDefinedSymbol get_IfcPreDefinedSymbol() { return new IfcPreDefinedSymbol (getEntityInstance("IFCPREDEFINEDSYMBOL")); }
+        public IfcPreDefinedSymbol _IfcPreDefinedSymbol { get { return get_IfcPreDefinedSymbol(); } }
         public bool is_IfcExternallyDefinedSymbol() { return IsADBEntity("IfcExternallyDefinedSymbol"); }
+        public bool _is_IfcExternallyDefinedSymbol { get { return is_IfcExternallyDefinedSymbol(); } }
         public IfcExternallyDefinedSymbol get_IfcExternallyDefinedSymbol() { return new IfcExternallyDefinedSymbol (getEntityInstance("IFCEXTERNALLYDEFINEDSYMBOL")); }
+        public IfcExternallyDefinedSymbol _IfcExternallyDefinedSymbol { get { return get_IfcExternallyDefinedSymbol(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcDefinedSymbolSelect_put : Select
@@ -4229,7 +4392,7 @@ namespace IFC2x3
 
         public void put_IfcPreDefinedSymbol(IfcPreDefinedSymbol inst) { putEntityInstance("IFCPREDEFINEDSYMBOL", inst); }
         public void put_IfcExternallyDefinedSymbol(IfcExternallyDefinedSymbol inst) { putEntityInstance("IFCEXTERNALLYDEFINEDSYMBOL", inst); }
-    };
+        };
 
 
     public class IfcDerivedMeasureValue : Select
@@ -4255,278 +4418,414 @@ namespace IFC2x3
 
 
         public bool is_IfcVolumetricFlowRateMeasure() { return IsADBType("IFCVOLUMETRICFLOWRATEMEASURE"); }
+        //public bool _is_IfcVolumetricFlowRateMeasure { get { return is_IfcVolumetricFlowRateMeasure(); } }
         public double? get_IfcVolumetricFlowRateMeasure() { return get_double("IFCVOLUMETRICFLOWRATEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcVolumetricFlowRateMeasure { get { return get_IfcVolumetricFlowRateMeasure(); } }
         public void put_IfcVolumetricFlowRateMeasure (double value) { put_double("IFCVOLUMETRICFLOWRATEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcTimeStamp() { return IsADBType("IFCTIMESTAMP"); }
+        //public bool _is_IfcTimeStamp { get { return is_IfcTimeStamp(); } }
         public IntValue? get_IfcTimeStamp() { return get_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER); }
+        public IntValue? _IfcTimeStamp { get { return get_IfcTimeStamp(); } }
         public void put_IfcTimeStamp (IntValue value) { put_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER, value); }
 
         public bool is_IfcThermalTransmittanceMeasure() { return IsADBType("IFCTHERMALTRANSMITTANCEMEASURE"); }
+        //public bool _is_IfcThermalTransmittanceMeasure { get { return is_IfcThermalTransmittanceMeasure(); } }
         public double? get_IfcThermalTransmittanceMeasure() { return get_double("IFCTHERMALTRANSMITTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalTransmittanceMeasure { get { return get_IfcThermalTransmittanceMeasure(); } }
         public void put_IfcThermalTransmittanceMeasure (double value) { put_double("IFCTHERMALTRANSMITTANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcThermalResistanceMeasure() { return IsADBType("IFCTHERMALRESISTANCEMEASURE"); }
+        //public bool _is_IfcThermalResistanceMeasure { get { return is_IfcThermalResistanceMeasure(); } }
         public double? get_IfcThermalResistanceMeasure() { return get_double("IFCTHERMALRESISTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalResistanceMeasure { get { return get_IfcThermalResistanceMeasure(); } }
         public void put_IfcThermalResistanceMeasure (double value) { put_double("IFCTHERMALRESISTANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcThermalAdmittanceMeasure() { return IsADBType("IFCTHERMALADMITTANCEMEASURE"); }
+        //public bool _is_IfcThermalAdmittanceMeasure { get { return is_IfcThermalAdmittanceMeasure(); } }
         public double? get_IfcThermalAdmittanceMeasure() { return get_double("IFCTHERMALADMITTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalAdmittanceMeasure { get { return get_IfcThermalAdmittanceMeasure(); } }
         public void put_IfcThermalAdmittanceMeasure (double value) { put_double("IFCTHERMALADMITTANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPressureMeasure() { return IsADBType("IFCPRESSUREMEASURE"); }
+        //public bool _is_IfcPressureMeasure { get { return is_IfcPressureMeasure(); } }
         public double? get_IfcPressureMeasure() { return get_double("IFCPRESSUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPressureMeasure { get { return get_IfcPressureMeasure(); } }
         public void put_IfcPressureMeasure (double value) { put_double("IFCPRESSUREMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPowerMeasure() { return IsADBType("IFCPOWERMEASURE"); }
+        //public bool _is_IfcPowerMeasure { get { return is_IfcPowerMeasure(); } }
         public double? get_IfcPowerMeasure() { return get_double("IFCPOWERMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPowerMeasure { get { return get_IfcPowerMeasure(); } }
         public void put_IfcPowerMeasure (double value) { put_double("IFCPOWERMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMassFlowRateMeasure() { return IsADBType("IFCMASSFLOWRATEMEASURE"); }
+        //public bool _is_IfcMassFlowRateMeasure { get { return is_IfcMassFlowRateMeasure(); } }
         public double? get_IfcMassFlowRateMeasure() { return get_double("IFCMASSFLOWRATEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassFlowRateMeasure { get { return get_IfcMassFlowRateMeasure(); } }
         public void put_IfcMassFlowRateMeasure (double value) { put_double("IFCMASSFLOWRATEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMassDensityMeasure() { return IsADBType("IFCMASSDENSITYMEASURE"); }
+        //public bool _is_IfcMassDensityMeasure { get { return is_IfcMassDensityMeasure(); } }
         public double? get_IfcMassDensityMeasure() { return get_double("IFCMASSDENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassDensityMeasure { get { return get_IfcMassDensityMeasure(); } }
         public void put_IfcMassDensityMeasure (double value) { put_double("IFCMASSDENSITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLinearVelocityMeasure() { return IsADBType("IFCLINEARVELOCITYMEASURE"); }
+        //public bool _is_IfcLinearVelocityMeasure { get { return is_IfcLinearVelocityMeasure(); } }
         public double? get_IfcLinearVelocityMeasure() { return get_double("IFCLINEARVELOCITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearVelocityMeasure { get { return get_IfcLinearVelocityMeasure(); } }
         public void put_IfcLinearVelocityMeasure (double value) { put_double("IFCLINEARVELOCITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcKinematicViscosityMeasure() { return IsADBType("IFCKINEMATICVISCOSITYMEASURE"); }
+        //public bool _is_IfcKinematicViscosityMeasure { get { return is_IfcKinematicViscosityMeasure(); } }
         public double? get_IfcKinematicViscosityMeasure() { return get_double("IFCKINEMATICVISCOSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcKinematicViscosityMeasure { get { return get_IfcKinematicViscosityMeasure(); } }
         public void put_IfcKinematicViscosityMeasure (double value) { put_double("IFCKINEMATICVISCOSITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcIntegerCountRateMeasure() { return IsADBType("IFCINTEGERCOUNTRATEMEASURE"); }
+        //public bool _is_IfcIntegerCountRateMeasure { get { return is_IfcIntegerCountRateMeasure(); } }
         public IntValue? get_IfcIntegerCountRateMeasure() { return get_IntValue("IFCINTEGERCOUNTRATEMEASURE", ifcengine.sdaiINTEGER); }
+        public IntValue? _IfcIntegerCountRateMeasure { get { return get_IfcIntegerCountRateMeasure(); } }
         public void put_IfcIntegerCountRateMeasure (IntValue value) { put_IntValue("IFCINTEGERCOUNTRATEMEASURE", ifcengine.sdaiINTEGER, value); }
 
         public bool is_IfcHeatFluxDensityMeasure() { return IsADBType("IFCHEATFLUXDENSITYMEASURE"); }
+        //public bool _is_IfcHeatFluxDensityMeasure { get { return is_IfcHeatFluxDensityMeasure(); } }
         public double? get_IfcHeatFluxDensityMeasure() { return get_double("IFCHEATFLUXDENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcHeatFluxDensityMeasure { get { return get_IfcHeatFluxDensityMeasure(); } }
         public void put_IfcHeatFluxDensityMeasure (double value) { put_double("IFCHEATFLUXDENSITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcFrequencyMeasure() { return IsADBType("IFCFREQUENCYMEASURE"); }
+        //public bool _is_IfcFrequencyMeasure { get { return is_IfcFrequencyMeasure(); } }
         public double? get_IfcFrequencyMeasure() { return get_double("IFCFREQUENCYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcFrequencyMeasure { get { return get_IfcFrequencyMeasure(); } }
         public void put_IfcFrequencyMeasure (double value) { put_double("IFCFREQUENCYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcEnergyMeasure() { return IsADBType("IFCENERGYMEASURE"); }
+        //public bool _is_IfcEnergyMeasure { get { return is_IfcEnergyMeasure(); } }
         public double? get_IfcEnergyMeasure() { return get_double("IFCENERGYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcEnergyMeasure { get { return get_IfcEnergyMeasure(); } }
         public void put_IfcEnergyMeasure (double value) { put_double("IFCENERGYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcElectricVoltageMeasure() { return IsADBType("IFCELECTRICVOLTAGEMEASURE"); }
+        //public bool _is_IfcElectricVoltageMeasure { get { return is_IfcElectricVoltageMeasure(); } }
         public double? get_IfcElectricVoltageMeasure() { return get_double("IFCELECTRICVOLTAGEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricVoltageMeasure { get { return get_IfcElectricVoltageMeasure(); } }
         public void put_IfcElectricVoltageMeasure (double value) { put_double("IFCELECTRICVOLTAGEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcDynamicViscosityMeasure() { return IsADBType("IFCDYNAMICVISCOSITYMEASURE"); }
+        //public bool _is_IfcDynamicViscosityMeasure { get { return is_IfcDynamicViscosityMeasure(); } }
         public double? get_IfcDynamicViscosityMeasure() { return get_double("IFCDYNAMICVISCOSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcDynamicViscosityMeasure { get { return get_IfcDynamicViscosityMeasure(); } }
         public void put_IfcDynamicViscosityMeasure (double value) { put_double("IFCDYNAMICVISCOSITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcCompoundPlaneAngleMeasure() { return IsADBType("IFCCOMPOUNDPLANEANGLEMEASURE"); }
+        public bool _is_IfcCompoundPlaneAngleMeasure { get { return is_IfcCompoundPlaneAngleMeasure(); } }
         public IfcCompoundPlaneAngleMeasure get_IfcCompoundPlaneAngleMeasure() { SdaiAggr aggr = getAggrValue("IFCCOMPOUNDPLANEANGLEMEASURE"); return (new IfcCompoundPlaneAngleMeasureSerializer()).FromSdaiAggr(m_instance, aggr); }
+        public IfcCompoundPlaneAngleMeasure _IfcCompoundPlaneAngleMeasure { get { return get_IfcCompoundPlaneAngleMeasure(); } }
         public void put_IfcCompoundPlaneAngleMeasure(IEnumerable<IntValue> lst) { SdaiAggr aggr = (new IfcCompoundPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("IFCCOMPOUNDPLANEANGLEMEASURE", aggr); }
         //public void put_IfcCompoundPlaneAngleMeasure(IEnumerable lst) { SdaiAggr aggr = (new IfcCompoundPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("IFCCOMPOUNDPLANEANGLEMEASURE", aggr); }
 
         public bool is_IfcAngularVelocityMeasure() { return IsADBType("IFCANGULARVELOCITYMEASURE"); }
+        //public bool _is_IfcAngularVelocityMeasure { get { return is_IfcAngularVelocityMeasure(); } }
         public double? get_IfcAngularVelocityMeasure() { return get_double("IFCANGULARVELOCITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAngularVelocityMeasure { get { return get_IfcAngularVelocityMeasure(); } }
         public void put_IfcAngularVelocityMeasure (double value) { put_double("IFCANGULARVELOCITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcThermalConductivityMeasure() { return IsADBType("IFCTHERMALCONDUCTIVITYMEASURE"); }
+        //public bool _is_IfcThermalConductivityMeasure { get { return is_IfcThermalConductivityMeasure(); } }
         public double? get_IfcThermalConductivityMeasure() { return get_double("IFCTHERMALCONDUCTIVITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalConductivityMeasure { get { return get_IfcThermalConductivityMeasure(); } }
         public void put_IfcThermalConductivityMeasure (double value) { put_double("IFCTHERMALCONDUCTIVITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMolecularWeightMeasure() { return IsADBType("IFCMOLECULARWEIGHTMEASURE"); }
+        //public bool _is_IfcMolecularWeightMeasure { get { return is_IfcMolecularWeightMeasure(); } }
         public double? get_IfcMolecularWeightMeasure() { return get_double("IFCMOLECULARWEIGHTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMolecularWeightMeasure { get { return get_IfcMolecularWeightMeasure(); } }
         public void put_IfcMolecularWeightMeasure (double value) { put_double("IFCMOLECULARWEIGHTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcVaporPermeabilityMeasure() { return IsADBType("IFCVAPORPERMEABILITYMEASURE"); }
+        //public bool _is_IfcVaporPermeabilityMeasure { get { return is_IfcVaporPermeabilityMeasure(); } }
         public double? get_IfcVaporPermeabilityMeasure() { return get_double("IFCVAPORPERMEABILITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcVaporPermeabilityMeasure { get { return get_IfcVaporPermeabilityMeasure(); } }
         public void put_IfcVaporPermeabilityMeasure (double value) { put_double("IFCVAPORPERMEABILITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMoistureDiffusivityMeasure() { return IsADBType("IFCMOISTUREDIFFUSIVITYMEASURE"); }
+        //public bool _is_IfcMoistureDiffusivityMeasure { get { return is_IfcMoistureDiffusivityMeasure(); } }
         public double? get_IfcMoistureDiffusivityMeasure() { return get_double("IFCMOISTUREDIFFUSIVITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMoistureDiffusivityMeasure { get { return get_IfcMoistureDiffusivityMeasure(); } }
         public void put_IfcMoistureDiffusivityMeasure (double value) { put_double("IFCMOISTUREDIFFUSIVITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcIsothermalMoistureCapacityMeasure() { return IsADBType("IFCISOTHERMALMOISTURECAPACITYMEASURE"); }
+        //public bool _is_IfcIsothermalMoistureCapacityMeasure { get { return is_IfcIsothermalMoistureCapacityMeasure(); } }
         public double? get_IfcIsothermalMoistureCapacityMeasure() { return get_double("IFCISOTHERMALMOISTURECAPACITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcIsothermalMoistureCapacityMeasure { get { return get_IfcIsothermalMoistureCapacityMeasure(); } }
         public void put_IfcIsothermalMoistureCapacityMeasure (double value) { put_double("IFCISOTHERMALMOISTURECAPACITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcSpecificHeatCapacityMeasure() { return IsADBType("IFCSPECIFICHEATCAPACITYMEASURE"); }
+        //public bool _is_IfcSpecificHeatCapacityMeasure { get { return is_IfcSpecificHeatCapacityMeasure(); } }
         public double? get_IfcSpecificHeatCapacityMeasure() { return get_double("IFCSPECIFICHEATCAPACITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSpecificHeatCapacityMeasure { get { return get_IfcSpecificHeatCapacityMeasure(); } }
         public void put_IfcSpecificHeatCapacityMeasure (double value) { put_double("IFCSPECIFICHEATCAPACITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMonetaryMeasure() { return IsADBType("IFCMONETARYMEASURE"); }
+        //public bool _is_IfcMonetaryMeasure { get { return is_IfcMonetaryMeasure(); } }
         public double? get_IfcMonetaryMeasure() { return get_double("IFCMONETARYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMonetaryMeasure { get { return get_IfcMonetaryMeasure(); } }
         public void put_IfcMonetaryMeasure (double value) { put_double("IFCMONETARYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMagneticFluxDensityMeasure() { return IsADBType("IFCMAGNETICFLUXDENSITYMEASURE"); }
+        //public bool _is_IfcMagneticFluxDensityMeasure { get { return is_IfcMagneticFluxDensityMeasure(); } }
         public double? get_IfcMagneticFluxDensityMeasure() { return get_double("IFCMAGNETICFLUXDENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMagneticFluxDensityMeasure { get { return get_IfcMagneticFluxDensityMeasure(); } }
         public void put_IfcMagneticFluxDensityMeasure (double value) { put_double("IFCMAGNETICFLUXDENSITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMagneticFluxMeasure() { return IsADBType("IFCMAGNETICFLUXMEASURE"); }
+        //public bool _is_IfcMagneticFluxMeasure { get { return is_IfcMagneticFluxMeasure(); } }
         public double? get_IfcMagneticFluxMeasure() { return get_double("IFCMAGNETICFLUXMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMagneticFluxMeasure { get { return get_IfcMagneticFluxMeasure(); } }
         public void put_IfcMagneticFluxMeasure (double value) { put_double("IFCMAGNETICFLUXMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLuminousFluxMeasure() { return IsADBType("IFCLUMINOUSFLUXMEASURE"); }
+        //public bool _is_IfcLuminousFluxMeasure { get { return is_IfcLuminousFluxMeasure(); } }
         public double? get_IfcLuminousFluxMeasure() { return get_double("IFCLUMINOUSFLUXMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLuminousFluxMeasure { get { return get_IfcLuminousFluxMeasure(); } }
         public void put_IfcLuminousFluxMeasure (double value) { put_double("IFCLUMINOUSFLUXMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcForceMeasure() { return IsADBType("IFCFORCEMEASURE"); }
+        //public bool _is_IfcForceMeasure { get { return is_IfcForceMeasure(); } }
         public double? get_IfcForceMeasure() { return get_double("IFCFORCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcForceMeasure { get { return get_IfcForceMeasure(); } }
         public void put_IfcForceMeasure (double value) { put_double("IFCFORCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcInductanceMeasure() { return IsADBType("IFCINDUCTANCEMEASURE"); }
+        //public bool _is_IfcInductanceMeasure { get { return is_IfcInductanceMeasure(); } }
         public double? get_IfcInductanceMeasure() { return get_double("IFCINDUCTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcInductanceMeasure { get { return get_IfcInductanceMeasure(); } }
         public void put_IfcInductanceMeasure (double value) { put_double("IFCINDUCTANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcIlluminanceMeasure() { return IsADBType("IFCILLUMINANCEMEASURE"); }
+        //public bool _is_IfcIlluminanceMeasure { get { return is_IfcIlluminanceMeasure(); } }
         public double? get_IfcIlluminanceMeasure() { return get_double("IFCILLUMINANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcIlluminanceMeasure { get { return get_IfcIlluminanceMeasure(); } }
         public void put_IfcIlluminanceMeasure (double value) { put_double("IFCILLUMINANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcElectricResistanceMeasure() { return IsADBType("IFCELECTRICRESISTANCEMEASURE"); }
+        //public bool _is_IfcElectricResistanceMeasure { get { return is_IfcElectricResistanceMeasure(); } }
         public double? get_IfcElectricResistanceMeasure() { return get_double("IFCELECTRICRESISTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricResistanceMeasure { get { return get_IfcElectricResistanceMeasure(); } }
         public void put_IfcElectricResistanceMeasure (double value) { put_double("IFCELECTRICRESISTANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcElectricConductanceMeasure() { return IsADBType("IFCELECTRICCONDUCTANCEMEASURE"); }
+        //public bool _is_IfcElectricConductanceMeasure { get { return is_IfcElectricConductanceMeasure(); } }
         public double? get_IfcElectricConductanceMeasure() { return get_double("IFCELECTRICCONDUCTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricConductanceMeasure { get { return get_IfcElectricConductanceMeasure(); } }
         public void put_IfcElectricConductanceMeasure (double value) { put_double("IFCELECTRICCONDUCTANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcElectricChargeMeasure() { return IsADBType("IFCELECTRICCHARGEMEASURE"); }
+        //public bool _is_IfcElectricChargeMeasure { get { return is_IfcElectricChargeMeasure(); } }
         public double? get_IfcElectricChargeMeasure() { return get_double("IFCELECTRICCHARGEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricChargeMeasure { get { return get_IfcElectricChargeMeasure(); } }
         public void put_IfcElectricChargeMeasure (double value) { put_double("IFCELECTRICCHARGEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcDoseEquivalentMeasure() { return IsADBType("IFCDOSEEQUIVALENTMEASURE"); }
+        //public bool _is_IfcDoseEquivalentMeasure { get { return is_IfcDoseEquivalentMeasure(); } }
         public double? get_IfcDoseEquivalentMeasure() { return get_double("IFCDOSEEQUIVALENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcDoseEquivalentMeasure { get { return get_IfcDoseEquivalentMeasure(); } }
         public void put_IfcDoseEquivalentMeasure (double value) { put_double("IFCDOSEEQUIVALENTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcElectricCapacitanceMeasure() { return IsADBType("IFCELECTRICCAPACITANCEMEASURE"); }
+        //public bool _is_IfcElectricCapacitanceMeasure { get { return is_IfcElectricCapacitanceMeasure(); } }
         public double? get_IfcElectricCapacitanceMeasure() { return get_double("IFCELECTRICCAPACITANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricCapacitanceMeasure { get { return get_IfcElectricCapacitanceMeasure(); } }
         public void put_IfcElectricCapacitanceMeasure (double value) { put_double("IFCELECTRICCAPACITANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcAbsorbedDoseMeasure() { return IsADBType("IFCABSORBEDDOSEMEASURE"); }
+        //public bool _is_IfcAbsorbedDoseMeasure { get { return is_IfcAbsorbedDoseMeasure(); } }
         public double? get_IfcAbsorbedDoseMeasure() { return get_double("IFCABSORBEDDOSEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAbsorbedDoseMeasure { get { return get_IfcAbsorbedDoseMeasure(); } }
         public void put_IfcAbsorbedDoseMeasure (double value) { put_double("IFCABSORBEDDOSEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcRadioActivityMeasure() { return IsADBType("IFCRADIOACTIVITYMEASURE"); }
+        //public bool _is_IfcRadioActivityMeasure { get { return is_IfcRadioActivityMeasure(); } }
         public double? get_IfcRadioActivityMeasure() { return get_double("IFCRADIOACTIVITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRadioActivityMeasure { get { return get_IfcRadioActivityMeasure(); } }
         public void put_IfcRadioActivityMeasure (double value) { put_double("IFCRADIOACTIVITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcRotationalFrequencyMeasure() { return IsADBType("IFCROTATIONALFREQUENCYMEASURE"); }
+        //public bool _is_IfcRotationalFrequencyMeasure { get { return is_IfcRotationalFrequencyMeasure(); } }
         public double? get_IfcRotationalFrequencyMeasure() { return get_double("IFCROTATIONALFREQUENCYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRotationalFrequencyMeasure { get { return get_IfcRotationalFrequencyMeasure(); } }
         public void put_IfcRotationalFrequencyMeasure (double value) { put_double("IFCROTATIONALFREQUENCYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcTorqueMeasure() { return IsADBType("IFCTORQUEMEASURE"); }
+        //public bool _is_IfcTorqueMeasure { get { return is_IfcTorqueMeasure(); } }
         public double? get_IfcTorqueMeasure() { return get_double("IFCTORQUEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcTorqueMeasure { get { return get_IfcTorqueMeasure(); } }
         public void put_IfcTorqueMeasure (double value) { put_double("IFCTORQUEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcAccelerationMeasure() { return IsADBType("IFCACCELERATIONMEASURE"); }
+        //public bool _is_IfcAccelerationMeasure { get { return is_IfcAccelerationMeasure(); } }
         public double? get_IfcAccelerationMeasure() { return get_double("IFCACCELERATIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAccelerationMeasure { get { return get_IfcAccelerationMeasure(); } }
         public void put_IfcAccelerationMeasure (double value) { put_double("IFCACCELERATIONMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLinearForceMeasure() { return IsADBType("IFCLINEARFORCEMEASURE"); }
+        //public bool _is_IfcLinearForceMeasure { get { return is_IfcLinearForceMeasure(); } }
         public double? get_IfcLinearForceMeasure() { return get_double("IFCLINEARFORCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearForceMeasure { get { return get_IfcLinearForceMeasure(); } }
         public void put_IfcLinearForceMeasure (double value) { put_double("IFCLINEARFORCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLinearStiffnessMeasure() { return IsADBType("IFCLINEARSTIFFNESSMEASURE"); }
+        //public bool _is_IfcLinearStiffnessMeasure { get { return is_IfcLinearStiffnessMeasure(); } }
         public double? get_IfcLinearStiffnessMeasure() { return get_double("IFCLINEARSTIFFNESSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearStiffnessMeasure { get { return get_IfcLinearStiffnessMeasure(); } }
         public void put_IfcLinearStiffnessMeasure (double value) { put_double("IFCLINEARSTIFFNESSMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcModulusOfSubgradeReactionMeasure() { return IsADBType("IFCMODULUSOFSUBGRADEREACTIONMEASURE"); }
+        //public bool _is_IfcModulusOfSubgradeReactionMeasure { get { return is_IfcModulusOfSubgradeReactionMeasure(); } }
         public double? get_IfcModulusOfSubgradeReactionMeasure() { return get_double("IFCMODULUSOFSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfSubgradeReactionMeasure { get { return get_IfcModulusOfSubgradeReactionMeasure(); } }
         public void put_IfcModulusOfSubgradeReactionMeasure (double value) { put_double("IFCMODULUSOFSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcModulusOfElasticityMeasure() { return IsADBType("IFCMODULUSOFELASTICITYMEASURE"); }
+        //public bool _is_IfcModulusOfElasticityMeasure { get { return is_IfcModulusOfElasticityMeasure(); } }
         public double? get_IfcModulusOfElasticityMeasure() { return get_double("IFCMODULUSOFELASTICITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfElasticityMeasure { get { return get_IfcModulusOfElasticityMeasure(); } }
         public void put_IfcModulusOfElasticityMeasure (double value) { put_double("IFCMODULUSOFELASTICITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMomentOfInertiaMeasure() { return IsADBType("IFCMOMENTOFINERTIAMEASURE"); }
+        //public bool _is_IfcMomentOfInertiaMeasure { get { return is_IfcMomentOfInertiaMeasure(); } }
         public double? get_IfcMomentOfInertiaMeasure() { return get_double("IFCMOMENTOFINERTIAMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMomentOfInertiaMeasure { get { return get_IfcMomentOfInertiaMeasure(); } }
         public void put_IfcMomentOfInertiaMeasure (double value) { put_double("IFCMOMENTOFINERTIAMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPlanarForceMeasure() { return IsADBType("IFCPLANARFORCEMEASURE"); }
+        //public bool _is_IfcPlanarForceMeasure { get { return is_IfcPlanarForceMeasure(); } }
         public double? get_IfcPlanarForceMeasure() { return get_double("IFCPLANARFORCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPlanarForceMeasure { get { return get_IfcPlanarForceMeasure(); } }
         public void put_IfcPlanarForceMeasure (double value) { put_double("IFCPLANARFORCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcRotationalStiffnessMeasure() { return IsADBType("IFCROTATIONALSTIFFNESSMEASURE"); }
+        //public bool _is_IfcRotationalStiffnessMeasure { get { return is_IfcRotationalStiffnessMeasure(); } }
         public double? get_IfcRotationalStiffnessMeasure() { return get_double("IFCROTATIONALSTIFFNESSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRotationalStiffnessMeasure { get { return get_IfcRotationalStiffnessMeasure(); } }
         public void put_IfcRotationalStiffnessMeasure (double value) { put_double("IFCROTATIONALSTIFFNESSMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcShearModulusMeasure() { return IsADBType("IFCSHEARMODULUSMEASURE"); }
+        //public bool _is_IfcShearModulusMeasure { get { return is_IfcShearModulusMeasure(); } }
         public double? get_IfcShearModulusMeasure() { return get_double("IFCSHEARMODULUSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcShearModulusMeasure { get { return get_IfcShearModulusMeasure(); } }
         public void put_IfcShearModulusMeasure (double value) { put_double("IFCSHEARMODULUSMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLinearMomentMeasure() { return IsADBType("IFCLINEARMOMENTMEASURE"); }
+        //public bool _is_IfcLinearMomentMeasure { get { return is_IfcLinearMomentMeasure(); } }
         public double? get_IfcLinearMomentMeasure() { return get_double("IFCLINEARMOMENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearMomentMeasure { get { return get_IfcLinearMomentMeasure(); } }
         public void put_IfcLinearMomentMeasure (double value) { put_double("IFCLINEARMOMENTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLuminousIntensityDistributionMeasure() { return IsADBType("IFCLUMINOUSINTENSITYDISTRIBUTIONMEASURE"); }
+        //public bool _is_IfcLuminousIntensityDistributionMeasure { get { return is_IfcLuminousIntensityDistributionMeasure(); } }
         public double? get_IfcLuminousIntensityDistributionMeasure() { return get_double("IFCLUMINOUSINTENSITYDISTRIBUTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLuminousIntensityDistributionMeasure { get { return get_IfcLuminousIntensityDistributionMeasure(); } }
         public void put_IfcLuminousIntensityDistributionMeasure (double value) { put_double("IFCLUMINOUSINTENSITYDISTRIBUTIONMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcCurvatureMeasure() { return IsADBType("IFCCURVATUREMEASURE"); }
+        //public bool _is_IfcCurvatureMeasure { get { return is_IfcCurvatureMeasure(); } }
         public double? get_IfcCurvatureMeasure() { return get_double("IFCCURVATUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcCurvatureMeasure { get { return get_IfcCurvatureMeasure(); } }
         public void put_IfcCurvatureMeasure (double value) { put_double("IFCCURVATUREMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMassPerLengthMeasure() { return IsADBType("IFCMASSPERLENGTHMEASURE"); }
+        //public bool _is_IfcMassPerLengthMeasure { get { return is_IfcMassPerLengthMeasure(); } }
         public double? get_IfcMassPerLengthMeasure() { return get_double("IFCMASSPERLENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassPerLengthMeasure { get { return get_IfcMassPerLengthMeasure(); } }
         public void put_IfcMassPerLengthMeasure (double value) { put_double("IFCMASSPERLENGTHMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcModulusOfLinearSubgradeReactionMeasure() { return IsADBType("IFCMODULUSOFLINEARSUBGRADEREACTIONMEASURE"); }
+        //public bool _is_IfcModulusOfLinearSubgradeReactionMeasure { get { return is_IfcModulusOfLinearSubgradeReactionMeasure(); } }
         public double? get_IfcModulusOfLinearSubgradeReactionMeasure() { return get_double("IFCMODULUSOFLINEARSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfLinearSubgradeReactionMeasure { get { return get_IfcModulusOfLinearSubgradeReactionMeasure(); } }
         public void put_IfcModulusOfLinearSubgradeReactionMeasure (double value) { put_double("IFCMODULUSOFLINEARSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcModulusOfRotationalSubgradeReactionMeasure() { return IsADBType("IFCMODULUSOFROTATIONALSUBGRADEREACTIONMEASURE"); }
+        //public bool _is_IfcModulusOfRotationalSubgradeReactionMeasure { get { return is_IfcModulusOfRotationalSubgradeReactionMeasure(); } }
         public double? get_IfcModulusOfRotationalSubgradeReactionMeasure() { return get_double("IFCMODULUSOFROTATIONALSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfRotationalSubgradeReactionMeasure { get { return get_IfcModulusOfRotationalSubgradeReactionMeasure(); } }
         public void put_IfcModulusOfRotationalSubgradeReactionMeasure (double value) { put_double("IFCMODULUSOFROTATIONALSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcRotationalMassMeasure() { return IsADBType("IFCROTATIONALMASSMEASURE"); }
+        //public bool _is_IfcRotationalMassMeasure { get { return is_IfcRotationalMassMeasure(); } }
         public double? get_IfcRotationalMassMeasure() { return get_double("IFCROTATIONALMASSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRotationalMassMeasure { get { return get_IfcRotationalMassMeasure(); } }
         public void put_IfcRotationalMassMeasure (double value) { put_double("IFCROTATIONALMASSMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcSectionalAreaIntegralMeasure() { return IsADBType("IFCSECTIONALAREAINTEGRALMEASURE"); }
+        //public bool _is_IfcSectionalAreaIntegralMeasure { get { return is_IfcSectionalAreaIntegralMeasure(); } }
         public double? get_IfcSectionalAreaIntegralMeasure() { return get_double("IFCSECTIONALAREAINTEGRALMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSectionalAreaIntegralMeasure { get { return get_IfcSectionalAreaIntegralMeasure(); } }
         public void put_IfcSectionalAreaIntegralMeasure (double value) { put_double("IFCSECTIONALAREAINTEGRALMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcSectionModulusMeasure() { return IsADBType("IFCSECTIONMODULUSMEASURE"); }
+        //public bool _is_IfcSectionModulusMeasure { get { return is_IfcSectionModulusMeasure(); } }
         public double? get_IfcSectionModulusMeasure() { return get_double("IFCSECTIONMODULUSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSectionModulusMeasure { get { return get_IfcSectionModulusMeasure(); } }
         public void put_IfcSectionModulusMeasure (double value) { put_double("IFCSECTIONMODULUSMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcTemperatureGradientMeasure() { return IsADBType("IFCTEMPERATUREGRADIENTMEASURE"); }
+        //public bool _is_IfcTemperatureGradientMeasure { get { return is_IfcTemperatureGradientMeasure(); } }
         public double? get_IfcTemperatureGradientMeasure() { return get_double("IFCTEMPERATUREGRADIENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcTemperatureGradientMeasure { get { return get_IfcTemperatureGradientMeasure(); } }
         public void put_IfcTemperatureGradientMeasure (double value) { put_double("IFCTEMPERATUREGRADIENTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcThermalExpansionCoefficientMeasure() { return IsADBType("IFCTHERMALEXPANSIONCOEFFICIENTMEASURE"); }
+        //public bool _is_IfcThermalExpansionCoefficientMeasure { get { return is_IfcThermalExpansionCoefficientMeasure(); } }
         public double? get_IfcThermalExpansionCoefficientMeasure() { return get_double("IFCTHERMALEXPANSIONCOEFFICIENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalExpansionCoefficientMeasure { get { return get_IfcThermalExpansionCoefficientMeasure(); } }
         public void put_IfcThermalExpansionCoefficientMeasure (double value) { put_double("IFCTHERMALEXPANSIONCOEFFICIENTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcWarpingConstantMeasure() { return IsADBType("IFCWARPINGCONSTANTMEASURE"); }
+        //public bool _is_IfcWarpingConstantMeasure { get { return is_IfcWarpingConstantMeasure(); } }
         public double? get_IfcWarpingConstantMeasure() { return get_double("IFCWARPINGCONSTANTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcWarpingConstantMeasure { get { return get_IfcWarpingConstantMeasure(); } }
         public void put_IfcWarpingConstantMeasure (double value) { put_double("IFCWARPINGCONSTANTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcWarpingMomentMeasure() { return IsADBType("IFCWARPINGMOMENTMEASURE"); }
+        //public bool _is_IfcWarpingMomentMeasure { get { return is_IfcWarpingMomentMeasure(); } }
         public double? get_IfcWarpingMomentMeasure() { return get_double("IFCWARPINGMOMENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcWarpingMomentMeasure { get { return get_IfcWarpingMomentMeasure(); } }
         public void put_IfcWarpingMomentMeasure (double value) { put_double("IFCWARPINGMOMENTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcSoundPowerMeasure() { return IsADBType("IFCSOUNDPOWERMEASURE"); }
+        //public bool _is_IfcSoundPowerMeasure { get { return is_IfcSoundPowerMeasure(); } }
         public double? get_IfcSoundPowerMeasure() { return get_double("IFCSOUNDPOWERMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSoundPowerMeasure { get { return get_IfcSoundPowerMeasure(); } }
         public void put_IfcSoundPowerMeasure (double value) { put_double("IFCSOUNDPOWERMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcSoundPressureMeasure() { return IsADBType("IFCSOUNDPRESSUREMEASURE"); }
+        //public bool _is_IfcSoundPressureMeasure { get { return is_IfcSoundPressureMeasure(); } }
         public double? get_IfcSoundPressureMeasure() { return get_double("IFCSOUNDPRESSUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSoundPressureMeasure { get { return get_IfcSoundPressureMeasure(); } }
         public void put_IfcSoundPressureMeasure (double value) { put_double("IFCSOUNDPRESSUREMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcHeatingValueMeasure() { return IsADBType("IFCHEATINGVALUEMEASURE"); }
+        //public bool _is_IfcHeatingValueMeasure { get { return is_IfcHeatingValueMeasure(); } }
         public double? get_IfcHeatingValueMeasure() { return get_double("IFCHEATINGVALUEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcHeatingValueMeasure { get { return get_IfcHeatingValueMeasure(); } }
         public void put_IfcHeatingValueMeasure (double value) { put_double("IFCHEATINGVALUEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPHMeasure() { return IsADBType("IFCPHMEASURE"); }
+        //public bool _is_IfcPHMeasure { get { return is_IfcPHMeasure(); } }
         public double? get_IfcPHMeasure() { return get_double("IFCPHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPHMeasure { get { return get_IfcPHMeasure(); } }
         public void put_IfcPHMeasure (double value) { put_double("IFCPHMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcIonConcentrationMeasure() { return IsADBType("IFCIONCONCENTRATIONMEASURE"); }
+        //public bool _is_IfcIonConcentrationMeasure { get { return is_IfcIonConcentrationMeasure(); } }
         public double? get_IfcIonConcentrationMeasure() { return get_double("IFCIONCONCENTRATIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcIonConcentrationMeasure { get { return get_IfcIonConcentrationMeasure(); } }
         public void put_IfcIonConcentrationMeasure (double value) { put_double("IFCIONCONCENTRATIONMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcDerivedMeasureValue_get : Select
@@ -4551,145 +4850,281 @@ namespace IFC2x3
         public IfcDerivedMeasureValue_get() : base(null) { }
 
         public bool is_IfcVolumetricFlowRateMeasure() { return IsADBType("IFCVOLUMETRICFLOWRATEMEASURE"); }
+        //public bool _is_IfcVolumetricFlowRateMeasure { get { return is_IfcVolumetricFlowRateMeasure(); } }
         public double? get_IfcVolumetricFlowRateMeasure() { return get_double("IFCVOLUMETRICFLOWRATEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcVolumetricFlowRateMeasure { get { return get_IfcVolumetricFlowRateMeasure(); } }
         public bool is_IfcTimeStamp() { return IsADBType("IFCTIMESTAMP"); }
+        //public bool _is_IfcTimeStamp { get { return is_IfcTimeStamp(); } }
         public IntValue? get_IfcTimeStamp() { return get_IntValue("IFCTIMESTAMP", ifcengine.sdaiINTEGER); }
+        public IntValue? _IfcTimeStamp { get { return get_IfcTimeStamp(); } }
         public bool is_IfcThermalTransmittanceMeasure() { return IsADBType("IFCTHERMALTRANSMITTANCEMEASURE"); }
+        //public bool _is_IfcThermalTransmittanceMeasure { get { return is_IfcThermalTransmittanceMeasure(); } }
         public double? get_IfcThermalTransmittanceMeasure() { return get_double("IFCTHERMALTRANSMITTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalTransmittanceMeasure { get { return get_IfcThermalTransmittanceMeasure(); } }
         public bool is_IfcThermalResistanceMeasure() { return IsADBType("IFCTHERMALRESISTANCEMEASURE"); }
+        //public bool _is_IfcThermalResistanceMeasure { get { return is_IfcThermalResistanceMeasure(); } }
         public double? get_IfcThermalResistanceMeasure() { return get_double("IFCTHERMALRESISTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalResistanceMeasure { get { return get_IfcThermalResistanceMeasure(); } }
         public bool is_IfcThermalAdmittanceMeasure() { return IsADBType("IFCTHERMALADMITTANCEMEASURE"); }
+        //public bool _is_IfcThermalAdmittanceMeasure { get { return is_IfcThermalAdmittanceMeasure(); } }
         public double? get_IfcThermalAdmittanceMeasure() { return get_double("IFCTHERMALADMITTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalAdmittanceMeasure { get { return get_IfcThermalAdmittanceMeasure(); } }
         public bool is_IfcPressureMeasure() { return IsADBType("IFCPRESSUREMEASURE"); }
+        //public bool _is_IfcPressureMeasure { get { return is_IfcPressureMeasure(); } }
         public double? get_IfcPressureMeasure() { return get_double("IFCPRESSUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPressureMeasure { get { return get_IfcPressureMeasure(); } }
         public bool is_IfcPowerMeasure() { return IsADBType("IFCPOWERMEASURE"); }
+        //public bool _is_IfcPowerMeasure { get { return is_IfcPowerMeasure(); } }
         public double? get_IfcPowerMeasure() { return get_double("IFCPOWERMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPowerMeasure { get { return get_IfcPowerMeasure(); } }
         public bool is_IfcMassFlowRateMeasure() { return IsADBType("IFCMASSFLOWRATEMEASURE"); }
+        //public bool _is_IfcMassFlowRateMeasure { get { return is_IfcMassFlowRateMeasure(); } }
         public double? get_IfcMassFlowRateMeasure() { return get_double("IFCMASSFLOWRATEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassFlowRateMeasure { get { return get_IfcMassFlowRateMeasure(); } }
         public bool is_IfcMassDensityMeasure() { return IsADBType("IFCMASSDENSITYMEASURE"); }
+        //public bool _is_IfcMassDensityMeasure { get { return is_IfcMassDensityMeasure(); } }
         public double? get_IfcMassDensityMeasure() { return get_double("IFCMASSDENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassDensityMeasure { get { return get_IfcMassDensityMeasure(); } }
         public bool is_IfcLinearVelocityMeasure() { return IsADBType("IFCLINEARVELOCITYMEASURE"); }
+        //public bool _is_IfcLinearVelocityMeasure { get { return is_IfcLinearVelocityMeasure(); } }
         public double? get_IfcLinearVelocityMeasure() { return get_double("IFCLINEARVELOCITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearVelocityMeasure { get { return get_IfcLinearVelocityMeasure(); } }
         public bool is_IfcKinematicViscosityMeasure() { return IsADBType("IFCKINEMATICVISCOSITYMEASURE"); }
+        //public bool _is_IfcKinematicViscosityMeasure { get { return is_IfcKinematicViscosityMeasure(); } }
         public double? get_IfcKinematicViscosityMeasure() { return get_double("IFCKINEMATICVISCOSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcKinematicViscosityMeasure { get { return get_IfcKinematicViscosityMeasure(); } }
         public bool is_IfcIntegerCountRateMeasure() { return IsADBType("IFCINTEGERCOUNTRATEMEASURE"); }
+        //public bool _is_IfcIntegerCountRateMeasure { get { return is_IfcIntegerCountRateMeasure(); } }
         public IntValue? get_IfcIntegerCountRateMeasure() { return get_IntValue("IFCINTEGERCOUNTRATEMEASURE", ifcengine.sdaiINTEGER); }
+        public IntValue? _IfcIntegerCountRateMeasure { get { return get_IfcIntegerCountRateMeasure(); } }
         public bool is_IfcHeatFluxDensityMeasure() { return IsADBType("IFCHEATFLUXDENSITYMEASURE"); }
+        //public bool _is_IfcHeatFluxDensityMeasure { get { return is_IfcHeatFluxDensityMeasure(); } }
         public double? get_IfcHeatFluxDensityMeasure() { return get_double("IFCHEATFLUXDENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcHeatFluxDensityMeasure { get { return get_IfcHeatFluxDensityMeasure(); } }
         public bool is_IfcFrequencyMeasure() { return IsADBType("IFCFREQUENCYMEASURE"); }
+        //public bool _is_IfcFrequencyMeasure { get { return is_IfcFrequencyMeasure(); } }
         public double? get_IfcFrequencyMeasure() { return get_double("IFCFREQUENCYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcFrequencyMeasure { get { return get_IfcFrequencyMeasure(); } }
         public bool is_IfcEnergyMeasure() { return IsADBType("IFCENERGYMEASURE"); }
+        //public bool _is_IfcEnergyMeasure { get { return is_IfcEnergyMeasure(); } }
         public double? get_IfcEnergyMeasure() { return get_double("IFCENERGYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcEnergyMeasure { get { return get_IfcEnergyMeasure(); } }
         public bool is_IfcElectricVoltageMeasure() { return IsADBType("IFCELECTRICVOLTAGEMEASURE"); }
+        //public bool _is_IfcElectricVoltageMeasure { get { return is_IfcElectricVoltageMeasure(); } }
         public double? get_IfcElectricVoltageMeasure() { return get_double("IFCELECTRICVOLTAGEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricVoltageMeasure { get { return get_IfcElectricVoltageMeasure(); } }
         public bool is_IfcDynamicViscosityMeasure() { return IsADBType("IFCDYNAMICVISCOSITYMEASURE"); }
+        //public bool _is_IfcDynamicViscosityMeasure { get { return is_IfcDynamicViscosityMeasure(); } }
         public double? get_IfcDynamicViscosityMeasure() { return get_double("IFCDYNAMICVISCOSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcDynamicViscosityMeasure { get { return get_IfcDynamicViscosityMeasure(); } }
         public bool is_IfcCompoundPlaneAngleMeasure() { return IsADBType("IFCCOMPOUNDPLANEANGLEMEASURE"); }
+        public bool _is_IfcCompoundPlaneAngleMeasure { get { return is_IfcCompoundPlaneAngleMeasure(); } }
         public IfcCompoundPlaneAngleMeasure get_IfcCompoundPlaneAngleMeasure() { SdaiAggr aggr = getAggrValue("IFCCOMPOUNDPLANEANGLEMEASURE"); return (new IfcCompoundPlaneAngleMeasureSerializer()).FromSdaiAggr(m_instance, aggr); }
+        public IfcCompoundPlaneAngleMeasure _IfcCompoundPlaneAngleMeasure { get { return get_IfcCompoundPlaneAngleMeasure(); } }
         public bool is_IfcAngularVelocityMeasure() { return IsADBType("IFCANGULARVELOCITYMEASURE"); }
+        //public bool _is_IfcAngularVelocityMeasure { get { return is_IfcAngularVelocityMeasure(); } }
         public double? get_IfcAngularVelocityMeasure() { return get_double("IFCANGULARVELOCITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAngularVelocityMeasure { get { return get_IfcAngularVelocityMeasure(); } }
         public bool is_IfcThermalConductivityMeasure() { return IsADBType("IFCTHERMALCONDUCTIVITYMEASURE"); }
+        //public bool _is_IfcThermalConductivityMeasure { get { return is_IfcThermalConductivityMeasure(); } }
         public double? get_IfcThermalConductivityMeasure() { return get_double("IFCTHERMALCONDUCTIVITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalConductivityMeasure { get { return get_IfcThermalConductivityMeasure(); } }
         public bool is_IfcMolecularWeightMeasure() { return IsADBType("IFCMOLECULARWEIGHTMEASURE"); }
+        //public bool _is_IfcMolecularWeightMeasure { get { return is_IfcMolecularWeightMeasure(); } }
         public double? get_IfcMolecularWeightMeasure() { return get_double("IFCMOLECULARWEIGHTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMolecularWeightMeasure { get { return get_IfcMolecularWeightMeasure(); } }
         public bool is_IfcVaporPermeabilityMeasure() { return IsADBType("IFCVAPORPERMEABILITYMEASURE"); }
+        //public bool _is_IfcVaporPermeabilityMeasure { get { return is_IfcVaporPermeabilityMeasure(); } }
         public double? get_IfcVaporPermeabilityMeasure() { return get_double("IFCVAPORPERMEABILITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcVaporPermeabilityMeasure { get { return get_IfcVaporPermeabilityMeasure(); } }
         public bool is_IfcMoistureDiffusivityMeasure() { return IsADBType("IFCMOISTUREDIFFUSIVITYMEASURE"); }
+        //public bool _is_IfcMoistureDiffusivityMeasure { get { return is_IfcMoistureDiffusivityMeasure(); } }
         public double? get_IfcMoistureDiffusivityMeasure() { return get_double("IFCMOISTUREDIFFUSIVITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMoistureDiffusivityMeasure { get { return get_IfcMoistureDiffusivityMeasure(); } }
         public bool is_IfcIsothermalMoistureCapacityMeasure() { return IsADBType("IFCISOTHERMALMOISTURECAPACITYMEASURE"); }
+        //public bool _is_IfcIsothermalMoistureCapacityMeasure { get { return is_IfcIsothermalMoistureCapacityMeasure(); } }
         public double? get_IfcIsothermalMoistureCapacityMeasure() { return get_double("IFCISOTHERMALMOISTURECAPACITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcIsothermalMoistureCapacityMeasure { get { return get_IfcIsothermalMoistureCapacityMeasure(); } }
         public bool is_IfcSpecificHeatCapacityMeasure() { return IsADBType("IFCSPECIFICHEATCAPACITYMEASURE"); }
+        //public bool _is_IfcSpecificHeatCapacityMeasure { get { return is_IfcSpecificHeatCapacityMeasure(); } }
         public double? get_IfcSpecificHeatCapacityMeasure() { return get_double("IFCSPECIFICHEATCAPACITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSpecificHeatCapacityMeasure { get { return get_IfcSpecificHeatCapacityMeasure(); } }
         public bool is_IfcMonetaryMeasure() { return IsADBType("IFCMONETARYMEASURE"); }
+        //public bool _is_IfcMonetaryMeasure { get { return is_IfcMonetaryMeasure(); } }
         public double? get_IfcMonetaryMeasure() { return get_double("IFCMONETARYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMonetaryMeasure { get { return get_IfcMonetaryMeasure(); } }
         public bool is_IfcMagneticFluxDensityMeasure() { return IsADBType("IFCMAGNETICFLUXDENSITYMEASURE"); }
+        //public bool _is_IfcMagneticFluxDensityMeasure { get { return is_IfcMagneticFluxDensityMeasure(); } }
         public double? get_IfcMagneticFluxDensityMeasure() { return get_double("IFCMAGNETICFLUXDENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMagneticFluxDensityMeasure { get { return get_IfcMagneticFluxDensityMeasure(); } }
         public bool is_IfcMagneticFluxMeasure() { return IsADBType("IFCMAGNETICFLUXMEASURE"); }
+        //public bool _is_IfcMagneticFluxMeasure { get { return is_IfcMagneticFluxMeasure(); } }
         public double? get_IfcMagneticFluxMeasure() { return get_double("IFCMAGNETICFLUXMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMagneticFluxMeasure { get { return get_IfcMagneticFluxMeasure(); } }
         public bool is_IfcLuminousFluxMeasure() { return IsADBType("IFCLUMINOUSFLUXMEASURE"); }
+        //public bool _is_IfcLuminousFluxMeasure { get { return is_IfcLuminousFluxMeasure(); } }
         public double? get_IfcLuminousFluxMeasure() { return get_double("IFCLUMINOUSFLUXMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLuminousFluxMeasure { get { return get_IfcLuminousFluxMeasure(); } }
         public bool is_IfcForceMeasure() { return IsADBType("IFCFORCEMEASURE"); }
+        //public bool _is_IfcForceMeasure { get { return is_IfcForceMeasure(); } }
         public double? get_IfcForceMeasure() { return get_double("IFCFORCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcForceMeasure { get { return get_IfcForceMeasure(); } }
         public bool is_IfcInductanceMeasure() { return IsADBType("IFCINDUCTANCEMEASURE"); }
+        //public bool _is_IfcInductanceMeasure { get { return is_IfcInductanceMeasure(); } }
         public double? get_IfcInductanceMeasure() { return get_double("IFCINDUCTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcInductanceMeasure { get { return get_IfcInductanceMeasure(); } }
         public bool is_IfcIlluminanceMeasure() { return IsADBType("IFCILLUMINANCEMEASURE"); }
+        //public bool _is_IfcIlluminanceMeasure { get { return is_IfcIlluminanceMeasure(); } }
         public double? get_IfcIlluminanceMeasure() { return get_double("IFCILLUMINANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcIlluminanceMeasure { get { return get_IfcIlluminanceMeasure(); } }
         public bool is_IfcElectricResistanceMeasure() { return IsADBType("IFCELECTRICRESISTANCEMEASURE"); }
+        //public bool _is_IfcElectricResistanceMeasure { get { return is_IfcElectricResistanceMeasure(); } }
         public double? get_IfcElectricResistanceMeasure() { return get_double("IFCELECTRICRESISTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricResistanceMeasure { get { return get_IfcElectricResistanceMeasure(); } }
         public bool is_IfcElectricConductanceMeasure() { return IsADBType("IFCELECTRICCONDUCTANCEMEASURE"); }
+        //public bool _is_IfcElectricConductanceMeasure { get { return is_IfcElectricConductanceMeasure(); } }
         public double? get_IfcElectricConductanceMeasure() { return get_double("IFCELECTRICCONDUCTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricConductanceMeasure { get { return get_IfcElectricConductanceMeasure(); } }
         public bool is_IfcElectricChargeMeasure() { return IsADBType("IFCELECTRICCHARGEMEASURE"); }
+        //public bool _is_IfcElectricChargeMeasure { get { return is_IfcElectricChargeMeasure(); } }
         public double? get_IfcElectricChargeMeasure() { return get_double("IFCELECTRICCHARGEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricChargeMeasure { get { return get_IfcElectricChargeMeasure(); } }
         public bool is_IfcDoseEquivalentMeasure() { return IsADBType("IFCDOSEEQUIVALENTMEASURE"); }
+        //public bool _is_IfcDoseEquivalentMeasure { get { return is_IfcDoseEquivalentMeasure(); } }
         public double? get_IfcDoseEquivalentMeasure() { return get_double("IFCDOSEEQUIVALENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcDoseEquivalentMeasure { get { return get_IfcDoseEquivalentMeasure(); } }
         public bool is_IfcElectricCapacitanceMeasure() { return IsADBType("IFCELECTRICCAPACITANCEMEASURE"); }
+        //public bool _is_IfcElectricCapacitanceMeasure { get { return is_IfcElectricCapacitanceMeasure(); } }
         public double? get_IfcElectricCapacitanceMeasure() { return get_double("IFCELECTRICCAPACITANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricCapacitanceMeasure { get { return get_IfcElectricCapacitanceMeasure(); } }
         public bool is_IfcAbsorbedDoseMeasure() { return IsADBType("IFCABSORBEDDOSEMEASURE"); }
+        //public bool _is_IfcAbsorbedDoseMeasure { get { return is_IfcAbsorbedDoseMeasure(); } }
         public double? get_IfcAbsorbedDoseMeasure() { return get_double("IFCABSORBEDDOSEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAbsorbedDoseMeasure { get { return get_IfcAbsorbedDoseMeasure(); } }
         public bool is_IfcRadioActivityMeasure() { return IsADBType("IFCRADIOACTIVITYMEASURE"); }
+        //public bool _is_IfcRadioActivityMeasure { get { return is_IfcRadioActivityMeasure(); } }
         public double? get_IfcRadioActivityMeasure() { return get_double("IFCRADIOACTIVITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRadioActivityMeasure { get { return get_IfcRadioActivityMeasure(); } }
         public bool is_IfcRotationalFrequencyMeasure() { return IsADBType("IFCROTATIONALFREQUENCYMEASURE"); }
+        //public bool _is_IfcRotationalFrequencyMeasure { get { return is_IfcRotationalFrequencyMeasure(); } }
         public double? get_IfcRotationalFrequencyMeasure() { return get_double("IFCROTATIONALFREQUENCYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRotationalFrequencyMeasure { get { return get_IfcRotationalFrequencyMeasure(); } }
         public bool is_IfcTorqueMeasure() { return IsADBType("IFCTORQUEMEASURE"); }
+        //public bool _is_IfcTorqueMeasure { get { return is_IfcTorqueMeasure(); } }
         public double? get_IfcTorqueMeasure() { return get_double("IFCTORQUEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcTorqueMeasure { get { return get_IfcTorqueMeasure(); } }
         public bool is_IfcAccelerationMeasure() { return IsADBType("IFCACCELERATIONMEASURE"); }
+        //public bool _is_IfcAccelerationMeasure { get { return is_IfcAccelerationMeasure(); } }
         public double? get_IfcAccelerationMeasure() { return get_double("IFCACCELERATIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAccelerationMeasure { get { return get_IfcAccelerationMeasure(); } }
         public bool is_IfcLinearForceMeasure() { return IsADBType("IFCLINEARFORCEMEASURE"); }
+        //public bool _is_IfcLinearForceMeasure { get { return is_IfcLinearForceMeasure(); } }
         public double? get_IfcLinearForceMeasure() { return get_double("IFCLINEARFORCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearForceMeasure { get { return get_IfcLinearForceMeasure(); } }
         public bool is_IfcLinearStiffnessMeasure() { return IsADBType("IFCLINEARSTIFFNESSMEASURE"); }
+        //public bool _is_IfcLinearStiffnessMeasure { get { return is_IfcLinearStiffnessMeasure(); } }
         public double? get_IfcLinearStiffnessMeasure() { return get_double("IFCLINEARSTIFFNESSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearStiffnessMeasure { get { return get_IfcLinearStiffnessMeasure(); } }
         public bool is_IfcModulusOfSubgradeReactionMeasure() { return IsADBType("IFCMODULUSOFSUBGRADEREACTIONMEASURE"); }
+        //public bool _is_IfcModulusOfSubgradeReactionMeasure { get { return is_IfcModulusOfSubgradeReactionMeasure(); } }
         public double? get_IfcModulusOfSubgradeReactionMeasure() { return get_double("IFCMODULUSOFSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfSubgradeReactionMeasure { get { return get_IfcModulusOfSubgradeReactionMeasure(); } }
         public bool is_IfcModulusOfElasticityMeasure() { return IsADBType("IFCMODULUSOFELASTICITYMEASURE"); }
+        //public bool _is_IfcModulusOfElasticityMeasure { get { return is_IfcModulusOfElasticityMeasure(); } }
         public double? get_IfcModulusOfElasticityMeasure() { return get_double("IFCMODULUSOFELASTICITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfElasticityMeasure { get { return get_IfcModulusOfElasticityMeasure(); } }
         public bool is_IfcMomentOfInertiaMeasure() { return IsADBType("IFCMOMENTOFINERTIAMEASURE"); }
+        //public bool _is_IfcMomentOfInertiaMeasure { get { return is_IfcMomentOfInertiaMeasure(); } }
         public double? get_IfcMomentOfInertiaMeasure() { return get_double("IFCMOMENTOFINERTIAMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMomentOfInertiaMeasure { get { return get_IfcMomentOfInertiaMeasure(); } }
         public bool is_IfcPlanarForceMeasure() { return IsADBType("IFCPLANARFORCEMEASURE"); }
+        //public bool _is_IfcPlanarForceMeasure { get { return is_IfcPlanarForceMeasure(); } }
         public double? get_IfcPlanarForceMeasure() { return get_double("IFCPLANARFORCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPlanarForceMeasure { get { return get_IfcPlanarForceMeasure(); } }
         public bool is_IfcRotationalStiffnessMeasure() { return IsADBType("IFCROTATIONALSTIFFNESSMEASURE"); }
+        //public bool _is_IfcRotationalStiffnessMeasure { get { return is_IfcRotationalStiffnessMeasure(); } }
         public double? get_IfcRotationalStiffnessMeasure() { return get_double("IFCROTATIONALSTIFFNESSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRotationalStiffnessMeasure { get { return get_IfcRotationalStiffnessMeasure(); } }
         public bool is_IfcShearModulusMeasure() { return IsADBType("IFCSHEARMODULUSMEASURE"); }
+        //public bool _is_IfcShearModulusMeasure { get { return is_IfcShearModulusMeasure(); } }
         public double? get_IfcShearModulusMeasure() { return get_double("IFCSHEARMODULUSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcShearModulusMeasure { get { return get_IfcShearModulusMeasure(); } }
         public bool is_IfcLinearMomentMeasure() { return IsADBType("IFCLINEARMOMENTMEASURE"); }
+        //public bool _is_IfcLinearMomentMeasure { get { return is_IfcLinearMomentMeasure(); } }
         public double? get_IfcLinearMomentMeasure() { return get_double("IFCLINEARMOMENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLinearMomentMeasure { get { return get_IfcLinearMomentMeasure(); } }
         public bool is_IfcLuminousIntensityDistributionMeasure() { return IsADBType("IFCLUMINOUSINTENSITYDISTRIBUTIONMEASURE"); }
+        //public bool _is_IfcLuminousIntensityDistributionMeasure { get { return is_IfcLuminousIntensityDistributionMeasure(); } }
         public double? get_IfcLuminousIntensityDistributionMeasure() { return get_double("IFCLUMINOUSINTENSITYDISTRIBUTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLuminousIntensityDistributionMeasure { get { return get_IfcLuminousIntensityDistributionMeasure(); } }
         public bool is_IfcCurvatureMeasure() { return IsADBType("IFCCURVATUREMEASURE"); }
+        //public bool _is_IfcCurvatureMeasure { get { return is_IfcCurvatureMeasure(); } }
         public double? get_IfcCurvatureMeasure() { return get_double("IFCCURVATUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcCurvatureMeasure { get { return get_IfcCurvatureMeasure(); } }
         public bool is_IfcMassPerLengthMeasure() { return IsADBType("IFCMASSPERLENGTHMEASURE"); }
+        //public bool _is_IfcMassPerLengthMeasure { get { return is_IfcMassPerLengthMeasure(); } }
         public double? get_IfcMassPerLengthMeasure() { return get_double("IFCMASSPERLENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassPerLengthMeasure { get { return get_IfcMassPerLengthMeasure(); } }
         public bool is_IfcModulusOfLinearSubgradeReactionMeasure() { return IsADBType("IFCMODULUSOFLINEARSUBGRADEREACTIONMEASURE"); }
+        //public bool _is_IfcModulusOfLinearSubgradeReactionMeasure { get { return is_IfcModulusOfLinearSubgradeReactionMeasure(); } }
         public double? get_IfcModulusOfLinearSubgradeReactionMeasure() { return get_double("IFCMODULUSOFLINEARSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfLinearSubgradeReactionMeasure { get { return get_IfcModulusOfLinearSubgradeReactionMeasure(); } }
         public bool is_IfcModulusOfRotationalSubgradeReactionMeasure() { return IsADBType("IFCMODULUSOFROTATIONALSUBGRADEREACTIONMEASURE"); }
+        //public bool _is_IfcModulusOfRotationalSubgradeReactionMeasure { get { return is_IfcModulusOfRotationalSubgradeReactionMeasure(); } }
         public double? get_IfcModulusOfRotationalSubgradeReactionMeasure() { return get_double("IFCMODULUSOFROTATIONALSUBGRADEREACTIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcModulusOfRotationalSubgradeReactionMeasure { get { return get_IfcModulusOfRotationalSubgradeReactionMeasure(); } }
         public bool is_IfcRotationalMassMeasure() { return IsADBType("IFCROTATIONALMASSMEASURE"); }
+        //public bool _is_IfcRotationalMassMeasure { get { return is_IfcRotationalMassMeasure(); } }
         public double? get_IfcRotationalMassMeasure() { return get_double("IFCROTATIONALMASSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRotationalMassMeasure { get { return get_IfcRotationalMassMeasure(); } }
         public bool is_IfcSectionalAreaIntegralMeasure() { return IsADBType("IFCSECTIONALAREAINTEGRALMEASURE"); }
+        //public bool _is_IfcSectionalAreaIntegralMeasure { get { return is_IfcSectionalAreaIntegralMeasure(); } }
         public double? get_IfcSectionalAreaIntegralMeasure() { return get_double("IFCSECTIONALAREAINTEGRALMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSectionalAreaIntegralMeasure { get { return get_IfcSectionalAreaIntegralMeasure(); } }
         public bool is_IfcSectionModulusMeasure() { return IsADBType("IFCSECTIONMODULUSMEASURE"); }
+        //public bool _is_IfcSectionModulusMeasure { get { return is_IfcSectionModulusMeasure(); } }
         public double? get_IfcSectionModulusMeasure() { return get_double("IFCSECTIONMODULUSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSectionModulusMeasure { get { return get_IfcSectionModulusMeasure(); } }
         public bool is_IfcTemperatureGradientMeasure() { return IsADBType("IFCTEMPERATUREGRADIENTMEASURE"); }
+        //public bool _is_IfcTemperatureGradientMeasure { get { return is_IfcTemperatureGradientMeasure(); } }
         public double? get_IfcTemperatureGradientMeasure() { return get_double("IFCTEMPERATUREGRADIENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcTemperatureGradientMeasure { get { return get_IfcTemperatureGradientMeasure(); } }
         public bool is_IfcThermalExpansionCoefficientMeasure() { return IsADBType("IFCTHERMALEXPANSIONCOEFFICIENTMEASURE"); }
+        //public bool _is_IfcThermalExpansionCoefficientMeasure { get { return is_IfcThermalExpansionCoefficientMeasure(); } }
         public double? get_IfcThermalExpansionCoefficientMeasure() { return get_double("IFCTHERMALEXPANSIONCOEFFICIENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermalExpansionCoefficientMeasure { get { return get_IfcThermalExpansionCoefficientMeasure(); } }
         public bool is_IfcWarpingConstantMeasure() { return IsADBType("IFCWARPINGCONSTANTMEASURE"); }
+        //public bool _is_IfcWarpingConstantMeasure { get { return is_IfcWarpingConstantMeasure(); } }
         public double? get_IfcWarpingConstantMeasure() { return get_double("IFCWARPINGCONSTANTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcWarpingConstantMeasure { get { return get_IfcWarpingConstantMeasure(); } }
         public bool is_IfcWarpingMomentMeasure() { return IsADBType("IFCWARPINGMOMENTMEASURE"); }
+        //public bool _is_IfcWarpingMomentMeasure { get { return is_IfcWarpingMomentMeasure(); } }
         public double? get_IfcWarpingMomentMeasure() { return get_double("IFCWARPINGMOMENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcWarpingMomentMeasure { get { return get_IfcWarpingMomentMeasure(); } }
         public bool is_IfcSoundPowerMeasure() { return IsADBType("IFCSOUNDPOWERMEASURE"); }
+        //public bool _is_IfcSoundPowerMeasure { get { return is_IfcSoundPowerMeasure(); } }
         public double? get_IfcSoundPowerMeasure() { return get_double("IFCSOUNDPOWERMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSoundPowerMeasure { get { return get_IfcSoundPowerMeasure(); } }
         public bool is_IfcSoundPressureMeasure() { return IsADBType("IFCSOUNDPRESSUREMEASURE"); }
+        //public bool _is_IfcSoundPressureMeasure { get { return is_IfcSoundPressureMeasure(); } }
         public double? get_IfcSoundPressureMeasure() { return get_double("IFCSOUNDPRESSUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSoundPressureMeasure { get { return get_IfcSoundPressureMeasure(); } }
         public bool is_IfcHeatingValueMeasure() { return IsADBType("IFCHEATINGVALUEMEASURE"); }
+        //public bool _is_IfcHeatingValueMeasure { get { return is_IfcHeatingValueMeasure(); } }
         public double? get_IfcHeatingValueMeasure() { return get_double("IFCHEATINGVALUEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcHeatingValueMeasure { get { return get_IfcHeatingValueMeasure(); } }
         public bool is_IfcPHMeasure() { return IsADBType("IFCPHMEASURE"); }
+        //public bool _is_IfcPHMeasure { get { return is_IfcPHMeasure(); } }
         public double? get_IfcPHMeasure() { return get_double("IFCPHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPHMeasure { get { return get_IfcPHMeasure(); } }
         public bool is_IfcIonConcentrationMeasure() { return IsADBType("IFCIONCONCENTRATIONMEASURE"); }
+        //public bool _is_IfcIonConcentrationMeasure { get { return is_IfcIonConcentrationMeasure(); } }
         public double? get_IfcIonConcentrationMeasure() { return get_double("IFCIONCONCENTRATIONMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcIonConcentrationMeasure { get { return get_IfcIonConcentrationMeasure(); } }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcDerivedMeasureValue_put : Select
@@ -4782,7 +5217,7 @@ namespace IFC2x3
         public void put_IfcHeatingValueMeasure (double value) { put_double("IFCHEATINGVALUEMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcPHMeasure (double value) { put_double("IFCPHMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcIonConcentrationMeasure (double value) { put_double("IFCIONCONCENTRATIONMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcDocumentSelect : Select
@@ -4808,13 +5243,17 @@ namespace IFC2x3
 
 
         public bool is_IfcDocumentReference() { return IsADBEntity("IfcDocumentReference"); }
+        public bool _is_IfcDocumentReference { get { return is_IfcDocumentReference(); } }
         public IfcDocumentReference get_IfcDocumentReference() { return new IfcDocumentReference (getEntityInstance("IFCDOCUMENTREFERENCE")); }
+        public IfcDocumentReference _IfcDocumentReference { get { return get_IfcDocumentReference(); } }
         public void put_IfcDocumentReference(IfcDocumentReference inst) { putEntityInstance("IFCDOCUMENTREFERENCE", inst); }
 
         public bool is_IfcDocumentInformation() { return IsADBEntity("IfcDocumentInformation"); }
+        public bool _is_IfcDocumentInformation { get { return is_IfcDocumentInformation(); } }
         public IfcDocumentInformation get_IfcDocumentInformation() { return new IfcDocumentInformation (getEntityInstance("IFCDOCUMENTINFORMATION")); }
+        public IfcDocumentInformation _IfcDocumentInformation { get { return get_IfcDocumentInformation(); } }
         public void put_IfcDocumentInformation(IfcDocumentInformation inst) { putEntityInstance("IFCDOCUMENTINFORMATION", inst); }
-    };
+        };
 
 
     public class IfcDocumentSelect_get : Select
@@ -4839,12 +5278,16 @@ namespace IFC2x3
         public IfcDocumentSelect_get() : base(null) { }
 
         public bool is_IfcDocumentReference() { return IsADBEntity("IfcDocumentReference"); }
+        public bool _is_IfcDocumentReference { get { return is_IfcDocumentReference(); } }
         public IfcDocumentReference get_IfcDocumentReference() { return new IfcDocumentReference (getEntityInstance("IFCDOCUMENTREFERENCE")); }
+        public IfcDocumentReference _IfcDocumentReference { get { return get_IfcDocumentReference(); } }
         public bool is_IfcDocumentInformation() { return IsADBEntity("IfcDocumentInformation"); }
+        public bool _is_IfcDocumentInformation { get { return is_IfcDocumentInformation(); } }
         public IfcDocumentInformation get_IfcDocumentInformation() { return new IfcDocumentInformation (getEntityInstance("IFCDOCUMENTINFORMATION")); }
+        public IfcDocumentInformation _IfcDocumentInformation { get { return get_IfcDocumentInformation(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcDocumentSelect_put : Select
@@ -4870,7 +5313,7 @@ namespace IFC2x3
 
         public void put_IfcDocumentReference(IfcDocumentReference inst) { putEntityInstance("IFCDOCUMENTREFERENCE", inst); }
         public void put_IfcDocumentInformation(IfcDocumentInformation inst) { putEntityInstance("IFCDOCUMENTINFORMATION", inst); }
-    };
+        };
 
 
     public class IfcDraughtingCalloutElement : Select
@@ -4896,17 +5339,23 @@ namespace IFC2x3
 
 
         public bool is_IfcAnnotationCurveOccurrence() { return IsADBEntity("IfcAnnotationCurveOccurrence"); }
+        public bool _is_IfcAnnotationCurveOccurrence { get { return is_IfcAnnotationCurveOccurrence(); } }
         public IfcAnnotationCurveOccurrence get_IfcAnnotationCurveOccurrence() { return new IfcAnnotationCurveOccurrence (getEntityInstance("IFCANNOTATIONCURVEOCCURRENCE")); }
+        public IfcAnnotationCurveOccurrence _IfcAnnotationCurveOccurrence { get { return get_IfcAnnotationCurveOccurrence(); } }
         public void put_IfcAnnotationCurveOccurrence(IfcAnnotationCurveOccurrence inst) { putEntityInstance("IFCANNOTATIONCURVEOCCURRENCE", inst); }
 
         public bool is_IfcAnnotationTextOccurrence() { return IsADBEntity("IfcAnnotationTextOccurrence"); }
+        public bool _is_IfcAnnotationTextOccurrence { get { return is_IfcAnnotationTextOccurrence(); } }
         public IfcAnnotationTextOccurrence get_IfcAnnotationTextOccurrence() { return new IfcAnnotationTextOccurrence (getEntityInstance("IFCANNOTATIONTEXTOCCURRENCE")); }
+        public IfcAnnotationTextOccurrence _IfcAnnotationTextOccurrence { get { return get_IfcAnnotationTextOccurrence(); } }
         public void put_IfcAnnotationTextOccurrence(IfcAnnotationTextOccurrence inst) { putEntityInstance("IFCANNOTATIONTEXTOCCURRENCE", inst); }
 
         public bool is_IfcAnnotationSymbolOccurrence() { return IsADBEntity("IfcAnnotationSymbolOccurrence"); }
+        public bool _is_IfcAnnotationSymbolOccurrence { get { return is_IfcAnnotationSymbolOccurrence(); } }
         public IfcAnnotationSymbolOccurrence get_IfcAnnotationSymbolOccurrence() { return new IfcAnnotationSymbolOccurrence (getEntityInstance("IFCANNOTATIONSYMBOLOCCURRENCE")); }
+        public IfcAnnotationSymbolOccurrence _IfcAnnotationSymbolOccurrence { get { return get_IfcAnnotationSymbolOccurrence(); } }
         public void put_IfcAnnotationSymbolOccurrence(IfcAnnotationSymbolOccurrence inst) { putEntityInstance("IFCANNOTATIONSYMBOLOCCURRENCE", inst); }
-    };
+        };
 
 
     public class IfcDraughtingCalloutElement_get : Select
@@ -4931,14 +5380,20 @@ namespace IFC2x3
         public IfcDraughtingCalloutElement_get() : base(null) { }
 
         public bool is_IfcAnnotationCurveOccurrence() { return IsADBEntity("IfcAnnotationCurveOccurrence"); }
+        public bool _is_IfcAnnotationCurveOccurrence { get { return is_IfcAnnotationCurveOccurrence(); } }
         public IfcAnnotationCurveOccurrence get_IfcAnnotationCurveOccurrence() { return new IfcAnnotationCurveOccurrence (getEntityInstance("IFCANNOTATIONCURVEOCCURRENCE")); }
+        public IfcAnnotationCurveOccurrence _IfcAnnotationCurveOccurrence { get { return get_IfcAnnotationCurveOccurrence(); } }
         public bool is_IfcAnnotationTextOccurrence() { return IsADBEntity("IfcAnnotationTextOccurrence"); }
+        public bool _is_IfcAnnotationTextOccurrence { get { return is_IfcAnnotationTextOccurrence(); } }
         public IfcAnnotationTextOccurrence get_IfcAnnotationTextOccurrence() { return new IfcAnnotationTextOccurrence (getEntityInstance("IFCANNOTATIONTEXTOCCURRENCE")); }
+        public IfcAnnotationTextOccurrence _IfcAnnotationTextOccurrence { get { return get_IfcAnnotationTextOccurrence(); } }
         public bool is_IfcAnnotationSymbolOccurrence() { return IsADBEntity("IfcAnnotationSymbolOccurrence"); }
+        public bool _is_IfcAnnotationSymbolOccurrence { get { return is_IfcAnnotationSymbolOccurrence(); } }
         public IfcAnnotationSymbolOccurrence get_IfcAnnotationSymbolOccurrence() { return new IfcAnnotationSymbolOccurrence (getEntityInstance("IFCANNOTATIONSYMBOLOCCURRENCE")); }
+        public IfcAnnotationSymbolOccurrence _IfcAnnotationSymbolOccurrence { get { return get_IfcAnnotationSymbolOccurrence(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcDraughtingCalloutElement_put : Select
@@ -4965,7 +5420,7 @@ namespace IFC2x3
         public void put_IfcAnnotationCurveOccurrence(IfcAnnotationCurveOccurrence inst) { putEntityInstance("IFCANNOTATIONCURVEOCCURRENCE", inst); }
         public void put_IfcAnnotationTextOccurrence(IfcAnnotationTextOccurrence inst) { putEntityInstance("IFCANNOTATIONTEXTOCCURRENCE", inst); }
         public void put_IfcAnnotationSymbolOccurrence(IfcAnnotationSymbolOccurrence inst) { putEntityInstance("IFCANNOTATIONSYMBOLOCCURRENCE", inst); }
-    };
+        };
 
 
     public class IfcFillAreaStyleTileShapeSelect : Select
@@ -4991,9 +5446,11 @@ namespace IFC2x3
 
 
         public bool is_IfcFillAreaStyleTileSymbolWithStyle() { return IsADBEntity("IfcFillAreaStyleTileSymbolWithStyle"); }
+        public bool _is_IfcFillAreaStyleTileSymbolWithStyle { get { return is_IfcFillAreaStyleTileSymbolWithStyle(); } }
         public IfcFillAreaStyleTileSymbolWithStyle get_IfcFillAreaStyleTileSymbolWithStyle() { return new IfcFillAreaStyleTileSymbolWithStyle (getEntityInstance("IFCFILLAREASTYLETILESYMBOLWITHSTYLE")); }
+        public IfcFillAreaStyleTileSymbolWithStyle _IfcFillAreaStyleTileSymbolWithStyle { get { return get_IfcFillAreaStyleTileSymbolWithStyle(); } }
         public void put_IfcFillAreaStyleTileSymbolWithStyle(IfcFillAreaStyleTileSymbolWithStyle inst) { putEntityInstance("IFCFILLAREASTYLETILESYMBOLWITHSTYLE", inst); }
-    };
+        };
 
 
     public class IfcFillAreaStyleTileShapeSelect_get : Select
@@ -5018,10 +5475,12 @@ namespace IFC2x3
         public IfcFillAreaStyleTileShapeSelect_get() : base(null) { }
 
         public bool is_IfcFillAreaStyleTileSymbolWithStyle() { return IsADBEntity("IfcFillAreaStyleTileSymbolWithStyle"); }
+        public bool _is_IfcFillAreaStyleTileSymbolWithStyle { get { return is_IfcFillAreaStyleTileSymbolWithStyle(); } }
         public IfcFillAreaStyleTileSymbolWithStyle get_IfcFillAreaStyleTileSymbolWithStyle() { return new IfcFillAreaStyleTileSymbolWithStyle (getEntityInstance("IFCFILLAREASTYLETILESYMBOLWITHSTYLE")); }
+        public IfcFillAreaStyleTileSymbolWithStyle _IfcFillAreaStyleTileSymbolWithStyle { get { return get_IfcFillAreaStyleTileSymbolWithStyle(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcFillAreaStyleTileShapeSelect_put : Select
@@ -5046,7 +5505,7 @@ namespace IFC2x3
         public IfcFillAreaStyleTileShapeSelect_put() : base(null) { }
 
         public void put_IfcFillAreaStyleTileSymbolWithStyle(IfcFillAreaStyleTileSymbolWithStyle inst) { putEntityInstance("IFCFILLAREASTYLETILESYMBOLWITHSTYLE", inst); }
-    };
+        };
 
 
     public class IfcFillStyleSelect : Select
@@ -5072,19 +5531,26 @@ namespace IFC2x3
 
 
         public bool is_IfcFillAreaStyleHatching() { return IsADBEntity("IfcFillAreaStyleHatching"); }
+        public bool _is_IfcFillAreaStyleHatching { get { return is_IfcFillAreaStyleHatching(); } }
         public IfcFillAreaStyleHatching get_IfcFillAreaStyleHatching() { return new IfcFillAreaStyleHatching (getEntityInstance("IFCFILLAREASTYLEHATCHING")); }
+        public IfcFillAreaStyleHatching _IfcFillAreaStyleHatching { get { return get_IfcFillAreaStyleHatching(); } }
         public void put_IfcFillAreaStyleHatching(IfcFillAreaStyleHatching inst) { putEntityInstance("IFCFILLAREASTYLEHATCHING", inst); }
 
         public bool is_IfcFillAreaStyleTiles() { return IsADBEntity("IfcFillAreaStyleTiles"); }
+        public bool _is_IfcFillAreaStyleTiles { get { return is_IfcFillAreaStyleTiles(); } }
         public IfcFillAreaStyleTiles get_IfcFillAreaStyleTiles() { return new IfcFillAreaStyleTiles (getEntityInstance("IFCFILLAREASTYLETILES")); }
+        public IfcFillAreaStyleTiles _IfcFillAreaStyleTiles { get { return get_IfcFillAreaStyleTiles(); } }
         public void put_IfcFillAreaStyleTiles(IfcFillAreaStyleTiles inst) { putEntityInstance("IFCFILLAREASTYLETILES", inst); }
 
         public IfcColour _IfcColour() { return new IfcColour(this); }
+        public IfcColour __IfcColour { get { return _IfcColour(); } }
 
         public bool is_IfcExternallyDefinedHatchStyle() { return IsADBEntity("IfcExternallyDefinedHatchStyle"); }
+        public bool _is_IfcExternallyDefinedHatchStyle { get { return is_IfcExternallyDefinedHatchStyle(); } }
         public IfcExternallyDefinedHatchStyle get_IfcExternallyDefinedHatchStyle() { return new IfcExternallyDefinedHatchStyle (getEntityInstance("IFCEXTERNALLYDEFINEDHATCHSTYLE")); }
+        public IfcExternallyDefinedHatchStyle _IfcExternallyDefinedHatchStyle { get { return get_IfcExternallyDefinedHatchStyle(); } }
         public void put_IfcExternallyDefinedHatchStyle(IfcExternallyDefinedHatchStyle inst) { putEntityInstance("IFCEXTERNALLYDEFINEDHATCHSTYLE", inst); }
-    };
+        };
 
 
     public class IfcFillStyleSelect_get : Select
@@ -5109,15 +5575,22 @@ namespace IFC2x3
         public IfcFillStyleSelect_get() : base(null) { }
 
         public bool is_IfcFillAreaStyleHatching() { return IsADBEntity("IfcFillAreaStyleHatching"); }
+        public bool _is_IfcFillAreaStyleHatching { get { return is_IfcFillAreaStyleHatching(); } }
         public IfcFillAreaStyleHatching get_IfcFillAreaStyleHatching() { return new IfcFillAreaStyleHatching (getEntityInstance("IFCFILLAREASTYLEHATCHING")); }
+        public IfcFillAreaStyleHatching _IfcFillAreaStyleHatching { get { return get_IfcFillAreaStyleHatching(); } }
         public bool is_IfcFillAreaStyleTiles() { return IsADBEntity("IfcFillAreaStyleTiles"); }
+        public bool _is_IfcFillAreaStyleTiles { get { return is_IfcFillAreaStyleTiles(); } }
         public IfcFillAreaStyleTiles get_IfcFillAreaStyleTiles() { return new IfcFillAreaStyleTiles (getEntityInstance("IFCFILLAREASTYLETILES")); }
+        public IfcFillAreaStyleTiles _IfcFillAreaStyleTiles { get { return get_IfcFillAreaStyleTiles(); } }
         public IfcColour_get get_IfcColour() { return new IfcColour_get(this); }
+        public IfcColour_get __IfcColour { get { return get_IfcColour(); } }
         public bool is_IfcExternallyDefinedHatchStyle() { return IsADBEntity("IfcExternallyDefinedHatchStyle"); }
+        public bool _is_IfcExternallyDefinedHatchStyle { get { return is_IfcExternallyDefinedHatchStyle(); } }
         public IfcExternallyDefinedHatchStyle get_IfcExternallyDefinedHatchStyle() { return new IfcExternallyDefinedHatchStyle (getEntityInstance("IFCEXTERNALLYDEFINEDHATCHSTYLE")); }
+        public IfcExternallyDefinedHatchStyle _IfcExternallyDefinedHatchStyle { get { return get_IfcExternallyDefinedHatchStyle(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcFillStyleSelect_put : Select
@@ -5144,8 +5617,9 @@ namespace IFC2x3
         public void put_IfcFillAreaStyleHatching(IfcFillAreaStyleHatching inst) { putEntityInstance("IFCFILLAREASTYLEHATCHING", inst); }
         public void put_IfcFillAreaStyleTiles(IfcFillAreaStyleTiles inst) { putEntityInstance("IFCFILLAREASTYLETILES", inst); }
         public IfcColour_put put_IfcColour() { return new IfcColour_put(this); }
+        public IfcColour_put __IfcColour { get { return put_IfcColour(); } }
         public void put_IfcExternallyDefinedHatchStyle(IfcExternallyDefinedHatchStyle inst) { putEntityInstance("IFCEXTERNALLYDEFINEDHATCHSTYLE", inst); }
-    };
+        };
 
 
     public class IfcGeometricSetSelect : Select
@@ -5171,17 +5645,23 @@ namespace IFC2x3
 
 
         public bool is_IfcPoint() { return IsADBEntity("IfcPoint"); }
+        public bool _is_IfcPoint { get { return is_IfcPoint(); } }
         public IfcPoint get_IfcPoint() { return new IfcPoint (getEntityInstance("IFCPOINT")); }
+        public IfcPoint _IfcPoint { get { return get_IfcPoint(); } }
         public void put_IfcPoint(IfcPoint inst) { putEntityInstance("IFCPOINT", inst); }
 
         public bool is_IfcCurve() { return IsADBEntity("IfcCurve"); }
+        public bool _is_IfcCurve { get { return is_IfcCurve(); } }
         public IfcCurve get_IfcCurve() { return new IfcCurve (getEntityInstance("IFCCURVE")); }
+        public IfcCurve _IfcCurve { get { return get_IfcCurve(); } }
         public void put_IfcCurve(IfcCurve inst) { putEntityInstance("IFCCURVE", inst); }
 
         public bool is_IfcSurface() { return IsADBEntity("IfcSurface"); }
+        public bool _is_IfcSurface { get { return is_IfcSurface(); } }
         public IfcSurface get_IfcSurface() { return new IfcSurface (getEntityInstance("IFCSURFACE")); }
+        public IfcSurface _IfcSurface { get { return get_IfcSurface(); } }
         public void put_IfcSurface(IfcSurface inst) { putEntityInstance("IFCSURFACE", inst); }
-    };
+        };
 
 
     public class IfcGeometricSetSelect_get : Select
@@ -5206,14 +5686,20 @@ namespace IFC2x3
         public IfcGeometricSetSelect_get() : base(null) { }
 
         public bool is_IfcPoint() { return IsADBEntity("IfcPoint"); }
+        public bool _is_IfcPoint { get { return is_IfcPoint(); } }
         public IfcPoint get_IfcPoint() { return new IfcPoint (getEntityInstance("IFCPOINT")); }
+        public IfcPoint _IfcPoint { get { return get_IfcPoint(); } }
         public bool is_IfcCurve() { return IsADBEntity("IfcCurve"); }
+        public bool _is_IfcCurve { get { return is_IfcCurve(); } }
         public IfcCurve get_IfcCurve() { return new IfcCurve (getEntityInstance("IFCCURVE")); }
+        public IfcCurve _IfcCurve { get { return get_IfcCurve(); } }
         public bool is_IfcSurface() { return IsADBEntity("IfcSurface"); }
+        public bool _is_IfcSurface { get { return is_IfcSurface(); } }
         public IfcSurface get_IfcSurface() { return new IfcSurface (getEntityInstance("IFCSURFACE")); }
+        public IfcSurface _IfcSurface { get { return get_IfcSurface(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcGeometricSetSelect_put : Select
@@ -5240,7 +5726,7 @@ namespace IFC2x3
         public void put_IfcPoint(IfcPoint inst) { putEntityInstance("IFCPOINT", inst); }
         public void put_IfcCurve(IfcCurve inst) { putEntityInstance("IFCCURVE", inst); }
         public void put_IfcSurface(IfcSurface inst) { putEntityInstance("IFCSURFACE", inst); }
-    };
+        };
 
 
     public class IfcHatchLineDistanceSelect : Select
@@ -5266,13 +5752,17 @@ namespace IFC2x3
 
 
         public bool is_IfcOneDirectionRepeatFactor() { return IsADBEntity("IfcOneDirectionRepeatFactor"); }
+        public bool _is_IfcOneDirectionRepeatFactor { get { return is_IfcOneDirectionRepeatFactor(); } }
         public IfcOneDirectionRepeatFactor get_IfcOneDirectionRepeatFactor() { return new IfcOneDirectionRepeatFactor (getEntityInstance("IFCONEDIRECTIONREPEATFACTOR")); }
+        public IfcOneDirectionRepeatFactor _IfcOneDirectionRepeatFactor { get { return get_IfcOneDirectionRepeatFactor(); } }
         public void put_IfcOneDirectionRepeatFactor(IfcOneDirectionRepeatFactor inst) { putEntityInstance("IFCONEDIRECTIONREPEATFACTOR", inst); }
 
         public bool is_IfcPositiveLengthMeasure() { return IsADBType("IFCPOSITIVELENGTHMEASURE"); }
+        //public bool _is_IfcPositiveLengthMeasure { get { return is_IfcPositiveLengthMeasure(); } }
         public double? get_IfcPositiveLengthMeasure() { return get_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveLengthMeasure { get { return get_IfcPositiveLengthMeasure(); } }
         public void put_IfcPositiveLengthMeasure (double value) { put_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcHatchLineDistanceSelect_get : Select
@@ -5297,13 +5787,17 @@ namespace IFC2x3
         public IfcHatchLineDistanceSelect_get() : base(null) { }
 
         public bool is_IfcOneDirectionRepeatFactor() { return IsADBEntity("IfcOneDirectionRepeatFactor"); }
+        public bool _is_IfcOneDirectionRepeatFactor { get { return is_IfcOneDirectionRepeatFactor(); } }
         public IfcOneDirectionRepeatFactor get_IfcOneDirectionRepeatFactor() { return new IfcOneDirectionRepeatFactor (getEntityInstance("IFCONEDIRECTIONREPEATFACTOR")); }
+        public IfcOneDirectionRepeatFactor _IfcOneDirectionRepeatFactor { get { return get_IfcOneDirectionRepeatFactor(); } }
         public bool is_IfcPositiveLengthMeasure() { return IsADBType("IFCPOSITIVELENGTHMEASURE"); }
+        //public bool _is_IfcPositiveLengthMeasure { get { return is_IfcPositiveLengthMeasure(); } }
         public double? get_IfcPositiveLengthMeasure() { return get_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveLengthMeasure { get { return get_IfcPositiveLengthMeasure(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcHatchLineDistanceSelect_put : Select
@@ -5329,7 +5823,7 @@ namespace IFC2x3
 
         public void put_IfcOneDirectionRepeatFactor(IfcOneDirectionRepeatFactor inst) { putEntityInstance("IFCONEDIRECTIONREPEATFACTOR", inst); }
         public void put_IfcPositiveLengthMeasure (double value) { put_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcLayeredItem : Select
@@ -5355,13 +5849,17 @@ namespace IFC2x3
 
 
         public bool is_IfcRepresentationItem() { return IsADBEntity("IfcRepresentationItem"); }
+        public bool _is_IfcRepresentationItem { get { return is_IfcRepresentationItem(); } }
         public IfcRepresentationItem get_IfcRepresentationItem() { return new IfcRepresentationItem (getEntityInstance("IFCREPRESENTATIONITEM")); }
+        public IfcRepresentationItem _IfcRepresentationItem { get { return get_IfcRepresentationItem(); } }
         public void put_IfcRepresentationItem(IfcRepresentationItem inst) { putEntityInstance("IFCREPRESENTATIONITEM", inst); }
 
         public bool is_IfcRepresentation() { return IsADBEntity("IfcRepresentation"); }
+        public bool _is_IfcRepresentation { get { return is_IfcRepresentation(); } }
         public IfcRepresentation get_IfcRepresentation() { return new IfcRepresentation (getEntityInstance("IFCREPRESENTATION")); }
+        public IfcRepresentation _IfcRepresentation { get { return get_IfcRepresentation(); } }
         public void put_IfcRepresentation(IfcRepresentation inst) { putEntityInstance("IFCREPRESENTATION", inst); }
-    };
+        };
 
 
     public class IfcLayeredItem_get : Select
@@ -5386,12 +5884,16 @@ namespace IFC2x3
         public IfcLayeredItem_get() : base(null) { }
 
         public bool is_IfcRepresentationItem() { return IsADBEntity("IfcRepresentationItem"); }
+        public bool _is_IfcRepresentationItem { get { return is_IfcRepresentationItem(); } }
         public IfcRepresentationItem get_IfcRepresentationItem() { return new IfcRepresentationItem (getEntityInstance("IFCREPRESENTATIONITEM")); }
+        public IfcRepresentationItem _IfcRepresentationItem { get { return get_IfcRepresentationItem(); } }
         public bool is_IfcRepresentation() { return IsADBEntity("IfcRepresentation"); }
+        public bool _is_IfcRepresentation { get { return is_IfcRepresentation(); } }
         public IfcRepresentation get_IfcRepresentation() { return new IfcRepresentation (getEntityInstance("IFCREPRESENTATION")); }
+        public IfcRepresentation _IfcRepresentation { get { return get_IfcRepresentation(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcLayeredItem_put : Select
@@ -5417,7 +5919,7 @@ namespace IFC2x3
 
         public void put_IfcRepresentationItem(IfcRepresentationItem inst) { putEntityInstance("IFCREPRESENTATIONITEM", inst); }
         public void put_IfcRepresentation(IfcRepresentation inst) { putEntityInstance("IFCREPRESENTATION", inst); }
-    };
+        };
 
 
     public class IfcLibrarySelect : Select
@@ -5443,13 +5945,17 @@ namespace IFC2x3
 
 
         public bool is_IfcLibraryReference() { return IsADBEntity("IfcLibraryReference"); }
+        public bool _is_IfcLibraryReference { get { return is_IfcLibraryReference(); } }
         public IfcLibraryReference get_IfcLibraryReference() { return new IfcLibraryReference (getEntityInstance("IFCLIBRARYREFERENCE")); }
+        public IfcLibraryReference _IfcLibraryReference { get { return get_IfcLibraryReference(); } }
         public void put_IfcLibraryReference(IfcLibraryReference inst) { putEntityInstance("IFCLIBRARYREFERENCE", inst); }
 
         public bool is_IfcLibraryInformation() { return IsADBEntity("IfcLibraryInformation"); }
+        public bool _is_IfcLibraryInformation { get { return is_IfcLibraryInformation(); } }
         public IfcLibraryInformation get_IfcLibraryInformation() { return new IfcLibraryInformation (getEntityInstance("IFCLIBRARYINFORMATION")); }
+        public IfcLibraryInformation _IfcLibraryInformation { get { return get_IfcLibraryInformation(); } }
         public void put_IfcLibraryInformation(IfcLibraryInformation inst) { putEntityInstance("IFCLIBRARYINFORMATION", inst); }
-    };
+        };
 
 
     public class IfcLibrarySelect_get : Select
@@ -5474,12 +5980,16 @@ namespace IFC2x3
         public IfcLibrarySelect_get() : base(null) { }
 
         public bool is_IfcLibraryReference() { return IsADBEntity("IfcLibraryReference"); }
+        public bool _is_IfcLibraryReference { get { return is_IfcLibraryReference(); } }
         public IfcLibraryReference get_IfcLibraryReference() { return new IfcLibraryReference (getEntityInstance("IFCLIBRARYREFERENCE")); }
+        public IfcLibraryReference _IfcLibraryReference { get { return get_IfcLibraryReference(); } }
         public bool is_IfcLibraryInformation() { return IsADBEntity("IfcLibraryInformation"); }
+        public bool _is_IfcLibraryInformation { get { return is_IfcLibraryInformation(); } }
         public IfcLibraryInformation get_IfcLibraryInformation() { return new IfcLibraryInformation (getEntityInstance("IFCLIBRARYINFORMATION")); }
+        public IfcLibraryInformation _IfcLibraryInformation { get { return get_IfcLibraryInformation(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcLibrarySelect_put : Select
@@ -5505,7 +6015,7 @@ namespace IFC2x3
 
         public void put_IfcLibraryReference(IfcLibraryReference inst) { putEntityInstance("IFCLIBRARYREFERENCE", inst); }
         public void put_IfcLibraryInformation(IfcLibraryInformation inst) { putEntityInstance("IFCLIBRARYINFORMATION", inst); }
-    };
+        };
 
 
     public class IfcLightDistributionDataSourceSelect : Select
@@ -5531,13 +6041,17 @@ namespace IFC2x3
 
 
         public bool is_IfcExternalReference() { return IsADBEntity("IfcExternalReference"); }
+        public bool _is_IfcExternalReference { get { return is_IfcExternalReference(); } }
         public IfcExternalReference get_IfcExternalReference() { return new IfcExternalReference (getEntityInstance("IFCEXTERNALREFERENCE")); }
+        public IfcExternalReference _IfcExternalReference { get { return get_IfcExternalReference(); } }
         public void put_IfcExternalReference(IfcExternalReference inst) { putEntityInstance("IFCEXTERNALREFERENCE", inst); }
 
         public bool is_IfcLightIntensityDistribution() { return IsADBEntity("IfcLightIntensityDistribution"); }
+        public bool _is_IfcLightIntensityDistribution { get { return is_IfcLightIntensityDistribution(); } }
         public IfcLightIntensityDistribution get_IfcLightIntensityDistribution() { return new IfcLightIntensityDistribution (getEntityInstance("IFCLIGHTINTENSITYDISTRIBUTION")); }
+        public IfcLightIntensityDistribution _IfcLightIntensityDistribution { get { return get_IfcLightIntensityDistribution(); } }
         public void put_IfcLightIntensityDistribution(IfcLightIntensityDistribution inst) { putEntityInstance("IFCLIGHTINTENSITYDISTRIBUTION", inst); }
-    };
+        };
 
 
     public class IfcLightDistributionDataSourceSelect_get : Select
@@ -5562,12 +6076,16 @@ namespace IFC2x3
         public IfcLightDistributionDataSourceSelect_get() : base(null) { }
 
         public bool is_IfcExternalReference() { return IsADBEntity("IfcExternalReference"); }
+        public bool _is_IfcExternalReference { get { return is_IfcExternalReference(); } }
         public IfcExternalReference get_IfcExternalReference() { return new IfcExternalReference (getEntityInstance("IFCEXTERNALREFERENCE")); }
+        public IfcExternalReference _IfcExternalReference { get { return get_IfcExternalReference(); } }
         public bool is_IfcLightIntensityDistribution() { return IsADBEntity("IfcLightIntensityDistribution"); }
+        public bool _is_IfcLightIntensityDistribution { get { return is_IfcLightIntensityDistribution(); } }
         public IfcLightIntensityDistribution get_IfcLightIntensityDistribution() { return new IfcLightIntensityDistribution (getEntityInstance("IFCLIGHTINTENSITYDISTRIBUTION")); }
+        public IfcLightIntensityDistribution _IfcLightIntensityDistribution { get { return get_IfcLightIntensityDistribution(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcLightDistributionDataSourceSelect_put : Select
@@ -5593,7 +6111,7 @@ namespace IFC2x3
 
         public void put_IfcExternalReference(IfcExternalReference inst) { putEntityInstance("IFCEXTERNALREFERENCE", inst); }
         public void put_IfcLightIntensityDistribution(IfcLightIntensityDistribution inst) { putEntityInstance("IFCLIGHTINTENSITYDISTRIBUTION", inst); }
-    };
+        };
 
 
     public class IfcMaterialSelect : Select
@@ -5619,25 +6137,35 @@ namespace IFC2x3
 
 
         public bool is_IfcMaterial() { return IsADBEntity("IfcMaterial"); }
+        public bool _is_IfcMaterial { get { return is_IfcMaterial(); } }
         public IfcMaterial get_IfcMaterial() { return new IfcMaterial (getEntityInstance("IFCMATERIAL")); }
+        public IfcMaterial _IfcMaterial { get { return get_IfcMaterial(); } }
         public void put_IfcMaterial(IfcMaterial inst) { putEntityInstance("IFCMATERIAL", inst); }
 
         public bool is_IfcMaterialList() { return IsADBEntity("IfcMaterialList"); }
+        public bool _is_IfcMaterialList { get { return is_IfcMaterialList(); } }
         public IfcMaterialList get_IfcMaterialList() { return new IfcMaterialList (getEntityInstance("IFCMATERIALLIST")); }
+        public IfcMaterialList _IfcMaterialList { get { return get_IfcMaterialList(); } }
         public void put_IfcMaterialList(IfcMaterialList inst) { putEntityInstance("IFCMATERIALLIST", inst); }
 
         public bool is_IfcMaterialLayerSetUsage() { return IsADBEntity("IfcMaterialLayerSetUsage"); }
+        public bool _is_IfcMaterialLayerSetUsage { get { return is_IfcMaterialLayerSetUsage(); } }
         public IfcMaterialLayerSetUsage get_IfcMaterialLayerSetUsage() { return new IfcMaterialLayerSetUsage (getEntityInstance("IFCMATERIALLAYERSETUSAGE")); }
+        public IfcMaterialLayerSetUsage _IfcMaterialLayerSetUsage { get { return get_IfcMaterialLayerSetUsage(); } }
         public void put_IfcMaterialLayerSetUsage(IfcMaterialLayerSetUsage inst) { putEntityInstance("IFCMATERIALLAYERSETUSAGE", inst); }
 
         public bool is_IfcMaterialLayerSet() { return IsADBEntity("IfcMaterialLayerSet"); }
+        public bool _is_IfcMaterialLayerSet { get { return is_IfcMaterialLayerSet(); } }
         public IfcMaterialLayerSet get_IfcMaterialLayerSet() { return new IfcMaterialLayerSet (getEntityInstance("IFCMATERIALLAYERSET")); }
+        public IfcMaterialLayerSet _IfcMaterialLayerSet { get { return get_IfcMaterialLayerSet(); } }
         public void put_IfcMaterialLayerSet(IfcMaterialLayerSet inst) { putEntityInstance("IFCMATERIALLAYERSET", inst); }
 
         public bool is_IfcMaterialLayer() { return IsADBEntity("IfcMaterialLayer"); }
+        public bool _is_IfcMaterialLayer { get { return is_IfcMaterialLayer(); } }
         public IfcMaterialLayer get_IfcMaterialLayer() { return new IfcMaterialLayer (getEntityInstance("IFCMATERIALLAYER")); }
+        public IfcMaterialLayer _IfcMaterialLayer { get { return get_IfcMaterialLayer(); } }
         public void put_IfcMaterialLayer(IfcMaterialLayer inst) { putEntityInstance("IFCMATERIALLAYER", inst); }
-    };
+        };
 
 
     public class IfcMaterialSelect_get : Select
@@ -5662,18 +6190,28 @@ namespace IFC2x3
         public IfcMaterialSelect_get() : base(null) { }
 
         public bool is_IfcMaterial() { return IsADBEntity("IfcMaterial"); }
+        public bool _is_IfcMaterial { get { return is_IfcMaterial(); } }
         public IfcMaterial get_IfcMaterial() { return new IfcMaterial (getEntityInstance("IFCMATERIAL")); }
+        public IfcMaterial _IfcMaterial { get { return get_IfcMaterial(); } }
         public bool is_IfcMaterialList() { return IsADBEntity("IfcMaterialList"); }
+        public bool _is_IfcMaterialList { get { return is_IfcMaterialList(); } }
         public IfcMaterialList get_IfcMaterialList() { return new IfcMaterialList (getEntityInstance("IFCMATERIALLIST")); }
+        public IfcMaterialList _IfcMaterialList { get { return get_IfcMaterialList(); } }
         public bool is_IfcMaterialLayerSetUsage() { return IsADBEntity("IfcMaterialLayerSetUsage"); }
+        public bool _is_IfcMaterialLayerSetUsage { get { return is_IfcMaterialLayerSetUsage(); } }
         public IfcMaterialLayerSetUsage get_IfcMaterialLayerSetUsage() { return new IfcMaterialLayerSetUsage (getEntityInstance("IFCMATERIALLAYERSETUSAGE")); }
+        public IfcMaterialLayerSetUsage _IfcMaterialLayerSetUsage { get { return get_IfcMaterialLayerSetUsage(); } }
         public bool is_IfcMaterialLayerSet() { return IsADBEntity("IfcMaterialLayerSet"); }
+        public bool _is_IfcMaterialLayerSet { get { return is_IfcMaterialLayerSet(); } }
         public IfcMaterialLayerSet get_IfcMaterialLayerSet() { return new IfcMaterialLayerSet (getEntityInstance("IFCMATERIALLAYERSET")); }
+        public IfcMaterialLayerSet _IfcMaterialLayerSet { get { return get_IfcMaterialLayerSet(); } }
         public bool is_IfcMaterialLayer() { return IsADBEntity("IfcMaterialLayer"); }
+        public bool _is_IfcMaterialLayer { get { return is_IfcMaterialLayer(); } }
         public IfcMaterialLayer get_IfcMaterialLayer() { return new IfcMaterialLayer (getEntityInstance("IFCMATERIALLAYER")); }
+        public IfcMaterialLayer _IfcMaterialLayer { get { return get_IfcMaterialLayer(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcMaterialSelect_put : Select
@@ -5702,7 +6240,7 @@ namespace IFC2x3
         public void put_IfcMaterialLayerSetUsage(IfcMaterialLayerSetUsage inst) { putEntityInstance("IFCMATERIALLAYERSETUSAGE", inst); }
         public void put_IfcMaterialLayerSet(IfcMaterialLayerSet inst) { putEntityInstance("IFCMATERIALLAYERSET", inst); }
         public void put_IfcMaterialLayer(IfcMaterialLayer inst) { putEntityInstance("IFCMATERIALLAYER", inst); }
-    };
+        };
 
 
     public class IfcMeasureValue : Select
@@ -5728,94 +6266,138 @@ namespace IFC2x3
 
 
         public bool is_IfcVolumeMeasure() { return IsADBType("IFCVOLUMEMEASURE"); }
+        //public bool _is_IfcVolumeMeasure { get { return is_IfcVolumeMeasure(); } }
         public double? get_IfcVolumeMeasure() { return get_double("IFCVOLUMEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcVolumeMeasure { get { return get_IfcVolumeMeasure(); } }
         public void put_IfcVolumeMeasure (double value) { put_double("IFCVOLUMEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcTimeMeasure() { return IsADBType("IFCTIMEMEASURE"); }
+        //public bool _is_IfcTimeMeasure { get { return is_IfcTimeMeasure(); } }
         public double? get_IfcTimeMeasure() { return get_double("IFCTIMEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcTimeMeasure { get { return get_IfcTimeMeasure(); } }
         public void put_IfcTimeMeasure (double value) { put_double("IFCTIMEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcThermodynamicTemperatureMeasure() { return IsADBType("IFCTHERMODYNAMICTEMPERATUREMEASURE"); }
+        //public bool _is_IfcThermodynamicTemperatureMeasure { get { return is_IfcThermodynamicTemperatureMeasure(); } }
         public double? get_IfcThermodynamicTemperatureMeasure() { return get_double("IFCTHERMODYNAMICTEMPERATUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermodynamicTemperatureMeasure { get { return get_IfcThermodynamicTemperatureMeasure(); } }
         public void put_IfcThermodynamicTemperatureMeasure (double value) { put_double("IFCTHERMODYNAMICTEMPERATUREMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcSolidAngleMeasure() { return IsADBType("IFCSOLIDANGLEMEASURE"); }
+        //public bool _is_IfcSolidAngleMeasure { get { return is_IfcSolidAngleMeasure(); } }
         public double? get_IfcSolidAngleMeasure() { return get_double("IFCSOLIDANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSolidAngleMeasure { get { return get_IfcSolidAngleMeasure(); } }
         public void put_IfcSolidAngleMeasure (double value) { put_double("IFCSOLIDANGLEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPositiveRatioMeasure() { return IsADBType("IFCPOSITIVERATIOMEASURE"); }
+        //public bool _is_IfcPositiveRatioMeasure { get { return is_IfcPositiveRatioMeasure(); } }
         public double? get_IfcPositiveRatioMeasure() { return get_double("IFCPOSITIVERATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveRatioMeasure { get { return get_IfcPositiveRatioMeasure(); } }
         public void put_IfcPositiveRatioMeasure (double value) { put_double("IFCPOSITIVERATIOMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
+        //public bool _is_IfcRatioMeasure { get { return is_IfcRatioMeasure(); } }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRatioMeasure { get { return get_IfcRatioMeasure(); } }
         public void put_IfcRatioMeasure (double value) { put_double("IFCRATIOMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPositivePlaneAngleMeasure() { return IsADBType("IFCPOSITIVEPLANEANGLEMEASURE"); }
+        //public bool _is_IfcPositivePlaneAngleMeasure { get { return is_IfcPositivePlaneAngleMeasure(); } }
         public double? get_IfcPositivePlaneAngleMeasure() { return get_double("IFCPOSITIVEPLANEANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositivePlaneAngleMeasure { get { return get_IfcPositivePlaneAngleMeasure(); } }
         public void put_IfcPositivePlaneAngleMeasure (double value) { put_double("IFCPOSITIVEPLANEANGLEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPlaneAngleMeasure() { return IsADBType("IFCPLANEANGLEMEASURE"); }
+        //public bool _is_IfcPlaneAngleMeasure { get { return is_IfcPlaneAngleMeasure(); } }
         public double? get_IfcPlaneAngleMeasure() { return get_double("IFCPLANEANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPlaneAngleMeasure { get { return get_IfcPlaneAngleMeasure(); } }
         public void put_IfcPlaneAngleMeasure (double value) { put_double("IFCPLANEANGLEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
+        //public bool _is_IfcParameterValue { get { return is_IfcParameterValue(); } }
         public double? get_IfcParameterValue() { return get_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL); }
+        public double? _IfcParameterValue { get { return get_IfcParameterValue(); } }
         public void put_IfcParameterValue (double value) { put_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcNumericMeasure() { return IsADBType("IFCNUMERICMEASURE"); }
+        //public bool _is_IfcNumericMeasure { get { return is_IfcNumericMeasure(); } }
         public double? get_IfcNumericMeasure() { return get_double("IFCNUMERICMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNumericMeasure { get { return get_IfcNumericMeasure(); } }
         public void put_IfcNumericMeasure (double value) { put_double("IFCNUMERICMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcMassMeasure() { return IsADBType("IFCMASSMEASURE"); }
+        //public bool _is_IfcMassMeasure { get { return is_IfcMassMeasure(); } }
         public double? get_IfcMassMeasure() { return get_double("IFCMASSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassMeasure { get { return get_IfcMassMeasure(); } }
         public void put_IfcMassMeasure (double value) { put_double("IFCMASSMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPositiveLengthMeasure() { return IsADBType("IFCPOSITIVELENGTHMEASURE"); }
+        //public bool _is_IfcPositiveLengthMeasure { get { return is_IfcPositiveLengthMeasure(); } }
         public double? get_IfcPositiveLengthMeasure() { return get_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveLengthMeasure { get { return get_IfcPositiveLengthMeasure(); } }
         public void put_IfcPositiveLengthMeasure (double value) { put_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        //public bool _is_IfcLengthMeasure { get { return is_IfcLengthMeasure(); } }
         public double? get_IfcLengthMeasure() { return get_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLengthMeasure { get { return get_IfcLengthMeasure(); } }
         public void put_IfcLengthMeasure (double value) { put_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcElectricCurrentMeasure() { return IsADBType("IFCELECTRICCURRENTMEASURE"); }
+        //public bool _is_IfcElectricCurrentMeasure { get { return is_IfcElectricCurrentMeasure(); } }
         public double? get_IfcElectricCurrentMeasure() { return get_double("IFCELECTRICCURRENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricCurrentMeasure { get { return get_IfcElectricCurrentMeasure(); } }
         public void put_IfcElectricCurrentMeasure (double value) { put_double("IFCELECTRICCURRENTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcDescriptiveMeasure() { return IsADBType("IFCDESCRIPTIVEMEASURE"); }
+        public bool _isIfcDescriptiveMeasure { get { return is_IfcDescriptiveMeasure(); } }
         public TextValue get_IfcDescriptiveMeasure() { return getTextValue("IFCDESCRIPTIVEMEASURE", ifcengine.sdaiSTRING); }
+        public TextValue _IfcDescriptiveMeasure { get { return get_IfcDescriptiveMeasure(); } }
         public void put_IfcDescriptiveMeasure(TextValue value) { putTextValue("IFCDESCRIPTIVEMEASURE", ifcengine.sdaiSTRING, value); }
 
         public bool is_IfcCountMeasure() { return IsADBType("IFCCOUNTMEASURE"); }
+        //public bool _is_IfcCountMeasure { get { return is_IfcCountMeasure(); } }
         public double? get_IfcCountMeasure() { return get_double("IFCCOUNTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcCountMeasure { get { return get_IfcCountMeasure(); } }
         public void put_IfcCountMeasure (double value) { put_double("IFCCOUNTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcContextDependentMeasure() { return IsADBType("IFCCONTEXTDEPENDENTMEASURE"); }
+        //public bool _is_IfcContextDependentMeasure { get { return is_IfcContextDependentMeasure(); } }
         public double? get_IfcContextDependentMeasure() { return get_double("IFCCONTEXTDEPENDENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcContextDependentMeasure { get { return get_IfcContextDependentMeasure(); } }
         public void put_IfcContextDependentMeasure (double value) { put_double("IFCCONTEXTDEPENDENTMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcAreaMeasure() { return IsADBType("IFCAREAMEASURE"); }
+        //public bool _is_IfcAreaMeasure { get { return is_IfcAreaMeasure(); } }
         public double? get_IfcAreaMeasure() { return get_double("IFCAREAMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAreaMeasure { get { return get_IfcAreaMeasure(); } }
         public void put_IfcAreaMeasure (double value) { put_double("IFCAREAMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcAmountOfSubstanceMeasure() { return IsADBType("IFCAMOUNTOFSUBSTANCEMEASURE"); }
+        //public bool _is_IfcAmountOfSubstanceMeasure { get { return is_IfcAmountOfSubstanceMeasure(); } }
         public double? get_IfcAmountOfSubstanceMeasure() { return get_double("IFCAMOUNTOFSUBSTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAmountOfSubstanceMeasure { get { return get_IfcAmountOfSubstanceMeasure(); } }
         public void put_IfcAmountOfSubstanceMeasure (double value) { put_double("IFCAMOUNTOFSUBSTANCEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLuminousIntensityMeasure() { return IsADBType("IFCLUMINOUSINTENSITYMEASURE"); }
+        //public bool _is_IfcLuminousIntensityMeasure { get { return is_IfcLuminousIntensityMeasure(); } }
         public double? get_IfcLuminousIntensityMeasure() { return get_double("IFCLUMINOUSINTENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLuminousIntensityMeasure { get { return get_IfcLuminousIntensityMeasure(); } }
         public void put_IfcLuminousIntensityMeasure (double value) { put_double("IFCLUMINOUSINTENSITYMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcNormalisedRatioMeasure() { return IsADBType("IFCNORMALISEDRATIOMEASURE"); }
+        //public bool _is_IfcNormalisedRatioMeasure { get { return is_IfcNormalisedRatioMeasure(); } }
         public double? get_IfcNormalisedRatioMeasure() { return get_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNormalisedRatioMeasure { get { return get_IfcNormalisedRatioMeasure(); } }
         public void put_IfcNormalisedRatioMeasure (double value) { put_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcComplexNumber() { return IsADBType("IFCCOMPLEXNUMBER"); }
+        public bool _is_IfcComplexNumber { get { return is_IfcComplexNumber(); } }
         public IfcComplexNumber get_IfcComplexNumber() { SdaiAggr aggr = getAggrValue("IFCCOMPLEXNUMBER"); return (new IfcComplexNumberSerializer()).FromSdaiAggr(m_instance, aggr); }
+        public IfcComplexNumber _IfcComplexNumber { get { return get_IfcComplexNumber(); } }
         public void put_IfcComplexNumber(IEnumerable<double> lst) { SdaiAggr aggr = (new IfcComplexNumberSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("IFCCOMPLEXNUMBER", aggr); }
         //public void put_IfcComplexNumber(IEnumerable lst) { SdaiAggr aggr = (new IfcComplexNumberSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("IFCCOMPLEXNUMBER", aggr); }
-    };
+        };
 
 
     public class IfcMeasureValue_get : Select
@@ -5840,53 +6422,97 @@ namespace IFC2x3
         public IfcMeasureValue_get() : base(null) { }
 
         public bool is_IfcVolumeMeasure() { return IsADBType("IFCVOLUMEMEASURE"); }
+        //public bool _is_IfcVolumeMeasure { get { return is_IfcVolumeMeasure(); } }
         public double? get_IfcVolumeMeasure() { return get_double("IFCVOLUMEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcVolumeMeasure { get { return get_IfcVolumeMeasure(); } }
         public bool is_IfcTimeMeasure() { return IsADBType("IFCTIMEMEASURE"); }
+        //public bool _is_IfcTimeMeasure { get { return is_IfcTimeMeasure(); } }
         public double? get_IfcTimeMeasure() { return get_double("IFCTIMEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcTimeMeasure { get { return get_IfcTimeMeasure(); } }
         public bool is_IfcThermodynamicTemperatureMeasure() { return IsADBType("IFCTHERMODYNAMICTEMPERATUREMEASURE"); }
+        //public bool _is_IfcThermodynamicTemperatureMeasure { get { return is_IfcThermodynamicTemperatureMeasure(); } }
         public double? get_IfcThermodynamicTemperatureMeasure() { return get_double("IFCTHERMODYNAMICTEMPERATUREMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcThermodynamicTemperatureMeasure { get { return get_IfcThermodynamicTemperatureMeasure(); } }
         public bool is_IfcSolidAngleMeasure() { return IsADBType("IFCSOLIDANGLEMEASURE"); }
+        //public bool _is_IfcSolidAngleMeasure { get { return is_IfcSolidAngleMeasure(); } }
         public double? get_IfcSolidAngleMeasure() { return get_double("IFCSOLIDANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcSolidAngleMeasure { get { return get_IfcSolidAngleMeasure(); } }
         public bool is_IfcPositiveRatioMeasure() { return IsADBType("IFCPOSITIVERATIOMEASURE"); }
+        //public bool _is_IfcPositiveRatioMeasure { get { return is_IfcPositiveRatioMeasure(); } }
         public double? get_IfcPositiveRatioMeasure() { return get_double("IFCPOSITIVERATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveRatioMeasure { get { return get_IfcPositiveRatioMeasure(); } }
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
+        //public bool _is_IfcRatioMeasure { get { return is_IfcRatioMeasure(); } }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRatioMeasure { get { return get_IfcRatioMeasure(); } }
         public bool is_IfcPositivePlaneAngleMeasure() { return IsADBType("IFCPOSITIVEPLANEANGLEMEASURE"); }
+        //public bool _is_IfcPositivePlaneAngleMeasure { get { return is_IfcPositivePlaneAngleMeasure(); } }
         public double? get_IfcPositivePlaneAngleMeasure() { return get_double("IFCPOSITIVEPLANEANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositivePlaneAngleMeasure { get { return get_IfcPositivePlaneAngleMeasure(); } }
         public bool is_IfcPlaneAngleMeasure() { return IsADBType("IFCPLANEANGLEMEASURE"); }
+        //public bool _is_IfcPlaneAngleMeasure { get { return is_IfcPlaneAngleMeasure(); } }
         public double? get_IfcPlaneAngleMeasure() { return get_double("IFCPLANEANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPlaneAngleMeasure { get { return get_IfcPlaneAngleMeasure(); } }
         public bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
+        //public bool _is_IfcParameterValue { get { return is_IfcParameterValue(); } }
         public double? get_IfcParameterValue() { return get_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL); }
+        public double? _IfcParameterValue { get { return get_IfcParameterValue(); } }
         public bool is_IfcNumericMeasure() { return IsADBType("IFCNUMERICMEASURE"); }
+        //public bool _is_IfcNumericMeasure { get { return is_IfcNumericMeasure(); } }
         public double? get_IfcNumericMeasure() { return get_double("IFCNUMERICMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNumericMeasure { get { return get_IfcNumericMeasure(); } }
         public bool is_IfcMassMeasure() { return IsADBType("IFCMASSMEASURE"); }
+        //public bool _is_IfcMassMeasure { get { return is_IfcMassMeasure(); } }
         public double? get_IfcMassMeasure() { return get_double("IFCMASSMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcMassMeasure { get { return get_IfcMassMeasure(); } }
         public bool is_IfcPositiveLengthMeasure() { return IsADBType("IFCPOSITIVELENGTHMEASURE"); }
+        //public bool _is_IfcPositiveLengthMeasure { get { return is_IfcPositiveLengthMeasure(); } }
         public double? get_IfcPositiveLengthMeasure() { return get_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveLengthMeasure { get { return get_IfcPositiveLengthMeasure(); } }
         public bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        //public bool _is_IfcLengthMeasure { get { return is_IfcLengthMeasure(); } }
         public double? get_IfcLengthMeasure() { return get_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLengthMeasure { get { return get_IfcLengthMeasure(); } }
         public bool is_IfcElectricCurrentMeasure() { return IsADBType("IFCELECTRICCURRENTMEASURE"); }
+        //public bool _is_IfcElectricCurrentMeasure { get { return is_IfcElectricCurrentMeasure(); } }
         public double? get_IfcElectricCurrentMeasure() { return get_double("IFCELECTRICCURRENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcElectricCurrentMeasure { get { return get_IfcElectricCurrentMeasure(); } }
         public bool is_IfcDescriptiveMeasure() { return IsADBType("IFCDESCRIPTIVEMEASURE"); }
+        public bool _isIfcDescriptiveMeasure { get { return is_IfcDescriptiveMeasure(); } }
         public TextValue get_IfcDescriptiveMeasure() { return getTextValue("IFCDESCRIPTIVEMEASURE", ifcengine.sdaiSTRING); }
+        public TextValue _IfcDescriptiveMeasure { get { return get_IfcDescriptiveMeasure(); } }
         public bool is_IfcCountMeasure() { return IsADBType("IFCCOUNTMEASURE"); }
+        //public bool _is_IfcCountMeasure { get { return is_IfcCountMeasure(); } }
         public double? get_IfcCountMeasure() { return get_double("IFCCOUNTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcCountMeasure { get { return get_IfcCountMeasure(); } }
         public bool is_IfcContextDependentMeasure() { return IsADBType("IFCCONTEXTDEPENDENTMEASURE"); }
+        //public bool _is_IfcContextDependentMeasure { get { return is_IfcContextDependentMeasure(); } }
         public double? get_IfcContextDependentMeasure() { return get_double("IFCCONTEXTDEPENDENTMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcContextDependentMeasure { get { return get_IfcContextDependentMeasure(); } }
         public bool is_IfcAreaMeasure() { return IsADBType("IFCAREAMEASURE"); }
+        //public bool _is_IfcAreaMeasure { get { return is_IfcAreaMeasure(); } }
         public double? get_IfcAreaMeasure() { return get_double("IFCAREAMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAreaMeasure { get { return get_IfcAreaMeasure(); } }
         public bool is_IfcAmountOfSubstanceMeasure() { return IsADBType("IFCAMOUNTOFSUBSTANCEMEASURE"); }
+        //public bool _is_IfcAmountOfSubstanceMeasure { get { return is_IfcAmountOfSubstanceMeasure(); } }
         public double? get_IfcAmountOfSubstanceMeasure() { return get_double("IFCAMOUNTOFSUBSTANCEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcAmountOfSubstanceMeasure { get { return get_IfcAmountOfSubstanceMeasure(); } }
         public bool is_IfcLuminousIntensityMeasure() { return IsADBType("IFCLUMINOUSINTENSITYMEASURE"); }
+        //public bool _is_IfcLuminousIntensityMeasure { get { return is_IfcLuminousIntensityMeasure(); } }
         public double? get_IfcLuminousIntensityMeasure() { return get_double("IFCLUMINOUSINTENSITYMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLuminousIntensityMeasure { get { return get_IfcLuminousIntensityMeasure(); } }
         public bool is_IfcNormalisedRatioMeasure() { return IsADBType("IFCNORMALISEDRATIOMEASURE"); }
+        //public bool _is_IfcNormalisedRatioMeasure { get { return is_IfcNormalisedRatioMeasure(); } }
         public double? get_IfcNormalisedRatioMeasure() { return get_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNormalisedRatioMeasure { get { return get_IfcNormalisedRatioMeasure(); } }
         public bool is_IfcComplexNumber() { return IsADBType("IFCCOMPLEXNUMBER"); }
+        public bool _is_IfcComplexNumber { get { return is_IfcComplexNumber(); } }
         public IfcComplexNumber get_IfcComplexNumber() { SdaiAggr aggr = getAggrValue("IFCCOMPLEXNUMBER"); return (new IfcComplexNumberSerializer()).FromSdaiAggr(m_instance, aggr); }
+        public IfcComplexNumber _IfcComplexNumber { get { return get_IfcComplexNumber(); } }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcMeasureValue_put : Select
@@ -5933,7 +6559,7 @@ namespace IFC2x3
         public void put_IfcNormalisedRatioMeasure (double value) { put_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcComplexNumber(IEnumerable<double> lst) { SdaiAggr aggr = (new IfcComplexNumberSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("IFCCOMPLEXNUMBER", aggr); }
         //public void put_IfcComplexNumber(IEnumerable lst) { SdaiAggr aggr = (new IfcComplexNumberSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("IFCCOMPLEXNUMBER", aggr); }
-    };
+        };
 
 
     public class IfcMetricValueSelect : Select
@@ -5959,27 +6585,38 @@ namespace IFC2x3
 
 
         public IfcDateTimeSelect _IfcDateTimeSelect() { return new IfcDateTimeSelect(this); }
+        public IfcDateTimeSelect __IfcDateTimeSelect { get { return _IfcDateTimeSelect(); } }
 
         public bool is_IfcMeasureWithUnit() { return IsADBEntity("IfcMeasureWithUnit"); }
+        public bool _is_IfcMeasureWithUnit { get { return is_IfcMeasureWithUnit(); } }
         public IfcMeasureWithUnit get_IfcMeasureWithUnit() { return new IfcMeasureWithUnit (getEntityInstance("IFCMEASUREWITHUNIT")); }
+        public IfcMeasureWithUnit _IfcMeasureWithUnit { get { return get_IfcMeasureWithUnit(); } }
         public void put_IfcMeasureWithUnit(IfcMeasureWithUnit inst) { putEntityInstance("IFCMEASUREWITHUNIT", inst); }
 
         public bool is_IfcTable() { return IsADBEntity("IfcTable"); }
+        public bool _is_IfcTable { get { return is_IfcTable(); } }
         public IfcTable get_IfcTable() { return new IfcTable (getEntityInstance("IFCTABLE")); }
+        public IfcTable _IfcTable { get { return get_IfcTable(); } }
         public void put_IfcTable(IfcTable inst) { putEntityInstance("IFCTABLE", inst); }
 
         public bool is_IfcText() { return IsADBType("IFCTEXT"); }
+        public bool _isIfcText { get { return is_IfcText(); } }
         public TextValue get_IfcText() { return getTextValue("IFCTEXT", ifcengine.sdaiSTRING); }
+        public TextValue _IfcText { get { return get_IfcText(); } }
         public void put_IfcText(TextValue value) { putTextValue("IFCTEXT", ifcengine.sdaiSTRING, value); }
 
         public bool is_IfcTimeSeries() { return IsADBEntity("IfcTimeSeries"); }
+        public bool _is_IfcTimeSeries { get { return is_IfcTimeSeries(); } }
         public IfcTimeSeries get_IfcTimeSeries() { return new IfcTimeSeries (getEntityInstance("IFCTIMESERIES")); }
+        public IfcTimeSeries _IfcTimeSeries { get { return get_IfcTimeSeries(); } }
         public void put_IfcTimeSeries(IfcTimeSeries inst) { putEntityInstance("IFCTIMESERIES", inst); }
 
         public bool is_IfcCostValue() { return IsADBEntity("IfcCostValue"); }
+        public bool _is_IfcCostValue { get { return is_IfcCostValue(); } }
         public IfcCostValue get_IfcCostValue() { return new IfcCostValue (getEntityInstance("IFCCOSTVALUE")); }
+        public IfcCostValue _IfcCostValue { get { return get_IfcCostValue(); } }
         public void put_IfcCostValue(IfcCostValue inst) { putEntityInstance("IFCCOSTVALUE", inst); }
-    };
+        };
 
 
     public class IfcMetricValueSelect_get : Select
@@ -6004,20 +6641,31 @@ namespace IFC2x3
         public IfcMetricValueSelect_get() : base(null) { }
 
         public IfcDateTimeSelect_get get_IfcDateTimeSelect() { return new IfcDateTimeSelect_get(this); }
+        public IfcDateTimeSelect_get __IfcDateTimeSelect { get { return get_IfcDateTimeSelect(); } }
         public bool is_IfcMeasureWithUnit() { return IsADBEntity("IfcMeasureWithUnit"); }
+        public bool _is_IfcMeasureWithUnit { get { return is_IfcMeasureWithUnit(); } }
         public IfcMeasureWithUnit get_IfcMeasureWithUnit() { return new IfcMeasureWithUnit (getEntityInstance("IFCMEASUREWITHUNIT")); }
+        public IfcMeasureWithUnit _IfcMeasureWithUnit { get { return get_IfcMeasureWithUnit(); } }
         public bool is_IfcTable() { return IsADBEntity("IfcTable"); }
+        public bool _is_IfcTable { get { return is_IfcTable(); } }
         public IfcTable get_IfcTable() { return new IfcTable (getEntityInstance("IFCTABLE")); }
+        public IfcTable _IfcTable { get { return get_IfcTable(); } }
         public bool is_IfcText() { return IsADBType("IFCTEXT"); }
+        public bool _isIfcText { get { return is_IfcText(); } }
         public TextValue get_IfcText() { return getTextValue("IFCTEXT", ifcengine.sdaiSTRING); }
+        public TextValue _IfcText { get { return get_IfcText(); } }
         public bool is_IfcTimeSeries() { return IsADBEntity("IfcTimeSeries"); }
+        public bool _is_IfcTimeSeries { get { return is_IfcTimeSeries(); } }
         public IfcTimeSeries get_IfcTimeSeries() { return new IfcTimeSeries (getEntityInstance("IFCTIMESERIES")); }
+        public IfcTimeSeries _IfcTimeSeries { get { return get_IfcTimeSeries(); } }
         public bool is_IfcCostValue() { return IsADBEntity("IfcCostValue"); }
+        public bool _is_IfcCostValue { get { return is_IfcCostValue(); } }
         public IfcCostValue get_IfcCostValue() { return new IfcCostValue (getEntityInstance("IFCCOSTVALUE")); }
+        public IfcCostValue _IfcCostValue { get { return get_IfcCostValue(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcMetricValueSelect_put : Select
@@ -6042,12 +6690,13 @@ namespace IFC2x3
         public IfcMetricValueSelect_put() : base(null) { }
 
         public IfcDateTimeSelect_put put_IfcDateTimeSelect() { return new IfcDateTimeSelect_put(this); }
+        public IfcDateTimeSelect_put __IfcDateTimeSelect { get { return put_IfcDateTimeSelect(); } }
         public void put_IfcMeasureWithUnit(IfcMeasureWithUnit inst) { putEntityInstance("IFCMEASUREWITHUNIT", inst); }
         public void put_IfcTable(IfcTable inst) { putEntityInstance("IFCTABLE", inst); }
         public void put_IfcText(TextValue value) { putTextValue("IFCTEXT", ifcengine.sdaiSTRING, value); }
         public void put_IfcTimeSeries(IfcTimeSeries inst) { putEntityInstance("IFCTIMESERIES", inst); }
         public void put_IfcCostValue(IfcCostValue inst) { putEntityInstance("IFCCOSTVALUE", inst); }
-    };
+        };
 
 
     public class IfcObjectReferenceSelect : Select
@@ -6073,57 +6722,83 @@ namespace IFC2x3
 
 
         public bool is_IfcMaterial() { return IsADBEntity("IfcMaterial"); }
+        public bool _is_IfcMaterial { get { return is_IfcMaterial(); } }
         public IfcMaterial get_IfcMaterial() { return new IfcMaterial (getEntityInstance("IFCMATERIAL")); }
+        public IfcMaterial _IfcMaterial { get { return get_IfcMaterial(); } }
         public void put_IfcMaterial(IfcMaterial inst) { putEntityInstance("IFCMATERIAL", inst); }
 
         public bool is_IfcPerson() { return IsADBEntity("IfcPerson"); }
+        public bool _is_IfcPerson { get { return is_IfcPerson(); } }
         public IfcPerson get_IfcPerson() { return new IfcPerson (getEntityInstance("IFCPERSON")); }
+        public IfcPerson _IfcPerson { get { return get_IfcPerson(); } }
         public void put_IfcPerson(IfcPerson inst) { putEntityInstance("IFCPERSON", inst); }
 
         public bool is_IfcDateAndTime() { return IsADBEntity("IfcDateAndTime"); }
+        public bool _is_IfcDateAndTime { get { return is_IfcDateAndTime(); } }
         public IfcDateAndTime get_IfcDateAndTime() { return new IfcDateAndTime (getEntityInstance("IFCDATEANDTIME")); }
+        public IfcDateAndTime _IfcDateAndTime { get { return get_IfcDateAndTime(); } }
         public void put_IfcDateAndTime(IfcDateAndTime inst) { putEntityInstance("IFCDATEANDTIME", inst); }
 
         public bool is_IfcMaterialList() { return IsADBEntity("IfcMaterialList"); }
+        public bool _is_IfcMaterialList { get { return is_IfcMaterialList(); } }
         public IfcMaterialList get_IfcMaterialList() { return new IfcMaterialList (getEntityInstance("IFCMATERIALLIST")); }
+        public IfcMaterialList _IfcMaterialList { get { return get_IfcMaterialList(); } }
         public void put_IfcMaterialList(IfcMaterialList inst) { putEntityInstance("IFCMATERIALLIST", inst); }
 
         public bool is_IfcOrganization() { return IsADBEntity("IfcOrganization"); }
+        public bool _is_IfcOrganization { get { return is_IfcOrganization(); } }
         public IfcOrganization get_IfcOrganization() { return new IfcOrganization (getEntityInstance("IFCORGANIZATION")); }
+        public IfcOrganization _IfcOrganization { get { return get_IfcOrganization(); } }
         public void put_IfcOrganization(IfcOrganization inst) { putEntityInstance("IFCORGANIZATION", inst); }
 
         public bool is_IfcCalendarDate() { return IsADBEntity("IfcCalendarDate"); }
+        public bool _is_IfcCalendarDate { get { return is_IfcCalendarDate(); } }
         public IfcCalendarDate get_IfcCalendarDate() { return new IfcCalendarDate (getEntityInstance("IFCCALENDARDATE")); }
+        public IfcCalendarDate _IfcCalendarDate { get { return get_IfcCalendarDate(); } }
         public void put_IfcCalendarDate(IfcCalendarDate inst) { putEntityInstance("IFCCALENDARDATE", inst); }
 
         public bool is_IfcLocalTime() { return IsADBEntity("IfcLocalTime"); }
+        public bool _is_IfcLocalTime { get { return is_IfcLocalTime(); } }
         public IfcLocalTime get_IfcLocalTime() { return new IfcLocalTime (getEntityInstance("IFCLOCALTIME")); }
+        public IfcLocalTime _IfcLocalTime { get { return get_IfcLocalTime(); } }
         public void put_IfcLocalTime(IfcLocalTime inst) { putEntityInstance("IFCLOCALTIME", inst); }
 
         public bool is_IfcPersonAndOrganization() { return IsADBEntity("IfcPersonAndOrganization"); }
+        public bool _is_IfcPersonAndOrganization { get { return is_IfcPersonAndOrganization(); } }
         public IfcPersonAndOrganization get_IfcPersonAndOrganization() { return new IfcPersonAndOrganization (getEntityInstance("IFCPERSONANDORGANIZATION")); }
+        public IfcPersonAndOrganization _IfcPersonAndOrganization { get { return get_IfcPersonAndOrganization(); } }
         public void put_IfcPersonAndOrganization(IfcPersonAndOrganization inst) { putEntityInstance("IFCPERSONANDORGANIZATION", inst); }
 
         public bool is_IfcMaterialLayer() { return IsADBEntity("IfcMaterialLayer"); }
+        public bool _is_IfcMaterialLayer { get { return is_IfcMaterialLayer(); } }
         public IfcMaterialLayer get_IfcMaterialLayer() { return new IfcMaterialLayer (getEntityInstance("IFCMATERIALLAYER")); }
+        public IfcMaterialLayer _IfcMaterialLayer { get { return get_IfcMaterialLayer(); } }
         public void put_IfcMaterialLayer(IfcMaterialLayer inst) { putEntityInstance("IFCMATERIALLAYER", inst); }
 
         public bool is_IfcExternalReference() { return IsADBEntity("IfcExternalReference"); }
+        public bool _is_IfcExternalReference { get { return is_IfcExternalReference(); } }
         public IfcExternalReference get_IfcExternalReference() { return new IfcExternalReference (getEntityInstance("IFCEXTERNALREFERENCE")); }
+        public IfcExternalReference _IfcExternalReference { get { return get_IfcExternalReference(); } }
         public void put_IfcExternalReference(IfcExternalReference inst) { putEntityInstance("IFCEXTERNALREFERENCE", inst); }
 
         public bool is_IfcTimeSeries() { return IsADBEntity("IfcTimeSeries"); }
+        public bool _is_IfcTimeSeries { get { return is_IfcTimeSeries(); } }
         public IfcTimeSeries get_IfcTimeSeries() { return new IfcTimeSeries (getEntityInstance("IFCTIMESERIES")); }
+        public IfcTimeSeries _IfcTimeSeries { get { return get_IfcTimeSeries(); } }
         public void put_IfcTimeSeries(IfcTimeSeries inst) { putEntityInstance("IFCTIMESERIES", inst); }
 
         public bool is_IfcAddress() { return IsADBEntity("IfcAddress"); }
+        public bool _is_IfcAddress { get { return is_IfcAddress(); } }
         public IfcAddress get_IfcAddress() { return new IfcAddress (getEntityInstance("IFCADDRESS")); }
+        public IfcAddress _IfcAddress { get { return get_IfcAddress(); } }
         public void put_IfcAddress(IfcAddress inst) { putEntityInstance("IFCADDRESS", inst); }
 
         public bool is_IfcAppliedValue() { return IsADBEntity("IfcAppliedValue"); }
+        public bool _is_IfcAppliedValue { get { return is_IfcAppliedValue(); } }
         public IfcAppliedValue get_IfcAppliedValue() { return new IfcAppliedValue (getEntityInstance("IFCAPPLIEDVALUE")); }
+        public IfcAppliedValue _IfcAppliedValue { get { return get_IfcAppliedValue(); } }
         public void put_IfcAppliedValue(IfcAppliedValue inst) { putEntityInstance("IFCAPPLIEDVALUE", inst); }
-    };
+        };
 
 
     public class IfcObjectReferenceSelect_get : Select
@@ -6148,34 +6823,60 @@ namespace IFC2x3
         public IfcObjectReferenceSelect_get() : base(null) { }
 
         public bool is_IfcMaterial() { return IsADBEntity("IfcMaterial"); }
+        public bool _is_IfcMaterial { get { return is_IfcMaterial(); } }
         public IfcMaterial get_IfcMaterial() { return new IfcMaterial (getEntityInstance("IFCMATERIAL")); }
+        public IfcMaterial _IfcMaterial { get { return get_IfcMaterial(); } }
         public bool is_IfcPerson() { return IsADBEntity("IfcPerson"); }
+        public bool _is_IfcPerson { get { return is_IfcPerson(); } }
         public IfcPerson get_IfcPerson() { return new IfcPerson (getEntityInstance("IFCPERSON")); }
+        public IfcPerson _IfcPerson { get { return get_IfcPerson(); } }
         public bool is_IfcDateAndTime() { return IsADBEntity("IfcDateAndTime"); }
+        public bool _is_IfcDateAndTime { get { return is_IfcDateAndTime(); } }
         public IfcDateAndTime get_IfcDateAndTime() { return new IfcDateAndTime (getEntityInstance("IFCDATEANDTIME")); }
+        public IfcDateAndTime _IfcDateAndTime { get { return get_IfcDateAndTime(); } }
         public bool is_IfcMaterialList() { return IsADBEntity("IfcMaterialList"); }
+        public bool _is_IfcMaterialList { get { return is_IfcMaterialList(); } }
         public IfcMaterialList get_IfcMaterialList() { return new IfcMaterialList (getEntityInstance("IFCMATERIALLIST")); }
+        public IfcMaterialList _IfcMaterialList { get { return get_IfcMaterialList(); } }
         public bool is_IfcOrganization() { return IsADBEntity("IfcOrganization"); }
+        public bool _is_IfcOrganization { get { return is_IfcOrganization(); } }
         public IfcOrganization get_IfcOrganization() { return new IfcOrganization (getEntityInstance("IFCORGANIZATION")); }
+        public IfcOrganization _IfcOrganization { get { return get_IfcOrganization(); } }
         public bool is_IfcCalendarDate() { return IsADBEntity("IfcCalendarDate"); }
+        public bool _is_IfcCalendarDate { get { return is_IfcCalendarDate(); } }
         public IfcCalendarDate get_IfcCalendarDate() { return new IfcCalendarDate (getEntityInstance("IFCCALENDARDATE")); }
+        public IfcCalendarDate _IfcCalendarDate { get { return get_IfcCalendarDate(); } }
         public bool is_IfcLocalTime() { return IsADBEntity("IfcLocalTime"); }
+        public bool _is_IfcLocalTime { get { return is_IfcLocalTime(); } }
         public IfcLocalTime get_IfcLocalTime() { return new IfcLocalTime (getEntityInstance("IFCLOCALTIME")); }
+        public IfcLocalTime _IfcLocalTime { get { return get_IfcLocalTime(); } }
         public bool is_IfcPersonAndOrganization() { return IsADBEntity("IfcPersonAndOrganization"); }
+        public bool _is_IfcPersonAndOrganization { get { return is_IfcPersonAndOrganization(); } }
         public IfcPersonAndOrganization get_IfcPersonAndOrganization() { return new IfcPersonAndOrganization (getEntityInstance("IFCPERSONANDORGANIZATION")); }
+        public IfcPersonAndOrganization _IfcPersonAndOrganization { get { return get_IfcPersonAndOrganization(); } }
         public bool is_IfcMaterialLayer() { return IsADBEntity("IfcMaterialLayer"); }
+        public bool _is_IfcMaterialLayer { get { return is_IfcMaterialLayer(); } }
         public IfcMaterialLayer get_IfcMaterialLayer() { return new IfcMaterialLayer (getEntityInstance("IFCMATERIALLAYER")); }
+        public IfcMaterialLayer _IfcMaterialLayer { get { return get_IfcMaterialLayer(); } }
         public bool is_IfcExternalReference() { return IsADBEntity("IfcExternalReference"); }
+        public bool _is_IfcExternalReference { get { return is_IfcExternalReference(); } }
         public IfcExternalReference get_IfcExternalReference() { return new IfcExternalReference (getEntityInstance("IFCEXTERNALREFERENCE")); }
+        public IfcExternalReference _IfcExternalReference { get { return get_IfcExternalReference(); } }
         public bool is_IfcTimeSeries() { return IsADBEntity("IfcTimeSeries"); }
+        public bool _is_IfcTimeSeries { get { return is_IfcTimeSeries(); } }
         public IfcTimeSeries get_IfcTimeSeries() { return new IfcTimeSeries (getEntityInstance("IFCTIMESERIES")); }
+        public IfcTimeSeries _IfcTimeSeries { get { return get_IfcTimeSeries(); } }
         public bool is_IfcAddress() { return IsADBEntity("IfcAddress"); }
+        public bool _is_IfcAddress { get { return is_IfcAddress(); } }
         public IfcAddress get_IfcAddress() { return new IfcAddress (getEntityInstance("IFCADDRESS")); }
+        public IfcAddress _IfcAddress { get { return get_IfcAddress(); } }
         public bool is_IfcAppliedValue() { return IsADBEntity("IfcAppliedValue"); }
+        public bool _is_IfcAppliedValue { get { return is_IfcAppliedValue(); } }
         public IfcAppliedValue get_IfcAppliedValue() { return new IfcAppliedValue (getEntityInstance("IFCAPPLIEDVALUE")); }
+        public IfcAppliedValue _IfcAppliedValue { get { return get_IfcAppliedValue(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcObjectReferenceSelect_put : Select
@@ -6212,7 +6913,7 @@ namespace IFC2x3
         public void put_IfcTimeSeries(IfcTimeSeries inst) { putEntityInstance("IFCTIMESERIES", inst); }
         public void put_IfcAddress(IfcAddress inst) { putEntityInstance("IFCADDRESS", inst); }
         public void put_IfcAppliedValue(IfcAppliedValue inst) { putEntityInstance("IFCAPPLIEDVALUE", inst); }
-    };
+        };
 
 
     public class IfcOrientationSelect : Select
@@ -6238,13 +6939,17 @@ namespace IFC2x3
 
 
         public bool is_IfcPlaneAngleMeasure() { return IsADBType("IFCPLANEANGLEMEASURE"); }
+        //public bool _is_IfcPlaneAngleMeasure { get { return is_IfcPlaneAngleMeasure(); } }
         public double? get_IfcPlaneAngleMeasure() { return get_double("IFCPLANEANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPlaneAngleMeasure { get { return get_IfcPlaneAngleMeasure(); } }
         public void put_IfcPlaneAngleMeasure (double value) { put_double("IFCPLANEANGLEMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcDirection() { return IsADBEntity("IfcDirection"); }
+        public bool _is_IfcDirection { get { return is_IfcDirection(); } }
         public IfcDirection get_IfcDirection() { return new IfcDirection (getEntityInstance("IFCDIRECTION")); }
+        public IfcDirection _IfcDirection { get { return get_IfcDirection(); } }
         public void put_IfcDirection(IfcDirection inst) { putEntityInstance("IFCDIRECTION", inst); }
-    };
+        };
 
 
     public class IfcOrientationSelect_get : Select
@@ -6269,13 +6974,17 @@ namespace IFC2x3
         public IfcOrientationSelect_get() : base(null) { }
 
         public bool is_IfcPlaneAngleMeasure() { return IsADBType("IFCPLANEANGLEMEASURE"); }
+        //public bool _is_IfcPlaneAngleMeasure { get { return is_IfcPlaneAngleMeasure(); } }
         public double? get_IfcPlaneAngleMeasure() { return get_double("IFCPLANEANGLEMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPlaneAngleMeasure { get { return get_IfcPlaneAngleMeasure(); } }
         public bool is_IfcDirection() { return IsADBEntity("IfcDirection"); }
+        public bool _is_IfcDirection { get { return is_IfcDirection(); } }
         public IfcDirection get_IfcDirection() { return new IfcDirection (getEntityInstance("IFCDIRECTION")); }
+        public IfcDirection _IfcDirection { get { return get_IfcDirection(); } }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcOrientationSelect_put : Select
@@ -6301,7 +7010,7 @@ namespace IFC2x3
 
         public void put_IfcPlaneAngleMeasure (double value) { put_double("IFCPLANEANGLEMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcDirection(IfcDirection inst) { putEntityInstance("IFCDIRECTION", inst); }
-    };
+        };
 
 
     public class IfcPointOrVertexPoint : Select
@@ -6327,13 +7036,17 @@ namespace IFC2x3
 
 
         public bool is_IfcPoint() { return IsADBEntity("IfcPoint"); }
+        public bool _is_IfcPoint { get { return is_IfcPoint(); } }
         public IfcPoint get_IfcPoint() { return new IfcPoint (getEntityInstance("IFCPOINT")); }
+        public IfcPoint _IfcPoint { get { return get_IfcPoint(); } }
         public void put_IfcPoint(IfcPoint inst) { putEntityInstance("IFCPOINT", inst); }
 
         public bool is_IfcVertexPoint() { return IsADBEntity("IfcVertexPoint"); }
+        public bool _is_IfcVertexPoint { get { return is_IfcVertexPoint(); } }
         public IfcVertexPoint get_IfcVertexPoint() { return new IfcVertexPoint (getEntityInstance("IFCVERTEXPOINT")); }
+        public IfcVertexPoint _IfcVertexPoint { get { return get_IfcVertexPoint(); } }
         public void put_IfcVertexPoint(IfcVertexPoint inst) { putEntityInstance("IFCVERTEXPOINT", inst); }
-    };
+        };
 
 
     public class IfcPointOrVertexPoint_get : Select
@@ -6358,12 +7071,16 @@ namespace IFC2x3
         public IfcPointOrVertexPoint_get() : base(null) { }
 
         public bool is_IfcPoint() { return IsADBEntity("IfcPoint"); }
+        public bool _is_IfcPoint { get { return is_IfcPoint(); } }
         public IfcPoint get_IfcPoint() { return new IfcPoint (getEntityInstance("IFCPOINT")); }
+        public IfcPoint _IfcPoint { get { return get_IfcPoint(); } }
         public bool is_IfcVertexPoint() { return IsADBEntity("IfcVertexPoint"); }
+        public bool _is_IfcVertexPoint { get { return is_IfcVertexPoint(); } }
         public IfcVertexPoint get_IfcVertexPoint() { return new IfcVertexPoint (getEntityInstance("IFCVERTEXPOINT")); }
+        public IfcVertexPoint _IfcVertexPoint { get { return get_IfcVertexPoint(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcPointOrVertexPoint_put : Select
@@ -6389,7 +7106,7 @@ namespace IFC2x3
 
         public void put_IfcPoint(IfcPoint inst) { putEntityInstance("IFCPOINT", inst); }
         public void put_IfcVertexPoint(IfcVertexPoint inst) { putEntityInstance("IFCVERTEXPOINT", inst); }
-    };
+        };
 
 
     public class IfcPresentationStyleSelect : Select
@@ -6415,29 +7132,41 @@ namespace IFC2x3
 
 
         public bool is_IfcNullStyle() { return IsADBType("IFCNULLSTYLE"); }
+        public bool _is_IfcNullStyle { get { return is_IfcNullStyle(); } }
         public IfcNullStyle? get_IfcNullStyle() { int ind = getEnumerationIndex("IFCNULLSTYLE", EnumNames.IfcNullStyle_); return EnumValue<IfcNullStyle>.FromIndex(ind); }
+        public IfcNullStyle? _IfcNullStyle { get { return get_IfcNullStyle(); } }
         public void put_IfcNullStyle(IfcNullStyle value) { TextValue val = EnumString<IfcNullStyle>.FromValue(value, EnumNames.IfcNullStyle_); putEnumerationValue("IFCNULLSTYLE", val); }
 
         public bool is_IfcCurveStyle() { return IsADBEntity("IfcCurveStyle"); }
+        public bool _is_IfcCurveStyle { get { return is_IfcCurveStyle(); } }
         public IfcCurveStyle get_IfcCurveStyle() { return new IfcCurveStyle (getEntityInstance("IFCCURVESTYLE")); }
+        public IfcCurveStyle _IfcCurveStyle { get { return get_IfcCurveStyle(); } }
         public void put_IfcCurveStyle(IfcCurveStyle inst) { putEntityInstance("IFCCURVESTYLE", inst); }
 
         public bool is_IfcSymbolStyle() { return IsADBEntity("IfcSymbolStyle"); }
+        public bool _is_IfcSymbolStyle { get { return is_IfcSymbolStyle(); } }
         public IfcSymbolStyle get_IfcSymbolStyle() { return new IfcSymbolStyle (getEntityInstance("IFCSYMBOLSTYLE")); }
+        public IfcSymbolStyle _IfcSymbolStyle { get { return get_IfcSymbolStyle(); } }
         public void put_IfcSymbolStyle(IfcSymbolStyle inst) { putEntityInstance("IFCSYMBOLSTYLE", inst); }
 
         public bool is_IfcFillAreaStyle() { return IsADBEntity("IfcFillAreaStyle"); }
+        public bool _is_IfcFillAreaStyle { get { return is_IfcFillAreaStyle(); } }
         public IfcFillAreaStyle get_IfcFillAreaStyle() { return new IfcFillAreaStyle (getEntityInstance("IFCFILLAREASTYLE")); }
+        public IfcFillAreaStyle _IfcFillAreaStyle { get { return get_IfcFillAreaStyle(); } }
         public void put_IfcFillAreaStyle(IfcFillAreaStyle inst) { putEntityInstance("IFCFILLAREASTYLE", inst); }
 
         public bool is_IfcTextStyle() { return IsADBEntity("IfcTextStyle"); }
+        public bool _is_IfcTextStyle { get { return is_IfcTextStyle(); } }
         public IfcTextStyle get_IfcTextStyle() { return new IfcTextStyle (getEntityInstance("IFCTEXTSTYLE")); }
+        public IfcTextStyle _IfcTextStyle { get { return get_IfcTextStyle(); } }
         public void put_IfcTextStyle(IfcTextStyle inst) { putEntityInstance("IFCTEXTSTYLE", inst); }
 
         public bool is_IfcSurfaceStyle() { return IsADBEntity("IfcSurfaceStyle"); }
+        public bool _is_IfcSurfaceStyle { get { return is_IfcSurfaceStyle(); } }
         public IfcSurfaceStyle get_IfcSurfaceStyle() { return new IfcSurfaceStyle (getEntityInstance("IFCSURFACESTYLE")); }
+        public IfcSurfaceStyle _IfcSurfaceStyle { get { return get_IfcSurfaceStyle(); } }
         public void put_IfcSurfaceStyle(IfcSurfaceStyle inst) { putEntityInstance("IFCSURFACESTYLE", inst); }
-    };
+        };
 
 
     public class IfcPresentationStyleSelect_get : Select
@@ -6462,20 +7191,32 @@ namespace IFC2x3
         public IfcPresentationStyleSelect_get() : base(null) { }
 
         public bool is_IfcNullStyle() { return IsADBType("IFCNULLSTYLE"); }
+        public bool _is_IfcNullStyle { get { return is_IfcNullStyle(); } }
         public IfcNullStyle? get_IfcNullStyle() { int ind = getEnumerationIndex("IFCNULLSTYLE", EnumNames.IfcNullStyle_); return EnumValue<IfcNullStyle>.FromIndex(ind); }
+        public IfcNullStyle? _IfcNullStyle { get { return get_IfcNullStyle(); } }
         public bool is_IfcCurveStyle() { return IsADBEntity("IfcCurveStyle"); }
+        public bool _is_IfcCurveStyle { get { return is_IfcCurveStyle(); } }
         public IfcCurveStyle get_IfcCurveStyle() { return new IfcCurveStyle (getEntityInstance("IFCCURVESTYLE")); }
+        public IfcCurveStyle _IfcCurveStyle { get { return get_IfcCurveStyle(); } }
         public bool is_IfcSymbolStyle() { return IsADBEntity("IfcSymbolStyle"); }
+        public bool _is_IfcSymbolStyle { get { return is_IfcSymbolStyle(); } }
         public IfcSymbolStyle get_IfcSymbolStyle() { return new IfcSymbolStyle (getEntityInstance("IFCSYMBOLSTYLE")); }
+        public IfcSymbolStyle _IfcSymbolStyle { get { return get_IfcSymbolStyle(); } }
         public bool is_IfcFillAreaStyle() { return IsADBEntity("IfcFillAreaStyle"); }
+        public bool _is_IfcFillAreaStyle { get { return is_IfcFillAreaStyle(); } }
         public IfcFillAreaStyle get_IfcFillAreaStyle() { return new IfcFillAreaStyle (getEntityInstance("IFCFILLAREASTYLE")); }
+        public IfcFillAreaStyle _IfcFillAreaStyle { get { return get_IfcFillAreaStyle(); } }
         public bool is_IfcTextStyle() { return IsADBEntity("IfcTextStyle"); }
+        public bool _is_IfcTextStyle { get { return is_IfcTextStyle(); } }
         public IfcTextStyle get_IfcTextStyle() { return new IfcTextStyle (getEntityInstance("IFCTEXTSTYLE")); }
+        public IfcTextStyle _IfcTextStyle { get { return get_IfcTextStyle(); } }
         public bool is_IfcSurfaceStyle() { return IsADBEntity("IfcSurfaceStyle"); }
+        public bool _is_IfcSurfaceStyle { get { return is_IfcSurfaceStyle(); } }
         public IfcSurfaceStyle get_IfcSurfaceStyle() { return new IfcSurfaceStyle (getEntityInstance("IFCSURFACESTYLE")); }
+        public IfcSurfaceStyle _IfcSurfaceStyle { get { return get_IfcSurfaceStyle(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcPresentationStyleSelect_put : Select
@@ -6505,7 +7246,7 @@ namespace IFC2x3
         public void put_IfcFillAreaStyle(IfcFillAreaStyle inst) { putEntityInstance("IFCFILLAREASTYLE", inst); }
         public void put_IfcTextStyle(IfcTextStyle inst) { putEntityInstance("IFCTEXTSTYLE", inst); }
         public void put_IfcSurfaceStyle(IfcSurfaceStyle inst) { putEntityInstance("IFCSURFACESTYLE", inst); }
-    };
+        };
 
 
     public class IfcShell : Select
@@ -6531,13 +7272,17 @@ namespace IFC2x3
 
 
         public bool is_IfcClosedShell() { return IsADBEntity("IfcClosedShell"); }
+        public bool _is_IfcClosedShell { get { return is_IfcClosedShell(); } }
         public IfcClosedShell get_IfcClosedShell() { return new IfcClosedShell (getEntityInstance("IFCCLOSEDSHELL")); }
+        public IfcClosedShell _IfcClosedShell { get { return get_IfcClosedShell(); } }
         public void put_IfcClosedShell(IfcClosedShell inst) { putEntityInstance("IFCCLOSEDSHELL", inst); }
 
         public bool is_IfcOpenShell() { return IsADBEntity("IfcOpenShell"); }
+        public bool _is_IfcOpenShell { get { return is_IfcOpenShell(); } }
         public IfcOpenShell get_IfcOpenShell() { return new IfcOpenShell (getEntityInstance("IFCOPENSHELL")); }
+        public IfcOpenShell _IfcOpenShell { get { return get_IfcOpenShell(); } }
         public void put_IfcOpenShell(IfcOpenShell inst) { putEntityInstance("IFCOPENSHELL", inst); }
-    };
+        };
 
 
     public class IfcShell_get : Select
@@ -6562,12 +7307,16 @@ namespace IFC2x3
         public IfcShell_get() : base(null) { }
 
         public bool is_IfcClosedShell() { return IsADBEntity("IfcClosedShell"); }
+        public bool _is_IfcClosedShell { get { return is_IfcClosedShell(); } }
         public IfcClosedShell get_IfcClosedShell() { return new IfcClosedShell (getEntityInstance("IFCCLOSEDSHELL")); }
+        public IfcClosedShell _IfcClosedShell { get { return get_IfcClosedShell(); } }
         public bool is_IfcOpenShell() { return IsADBEntity("IfcOpenShell"); }
+        public bool _is_IfcOpenShell { get { return is_IfcOpenShell(); } }
         public IfcOpenShell get_IfcOpenShell() { return new IfcOpenShell (getEntityInstance("IFCOPENSHELL")); }
+        public IfcOpenShell _IfcOpenShell { get { return get_IfcOpenShell(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcShell_put : Select
@@ -6593,7 +7342,7 @@ namespace IFC2x3
 
         public void put_IfcClosedShell(IfcClosedShell inst) { putEntityInstance("IFCCLOSEDSHELL", inst); }
         public void put_IfcOpenShell(IfcOpenShell inst) { putEntityInstance("IFCOPENSHELL", inst); }
-    };
+        };
 
 
     public class IfcSimpleValue : Select
@@ -6619,33 +7368,47 @@ namespace IFC2x3
 
 
         public bool is_IfcInteger() { return IsADBType("IFCINTEGER"); }
+        //public bool _is_IfcInteger { get { return is_IfcInteger(); } }
         public IntValue? get_IfcInteger() { return get_IntValue("IFCINTEGER", ifcengine.sdaiINTEGER); }
+        public IntValue? _IfcInteger { get { return get_IfcInteger(); } }
         public void put_IfcInteger (IntValue value) { put_IntValue("IFCINTEGER", ifcengine.sdaiINTEGER, value); }
 
         public bool is_IfcReal() { return IsADBType("IFCREAL"); }
+        //public bool _is_IfcReal { get { return is_IfcReal(); } }
         public double? get_IfcReal() { return get_double("IFCREAL", ifcengine.sdaiREAL); }
+        public double? _IfcReal { get { return get_IfcReal(); } }
         public void put_IfcReal (double value) { put_double("IFCREAL", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcBoolean() { return IsADBType("IFCBOOLEAN"); }
+        //public bool _is_IfcBoolean { get { return is_IfcBoolean(); } }
         public bool? get_IfcBoolean() { return get_bool("IFCBOOLEAN", ifcengine.sdaiBOOLEAN); }
+        public bool? _IfcBoolean { get { return get_IfcBoolean(); } }
         public void put_IfcBoolean (bool value) { put_bool("IFCBOOLEAN", ifcengine.sdaiBOOLEAN, value); }
 
         public bool is_IfcIdentifier() { return IsADBType("IFCIDENTIFIER"); }
+        public bool _isIfcIdentifier { get { return is_IfcIdentifier(); } }
         public TextValue get_IfcIdentifier() { return getTextValue("IFCIDENTIFIER", ifcengine.sdaiSTRING); }
+        public TextValue _IfcIdentifier { get { return get_IfcIdentifier(); } }
         public void put_IfcIdentifier(TextValue value) { putTextValue("IFCIDENTIFIER", ifcengine.sdaiSTRING, value); }
 
         public bool is_IfcText() { return IsADBType("IFCTEXT"); }
+        public bool _isIfcText { get { return is_IfcText(); } }
         public TextValue get_IfcText() { return getTextValue("IFCTEXT", ifcengine.sdaiSTRING); }
+        public TextValue _IfcText { get { return get_IfcText(); } }
         public void put_IfcText(TextValue value) { putTextValue("IFCTEXT", ifcengine.sdaiSTRING, value); }
 
         public bool is_IfcLabel() { return IsADBType("IFCLABEL"); }
+        public bool _isIfcLabel { get { return is_IfcLabel(); } }
         public TextValue get_IfcLabel() { return getTextValue("IFCLABEL", ifcengine.sdaiSTRING); }
+        public TextValue _IfcLabel { get { return get_IfcLabel(); } }
         public void put_IfcLabel(TextValue value) { putTextValue("IFCLABEL", ifcengine.sdaiSTRING, value); }
 
         public bool is_IfcLogical() { return IsADBType("IFCLOGICAL"); }
+        public bool _is_IfcLogical { get { return is_IfcLogical(); } }
         public LOGICAL_VALUE? get_IfcLogical() { int ind = getEnumerationIndex("IFCLOGICAL", EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _IfcLogical { get { return get_IfcLogical(); } }
         public void put_IfcLogical(LOGICAL_VALUE value) { TextValue val = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); putEnumerationValue("IFCLOGICAL", val); }
-    };
+        };
 
 
     public class IfcSimpleValue_get : Select
@@ -6670,25 +7433,39 @@ namespace IFC2x3
         public IfcSimpleValue_get() : base(null) { }
 
         public bool is_IfcInteger() { return IsADBType("IFCINTEGER"); }
+        //public bool _is_IfcInteger { get { return is_IfcInteger(); } }
         public IntValue? get_IfcInteger() { return get_IntValue("IFCINTEGER", ifcengine.sdaiINTEGER); }
+        public IntValue? _IfcInteger { get { return get_IfcInteger(); } }
         public bool is_IfcReal() { return IsADBType("IFCREAL"); }
+        //public bool _is_IfcReal { get { return is_IfcReal(); } }
         public double? get_IfcReal() { return get_double("IFCREAL", ifcengine.sdaiREAL); }
+        public double? _IfcReal { get { return get_IfcReal(); } }
         public bool is_IfcBoolean() { return IsADBType("IFCBOOLEAN"); }
+        //public bool _is_IfcBoolean { get { return is_IfcBoolean(); } }
         public bool? get_IfcBoolean() { return get_bool("IFCBOOLEAN", ifcengine.sdaiBOOLEAN); }
+        public bool? _IfcBoolean { get { return get_IfcBoolean(); } }
         public bool is_IfcIdentifier() { return IsADBType("IFCIDENTIFIER"); }
+        public bool _isIfcIdentifier { get { return is_IfcIdentifier(); } }
         public TextValue get_IfcIdentifier() { return getTextValue("IFCIDENTIFIER", ifcengine.sdaiSTRING); }
+        public TextValue _IfcIdentifier { get { return get_IfcIdentifier(); } }
         public bool is_IfcText() { return IsADBType("IFCTEXT"); }
+        public bool _isIfcText { get { return is_IfcText(); } }
         public TextValue get_IfcText() { return getTextValue("IFCTEXT", ifcengine.sdaiSTRING); }
+        public TextValue _IfcText { get { return get_IfcText(); } }
         public bool is_IfcLabel() { return IsADBType("IFCLABEL"); }
+        public bool _isIfcLabel { get { return is_IfcLabel(); } }
         public TextValue get_IfcLabel() { return getTextValue("IFCLABEL", ifcengine.sdaiSTRING); }
+        public TextValue _IfcLabel { get { return get_IfcLabel(); } }
         public bool is_IfcLogical() { return IsADBType("IFCLOGICAL"); }
+        public bool _is_IfcLogical { get { return is_IfcLogical(); } }
         public LOGICAL_VALUE? get_IfcLogical() { int ind = getEnumerationIndex("IFCLOGICAL", EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _IfcLogical { get { return get_IfcLogical(); } }
 
         public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
         public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcSimpleValue_put : Select
@@ -6719,7 +7496,7 @@ namespace IFC2x3
         public void put_IfcText(TextValue value) { putTextValue("IFCTEXT", ifcengine.sdaiSTRING, value); }
         public void put_IfcLabel(TextValue value) { putTextValue("IFCLABEL", ifcengine.sdaiSTRING, value); }
         public void put_IfcLogical(LOGICAL_VALUE value) { TextValue val = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); putEnumerationValue("IFCLOGICAL", val); }
-    };
+        };
 
 
     public class IfcSizeSelect : Select
@@ -6745,29 +7522,41 @@ namespace IFC2x3
 
 
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
+        //public bool _is_IfcRatioMeasure { get { return is_IfcRatioMeasure(); } }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRatioMeasure { get { return get_IfcRatioMeasure(); } }
         public void put_IfcRatioMeasure (double value) { put_double("IFCRATIOMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        //public bool _is_IfcLengthMeasure { get { return is_IfcLengthMeasure(); } }
         public double? get_IfcLengthMeasure() { return get_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLengthMeasure { get { return get_IfcLengthMeasure(); } }
         public void put_IfcLengthMeasure (double value) { put_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcDescriptiveMeasure() { return IsADBType("IFCDESCRIPTIVEMEASURE"); }
+        public bool _isIfcDescriptiveMeasure { get { return is_IfcDescriptiveMeasure(); } }
         public TextValue get_IfcDescriptiveMeasure() { return getTextValue("IFCDESCRIPTIVEMEASURE", ifcengine.sdaiSTRING); }
+        public TextValue _IfcDescriptiveMeasure { get { return get_IfcDescriptiveMeasure(); } }
         public void put_IfcDescriptiveMeasure(TextValue value) { putTextValue("IFCDESCRIPTIVEMEASURE", ifcengine.sdaiSTRING, value); }
 
         public bool is_IfcPositiveLengthMeasure() { return IsADBType("IFCPOSITIVELENGTHMEASURE"); }
+        //public bool _is_IfcPositiveLengthMeasure { get { return is_IfcPositiveLengthMeasure(); } }
         public double? get_IfcPositiveLengthMeasure() { return get_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveLengthMeasure { get { return get_IfcPositiveLengthMeasure(); } }
         public void put_IfcPositiveLengthMeasure (double value) { put_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcNormalisedRatioMeasure() { return IsADBType("IFCNORMALISEDRATIOMEASURE"); }
+        //public bool _is_IfcNormalisedRatioMeasure { get { return is_IfcNormalisedRatioMeasure(); } }
         public double? get_IfcNormalisedRatioMeasure() { return get_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNormalisedRatioMeasure { get { return get_IfcNormalisedRatioMeasure(); } }
         public void put_IfcNormalisedRatioMeasure (double value) { put_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcPositiveRatioMeasure() { return IsADBType("IFCPOSITIVERATIOMEASURE"); }
+        //public bool _is_IfcPositiveRatioMeasure { get { return is_IfcPositiveRatioMeasure(); } }
         public double? get_IfcPositiveRatioMeasure() { return get_double("IFCPOSITIVERATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveRatioMeasure { get { return get_IfcPositiveRatioMeasure(); } }
         public void put_IfcPositiveRatioMeasure (double value) { put_double("IFCPOSITIVERATIOMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcSizeSelect_get : Select
@@ -6792,21 +7581,33 @@ namespace IFC2x3
         public IfcSizeSelect_get() : base(null) { }
 
         public bool is_IfcRatioMeasure() { return IsADBType("IFCRATIOMEASURE"); }
+        //public bool _is_IfcRatioMeasure { get { return is_IfcRatioMeasure(); } }
         public double? get_IfcRatioMeasure() { return get_double("IFCRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcRatioMeasure { get { return get_IfcRatioMeasure(); } }
         public bool is_IfcLengthMeasure() { return IsADBType("IFCLENGTHMEASURE"); }
+        //public bool _is_IfcLengthMeasure { get { return is_IfcLengthMeasure(); } }
         public double? get_IfcLengthMeasure() { return get_double("IFCLENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcLengthMeasure { get { return get_IfcLengthMeasure(); } }
         public bool is_IfcDescriptiveMeasure() { return IsADBType("IFCDESCRIPTIVEMEASURE"); }
+        public bool _isIfcDescriptiveMeasure { get { return is_IfcDescriptiveMeasure(); } }
         public TextValue get_IfcDescriptiveMeasure() { return getTextValue("IFCDESCRIPTIVEMEASURE", ifcengine.sdaiSTRING); }
+        public TextValue _IfcDescriptiveMeasure { get { return get_IfcDescriptiveMeasure(); } }
         public bool is_IfcPositiveLengthMeasure() { return IsADBType("IFCPOSITIVELENGTHMEASURE"); }
+        //public bool _is_IfcPositiveLengthMeasure { get { return is_IfcPositiveLengthMeasure(); } }
         public double? get_IfcPositiveLengthMeasure() { return get_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveLengthMeasure { get { return get_IfcPositiveLengthMeasure(); } }
         public bool is_IfcNormalisedRatioMeasure() { return IsADBType("IFCNORMALISEDRATIOMEASURE"); }
+        //public bool _is_IfcNormalisedRatioMeasure { get { return is_IfcNormalisedRatioMeasure(); } }
         public double? get_IfcNormalisedRatioMeasure() { return get_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcNormalisedRatioMeasure { get { return get_IfcNormalisedRatioMeasure(); } }
         public bool is_IfcPositiveRatioMeasure() { return IsADBType("IFCPOSITIVERATIOMEASURE"); }
+        //public bool _is_IfcPositiveRatioMeasure { get { return is_IfcPositiveRatioMeasure(); } }
         public double? get_IfcPositiveRatioMeasure() { return get_double("IFCPOSITIVERATIOMEASURE", ifcengine.sdaiREAL); }
+        public double? _IfcPositiveRatioMeasure { get { return get_IfcPositiveRatioMeasure(); } }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcSizeSelect_put : Select
@@ -6836,7 +7637,7 @@ namespace IFC2x3
         public void put_IfcPositiveLengthMeasure (double value) { put_double("IFCPOSITIVELENGTHMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcNormalisedRatioMeasure (double value) { put_double("IFCNORMALISEDRATIOMEASURE", ifcengine.sdaiREAL, value); }
         public void put_IfcPositiveRatioMeasure (double value) { put_double("IFCPOSITIVERATIOMEASURE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcSpecularHighlightSelect : Select
@@ -6862,13 +7663,17 @@ namespace IFC2x3
 
 
         public bool is_IfcSpecularExponent() { return IsADBType("IFCSPECULAREXPONENT"); }
+        //public bool _is_IfcSpecularExponent { get { return is_IfcSpecularExponent(); } }
         public double? get_IfcSpecularExponent() { return get_double("IFCSPECULAREXPONENT", ifcengine.sdaiREAL); }
+        public double? _IfcSpecularExponent { get { return get_IfcSpecularExponent(); } }
         public void put_IfcSpecularExponent (double value) { put_double("IFCSPECULAREXPONENT", ifcengine.sdaiREAL, value); }
 
         public bool is_IfcSpecularRoughness() { return IsADBType("IFCSPECULARROUGHNESS"); }
+        //public bool _is_IfcSpecularRoughness { get { return is_IfcSpecularRoughness(); } }
         public double? get_IfcSpecularRoughness() { return get_double("IFCSPECULARROUGHNESS", ifcengine.sdaiREAL); }
+        public double? _IfcSpecularRoughness { get { return get_IfcSpecularRoughness(); } }
         public void put_IfcSpecularRoughness (double value) { put_double("IFCSPECULARROUGHNESS", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcSpecularHighlightSelect_get : Select
@@ -6893,12 +7698,16 @@ namespace IFC2x3
         public IfcSpecularHighlightSelect_get() : base(null) { }
 
         public bool is_IfcSpecularExponent() { return IsADBType("IFCSPECULAREXPONENT"); }
+        //public bool _is_IfcSpecularExponent { get { return is_IfcSpecularExponent(); } }
         public double? get_IfcSpecularExponent() { return get_double("IFCSPECULAREXPONENT", ifcengine.sdaiREAL); }
+        public double? _IfcSpecularExponent { get { return get_IfcSpecularExponent(); } }
         public bool is_IfcSpecularRoughness() { return IsADBType("IFCSPECULARROUGHNESS"); }
+        //public bool _is_IfcSpecularRoughness { get { return is_IfcSpecularRoughness(); } }
         public double? get_IfcSpecularRoughness() { return get_double("IFCSPECULARROUGHNESS", ifcengine.sdaiREAL); }
+        public double? _IfcSpecularRoughness { get { return get_IfcSpecularRoughness(); } }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcSpecularHighlightSelect_put : Select
@@ -6924,7 +7733,7 @@ namespace IFC2x3
 
         public void put_IfcSpecularExponent (double value) { put_double("IFCSPECULAREXPONENT", ifcengine.sdaiREAL, value); }
         public void put_IfcSpecularRoughness (double value) { put_double("IFCSPECULARROUGHNESS", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcStructuralActivityAssignmentSelect : Select
@@ -6950,13 +7759,17 @@ namespace IFC2x3
 
 
         public bool is_IfcStructuralItem() { return IsADBEntity("IfcStructuralItem"); }
+        public bool _is_IfcStructuralItem { get { return is_IfcStructuralItem(); } }
         public IfcStructuralItem get_IfcStructuralItem() { return new IfcStructuralItem (getEntityInstance("IFCSTRUCTURALITEM")); }
+        public IfcStructuralItem _IfcStructuralItem { get { return get_IfcStructuralItem(); } }
         public void put_IfcStructuralItem(IfcStructuralItem inst) { putEntityInstance("IFCSTRUCTURALITEM", inst); }
 
         public bool is_IfcElement() { return IsADBEntity("IfcElement"); }
+        public bool _is_IfcElement { get { return is_IfcElement(); } }
         public IfcElement get_IfcElement() { return new IfcElement (getEntityInstance("IFCELEMENT")); }
+        public IfcElement _IfcElement { get { return get_IfcElement(); } }
         public void put_IfcElement(IfcElement inst) { putEntityInstance("IFCELEMENT", inst); }
-    };
+        };
 
 
     public class IfcStructuralActivityAssignmentSelect_get : Select
@@ -6981,12 +7794,16 @@ namespace IFC2x3
         public IfcStructuralActivityAssignmentSelect_get() : base(null) { }
 
         public bool is_IfcStructuralItem() { return IsADBEntity("IfcStructuralItem"); }
+        public bool _is_IfcStructuralItem { get { return is_IfcStructuralItem(); } }
         public IfcStructuralItem get_IfcStructuralItem() { return new IfcStructuralItem (getEntityInstance("IFCSTRUCTURALITEM")); }
+        public IfcStructuralItem _IfcStructuralItem { get { return get_IfcStructuralItem(); } }
         public bool is_IfcElement() { return IsADBEntity("IfcElement"); }
+        public bool _is_IfcElement { get { return is_IfcElement(); } }
         public IfcElement get_IfcElement() { return new IfcElement (getEntityInstance("IFCELEMENT")); }
+        public IfcElement _IfcElement { get { return get_IfcElement(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcStructuralActivityAssignmentSelect_put : Select
@@ -7012,7 +7829,7 @@ namespace IFC2x3
 
         public void put_IfcStructuralItem(IfcStructuralItem inst) { putEntityInstance("IFCSTRUCTURALITEM", inst); }
         public void put_IfcElement(IfcElement inst) { putEntityInstance("IFCELEMENT", inst); }
-    };
+        };
 
 
     public class IfcSurfaceOrFaceSurface : Select
@@ -7038,17 +7855,23 @@ namespace IFC2x3
 
 
         public bool is_IfcSurface() { return IsADBEntity("IfcSurface"); }
+        public bool _is_IfcSurface { get { return is_IfcSurface(); } }
         public IfcSurface get_IfcSurface() { return new IfcSurface (getEntityInstance("IFCSURFACE")); }
+        public IfcSurface _IfcSurface { get { return get_IfcSurface(); } }
         public void put_IfcSurface(IfcSurface inst) { putEntityInstance("IFCSURFACE", inst); }
 
         public bool is_IfcFaceSurface() { return IsADBEntity("IfcFaceSurface"); }
+        public bool _is_IfcFaceSurface { get { return is_IfcFaceSurface(); } }
         public IfcFaceSurface get_IfcFaceSurface() { return new IfcFaceSurface (getEntityInstance("IFCFACESURFACE")); }
+        public IfcFaceSurface _IfcFaceSurface { get { return get_IfcFaceSurface(); } }
         public void put_IfcFaceSurface(IfcFaceSurface inst) { putEntityInstance("IFCFACESURFACE", inst); }
 
         public bool is_IfcFaceBasedSurfaceModel() { return IsADBEntity("IfcFaceBasedSurfaceModel"); }
+        public bool _is_IfcFaceBasedSurfaceModel { get { return is_IfcFaceBasedSurfaceModel(); } }
         public IfcFaceBasedSurfaceModel get_IfcFaceBasedSurfaceModel() { return new IfcFaceBasedSurfaceModel (getEntityInstance("IFCFACEBASEDSURFACEMODEL")); }
+        public IfcFaceBasedSurfaceModel _IfcFaceBasedSurfaceModel { get { return get_IfcFaceBasedSurfaceModel(); } }
         public void put_IfcFaceBasedSurfaceModel(IfcFaceBasedSurfaceModel inst) { putEntityInstance("IFCFACEBASEDSURFACEMODEL", inst); }
-    };
+        };
 
 
     public class IfcSurfaceOrFaceSurface_get : Select
@@ -7073,14 +7896,20 @@ namespace IFC2x3
         public IfcSurfaceOrFaceSurface_get() : base(null) { }
 
         public bool is_IfcSurface() { return IsADBEntity("IfcSurface"); }
+        public bool _is_IfcSurface { get { return is_IfcSurface(); } }
         public IfcSurface get_IfcSurface() { return new IfcSurface (getEntityInstance("IFCSURFACE")); }
+        public IfcSurface _IfcSurface { get { return get_IfcSurface(); } }
         public bool is_IfcFaceSurface() { return IsADBEntity("IfcFaceSurface"); }
+        public bool _is_IfcFaceSurface { get { return is_IfcFaceSurface(); } }
         public IfcFaceSurface get_IfcFaceSurface() { return new IfcFaceSurface (getEntityInstance("IFCFACESURFACE")); }
+        public IfcFaceSurface _IfcFaceSurface { get { return get_IfcFaceSurface(); } }
         public bool is_IfcFaceBasedSurfaceModel() { return IsADBEntity("IfcFaceBasedSurfaceModel"); }
+        public bool _is_IfcFaceBasedSurfaceModel { get { return is_IfcFaceBasedSurfaceModel(); } }
         public IfcFaceBasedSurfaceModel get_IfcFaceBasedSurfaceModel() { return new IfcFaceBasedSurfaceModel (getEntityInstance("IFCFACEBASEDSURFACEMODEL")); }
+        public IfcFaceBasedSurfaceModel _IfcFaceBasedSurfaceModel { get { return get_IfcFaceBasedSurfaceModel(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcSurfaceOrFaceSurface_put : Select
@@ -7107,7 +7936,7 @@ namespace IFC2x3
         public void put_IfcSurface(IfcSurface inst) { putEntityInstance("IFCSURFACE", inst); }
         public void put_IfcFaceSurface(IfcFaceSurface inst) { putEntityInstance("IFCFACESURFACE", inst); }
         public void put_IfcFaceBasedSurfaceModel(IfcFaceBasedSurfaceModel inst) { putEntityInstance("IFCFACEBASEDSURFACEMODEL", inst); }
-    };
+        };
 
 
     public class IfcSurfaceStyleElementSelect : Select
@@ -7133,25 +7962,35 @@ namespace IFC2x3
 
 
         public bool is_IfcSurfaceStyleShading() { return IsADBEntity("IfcSurfaceStyleShading"); }
+        public bool _is_IfcSurfaceStyleShading { get { return is_IfcSurfaceStyleShading(); } }
         public IfcSurfaceStyleShading get_IfcSurfaceStyleShading() { return new IfcSurfaceStyleShading (getEntityInstance("IFCSURFACESTYLESHADING")); }
+        public IfcSurfaceStyleShading _IfcSurfaceStyleShading { get { return get_IfcSurfaceStyleShading(); } }
         public void put_IfcSurfaceStyleShading(IfcSurfaceStyleShading inst) { putEntityInstance("IFCSURFACESTYLESHADING", inst); }
 
         public bool is_IfcSurfaceStyleLighting() { return IsADBEntity("IfcSurfaceStyleLighting"); }
+        public bool _is_IfcSurfaceStyleLighting { get { return is_IfcSurfaceStyleLighting(); } }
         public IfcSurfaceStyleLighting get_IfcSurfaceStyleLighting() { return new IfcSurfaceStyleLighting (getEntityInstance("IFCSURFACESTYLELIGHTING")); }
+        public IfcSurfaceStyleLighting _IfcSurfaceStyleLighting { get { return get_IfcSurfaceStyleLighting(); } }
         public void put_IfcSurfaceStyleLighting(IfcSurfaceStyleLighting inst) { putEntityInstance("IFCSURFACESTYLELIGHTING", inst); }
 
         public bool is_IfcSurfaceStyleWithTextures() { return IsADBEntity("IfcSurfaceStyleWithTextures"); }
+        public bool _is_IfcSurfaceStyleWithTextures { get { return is_IfcSurfaceStyleWithTextures(); } }
         public IfcSurfaceStyleWithTextures get_IfcSurfaceStyleWithTextures() { return new IfcSurfaceStyleWithTextures (getEntityInstance("IFCSURFACESTYLEWITHTEXTURES")); }
+        public IfcSurfaceStyleWithTextures _IfcSurfaceStyleWithTextures { get { return get_IfcSurfaceStyleWithTextures(); } }
         public void put_IfcSurfaceStyleWithTextures(IfcSurfaceStyleWithTextures inst) { putEntityInstance("IFCSURFACESTYLEWITHTEXTURES", inst); }
 
         public bool is_IfcExternallyDefinedSurfaceStyle() { return IsADBEntity("IfcExternallyDefinedSurfaceStyle"); }
+        public bool _is_IfcExternallyDefinedSurfaceStyle { get { return is_IfcExternallyDefinedSurfaceStyle(); } }
         public IfcExternallyDefinedSurfaceStyle get_IfcExternallyDefinedSurfaceStyle() { return new IfcExternallyDefinedSurfaceStyle (getEntityInstance("IFCEXTERNALLYDEFINEDSURFACESTYLE")); }
+        public IfcExternallyDefinedSurfaceStyle _IfcExternallyDefinedSurfaceStyle { get { return get_IfcExternallyDefinedSurfaceStyle(); } }
         public void put_IfcExternallyDefinedSurfaceStyle(IfcExternallyDefinedSurfaceStyle inst) { putEntityInstance("IFCEXTERNALLYDEFINEDSURFACESTYLE", inst); }
 
         public bool is_IfcSurfaceStyleRefraction() { return IsADBEntity("IfcSurfaceStyleRefraction"); }
+        public bool _is_IfcSurfaceStyleRefraction { get { return is_IfcSurfaceStyleRefraction(); } }
         public IfcSurfaceStyleRefraction get_IfcSurfaceStyleRefraction() { return new IfcSurfaceStyleRefraction (getEntityInstance("IFCSURFACESTYLEREFRACTION")); }
+        public IfcSurfaceStyleRefraction _IfcSurfaceStyleRefraction { get { return get_IfcSurfaceStyleRefraction(); } }
         public void put_IfcSurfaceStyleRefraction(IfcSurfaceStyleRefraction inst) { putEntityInstance("IFCSURFACESTYLEREFRACTION", inst); }
-    };
+        };
 
 
     public class IfcSurfaceStyleElementSelect_get : Select
@@ -7176,18 +8015,28 @@ namespace IFC2x3
         public IfcSurfaceStyleElementSelect_get() : base(null) { }
 
         public bool is_IfcSurfaceStyleShading() { return IsADBEntity("IfcSurfaceStyleShading"); }
+        public bool _is_IfcSurfaceStyleShading { get { return is_IfcSurfaceStyleShading(); } }
         public IfcSurfaceStyleShading get_IfcSurfaceStyleShading() { return new IfcSurfaceStyleShading (getEntityInstance("IFCSURFACESTYLESHADING")); }
+        public IfcSurfaceStyleShading _IfcSurfaceStyleShading { get { return get_IfcSurfaceStyleShading(); } }
         public bool is_IfcSurfaceStyleLighting() { return IsADBEntity("IfcSurfaceStyleLighting"); }
+        public bool _is_IfcSurfaceStyleLighting { get { return is_IfcSurfaceStyleLighting(); } }
         public IfcSurfaceStyleLighting get_IfcSurfaceStyleLighting() { return new IfcSurfaceStyleLighting (getEntityInstance("IFCSURFACESTYLELIGHTING")); }
+        public IfcSurfaceStyleLighting _IfcSurfaceStyleLighting { get { return get_IfcSurfaceStyleLighting(); } }
         public bool is_IfcSurfaceStyleWithTextures() { return IsADBEntity("IfcSurfaceStyleWithTextures"); }
+        public bool _is_IfcSurfaceStyleWithTextures { get { return is_IfcSurfaceStyleWithTextures(); } }
         public IfcSurfaceStyleWithTextures get_IfcSurfaceStyleWithTextures() { return new IfcSurfaceStyleWithTextures (getEntityInstance("IFCSURFACESTYLEWITHTEXTURES")); }
+        public IfcSurfaceStyleWithTextures _IfcSurfaceStyleWithTextures { get { return get_IfcSurfaceStyleWithTextures(); } }
         public bool is_IfcExternallyDefinedSurfaceStyle() { return IsADBEntity("IfcExternallyDefinedSurfaceStyle"); }
+        public bool _is_IfcExternallyDefinedSurfaceStyle { get { return is_IfcExternallyDefinedSurfaceStyle(); } }
         public IfcExternallyDefinedSurfaceStyle get_IfcExternallyDefinedSurfaceStyle() { return new IfcExternallyDefinedSurfaceStyle (getEntityInstance("IFCEXTERNALLYDEFINEDSURFACESTYLE")); }
+        public IfcExternallyDefinedSurfaceStyle _IfcExternallyDefinedSurfaceStyle { get { return get_IfcExternallyDefinedSurfaceStyle(); } }
         public bool is_IfcSurfaceStyleRefraction() { return IsADBEntity("IfcSurfaceStyleRefraction"); }
+        public bool _is_IfcSurfaceStyleRefraction { get { return is_IfcSurfaceStyleRefraction(); } }
         public IfcSurfaceStyleRefraction get_IfcSurfaceStyleRefraction() { return new IfcSurfaceStyleRefraction (getEntityInstance("IFCSURFACESTYLEREFRACTION")); }
+        public IfcSurfaceStyleRefraction _IfcSurfaceStyleRefraction { get { return get_IfcSurfaceStyleRefraction(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcSurfaceStyleElementSelect_put : Select
@@ -7216,7 +8065,7 @@ namespace IFC2x3
         public void put_IfcSurfaceStyleWithTextures(IfcSurfaceStyleWithTextures inst) { putEntityInstance("IFCSURFACESTYLEWITHTEXTURES", inst); }
         public void put_IfcExternallyDefinedSurfaceStyle(IfcExternallyDefinedSurfaceStyle inst) { putEntityInstance("IFCEXTERNALLYDEFINEDSURFACESTYLE", inst); }
         public void put_IfcSurfaceStyleRefraction(IfcSurfaceStyleRefraction inst) { putEntityInstance("IFCSURFACESTYLEREFRACTION", inst); }
-    };
+        };
 
 
     public class IfcSymbolStyleSelect : Select
@@ -7242,7 +8091,8 @@ namespace IFC2x3
 
 
         public IfcColour _IfcColour() { return new IfcColour(this); }
-    };
+        public IfcColour __IfcColour { get { return _IfcColour(); } }
+        };
 
 
     public class IfcSymbolStyleSelect_get : Select
@@ -7267,9 +8117,10 @@ namespace IFC2x3
         public IfcSymbolStyleSelect_get() : base(null) { }
 
         public IfcColour_get get_IfcColour() { return new IfcColour_get(this); }
+        public IfcColour_get __IfcColour { get { return get_IfcColour(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcSymbolStyleSelect_put : Select
@@ -7294,7 +8145,8 @@ namespace IFC2x3
         public IfcSymbolStyleSelect_put() : base(null) { }
 
         public IfcColour_put put_IfcColour() { return new IfcColour_put(this); }
-    };
+        public IfcColour_put __IfcColour { get { return put_IfcColour(); } }
+        };
 
 
     public class IfcTextFontSelect : Select
@@ -7320,13 +8172,17 @@ namespace IFC2x3
 
 
         public bool is_IfcPreDefinedTextFont() { return IsADBEntity("IfcPreDefinedTextFont"); }
+        public bool _is_IfcPreDefinedTextFont { get { return is_IfcPreDefinedTextFont(); } }
         public IfcPreDefinedTextFont get_IfcPreDefinedTextFont() { return new IfcPreDefinedTextFont (getEntityInstance("IFCPREDEFINEDTEXTFONT")); }
+        public IfcPreDefinedTextFont _IfcPreDefinedTextFont { get { return get_IfcPreDefinedTextFont(); } }
         public void put_IfcPreDefinedTextFont(IfcPreDefinedTextFont inst) { putEntityInstance("IFCPREDEFINEDTEXTFONT", inst); }
 
         public bool is_IfcExternallyDefinedTextFont() { return IsADBEntity("IfcExternallyDefinedTextFont"); }
+        public bool _is_IfcExternallyDefinedTextFont { get { return is_IfcExternallyDefinedTextFont(); } }
         public IfcExternallyDefinedTextFont get_IfcExternallyDefinedTextFont() { return new IfcExternallyDefinedTextFont (getEntityInstance("IFCEXTERNALLYDEFINEDTEXTFONT")); }
+        public IfcExternallyDefinedTextFont _IfcExternallyDefinedTextFont { get { return get_IfcExternallyDefinedTextFont(); } }
         public void put_IfcExternallyDefinedTextFont(IfcExternallyDefinedTextFont inst) { putEntityInstance("IFCEXTERNALLYDEFINEDTEXTFONT", inst); }
-    };
+        };
 
 
     public class IfcTextFontSelect_get : Select
@@ -7351,12 +8207,16 @@ namespace IFC2x3
         public IfcTextFontSelect_get() : base(null) { }
 
         public bool is_IfcPreDefinedTextFont() { return IsADBEntity("IfcPreDefinedTextFont"); }
+        public bool _is_IfcPreDefinedTextFont { get { return is_IfcPreDefinedTextFont(); } }
         public IfcPreDefinedTextFont get_IfcPreDefinedTextFont() { return new IfcPreDefinedTextFont (getEntityInstance("IFCPREDEFINEDTEXTFONT")); }
+        public IfcPreDefinedTextFont _IfcPreDefinedTextFont { get { return get_IfcPreDefinedTextFont(); } }
         public bool is_IfcExternallyDefinedTextFont() { return IsADBEntity("IfcExternallyDefinedTextFont"); }
+        public bool _is_IfcExternallyDefinedTextFont { get { return is_IfcExternallyDefinedTextFont(); } }
         public IfcExternallyDefinedTextFont get_IfcExternallyDefinedTextFont() { return new IfcExternallyDefinedTextFont (getEntityInstance("IFCEXTERNALLYDEFINEDTEXTFONT")); }
+        public IfcExternallyDefinedTextFont _IfcExternallyDefinedTextFont { get { return get_IfcExternallyDefinedTextFont(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcTextFontSelect_put : Select
@@ -7382,7 +8242,7 @@ namespace IFC2x3
 
         public void put_IfcPreDefinedTextFont(IfcPreDefinedTextFont inst) { putEntityInstance("IFCPREDEFINEDTEXTFONT", inst); }
         public void put_IfcExternallyDefinedTextFont(IfcExternallyDefinedTextFont inst) { putEntityInstance("IFCEXTERNALLYDEFINEDTEXTFONT", inst); }
-    };
+        };
 
 
     public class IfcTextStyleSelect : Select
@@ -7408,13 +8268,17 @@ namespace IFC2x3
 
 
         public bool is_IfcTextStyleWithBoxCharacteristics() { return IsADBEntity("IfcTextStyleWithBoxCharacteristics"); }
+        public bool _is_IfcTextStyleWithBoxCharacteristics { get { return is_IfcTextStyleWithBoxCharacteristics(); } }
         public IfcTextStyleWithBoxCharacteristics get_IfcTextStyleWithBoxCharacteristics() { return new IfcTextStyleWithBoxCharacteristics (getEntityInstance("IFCTEXTSTYLEWITHBOXCHARACTERISTICS")); }
+        public IfcTextStyleWithBoxCharacteristics _IfcTextStyleWithBoxCharacteristics { get { return get_IfcTextStyleWithBoxCharacteristics(); } }
         public void put_IfcTextStyleWithBoxCharacteristics(IfcTextStyleWithBoxCharacteristics inst) { putEntityInstance("IFCTEXTSTYLEWITHBOXCHARACTERISTICS", inst); }
 
         public bool is_IfcTextStyleTextModel() { return IsADBEntity("IfcTextStyleTextModel"); }
+        public bool _is_IfcTextStyleTextModel { get { return is_IfcTextStyleTextModel(); } }
         public IfcTextStyleTextModel get_IfcTextStyleTextModel() { return new IfcTextStyleTextModel (getEntityInstance("IFCTEXTSTYLETEXTMODEL")); }
+        public IfcTextStyleTextModel _IfcTextStyleTextModel { get { return get_IfcTextStyleTextModel(); } }
         public void put_IfcTextStyleTextModel(IfcTextStyleTextModel inst) { putEntityInstance("IFCTEXTSTYLETEXTMODEL", inst); }
-    };
+        };
 
 
     public class IfcTextStyleSelect_get : Select
@@ -7439,12 +8303,16 @@ namespace IFC2x3
         public IfcTextStyleSelect_get() : base(null) { }
 
         public bool is_IfcTextStyleWithBoxCharacteristics() { return IsADBEntity("IfcTextStyleWithBoxCharacteristics"); }
+        public bool _is_IfcTextStyleWithBoxCharacteristics { get { return is_IfcTextStyleWithBoxCharacteristics(); } }
         public IfcTextStyleWithBoxCharacteristics get_IfcTextStyleWithBoxCharacteristics() { return new IfcTextStyleWithBoxCharacteristics (getEntityInstance("IFCTEXTSTYLEWITHBOXCHARACTERISTICS")); }
+        public IfcTextStyleWithBoxCharacteristics _IfcTextStyleWithBoxCharacteristics { get { return get_IfcTextStyleWithBoxCharacteristics(); } }
         public bool is_IfcTextStyleTextModel() { return IsADBEntity("IfcTextStyleTextModel"); }
+        public bool _is_IfcTextStyleTextModel { get { return is_IfcTextStyleTextModel(); } }
         public IfcTextStyleTextModel get_IfcTextStyleTextModel() { return new IfcTextStyleTextModel (getEntityInstance("IFCTEXTSTYLETEXTMODEL")); }
+        public IfcTextStyleTextModel _IfcTextStyleTextModel { get { return get_IfcTextStyleTextModel(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcTextStyleSelect_put : Select
@@ -7470,7 +8338,7 @@ namespace IFC2x3
 
         public void put_IfcTextStyleWithBoxCharacteristics(IfcTextStyleWithBoxCharacteristics inst) { putEntityInstance("IFCTEXTSTYLEWITHBOXCHARACTERISTICS", inst); }
         public void put_IfcTextStyleTextModel(IfcTextStyleTextModel inst) { putEntityInstance("IFCTEXTSTYLETEXTMODEL", inst); }
-    };
+        };
 
 
     public class IfcTrimmingSelect : Select
@@ -7496,13 +8364,17 @@ namespace IFC2x3
 
 
         public bool is_IfcCartesianPoint() { return IsADBEntity("IfcCartesianPoint"); }
+        public bool _is_IfcCartesianPoint { get { return is_IfcCartesianPoint(); } }
         public IfcCartesianPoint get_IfcCartesianPoint() { return new IfcCartesianPoint (getEntityInstance("IFCCARTESIANPOINT")); }
+        public IfcCartesianPoint _IfcCartesianPoint { get { return get_IfcCartesianPoint(); } }
         public void put_IfcCartesianPoint(IfcCartesianPoint inst) { putEntityInstance("IFCCARTESIANPOINT", inst); }
 
         public bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
+        //public bool _is_IfcParameterValue { get { return is_IfcParameterValue(); } }
         public double? get_IfcParameterValue() { return get_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL); }
+        public double? _IfcParameterValue { get { return get_IfcParameterValue(); } }
         public void put_IfcParameterValue (double value) { put_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcTrimmingSelect_get : Select
@@ -7527,13 +8399,17 @@ namespace IFC2x3
         public IfcTrimmingSelect_get() : base(null) { }
 
         public bool is_IfcCartesianPoint() { return IsADBEntity("IfcCartesianPoint"); }
+        public bool _is_IfcCartesianPoint { get { return is_IfcCartesianPoint(); } }
         public IfcCartesianPoint get_IfcCartesianPoint() { return new IfcCartesianPoint (getEntityInstance("IFCCARTESIANPOINT")); }
+        public IfcCartesianPoint _IfcCartesianPoint { get { return get_IfcCartesianPoint(); } }
         public bool is_IfcParameterValue() { return IsADBType("IFCPARAMETERVALUE"); }
+        //public bool _is_IfcParameterValue { get { return is_IfcParameterValue(); } }
         public double? get_IfcParameterValue() { return get_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL); }
+        public double? _IfcParameterValue { get { return get_IfcParameterValue(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcTrimmingSelect_put : Select
@@ -7559,7 +8435,7 @@ namespace IFC2x3
 
         public void put_IfcCartesianPoint(IfcCartesianPoint inst) { putEntityInstance("IFCCARTESIANPOINT", inst); }
         public void put_IfcParameterValue (double value) { put_double("IFCPARAMETERVALUE", ifcengine.sdaiREAL, value); }
-    };
+        };
 
 
     public class IfcUnit : Select
@@ -7585,17 +8461,23 @@ namespace IFC2x3
 
 
         public bool is_IfcDerivedUnit() { return IsADBEntity("IfcDerivedUnit"); }
+        public bool _is_IfcDerivedUnit { get { return is_IfcDerivedUnit(); } }
         public IfcDerivedUnit get_IfcDerivedUnit() { return new IfcDerivedUnit (getEntityInstance("IFCDERIVEDUNIT")); }
+        public IfcDerivedUnit _IfcDerivedUnit { get { return get_IfcDerivedUnit(); } }
         public void put_IfcDerivedUnit(IfcDerivedUnit inst) { putEntityInstance("IFCDERIVEDUNIT", inst); }
 
         public bool is_IfcNamedUnit() { return IsADBEntity("IfcNamedUnit"); }
+        public bool _is_IfcNamedUnit { get { return is_IfcNamedUnit(); } }
         public IfcNamedUnit get_IfcNamedUnit() { return new IfcNamedUnit (getEntityInstance("IFCNAMEDUNIT")); }
+        public IfcNamedUnit _IfcNamedUnit { get { return get_IfcNamedUnit(); } }
         public void put_IfcNamedUnit(IfcNamedUnit inst) { putEntityInstance("IFCNAMEDUNIT", inst); }
 
         public bool is_IfcMonetaryUnit() { return IsADBEntity("IfcMonetaryUnit"); }
+        public bool _is_IfcMonetaryUnit { get { return is_IfcMonetaryUnit(); } }
         public IfcMonetaryUnit get_IfcMonetaryUnit() { return new IfcMonetaryUnit (getEntityInstance("IFCMONETARYUNIT")); }
+        public IfcMonetaryUnit _IfcMonetaryUnit { get { return get_IfcMonetaryUnit(); } }
         public void put_IfcMonetaryUnit(IfcMonetaryUnit inst) { putEntityInstance("IFCMONETARYUNIT", inst); }
-    };
+        };
 
 
     public class IfcUnit_get : Select
@@ -7620,14 +8502,20 @@ namespace IFC2x3
         public IfcUnit_get() : base(null) { }
 
         public bool is_IfcDerivedUnit() { return IsADBEntity("IfcDerivedUnit"); }
+        public bool _is_IfcDerivedUnit { get { return is_IfcDerivedUnit(); } }
         public IfcDerivedUnit get_IfcDerivedUnit() { return new IfcDerivedUnit (getEntityInstance("IFCDERIVEDUNIT")); }
+        public IfcDerivedUnit _IfcDerivedUnit { get { return get_IfcDerivedUnit(); } }
         public bool is_IfcNamedUnit() { return IsADBEntity("IfcNamedUnit"); }
+        public bool _is_IfcNamedUnit { get { return is_IfcNamedUnit(); } }
         public IfcNamedUnit get_IfcNamedUnit() { return new IfcNamedUnit (getEntityInstance("IFCNAMEDUNIT")); }
+        public IfcNamedUnit _IfcNamedUnit { get { return get_IfcNamedUnit(); } }
         public bool is_IfcMonetaryUnit() { return IsADBEntity("IfcMonetaryUnit"); }
+        public bool _is_IfcMonetaryUnit { get { return is_IfcMonetaryUnit(); } }
         public IfcMonetaryUnit get_IfcMonetaryUnit() { return new IfcMonetaryUnit (getEntityInstance("IFCMONETARYUNIT")); }
+        public IfcMonetaryUnit _IfcMonetaryUnit { get { return get_IfcMonetaryUnit(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcUnit_put : Select
@@ -7654,7 +8542,7 @@ namespace IFC2x3
         public void put_IfcDerivedUnit(IfcDerivedUnit inst) { putEntityInstance("IFCDERIVEDUNIT", inst); }
         public void put_IfcNamedUnit(IfcNamedUnit inst) { putEntityInstance("IFCNAMEDUNIT", inst); }
         public void put_IfcMonetaryUnit(IfcMonetaryUnit inst) { putEntityInstance("IFCMONETARYUNIT", inst); }
-    };
+        };
 
 
     public class IfcValue : Select
@@ -7680,11 +8568,14 @@ namespace IFC2x3
 
 
         public IfcMeasureValue _IfcMeasureValue() { return new IfcMeasureValue(this); }
+        public IfcMeasureValue __IfcMeasureValue { get { return _IfcMeasureValue(); } }
 
         public IfcSimpleValue _IfcSimpleValue() { return new IfcSimpleValue(this); }
+        public IfcSimpleValue __IfcSimpleValue { get { return _IfcSimpleValue(); } }
 
         public IfcDerivedMeasureValue _IfcDerivedMeasureValue() { return new IfcDerivedMeasureValue(this); }
-    };
+        public IfcDerivedMeasureValue __IfcDerivedMeasureValue { get { return _IfcDerivedMeasureValue(); } }
+        };
 
 
     public class IfcValue_get : Select
@@ -7709,14 +8600,17 @@ namespace IFC2x3
         public IfcValue_get() : base(null) { }
 
         public IfcMeasureValue_get get_IfcMeasureValue() { return new IfcMeasureValue_get(this); }
+        public IfcMeasureValue_get __IfcMeasureValue { get { return get_IfcMeasureValue(); } }
         public IfcSimpleValue_get get_IfcSimpleValue() { return new IfcSimpleValue_get(this); }
+        public IfcSimpleValue_get __IfcSimpleValue { get { return get_IfcSimpleValue(); } }
         public IfcDerivedMeasureValue_get get_IfcDerivedMeasureValue() { return new IfcDerivedMeasureValue_get(this); }
+        public IfcDerivedMeasureValue_get __IfcDerivedMeasureValue { get { return get_IfcDerivedMeasureValue(); } }
 
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
         public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
         public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
-    };
+        };
 
 
     public class IfcValue_put : Select
@@ -7741,9 +8635,12 @@ namespace IFC2x3
         public IfcValue_put() : base(null) { }
 
         public IfcMeasureValue_put put_IfcMeasureValue() { return new IfcMeasureValue_put(this); }
+        public IfcMeasureValue_put __IfcMeasureValue { get { return put_IfcMeasureValue(); } }
         public IfcSimpleValue_put put_IfcSimpleValue() { return new IfcSimpleValue_put(this); }
+        public IfcSimpleValue_put __IfcSimpleValue { get { return put_IfcSimpleValue(); } }
         public IfcDerivedMeasureValue_put put_IfcDerivedMeasureValue() { return new IfcDerivedMeasureValue_put(this); }
-    };
+        public IfcDerivedMeasureValue_put __IfcDerivedMeasureValue { get { return put_IfcDerivedMeasureValue(); } }
+        };
 
 
     public class IfcVectorOrDirection : Select
@@ -7769,13 +8666,17 @@ namespace IFC2x3
 
 
         public bool is_IfcDirection() { return IsADBEntity("IfcDirection"); }
+        public bool _is_IfcDirection { get { return is_IfcDirection(); } }
         public IfcDirection get_IfcDirection() { return new IfcDirection (getEntityInstance("IFCDIRECTION")); }
+        public IfcDirection _IfcDirection { get { return get_IfcDirection(); } }
         public void put_IfcDirection(IfcDirection inst) { putEntityInstance("IFCDIRECTION", inst); }
 
         public bool is_IfcVector() { return IsADBEntity("IfcVector"); }
+        public bool _is_IfcVector { get { return is_IfcVector(); } }
         public IfcVector get_IfcVector() { return new IfcVector (getEntityInstance("IFCVECTOR")); }
+        public IfcVector _IfcVector { get { return get_IfcVector(); } }
         public void put_IfcVector(IfcVector inst) { putEntityInstance("IFCVECTOR", inst); }
-    };
+        };
 
 
     public class IfcVectorOrDirection_get : Select
@@ -7800,12 +8701,16 @@ namespace IFC2x3
         public IfcVectorOrDirection_get() : base(null) { }
 
         public bool is_IfcDirection() { return IsADBEntity("IfcDirection"); }
+        public bool _is_IfcDirection { get { return is_IfcDirection(); } }
         public IfcDirection get_IfcDirection() { return new IfcDirection (getEntityInstance("IFCDIRECTION")); }
+        public IfcDirection _IfcDirection { get { return get_IfcDirection(); } }
         public bool is_IfcVector() { return IsADBEntity("IfcVector"); }
+        public bool _is_IfcVector { get { return is_IfcVector(); } }
         public IfcVector get_IfcVector() { return new IfcVector (getEntityInstance("IFCVECTOR")); }
+        public IfcVector _IfcVector { get { return get_IfcVector(); } }
 
         public SdaiInstance as_instance() { return getEntityInstance(null); }
-    };
+        };
 
 
     public class IfcVectorOrDirection_put : Select
@@ -7831,7 +8736,7 @@ namespace IFC2x3
 
         public void put_IfcDirection(IfcDirection inst) { putEntityInstance("IFCDIRECTION", inst); }
         public void put_IfcVector(IfcVector inst) { putEntityInstance("IFCVECTOR", inst); }
-    };
+        };
 
     //
     // Unnamed aggregations
@@ -8166,7 +9071,9 @@ namespace IFC2x3
         public static implicit operator IfcRepresentationItem(SdaiInstance instance) => new IfcRepresentationItem(instance);
 
         public SetOfIfcPresentationLayerAssignment get_LayerAssignments() { return (new SetOfIfcPresentationLayerAssignmentSerializer()).FromAttr(m_instance, "LayerAssignments"); }
+        public SetOfIfcPresentationLayerAssignment _LayerAssignments { get { return get_LayerAssignments(); } }
         public SetOfIfcStyledItem get_StyledByItem() { return (new SetOfIfcStyledItemSerializer()).FromAttr(m_instance, "StyledByItem"); }
+        public SetOfIfcStyledItem _StyledByItem { get { return get_StyledByItem(); } }
 
         protected override TextValue EntityName() { return "IfcRepresentationItem"; }
     };
@@ -8253,9 +9160,11 @@ namespace IFC2x3
         public static new IfcCompositeCurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCompositeCurve"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcCompositeCurveSegment get_Segments() { return (new ListOfIfcCompositeCurveSegmentSerializer()).FromAttr(m_instance, "Segments"); }
+        public ListOfIfcCompositeCurveSegment _Segments { get { return get_Segments(); } }
         public void put_Segments(IEnumerable<IfcCompositeCurveSegment> lst) { (new ListOfIfcCompositeCurveSegmentSerializer()).ToSdaiAggr(lst, m_instance, "Segments"); }
         //public void put_Segments_untyped(IEnumerable lst) { (new ListOfIfcCompositeCurveSegmentSerializer()).ToSdaiAggr(lst, m_instance, "Segments"); }
         public LOGICAL_VALUE? get_SelfIntersect() { var str = get_string("SelfIntersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _SelfIntersect { get { return get_SelfIntersect(); } }
         public void put_SelfIntersect(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "SelfIntersect", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCompositeCurve"; }
@@ -8303,12 +9212,16 @@ namespace IFC2x3
         public static implicit operator IfcRoot(SdaiInstance instance) => new IfcRoot(instance);
 
         public TextValue get_GlobalId() { return get_string("GlobalId", ifcengine.sdaiSTRING); }
+        public TextValue _GlobalId { get { return get_GlobalId(); } }
         public void put_GlobalId(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "GlobalId", ifcengine.sdaiSTRING, value); }
         public IfcOwnerHistory get_OwnerHistory() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OwnerHistory", ifcengine.sdaiINSTANCE, out inst); return new IfcOwnerHistory (inst); }
+        public IfcOwnerHistory _OwnerHistory { get { return get_OwnerHistory(); } }
         public void put_OwnerHistory(IfcOwnerHistory inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OwnerHistory", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcRoot"; }
@@ -8331,9 +9244,13 @@ namespace IFC2x3
         public static implicit operator IfcObjectDefinition(SdaiInstance instance) => new IfcObjectDefinition(instance);
 
         public SetOfIfcRelAssigns get_HasAssignments() { return (new SetOfIfcRelAssignsSerializer()).FromAttr(m_instance, "HasAssignments"); }
+        public SetOfIfcRelAssigns _HasAssignments { get { return get_HasAssignments(); } }
         public SetOfIfcRelDecomposes get_IsDecomposedBy() { return (new SetOfIfcRelDecomposesSerializer()).FromAttr(m_instance, "IsDecomposedBy"); }
+        public SetOfIfcRelDecomposes _IsDecomposedBy { get { return get_IsDecomposedBy(); } }
         public SetOfIfcRelDecomposes get_Decomposes() { return (new SetOfIfcRelDecomposesSerializer()).FromAttr(m_instance, "Decomposes"); }
+        public SetOfIfcRelDecomposes _Decomposes { get { return get_Decomposes(); } }
         public SetOfIfcRelAssociates get_HasAssociations() { return (new SetOfIfcRelAssociatesSerializer()).FromAttr(m_instance, "HasAssociations"); }
+        public SetOfIfcRelAssociates _HasAssociations { get { return get_HasAssociations(); } }
 
         protected override TextValue EntityName() { return "IfcObjectDefinition"; }
     };
@@ -8355,8 +9272,10 @@ namespace IFC2x3
         public static implicit operator IfcObject(SdaiInstance instance) => new IfcObject(instance);
 
         public TextValue get_ObjectType() { return get_string("ObjectType", ifcengine.sdaiSTRING); }
+        public TextValue _ObjectType { get { return get_ObjectType(); } }
         public void put_ObjectType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ObjectType", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRelDefines get_IsDefinedBy() { return (new SetOfIfcRelDefinesSerializer()).FromAttr(m_instance, "IsDefinedBy"); }
+        public SetOfIfcRelDefines _IsDefinedBy { get { return get_IsDefinedBy(); } }
 
         protected override TextValue EntityName() { return "IfcObject"; }
     };
@@ -8378,6 +9297,7 @@ namespace IFC2x3
         public static implicit operator IfcControl(SdaiInstance instance) => new IfcControl(instance);
 
         public SetOfIfcRelAssignsToControl get_Controls() { return (new SetOfIfcRelAssignsToControlSerializer()).FromAttr(m_instance, "Controls"); }
+        public SetOfIfcRelAssignsToControl _Controls { get { return get_Controls(); } }
 
         protected override TextValue EntityName() { return "IfcControl"; }
     };
@@ -8404,6 +9324,7 @@ namespace IFC2x3
         public static new IfcActionRequest Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcActionRequest"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_RequestID() { return get_string("RequestID", ifcengine.sdaiSTRING); }
+        public TextValue _RequestID { get { return get_RequestID(); } }
         public void put_RequestID(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "RequestID", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcActionRequest"; }
@@ -8432,8 +9353,10 @@ namespace IFC2x3
 
 
         public IfcActorSelect_get get_TheActor() { return new IfcActorSelect_get(m_instance, "TheActor", 0); }
+        public IfcActorSelect_get _TheActor { get { return new IfcActorSelect_get(m_instance, "TheActor", 0); } }
         public IfcActorSelect_put put_TheActor() { return new IfcActorSelect_put(m_instance, "TheActor", 0); }
         public SetOfIfcRelAssignsToActor get_IsActingUpon() { return (new SetOfIfcRelAssignsToActorSerializer()).FromAttr(m_instance, "IsActingUpon"); }
+        public SetOfIfcRelAssignsToActor _IsActingUpon { get { return get_IsActingUpon(); } }
 
         protected override TextValue EntityName() { return "IfcActor"; }
     };
@@ -8460,10 +9383,13 @@ namespace IFC2x3
         public static new IfcActorRole Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcActorRole"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRoleEnum? get_Role() { var str = get_string("Role", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcRoleEnum_); return EnumValue<IfcRoleEnum>.FromIndex(ind); }
+        public IfcRoleEnum? _Role { get { return get_Role(); } }
         public void put_Role(IfcRoleEnum value) { var str = EnumString<IfcRoleEnum>.FromValue(value, EnumNames.IfcRoleEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Role", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedRole() { return get_string("UserDefinedRole", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedRole { get { return get_UserDefinedRole(); } }
         public void put_UserDefinedRole(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedRole", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcActorRole"; }
@@ -8491,11 +9417,14 @@ namespace IFC2x3
         public static new IfcTypeObject Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTypeObject"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_ApplicableOccurrence() { return get_string("ApplicableOccurrence", ifcengine.sdaiSTRING); }
+        public TextValue _ApplicableOccurrence { get { return get_ApplicableOccurrence(); } }
         public void put_ApplicableOccurrence(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ApplicableOccurrence", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPropertySetDefinition get_HasPropertySets() { return (new SetOfIfcPropertySetDefinitionSerializer()).FromAttr(m_instance, "HasPropertySets"); }
+        public SetOfIfcPropertySetDefinition _HasPropertySets { get { return get_HasPropertySets(); } }
         public void put_HasPropertySets(IEnumerable<IfcPropertySetDefinition> lst) { (new SetOfIfcPropertySetDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "HasPropertySets"); }
         //public void put_HasPropertySets_untyped(IEnumerable lst) { (new SetOfIfcPropertySetDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "HasPropertySets"); }
         public SetOfIfcRelDefinesByType get_ObjectTypeOf() { return (new SetOfIfcRelDefinesByTypeSerializer()).FromAttr(m_instance, "ObjectTypeOf"); }
+        public SetOfIfcRelDefinesByType _ObjectTypeOf { get { return get_ObjectTypeOf(); } }
 
         protected override TextValue EntityName() { return "IfcTypeObject"; }
     };
@@ -8522,9 +9451,11 @@ namespace IFC2x3
         public static new IfcTypeProduct Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTypeProduct"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcRepresentationMap get_RepresentationMaps() { return (new ListOfIfcRepresentationMapSerializer()).FromAttr(m_instance, "RepresentationMaps"); }
+        public ListOfIfcRepresentationMap _RepresentationMaps { get { return get_RepresentationMaps(); } }
         public void put_RepresentationMaps(IEnumerable<IfcRepresentationMap> lst) { (new ListOfIfcRepresentationMapSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationMaps"); }
         //public void put_RepresentationMaps_untyped(IEnumerable lst) { (new ListOfIfcRepresentationMapSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationMaps"); }
         public TextValue get_Tag() { return get_string("Tag", ifcengine.sdaiSTRING); }
+        public TextValue _Tag { get { return get_Tag(); } }
         public void put_Tag(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Tag", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcTypeProduct"; }
@@ -8547,6 +9478,7 @@ namespace IFC2x3
         public static implicit operator IfcElementType(SdaiInstance instance) => new IfcElementType(instance);
 
         public TextValue get_ElementType() { return get_string("ElementType", ifcengine.sdaiSTRING); }
+        public TextValue _ElementType { get { return get_ElementType(); } }
         public void put_ElementType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ElementType", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcElementType"; }
@@ -8619,6 +9551,7 @@ namespace IFC2x3
         public static new IfcActuatorType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcActuatorType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcActuatorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcActuatorTypeEnum_); return EnumValue<IfcActuatorTypeEnum>.FromIndex(ind); }
+        public IfcActuatorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcActuatorTypeEnum value) { var str = EnumString<IfcActuatorTypeEnum>.FromValue(value, EnumNames.IfcActuatorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcActuatorType"; }
@@ -8641,13 +9574,18 @@ namespace IFC2x3
         public static implicit operator IfcAddress(SdaiInstance instance) => new IfcAddress(instance);
 
         public IfcAddressTypeEnum? get_Purpose() { var str = get_string("Purpose", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAddressTypeEnum_); return EnumValue<IfcAddressTypeEnum>.FromIndex(ind); }
+        public IfcAddressTypeEnum? _Purpose { get { return get_Purpose(); } }
         public void put_Purpose(IfcAddressTypeEnum value) { var str = EnumString<IfcAddressTypeEnum>.FromValue(value, EnumNames.IfcAddressTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Purpose", ifcengine.sdaiENUM, str); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public TextValue get_UserDefinedPurpose() { return get_string("UserDefinedPurpose", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedPurpose { get { return get_UserDefinedPurpose(); } }
         public void put_UserDefinedPurpose(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedPurpose", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPerson get_OfPerson() { return (new SetOfIfcPersonSerializer()).FromAttr(m_instance, "OfPerson"); }
+        public SetOfIfcPerson _OfPerson { get { return get_OfPerson(); } }
         public SetOfIfcOrganization get_OfOrganization() { return (new SetOfIfcOrganizationSerializer()).FromAttr(m_instance, "OfOrganization"); }
+        public SetOfIfcOrganization _OfOrganization { get { return get_OfOrganization(); } }
 
         protected override TextValue EntityName() { return "IfcAddress"; }
     };
@@ -8714,6 +9652,7 @@ namespace IFC2x3
         public static new IfcAirTerminalBoxType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAirTerminalBoxType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAirTerminalBoxTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAirTerminalBoxTypeEnum_); return EnumValue<IfcAirTerminalBoxTypeEnum>.FromIndex(ind); }
+        public IfcAirTerminalBoxTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcAirTerminalBoxTypeEnum value) { var str = EnumString<IfcAirTerminalBoxTypeEnum>.FromValue(value, EnumNames.IfcAirTerminalBoxTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcAirTerminalBoxType"; }
@@ -8761,6 +9700,7 @@ namespace IFC2x3
         public static new IfcAirTerminalType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAirTerminalType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAirTerminalTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAirTerminalTypeEnum_); return EnumValue<IfcAirTerminalTypeEnum>.FromIndex(ind); }
+        public IfcAirTerminalTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcAirTerminalTypeEnum value) { var str = EnumString<IfcAirTerminalTypeEnum>.FromValue(value, EnumNames.IfcAirTerminalTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcAirTerminalType"; }
@@ -8808,6 +9748,7 @@ namespace IFC2x3
         public static new IfcAirToAirHeatRecoveryType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAirToAirHeatRecoveryType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAirToAirHeatRecoveryTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAirToAirHeatRecoveryTypeEnum_); return EnumValue<IfcAirToAirHeatRecoveryTypeEnum>.FromIndex(ind); }
+        public IfcAirToAirHeatRecoveryTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcAirToAirHeatRecoveryTypeEnum value) { var str = EnumString<IfcAirToAirHeatRecoveryTypeEnum>.FromValue(value, EnumNames.IfcAirToAirHeatRecoveryTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcAirToAirHeatRecoveryType"; }
@@ -8835,6 +9776,7 @@ namespace IFC2x3
         public static new IfcAlarmType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAlarmType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAlarmTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAlarmTypeEnum_); return EnumValue<IfcAlarmTypeEnum>.FromIndex(ind); }
+        public IfcAlarmTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcAlarmTypeEnum value) { var str = EnumString<IfcAlarmTypeEnum>.FromValue(value, EnumNames.IfcAlarmTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcAlarmType"; }
@@ -8862,10 +9804,13 @@ namespace IFC2x3
         public static new IfcDraughtingCallout Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDraughtingCallout"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcDraughtingCalloutElement get_Contents() { return (new SetOfIfcDraughtingCalloutElementSerializer()).FromAttr(m_instance, "Contents"); }
+        public SetOfIfcDraughtingCalloutElement _Contents { get { return get_Contents(); } }
         public void put_Contents(IEnumerable<IfcDraughtingCalloutElement> lst) { (new SetOfIfcDraughtingCalloutElementSerializer()).ToSdaiAggr(lst, m_instance, "Contents"); }
         //public void put_Contents_untyped(IEnumerable lst) { (new SetOfIfcDraughtingCalloutElementSerializer()).ToSdaiAggr(lst, m_instance, "Contents"); }
         public SetOfIfcDraughtingCalloutRelationship get_IsRelatedFromCallout() { return (new SetOfIfcDraughtingCalloutRelationshipSerializer()).FromAttr(m_instance, "IsRelatedFromCallout"); }
+        public SetOfIfcDraughtingCalloutRelationship _IsRelatedFromCallout { get { return get_IsRelatedFromCallout(); } }
         public SetOfIfcDraughtingCalloutRelationship get_IsRelatedToCallout() { return (new SetOfIfcDraughtingCalloutRelationshipSerializer()).FromAttr(m_instance, "IsRelatedToCallout"); }
+        public SetOfIfcDraughtingCalloutRelationship _IsRelatedToCallout { get { return get_IsRelatedToCallout(); } }
 
         protected override TextValue EntityName() { return "IfcDraughtingCallout"; }
     };
@@ -8937,10 +9882,13 @@ namespace IFC2x3
         public static implicit operator IfcProduct(SdaiInstance instance) => new IfcProduct(instance);
 
         public IfcObjectPlacement get_ObjectPlacement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ObjectPlacement", ifcengine.sdaiINSTANCE, out inst); return new IfcObjectPlacement (inst); }
+        public IfcObjectPlacement _ObjectPlacement { get { return get_ObjectPlacement(); } }
         public void put_ObjectPlacement(IfcObjectPlacement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ObjectPlacement", ifcengine.sdaiINSTANCE, i); }
         public IfcProductRepresentation get_Representation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Representation", ifcengine.sdaiINSTANCE, out inst); return new IfcProductRepresentation (inst); }
+        public IfcProductRepresentation _Representation { get { return get_Representation(); } }
         public void put_Representation(IfcProductRepresentation inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Representation", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcRelAssignsToProduct get_ReferencedBy() { return (new SetOfIfcRelAssignsToProductSerializer()).FromAttr(m_instance, "ReferencedBy"); }
+        public SetOfIfcRelAssignsToProduct _ReferencedBy { get { return get_ReferencedBy(); } }
 
         protected override TextValue EntityName() { return "IfcProduct"; }
     };
@@ -8967,6 +9915,7 @@ namespace IFC2x3
         public static new IfcAnnotation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAnnotation"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelContainedInSpatialStructure get_ContainedInStructure() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainedInStructure"); }
+        public SetOfIfcRelContainedInSpatialStructure _ContainedInStructure { get { return get_ContainedInStructure(); } }
 
         protected override TextValue EntityName() { return "IfcAnnotation"; }
     };
@@ -8993,11 +9942,14 @@ namespace IFC2x3
         public static new IfcStyledItem Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStyledItem"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRepresentationItem get_Item() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Item", ifcengine.sdaiINSTANCE, out inst); return new IfcRepresentationItem (inst); }
+        public IfcRepresentationItem _Item { get { return get_Item(); } }
         public void put_Item(IfcRepresentationItem inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Item", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcPresentationStyleAssignment get_Styles() { return (new SetOfIfcPresentationStyleAssignmentSerializer()).FromAttr(m_instance, "Styles"); }
+        public SetOfIfcPresentationStyleAssignment _Styles { get { return get_Styles(); } }
         public void put_Styles(IEnumerable<IfcPresentationStyleAssignment> lst) { (new SetOfIfcPresentationStyleAssignmentSerializer()).ToSdaiAggr(lst, m_instance, "Styles"); }
         //public void put_Styles_untyped(IEnumerable lst) { (new SetOfIfcPresentationStyleAssignmentSerializer()).ToSdaiAggr(lst, m_instance, "Styles"); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcStyledItem"; }
@@ -9070,8 +10022,10 @@ namespace IFC2x3
         public static new IfcAnnotationFillArea Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAnnotationFillArea"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_OuterBoundary() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OuterBoundary", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _OuterBoundary { get { return get_OuterBoundary(); } }
         public void put_OuterBoundary(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OuterBoundary", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcCurve get_InnerBoundaries() { return (new SetOfIfcCurveSerializer()).FromAttr(m_instance, "InnerBoundaries"); }
+        public SetOfIfcCurve _InnerBoundaries { get { return get_InnerBoundaries(); } }
         public void put_InnerBoundaries(IEnumerable<IfcCurve> lst) { (new SetOfIfcCurveSerializer()).ToSdaiAggr(lst, m_instance, "InnerBoundaries"); }
         //public void put_InnerBoundaries_untyped(IEnumerable lst) { (new SetOfIfcCurveSerializer()).ToSdaiAggr(lst, m_instance, "InnerBoundaries"); }
 
@@ -9100,8 +10054,10 @@ namespace IFC2x3
         public static new IfcAnnotationFillAreaOccurrence Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAnnotationFillAreaOccurrence"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPoint get_FillStyleTarget() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "FillStyleTarget", ifcengine.sdaiINSTANCE, out inst); return new IfcPoint (inst); }
+        public IfcPoint _FillStyleTarget { get { return get_FillStyleTarget(); } }
         public void put_FillStyleTarget(IfcPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "FillStyleTarget", ifcengine.sdaiINSTANCE, i); }
         public IfcGlobalOrLocalEnum? get_GlobalOrLocal() { var str = get_string("GlobalOrLocal", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcGlobalOrLocalEnum_); return EnumValue<IfcGlobalOrLocalEnum>.FromIndex(ind); }
+        public IfcGlobalOrLocalEnum? _GlobalOrLocal { get { return get_GlobalOrLocal(); } }
         public void put_GlobalOrLocal(IfcGlobalOrLocalEnum value) { var str = EnumString<IfcGlobalOrLocalEnum>.FromValue(value, EnumNames.IfcGlobalOrLocalEnum_); ifcengine.sdaiPutAttrBN(m_instance, "GlobalOrLocal", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcAnnotationFillAreaOccurrence"; }
@@ -9129,8 +10085,10 @@ namespace IFC2x3
         public static new IfcAnnotationSurface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAnnotationSurface"); Debug.Assert(inst != 0); return inst; }
 
         public IfcGeometricRepresentationItem get_Item() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Item", ifcengine.sdaiINSTANCE, out inst); return new IfcGeometricRepresentationItem (inst); }
+        public IfcGeometricRepresentationItem _Item { get { return get_Item(); } }
         public void put_Item(IfcGeometricRepresentationItem inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Item", ifcengine.sdaiINSTANCE, i); }
         public IfcTextureCoordinate get_TextureCoordinates() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TextureCoordinates", ifcengine.sdaiINSTANCE, out inst); return new IfcTextureCoordinate (inst); }
+        public IfcTextureCoordinate _TextureCoordinates { get { return get_TextureCoordinates(); } }
         public void put_TextureCoordinates(IfcTextureCoordinate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TextureCoordinates", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcAnnotationSurface"; }
@@ -9233,12 +10191,16 @@ namespace IFC2x3
         public static new IfcApplication Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcApplication"); Debug.Assert(inst != 0); return inst; }
 
         public IfcOrganization get_ApplicationDeveloper() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ApplicationDeveloper", ifcengine.sdaiINSTANCE, out inst); return new IfcOrganization (inst); }
+        public IfcOrganization _ApplicationDeveloper { get { return get_ApplicationDeveloper(); } }
         public void put_ApplicationDeveloper(IfcOrganization inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ApplicationDeveloper", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_Version() { return get_string("Version", ifcengine.sdaiSTRING); }
+        public TextValue _Version { get { return get_Version(); } }
         public void put_Version(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Version", ifcengine.sdaiSTRING, value); }
         public TextValue get_ApplicationFullName() { return get_string("ApplicationFullName", ifcengine.sdaiSTRING); }
+        public TextValue _ApplicationFullName { get { return get_ApplicationFullName(); } }
         public void put_ApplicationFullName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ApplicationFullName", ifcengine.sdaiSTRING, value); }
         public TextValue get_ApplicationIdentifier() { return get_string("ApplicationIdentifier", ifcengine.sdaiSTRING); }
+        public TextValue _ApplicationIdentifier { get { return get_ApplicationIdentifier(); } }
         public void put_ApplicationIdentifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ApplicationIdentifier", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcApplication"; }
@@ -9261,23 +10223,32 @@ namespace IFC2x3
         public static implicit operator IfcAppliedValue(SdaiInstance instance) => new IfcAppliedValue(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         public IfcAppliedValueSelect_get get_AppliedValue() { return new IfcAppliedValueSelect_get(m_instance, "AppliedValue", 0); }
+        public IfcAppliedValueSelect_get _AppliedValue { get { return new IfcAppliedValueSelect_get(m_instance, "AppliedValue", 0); } }
         public IfcAppliedValueSelect_put put_AppliedValue() { return new IfcAppliedValueSelect_put(m_instance, "AppliedValue", 0); }
         public IfcMeasureWithUnit get_UnitBasis() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "UnitBasis", ifcengine.sdaiINSTANCE, out inst); return new IfcMeasureWithUnit (inst); }
+        public IfcMeasureWithUnit _UnitBasis { get { return get_UnitBasis(); } }
         public void put_UnitBasis(IfcMeasureWithUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "UnitBasis", ifcengine.sdaiINSTANCE, i); }
 
         public IfcDateTimeSelect_get get_ApplicableDate() { return new IfcDateTimeSelect_get(m_instance, "ApplicableDate", 0); }
+        public IfcDateTimeSelect_get _ApplicableDate { get { return new IfcDateTimeSelect_get(m_instance, "ApplicableDate", 0); } }
         public IfcDateTimeSelect_put put_ApplicableDate() { return new IfcDateTimeSelect_put(m_instance, "ApplicableDate", 0); }
 
         public IfcDateTimeSelect_get get_FixedUntilDate() { return new IfcDateTimeSelect_get(m_instance, "FixedUntilDate", 0); }
+        public IfcDateTimeSelect_get _FixedUntilDate { get { return new IfcDateTimeSelect_get(m_instance, "FixedUntilDate", 0); } }
         public IfcDateTimeSelect_put put_FixedUntilDate() { return new IfcDateTimeSelect_put(m_instance, "FixedUntilDate", 0); }
         public SetOfIfcReferencesValueDocument get_ValuesReferenced() { return (new SetOfIfcReferencesValueDocumentSerializer()).FromAttr(m_instance, "ValuesReferenced"); }
+        public SetOfIfcReferencesValueDocument _ValuesReferenced { get { return get_ValuesReferenced(); } }
         public SetOfIfcAppliedValueRelationship get_ValueOfComponents() { return (new SetOfIfcAppliedValueRelationshipSerializer()).FromAttr(m_instance, "ValueOfComponents"); }
+        public SetOfIfcAppliedValueRelationship _ValueOfComponents { get { return get_ValueOfComponents(); } }
         public SetOfIfcAppliedValueRelationship get_IsComponentIn() { return (new SetOfIfcAppliedValueRelationshipSerializer()).FromAttr(m_instance, "IsComponentIn"); }
+        public SetOfIfcAppliedValueRelationship _IsComponentIn { get { return get_IsComponentIn(); } }
 
         protected override TextValue EntityName() { return "IfcAppliedValue"; }
     };
@@ -9304,15 +10275,20 @@ namespace IFC2x3
         public static new IfcAppliedValueRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAppliedValueRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAppliedValue get_ComponentOfTotal() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ComponentOfTotal", ifcengine.sdaiINSTANCE, out inst); return new IfcAppliedValue (inst); }
+        public IfcAppliedValue _ComponentOfTotal { get { return get_ComponentOfTotal(); } }
         public void put_ComponentOfTotal(IfcAppliedValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ComponentOfTotal", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcAppliedValue get_Components() { return (new SetOfIfcAppliedValueSerializer()).FromAttr(m_instance, "Components"); }
+        public SetOfIfcAppliedValue _Components { get { return get_Components(); } }
         public void put_Components(IEnumerable<IfcAppliedValue> lst) { (new SetOfIfcAppliedValueSerializer()).ToSdaiAggr(lst, m_instance, "Components"); }
         //public void put_Components_untyped(IEnumerable lst) { (new SetOfIfcAppliedValueSerializer()).ToSdaiAggr(lst, m_instance, "Components"); }
         public IfcArithmeticOperatorEnum? get_ArithmeticOperator() { var str = get_string("ArithmeticOperator", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcArithmeticOperatorEnum_); return EnumValue<IfcArithmeticOperatorEnum>.FromIndex(ind); }
+        public IfcArithmeticOperatorEnum? _ArithmeticOperator { get { return get_ArithmeticOperator(); } }
         public void put_ArithmeticOperator(IfcArithmeticOperatorEnum value) { var str = EnumString<IfcArithmeticOperatorEnum>.FromValue(value, EnumNames.IfcArithmeticOperatorEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ArithmeticOperator", ifcengine.sdaiENUM, str); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcAppliedValueRelationship"; }
@@ -9340,23 +10316,33 @@ namespace IFC2x3
         public static new IfcApproval Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcApproval"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         public IfcDateTimeSelect_get get_ApprovalDateTime() { return new IfcDateTimeSelect_get(m_instance, "ApprovalDateTime", 0); }
+        public IfcDateTimeSelect_get _ApprovalDateTime { get { return new IfcDateTimeSelect_get(m_instance, "ApprovalDateTime", 0); } }
         public IfcDateTimeSelect_put put_ApprovalDateTime() { return new IfcDateTimeSelect_put(m_instance, "ApprovalDateTime", 0); }
         public TextValue get_ApprovalStatus() { return get_string("ApprovalStatus", ifcengine.sdaiSTRING); }
+        public TextValue _ApprovalStatus { get { return get_ApprovalStatus(); } }
         public void put_ApprovalStatus(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ApprovalStatus", ifcengine.sdaiSTRING, value); }
         public TextValue get_ApprovalLevel() { return get_string("ApprovalLevel", ifcengine.sdaiSTRING); }
+        public TextValue _ApprovalLevel { get { return get_ApprovalLevel(); } }
         public void put_ApprovalLevel(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ApprovalLevel", ifcengine.sdaiSTRING, value); }
         public TextValue get_ApprovalQualifier() { return get_string("ApprovalQualifier", ifcengine.sdaiSTRING); }
+        public TextValue _ApprovalQualifier { get { return get_ApprovalQualifier(); } }
         public void put_ApprovalQualifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ApprovalQualifier", ifcengine.sdaiSTRING, value); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Identifier() { return get_string("Identifier", ifcengine.sdaiSTRING); }
+        public TextValue _Identifier { get { return get_Identifier(); } }
         public void put_Identifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Identifier", ifcengine.sdaiSTRING, value); }
         public SetOfIfcApprovalActorRelationship get_Actors() { return (new SetOfIfcApprovalActorRelationshipSerializer()).FromAttr(m_instance, "Actors"); }
+        public SetOfIfcApprovalActorRelationship _Actors { get { return get_Actors(); } }
         public SetOfIfcApprovalRelationship get_IsRelatedWith() { return (new SetOfIfcApprovalRelationshipSerializer()).FromAttr(m_instance, "IsRelatedWith"); }
+        public SetOfIfcApprovalRelationship _IsRelatedWith { get { return get_IsRelatedWith(); } }
         public SetOfIfcApprovalRelationship get_Relates() { return (new SetOfIfcApprovalRelationshipSerializer()).FromAttr(m_instance, "Relates"); }
+        public SetOfIfcApprovalRelationship _Relates { get { return get_Relates(); } }
 
         protected override TextValue EntityName() { return "IfcApproval"; }
     };
@@ -9384,10 +10370,13 @@ namespace IFC2x3
 
 
         public IfcActorSelect_get get_Actor() { return new IfcActorSelect_get(m_instance, "Actor", 0); }
+        public IfcActorSelect_get _Actor { get { return new IfcActorSelect_get(m_instance, "Actor", 0); } }
         public IfcActorSelect_put put_Actor() { return new IfcActorSelect_put(m_instance, "Actor", 0); }
         public IfcApproval get_Approval() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Approval", ifcengine.sdaiINSTANCE, out inst); return new IfcApproval (inst); }
+        public IfcApproval _Approval { get { return get_Approval(); } }
         public void put_Approval(IfcApproval inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Approval", ifcengine.sdaiINSTANCE, i); }
         public IfcActorRole get_Role() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Role", ifcengine.sdaiINSTANCE, out inst); return new IfcActorRole (inst); }
+        public IfcActorRole _Role { get { return get_Role(); } }
         public void put_Role(IfcActorRole inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Role", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcApprovalActorRelationship"; }
@@ -9415,9 +10404,11 @@ namespace IFC2x3
         public static new IfcApprovalPropertyRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcApprovalPropertyRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProperty get_ApprovedProperties() { return (new SetOfIfcPropertySerializer()).FromAttr(m_instance, "ApprovedProperties"); }
+        public SetOfIfcProperty _ApprovedProperties { get { return get_ApprovedProperties(); } }
         public void put_ApprovedProperties(IEnumerable<IfcProperty> lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "ApprovedProperties"); }
         //public void put_ApprovedProperties_untyped(IEnumerable lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "ApprovedProperties"); }
         public IfcApproval get_Approval() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Approval", ifcengine.sdaiINSTANCE, out inst); return new IfcApproval (inst); }
+        public IfcApproval _Approval { get { return get_Approval(); } }
         public void put_Approval(IfcApproval inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Approval", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcApprovalPropertyRelationship"; }
@@ -9445,12 +10436,16 @@ namespace IFC2x3
         public static new IfcApprovalRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcApprovalRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcApproval get_RelatedApproval() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedApproval", ifcengine.sdaiINSTANCE, out inst); return new IfcApproval (inst); }
+        public IfcApproval _RelatedApproval { get { return get_RelatedApproval(); } }
         public void put_RelatedApproval(IfcApproval inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedApproval", ifcengine.sdaiINSTANCE, i); }
         public IfcApproval get_RelatingApproval() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingApproval", ifcengine.sdaiINSTANCE, out inst); return new IfcApproval (inst); }
+        public IfcApproval _RelatingApproval { get { return get_RelatingApproval(); } }
         public void put_RelatingApproval(IfcApproval inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingApproval", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcApprovalRelationship"; }
@@ -9473,8 +10468,10 @@ namespace IFC2x3
         public static implicit operator IfcProfileDef(SdaiInstance instance) => new IfcProfileDef(instance);
 
         public IfcProfileTypeEnum? get_ProfileType() { var str = get_string("ProfileType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcProfileTypeEnum_); return EnumValue<IfcProfileTypeEnum>.FromIndex(ind); }
+        public IfcProfileTypeEnum? _ProfileType { get { return get_ProfileType(); } }
         public void put_ProfileType(IfcProfileTypeEnum value) { var str = EnumString<IfcProfileTypeEnum>.FromValue(value, EnumNames.IfcProfileTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ProfileType", ifcengine.sdaiENUM, str); }
         public TextValue get_ProfileName() { return get_string("ProfileName", ifcengine.sdaiSTRING); }
+        public TextValue _ProfileName { get { return get_ProfileName(); } }
         public void put_ProfileName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ProfileName", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcProfileDef"; }
@@ -9502,6 +10499,7 @@ namespace IFC2x3
         public static new IfcArbitraryClosedProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcArbitraryClosedProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_OuterCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OuterCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _OuterCurve { get { return get_OuterCurve(); } }
         public void put_OuterCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OuterCurve", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcArbitraryClosedProfileDef"; }
@@ -9529,6 +10527,7 @@ namespace IFC2x3
         public static new IfcArbitraryOpenProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcArbitraryOpenProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public IfcBoundedCurve get_Curve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Curve", ifcengine.sdaiINSTANCE, out inst); return new IfcBoundedCurve (inst); }
+        public IfcBoundedCurve _Curve { get { return get_Curve(); } }
         public void put_Curve(IfcBoundedCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Curve", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcArbitraryOpenProfileDef"; }
@@ -9556,6 +10555,7 @@ namespace IFC2x3
         public static new IfcArbitraryProfileDefWithVoids Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcArbitraryProfileDefWithVoids"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcCurve get_InnerCurves() { return (new SetOfIfcCurveSerializer()).FromAttr(m_instance, "InnerCurves"); }
+        public SetOfIfcCurve _InnerCurves { get { return get_InnerCurves(); } }
         public void put_InnerCurves(IEnumerable<IfcCurve> lst) { (new SetOfIfcCurveSerializer()).ToSdaiAggr(lst, m_instance, "InnerCurves"); }
         //public void put_InnerCurves_untyped(IEnumerable lst) { (new SetOfIfcCurveSerializer()).ToSdaiAggr(lst, m_instance, "InnerCurves"); }
 
@@ -9584,6 +10584,7 @@ namespace IFC2x3
         public static new IfcGroup Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGroup"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRelAssignsToGroup get_IsGroupedBy() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "IsGroupedBy", ifcengine.sdaiINSTANCE, out inst); return new IfcRelAssignsToGroup (inst); }
+        public IfcRelAssignsToGroup _IsGroupedBy { get { return get_IsGroupedBy(); } }
 
         protected override TextValue EntityName() { return "IfcGroup"; }
     };
@@ -9610,24 +10611,33 @@ namespace IFC2x3
         public static new IfcAsset Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAsset"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_AssetID() { return get_string("AssetID", ifcengine.sdaiSTRING); }
+        public TextValue _AssetID { get { return get_AssetID(); } }
         public void put_AssetID(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "AssetID", ifcengine.sdaiSTRING, value); }
         public IfcCostValue get_OriginalValue() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OriginalValue", ifcengine.sdaiINSTANCE, out inst); return new IfcCostValue (inst); }
+        public IfcCostValue _OriginalValue { get { return get_OriginalValue(); } }
         public void put_OriginalValue(IfcCostValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OriginalValue", ifcengine.sdaiINSTANCE, i); }
         public IfcCostValue get_CurrentValue() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "CurrentValue", ifcengine.sdaiINSTANCE, out inst); return new IfcCostValue (inst); }
+        public IfcCostValue _CurrentValue { get { return get_CurrentValue(); } }
         public void put_CurrentValue(IfcCostValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "CurrentValue", ifcengine.sdaiINSTANCE, i); }
         public IfcCostValue get_TotalReplacementCost() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TotalReplacementCost", ifcengine.sdaiINSTANCE, out inst); return new IfcCostValue (inst); }
+        public IfcCostValue _TotalReplacementCost { get { return get_TotalReplacementCost(); } }
         public void put_TotalReplacementCost(IfcCostValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TotalReplacementCost", ifcengine.sdaiINSTANCE, i); }
 
         public IfcActorSelect_get get_Owner() { return new IfcActorSelect_get(m_instance, "Owner", 0); }
+        public IfcActorSelect_get _Owner { get { return new IfcActorSelect_get(m_instance, "Owner", 0); } }
         public IfcActorSelect_put put_Owner() { return new IfcActorSelect_put(m_instance, "Owner", 0); }
 
         public IfcActorSelect_get get_User() { return new IfcActorSelect_get(m_instance, "User", 0); }
+        public IfcActorSelect_get _User { get { return new IfcActorSelect_get(m_instance, "User", 0); } }
         public IfcActorSelect_put put_User() { return new IfcActorSelect_put(m_instance, "User", 0); }
         public IfcPerson get_ResponsiblePerson() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ResponsiblePerson", ifcengine.sdaiINSTANCE, out inst); return new IfcPerson (inst); }
+        public IfcPerson _ResponsiblePerson { get { return get_ResponsiblePerson(); } }
         public void put_ResponsiblePerson(IfcPerson inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ResponsiblePerson", ifcengine.sdaiINSTANCE, i); }
         public IfcCalendarDate get_IncorporationDate() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "IncorporationDate", ifcengine.sdaiINSTANCE, out inst); return new IfcCalendarDate (inst); }
+        public IfcCalendarDate _IncorporationDate { get { return get_IncorporationDate(); } }
         public void put_IncorporationDate(IfcCalendarDate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "IncorporationDate", ifcengine.sdaiINSTANCE, i); }
         public IfcCostValue get_DepreciatedValue() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "DepreciatedValue", ifcengine.sdaiINSTANCE, out inst); return new IfcCostValue (inst); }
+        public IfcCostValue _DepreciatedValue { get { return get_DepreciatedValue(); } }
         public void put_DepreciatedValue(IfcCostValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "DepreciatedValue", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcAsset"; }
@@ -9650,6 +10660,7 @@ namespace IFC2x3
         public static implicit operator IfcParameterizedProfileDef(SdaiInstance instance) => new IfcParameterizedProfileDef(instance);
 
         public IfcAxis2Placement2D get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement2D (inst); }
+        public IfcAxis2Placement2D _Position { get { return get_Position(); } }
         public void put_Position(IfcAxis2Placement2D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcParameterizedProfileDef"; }
@@ -9677,14 +10688,19 @@ namespace IFC2x3
         public static new IfcIShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcIShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_OverallWidth() { return get_double("OverallWidth", ifcengine.sdaiREAL);}
+        public double? _OverallWidth { get { return get_OverallWidth(); } }
         public void put_OverallWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_OverallDepth() { return get_double("OverallDepth", ifcengine.sdaiREAL);}
+        public double? _OverallDepth { get { return get_OverallDepth(); } }
         public void put_OverallDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallDepth", ifcengine.sdaiREAL, ref value); }
         public double? get_WebThickness() { return get_double("WebThickness", ifcengine.sdaiREAL);}
+        public double? _WebThickness { get { return get_WebThickness(); } }
         public void put_WebThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeThickness() { return get_double("FlangeThickness", ifcengine.sdaiREAL);}
+        public double? _FlangeThickness { get { return get_FlangeThickness(); } }
         public void put_FlangeThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FilletRadius() { return get_double("FilletRadius", ifcengine.sdaiREAL);}
+        public double? _FilletRadius { get { return get_FilletRadius(); } }
         public void put_FilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FilletRadius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcIShapeProfileDef"; }
@@ -9712,12 +10728,16 @@ namespace IFC2x3
         public static new IfcAsymmetricIShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAsymmetricIShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_TopFlangeWidth() { return get_double("TopFlangeWidth", ifcengine.sdaiREAL);}
+        public double? _TopFlangeWidth { get { return get_TopFlangeWidth(); } }
         public void put_TopFlangeWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TopFlangeWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_TopFlangeThickness() { return get_double("TopFlangeThickness", ifcengine.sdaiREAL);}
+        public double? _TopFlangeThickness { get { return get_TopFlangeThickness(); } }
         public void put_TopFlangeThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TopFlangeThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_TopFlangeFilletRadius() { return get_double("TopFlangeFilletRadius", ifcengine.sdaiREAL);}
+        public double? _TopFlangeFilletRadius { get { return get_TopFlangeFilletRadius(); } }
         public void put_TopFlangeFilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TopFlangeFilletRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInY() { return get_double("CentreOfGravityInY", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInY { get { return get_CentreOfGravityInY(); } }
         public void put_CentreOfGravityInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInY", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcAsymmetricIShapeProfileDef"; }
@@ -9740,6 +10760,7 @@ namespace IFC2x3
         public static implicit operator IfcPlacement(SdaiInstance instance) => new IfcPlacement(instance);
 
         public IfcCartesianPoint get_Location() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Location", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint (inst); }
+        public IfcCartesianPoint _Location { get { return get_Location(); } }
         public void put_Location(IfcCartesianPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Location", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcPlacement"; }
@@ -9767,6 +10788,7 @@ namespace IFC2x3
         public static new IfcAxis1Placement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAxis1Placement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_Axis() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Axis { get { return get_Axis(); } }
         public void put_Axis(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcAxis1Placement"; }
@@ -9794,6 +10816,7 @@ namespace IFC2x3
         public static new IfcAxis2Placement2D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAxis2Placement2D"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_RefDirection() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _RefDirection { get { return get_RefDirection(); } }
         public void put_RefDirection(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcAxis2Placement2D"; }
@@ -9821,8 +10844,10 @@ namespace IFC2x3
         public static new IfcAxis2Placement3D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcAxis2Placement3D"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_Axis() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Axis { get { return get_Axis(); } }
         public void put_Axis(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, i); }
         public IfcDirection get_RefDirection() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _RefDirection { get { return get_RefDirection(); } }
         public void put_RefDirection(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcAxis2Placement3D"; }
@@ -9845,19 +10870,32 @@ namespace IFC2x3
         public static implicit operator IfcElement(SdaiInstance instance) => new IfcElement(instance);
 
         public TextValue get_Tag() { return get_string("Tag", ifcengine.sdaiSTRING); }
+        public TextValue _Tag { get { return get_Tag(); } }
         public void put_Tag(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Tag", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRelConnectsStructuralElement get_HasStructuralMember() { return (new SetOfIfcRelConnectsStructuralElementSerializer()).FromAttr(m_instance, "HasStructuralMember"); }
+        public SetOfIfcRelConnectsStructuralElement _HasStructuralMember { get { return get_HasStructuralMember(); } }
         public SetOfIfcRelFillsElement get_FillsVoids() { return (new SetOfIfcRelFillsElementSerializer()).FromAttr(m_instance, "FillsVoids"); }
+        public SetOfIfcRelFillsElement _FillsVoids { get { return get_FillsVoids(); } }
         public SetOfIfcRelConnectsElements get_ConnectedTo() { return (new SetOfIfcRelConnectsElementsSerializer()).FromAttr(m_instance, "ConnectedTo"); }
+        public SetOfIfcRelConnectsElements _ConnectedTo { get { return get_ConnectedTo(); } }
         public SetOfIfcRelCoversBldgElements get_HasCoverings() { return (new SetOfIfcRelCoversBldgElementsSerializer()).FromAttr(m_instance, "HasCoverings"); }
+        public SetOfIfcRelCoversBldgElements _HasCoverings { get { return get_HasCoverings(); } }
         public SetOfIfcRelProjectsElement get_HasProjections() { return (new SetOfIfcRelProjectsElementSerializer()).FromAttr(m_instance, "HasProjections"); }
+        public SetOfIfcRelProjectsElement _HasProjections { get { return get_HasProjections(); } }
         public SetOfIfcRelReferencedInSpatialStructure get_ReferencedInStructures() { return (new SetOfIfcRelReferencedInSpatialStructureSerializer()).FromAttr(m_instance, "ReferencedInStructures"); }
+        public SetOfIfcRelReferencedInSpatialStructure _ReferencedInStructures { get { return get_ReferencedInStructures(); } }
         public SetOfIfcRelConnectsPortToElement get_HasPorts() { return (new SetOfIfcRelConnectsPortToElementSerializer()).FromAttr(m_instance, "HasPorts"); }
+        public SetOfIfcRelConnectsPortToElement _HasPorts { get { return get_HasPorts(); } }
         public SetOfIfcRelVoidsElement get_HasOpenings() { return (new SetOfIfcRelVoidsElementSerializer()).FromAttr(m_instance, "HasOpenings"); }
+        public SetOfIfcRelVoidsElement _HasOpenings { get { return get_HasOpenings(); } }
         public SetOfIfcRelConnectsWithRealizingElements get_IsConnectionRealization() { return (new SetOfIfcRelConnectsWithRealizingElementsSerializer()).FromAttr(m_instance, "IsConnectionRealization"); }
+        public SetOfIfcRelConnectsWithRealizingElements _IsConnectionRealization { get { return get_IsConnectionRealization(); } }
         public SetOfIfcRelSpaceBoundary get_ProvidesBoundaries() { return (new SetOfIfcRelSpaceBoundarySerializer()).FromAttr(m_instance, "ProvidesBoundaries"); }
+        public SetOfIfcRelSpaceBoundary _ProvidesBoundaries { get { return get_ProvidesBoundaries(); } }
         public SetOfIfcRelConnectsElements get_ConnectedFrom() { return (new SetOfIfcRelConnectsElementsSerializer()).FromAttr(m_instance, "ConnectedFrom"); }
+        public SetOfIfcRelConnectsElements _ConnectedFrom { get { return get_ConnectedFrom(); } }
         public SetOfIfcRelContainedInSpatialStructure get_ContainedInStructure() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainedInStructure"); }
+        public SetOfIfcRelContainedInSpatialStructure _ContainedInStructure { get { return get_ContainedInStructure(); } }
 
         protected override TextValue EntityName() { return "IfcElement"; }
     };
@@ -9949,6 +10987,7 @@ namespace IFC2x3
         public static new IfcBeamType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBeamType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcBeamTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcBeamTypeEnum_); return EnumValue<IfcBeamTypeEnum>.FromIndex(ind); }
+        public IfcBeamTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcBeamTypeEnum value) { var str = EnumString<IfcBeamTypeEnum>.FromValue(value, EnumNames.IfcBeamTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcBeamType"; }
@@ -9971,15 +11010,20 @@ namespace IFC2x3
         public static implicit operator IfcBSplineCurve(SdaiInstance instance) => new IfcBSplineCurve(instance);
 
         public IntValue? get_Degree() { return get_IntValue("Degree", ifcengine.sdaiINTEGER);}
+        public IntValue? _Degree { get { return get_Degree(); } }
         public void put_Degree(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Degree", ifcengine.sdaiINTEGER, ref value); }
         public ListOfIfcCartesianPoint get_ControlPointsList() { return (new ListOfIfcCartesianPointSerializer()).FromAttr(m_instance, "ControlPointsList"); }
+        public ListOfIfcCartesianPoint _ControlPointsList { get { return get_ControlPointsList(); } }
         public void put_ControlPointsList(IEnumerable<IfcCartesianPoint> lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "ControlPointsList"); }
         //public void put_ControlPointsList_untyped(IEnumerable lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "ControlPointsList"); }
         public IfcBSplineCurveForm? get_CurveForm() { var str = get_string("CurveForm", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcBSplineCurveForm_); return EnumValue<IfcBSplineCurveForm>.FromIndex(ind); }
+        public IfcBSplineCurveForm? _CurveForm { get { return get_CurveForm(); } }
         public void put_CurveForm(IfcBSplineCurveForm value) { var str = EnumString<IfcBSplineCurveForm>.FromValue(value, EnumNames.IfcBSplineCurveForm_); ifcengine.sdaiPutAttrBN(m_instance, "CurveForm", ifcengine.sdaiENUM, str); }
         public LOGICAL_VALUE? get_ClosedCurve() { var str = get_string("ClosedCurve", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _ClosedCurve { get { return get_ClosedCurve(); } }
         public void put_ClosedCurve(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "ClosedCurve", ifcengine.sdaiENUM, str); }
         public LOGICAL_VALUE? get_SelfIntersect() { var str = get_string("SelfIntersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _SelfIntersect { get { return get_SelfIntersect(); } }
         public void put_SelfIntersect(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "SelfIntersect", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcBSplineCurve"; }
@@ -10027,12 +11071,16 @@ namespace IFC2x3
         public static implicit operator IfcSurfaceTexture(SdaiInstance instance) => new IfcSurfaceTexture(instance);
 
         public bool? get_RepeatS() { return get_bool("RepeatS", ifcengine.sdaiBOOLEAN);}
+        public bool? _RepeatS { get { return get_RepeatS(); } }
         public void put_RepeatS(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "RepeatS", ifcengine.sdaiBOOLEAN, ref value); }
         public bool? get_RepeatT() { return get_bool("RepeatT", ifcengine.sdaiBOOLEAN);}
+        public bool? _RepeatT { get { return get_RepeatT(); } }
         public void put_RepeatT(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "RepeatT", ifcengine.sdaiBOOLEAN, ref value); }
         public IfcSurfaceTextureEnum? get_TextureType() { var str = get_string("TextureType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSurfaceTextureEnum_); return EnumValue<IfcSurfaceTextureEnum>.FromIndex(ind); }
+        public IfcSurfaceTextureEnum? _TextureType { get { return get_TextureType(); } }
         public void put_TextureType(IfcSurfaceTextureEnum value) { var str = EnumString<IfcSurfaceTextureEnum>.FromValue(value, EnumNames.IfcSurfaceTextureEnum_); ifcengine.sdaiPutAttrBN(m_instance, "TextureType", ifcengine.sdaiENUM, str); }
         public IfcCartesianTransformationOperator2D get_TextureTransform() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TextureTransform", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianTransformationOperator2D (inst); }
+        public IfcCartesianTransformationOperator2D _TextureTransform { get { return get_TextureTransform(); } }
         public void put_TextureTransform(IfcCartesianTransformationOperator2D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TextureTransform", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSurfaceTexture"; }
@@ -10060,8 +11108,10 @@ namespace IFC2x3
         public static new IfcBlobTexture Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBlobTexture"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_RasterFormat() { return get_string("RasterFormat", ifcengine.sdaiSTRING); }
+        public TextValue _RasterFormat { get { return get_RasterFormat(); } }
         public void put_RasterFormat(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "RasterFormat", ifcengine.sdaiSTRING, value); }
         public bool? get_RasterCode() { return get_bool("RasterCode", ifcengine.sdaiBOOLEAN);}
+        public bool? _RasterCode { get { return get_RasterCode(); } }
         public void put_RasterCode(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "RasterCode", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcBlobTexture"; }
@@ -10084,6 +11134,7 @@ namespace IFC2x3
         public static implicit operator IfcCsgPrimitive3D(SdaiInstance instance) => new IfcCsgPrimitive3D(instance);
 
         public IfcAxis2Placement3D get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _Position { get { return get_Position(); } }
         public void put_Position(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcCsgPrimitive3D"; }
@@ -10111,10 +11162,13 @@ namespace IFC2x3
         public static new IfcBlock Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBlock"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_XLength() { return get_double("XLength", ifcengine.sdaiREAL);}
+        public double? _XLength { get { return get_XLength(); } }
         public void put_XLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "XLength", ifcengine.sdaiREAL, ref value); }
         public double? get_YLength() { return get_double("YLength", ifcengine.sdaiREAL);}
+        public double? _YLength { get { return get_YLength(); } }
         public void put_YLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "YLength", ifcengine.sdaiREAL, ref value); }
         public double? get_ZLength() { return get_double("ZLength", ifcengine.sdaiREAL);}
+        public double? _ZLength { get { return get_ZLength(); } }
         public void put_ZLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ZLength", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcBlock"; }
@@ -10142,6 +11196,7 @@ namespace IFC2x3
         public static new IfcBoilerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBoilerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcBoilerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcBoilerTypeEnum_); return EnumValue<IfcBoilerTypeEnum>.FromIndex(ind); }
+        public IfcBoilerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcBoilerTypeEnum value) { var str = EnumString<IfcBoilerTypeEnum>.FromValue(value, EnumNames.IfcBoilerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcBoilerType"; }
@@ -10169,12 +11224,15 @@ namespace IFC2x3
         public static new IfcBooleanResult Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBooleanResult"); Debug.Assert(inst != 0); return inst; }
 
         public IfcBooleanOperator? get_Operator() { var str = get_string("Operator", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcBooleanOperator_); return EnumValue<IfcBooleanOperator>.FromIndex(ind); }
+        public IfcBooleanOperator? _Operator { get { return get_Operator(); } }
         public void put_Operator(IfcBooleanOperator value) { var str = EnumString<IfcBooleanOperator>.FromValue(value, EnumNames.IfcBooleanOperator_); ifcengine.sdaiPutAttrBN(m_instance, "Operator", ifcengine.sdaiENUM, str); }
 
         public IfcBooleanOperand_get get_FirstOperand() { return new IfcBooleanOperand_get(m_instance, "FirstOperand", 0); }
+        public IfcBooleanOperand_get _FirstOperand { get { return new IfcBooleanOperand_get(m_instance, "FirstOperand", 0); } }
         public IfcBooleanOperand_put put_FirstOperand() { return new IfcBooleanOperand_put(m_instance, "FirstOperand", 0); }
 
         public IfcBooleanOperand_get get_SecondOperand() { return new IfcBooleanOperand_get(m_instance, "SecondOperand", 0); }
+        public IfcBooleanOperand_get _SecondOperand { get { return new IfcBooleanOperand_get(m_instance, "SecondOperand", 0); } }
         public IfcBooleanOperand_put put_SecondOperand() { return new IfcBooleanOperand_put(m_instance, "SecondOperand", 0); }
 
         protected override TextValue EntityName() { return "IfcBooleanResult"; }
@@ -10222,6 +11280,7 @@ namespace IFC2x3
         public static implicit operator IfcBoundaryCondition(SdaiInstance instance) => new IfcBoundaryCondition(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcBoundaryCondition"; }
@@ -10249,16 +11308,22 @@ namespace IFC2x3
         public static new IfcBoundaryEdgeCondition Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBoundaryEdgeCondition"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LinearStiffnessByLengthX() { return get_double("LinearStiffnessByLengthX", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessByLengthX { get { return get_LinearStiffnessByLengthX(); } }
         public void put_LinearStiffnessByLengthX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessByLengthX", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearStiffnessByLengthY() { return get_double("LinearStiffnessByLengthY", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessByLengthY { get { return get_LinearStiffnessByLengthY(); } }
         public void put_LinearStiffnessByLengthY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessByLengthY", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearStiffnessByLengthZ() { return get_double("LinearStiffnessByLengthZ", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessByLengthZ { get { return get_LinearStiffnessByLengthZ(); } }
         public void put_LinearStiffnessByLengthZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessByLengthZ", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalStiffnessByLengthX() { return get_double("RotationalStiffnessByLengthX", ifcengine.sdaiREAL);}
+        public double? _RotationalStiffnessByLengthX { get { return get_RotationalStiffnessByLengthX(); } }
         public void put_RotationalStiffnessByLengthX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalStiffnessByLengthX", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalStiffnessByLengthY() { return get_double("RotationalStiffnessByLengthY", ifcengine.sdaiREAL);}
+        public double? _RotationalStiffnessByLengthY { get { return get_RotationalStiffnessByLengthY(); } }
         public void put_RotationalStiffnessByLengthY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalStiffnessByLengthY", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalStiffnessByLengthZ() { return get_double("RotationalStiffnessByLengthZ", ifcengine.sdaiREAL);}
+        public double? _RotationalStiffnessByLengthZ { get { return get_RotationalStiffnessByLengthZ(); } }
         public void put_RotationalStiffnessByLengthZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalStiffnessByLengthZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcBoundaryEdgeCondition"; }
@@ -10286,10 +11351,13 @@ namespace IFC2x3
         public static new IfcBoundaryFaceCondition Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBoundaryFaceCondition"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LinearStiffnessByAreaX() { return get_double("LinearStiffnessByAreaX", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessByAreaX { get { return get_LinearStiffnessByAreaX(); } }
         public void put_LinearStiffnessByAreaX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessByAreaX", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearStiffnessByAreaY() { return get_double("LinearStiffnessByAreaY", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessByAreaY { get { return get_LinearStiffnessByAreaY(); } }
         public void put_LinearStiffnessByAreaY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessByAreaY", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearStiffnessByAreaZ() { return get_double("LinearStiffnessByAreaZ", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessByAreaZ { get { return get_LinearStiffnessByAreaZ(); } }
         public void put_LinearStiffnessByAreaZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessByAreaZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcBoundaryFaceCondition"; }
@@ -10317,16 +11385,22 @@ namespace IFC2x3
         public static new IfcBoundaryNodeCondition Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBoundaryNodeCondition"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LinearStiffnessX() { return get_double("LinearStiffnessX", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessX { get { return get_LinearStiffnessX(); } }
         public void put_LinearStiffnessX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessX", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearStiffnessY() { return get_double("LinearStiffnessY", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessY { get { return get_LinearStiffnessY(); } }
         public void put_LinearStiffnessY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessY", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearStiffnessZ() { return get_double("LinearStiffnessZ", ifcengine.sdaiREAL);}
+        public double? _LinearStiffnessZ { get { return get_LinearStiffnessZ(); } }
         public void put_LinearStiffnessZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearStiffnessZ", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalStiffnessX() { return get_double("RotationalStiffnessX", ifcengine.sdaiREAL);}
+        public double? _RotationalStiffnessX { get { return get_RotationalStiffnessX(); } }
         public void put_RotationalStiffnessX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalStiffnessX", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalStiffnessY() { return get_double("RotationalStiffnessY", ifcengine.sdaiREAL);}
+        public double? _RotationalStiffnessY { get { return get_RotationalStiffnessY(); } }
         public void put_RotationalStiffnessY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalStiffnessY", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalStiffnessZ() { return get_double("RotationalStiffnessZ", ifcengine.sdaiREAL);}
+        public double? _RotationalStiffnessZ { get { return get_RotationalStiffnessZ(); } }
         public void put_RotationalStiffnessZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalStiffnessZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcBoundaryNodeCondition"; }
@@ -10354,6 +11428,7 @@ namespace IFC2x3
         public static new IfcBoundaryNodeConditionWarping Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBoundaryNodeConditionWarping"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_WarpingStiffness() { return get_double("WarpingStiffness", ifcengine.sdaiREAL);}
+        public double? _WarpingStiffness { get { return get_WarpingStiffness(); } }
         public void put_WarpingStiffness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WarpingStiffness", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcBoundaryNodeConditionWarping"; }
@@ -10426,12 +11501,16 @@ namespace IFC2x3
         public static new IfcBoundingBox Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBoundingBox"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCartesianPoint get_Corner() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Corner", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint (inst); }
+        public IfcCartesianPoint _Corner { get { return get_Corner(); } }
         public void put_Corner(IfcCartesianPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Corner", ifcengine.sdaiINSTANCE, i); }
         public double? get_XDim() { return get_double("XDim", ifcengine.sdaiREAL);}
+        public double? _XDim { get { return get_XDim(); } }
         public void put_XDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "XDim", ifcengine.sdaiREAL, ref value); }
         public double? get_YDim() { return get_double("YDim", ifcengine.sdaiREAL);}
+        public double? _YDim { get { return get_YDim(); } }
         public void put_YDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "YDim", ifcengine.sdaiREAL, ref value); }
         public double? get_ZDim() { return get_double("ZDim", ifcengine.sdaiREAL);}
+        public double? _ZDim { get { return get_ZDim(); } }
         public void put_ZDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ZDim", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcBoundingBox"; }
@@ -10459,8 +11538,10 @@ namespace IFC2x3
         public static new IfcHalfSpaceSolid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcHalfSpaceSolid"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSurface get_BaseSurface() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BaseSurface", ifcengine.sdaiINSTANCE, out inst); return new IfcSurface (inst); }
+        public IfcSurface _BaseSurface { get { return get_BaseSurface(); } }
         public void put_BaseSurface(IfcSurface inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BaseSurface", ifcengine.sdaiINSTANCE, i); }
         public bool? get_AgreementFlag() { return get_bool("AgreementFlag", ifcengine.sdaiBOOLEAN);}
+        public bool? _AgreementFlag { get { return get_AgreementFlag(); } }
         public void put_AgreementFlag(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "AgreementFlag", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcHalfSpaceSolid"; }
@@ -10488,6 +11569,7 @@ namespace IFC2x3
         public static new IfcBoxedHalfSpace Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBoxedHalfSpace"); Debug.Assert(inst != 0); return inst; }
 
         public IfcBoundingBox get_Enclosure() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Enclosure", ifcengine.sdaiINSTANCE, out inst); return new IfcBoundingBox (inst); }
+        public IfcBoundingBox _Enclosure { get { return get_Enclosure(); } }
         public void put_Enclosure(IfcBoundingBox inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Enclosure", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcBoxedHalfSpace"; }
@@ -10510,12 +11592,17 @@ namespace IFC2x3
         public static implicit operator IfcSpatialStructureElement(SdaiInstance instance) => new IfcSpatialStructureElement(instance);
 
         public TextValue get_LongName() { return get_string("LongName", ifcengine.sdaiSTRING); }
+        public TextValue _LongName { get { return get_LongName(); } }
         public void put_LongName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LongName", ifcengine.sdaiSTRING, value); }
         public IfcElementCompositionEnum? get_CompositionType() { var str = get_string("CompositionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElementCompositionEnum_); return EnumValue<IfcElementCompositionEnum>.FromIndex(ind); }
+        public IfcElementCompositionEnum? _CompositionType { get { return get_CompositionType(); } }
         public void put_CompositionType(IfcElementCompositionEnum value) { var str = EnumString<IfcElementCompositionEnum>.FromValue(value, EnumNames.IfcElementCompositionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "CompositionType", ifcengine.sdaiENUM, str); }
         public SetOfIfcRelReferencedInSpatialStructure get_ReferencesElements() { return (new SetOfIfcRelReferencedInSpatialStructureSerializer()).FromAttr(m_instance, "ReferencesElements"); }
+        public SetOfIfcRelReferencedInSpatialStructure _ReferencesElements { get { return get_ReferencesElements(); } }
         public SetOfIfcRelServicesBuildings get_ServicedBySystems() { return (new SetOfIfcRelServicesBuildingsSerializer()).FromAttr(m_instance, "ServicedBySystems"); }
+        public SetOfIfcRelServicesBuildings _ServicedBySystems { get { return get_ServicedBySystems(); } }
         public SetOfIfcRelContainedInSpatialStructure get_ContainsElements() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainsElements"); }
+        public SetOfIfcRelContainedInSpatialStructure _ContainsElements { get { return get_ContainsElements(); } }
 
         protected override TextValue EntityName() { return "IfcSpatialStructureElement"; }
     };
@@ -10542,10 +11629,13 @@ namespace IFC2x3
         public static new IfcBuilding Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBuilding"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_ElevationOfRefHeight() { return get_double("ElevationOfRefHeight", ifcengine.sdaiREAL);}
+        public double? _ElevationOfRefHeight { get { return get_ElevationOfRefHeight(); } }
         public void put_ElevationOfRefHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ElevationOfRefHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_ElevationOfTerrain() { return get_double("ElevationOfTerrain", ifcengine.sdaiREAL);}
+        public double? _ElevationOfTerrain { get { return get_ElevationOfTerrain(); } }
         public void put_ElevationOfTerrain(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ElevationOfTerrain", ifcengine.sdaiREAL, ref value); }
         public IfcPostalAddress get_BuildingAddress() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BuildingAddress", ifcengine.sdaiINSTANCE, out inst); return new IfcPostalAddress (inst); }
+        public IfcPostalAddress _BuildingAddress { get { return get_BuildingAddress(); } }
         public void put_BuildingAddress(IfcPostalAddress inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BuildingAddress", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcBuilding"; }
@@ -10618,6 +11708,7 @@ namespace IFC2x3
         public static new IfcBuildingElementProxy Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBuildingElementProxy"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElementCompositionEnum? get_CompositionType() { var str = get_string("CompositionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElementCompositionEnum_); return EnumValue<IfcElementCompositionEnum>.FromIndex(ind); }
+        public IfcElementCompositionEnum? _CompositionType { get { return get_CompositionType(); } }
         public void put_CompositionType(IfcElementCompositionEnum value) { var str = EnumString<IfcElementCompositionEnum>.FromValue(value, EnumNames.IfcElementCompositionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "CompositionType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcBuildingElementProxy"; }
@@ -10645,6 +11736,7 @@ namespace IFC2x3
         public static new IfcBuildingElementProxyType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBuildingElementProxyType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcBuildingElementProxyTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcBuildingElementProxyTypeEnum_); return EnumValue<IfcBuildingElementProxyTypeEnum>.FromIndex(ind); }
+        public IfcBuildingElementProxyTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcBuildingElementProxyTypeEnum value) { var str = EnumString<IfcBuildingElementProxyTypeEnum>.FromValue(value, EnumNames.IfcBuildingElementProxyTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcBuildingElementProxyType"; }
@@ -10672,6 +11764,7 @@ namespace IFC2x3
         public static new IfcBuildingStorey Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcBuildingStorey"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Elevation() { return get_double("Elevation", ifcengine.sdaiREAL);}
+        public double? _Elevation { get { return get_Elevation(); } }
         public void put_Elevation(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Elevation", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcBuildingStorey"; }
@@ -10719,6 +11812,7 @@ namespace IFC2x3
         public static new IfcCableCarrierFittingType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCableCarrierFittingType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCableCarrierFittingTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCableCarrierFittingTypeEnum_); return EnumValue<IfcCableCarrierFittingTypeEnum>.FromIndex(ind); }
+        public IfcCableCarrierFittingTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCableCarrierFittingTypeEnum value) { var str = EnumString<IfcCableCarrierFittingTypeEnum>.FromValue(value, EnumNames.IfcCableCarrierFittingTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCableCarrierFittingType"; }
@@ -10766,6 +11860,7 @@ namespace IFC2x3
         public static new IfcCableCarrierSegmentType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCableCarrierSegmentType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCableCarrierSegmentTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCableCarrierSegmentTypeEnum_); return EnumValue<IfcCableCarrierSegmentTypeEnum>.FromIndex(ind); }
+        public IfcCableCarrierSegmentTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCableCarrierSegmentTypeEnum value) { var str = EnumString<IfcCableCarrierSegmentTypeEnum>.FromValue(value, EnumNames.IfcCableCarrierSegmentTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCableCarrierSegmentType"; }
@@ -10793,6 +11888,7 @@ namespace IFC2x3
         public static new IfcCableSegmentType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCableSegmentType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCableSegmentTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCableSegmentTypeEnum_); return EnumValue<IfcCableSegmentTypeEnum>.FromIndex(ind); }
+        public IfcCableSegmentTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCableSegmentTypeEnum value) { var str = EnumString<IfcCableSegmentTypeEnum>.FromValue(value, EnumNames.IfcCableSegmentTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCableSegmentType"; }
@@ -10820,10 +11916,13 @@ namespace IFC2x3
         public static new IfcCalendarDate Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCalendarDate"); Debug.Assert(inst != 0); return inst; }
 
         public IntValue? get_DayComponent() { return get_IntValue("DayComponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _DayComponent { get { return get_DayComponent(); } }
         public void put_DayComponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "DayComponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_MonthComponent() { return get_IntValue("MonthComponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _MonthComponent { get { return get_MonthComponent(); } }
         public void put_MonthComponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "MonthComponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_YearComponent() { return get_IntValue("YearComponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _YearComponent { get { return get_YearComponent(); } }
         public void put_YearComponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "YearComponent", ifcengine.sdaiINTEGER, ref value); }
 
         protected override TextValue EntityName() { return "IfcCalendarDate"; }
@@ -10871,6 +11970,7 @@ namespace IFC2x3
         public static new IfcCartesianPoint Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCartesianPoint"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcLengthMeasure get_Coordinates() { return (new ListOfIfcLengthMeasureSerializer()).FromAttr(m_instance, "Coordinates"); }
+        public ListOfIfcLengthMeasure _Coordinates { get { return get_Coordinates(); } }
         public void put_Coordinates(IEnumerable<double> lst) { (new ListOfIfcLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "Coordinates"); }
         //public void put_Coordinates_untyped(IEnumerable lst) { (new ListOfIfcLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "Coordinates"); }
 
@@ -10894,12 +11994,16 @@ namespace IFC2x3
         public static implicit operator IfcCartesianTransformationOperator(SdaiInstance instance) => new IfcCartesianTransformationOperator(instance);
 
         public IfcDirection get_Axis1() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis1", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Axis1 { get { return get_Axis1(); } }
         public void put_Axis1(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Axis1", ifcengine.sdaiINSTANCE, i); }
         public IfcDirection get_Axis2() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis2", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Axis2 { get { return get_Axis2(); } }
         public void put_Axis2(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Axis2", ifcengine.sdaiINSTANCE, i); }
         public IfcCartesianPoint get_LocalOrigin() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LocalOrigin", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint (inst); }
+        public IfcCartesianPoint _LocalOrigin { get { return get_LocalOrigin(); } }
         public void put_LocalOrigin(IfcCartesianPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LocalOrigin", ifcengine.sdaiINSTANCE, i); }
         public double? get_Scale() { return get_double("Scale", ifcengine.sdaiREAL);}
+        public double? _Scale { get { return get_Scale(); } }
         public void put_Scale(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Scale", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator"; }
@@ -10952,6 +12056,7 @@ namespace IFC2x3
         public static new IfcCartesianTransformationOperator2DnonUniform Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCartesianTransformationOperator2DnonUniform"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Scale2() { return get_double("Scale2", ifcengine.sdaiREAL);}
+        public double? _Scale2 { get { return get_Scale2(); } }
         public void put_Scale2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Scale2", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator2DnonUniform"; }
@@ -10979,6 +12084,7 @@ namespace IFC2x3
         public static new IfcCartesianTransformationOperator3D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCartesianTransformationOperator3D"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_Axis3() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis3", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Axis3 { get { return get_Axis3(); } }
         public void put_Axis3(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Axis3", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator3D"; }
@@ -11006,8 +12112,10 @@ namespace IFC2x3
         public static new IfcCartesianTransformationOperator3DnonUniform Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCartesianTransformationOperator3DnonUniform"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Scale2() { return get_double("Scale2", ifcengine.sdaiREAL);}
+        public double? _Scale2 { get { return get_Scale2(); } }
         public void put_Scale2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Scale2", ifcengine.sdaiREAL, ref value); }
         public double? get_Scale3() { return get_double("Scale3", ifcengine.sdaiREAL);}
+        public double? _Scale3 { get { return get_Scale3(); } }
         public void put_Scale3(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Scale3", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator3DnonUniform"; }
@@ -11035,6 +12143,7 @@ namespace IFC2x3
         public static new IfcCenterLineProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCenterLineProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Thickness() { return get_double("Thickness", ifcengine.sdaiREAL);}
+        public double? _Thickness { get { return get_Thickness(); } }
         public void put_Thickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Thickness", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCenterLineProfileDef"; }
@@ -11077,6 +12186,7 @@ namespace IFC2x3
         public static implicit operator IfcFeatureElementSubtraction(SdaiInstance instance) => new IfcFeatureElementSubtraction(instance);
 
         public IfcRelVoidsElement get_VoidsElements() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VoidsElements", ifcengine.sdaiINSTANCE, out inst); return new IfcRelVoidsElement (inst); }
+        public IfcRelVoidsElement _VoidsElements { get { return get_VoidsElements(); } }
 
         protected override TextValue EntityName() { return "IfcFeatureElementSubtraction"; }
     };
@@ -11098,6 +12208,7 @@ namespace IFC2x3
         public static implicit operator IfcEdgeFeature(SdaiInstance instance) => new IfcEdgeFeature(instance);
 
         public double? get_FeatureLength() { return get_double("FeatureLength", ifcengine.sdaiREAL);}
+        public double? _FeatureLength { get { return get_FeatureLength(); } }
         public void put_FeatureLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FeatureLength", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcEdgeFeature"; }
@@ -11125,8 +12236,10 @@ namespace IFC2x3
         public static new IfcChamferEdgeFeature Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcChamferEdgeFeature"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Width() { return get_double("Width", ifcengine.sdaiREAL);}
+        public double? _Width { get { return get_Width(); } }
         public void put_Width(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Width", ifcengine.sdaiREAL, ref value); }
         public double? get_Height() { return get_double("Height", ifcengine.sdaiREAL);}
+        public double? _Height { get { return get_Height(); } }
         public void put_Height(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Height", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcChamferEdgeFeature"; }
@@ -11154,6 +12267,7 @@ namespace IFC2x3
         public static new IfcChillerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcChillerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcChillerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcChillerTypeEnum_); return EnumValue<IfcChillerTypeEnum>.FromIndex(ind); }
+        public IfcChillerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcChillerTypeEnum value) { var str = EnumString<IfcChillerTypeEnum>.FromValue(value, EnumNames.IfcChillerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcChillerType"; }
@@ -11177,6 +12291,7 @@ namespace IFC2x3
 
 
         public IfcAxis2Placement_get get_Position() { return new IfcAxis2Placement_get(m_instance, "Position", 0); }
+        public IfcAxis2Placement_get _Position { get { return new IfcAxis2Placement_get(m_instance, "Position", 0); } }
         public IfcAxis2Placement_put put_Position() { return new IfcAxis2Placement_put(m_instance, "Position", 0); }
 
         protected override TextValue EntityName() { return "IfcConic"; }
@@ -11204,6 +12319,7 @@ namespace IFC2x3
         public static new IfcCircle Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCircle"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCircle"; }
@@ -11231,6 +12347,7 @@ namespace IFC2x3
         public static new IfcCircleProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCircleProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCircleProfileDef"; }
@@ -11258,6 +12375,7 @@ namespace IFC2x3
         public static new IfcCircleHollowProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCircleHollowProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_WallThickness() { return get_double("WallThickness", ifcengine.sdaiREAL);}
+        public double? _WallThickness { get { return get_WallThickness(); } }
         public void put_WallThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WallThickness", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCircleHollowProfileDef"; }
@@ -11285,14 +12403,19 @@ namespace IFC2x3
         public static new IfcClassification Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcClassification"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Source() { return get_string("Source", ifcengine.sdaiSTRING); }
+        public TextValue _Source { get { return get_Source(); } }
         public void put_Source(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Source", ifcengine.sdaiSTRING, value); }
         public TextValue get_Edition() { return get_string("Edition", ifcengine.sdaiSTRING); }
+        public TextValue _Edition { get { return get_Edition(); } }
         public void put_Edition(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Edition", ifcengine.sdaiSTRING, value); }
         public IfcCalendarDate get_EditionDate() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "EditionDate", ifcengine.sdaiINSTANCE, out inst); return new IfcCalendarDate (inst); }
+        public IfcCalendarDate _EditionDate { get { return get_EditionDate(); } }
         public void put_EditionDate(IfcCalendarDate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "EditionDate", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public SetOfIfcClassificationItem get_Contains() { return (new SetOfIfcClassificationItemSerializer()).FromAttr(m_instance, "Contains"); }
+        public SetOfIfcClassificationItem _Contains { get { return get_Contains(); } }
 
         protected override TextValue EntityName() { return "IfcClassification"; }
     };
@@ -11319,13 +12442,18 @@ namespace IFC2x3
         public static new IfcClassificationItem Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcClassificationItem"); Debug.Assert(inst != 0); return inst; }
 
         public IfcClassificationNotationFacet get_Notation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Notation", ifcengine.sdaiINSTANCE, out inst); return new IfcClassificationNotationFacet (inst); }
+        public IfcClassificationNotationFacet _Notation { get { return get_Notation(); } }
         public void put_Notation(IfcClassificationNotationFacet inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Notation", ifcengine.sdaiINSTANCE, i); }
         public IfcClassification get_ItemOf() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ItemOf", ifcengine.sdaiINSTANCE, out inst); return new IfcClassification (inst); }
+        public IfcClassification _ItemOf { get { return get_ItemOf(); } }
         public void put_ItemOf(IfcClassification inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ItemOf", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_Title() { return get_string("Title", ifcengine.sdaiSTRING); }
+        public TextValue _Title { get { return get_Title(); } }
         public void put_Title(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Title", ifcengine.sdaiSTRING, value); }
         public SetOfIfcClassificationItemRelationship get_IsClassifiedItemIn() { return (new SetOfIfcClassificationItemRelationshipSerializer()).FromAttr(m_instance, "IsClassifiedItemIn"); }
+        public SetOfIfcClassificationItemRelationship _IsClassifiedItemIn { get { return get_IsClassifiedItemIn(); } }
         public SetOfIfcClassificationItemRelationship get_IsClassifyingItemIn() { return (new SetOfIfcClassificationItemRelationshipSerializer()).FromAttr(m_instance, "IsClassifyingItemIn"); }
+        public SetOfIfcClassificationItemRelationship _IsClassifyingItemIn { get { return get_IsClassifyingItemIn(); } }
 
         protected override TextValue EntityName() { return "IfcClassificationItem"; }
     };
@@ -11352,8 +12480,10 @@ namespace IFC2x3
         public static new IfcClassificationItemRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcClassificationItemRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcClassificationItem get_RelatingItem() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingItem", ifcengine.sdaiINSTANCE, out inst); return new IfcClassificationItem (inst); }
+        public IfcClassificationItem _RelatingItem { get { return get_RelatingItem(); } }
         public void put_RelatingItem(IfcClassificationItem inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingItem", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcClassificationItem get_RelatedItems() { return (new SetOfIfcClassificationItemSerializer()).FromAttr(m_instance, "RelatedItems"); }
+        public SetOfIfcClassificationItem _RelatedItems { get { return get_RelatedItems(); } }
         public void put_RelatedItems(IEnumerable<IfcClassificationItem> lst) { (new SetOfIfcClassificationItemSerializer()).ToSdaiAggr(lst, m_instance, "RelatedItems"); }
         //public void put_RelatedItems_untyped(IEnumerable lst) { (new SetOfIfcClassificationItemSerializer()).ToSdaiAggr(lst, m_instance, "RelatedItems"); }
 
@@ -11382,6 +12512,7 @@ namespace IFC2x3
         public static new IfcClassificationNotation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcClassificationNotation"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcClassificationNotationFacet get_NotationFacets() { return (new SetOfIfcClassificationNotationFacetSerializer()).FromAttr(m_instance, "NotationFacets"); }
+        public SetOfIfcClassificationNotationFacet _NotationFacets { get { return get_NotationFacets(); } }
         public void put_NotationFacets(IEnumerable<IfcClassificationNotationFacet> lst) { (new SetOfIfcClassificationNotationFacetSerializer()).ToSdaiAggr(lst, m_instance, "NotationFacets"); }
         //public void put_NotationFacets_untyped(IEnumerable lst) { (new SetOfIfcClassificationNotationFacetSerializer()).ToSdaiAggr(lst, m_instance, "NotationFacets"); }
 
@@ -11410,6 +12541,7 @@ namespace IFC2x3
         public static new IfcClassificationNotationFacet Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcClassificationNotationFacet"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_NotationValue() { return get_string("NotationValue", ifcengine.sdaiSTRING); }
+        public TextValue _NotationValue { get { return get_NotationValue(); } }
         public void put_NotationValue(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "NotationValue", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcClassificationNotationFacet"; }
@@ -11432,10 +12564,13 @@ namespace IFC2x3
         public static implicit operator IfcExternalReference(SdaiInstance instance) => new IfcExternalReference(instance);
 
         public TextValue get_Location() { return get_string("Location", ifcengine.sdaiSTRING); }
+        public TextValue _Location { get { return get_Location(); } }
         public void put_Location(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Location", ifcengine.sdaiSTRING, value); }
         public TextValue get_ItemReference() { return get_string("ItemReference", ifcengine.sdaiSTRING); }
+        public TextValue _ItemReference { get { return get_ItemReference(); } }
         public void put_ItemReference(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ItemReference", ifcengine.sdaiSTRING, value); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcExternalReference"; }
@@ -11463,6 +12598,7 @@ namespace IFC2x3
         public static new IfcClassificationReference Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcClassificationReference"); Debug.Assert(inst != 0); return inst; }
 
         public IfcClassification get_ReferencedSource() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ReferencedSource", ifcengine.sdaiINSTANCE, out inst); return new IfcClassification (inst); }
+        public IfcClassification _ReferencedSource { get { return get_ReferencedSource(); } }
         public void put_ReferencedSource(IfcClassification inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ReferencedSource", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcClassificationReference"; }
@@ -11510,6 +12646,7 @@ namespace IFC2x3
         public static new IfcConnectedFaceSet Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcConnectedFaceSet"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcFace get_CfsFaces() { return (new SetOfIfcFaceSerializer()).FromAttr(m_instance, "CfsFaces"); }
+        public SetOfIfcFace _CfsFaces { get { return get_CfsFaces(); } }
         public void put_CfsFaces(IEnumerable<IfcFace> lst) { (new SetOfIfcFaceSerializer()).ToSdaiAggr(lst, m_instance, "CfsFaces"); }
         //public void put_CfsFaces_untyped(IEnumerable lst) { (new SetOfIfcFaceSerializer()).ToSdaiAggr(lst, m_instance, "CfsFaces"); }
 
@@ -11563,6 +12700,7 @@ namespace IFC2x3
         public static new IfcCoilType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCoilType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCoilTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCoilTypeEnum_); return EnumValue<IfcCoilTypeEnum>.FromIndex(ind); }
+        public IfcCoilTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCoilTypeEnum value) { var str = EnumString<IfcCoilTypeEnum>.FromValue(value, EnumNames.IfcCoilTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCoilType"; }
@@ -11585,6 +12723,7 @@ namespace IFC2x3
         public static implicit operator IfcColourSpecification(SdaiInstance instance) => new IfcColourSpecification(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcColourSpecification"; }
@@ -11612,10 +12751,13 @@ namespace IFC2x3
         public static new IfcColourRgb Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcColourRgb"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Red() { return get_double("Red", ifcengine.sdaiREAL);}
+        public double? _Red { get { return get_Red(); } }
         public void put_Red(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Red", ifcengine.sdaiREAL, ref value); }
         public double? get_Green() { return get_double("Green", ifcengine.sdaiREAL);}
+        public double? _Green { get { return get_Green(); } }
         public void put_Green(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Green", ifcengine.sdaiREAL, ref value); }
         public double? get_Blue() { return get_double("Blue", ifcengine.sdaiREAL);}
+        public double? _Blue { get { return get_Blue(); } }
         public void put_Blue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Blue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcColourRgb"; }
@@ -11668,6 +12810,7 @@ namespace IFC2x3
         public static new IfcColumnType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcColumnType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcColumnTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcColumnTypeEnum_); return EnumValue<IfcColumnTypeEnum>.FromIndex(ind); }
+        public IfcColumnTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcColumnTypeEnum value) { var str = EnumString<IfcColumnTypeEnum>.FromValue(value, EnumNames.IfcColumnTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcColumnType"; }
@@ -11690,12 +12833,17 @@ namespace IFC2x3
         public static implicit operator IfcProperty(SdaiInstance instance) => new IfcProperty(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPropertyDependencyRelationship get_PropertyForDependance() { return (new SetOfIfcPropertyDependencyRelationshipSerializer()).FromAttr(m_instance, "PropertyForDependance"); }
+        public SetOfIfcPropertyDependencyRelationship _PropertyForDependance { get { return get_PropertyForDependance(); } }
         public SetOfIfcPropertyDependencyRelationship get_PropertyDependsOn() { return (new SetOfIfcPropertyDependencyRelationshipSerializer()).FromAttr(m_instance, "PropertyDependsOn"); }
+        public SetOfIfcPropertyDependencyRelationship _PropertyDependsOn { get { return get_PropertyDependsOn(); } }
         public SetOfIfcComplexProperty get_PartOfComplex() { return (new SetOfIfcComplexPropertySerializer()).FromAttr(m_instance, "PartOfComplex"); }
+        public SetOfIfcComplexProperty _PartOfComplex { get { return get_PartOfComplex(); } }
 
         protected override TextValue EntityName() { return "IfcProperty"; }
     };
@@ -11722,8 +12870,10 @@ namespace IFC2x3
         public static new IfcComplexProperty Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcComplexProperty"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_UsageName() { return get_string("UsageName", ifcengine.sdaiSTRING); }
+        public TextValue _UsageName { get { return get_UsageName(); } }
         public void put_UsageName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UsageName", ifcengine.sdaiSTRING, value); }
         public SetOfIfcProperty get_HasProperties() { return (new SetOfIfcPropertySerializer()).FromAttr(m_instance, "HasProperties"); }
+        public SetOfIfcProperty _HasProperties { get { return get_HasProperties(); } }
         public void put_HasProperties(IEnumerable<IfcProperty> lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "HasProperties"); }
         //public void put_HasProperties_untyped(IEnumerable lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "HasProperties"); }
 
@@ -11752,12 +12902,16 @@ namespace IFC2x3
         public static new IfcCompositeCurveSegment Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCompositeCurveSegment"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTransitionCode? get_Transition() { var str = get_string("Transition", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTransitionCode_); return EnumValue<IfcTransitionCode>.FromIndex(ind); }
+        public IfcTransitionCode? _Transition { get { return get_Transition(); } }
         public void put_Transition(IfcTransitionCode value) { var str = EnumString<IfcTransitionCode>.FromValue(value, EnumNames.IfcTransitionCode_); ifcengine.sdaiPutAttrBN(m_instance, "Transition", ifcengine.sdaiENUM, str); }
         public bool? get_SameSense() { return get_bool("SameSense", ifcengine.sdaiBOOLEAN);}
+        public bool? _SameSense { get { return get_SameSense(); } }
         public void put_SameSense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "SameSense", ifcengine.sdaiBOOLEAN, ref value); }
         public IfcCurve get_ParentCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ParentCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _ParentCurve { get { return get_ParentCurve(); } }
         public void put_ParentCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ParentCurve", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcCompositeCurve get_UsingCurves() { return (new SetOfIfcCompositeCurveSerializer()).FromAttr(m_instance, "UsingCurves"); }
+        public SetOfIfcCompositeCurve _UsingCurves { get { return get_UsingCurves(); } }
 
         protected override TextValue EntityName() { return "IfcCompositeCurveSegment"; }
     };
@@ -11784,9 +12938,11 @@ namespace IFC2x3
         public static new IfcCompositeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCompositeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProfileDef get_Profiles() { return (new SetOfIfcProfileDefSerializer()).FromAttr(m_instance, "Profiles"); }
+        public SetOfIfcProfileDef _Profiles { get { return get_Profiles(); } }
         public void put_Profiles(IEnumerable<IfcProfileDef> lst) { (new SetOfIfcProfileDefSerializer()).ToSdaiAggr(lst, m_instance, "Profiles"); }
         //public void put_Profiles_untyped(IEnumerable lst) { (new SetOfIfcProfileDefSerializer()).ToSdaiAggr(lst, m_instance, "Profiles"); }
         public TextValue get_Label() { return get_string("Label", ifcengine.sdaiSTRING); }
+        public TextValue _Label { get { return get_Label(); } }
         public void put_Label(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Label", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcCompositeProfileDef"; }
@@ -11834,6 +12990,7 @@ namespace IFC2x3
         public static new IfcCompressorType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCompressorType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCompressorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCompressorTypeEnum_); return EnumValue<IfcCompressorTypeEnum>.FromIndex(ind); }
+        public IfcCompressorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCompressorTypeEnum value) { var str = EnumString<IfcCompressorTypeEnum>.FromValue(value, EnumNames.IfcCompressorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCompressorType"; }
@@ -11861,6 +13018,7 @@ namespace IFC2x3
         public static new IfcCondenserType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCondenserType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCondenserTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCondenserTypeEnum_); return EnumValue<IfcCondenserTypeEnum>.FromIndex(ind); }
+        public IfcCondenserTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCondenserTypeEnum value) { var str = EnumString<IfcCondenserTypeEnum>.FromValue(value, EnumNames.IfcCondenserTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCondenserType"; }
@@ -11914,9 +13072,11 @@ namespace IFC2x3
 
 
         public IfcConditionCriterionSelect_get get_Criterion() { return new IfcConditionCriterionSelect_get(m_instance, "Criterion", 0); }
+        public IfcConditionCriterionSelect_get _Criterion { get { return new IfcConditionCriterionSelect_get(m_instance, "Criterion", 0); } }
         public IfcConditionCriterionSelect_put put_Criterion() { return new IfcConditionCriterionSelect_put(m_instance, "Criterion", 0); }
 
         public IfcDateTimeSelect_get get_CriterionDateTime() { return new IfcDateTimeSelect_get(m_instance, "CriterionDateTime", 0); }
+        public IfcDateTimeSelect_get _CriterionDateTime { get { return new IfcDateTimeSelect_get(m_instance, "CriterionDateTime", 0); } }
         public IfcDateTimeSelect_put put_CriterionDateTime() { return new IfcDateTimeSelect_put(m_instance, "CriterionDateTime", 0); }
 
         protected override TextValue EntityName() { return "IfcConditionCriterion"; }
@@ -11965,9 +13125,11 @@ namespace IFC2x3
 
 
         public IfcCurveOrEdgeCurve_get get_CurveOnRelatingElement() { return new IfcCurveOrEdgeCurve_get(m_instance, "CurveOnRelatingElement", 0); }
+        public IfcCurveOrEdgeCurve_get _CurveOnRelatingElement { get { return new IfcCurveOrEdgeCurve_get(m_instance, "CurveOnRelatingElement", 0); } }
         public IfcCurveOrEdgeCurve_put put_CurveOnRelatingElement() { return new IfcCurveOrEdgeCurve_put(m_instance, "CurveOnRelatingElement", 0); }
 
         public IfcCurveOrEdgeCurve_get get_CurveOnRelatedElement() { return new IfcCurveOrEdgeCurve_get(m_instance, "CurveOnRelatedElement", 0); }
+        public IfcCurveOrEdgeCurve_get _CurveOnRelatedElement { get { return new IfcCurveOrEdgeCurve_get(m_instance, "CurveOnRelatedElement", 0); } }
         public IfcCurveOrEdgeCurve_put put_CurveOnRelatedElement() { return new IfcCurveOrEdgeCurve_put(m_instance, "CurveOnRelatedElement", 0); }
 
         protected override TextValue EntityName() { return "IfcConnectionCurveGeometry"; }
@@ -11996,9 +13158,11 @@ namespace IFC2x3
 
 
         public IfcPointOrVertexPoint_get get_PointOnRelatingElement() { return new IfcPointOrVertexPoint_get(m_instance, "PointOnRelatingElement", 0); }
+        public IfcPointOrVertexPoint_get _PointOnRelatingElement { get { return new IfcPointOrVertexPoint_get(m_instance, "PointOnRelatingElement", 0); } }
         public IfcPointOrVertexPoint_put put_PointOnRelatingElement() { return new IfcPointOrVertexPoint_put(m_instance, "PointOnRelatingElement", 0); }
 
         public IfcPointOrVertexPoint_get get_PointOnRelatedElement() { return new IfcPointOrVertexPoint_get(m_instance, "PointOnRelatedElement", 0); }
+        public IfcPointOrVertexPoint_get _PointOnRelatedElement { get { return new IfcPointOrVertexPoint_get(m_instance, "PointOnRelatedElement", 0); } }
         public IfcPointOrVertexPoint_put put_PointOnRelatedElement() { return new IfcPointOrVertexPoint_put(m_instance, "PointOnRelatedElement", 0); }
 
         protected override TextValue EntityName() { return "IfcConnectionPointGeometry"; }
@@ -12026,10 +13190,13 @@ namespace IFC2x3
         public static new IfcConnectionPointEccentricity Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcConnectionPointEccentricity"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_EccentricityInX() { return get_double("EccentricityInX", ifcengine.sdaiREAL);}
+        public double? _EccentricityInX { get { return get_EccentricityInX(); } }
         public void put_EccentricityInX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EccentricityInX", ifcengine.sdaiREAL, ref value); }
         public double? get_EccentricityInY() { return get_double("EccentricityInY", ifcengine.sdaiREAL);}
+        public double? _EccentricityInY { get { return get_EccentricityInY(); } }
         public void put_EccentricityInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EccentricityInY", ifcengine.sdaiREAL, ref value); }
         public double? get_EccentricityInZ() { return get_double("EccentricityInZ", ifcengine.sdaiREAL);}
+        public double? _EccentricityInZ { get { return get_EccentricityInZ(); } }
         public void put_EccentricityInZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EccentricityInZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcConnectionPointEccentricity"; }
@@ -12058,11 +13225,14 @@ namespace IFC2x3
 
 
         public IfcAxis2Placement_get get_LocationAtRelatingElement() { return new IfcAxis2Placement_get(m_instance, "LocationAtRelatingElement", 0); }
+        public IfcAxis2Placement_get _LocationAtRelatingElement { get { return new IfcAxis2Placement_get(m_instance, "LocationAtRelatingElement", 0); } }
         public IfcAxis2Placement_put put_LocationAtRelatingElement() { return new IfcAxis2Placement_put(m_instance, "LocationAtRelatingElement", 0); }
 
         public IfcAxis2Placement_get get_LocationAtRelatedElement() { return new IfcAxis2Placement_get(m_instance, "LocationAtRelatedElement", 0); }
+        public IfcAxis2Placement_get _LocationAtRelatedElement { get { return new IfcAxis2Placement_get(m_instance, "LocationAtRelatedElement", 0); } }
         public IfcAxis2Placement_put put_LocationAtRelatedElement() { return new IfcAxis2Placement_put(m_instance, "LocationAtRelatedElement", 0); }
         public IfcProfileDef get_ProfileOfPort() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ProfileOfPort", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileDef (inst); }
+        public IfcProfileDef _ProfileOfPort { get { return get_ProfileOfPort(); } }
         public void put_ProfileOfPort(IfcProfileDef inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ProfileOfPort", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcConnectionPortGeometry"; }
@@ -12091,9 +13261,11 @@ namespace IFC2x3
 
 
         public IfcSurfaceOrFaceSurface_get get_SurfaceOnRelatingElement() { return new IfcSurfaceOrFaceSurface_get(m_instance, "SurfaceOnRelatingElement", 0); }
+        public IfcSurfaceOrFaceSurface_get _SurfaceOnRelatingElement { get { return new IfcSurfaceOrFaceSurface_get(m_instance, "SurfaceOnRelatingElement", 0); } }
         public IfcSurfaceOrFaceSurface_put put_SurfaceOnRelatingElement() { return new IfcSurfaceOrFaceSurface_put(m_instance, "SurfaceOnRelatingElement", 0); }
 
         public IfcSurfaceOrFaceSurface_get get_SurfaceOnRelatedElement() { return new IfcSurfaceOrFaceSurface_get(m_instance, "SurfaceOnRelatedElement", 0); }
+        public IfcSurfaceOrFaceSurface_get _SurfaceOnRelatedElement { get { return new IfcSurfaceOrFaceSurface_get(m_instance, "SurfaceOnRelatedElement", 0); } }
         public IfcSurfaceOrFaceSurface_put put_SurfaceOnRelatedElement() { return new IfcSurfaceOrFaceSurface_put(m_instance, "SurfaceOnRelatedElement", 0); }
 
         protected override TextValue EntityName() { return "IfcConnectionSurfaceGeometry"; }
@@ -12116,27 +13288,40 @@ namespace IFC2x3
         public static implicit operator IfcConstraint(SdaiInstance instance) => new IfcConstraint(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public IfcConstraintEnum? get_ConstraintGrade() { var str = get_string("ConstraintGrade", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcConstraintEnum_); return EnumValue<IfcConstraintEnum>.FromIndex(ind); }
+        public IfcConstraintEnum? _ConstraintGrade { get { return get_ConstraintGrade(); } }
         public void put_ConstraintGrade(IfcConstraintEnum value) { var str = EnumString<IfcConstraintEnum>.FromValue(value, EnumNames.IfcConstraintEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ConstraintGrade", ifcengine.sdaiENUM, str); }
         public TextValue get_ConstraintSource() { return get_string("ConstraintSource", ifcengine.sdaiSTRING); }
+        public TextValue _ConstraintSource { get { return get_ConstraintSource(); } }
         public void put_ConstraintSource(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ConstraintSource", ifcengine.sdaiSTRING, value); }
 
         public IfcActorSelect_get get_CreatingActor() { return new IfcActorSelect_get(m_instance, "CreatingActor", 0); }
+        public IfcActorSelect_get _CreatingActor { get { return new IfcActorSelect_get(m_instance, "CreatingActor", 0); } }
         public IfcActorSelect_put put_CreatingActor() { return new IfcActorSelect_put(m_instance, "CreatingActor", 0); }
 
         public IfcDateTimeSelect_get get_CreationTime() { return new IfcDateTimeSelect_get(m_instance, "CreationTime", 0); }
+        public IfcDateTimeSelect_get _CreationTime { get { return new IfcDateTimeSelect_get(m_instance, "CreationTime", 0); } }
         public IfcDateTimeSelect_put put_CreationTime() { return new IfcDateTimeSelect_put(m_instance, "CreationTime", 0); }
         public TextValue get_UserDefinedGrade() { return get_string("UserDefinedGrade", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedGrade { get { return get_UserDefinedGrade(); } }
         public void put_UserDefinedGrade(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedGrade", ifcengine.sdaiSTRING, value); }
         public SetOfIfcConstraintClassificationRelationship get_ClassifiedAs() { return (new SetOfIfcConstraintClassificationRelationshipSerializer()).FromAttr(m_instance, "ClassifiedAs"); }
+        public SetOfIfcConstraintClassificationRelationship _ClassifiedAs { get { return get_ClassifiedAs(); } }
         public SetOfIfcConstraintRelationship get_RelatesConstraints() { return (new SetOfIfcConstraintRelationshipSerializer()).FromAttr(m_instance, "RelatesConstraints"); }
+        public SetOfIfcConstraintRelationship _RelatesConstraints { get { return get_RelatesConstraints(); } }
         public SetOfIfcConstraintRelationship get_IsRelatedWith() { return (new SetOfIfcConstraintRelationshipSerializer()).FromAttr(m_instance, "IsRelatedWith"); }
+        public SetOfIfcConstraintRelationship _IsRelatedWith { get { return get_IsRelatedWith(); } }
         public SetOfIfcPropertyConstraintRelationship get_PropertiesForConstraint() { return (new SetOfIfcPropertyConstraintRelationshipSerializer()).FromAttr(m_instance, "PropertiesForConstraint"); }
+        public SetOfIfcPropertyConstraintRelationship _PropertiesForConstraint { get { return get_PropertiesForConstraint(); } }
         public SetOfIfcConstraintAggregationRelationship get_Aggregates() { return (new SetOfIfcConstraintAggregationRelationshipSerializer()).FromAttr(m_instance, "Aggregates"); }
+        public SetOfIfcConstraintAggregationRelationship _Aggregates { get { return get_Aggregates(); } }
         public SetOfIfcConstraintAggregationRelationship get_IsAggregatedIn() { return (new SetOfIfcConstraintAggregationRelationshipSerializer()).FromAttr(m_instance, "IsAggregatedIn"); }
+        public SetOfIfcConstraintAggregationRelationship _IsAggregatedIn { get { return get_IsAggregatedIn(); } }
 
         protected override TextValue EntityName() { return "IfcConstraint"; }
     };
@@ -12163,15 +13348,20 @@ namespace IFC2x3
         public static new IfcConstraintAggregationRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcConstraintAggregationRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public IfcConstraint get_RelatingConstraint() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, out inst); return new IfcConstraint (inst); }
+        public IfcConstraint _RelatingConstraint { get { return get_RelatingConstraint(); } }
         public void put_RelatingConstraint(IfcConstraint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, i); }
         public ListOfIfcConstraint get_RelatedConstraints() { return (new ListOfIfcConstraintSerializer()).FromAttr(m_instance, "RelatedConstraints"); }
+        public ListOfIfcConstraint _RelatedConstraints { get { return get_RelatedConstraints(); } }
         public void put_RelatedConstraints(IEnumerable<IfcConstraint> lst) { (new ListOfIfcConstraintSerializer()).ToSdaiAggr(lst, m_instance, "RelatedConstraints"); }
         //public void put_RelatedConstraints_untyped(IEnumerable lst) { (new ListOfIfcConstraintSerializer()).ToSdaiAggr(lst, m_instance, "RelatedConstraints"); }
         public IfcLogicalOperatorEnum? get_LogicalAggregator() { var str = get_string("LogicalAggregator", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcLogicalOperatorEnum_); return EnumValue<IfcLogicalOperatorEnum>.FromIndex(ind); }
+        public IfcLogicalOperatorEnum? _LogicalAggregator { get { return get_LogicalAggregator(); } }
         public void put_LogicalAggregator(IfcLogicalOperatorEnum value) { var str = EnumString<IfcLogicalOperatorEnum>.FromValue(value, EnumNames.IfcLogicalOperatorEnum_); ifcengine.sdaiPutAttrBN(m_instance, "LogicalAggregator", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcConstraintAggregationRelationship"; }
@@ -12199,8 +13389,10 @@ namespace IFC2x3
         public static new IfcConstraintClassificationRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcConstraintClassificationRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcConstraint get_ClassifiedConstraint() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ClassifiedConstraint", ifcengine.sdaiINSTANCE, out inst); return new IfcConstraint (inst); }
+        public IfcConstraint _ClassifiedConstraint { get { return get_ClassifiedConstraint(); } }
         public void put_ClassifiedConstraint(IfcConstraint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ClassifiedConstraint", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcClassificationNotationSelect get_RelatedClassifications() { return (new SetOfIfcClassificationNotationSelectSerializer()).FromAttr(m_instance, "RelatedClassifications"); }
+        public SetOfIfcClassificationNotationSelect _RelatedClassifications { get { return get_RelatedClassifications(); } }
         public void put_RelatedClassifications(IEnumerable<IfcClassificationNotationSelect> lst) { (new SetOfIfcClassificationNotationSelectSerializer()).ToSdaiAggr(lst, m_instance, "RelatedClassifications"); }
         //public void put_RelatedClassifications_untyped(IEnumerable lst) { (new SetOfIfcClassificationNotationSelectSerializer()).ToSdaiAggr(lst, m_instance, "RelatedClassifications"); }
 
@@ -12229,12 +13421,16 @@ namespace IFC2x3
         public static new IfcConstraintRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcConstraintRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public IfcConstraint get_RelatingConstraint() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, out inst); return new IfcConstraint (inst); }
+        public IfcConstraint _RelatingConstraint { get { return get_RelatingConstraint(); } }
         public void put_RelatingConstraint(IfcConstraint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcConstraint get_RelatedConstraints() { return (new SetOfIfcConstraintSerializer()).FromAttr(m_instance, "RelatedConstraints"); }
+        public SetOfIfcConstraint _RelatedConstraints { get { return get_RelatedConstraints(); } }
         public void put_RelatedConstraints(IEnumerable<IfcConstraint> lst) { (new SetOfIfcConstraintSerializer()).ToSdaiAggr(lst, m_instance, "RelatedConstraints"); }
         //public void put_RelatedConstraints_untyped(IEnumerable lst) { (new SetOfIfcConstraintSerializer()).ToSdaiAggr(lst, m_instance, "RelatedConstraints"); }
 
@@ -12258,6 +13454,7 @@ namespace IFC2x3
         public static implicit operator IfcResource(SdaiInstance instance) => new IfcResource(instance);
 
         public SetOfIfcRelAssignsToResource get_ResourceOf() { return (new SetOfIfcRelAssignsToResourceSerializer()).FromAttr(m_instance, "ResourceOf"); }
+        public SetOfIfcRelAssignsToResource _ResourceOf { get { return get_ResourceOf(); } }
 
         protected override TextValue EntityName() { return "IfcResource"; }
     };
@@ -12279,12 +13476,16 @@ namespace IFC2x3
         public static implicit operator IfcConstructionResource(SdaiInstance instance) => new IfcConstructionResource(instance);
 
         public TextValue get_ResourceIdentifier() { return get_string("ResourceIdentifier", ifcengine.sdaiSTRING); }
+        public TextValue _ResourceIdentifier { get { return get_ResourceIdentifier(); } }
         public void put_ResourceIdentifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ResourceIdentifier", ifcengine.sdaiSTRING, value); }
         public TextValue get_ResourceGroup() { return get_string("ResourceGroup", ifcengine.sdaiSTRING); }
+        public TextValue _ResourceGroup { get { return get_ResourceGroup(); } }
         public void put_ResourceGroup(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ResourceGroup", ifcengine.sdaiSTRING, value); }
         public IfcResourceConsumptionEnum? get_ResourceConsumption() { var str = get_string("ResourceConsumption", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcResourceConsumptionEnum_); return EnumValue<IfcResourceConsumptionEnum>.FromIndex(ind); }
+        public IfcResourceConsumptionEnum? _ResourceConsumption { get { return get_ResourceConsumption(); } }
         public void put_ResourceConsumption(IfcResourceConsumptionEnum value) { var str = EnumString<IfcResourceConsumptionEnum>.FromValue(value, EnumNames.IfcResourceConsumptionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ResourceConsumption", ifcengine.sdaiENUM, str); }
         public IfcMeasureWithUnit get_BaseQuantity() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BaseQuantity", ifcengine.sdaiINSTANCE, out inst); return new IfcMeasureWithUnit (inst); }
+        public IfcMeasureWithUnit _BaseQuantity { get { return get_BaseQuantity(); } }
         public void put_BaseQuantity(IfcMeasureWithUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BaseQuantity", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcConstructionResource"; }
@@ -12337,9 +13538,11 @@ namespace IFC2x3
         public static new IfcConstructionMaterialResource Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcConstructionMaterialResource"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcActorSelect get_Suppliers() { return (new SetOfIfcActorSelectSerializer()).FromAttr(m_instance, "Suppliers"); }
+        public SetOfIfcActorSelect _Suppliers { get { return get_Suppliers(); } }
         public void put_Suppliers(IEnumerable<IfcActorSelect> lst) { (new SetOfIfcActorSelectSerializer()).ToSdaiAggr(lst, m_instance, "Suppliers"); }
         //public void put_Suppliers_untyped(IEnumerable lst) { (new SetOfIfcActorSelectSerializer()).ToSdaiAggr(lst, m_instance, "Suppliers"); }
         public double? get_UsageRatio() { return get_double("UsageRatio", ifcengine.sdaiREAL);}
+        public double? _UsageRatio { get { return get_UsageRatio(); } }
         public void put_UsageRatio(double value) { ifcengine.sdaiPutAttrBN(m_instance, "UsageRatio", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcConstructionMaterialResource"; }
@@ -12387,8 +13590,10 @@ namespace IFC2x3
         public static implicit operator IfcNamedUnit(SdaiInstance instance) => new IfcNamedUnit(instance);
 
         public IfcDimensionalExponents get_Dimensions() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Dimensions", ifcengine.sdaiINSTANCE, out inst); return new IfcDimensionalExponents (inst); }
+        public IfcDimensionalExponents _Dimensions { get { return get_Dimensions(); } }
         public void put_Dimensions(IfcDimensionalExponents inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Dimensions", ifcengine.sdaiINSTANCE, i); }
         public IfcUnitEnum? get_UnitType() { var str = get_string("UnitType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcUnitEnum_); return EnumValue<IfcUnitEnum>.FromIndex(ind); }
+        public IfcUnitEnum? _UnitType { get { return get_UnitType(); } }
         public void put_UnitType(IfcUnitEnum value) { var str = EnumString<IfcUnitEnum>.FromValue(value, EnumNames.IfcUnitEnum_); ifcengine.sdaiPutAttrBN(m_instance, "UnitType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcNamedUnit"; }
@@ -12416,6 +13621,7 @@ namespace IFC2x3
         public static new IfcContextDependentUnit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcContextDependentUnit"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcContextDependentUnit"; }
@@ -12443,6 +13649,7 @@ namespace IFC2x3
         public static new IfcControllerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcControllerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcControllerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcControllerTypeEnum_); return EnumValue<IfcControllerTypeEnum>.FromIndex(ind); }
+        public IfcControllerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcControllerTypeEnum value) { var str = EnumString<IfcControllerTypeEnum>.FromValue(value, EnumNames.IfcControllerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcControllerType"; }
@@ -12470,8 +13677,10 @@ namespace IFC2x3
         public static new IfcConversionBasedUnit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcConversionBasedUnit"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public IfcMeasureWithUnit get_ConversionFactor() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ConversionFactor", ifcengine.sdaiINSTANCE, out inst); return new IfcMeasureWithUnit (inst); }
+        public IfcMeasureWithUnit _ConversionFactor { get { return get_ConversionFactor(); } }
         public void put_ConversionFactor(IfcMeasureWithUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ConversionFactor", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcConversionBasedUnit"; }
@@ -12499,6 +13708,7 @@ namespace IFC2x3
         public static new IfcCooledBeamType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCooledBeamType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCooledBeamTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCooledBeamTypeEnum_); return EnumValue<IfcCooledBeamTypeEnum>.FromIndex(ind); }
+        public IfcCooledBeamTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCooledBeamTypeEnum value) { var str = EnumString<IfcCooledBeamTypeEnum>.FromValue(value, EnumNames.IfcCooledBeamTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCooledBeamType"; }
@@ -12526,6 +13736,7 @@ namespace IFC2x3
         public static new IfcCoolingTowerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCoolingTowerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCoolingTowerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCoolingTowerTypeEnum_); return EnumValue<IfcCoolingTowerTypeEnum>.FromIndex(ind); }
+        public IfcCoolingTowerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCoolingTowerTypeEnum value) { var str = EnumString<IfcCoolingTowerTypeEnum>.FromValue(value, EnumNames.IfcCoolingTowerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCoolingTowerType"; }
@@ -12553,10 +13764,13 @@ namespace IFC2x3
         public static new IfcCoordinatedUniversalTimeOffset Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCoordinatedUniversalTimeOffset"); Debug.Assert(inst != 0); return inst; }
 
         public IntValue? get_HourOffset() { return get_IntValue("HourOffset", ifcengine.sdaiINTEGER);}
+        public IntValue? _HourOffset { get { return get_HourOffset(); } }
         public void put_HourOffset(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "HourOffset", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_MinuteOffset() { return get_IntValue("MinuteOffset", ifcengine.sdaiINTEGER);}
+        public IntValue? _MinuteOffset { get { return get_MinuteOffset(); } }
         public void put_MinuteOffset(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "MinuteOffset", ifcengine.sdaiINTEGER, ref value); }
         public IfcAheadOrBehind? get_Sense() { var str = get_string("Sense", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAheadOrBehind_); return EnumValue<IfcAheadOrBehind>.FromIndex(ind); }
+        public IfcAheadOrBehind? _Sense { get { return get_Sense(); } }
         public void put_Sense(IfcAheadOrBehind value) { var str = EnumString<IfcAheadOrBehind>.FromValue(value, EnumNames.IfcAheadOrBehind_); ifcengine.sdaiPutAttrBN(m_instance, "Sense", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCoordinatedUniversalTimeOffset"; }
@@ -12610,24 +13824,32 @@ namespace IFC2x3
 
 
         public IfcActorSelect_get get_SubmittedBy() { return new IfcActorSelect_get(m_instance, "SubmittedBy", 0); }
+        public IfcActorSelect_get _SubmittedBy { get { return new IfcActorSelect_get(m_instance, "SubmittedBy", 0); } }
         public IfcActorSelect_put put_SubmittedBy() { return new IfcActorSelect_put(m_instance, "SubmittedBy", 0); }
 
         public IfcActorSelect_get get_PreparedBy() { return new IfcActorSelect_get(m_instance, "PreparedBy", 0); }
+        public IfcActorSelect_get _PreparedBy { get { return new IfcActorSelect_get(m_instance, "PreparedBy", 0); } }
         public IfcActorSelect_put put_PreparedBy() { return new IfcActorSelect_put(m_instance, "PreparedBy", 0); }
 
         public IfcDateTimeSelect_get get_SubmittedOn() { return new IfcDateTimeSelect_get(m_instance, "SubmittedOn", 0); }
+        public IfcDateTimeSelect_get _SubmittedOn { get { return new IfcDateTimeSelect_get(m_instance, "SubmittedOn", 0); } }
         public IfcDateTimeSelect_put put_SubmittedOn() { return new IfcDateTimeSelect_put(m_instance, "SubmittedOn", 0); }
         public TextValue get_Status() { return get_string("Status", ifcengine.sdaiSTRING); }
+        public TextValue _Status { get { return get_Status(); } }
         public void put_Status(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Status", ifcengine.sdaiSTRING, value); }
         public SetOfIfcActorSelect get_TargetUsers() { return (new SetOfIfcActorSelectSerializer()).FromAttr(m_instance, "TargetUsers"); }
+        public SetOfIfcActorSelect _TargetUsers { get { return get_TargetUsers(); } }
         public void put_TargetUsers(IEnumerable<IfcActorSelect> lst) { (new SetOfIfcActorSelectSerializer()).ToSdaiAggr(lst, m_instance, "TargetUsers"); }
         //public void put_TargetUsers_untyped(IEnumerable lst) { (new SetOfIfcActorSelectSerializer()).ToSdaiAggr(lst, m_instance, "TargetUsers"); }
 
         public IfcDateTimeSelect_get get_UpdateDate() { return new IfcDateTimeSelect_get(m_instance, "UpdateDate", 0); }
+        public IfcDateTimeSelect_get _UpdateDate { get { return new IfcDateTimeSelect_get(m_instance, "UpdateDate", 0); } }
         public IfcDateTimeSelect_put put_UpdateDate() { return new IfcDateTimeSelect_put(m_instance, "UpdateDate", 0); }
         public TextValue get_ID() { return get_string("ID", ifcengine.sdaiSTRING); }
+        public TextValue _ID { get { return get_ID(); } }
         public void put_ID(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ID", ifcengine.sdaiSTRING, value); }
         public IfcCostScheduleTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCostScheduleTypeEnum_); return EnumValue<IfcCostScheduleTypeEnum>.FromIndex(ind); }
+        public IfcCostScheduleTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCostScheduleTypeEnum value) { var str = EnumString<IfcCostScheduleTypeEnum>.FromValue(value, EnumNames.IfcCostScheduleTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCostSchedule"; }
@@ -12655,8 +13877,10 @@ namespace IFC2x3
         public static new IfcCostValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCostValue"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_CostType() { return get_string("CostType", ifcengine.sdaiSTRING); }
+        public TextValue _CostType { get { return get_CostType(); } }
         public void put_CostType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "CostType", ifcengine.sdaiSTRING, value); }
         public TextValue get_Condition() { return get_string("Condition", ifcengine.sdaiSTRING); }
+        public TextValue _Condition { get { return get_Condition(); } }
         public void put_Condition(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Condition", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcCostValue"; }
@@ -12684,9 +13908,12 @@ namespace IFC2x3
         public static new IfcCovering Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCovering"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCoveringTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCoveringTypeEnum_); return EnumValue<IfcCoveringTypeEnum>.FromIndex(ind); }
+        public IfcCoveringTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCoveringTypeEnum value) { var str = EnumString<IfcCoveringTypeEnum>.FromValue(value, EnumNames.IfcCoveringTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public SetOfIfcRelCoversSpaces get_CoversSpaces() { return (new SetOfIfcRelCoversSpacesSerializer()).FromAttr(m_instance, "CoversSpaces"); }
+        public SetOfIfcRelCoversSpaces _CoversSpaces { get { return get_CoversSpaces(); } }
         public SetOfIfcRelCoversBldgElements get_Covers() { return (new SetOfIfcRelCoversBldgElementsSerializer()).FromAttr(m_instance, "Covers"); }
+        public SetOfIfcRelCoversBldgElements _Covers { get { return get_Covers(); } }
 
         protected override TextValue EntityName() { return "IfcCovering"; }
     };
@@ -12713,6 +13940,7 @@ namespace IFC2x3
         public static new IfcCoveringType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCoveringType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCoveringTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCoveringTypeEnum_); return EnumValue<IfcCoveringTypeEnum>.FromIndex(ind); }
+        public IfcCoveringTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCoveringTypeEnum value) { var str = EnumString<IfcCoveringTypeEnum>.FromValue(value, EnumNames.IfcCoveringTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCoveringType"; }
@@ -12740,28 +13968,40 @@ namespace IFC2x3
         public static new IfcCraneRailAShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCraneRailAShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_OverallHeight() { return get_double("OverallHeight", ifcengine.sdaiREAL);}
+        public double? _OverallHeight { get { return get_OverallHeight(); } }
         public void put_OverallHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_BaseWidth2() { return get_double("BaseWidth2", ifcengine.sdaiREAL);}
+        public double? _BaseWidth2 { get { return get_BaseWidth2(); } }
         public void put_BaseWidth2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BaseWidth2", ifcengine.sdaiREAL, ref value); }
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
         public double? get_HeadWidth() { return get_double("HeadWidth", ifcengine.sdaiREAL);}
+        public double? _HeadWidth { get { return get_HeadWidth(); } }
         public void put_HeadWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HeadWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_HeadDepth2() { return get_double("HeadDepth2", ifcengine.sdaiREAL);}
+        public double? _HeadDepth2 { get { return get_HeadDepth2(); } }
         public void put_HeadDepth2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HeadDepth2", ifcengine.sdaiREAL, ref value); }
         public double? get_HeadDepth3() { return get_double("HeadDepth3", ifcengine.sdaiREAL);}
+        public double? _HeadDepth3 { get { return get_HeadDepth3(); } }
         public void put_HeadDepth3(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HeadDepth3", ifcengine.sdaiREAL, ref value); }
         public double? get_WebThickness() { return get_double("WebThickness", ifcengine.sdaiREAL);}
+        public double? _WebThickness { get { return get_WebThickness(); } }
         public void put_WebThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_BaseWidth4() { return get_double("BaseWidth4", ifcengine.sdaiREAL);}
+        public double? _BaseWidth4 { get { return get_BaseWidth4(); } }
         public void put_BaseWidth4(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BaseWidth4", ifcengine.sdaiREAL, ref value); }
         public double? get_BaseDepth1() { return get_double("BaseDepth1", ifcengine.sdaiREAL);}
+        public double? _BaseDepth1 { get { return get_BaseDepth1(); } }
         public void put_BaseDepth1(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BaseDepth1", ifcengine.sdaiREAL, ref value); }
         public double? get_BaseDepth2() { return get_double("BaseDepth2", ifcengine.sdaiREAL);}
+        public double? _BaseDepth2 { get { return get_BaseDepth2(); } }
         public void put_BaseDepth2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BaseDepth2", ifcengine.sdaiREAL, ref value); }
         public double? get_BaseDepth3() { return get_double("BaseDepth3", ifcengine.sdaiREAL);}
+        public double? _BaseDepth3 { get { return get_BaseDepth3(); } }
         public void put_BaseDepth3(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BaseDepth3", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInY() { return get_double("CentreOfGravityInY", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInY { get { return get_CentreOfGravityInY(); } }
         public void put_CentreOfGravityInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInY", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCraneRailAShapeProfileDef"; }
@@ -12789,22 +14029,31 @@ namespace IFC2x3
         public static new IfcCraneRailFShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCraneRailFShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_OverallHeight() { return get_double("OverallHeight", ifcengine.sdaiREAL);}
+        public double? _OverallHeight { get { return get_OverallHeight(); } }
         public void put_OverallHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_HeadWidth() { return get_double("HeadWidth", ifcengine.sdaiREAL);}
+        public double? _HeadWidth { get { return get_HeadWidth(); } }
         public void put_HeadWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HeadWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
         public double? get_HeadDepth2() { return get_double("HeadDepth2", ifcengine.sdaiREAL);}
+        public double? _HeadDepth2 { get { return get_HeadDepth2(); } }
         public void put_HeadDepth2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HeadDepth2", ifcengine.sdaiREAL, ref value); }
         public double? get_HeadDepth3() { return get_double("HeadDepth3", ifcengine.sdaiREAL);}
+        public double? _HeadDepth3 { get { return get_HeadDepth3(); } }
         public void put_HeadDepth3(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HeadDepth3", ifcengine.sdaiREAL, ref value); }
         public double? get_WebThickness() { return get_double("WebThickness", ifcengine.sdaiREAL);}
+        public double? _WebThickness { get { return get_WebThickness(); } }
         public void put_WebThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_BaseDepth1() { return get_double("BaseDepth1", ifcengine.sdaiREAL);}
+        public double? _BaseDepth1 { get { return get_BaseDepth1(); } }
         public void put_BaseDepth1(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BaseDepth1", ifcengine.sdaiREAL, ref value); }
         public double? get_BaseDepth2() { return get_double("BaseDepth2", ifcengine.sdaiREAL);}
+        public double? _BaseDepth2 { get { return get_BaseDepth2(); } }
         public void put_BaseDepth2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BaseDepth2", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInY() { return get_double("CentreOfGravityInY", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInY { get { return get_CentreOfGravityInY(); } }
         public void put_CentreOfGravityInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInY", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCraneRailFShapeProfileDef"; }
@@ -12878,6 +14127,7 @@ namespace IFC2x3
 
 
         public IfcCsgSelect_get get_TreeRootExpression() { return new IfcCsgSelect_get(m_instance, "TreeRootExpression", 0); }
+        public IfcCsgSelect_get _TreeRootExpression { get { return new IfcCsgSelect_get(m_instance, "TreeRootExpression", 0); } }
         public IfcCsgSelect_put put_TreeRootExpression() { return new IfcCsgSelect_put(m_instance, "TreeRootExpression", 0); }
 
         protected override TextValue EntityName() { return "IfcCsgSolid"; }
@@ -12905,16 +14155,22 @@ namespace IFC2x3
         public static new IfcCShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Depth() { return get_double("Depth", ifcengine.sdaiREAL);}
+        public double? _Depth { get { return get_Depth(); } }
         public void put_Depth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref value); }
         public double? get_Width() { return get_double("Width", ifcengine.sdaiREAL);}
+        public double? _Width { get { return get_Width(); } }
         public void put_Width(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Width", ifcengine.sdaiREAL, ref value); }
         public double? get_WallThickness() { return get_double("WallThickness", ifcengine.sdaiREAL);}
+        public double? _WallThickness { get { return get_WallThickness(); } }
         public void put_WallThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WallThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_Girth() { return get_double("Girth", ifcengine.sdaiREAL);}
+        public double? _Girth { get { return get_Girth(); } }
         public void put_Girth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Girth", ifcengine.sdaiREAL, ref value); }
         public double? get_InternalFilletRadius() { return get_double("InternalFilletRadius", ifcengine.sdaiREAL);}
+        public double? _InternalFilletRadius { get { return get_InternalFilletRadius(); } }
         public void put_InternalFilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "InternalFilletRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInX() { return get_double("CentreOfGravityInX", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInX { get { return get_CentreOfGravityInX(); } }
         public void put_CentreOfGravityInX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInX", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCShapeProfileDef"; }
@@ -12942,14 +14198,19 @@ namespace IFC2x3
         public static new IfcCurrencyRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCurrencyRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcMonetaryUnit get_RelatingMonetaryUnit() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingMonetaryUnit", ifcengine.sdaiINSTANCE, out inst); return new IfcMonetaryUnit (inst); }
+        public IfcMonetaryUnit _RelatingMonetaryUnit { get { return get_RelatingMonetaryUnit(); } }
         public void put_RelatingMonetaryUnit(IfcMonetaryUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingMonetaryUnit", ifcengine.sdaiINSTANCE, i); }
         public IfcMonetaryUnit get_RelatedMonetaryUnit() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedMonetaryUnit", ifcengine.sdaiINSTANCE, out inst); return new IfcMonetaryUnit (inst); }
+        public IfcMonetaryUnit _RelatedMonetaryUnit { get { return get_RelatedMonetaryUnit(); } }
         public void put_RelatedMonetaryUnit(IfcMonetaryUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedMonetaryUnit", ifcengine.sdaiINSTANCE, i); }
         public double? get_ExchangeRate() { return get_double("ExchangeRate", ifcengine.sdaiREAL);}
+        public double? _ExchangeRate { get { return get_ExchangeRate(); } }
         public void put_ExchangeRate(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ExchangeRate", ifcengine.sdaiREAL, ref value); }
         public IfcDateAndTime get_RateDateTime() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RateDateTime", ifcengine.sdaiINSTANCE, out inst); return new IfcDateAndTime (inst); }
+        public IfcDateAndTime _RateDateTime { get { return get_RateDateTime(); } }
         public void put_RateDateTime(IfcDateAndTime inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RateDateTime", ifcengine.sdaiINSTANCE, i); }
         public IfcLibraryInformation get_RateSource() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RateSource", ifcengine.sdaiINSTANCE, out inst); return new IfcLibraryInformation (inst); }
+        public IfcLibraryInformation _RateSource { get { return get_RateSource(); } }
         public void put_RateSource(IfcLibraryInformation inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RateSource", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcCurrencyRelationship"; }
@@ -13002,6 +14263,7 @@ namespace IFC2x3
         public static new IfcCurtainWallType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCurtainWallType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurtainWallTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCurtainWallTypeEnum_); return EnumValue<IfcCurtainWallTypeEnum>.FromIndex(ind); }
+        public IfcCurtainWallTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcCurtainWallTypeEnum value) { var str = EnumString<IfcCurtainWallTypeEnum>.FromValue(value, EnumNames.IfcCurtainWallTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcCurtainWallType"; }
@@ -13029,10 +14291,13 @@ namespace IFC2x3
         public static new IfcCurveBoundedPlane Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCurveBoundedPlane"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPlane get_BasisSurface() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BasisSurface", ifcengine.sdaiINSTANCE, out inst); return new IfcPlane (inst); }
+        public IfcPlane _BasisSurface { get { return get_BasisSurface(); } }
         public void put_BasisSurface(IfcPlane inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BasisSurface", ifcengine.sdaiINSTANCE, i); }
         public IfcCurve get_OuterBoundary() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OuterBoundary", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _OuterBoundary { get { return get_OuterBoundary(); } }
         public void put_OuterBoundary(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OuterBoundary", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcCurve get_InnerBoundaries() { return (new SetOfIfcCurveSerializer()).FromAttr(m_instance, "InnerBoundaries"); }
+        public SetOfIfcCurve _InnerBoundaries { get { return get_InnerBoundaries(); } }
         public void put_InnerBoundaries(IEnumerable<IfcCurve> lst) { (new SetOfIfcCurveSerializer()).ToSdaiAggr(lst, m_instance, "InnerBoundaries"); }
         //public void put_InnerBoundaries_untyped(IEnumerable lst) { (new SetOfIfcCurveSerializer()).ToSdaiAggr(lst, m_instance, "InnerBoundaries"); }
 
@@ -13056,6 +14321,7 @@ namespace IFC2x3
         public static implicit operator IfcPresentationStyle(SdaiInstance instance) => new IfcPresentationStyle(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPresentationStyle"; }
@@ -13084,12 +14350,15 @@ namespace IFC2x3
 
 
         public IfcCurveFontOrScaledCurveFontSelect_get get_CurveFont() { return new IfcCurveFontOrScaledCurveFontSelect_get(m_instance, "CurveFont", 0); }
+        public IfcCurveFontOrScaledCurveFontSelect_get _CurveFont { get { return new IfcCurveFontOrScaledCurveFontSelect_get(m_instance, "CurveFont", 0); } }
         public IfcCurveFontOrScaledCurveFontSelect_put put_CurveFont() { return new IfcCurveFontOrScaledCurveFontSelect_put(m_instance, "CurveFont", 0); }
 
         public IfcSizeSelect_get get_CurveWidth() { return new IfcSizeSelect_get(m_instance, "CurveWidth", 0); }
+        public IfcSizeSelect_get _CurveWidth { get { return new IfcSizeSelect_get(m_instance, "CurveWidth", 0); } }
         public IfcSizeSelect_put put_CurveWidth() { return new IfcSizeSelect_put(m_instance, "CurveWidth", 0); }
 
         public IfcColour_get get_CurveColour() { return new IfcColour_get(m_instance, "CurveColour", 0); }
+        public IfcColour_get _CurveColour { get { return new IfcColour_get(m_instance, "CurveColour", 0); } }
         public IfcColour_put put_CurveColour() { return new IfcColour_put(m_instance, "CurveColour", 0); }
 
         protected override TextValue EntityName() { return "IfcCurveStyle"; }
@@ -13117,8 +14386,10 @@ namespace IFC2x3
         public static new IfcCurveStyleFont Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCurveStyleFont"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public ListOfIfcCurveStyleFontPattern get_PatternList() { return (new ListOfIfcCurveStyleFontPatternSerializer()).FromAttr(m_instance, "PatternList"); }
+        public ListOfIfcCurveStyleFontPattern _PatternList { get { return get_PatternList(); } }
         public void put_PatternList(IEnumerable<IfcCurveStyleFontPattern> lst) { (new ListOfIfcCurveStyleFontPatternSerializer()).ToSdaiAggr(lst, m_instance, "PatternList"); }
         //public void put_PatternList_untyped(IEnumerable lst) { (new ListOfIfcCurveStyleFontPatternSerializer()).ToSdaiAggr(lst, m_instance, "PatternList"); }
 
@@ -13147,11 +14418,14 @@ namespace IFC2x3
         public static new IfcCurveStyleFontAndScaling Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCurveStyleFontAndScaling"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         public IfcCurveStyleFontSelect_get get_CurveFont() { return new IfcCurveStyleFontSelect_get(m_instance, "CurveFont", 0); }
+        public IfcCurveStyleFontSelect_get _CurveFont { get { return new IfcCurveStyleFontSelect_get(m_instance, "CurveFont", 0); } }
         public IfcCurveStyleFontSelect_put put_CurveFont() { return new IfcCurveStyleFontSelect_put(m_instance, "CurveFont", 0); }
         public double? get_CurveFontScaling() { return get_double("CurveFontScaling", ifcengine.sdaiREAL);}
+        public double? _CurveFontScaling { get { return get_CurveFontScaling(); } }
         public void put_CurveFontScaling(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CurveFontScaling", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCurveStyleFontAndScaling"; }
@@ -13179,8 +14453,10 @@ namespace IFC2x3
         public static new IfcCurveStyleFontPattern Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCurveStyleFontPattern"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_VisibleSegmentLength() { return get_double("VisibleSegmentLength", ifcengine.sdaiREAL);}
+        public double? _VisibleSegmentLength { get { return get_VisibleSegmentLength(); } }
         public void put_VisibleSegmentLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "VisibleSegmentLength", ifcengine.sdaiREAL, ref value); }
         public double? get_InvisibleSegmentLength() { return get_double("InvisibleSegmentLength", ifcengine.sdaiREAL);}
+        public double? _InvisibleSegmentLength { get { return get_InvisibleSegmentLength(); } }
         public void put_InvisibleSegmentLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "InvisibleSegmentLength", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcCurveStyleFontPattern"; }
@@ -13208,6 +14484,7 @@ namespace IFC2x3
         public static new IfcDamperType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDamperType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDamperTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDamperTypeEnum_); return EnumValue<IfcDamperTypeEnum>.FromIndex(ind); }
+        public IfcDamperTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcDamperTypeEnum value) { var str = EnumString<IfcDamperTypeEnum>.FromValue(value, EnumNames.IfcDamperTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcDamperType"; }
@@ -13235,8 +14512,10 @@ namespace IFC2x3
         public static new IfcDateAndTime Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDateAndTime"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCalendarDate get_DateComponent() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "DateComponent", ifcengine.sdaiINSTANCE, out inst); return new IfcCalendarDate (inst); }
+        public IfcCalendarDate _DateComponent { get { return get_DateComponent(); } }
         public void put_DateComponent(IfcCalendarDate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "DateComponent", ifcengine.sdaiINSTANCE, i); }
         public IfcLocalTime get_TimeComponent() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TimeComponent", ifcengine.sdaiINSTANCE, out inst); return new IfcLocalTime (inst); }
+        public IfcLocalTime _TimeComponent { get { return get_TimeComponent(); } }
         public void put_TimeComponent(IfcLocalTime inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TimeComponent", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcDateAndTime"; }
@@ -13265,8 +14544,10 @@ namespace IFC2x3
 
 
         public IfcDefinedSymbolSelect_get get_Definition() { return new IfcDefinedSymbolSelect_get(m_instance, "Definition", 0); }
+        public IfcDefinedSymbolSelect_get _Definition { get { return new IfcDefinedSymbolSelect_get(m_instance, "Definition", 0); } }
         public IfcDefinedSymbolSelect_put put_Definition() { return new IfcDefinedSymbolSelect_put(m_instance, "Definition", 0); }
         public IfcCartesianTransformationOperator2D get_Target() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Target", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianTransformationOperator2D (inst); }
+        public IfcCartesianTransformationOperator2D _Target { get { return get_Target(); } }
         public void put_Target(IfcCartesianTransformationOperator2D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Target", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcDefinedSymbol"; }
@@ -13294,10 +14575,13 @@ namespace IFC2x3
         public static new IfcDerivedProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDerivedProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProfileDef get_ParentProfile() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ParentProfile", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileDef (inst); }
+        public IfcProfileDef _ParentProfile { get { return get_ParentProfile(); } }
         public void put_ParentProfile(IfcProfileDef inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ParentProfile", ifcengine.sdaiINSTANCE, i); }
         public IfcCartesianTransformationOperator2D get_Operator() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Operator", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianTransformationOperator2D (inst); }
+        public IfcCartesianTransformationOperator2D _Operator { get { return get_Operator(); } }
         public void put_Operator(IfcCartesianTransformationOperator2D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Operator", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_Label() { return get_string("Label", ifcengine.sdaiSTRING); }
+        public TextValue _Label { get { return get_Label(); } }
         public void put_Label(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Label", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcDerivedProfileDef"; }
@@ -13325,11 +14609,14 @@ namespace IFC2x3
         public static new IfcDerivedUnit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDerivedUnit"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcDerivedUnitElement get_Elements() { return (new SetOfIfcDerivedUnitElementSerializer()).FromAttr(m_instance, "Elements"); }
+        public SetOfIfcDerivedUnitElement _Elements { get { return get_Elements(); } }
         public void put_Elements(IEnumerable<IfcDerivedUnitElement> lst) { (new SetOfIfcDerivedUnitElementSerializer()).ToSdaiAggr(lst, m_instance, "Elements"); }
         //public void put_Elements_untyped(IEnumerable lst) { (new SetOfIfcDerivedUnitElementSerializer()).ToSdaiAggr(lst, m_instance, "Elements"); }
         public IfcDerivedUnitEnum? get_UnitType() { var str = get_string("UnitType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDerivedUnitEnum_); return EnumValue<IfcDerivedUnitEnum>.FromIndex(ind); }
+        public IfcDerivedUnitEnum? _UnitType { get { return get_UnitType(); } }
         public void put_UnitType(IfcDerivedUnitEnum value) { var str = EnumString<IfcDerivedUnitEnum>.FromValue(value, EnumNames.IfcDerivedUnitEnum_); ifcengine.sdaiPutAttrBN(m_instance, "UnitType", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedType() { return get_string("UserDefinedType", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedType { get { return get_UserDefinedType(); } }
         public void put_UserDefinedType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedType", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcDerivedUnit"; }
@@ -13357,8 +14644,10 @@ namespace IFC2x3
         public static new IfcDerivedUnitElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDerivedUnitElement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcNamedUnit get_Unit() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Unit", ifcengine.sdaiINSTANCE, out inst); return new IfcNamedUnit (inst); }
+        public IfcNamedUnit _Unit { get { return get_Unit(); } }
         public void put_Unit(IfcNamedUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Unit", ifcengine.sdaiINSTANCE, i); }
         public IntValue? get_Exponent() { return get_IntValue("Exponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _Exponent { get { return get_Exponent(); } }
         public void put_Exponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Exponent", ifcengine.sdaiINTEGER, ref value); }
 
         protected override TextValue EntityName() { return "IfcDerivedUnitElement"; }
@@ -13411,18 +14700,25 @@ namespace IFC2x3
         public static new IfcDimensionalExponents Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDimensionalExponents"); Debug.Assert(inst != 0); return inst; }
 
         public IntValue? get_LengthExponent() { return get_IntValue("LengthExponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _LengthExponent { get { return get_LengthExponent(); } }
         public void put_LengthExponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LengthExponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_MassExponent() { return get_IntValue("MassExponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _MassExponent { get { return get_MassExponent(); } }
         public void put_MassExponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "MassExponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_TimeExponent() { return get_IntValue("TimeExponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _TimeExponent { get { return get_TimeExponent(); } }
         public void put_TimeExponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "TimeExponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_ElectricCurrentExponent() { return get_IntValue("ElectricCurrentExponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _ElectricCurrentExponent { get { return get_ElectricCurrentExponent(); } }
         public void put_ElectricCurrentExponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ElectricCurrentExponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_ThermodynamicTemperatureExponent() { return get_IntValue("ThermodynamicTemperatureExponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _ThermodynamicTemperatureExponent { get { return get_ThermodynamicTemperatureExponent(); } }
         public void put_ThermodynamicTemperatureExponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ThermodynamicTemperatureExponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_AmountOfSubstanceExponent() { return get_IntValue("AmountOfSubstanceExponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _AmountOfSubstanceExponent { get { return get_AmountOfSubstanceExponent(); } }
         public void put_AmountOfSubstanceExponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "AmountOfSubstanceExponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_LuminousIntensityExponent() { return get_IntValue("LuminousIntensityExponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _LuminousIntensityExponent { get { return get_LuminousIntensityExponent(); } }
         public void put_LuminousIntensityExponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LuminousIntensityExponent", ifcengine.sdaiINTEGER, ref value); }
 
         protected override TextValue EntityName() { return "IfcDimensionalExponents"; }
@@ -13450,12 +14746,16 @@ namespace IFC2x3
         public static new IfcDraughtingCalloutRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDraughtingCalloutRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public IfcDraughtingCallout get_RelatingDraughtingCallout() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingDraughtingCallout", ifcengine.sdaiINSTANCE, out inst); return new IfcDraughtingCallout (inst); }
+        public IfcDraughtingCallout _RelatingDraughtingCallout { get { return get_RelatingDraughtingCallout(); } }
         public void put_RelatingDraughtingCallout(IfcDraughtingCallout inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingDraughtingCallout", ifcengine.sdaiINSTANCE, i); }
         public IfcDraughtingCallout get_RelatedDraughtingCallout() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedDraughtingCallout", ifcengine.sdaiINSTANCE, out inst); return new IfcDraughtingCallout (inst); }
+        public IfcDraughtingCallout _RelatedDraughtingCallout { get { return get_RelatedDraughtingCallout(); } }
         public void put_RelatedDraughtingCallout(IfcDraughtingCallout inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedDraughtingCallout", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcDraughtingCalloutRelationship"; }
@@ -13508,6 +14808,7 @@ namespace IFC2x3
         public static new IfcDimensionCurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDimensionCurve"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcTerminatorSymbol get_AnnotatedBySymbols() { return (new SetOfIfcTerminatorSymbolSerializer()).FromAttr(m_instance, "AnnotatedBySymbols"); }
+        public SetOfIfcTerminatorSymbol _AnnotatedBySymbols { get { return get_AnnotatedBySymbols(); } }
 
         protected override TextValue EntityName() { return "IfcDimensionCurve"; }
     };
@@ -13534,6 +14835,7 @@ namespace IFC2x3
         public static new IfcTerminatorSymbol Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTerminatorSymbol"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAnnotationCurveOccurrence get_AnnotatedCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AnnotatedCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcAnnotationCurveOccurrence (inst); }
+        public IfcAnnotationCurveOccurrence _AnnotatedCurve { get { return get_AnnotatedCurve(); } }
         public void put_AnnotatedCurve(IfcAnnotationCurveOccurrence inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AnnotatedCurve", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcTerminatorSymbol"; }
@@ -13561,6 +14863,7 @@ namespace IFC2x3
         public static new IfcDimensionCurveTerminator Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDimensionCurveTerminator"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDimensionExtentUsage? get_Role() { var str = get_string("Role", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDimensionExtentUsage_); return EnumValue<IfcDimensionExtentUsage>.FromIndex(ind); }
+        public IfcDimensionExtentUsage? _Role { get { return get_Role(); } }
         public void put_Role(IfcDimensionExtentUsage value) { var str = EnumString<IfcDimensionExtentUsage>.FromValue(value, EnumNames.IfcDimensionExtentUsage_); ifcengine.sdaiPutAttrBN(m_instance, "Role", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcDimensionCurveTerminator"; }
@@ -13613,6 +14916,7 @@ namespace IFC2x3
         public static new IfcDirection Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDirection"); Debug.Assert(inst != 0); return inst; }
 
         public list_of_double get_DirectionRatios() { return (new list_of_doubleSerializer()).FromAttr(m_instance, "DirectionRatios"); }
+        public list_of_double _DirectionRatios { get { return get_DirectionRatios(); } }
         public void put_DirectionRatios(IEnumerable<double> lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "DirectionRatios"); }
         //public void put_DirectionRatios_untyped(IEnumerable lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "DirectionRatios"); }
 
@@ -13756,6 +15060,7 @@ namespace IFC2x3
         public static new IfcDistributionFlowElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDistributionFlowElement"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelFlowControlElements get_HasControlElements() { return (new SetOfIfcRelFlowControlElementsSerializer()).FromAttr(m_instance, "HasControlElements"); }
+        public SetOfIfcRelFlowControlElements _HasControlElements { get { return get_HasControlElements(); } }
 
         protected override TextValue EntityName() { return "IfcDistributionFlowElement"; }
     };
@@ -13807,6 +15112,7 @@ namespace IFC2x3
         public static new IfcDistributionChamberElementType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDistributionChamberElementType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDistributionChamberElementTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDistributionChamberElementTypeEnum_); return EnumValue<IfcDistributionChamberElementTypeEnum>.FromIndex(ind); }
+        public IfcDistributionChamberElementTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcDistributionChamberElementTypeEnum value) { var str = EnumString<IfcDistributionChamberElementTypeEnum>.FromValue(value, EnumNames.IfcDistributionChamberElementTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcDistributionChamberElementType"; }
@@ -13834,8 +15140,10 @@ namespace IFC2x3
         public static new IfcDistributionControlElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDistributionControlElement"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_ControlElementId() { return get_string("ControlElementId", ifcengine.sdaiSTRING); }
+        public TextValue _ControlElementId { get { return get_ControlElementId(); } }
         public void put_ControlElementId(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ControlElementId", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRelFlowControlElements get_AssignedToFlowElement() { return (new SetOfIfcRelFlowControlElementsSerializer()).FromAttr(m_instance, "AssignedToFlowElement"); }
+        public SetOfIfcRelFlowControlElements _AssignedToFlowElement { get { return get_AssignedToFlowElement(); } }
 
         protected override TextValue EntityName() { return "IfcDistributionControlElement"; }
     };
@@ -13857,8 +15165,11 @@ namespace IFC2x3
         public static implicit operator IfcPort(SdaiInstance instance) => new IfcPort(instance);
 
         public IfcRelConnectsPortToElement get_ContainedIn() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ContainedIn", ifcengine.sdaiINSTANCE, out inst); return new IfcRelConnectsPortToElement (inst); }
+        public IfcRelConnectsPortToElement _ContainedIn { get { return get_ContainedIn(); } }
         public SetOfIfcRelConnectsPorts get_ConnectedFrom() { return (new SetOfIfcRelConnectsPortsSerializer()).FromAttr(m_instance, "ConnectedFrom"); }
+        public SetOfIfcRelConnectsPorts _ConnectedFrom { get { return get_ConnectedFrom(); } }
         public SetOfIfcRelConnectsPorts get_ConnectedTo() { return (new SetOfIfcRelConnectsPortsSerializer()).FromAttr(m_instance, "ConnectedTo"); }
+        public SetOfIfcRelConnectsPorts _ConnectedTo { get { return get_ConnectedTo(); } }
 
         protected override TextValue EntityName() { return "IfcPort"; }
     };
@@ -13885,6 +15196,7 @@ namespace IFC2x3
         public static new IfcDistributionPort Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDistributionPort"); Debug.Assert(inst != 0); return inst; }
 
         public IfcFlowDirectionEnum? get_FlowDirection() { var str = get_string("FlowDirection", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcFlowDirectionEnum_); return EnumValue<IfcFlowDirectionEnum>.FromIndex(ind); }
+        public IfcFlowDirectionEnum? _FlowDirection { get { return get_FlowDirection(); } }
         public void put_FlowDirection(IfcFlowDirectionEnum value) { var str = EnumString<IfcFlowDirectionEnum>.FromValue(value, EnumNames.IfcFlowDirectionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "FlowDirection", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcDistributionPort"; }
@@ -13912,10 +15224,13 @@ namespace IFC2x3
         public static new IfcDocumentElectronicFormat Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDocumentElectronicFormat"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_FileExtension() { return get_string("FileExtension", ifcengine.sdaiSTRING); }
+        public TextValue _FileExtension { get { return get_FileExtension(); } }
         public void put_FileExtension(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "FileExtension", ifcengine.sdaiSTRING, value); }
         public TextValue get_MimeContentType() { return get_string("MimeContentType", ifcengine.sdaiSTRING); }
+        public TextValue _MimeContentType { get { return get_MimeContentType(); } }
         public void put_MimeContentType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "MimeContentType", ifcengine.sdaiSTRING, value); }
         public TextValue get_MimeSubtype() { return get_string("MimeSubtype", ifcengine.sdaiSTRING); }
+        public TextValue _MimeSubtype { get { return get_MimeSubtype(); } }
         public void put_MimeSubtype(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "MimeSubtype", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcDocumentElectronicFormat"; }
@@ -13943,44 +15258,63 @@ namespace IFC2x3
         public static new IfcDocumentInformation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDocumentInformation"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_DocumentId() { return get_string("DocumentId", ifcengine.sdaiSTRING); }
+        public TextValue _DocumentId { get { return get_DocumentId(); } }
         public void put_DocumentId(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "DocumentId", ifcengine.sdaiSTRING, value); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public SetOfIfcDocumentReference get_DocumentReferences() { return (new SetOfIfcDocumentReferenceSerializer()).FromAttr(m_instance, "DocumentReferences"); }
+        public SetOfIfcDocumentReference _DocumentReferences { get { return get_DocumentReferences(); } }
         public void put_DocumentReferences(IEnumerable<IfcDocumentReference> lst) { (new SetOfIfcDocumentReferenceSerializer()).ToSdaiAggr(lst, m_instance, "DocumentReferences"); }
         //public void put_DocumentReferences_untyped(IEnumerable lst) { (new SetOfIfcDocumentReferenceSerializer()).ToSdaiAggr(lst, m_instance, "DocumentReferences"); }
         public TextValue get_Purpose() { return get_string("Purpose", ifcengine.sdaiSTRING); }
+        public TextValue _Purpose { get { return get_Purpose(); } }
         public void put_Purpose(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Purpose", ifcengine.sdaiSTRING, value); }
         public TextValue get_IntendedUse() { return get_string("IntendedUse", ifcengine.sdaiSTRING); }
+        public TextValue _IntendedUse { get { return get_IntendedUse(); } }
         public void put_IntendedUse(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "IntendedUse", ifcengine.sdaiSTRING, value); }
         public TextValue get_Scope() { return get_string("Scope", ifcengine.sdaiSTRING); }
+        public TextValue _Scope { get { return get_Scope(); } }
         public void put_Scope(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Scope", ifcengine.sdaiSTRING, value); }
         public TextValue get_Revision() { return get_string("Revision", ifcengine.sdaiSTRING); }
+        public TextValue _Revision { get { return get_Revision(); } }
         public void put_Revision(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Revision", ifcengine.sdaiSTRING, value); }
 
         public IfcActorSelect_get get_DocumentOwner() { return new IfcActorSelect_get(m_instance, "DocumentOwner", 0); }
+        public IfcActorSelect_get _DocumentOwner { get { return new IfcActorSelect_get(m_instance, "DocumentOwner", 0); } }
         public IfcActorSelect_put put_DocumentOwner() { return new IfcActorSelect_put(m_instance, "DocumentOwner", 0); }
         public SetOfIfcActorSelect get_Editors() { return (new SetOfIfcActorSelectSerializer()).FromAttr(m_instance, "Editors"); }
+        public SetOfIfcActorSelect _Editors { get { return get_Editors(); } }
         public void put_Editors(IEnumerable<IfcActorSelect> lst) { (new SetOfIfcActorSelectSerializer()).ToSdaiAggr(lst, m_instance, "Editors"); }
         //public void put_Editors_untyped(IEnumerable lst) { (new SetOfIfcActorSelectSerializer()).ToSdaiAggr(lst, m_instance, "Editors"); }
         public IfcDateAndTime get_CreationTime() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "CreationTime", ifcengine.sdaiINSTANCE, out inst); return new IfcDateAndTime (inst); }
+        public IfcDateAndTime _CreationTime { get { return get_CreationTime(); } }
         public void put_CreationTime(IfcDateAndTime inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "CreationTime", ifcengine.sdaiINSTANCE, i); }
         public IfcDateAndTime get_LastRevisionTime() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LastRevisionTime", ifcengine.sdaiINSTANCE, out inst); return new IfcDateAndTime (inst); }
+        public IfcDateAndTime _LastRevisionTime { get { return get_LastRevisionTime(); } }
         public void put_LastRevisionTime(IfcDateAndTime inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LastRevisionTime", ifcengine.sdaiINSTANCE, i); }
         public IfcDocumentElectronicFormat get_ElectronicFormat() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ElectronicFormat", ifcengine.sdaiINSTANCE, out inst); return new IfcDocumentElectronicFormat (inst); }
+        public IfcDocumentElectronicFormat _ElectronicFormat { get { return get_ElectronicFormat(); } }
         public void put_ElectronicFormat(IfcDocumentElectronicFormat inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ElectronicFormat", ifcengine.sdaiINSTANCE, i); }
         public IfcCalendarDate get_ValidFrom() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ValidFrom", ifcengine.sdaiINSTANCE, out inst); return new IfcCalendarDate (inst); }
+        public IfcCalendarDate _ValidFrom { get { return get_ValidFrom(); } }
         public void put_ValidFrom(IfcCalendarDate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ValidFrom", ifcengine.sdaiINSTANCE, i); }
         public IfcCalendarDate get_ValidUntil() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ValidUntil", ifcengine.sdaiINSTANCE, out inst); return new IfcCalendarDate (inst); }
+        public IfcCalendarDate _ValidUntil { get { return get_ValidUntil(); } }
         public void put_ValidUntil(IfcCalendarDate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ValidUntil", ifcengine.sdaiINSTANCE, i); }
         public IfcDocumentConfidentialityEnum? get_Confidentiality() { var str = get_string("Confidentiality", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDocumentConfidentialityEnum_); return EnumValue<IfcDocumentConfidentialityEnum>.FromIndex(ind); }
+        public IfcDocumentConfidentialityEnum? _Confidentiality { get { return get_Confidentiality(); } }
         public void put_Confidentiality(IfcDocumentConfidentialityEnum value) { var str = EnumString<IfcDocumentConfidentialityEnum>.FromValue(value, EnumNames.IfcDocumentConfidentialityEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Confidentiality", ifcengine.sdaiENUM, str); }
         public IfcDocumentStatusEnum? get_Status() { var str = get_string("Status", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDocumentStatusEnum_); return EnumValue<IfcDocumentStatusEnum>.FromIndex(ind); }
+        public IfcDocumentStatusEnum? _Status { get { return get_Status(); } }
         public void put_Status(IfcDocumentStatusEnum value) { var str = EnumString<IfcDocumentStatusEnum>.FromValue(value, EnumNames.IfcDocumentStatusEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Status", ifcengine.sdaiENUM, str); }
         public SetOfIfcDocumentInformationRelationship get_IsPointedTo() { return (new SetOfIfcDocumentInformationRelationshipSerializer()).FromAttr(m_instance, "IsPointedTo"); }
+        public SetOfIfcDocumentInformationRelationship _IsPointedTo { get { return get_IsPointedTo(); } }
         public SetOfIfcDocumentInformationRelationship get_IsPointer() { return (new SetOfIfcDocumentInformationRelationshipSerializer()).FromAttr(m_instance, "IsPointer"); }
+        public SetOfIfcDocumentInformationRelationship _IsPointer { get { return get_IsPointer(); } }
 
         protected override TextValue EntityName() { return "IfcDocumentInformation"; }
     };
@@ -14007,11 +15341,14 @@ namespace IFC2x3
         public static new IfcDocumentInformationRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDocumentInformationRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDocumentInformation get_RelatingDocument() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingDocument", ifcengine.sdaiINSTANCE, out inst); return new IfcDocumentInformation (inst); }
+        public IfcDocumentInformation _RelatingDocument { get { return get_RelatingDocument(); } }
         public void put_RelatingDocument(IfcDocumentInformation inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingDocument", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcDocumentInformation get_RelatedDocuments() { return (new SetOfIfcDocumentInformationSerializer()).FromAttr(m_instance, "RelatedDocuments"); }
+        public SetOfIfcDocumentInformation _RelatedDocuments { get { return get_RelatedDocuments(); } }
         public void put_RelatedDocuments(IEnumerable<IfcDocumentInformation> lst) { (new SetOfIfcDocumentInformationSerializer()).ToSdaiAggr(lst, m_instance, "RelatedDocuments"); }
         //public void put_RelatedDocuments_untyped(IEnumerable lst) { (new SetOfIfcDocumentInformationSerializer()).ToSdaiAggr(lst, m_instance, "RelatedDocuments"); }
         public TextValue get_RelationshipType() { return get_string("RelationshipType", ifcengine.sdaiSTRING); }
+        public TextValue _RelationshipType { get { return get_RelationshipType(); } }
         public void put_RelationshipType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "RelationshipType", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcDocumentInformationRelationship"; }
@@ -14039,6 +15376,7 @@ namespace IFC2x3
         public static new IfcDocumentReference Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDocumentReference"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcDocumentInformation get_ReferenceToDocument() { return (new SetOfIfcDocumentInformationSerializer()).FromAttr(m_instance, "ReferenceToDocument"); }
+        public SetOfIfcDocumentInformation _ReferenceToDocument { get { return get_ReferenceToDocument(); } }
 
         protected override TextValue EntityName() { return "IfcDocumentReference"; }
     };
@@ -14065,8 +15403,10 @@ namespace IFC2x3
         public static new IfcDoor Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDoor"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_OverallHeight() { return get_double("OverallHeight", ifcengine.sdaiREAL);}
+        public double? _OverallHeight { get { return get_OverallHeight(); } }
         public void put_OverallHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_OverallWidth() { return get_double("OverallWidth", ifcengine.sdaiREAL);}
+        public double? _OverallWidth { get { return get_OverallWidth(); } }
         public void put_OverallWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallWidth", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcDoor"; }
@@ -14089,6 +15429,7 @@ namespace IFC2x3
         public static implicit operator IfcPropertyDefinition(SdaiInstance instance) => new IfcPropertyDefinition(instance);
 
         public SetOfIfcRelAssociates get_HasAssociations() { return (new SetOfIfcRelAssociatesSerializer()).FromAttr(m_instance, "HasAssociations"); }
+        public SetOfIfcRelAssociates _HasAssociations { get { return get_HasAssociations(); } }
 
         protected override TextValue EntityName() { return "IfcPropertyDefinition"; }
     };
@@ -14110,7 +15451,9 @@ namespace IFC2x3
         public static implicit operator IfcPropertySetDefinition(SdaiInstance instance) => new IfcPropertySetDefinition(instance);
 
         public SetOfIfcRelDefinesByProperties get_PropertyDefinitionOf() { return (new SetOfIfcRelDefinesByPropertiesSerializer()).FromAttr(m_instance, "PropertyDefinitionOf"); }
+        public SetOfIfcRelDefinesByProperties _PropertyDefinitionOf { get { return get_PropertyDefinitionOf(); } }
         public SetOfIfcTypeObject get_DefinesType() { return (new SetOfIfcTypeObjectSerializer()).FromAttr(m_instance, "DefinesType"); }
+        public SetOfIfcTypeObject _DefinesType { get { return get_DefinesType(); } }
 
         protected override TextValue EntityName() { return "IfcPropertySetDefinition"; }
     };
@@ -14137,26 +15480,37 @@ namespace IFC2x3
         public static new IfcDoorLiningProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDoorLiningProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LiningDepth() { return get_double("LiningDepth", ifcengine.sdaiREAL);}
+        public double? _LiningDepth { get { return get_LiningDepth(); } }
         public void put_LiningDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LiningDepth", ifcengine.sdaiREAL, ref value); }
         public double? get_LiningThickness() { return get_double("LiningThickness", ifcengine.sdaiREAL);}
+        public double? _LiningThickness { get { return get_LiningThickness(); } }
         public void put_LiningThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LiningThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_ThresholdDepth() { return get_double("ThresholdDepth", ifcengine.sdaiREAL);}
+        public double? _ThresholdDepth { get { return get_ThresholdDepth(); } }
         public void put_ThresholdDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThresholdDepth", ifcengine.sdaiREAL, ref value); }
         public double? get_ThresholdThickness() { return get_double("ThresholdThickness", ifcengine.sdaiREAL);}
+        public double? _ThresholdThickness { get { return get_ThresholdThickness(); } }
         public void put_ThresholdThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThresholdThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_TransomThickness() { return get_double("TransomThickness", ifcengine.sdaiREAL);}
+        public double? _TransomThickness { get { return get_TransomThickness(); } }
         public void put_TransomThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TransomThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_TransomOffset() { return get_double("TransomOffset", ifcengine.sdaiREAL);}
+        public double? _TransomOffset { get { return get_TransomOffset(); } }
         public void put_TransomOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TransomOffset", ifcengine.sdaiREAL, ref value); }
         public double? get_LiningOffset() { return get_double("LiningOffset", ifcengine.sdaiREAL);}
+        public double? _LiningOffset { get { return get_LiningOffset(); } }
         public void put_LiningOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LiningOffset", ifcengine.sdaiREAL, ref value); }
         public double? get_ThresholdOffset() { return get_double("ThresholdOffset", ifcengine.sdaiREAL);}
+        public double? _ThresholdOffset { get { return get_ThresholdOffset(); } }
         public void put_ThresholdOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThresholdOffset", ifcengine.sdaiREAL, ref value); }
         public double? get_CasingThickness() { return get_double("CasingThickness", ifcengine.sdaiREAL);}
+        public double? _CasingThickness { get { return get_CasingThickness(); } }
         public void put_CasingThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CasingThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_CasingDepth() { return get_double("CasingDepth", ifcengine.sdaiREAL);}
+        public double? _CasingDepth { get { return get_CasingDepth(); } }
         public void put_CasingDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CasingDepth", ifcengine.sdaiREAL, ref value); }
         public IfcShapeAspect get_ShapeAspectStyle() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _ShapeAspectStyle { get { return get_ShapeAspectStyle(); } }
         public void put_ShapeAspectStyle(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcDoorLiningProperties"; }
@@ -14184,14 +15538,19 @@ namespace IFC2x3
         public static new IfcDoorPanelProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDoorPanelProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_PanelDepth() { return get_double("PanelDepth", ifcengine.sdaiREAL);}
+        public double? _PanelDepth { get { return get_PanelDepth(); } }
         public void put_PanelDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PanelDepth", ifcengine.sdaiREAL, ref value); }
         public IfcDoorPanelOperationEnum? get_PanelOperation() { var str = get_string("PanelOperation", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDoorPanelOperationEnum_); return EnumValue<IfcDoorPanelOperationEnum>.FromIndex(ind); }
+        public IfcDoorPanelOperationEnum? _PanelOperation { get { return get_PanelOperation(); } }
         public void put_PanelOperation(IfcDoorPanelOperationEnum value) { var str = EnumString<IfcDoorPanelOperationEnum>.FromValue(value, EnumNames.IfcDoorPanelOperationEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PanelOperation", ifcengine.sdaiENUM, str); }
         public double? get_PanelWidth() { return get_double("PanelWidth", ifcengine.sdaiREAL);}
+        public double? _PanelWidth { get { return get_PanelWidth(); } }
         public void put_PanelWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PanelWidth", ifcengine.sdaiREAL, ref value); }
         public IfcDoorPanelPositionEnum? get_PanelPosition() { var str = get_string("PanelPosition", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDoorPanelPositionEnum_); return EnumValue<IfcDoorPanelPositionEnum>.FromIndex(ind); }
+        public IfcDoorPanelPositionEnum? _PanelPosition { get { return get_PanelPosition(); } }
         public void put_PanelPosition(IfcDoorPanelPositionEnum value) { var str = EnumString<IfcDoorPanelPositionEnum>.FromValue(value, EnumNames.IfcDoorPanelPositionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PanelPosition", ifcengine.sdaiENUM, str); }
         public IfcShapeAspect get_ShapeAspectStyle() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _ShapeAspectStyle { get { return get_ShapeAspectStyle(); } }
         public void put_ShapeAspectStyle(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcDoorPanelProperties"; }
@@ -14219,12 +15578,16 @@ namespace IFC2x3
         public static new IfcDoorStyle Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDoorStyle"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDoorStyleOperationEnum? get_OperationType() { var str = get_string("OperationType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDoorStyleOperationEnum_); return EnumValue<IfcDoorStyleOperationEnum>.FromIndex(ind); }
+        public IfcDoorStyleOperationEnum? _OperationType { get { return get_OperationType(); } }
         public void put_OperationType(IfcDoorStyleOperationEnum value) { var str = EnumString<IfcDoorStyleOperationEnum>.FromValue(value, EnumNames.IfcDoorStyleOperationEnum_); ifcengine.sdaiPutAttrBN(m_instance, "OperationType", ifcengine.sdaiENUM, str); }
         public IfcDoorStyleConstructionEnum? get_ConstructionType() { var str = get_string("ConstructionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDoorStyleConstructionEnum_); return EnumValue<IfcDoorStyleConstructionEnum>.FromIndex(ind); }
+        public IfcDoorStyleConstructionEnum? _ConstructionType { get { return get_ConstructionType(); } }
         public void put_ConstructionType(IfcDoorStyleConstructionEnum value) { var str = EnumString<IfcDoorStyleConstructionEnum>.FromValue(value, EnumNames.IfcDoorStyleConstructionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ConstructionType", ifcengine.sdaiENUM, str); }
         public bool? get_ParameterTakesPrecedence() { return get_bool("ParameterTakesPrecedence", ifcengine.sdaiBOOLEAN);}
+        public bool? _ParameterTakesPrecedence { get { return get_ParameterTakesPrecedence(); } }
         public void put_ParameterTakesPrecedence(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "ParameterTakesPrecedence", ifcengine.sdaiBOOLEAN, ref value); }
         public bool? get_Sizeable() { return get_bool("Sizeable", ifcengine.sdaiBOOLEAN);}
+        public bool? _Sizeable { get { return get_Sizeable(); } }
         public void put_Sizeable(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "Sizeable", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcDoorStyle"; }
@@ -14247,6 +15610,7 @@ namespace IFC2x3
         public static implicit operator IfcPreDefinedItem(SdaiInstance instance) => new IfcPreDefinedItem(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPreDefinedItem"; }
@@ -14409,6 +15773,7 @@ namespace IFC2x3
         public static new IfcDuctFittingType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDuctFittingType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDuctFittingTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDuctFittingTypeEnum_); return EnumValue<IfcDuctFittingTypeEnum>.FromIndex(ind); }
+        public IfcDuctFittingTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcDuctFittingTypeEnum value) { var str = EnumString<IfcDuctFittingTypeEnum>.FromValue(value, EnumNames.IfcDuctFittingTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcDuctFittingType"; }
@@ -14436,6 +15801,7 @@ namespace IFC2x3
         public static new IfcDuctSegmentType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDuctSegmentType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDuctSegmentTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDuctSegmentTypeEnum_); return EnumValue<IfcDuctSegmentTypeEnum>.FromIndex(ind); }
+        public IfcDuctSegmentTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcDuctSegmentTypeEnum value) { var str = EnumString<IfcDuctSegmentTypeEnum>.FromValue(value, EnumNames.IfcDuctSegmentTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcDuctSegmentType"; }
@@ -14483,6 +15849,7 @@ namespace IFC2x3
         public static new IfcDuctSilencerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcDuctSilencerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDuctSilencerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDuctSilencerTypeEnum_); return EnumValue<IfcDuctSilencerTypeEnum>.FromIndex(ind); }
+        public IfcDuctSilencerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcDuctSilencerTypeEnum value) { var str = EnumString<IfcDuctSilencerTypeEnum>.FromValue(value, EnumNames.IfcDuctSilencerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcDuctSilencerType"; }
@@ -14510,8 +15877,10 @@ namespace IFC2x3
         public static new IfcEdge Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEdge"); Debug.Assert(inst != 0); return inst; }
 
         public IfcVertex get_EdgeStart() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "EdgeStart", ifcengine.sdaiINSTANCE, out inst); return new IfcVertex (inst); }
+        public IfcVertex _EdgeStart { get { return get_EdgeStart(); } }
         public void put_EdgeStart(IfcVertex inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "EdgeStart", ifcengine.sdaiINSTANCE, i); }
         public IfcVertex get_EdgeEnd() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "EdgeEnd", ifcengine.sdaiINSTANCE, out inst); return new IfcVertex (inst); }
+        public IfcVertex _EdgeEnd { get { return get_EdgeEnd(); } }
         public void put_EdgeEnd(IfcVertex inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "EdgeEnd", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcEdge"; }
@@ -14539,8 +15908,10 @@ namespace IFC2x3
         public static new IfcEdgeCurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEdgeCurve"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_EdgeGeometry() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "EdgeGeometry", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _EdgeGeometry { get { return get_EdgeGeometry(); } }
         public void put_EdgeGeometry(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "EdgeGeometry", ifcengine.sdaiINSTANCE, i); }
         public bool? get_SameSense() { return get_bool("SameSense", ifcengine.sdaiBOOLEAN);}
+        public bool? _SameSense { get { return get_SameSense(); } }
         public void put_SameSense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "SameSense", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcEdgeCurve"; }
@@ -14593,6 +15964,7 @@ namespace IFC2x3
         public static new IfcEdgeLoop Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEdgeLoop"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcOrientedEdge get_EdgeList() { return (new ListOfIfcOrientedEdgeSerializer()).FromAttr(m_instance, "EdgeList"); }
+        public ListOfIfcOrientedEdge _EdgeList { get { return get_EdgeList(); } }
         public void put_EdgeList(IEnumerable<IfcOrientedEdge> lst) { (new ListOfIfcOrientedEdgeSerializer()).ToSdaiAggr(lst, m_instance, "EdgeList"); }
         //public void put_EdgeList_untyped(IEnumerable lst) { (new ListOfIfcOrientedEdgeSerializer()).ToSdaiAggr(lst, m_instance, "EdgeList"); }
 
@@ -14621,8 +15993,10 @@ namespace IFC2x3
         public static new IfcEnergyProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEnergyProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcEnergySequenceEnum? get_EnergySequence() { var str = get_string("EnergySequence", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcEnergySequenceEnum_); return EnumValue<IfcEnergySequenceEnum>.FromIndex(ind); }
+        public IfcEnergySequenceEnum? _EnergySequence { get { return get_EnergySequence(); } }
         public void put_EnergySequence(IfcEnergySequenceEnum value) { var str = EnumString<IfcEnergySequenceEnum>.FromValue(value, EnumNames.IfcEnergySequenceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "EnergySequence", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedEnergySequence() { return get_string("UserDefinedEnergySequence", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedEnergySequence { get { return get_UserDefinedEnergySequence(); } }
         public void put_UserDefinedEnergySequence(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedEnergySequence", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcEnergyProperties"; }
@@ -14650,20 +16024,28 @@ namespace IFC2x3
         public static new IfcElectricalBaseProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricalBaseProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricCurrentEnum? get_ElectricCurrentType() { var str = get_string("ElectricCurrentType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricCurrentEnum_); return EnumValue<IfcElectricCurrentEnum>.FromIndex(ind); }
+        public IfcElectricCurrentEnum? _ElectricCurrentType { get { return get_ElectricCurrentType(); } }
         public void put_ElectricCurrentType(IfcElectricCurrentEnum value) { var str = EnumString<IfcElectricCurrentEnum>.FromValue(value, EnumNames.IfcElectricCurrentEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ElectricCurrentType", ifcengine.sdaiENUM, str); }
         public double? get_InputVoltage() { return get_double("InputVoltage", ifcengine.sdaiREAL);}
+        public double? _InputVoltage { get { return get_InputVoltage(); } }
         public void put_InputVoltage(double value) { ifcengine.sdaiPutAttrBN(m_instance, "InputVoltage", ifcengine.sdaiREAL, ref value); }
         public double? get_InputFrequency() { return get_double("InputFrequency", ifcengine.sdaiREAL);}
+        public double? _InputFrequency { get { return get_InputFrequency(); } }
         public void put_InputFrequency(double value) { ifcengine.sdaiPutAttrBN(m_instance, "InputFrequency", ifcengine.sdaiREAL, ref value); }
         public double? get_FullLoadCurrent() { return get_double("FullLoadCurrent", ifcengine.sdaiREAL);}
+        public double? _FullLoadCurrent { get { return get_FullLoadCurrent(); } }
         public void put_FullLoadCurrent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FullLoadCurrent", ifcengine.sdaiREAL, ref value); }
         public double? get_MinimumCircuitCurrent() { return get_double("MinimumCircuitCurrent", ifcengine.sdaiREAL);}
+        public double? _MinimumCircuitCurrent { get { return get_MinimumCircuitCurrent(); } }
         public void put_MinimumCircuitCurrent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MinimumCircuitCurrent", ifcengine.sdaiREAL, ref value); }
         public double? get_MaximumPowerInput() { return get_double("MaximumPowerInput", ifcengine.sdaiREAL);}
+        public double? _MaximumPowerInput { get { return get_MaximumPowerInput(); } }
         public void put_MaximumPowerInput(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MaximumPowerInput", ifcengine.sdaiREAL, ref value); }
         public double? get_RatedPowerInput() { return get_double("RatedPowerInput", ifcengine.sdaiREAL);}
+        public double? _RatedPowerInput { get { return get_RatedPowerInput(); } }
         public void put_RatedPowerInput(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RatedPowerInput", ifcengine.sdaiREAL, ref value); }
         public IntValue? get_InputPhase() { return get_IntValue("InputPhase", ifcengine.sdaiINTEGER);}
+        public IntValue? _InputPhase { get { return get_InputPhase(); } }
         public void put_InputPhase(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "InputPhase", ifcengine.sdaiINTEGER, ref value); }
 
         protected override TextValue EntityName() { return "IfcElectricalBaseProperties"; }
@@ -14691,6 +16073,7 @@ namespace IFC2x3
         public static new IfcSystem Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSystem"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelServicesBuildings get_ServicesBuildings() { return (new SetOfIfcRelServicesBuildingsSerializer()).FromAttr(m_instance, "ServicesBuildings"); }
+        public SetOfIfcRelServicesBuildings _ServicesBuildings { get { return get_ServicesBuildings(); } }
 
         protected override TextValue EntityName() { return "IfcSystem"; }
     };
@@ -14767,6 +16150,7 @@ namespace IFC2x3
         public static new IfcElectricApplianceType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricApplianceType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricApplianceTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricApplianceTypeEnum_); return EnumValue<IfcElectricApplianceTypeEnum>.FromIndex(ind); }
+        public IfcElectricApplianceTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcElectricApplianceTypeEnum value) { var str = EnumString<IfcElectricApplianceTypeEnum>.FromValue(value, EnumNames.IfcElectricApplianceTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcElectricApplianceType"; }
@@ -14819,8 +16203,10 @@ namespace IFC2x3
         public static new IfcElectricDistributionPoint Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricDistributionPoint"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricDistributionPointFunctionEnum? get_DistributionPointFunction() { var str = get_string("DistributionPointFunction", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricDistributionPointFunctionEnum_); return EnumValue<IfcElectricDistributionPointFunctionEnum>.FromIndex(ind); }
+        public IfcElectricDistributionPointFunctionEnum? _DistributionPointFunction { get { return get_DistributionPointFunction(); } }
         public void put_DistributionPointFunction(IfcElectricDistributionPointFunctionEnum value) { var str = EnumString<IfcElectricDistributionPointFunctionEnum>.FromValue(value, EnumNames.IfcElectricDistributionPointFunctionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "DistributionPointFunction", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedFunction() { return get_string("UserDefinedFunction", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedFunction { get { return get_UserDefinedFunction(); } }
         public void put_UserDefinedFunction(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedFunction", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcElectricDistributionPoint"; }
@@ -14868,6 +16254,7 @@ namespace IFC2x3
         public static new IfcElectricFlowStorageDeviceType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricFlowStorageDeviceType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricFlowStorageDeviceTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricFlowStorageDeviceTypeEnum_); return EnumValue<IfcElectricFlowStorageDeviceTypeEnum>.FromIndex(ind); }
+        public IfcElectricFlowStorageDeviceTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcElectricFlowStorageDeviceTypeEnum value) { var str = EnumString<IfcElectricFlowStorageDeviceTypeEnum>.FromValue(value, EnumNames.IfcElectricFlowStorageDeviceTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcElectricFlowStorageDeviceType"; }
@@ -14895,6 +16282,7 @@ namespace IFC2x3
         public static new IfcElectricGeneratorType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricGeneratorType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricGeneratorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricGeneratorTypeEnum_); return EnumValue<IfcElectricGeneratorTypeEnum>.FromIndex(ind); }
+        public IfcElectricGeneratorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcElectricGeneratorTypeEnum value) { var str = EnumString<IfcElectricGeneratorTypeEnum>.FromValue(value, EnumNames.IfcElectricGeneratorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcElectricGeneratorType"; }
@@ -14922,6 +16310,7 @@ namespace IFC2x3
         public static new IfcElectricHeaterType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricHeaterType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricHeaterTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricHeaterTypeEnum_); return EnumValue<IfcElectricHeaterTypeEnum>.FromIndex(ind); }
+        public IfcElectricHeaterTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcElectricHeaterTypeEnum value) { var str = EnumString<IfcElectricHeaterTypeEnum>.FromValue(value, EnumNames.IfcElectricHeaterTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcElectricHeaterType"; }
@@ -14949,6 +16338,7 @@ namespace IFC2x3
         public static new IfcElectricMotorType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricMotorType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricMotorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricMotorTypeEnum_); return EnumValue<IfcElectricMotorTypeEnum>.FromIndex(ind); }
+        public IfcElectricMotorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcElectricMotorTypeEnum value) { var str = EnumString<IfcElectricMotorTypeEnum>.FromValue(value, EnumNames.IfcElectricMotorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcElectricMotorType"; }
@@ -14976,6 +16366,7 @@ namespace IFC2x3
         public static new IfcElectricTimeControlType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElectricTimeControlType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElectricTimeControlTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElectricTimeControlTypeEnum_); return EnumValue<IfcElectricTimeControlTypeEnum>.FromIndex(ind); }
+        public IfcElectricTimeControlTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcElectricTimeControlTypeEnum value) { var str = EnumString<IfcElectricTimeControlTypeEnum>.FromValue(value, EnumNames.IfcElectricTimeControlTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcElectricTimeControlType"; }
@@ -14998,6 +16389,7 @@ namespace IFC2x3
         public static implicit operator IfcElementarySurface(SdaiInstance instance) => new IfcElementarySurface(instance);
 
         public IfcAxis2Placement3D get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _Position { get { return get_Position(); } }
         public void put_Position(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcElementarySurface"; }
@@ -15025,8 +16417,10 @@ namespace IFC2x3
         public static new IfcElementAssembly Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElementAssembly"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAssemblyPlaceEnum? get_AssemblyPlace() { var str = get_string("AssemblyPlace", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAssemblyPlaceEnum_); return EnumValue<IfcAssemblyPlaceEnum>.FromIndex(ind); }
+        public IfcAssemblyPlaceEnum? _AssemblyPlace { get { return get_AssemblyPlace(); } }
         public void put_AssemblyPlace(IfcAssemblyPlaceEnum value) { var str = EnumString<IfcAssemblyPlaceEnum>.FromValue(value, EnumNames.IfcAssemblyPlaceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "AssemblyPlace", ifcengine.sdaiENUM, str); }
         public IfcElementAssemblyTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcElementAssemblyTypeEnum_); return EnumValue<IfcElementAssemblyTypeEnum>.FromIndex(ind); }
+        public IfcElementAssemblyTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcElementAssemblyTypeEnum value) { var str = EnumString<IfcElementAssemblyTypeEnum>.FromValue(value, EnumNames.IfcElementAssemblyTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcElementAssembly"; }
@@ -15054,8 +16448,10 @@ namespace IFC2x3
         public static new IfcElementQuantity Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcElementQuantity"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_MethodOfMeasurement() { return get_string("MethodOfMeasurement", ifcengine.sdaiSTRING); }
+        public TextValue _MethodOfMeasurement { get { return get_MethodOfMeasurement(); } }
         public void put_MethodOfMeasurement(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "MethodOfMeasurement", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPhysicalQuantity get_Quantities() { return (new SetOfIfcPhysicalQuantitySerializer()).FromAttr(m_instance, "Quantities"); }
+        public SetOfIfcPhysicalQuantity _Quantities { get { return get_Quantities(); } }
         public void put_Quantities(IEnumerable<IfcPhysicalQuantity> lst) { (new SetOfIfcPhysicalQuantitySerializer()).ToSdaiAggr(lst, m_instance, "Quantities"); }
         //public void put_Quantities_untyped(IEnumerable lst) { (new SetOfIfcPhysicalQuantitySerializer()).ToSdaiAggr(lst, m_instance, "Quantities"); }
 
@@ -15084,8 +16480,10 @@ namespace IFC2x3
         public static new IfcEllipse Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEllipse"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_SemiAxis1() { return get_double("SemiAxis1", ifcengine.sdaiREAL);}
+        public double? _SemiAxis1 { get { return get_SemiAxis1(); } }
         public void put_SemiAxis1(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SemiAxis1", ifcengine.sdaiREAL, ref value); }
         public double? get_SemiAxis2() { return get_double("SemiAxis2", ifcengine.sdaiREAL);}
+        public double? _SemiAxis2 { get { return get_SemiAxis2(); } }
         public void put_SemiAxis2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SemiAxis2", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcEllipse"; }
@@ -15113,8 +16511,10 @@ namespace IFC2x3
         public static new IfcEllipseProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEllipseProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_SemiAxis1() { return get_double("SemiAxis1", ifcengine.sdaiREAL);}
+        public double? _SemiAxis1 { get { return get_SemiAxis1(); } }
         public void put_SemiAxis1(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SemiAxis1", ifcengine.sdaiREAL, ref value); }
         public double? get_SemiAxis2() { return get_double("SemiAxis2", ifcengine.sdaiREAL);}
+        public double? _SemiAxis2 { get { return get_SemiAxis2(); } }
         public void put_SemiAxis2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SemiAxis2", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcEllipseProfileDef"; }
@@ -15167,10 +16567,13 @@ namespace IFC2x3
         public static new IfcEnvironmentalImpactValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEnvironmentalImpactValue"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_ImpactType() { return get_string("ImpactType", ifcengine.sdaiSTRING); }
+        public TextValue _ImpactType { get { return get_ImpactType(); } }
         public void put_ImpactType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ImpactType", ifcengine.sdaiSTRING, value); }
         public IfcEnvironmentalImpactCategoryEnum? get_Category() { var str = get_string("Category", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcEnvironmentalImpactCategoryEnum_); return EnumValue<IfcEnvironmentalImpactCategoryEnum>.FromIndex(ind); }
+        public IfcEnvironmentalImpactCategoryEnum? _Category { get { return get_Category(); } }
         public void put_Category(IfcEnvironmentalImpactCategoryEnum value) { var str = EnumString<IfcEnvironmentalImpactCategoryEnum>.FromValue(value, EnumNames.IfcEnvironmentalImpactCategoryEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Category", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedCategory() { return get_string("UserDefinedCategory", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedCategory { get { return get_UserDefinedCategory(); } }
         public void put_UserDefinedCategory(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedCategory", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcEnvironmentalImpactValue"; }
@@ -15248,6 +16651,7 @@ namespace IFC2x3
         public static new IfcEvaporativeCoolerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEvaporativeCoolerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcEvaporativeCoolerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcEvaporativeCoolerTypeEnum_); return EnumValue<IfcEvaporativeCoolerTypeEnum>.FromIndex(ind); }
+        public IfcEvaporativeCoolerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcEvaporativeCoolerTypeEnum value) { var str = EnumString<IfcEvaporativeCoolerTypeEnum>.FromValue(value, EnumNames.IfcEvaporativeCoolerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcEvaporativeCoolerType"; }
@@ -15275,6 +16679,7 @@ namespace IFC2x3
         public static new IfcEvaporatorType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcEvaporatorType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcEvaporatorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcEvaporatorTypeEnum_); return EnumValue<IfcEvaporatorTypeEnum>.FromIndex(ind); }
+        public IfcEvaporatorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcEvaporatorTypeEnum value) { var str = EnumString<IfcEvaporatorTypeEnum>.FromValue(value, EnumNames.IfcEvaporatorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcEvaporatorType"; }
@@ -15297,6 +16702,7 @@ namespace IFC2x3
         public static implicit operator IfcMaterialProperties(SdaiInstance instance) => new IfcMaterialProperties(instance);
 
         public IfcMaterial get_Material() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Material", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterial (inst); }
+        public IfcMaterial _Material { get { return get_Material(); } }
         public void put_Material(IfcMaterial inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Material", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcMaterialProperties"; }
@@ -15324,11 +16730,14 @@ namespace IFC2x3
         public static new IfcExtendedMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcExtendedMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProperty get_ExtendedProperties() { return (new SetOfIfcPropertySerializer()).FromAttr(m_instance, "ExtendedProperties"); }
+        public SetOfIfcProperty _ExtendedProperties { get { return get_ExtendedProperties(); } }
         public void put_ExtendedProperties(IEnumerable<IfcProperty> lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "ExtendedProperties"); }
         //public void put_ExtendedProperties_untyped(IEnumerable lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "ExtendedProperties"); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcExtendedMaterialProperties"; }
@@ -15451,8 +16860,10 @@ namespace IFC2x3
         public static implicit operator IfcSweptAreaSolid(SdaiInstance instance) => new IfcSweptAreaSolid(instance);
 
         public IfcProfileDef get_SweptArea() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SweptArea", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileDef (inst); }
+        public IfcProfileDef _SweptArea { get { return get_SweptArea(); } }
         public void put_SweptArea(IfcProfileDef inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SweptArea", ifcengine.sdaiINSTANCE, i); }
         public IfcAxis2Placement3D get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _Position { get { return get_Position(); } }
         public void put_Position(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSweptAreaSolid"; }
@@ -15480,8 +16891,10 @@ namespace IFC2x3
         public static new IfcExtrudedAreaSolid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcExtrudedAreaSolid"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_ExtrudedDirection() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ExtrudedDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _ExtrudedDirection { get { return get_ExtrudedDirection(); } }
         public void put_ExtrudedDirection(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ExtrudedDirection", ifcengine.sdaiINSTANCE, i); }
         public double? get_Depth() { return get_double("Depth", ifcengine.sdaiREAL);}
+        public double? _Depth { get { return get_Depth(); } }
         public void put_Depth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcExtrudedAreaSolid"; }
@@ -15509,6 +16922,7 @@ namespace IFC2x3
         public static new IfcFace Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFace"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcFaceBound get_Bounds() { return (new SetOfIfcFaceBoundSerializer()).FromAttr(m_instance, "Bounds"); }
+        public SetOfIfcFaceBound _Bounds { get { return get_Bounds(); } }
         public void put_Bounds(IEnumerable<IfcFaceBound> lst) { (new SetOfIfcFaceBoundSerializer()).ToSdaiAggr(lst, m_instance, "Bounds"); }
         //public void put_Bounds_untyped(IEnumerable lst) { (new SetOfIfcFaceBoundSerializer()).ToSdaiAggr(lst, m_instance, "Bounds"); }
 
@@ -15537,6 +16951,7 @@ namespace IFC2x3
         public static new IfcFaceBasedSurfaceModel Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFaceBasedSurfaceModel"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcConnectedFaceSet get_FbsmFaces() { return (new SetOfIfcConnectedFaceSetSerializer()).FromAttr(m_instance, "FbsmFaces"); }
+        public SetOfIfcConnectedFaceSet _FbsmFaces { get { return get_FbsmFaces(); } }
         public void put_FbsmFaces(IEnumerable<IfcConnectedFaceSet> lst) { (new SetOfIfcConnectedFaceSetSerializer()).ToSdaiAggr(lst, m_instance, "FbsmFaces"); }
         //public void put_FbsmFaces_untyped(IEnumerable lst) { (new SetOfIfcConnectedFaceSetSerializer()).ToSdaiAggr(lst, m_instance, "FbsmFaces"); }
 
@@ -15565,8 +16980,10 @@ namespace IFC2x3
         public static new IfcFaceBound Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFaceBound"); Debug.Assert(inst != 0); return inst; }
 
         public IfcLoop get_Bound() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Bound", ifcengine.sdaiINSTANCE, out inst); return new IfcLoop (inst); }
+        public IfcLoop _Bound { get { return get_Bound(); } }
         public void put_Bound(IfcLoop inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Bound", ifcengine.sdaiINSTANCE, i); }
         public bool? get_Orientation() { return get_bool("Orientation", ifcengine.sdaiBOOLEAN);}
+        public bool? _Orientation { get { return get_Orientation(); } }
         public void put_Orientation(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "Orientation", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcFaceBound"; }
@@ -15619,8 +17036,10 @@ namespace IFC2x3
         public static new IfcFaceSurface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFaceSurface"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSurface get_FaceSurface() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "FaceSurface", ifcengine.sdaiINSTANCE, out inst); return new IfcSurface (inst); }
+        public IfcSurface _FaceSurface { get { return get_FaceSurface(); } }
         public void put_FaceSurface(IfcSurface inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "FaceSurface", ifcengine.sdaiINSTANCE, i); }
         public bool? get_SameSense() { return get_bool("SameSense", ifcengine.sdaiBOOLEAN);}
+        public bool? _SameSense { get { return get_SameSense(); } }
         public void put_SameSense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "SameSense", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcFaceSurface"; }
@@ -15643,6 +17062,7 @@ namespace IFC2x3
         public static implicit operator IfcManifoldSolidBrep(SdaiInstance instance) => new IfcManifoldSolidBrep(instance);
 
         public IfcClosedShell get_Outer() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Outer", ifcengine.sdaiINSTANCE, out inst); return new IfcClosedShell (inst); }
+        public IfcClosedShell _Outer { get { return get_Outer(); } }
         public void put_Outer(IfcClosedShell inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Outer", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcManifoldSolidBrep"; }
@@ -15695,6 +17115,7 @@ namespace IFC2x3
         public static new IfcFacetedBrepWithVoids Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFacetedBrepWithVoids"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcClosedShell get_Voids() { return (new SetOfIfcClosedShellSerializer()).FromAttr(m_instance, "Voids"); }
+        public SetOfIfcClosedShell _Voids { get { return get_Voids(); } }
         public void put_Voids(IEnumerable<IfcClosedShell> lst) { (new SetOfIfcClosedShellSerializer()).ToSdaiAggr(lst, m_instance, "Voids"); }
         //public void put_Voids_untyped(IEnumerable lst) { (new SetOfIfcClosedShellSerializer()).ToSdaiAggr(lst, m_instance, "Voids"); }
 
@@ -15718,6 +17139,7 @@ namespace IFC2x3
         public static implicit operator IfcStructuralConnectionCondition(SdaiInstance instance) => new IfcStructuralConnectionCondition(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcStructuralConnectionCondition"; }
@@ -15745,16 +17167,22 @@ namespace IFC2x3
         public static new IfcFailureConnectionCondition Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFailureConnectionCondition"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_TensionFailureX() { return get_double("TensionFailureX", ifcengine.sdaiREAL);}
+        public double? _TensionFailureX { get { return get_TensionFailureX(); } }
         public void put_TensionFailureX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TensionFailureX", ifcengine.sdaiREAL, ref value); }
         public double? get_TensionFailureY() { return get_double("TensionFailureY", ifcengine.sdaiREAL);}
+        public double? _TensionFailureY { get { return get_TensionFailureY(); } }
         public void put_TensionFailureY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TensionFailureY", ifcengine.sdaiREAL, ref value); }
         public double? get_TensionFailureZ() { return get_double("TensionFailureZ", ifcengine.sdaiREAL);}
+        public double? _TensionFailureZ { get { return get_TensionFailureZ(); } }
         public void put_TensionFailureZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TensionFailureZ", ifcengine.sdaiREAL, ref value); }
         public double? get_CompressionFailureX() { return get_double("CompressionFailureX", ifcengine.sdaiREAL);}
+        public double? _CompressionFailureX { get { return get_CompressionFailureX(); } }
         public void put_CompressionFailureX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CompressionFailureX", ifcengine.sdaiREAL, ref value); }
         public double? get_CompressionFailureY() { return get_double("CompressionFailureY", ifcengine.sdaiREAL);}
+        public double? _CompressionFailureY { get { return get_CompressionFailureY(); } }
         public void put_CompressionFailureY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CompressionFailureY", ifcengine.sdaiREAL, ref value); }
         public double? get_CompressionFailureZ() { return get_double("CompressionFailureZ", ifcengine.sdaiREAL);}
+        public double? _CompressionFailureZ { get { return get_CompressionFailureZ(); } }
         public void put_CompressionFailureZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CompressionFailureZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcFailureConnectionCondition"; }
@@ -15782,6 +17210,7 @@ namespace IFC2x3
         public static new IfcFanType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFanType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcFanTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcFanTypeEnum_); return EnumValue<IfcFanTypeEnum>.FromIndex(ind); }
+        public IfcFanTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcFanTypeEnum value) { var str = EnumString<IfcFanTypeEnum>.FromValue(value, EnumNames.IfcFanTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcFanType"; }
@@ -15854,6 +17283,7 @@ namespace IFC2x3
         public static implicit operator IfcFeatureElementAddition(SdaiInstance instance) => new IfcFeatureElementAddition(instance);
 
         public IfcRelProjectsElement get_ProjectsElements() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ProjectsElements", ifcengine.sdaiINSTANCE, out inst); return new IfcRelProjectsElement (inst); }
+        public IfcRelProjectsElement _ProjectsElements { get { return get_ProjectsElements(); } }
 
         protected override TextValue EntityName() { return "IfcFeatureElementAddition"; }
     };
@@ -15880,6 +17310,7 @@ namespace IFC2x3
         public static new IfcFillAreaStyle Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFillAreaStyle"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcFillStyleSelect get_FillStyles() { return (new SetOfIfcFillStyleSelectSerializer()).FromAttr(m_instance, "FillStyles"); }
+        public SetOfIfcFillStyleSelect _FillStyles { get { return get_FillStyles(); } }
         public void put_FillStyles(IEnumerable<IfcFillStyleSelect> lst) { (new SetOfIfcFillStyleSelectSerializer()).ToSdaiAggr(lst, m_instance, "FillStyles"); }
         //public void put_FillStyles_untyped(IEnumerable lst) { (new SetOfIfcFillStyleSelectSerializer()).ToSdaiAggr(lst, m_instance, "FillStyles"); }
 
@@ -15908,15 +17339,20 @@ namespace IFC2x3
         public static new IfcFillAreaStyleHatching Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFillAreaStyleHatching"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurveStyle get_HatchLineAppearance() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "HatchLineAppearance", ifcengine.sdaiINSTANCE, out inst); return new IfcCurveStyle (inst); }
+        public IfcCurveStyle _HatchLineAppearance { get { return get_HatchLineAppearance(); } }
         public void put_HatchLineAppearance(IfcCurveStyle inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "HatchLineAppearance", ifcengine.sdaiINSTANCE, i); }
 
         public IfcHatchLineDistanceSelect_get get_StartOfNextHatchLine() { return new IfcHatchLineDistanceSelect_get(m_instance, "StartOfNextHatchLine", 0); }
+        public IfcHatchLineDistanceSelect_get _StartOfNextHatchLine { get { return new IfcHatchLineDistanceSelect_get(m_instance, "StartOfNextHatchLine", 0); } }
         public IfcHatchLineDistanceSelect_put put_StartOfNextHatchLine() { return new IfcHatchLineDistanceSelect_put(m_instance, "StartOfNextHatchLine", 0); }
         public IfcCartesianPoint get_PointOfReferenceHatchLine() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PointOfReferenceHatchLine", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint (inst); }
+        public IfcCartesianPoint _PointOfReferenceHatchLine { get { return get_PointOfReferenceHatchLine(); } }
         public void put_PointOfReferenceHatchLine(IfcCartesianPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PointOfReferenceHatchLine", ifcengine.sdaiINSTANCE, i); }
         public IfcCartesianPoint get_PatternStart() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PatternStart", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint (inst); }
+        public IfcCartesianPoint _PatternStart { get { return get_PatternStart(); } }
         public void put_PatternStart(IfcCartesianPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PatternStart", ifcengine.sdaiINSTANCE, i); }
         public double? get_HatchLineAngle() { return get_double("HatchLineAngle", ifcengine.sdaiREAL);}
+        public double? _HatchLineAngle { get { return get_HatchLineAngle(); } }
         public void put_HatchLineAngle(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HatchLineAngle", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcFillAreaStyleHatching"; }
@@ -15944,11 +17380,14 @@ namespace IFC2x3
         public static new IfcFillAreaStyleTiles Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFillAreaStyleTiles"); Debug.Assert(inst != 0); return inst; }
 
         public IfcOneDirectionRepeatFactor get_TilingPattern() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TilingPattern", ifcengine.sdaiINSTANCE, out inst); return new IfcOneDirectionRepeatFactor (inst); }
+        public IfcOneDirectionRepeatFactor _TilingPattern { get { return get_TilingPattern(); } }
         public void put_TilingPattern(IfcOneDirectionRepeatFactor inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TilingPattern", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcFillAreaStyleTileShapeSelect get_Tiles() { return (new SetOfIfcFillAreaStyleTileShapeSelectSerializer()).FromAttr(m_instance, "Tiles"); }
+        public SetOfIfcFillAreaStyleTileShapeSelect _Tiles { get { return get_Tiles(); } }
         public void put_Tiles(IEnumerable<IfcFillAreaStyleTileShapeSelect> lst) { (new SetOfIfcFillAreaStyleTileShapeSelectSerializer()).ToSdaiAggr(lst, m_instance, "Tiles"); }
         //public void put_Tiles_untyped(IEnumerable lst) { (new SetOfIfcFillAreaStyleTileShapeSelectSerializer()).ToSdaiAggr(lst, m_instance, "Tiles"); }
         public double? get_TilingScale() { return get_double("TilingScale", ifcengine.sdaiREAL);}
+        public double? _TilingScale { get { return get_TilingScale(); } }
         public void put_TilingScale(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TilingScale", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcFillAreaStyleTiles"; }
@@ -15976,6 +17415,7 @@ namespace IFC2x3
         public static new IfcFillAreaStyleTileSymbolWithStyle Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFillAreaStyleTileSymbolWithStyle"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAnnotationSymbolOccurrence get_Symbol() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Symbol", ifcengine.sdaiINSTANCE, out inst); return new IfcAnnotationSymbolOccurrence (inst); }
+        public IfcAnnotationSymbolOccurrence _Symbol { get { return get_Symbol(); } }
         public void put_Symbol(IfcAnnotationSymbolOccurrence inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Symbol", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcFillAreaStyleTileSymbolWithStyle"; }
@@ -16003,6 +17443,7 @@ namespace IFC2x3
         public static new IfcFilterType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFilterType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcFilterTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcFilterTypeEnum_); return EnumValue<IfcFilterTypeEnum>.FromIndex(ind); }
+        public IfcFilterTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcFilterTypeEnum value) { var str = EnumString<IfcFilterTypeEnum>.FromValue(value, EnumNames.IfcFilterTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcFilterType"; }
@@ -16030,6 +17471,7 @@ namespace IFC2x3
         public static new IfcFireSuppressionTerminalType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFireSuppressionTerminalType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcFireSuppressionTerminalTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcFireSuppressionTerminalTypeEnum_); return EnumValue<IfcFireSuppressionTerminalTypeEnum>.FromIndex(ind); }
+        public IfcFireSuppressionTerminalTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcFireSuppressionTerminalTypeEnum value) { var str = EnumString<IfcFireSuppressionTerminalTypeEnum>.FromValue(value, EnumNames.IfcFireSuppressionTerminalTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcFireSuppressionTerminalType"; }
@@ -16082,6 +17524,7 @@ namespace IFC2x3
         public static new IfcFlowInstrumentType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFlowInstrumentType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcFlowInstrumentTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcFlowInstrumentTypeEnum_); return EnumValue<IfcFlowInstrumentTypeEnum>.FromIndex(ind); }
+        public IfcFlowInstrumentTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcFlowInstrumentTypeEnum value) { var str = EnumString<IfcFlowInstrumentTypeEnum>.FromValue(value, EnumNames.IfcFlowInstrumentTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcFlowInstrumentType"; }
@@ -16109,6 +17552,7 @@ namespace IFC2x3
         public static new IfcFlowMeterType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFlowMeterType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcFlowMeterTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcFlowMeterTypeEnum_); return EnumValue<IfcFlowMeterTypeEnum>.FromIndex(ind); }
+        public IfcFlowMeterTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcFlowMeterTypeEnum value) { var str = EnumString<IfcFlowMeterTypeEnum>.FromValue(value, EnumNames.IfcFlowMeterTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcFlowMeterType"; }
@@ -16261,35 +17705,50 @@ namespace IFC2x3
         public static new IfcFluidFlowProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFluidFlowProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPropertySourceEnum? get_PropertySource() { var str = get_string("PropertySource", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPropertySourceEnum_); return EnumValue<IfcPropertySourceEnum>.FromIndex(ind); }
+        public IfcPropertySourceEnum? _PropertySource { get { return get_PropertySource(); } }
         public void put_PropertySource(IfcPropertySourceEnum value) { var str = EnumString<IfcPropertySourceEnum>.FromValue(value, EnumNames.IfcPropertySourceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PropertySource", ifcengine.sdaiENUM, str); }
         public IfcTimeSeries get_FlowConditionTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "FlowConditionTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _FlowConditionTimeSeries { get { return get_FlowConditionTimeSeries(); } }
         public void put_FlowConditionTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "FlowConditionTimeSeries", ifcengine.sdaiINSTANCE, i); }
         public IfcTimeSeries get_VelocityTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VelocityTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _VelocityTimeSeries { get { return get_VelocityTimeSeries(); } }
         public void put_VelocityTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "VelocityTimeSeries", ifcengine.sdaiINSTANCE, i); }
         public IfcTimeSeries get_FlowrateTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "FlowrateTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _FlowrateTimeSeries { get { return get_FlowrateTimeSeries(); } }
         public void put_FlowrateTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "FlowrateTimeSeries", ifcengine.sdaiINSTANCE, i); }
         public IfcMaterial get_Fluid() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Fluid", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterial (inst); }
+        public IfcMaterial _Fluid { get { return get_Fluid(); } }
         public void put_Fluid(IfcMaterial inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Fluid", ifcengine.sdaiINSTANCE, i); }
         public IfcTimeSeries get_PressureTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PressureTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _PressureTimeSeries { get { return get_PressureTimeSeries(); } }
         public void put_PressureTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PressureTimeSeries", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_UserDefinedPropertySource() { return get_string("UserDefinedPropertySource", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedPropertySource { get { return get_UserDefinedPropertySource(); } }
         public void put_UserDefinedPropertySource(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedPropertySource", ifcengine.sdaiSTRING, value); }
         public double? get_TemperatureSingleValue() { return get_double("TemperatureSingleValue", ifcengine.sdaiREAL);}
+        public double? _TemperatureSingleValue { get { return get_TemperatureSingleValue(); } }
         public void put_TemperatureSingleValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TemperatureSingleValue", ifcengine.sdaiREAL, ref value); }
         public double? get_WetBulbTemperatureSingleValue() { return get_double("WetBulbTemperatureSingleValue", ifcengine.sdaiREAL);}
+        public double? _WetBulbTemperatureSingleValue { get { return get_WetBulbTemperatureSingleValue(); } }
         public void put_WetBulbTemperatureSingleValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WetBulbTemperatureSingleValue", ifcengine.sdaiREAL, ref value); }
         public IfcTimeSeries get_WetBulbTemperatureTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "WetBulbTemperatureTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _WetBulbTemperatureTimeSeries { get { return get_WetBulbTemperatureTimeSeries(); } }
         public void put_WetBulbTemperatureTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "WetBulbTemperatureTimeSeries", ifcengine.sdaiINSTANCE, i); }
         public IfcTimeSeries get_TemperatureTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TemperatureTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _TemperatureTimeSeries { get { return get_TemperatureTimeSeries(); } }
         public void put_TemperatureTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TemperatureTimeSeries", ifcengine.sdaiINSTANCE, i); }
 
         public IfcDerivedMeasureValue_get get_FlowrateSingleValue() { return new IfcDerivedMeasureValue_get(m_instance, "FlowrateSingleValue", 0); }
+        public IfcDerivedMeasureValue_get _FlowrateSingleValue { get { return new IfcDerivedMeasureValue_get(m_instance, "FlowrateSingleValue", 0); } }
         public IfcDerivedMeasureValue_put put_FlowrateSingleValue() { return new IfcDerivedMeasureValue_put(m_instance, "FlowrateSingleValue", 0); }
         public double? get_FlowConditionSingleValue() { return get_double("FlowConditionSingleValue", ifcengine.sdaiREAL);}
+        public double? _FlowConditionSingleValue { get { return get_FlowConditionSingleValue(); } }
         public void put_FlowConditionSingleValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlowConditionSingleValue", ifcengine.sdaiREAL, ref value); }
         public double? get_VelocitySingleValue() { return get_double("VelocitySingleValue", ifcengine.sdaiREAL);}
+        public double? _VelocitySingleValue { get { return get_VelocitySingleValue(); } }
         public void put_VelocitySingleValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "VelocitySingleValue", ifcengine.sdaiREAL, ref value); }
         public double? get_PressureSingleValue() { return get_double("PressureSingleValue", ifcengine.sdaiREAL);}
+        public double? _PressureSingleValue { get { return get_PressureSingleValue(); } }
         public void put_PressureSingleValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PressureSingleValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcFluidFlowProperties"; }
@@ -16317,6 +17776,7 @@ namespace IFC2x3
         public static new IfcFooting Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFooting"); Debug.Assert(inst != 0); return inst; }
 
         public IfcFootingTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcFootingTypeEnum_); return EnumValue<IfcFootingTypeEnum>.FromIndex(ind); }
+        public IfcFootingTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcFootingTypeEnum value) { var str = EnumString<IfcFootingTypeEnum>.FromValue(value, EnumNames.IfcFootingTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcFooting"; }
@@ -16344,12 +17804,16 @@ namespace IFC2x3
         public static new IfcFuelProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFuelProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_CombustionTemperature() { return get_double("CombustionTemperature", ifcengine.sdaiREAL);}
+        public double? _CombustionTemperature { get { return get_CombustionTemperature(); } }
         public void put_CombustionTemperature(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CombustionTemperature", ifcengine.sdaiREAL, ref value); }
         public double? get_CarbonContent() { return get_double("CarbonContent", ifcengine.sdaiREAL);}
+        public double? _CarbonContent { get { return get_CarbonContent(); } }
         public void put_CarbonContent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CarbonContent", ifcengine.sdaiREAL, ref value); }
         public double? get_LowerHeatingValue() { return get_double("LowerHeatingValue", ifcengine.sdaiREAL);}
+        public double? _LowerHeatingValue { get { return get_LowerHeatingValue(); } }
         public void put_LowerHeatingValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LowerHeatingValue", ifcengine.sdaiREAL, ref value); }
         public double? get_HigherHeatingValue() { return get_double("HigherHeatingValue", ifcengine.sdaiREAL);}
+        public double? _HigherHeatingValue { get { return get_HigherHeatingValue(); } }
         public void put_HigherHeatingValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HigherHeatingValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcFuelProperties"; }
@@ -16452,6 +17916,7 @@ namespace IFC2x3
         public static new IfcFurnitureType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcFurnitureType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAssemblyPlaceEnum? get_AssemblyPlace() { var str = get_string("AssemblyPlace", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAssemblyPlaceEnum_); return EnumValue<IfcAssemblyPlaceEnum>.FromIndex(ind); }
+        public IfcAssemblyPlaceEnum? _AssemblyPlace { get { return get_AssemblyPlace(); } }
         public void put_AssemblyPlace(IfcAssemblyPlaceEnum value) { var str = EnumString<IfcAssemblyPlaceEnum>.FromValue(value, EnumNames.IfcAssemblyPlaceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "AssemblyPlace", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcFurnitureType"; }
@@ -16479,6 +17944,7 @@ namespace IFC2x3
         public static new IfcGasTerminalType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGasTerminalType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcGasTerminalTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcGasTerminalTypeEnum_); return EnumValue<IfcGasTerminalTypeEnum>.FromIndex(ind); }
+        public IfcGasTerminalTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcGasTerminalTypeEnum value) { var str = EnumString<IfcGasTerminalTypeEnum>.FromValue(value, EnumNames.IfcGasTerminalTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcGasTerminalType"; }
@@ -16506,10 +17972,13 @@ namespace IFC2x3
         public static new IfcGeneralMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGeneralMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_MolecularWeight() { return get_double("MolecularWeight", ifcengine.sdaiREAL);}
+        public double? _MolecularWeight { get { return get_MolecularWeight(); } }
         public void put_MolecularWeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MolecularWeight", ifcengine.sdaiREAL, ref value); }
         public double? get_Porosity() { return get_double("Porosity", ifcengine.sdaiREAL);}
+        public double? _Porosity { get { return get_Porosity(); } }
         public void put_Porosity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Porosity", ifcengine.sdaiREAL, ref value); }
         public double? get_MassDensity() { return get_double("MassDensity", ifcengine.sdaiREAL);}
+        public double? _MassDensity { get { return get_MassDensity(); } }
         public void put_MassDensity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MassDensity", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcGeneralMaterialProperties"; }
@@ -16532,8 +18001,10 @@ namespace IFC2x3
         public static implicit operator IfcProfileProperties(SdaiInstance instance) => new IfcProfileProperties(instance);
 
         public TextValue get_ProfileName() { return get_string("ProfileName", ifcengine.sdaiSTRING); }
+        public TextValue _ProfileName { get { return get_ProfileName(); } }
         public void put_ProfileName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ProfileName", ifcengine.sdaiSTRING, value); }
         public IfcProfileDef get_ProfileDefinition() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ProfileDefinition", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileDef (inst); }
+        public IfcProfileDef _ProfileDefinition { get { return get_ProfileDefinition(); } }
         public void put_ProfileDefinition(IfcProfileDef inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ProfileDefinition", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcProfileProperties"; }
@@ -16561,14 +18032,19 @@ namespace IFC2x3
         public static new IfcGeneralProfileProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGeneralProfileProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_PhysicalWeight() { return get_double("PhysicalWeight", ifcengine.sdaiREAL);}
+        public double? _PhysicalWeight { get { return get_PhysicalWeight(); } }
         public void put_PhysicalWeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PhysicalWeight", ifcengine.sdaiREAL, ref value); }
         public double? get_Perimeter() { return get_double("Perimeter", ifcengine.sdaiREAL);}
+        public double? _Perimeter { get { return get_Perimeter(); } }
         public void put_Perimeter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Perimeter", ifcengine.sdaiREAL, ref value); }
         public double? get_MinimumPlateThickness() { return get_double("MinimumPlateThickness", ifcengine.sdaiREAL);}
+        public double? _MinimumPlateThickness { get { return get_MinimumPlateThickness(); } }
         public void put_MinimumPlateThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MinimumPlateThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_MaximumPlateThickness() { return get_double("MaximumPlateThickness", ifcengine.sdaiREAL);}
+        public double? _MaximumPlateThickness { get { return get_MaximumPlateThickness(); } }
         public void put_MaximumPlateThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MaximumPlateThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_CrossSectionArea() { return get_double("CrossSectionArea", ifcengine.sdaiREAL);}
+        public double? _CrossSectionArea { get { return get_CrossSectionArea(); } }
         public void put_CrossSectionArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CrossSectionArea", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcGeneralProfileProperties"; }
@@ -16596,6 +18072,7 @@ namespace IFC2x3
         public static new IfcGeometricSet Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGeometricSet"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcGeometricSetSelect get_Elements() { return (new SetOfIfcGeometricSetSelectSerializer()).FromAttr(m_instance, "Elements"); }
+        public SetOfIfcGeometricSetSelect _Elements { get { return get_Elements(); } }
         public void put_Elements(IEnumerable<IfcGeometricSetSelect> lst) { (new SetOfIfcGeometricSetSelectSerializer()).ToSdaiAggr(lst, m_instance, "Elements"); }
         //public void put_Elements_untyped(IEnumerable lst) { (new SetOfIfcGeometricSetSelectSerializer()).ToSdaiAggr(lst, m_instance, "Elements"); }
 
@@ -16649,10 +18126,13 @@ namespace IFC2x3
         public static new IfcRepresentationContext Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRepresentationContext"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_ContextIdentifier() { return get_string("ContextIdentifier", ifcengine.sdaiSTRING); }
+        public TextValue _ContextIdentifier { get { return get_ContextIdentifier(); } }
         public void put_ContextIdentifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ContextIdentifier", ifcengine.sdaiSTRING, value); }
         public TextValue get_ContextType() { return get_string("ContextType", ifcengine.sdaiSTRING); }
+        public TextValue _ContextType { get { return get_ContextType(); } }
         public void put_ContextType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ContextType", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRepresentation get_RepresentationsInContext() { return (new SetOfIfcRepresentationSerializer()).FromAttr(m_instance, "RepresentationsInContext"); }
+        public SetOfIfcRepresentation _RepresentationsInContext { get { return get_RepresentationsInContext(); } }
 
         protected override TextValue EntityName() { return "IfcRepresentationContext"; }
     };
@@ -16679,15 +18159,20 @@ namespace IFC2x3
         public static new IfcGeometricRepresentationContext Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGeometricRepresentationContext"); Debug.Assert(inst != 0); return inst; }
 
         public IntValue? get_CoordinateSpaceDimension() { return get_IntValue("CoordinateSpaceDimension", ifcengine.sdaiINTEGER);}
+        public IntValue? _CoordinateSpaceDimension { get { return get_CoordinateSpaceDimension(); } }
         public void put_CoordinateSpaceDimension(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "CoordinateSpaceDimension", ifcengine.sdaiINTEGER, ref value); }
         public double? get_Precision() { return get_double("Precision", ifcengine.sdaiREAL);}
+        public double? _Precision { get { return get_Precision(); } }
         public void put_Precision(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Precision", ifcengine.sdaiREAL, ref value); }
 
         public IfcAxis2Placement_get get_WorldCoordinateSystem() { return new IfcAxis2Placement_get(m_instance, "WorldCoordinateSystem", 0); }
+        public IfcAxis2Placement_get _WorldCoordinateSystem { get { return new IfcAxis2Placement_get(m_instance, "WorldCoordinateSystem", 0); } }
         public IfcAxis2Placement_put put_WorldCoordinateSystem() { return new IfcAxis2Placement_put(m_instance, "WorldCoordinateSystem", 0); }
         public IfcDirection get_TrueNorth() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TrueNorth", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _TrueNorth { get { return get_TrueNorth(); } }
         public void put_TrueNorth(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TrueNorth", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcGeometricRepresentationSubContext get_HasSubContexts() { return (new SetOfIfcGeometricRepresentationSubContextSerializer()).FromAttr(m_instance, "HasSubContexts"); }
+        public SetOfIfcGeometricRepresentationSubContext _HasSubContexts { get { return get_HasSubContexts(); } }
 
         protected override TextValue EntityName() { return "IfcGeometricRepresentationContext"; }
     };
@@ -16714,12 +18199,16 @@ namespace IFC2x3
         public static new IfcGeometricRepresentationSubContext Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGeometricRepresentationSubContext"); Debug.Assert(inst != 0); return inst; }
 
         public IfcGeometricRepresentationContext get_ParentContext() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ParentContext", ifcengine.sdaiINSTANCE, out inst); return new IfcGeometricRepresentationContext (inst); }
+        public IfcGeometricRepresentationContext _ParentContext { get { return get_ParentContext(); } }
         public void put_ParentContext(IfcGeometricRepresentationContext inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ParentContext", ifcengine.sdaiINSTANCE, i); }
         public double? get_TargetScale() { return get_double("TargetScale", ifcengine.sdaiREAL);}
+        public double? _TargetScale { get { return get_TargetScale(); } }
         public void put_TargetScale(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TargetScale", ifcengine.sdaiREAL, ref value); }
         public IfcGeometricProjectionEnum? get_TargetView() { var str = get_string("TargetView", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcGeometricProjectionEnum_); return EnumValue<IfcGeometricProjectionEnum>.FromIndex(ind); }
+        public IfcGeometricProjectionEnum? _TargetView { get { return get_TargetView(); } }
         public void put_TargetView(IfcGeometricProjectionEnum value) { var str = EnumString<IfcGeometricProjectionEnum>.FromValue(value, EnumNames.IfcGeometricProjectionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "TargetView", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedTargetView() { return get_string("UserDefinedTargetView", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedTargetView { get { return get_UserDefinedTargetView(); } }
         public void put_UserDefinedTargetView(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedTargetView", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcGeometricRepresentationSubContext"; }
@@ -16747,15 +18236,19 @@ namespace IFC2x3
         public static new IfcGrid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGrid"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcGridAxis get_UAxes() { return (new ListOfIfcGridAxisSerializer()).FromAttr(m_instance, "UAxes"); }
+        public ListOfIfcGridAxis _UAxes { get { return get_UAxes(); } }
         public void put_UAxes(IEnumerable<IfcGridAxis> lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "UAxes"); }
         //public void put_UAxes_untyped(IEnumerable lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "UAxes"); }
         public ListOfIfcGridAxis get_VAxes() { return (new ListOfIfcGridAxisSerializer()).FromAttr(m_instance, "VAxes"); }
+        public ListOfIfcGridAxis _VAxes { get { return get_VAxes(); } }
         public void put_VAxes(IEnumerable<IfcGridAxis> lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "VAxes"); }
         //public void put_VAxes_untyped(IEnumerable lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "VAxes"); }
         public ListOfIfcGridAxis get_WAxes() { return (new ListOfIfcGridAxisSerializer()).FromAttr(m_instance, "WAxes"); }
+        public ListOfIfcGridAxis _WAxes { get { return get_WAxes(); } }
         public void put_WAxes(IEnumerable<IfcGridAxis> lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "WAxes"); }
         //public void put_WAxes_untyped(IEnumerable lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "WAxes"); }
         public SetOfIfcRelContainedInSpatialStructure get_ContainedInStructure() { return (new SetOfIfcRelContainedInSpatialStructureSerializer()).FromAttr(m_instance, "ContainedInStructure"); }
+        public SetOfIfcRelContainedInSpatialStructure _ContainedInStructure { get { return get_ContainedInStructure(); } }
 
         protected override TextValue EntityName() { return "IfcGrid"; }
     };
@@ -16782,15 +18275,22 @@ namespace IFC2x3
         public static new IfcGridAxis Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGridAxis"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_AxisTag() { return get_string("AxisTag", ifcengine.sdaiSTRING); }
+        public TextValue _AxisTag { get { return get_AxisTag(); } }
         public void put_AxisTag(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "AxisTag", ifcengine.sdaiSTRING, value); }
         public IfcCurve get_AxisCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AxisCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _AxisCurve { get { return get_AxisCurve(); } }
         public void put_AxisCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AxisCurve", ifcengine.sdaiINSTANCE, i); }
         public bool? get_SameSense() { return get_bool("SameSense", ifcengine.sdaiBOOLEAN);}
+        public bool? _SameSense { get { return get_SameSense(); } }
         public void put_SameSense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "SameSense", ifcengine.sdaiBOOLEAN, ref value); }
         public SetOfIfcGrid get_PartOfW() { return (new SetOfIfcGridSerializer()).FromAttr(m_instance, "PartOfW"); }
+        public SetOfIfcGrid _PartOfW { get { return get_PartOfW(); } }
         public SetOfIfcGrid get_PartOfV() { return (new SetOfIfcGridSerializer()).FromAttr(m_instance, "PartOfV"); }
+        public SetOfIfcGrid _PartOfV { get { return get_PartOfV(); } }
         public SetOfIfcGrid get_PartOfU() { return (new SetOfIfcGridSerializer()).FromAttr(m_instance, "PartOfU"); }
+        public SetOfIfcGrid _PartOfU { get { return get_PartOfU(); } }
         public SetOfIfcVirtualGridIntersection get_HasIntersections() { return (new SetOfIfcVirtualGridIntersectionSerializer()).FromAttr(m_instance, "HasIntersections"); }
+        public SetOfIfcVirtualGridIntersection _HasIntersections { get { return get_HasIntersections(); } }
 
         protected override TextValue EntityName() { return "IfcGridAxis"; }
     };
@@ -16812,7 +18312,9 @@ namespace IFC2x3
         public static implicit operator IfcObjectPlacement(SdaiInstance instance) => new IfcObjectPlacement(instance);
 
         public SetOfIfcProduct get_PlacesObject() { return (new SetOfIfcProductSerializer()).FromAttr(m_instance, "PlacesObject"); }
+        public SetOfIfcProduct _PlacesObject { get { return get_PlacesObject(); } }
         public SetOfIfcLocalPlacement get_ReferencedByPlacements() { return (new SetOfIfcLocalPlacementSerializer()).FromAttr(m_instance, "ReferencedByPlacements"); }
+        public SetOfIfcLocalPlacement _ReferencedByPlacements { get { return get_ReferencedByPlacements(); } }
 
         protected override TextValue EntityName() { return "IfcObjectPlacement"; }
     };
@@ -16839,8 +18341,10 @@ namespace IFC2x3
         public static new IfcGridPlacement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcGridPlacement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcVirtualGridIntersection get_PlacementLocation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PlacementLocation", ifcengine.sdaiINSTANCE, out inst); return new IfcVirtualGridIntersection (inst); }
+        public IfcVirtualGridIntersection _PlacementLocation { get { return get_PlacementLocation(); } }
         public void put_PlacementLocation(IfcVirtualGridIntersection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PlacementLocation", ifcengine.sdaiINSTANCE, i); }
         public IfcVirtualGridIntersection get_PlacementRefDirection() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PlacementRefDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcVirtualGridIntersection (inst); }
+        public IfcVirtualGridIntersection _PlacementRefDirection { get { return get_PlacementRefDirection(); } }
         public void put_PlacementRefDirection(IfcVirtualGridIntersection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PlacementRefDirection", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcGridPlacement"; }
@@ -16868,6 +18372,7 @@ namespace IFC2x3
         public static new IfcHeatExchangerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcHeatExchangerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcHeatExchangerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcHeatExchangerTypeEnum_); return EnumValue<IfcHeatExchangerTypeEnum>.FromIndex(ind); }
+        public IfcHeatExchangerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcHeatExchangerTypeEnum value) { var str = EnumString<IfcHeatExchangerTypeEnum>.FromValue(value, EnumNames.IfcHeatExchangerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcHeatExchangerType"; }
@@ -16895,6 +18400,7 @@ namespace IFC2x3
         public static new IfcHumidifierType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcHumidifierType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcHumidifierTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcHumidifierTypeEnum_); return EnumValue<IfcHumidifierTypeEnum>.FromIndex(ind); }
+        public IfcHumidifierTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcHumidifierTypeEnum value) { var str = EnumString<IfcHumidifierTypeEnum>.FromValue(value, EnumNames.IfcHumidifierTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcHumidifierType"; }
@@ -16922,14 +18428,19 @@ namespace IFC2x3
         public static new IfcHygroscopicMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcHygroscopicMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_UpperVaporResistanceFactor() { return get_double("UpperVaporResistanceFactor", ifcengine.sdaiREAL);}
+        public double? _UpperVaporResistanceFactor { get { return get_UpperVaporResistanceFactor(); } }
         public void put_UpperVaporResistanceFactor(double value) { ifcengine.sdaiPutAttrBN(m_instance, "UpperVaporResistanceFactor", ifcengine.sdaiREAL, ref value); }
         public double? get_LowerVaporResistanceFactor() { return get_double("LowerVaporResistanceFactor", ifcengine.sdaiREAL);}
+        public double? _LowerVaporResistanceFactor { get { return get_LowerVaporResistanceFactor(); } }
         public void put_LowerVaporResistanceFactor(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LowerVaporResistanceFactor", ifcengine.sdaiREAL, ref value); }
         public double? get_IsothermalMoistureCapacity() { return get_double("IsothermalMoistureCapacity", ifcengine.sdaiREAL);}
+        public double? _IsothermalMoistureCapacity { get { return get_IsothermalMoistureCapacity(); } }
         public void put_IsothermalMoistureCapacity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "IsothermalMoistureCapacity", ifcengine.sdaiREAL, ref value); }
         public double? get_VaporPermeability() { return get_double("VaporPermeability", ifcengine.sdaiREAL);}
+        public double? _VaporPermeability { get { return get_VaporPermeability(); } }
         public void put_VaporPermeability(double value) { ifcengine.sdaiPutAttrBN(m_instance, "VaporPermeability", ifcengine.sdaiREAL, ref value); }
         public double? get_MoistureDiffusivity() { return get_double("MoistureDiffusivity", ifcengine.sdaiREAL);}
+        public double? _MoistureDiffusivity { get { return get_MoistureDiffusivity(); } }
         public void put_MoistureDiffusivity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MoistureDiffusivity", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcHygroscopicMaterialProperties"; }
@@ -16957,6 +18468,7 @@ namespace IFC2x3
         public static new IfcImageTexture Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcImageTexture"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_UrlReference() { return get_string("UrlReference", ifcengine.sdaiSTRING); }
+        public TextValue _UrlReference { get { return get_UrlReference(); } }
         public void put_UrlReference(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UrlReference", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcImageTexture"; }
@@ -16984,18 +18496,24 @@ namespace IFC2x3
         public static new IfcInventory Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcInventory"); Debug.Assert(inst != 0); return inst; }
 
         public IfcInventoryTypeEnum? get_InventoryType() { var str = get_string("InventoryType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcInventoryTypeEnum_); return EnumValue<IfcInventoryTypeEnum>.FromIndex(ind); }
+        public IfcInventoryTypeEnum? _InventoryType { get { return get_InventoryType(); } }
         public void put_InventoryType(IfcInventoryTypeEnum value) { var str = EnumString<IfcInventoryTypeEnum>.FromValue(value, EnumNames.IfcInventoryTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "InventoryType", ifcengine.sdaiENUM, str); }
 
         public IfcActorSelect_get get_Jurisdiction() { return new IfcActorSelect_get(m_instance, "Jurisdiction", 0); }
+        public IfcActorSelect_get _Jurisdiction { get { return new IfcActorSelect_get(m_instance, "Jurisdiction", 0); } }
         public IfcActorSelect_put put_Jurisdiction() { return new IfcActorSelect_put(m_instance, "Jurisdiction", 0); }
         public SetOfIfcPerson get_ResponsiblePersons() { return (new SetOfIfcPersonSerializer()).FromAttr(m_instance, "ResponsiblePersons"); }
+        public SetOfIfcPerson _ResponsiblePersons { get { return get_ResponsiblePersons(); } }
         public void put_ResponsiblePersons(IEnumerable<IfcPerson> lst) { (new SetOfIfcPersonSerializer()).ToSdaiAggr(lst, m_instance, "ResponsiblePersons"); }
         //public void put_ResponsiblePersons_untyped(IEnumerable lst) { (new SetOfIfcPersonSerializer()).ToSdaiAggr(lst, m_instance, "ResponsiblePersons"); }
         public IfcCalendarDate get_LastUpdateDate() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LastUpdateDate", ifcengine.sdaiINSTANCE, out inst); return new IfcCalendarDate (inst); }
+        public IfcCalendarDate _LastUpdateDate { get { return get_LastUpdateDate(); } }
         public void put_LastUpdateDate(IfcCalendarDate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LastUpdateDate", ifcengine.sdaiINSTANCE, i); }
         public IfcCostValue get_CurrentValue() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "CurrentValue", ifcengine.sdaiINSTANCE, out inst); return new IfcCostValue (inst); }
+        public IfcCostValue _CurrentValue { get { return get_CurrentValue(); } }
         public void put_CurrentValue(IfcCostValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "CurrentValue", ifcengine.sdaiINSTANCE, i); }
         public IfcCostValue get_OriginalValue() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OriginalValue", ifcengine.sdaiINSTANCE, out inst); return new IfcCostValue (inst); }
+        public IfcCostValue _OriginalValue { get { return get_OriginalValue(); } }
         public void put_OriginalValue(IfcCostValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OriginalValue", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcInventory"; }
@@ -17018,25 +18536,34 @@ namespace IFC2x3
         public static implicit operator IfcTimeSeries(SdaiInstance instance) => new IfcTimeSeries(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         public IfcDateTimeSelect_get get_StartTime() { return new IfcDateTimeSelect_get(m_instance, "StartTime", 0); }
+        public IfcDateTimeSelect_get _StartTime { get { return new IfcDateTimeSelect_get(m_instance, "StartTime", 0); } }
         public IfcDateTimeSelect_put put_StartTime() { return new IfcDateTimeSelect_put(m_instance, "StartTime", 0); }
 
         public IfcDateTimeSelect_get get_EndTime() { return new IfcDateTimeSelect_get(m_instance, "EndTime", 0); }
+        public IfcDateTimeSelect_get _EndTime { get { return new IfcDateTimeSelect_get(m_instance, "EndTime", 0); } }
         public IfcDateTimeSelect_put put_EndTime() { return new IfcDateTimeSelect_put(m_instance, "EndTime", 0); }
         public IfcTimeSeriesDataTypeEnum? get_TimeSeriesDataType() { var str = get_string("TimeSeriesDataType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTimeSeriesDataTypeEnum_); return EnumValue<IfcTimeSeriesDataTypeEnum>.FromIndex(ind); }
+        public IfcTimeSeriesDataTypeEnum? _TimeSeriesDataType { get { return get_TimeSeriesDataType(); } }
         public void put_TimeSeriesDataType(IfcTimeSeriesDataTypeEnum value) { var str = EnumString<IfcTimeSeriesDataTypeEnum>.FromValue(value, EnumNames.IfcTimeSeriesDataTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "TimeSeriesDataType", ifcengine.sdaiENUM, str); }
         public IfcDataOriginEnum? get_DataOrigin() { var str = get_string("DataOrigin", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDataOriginEnum_); return EnumValue<IfcDataOriginEnum>.FromIndex(ind); }
+        public IfcDataOriginEnum? _DataOrigin { get { return get_DataOrigin(); } }
         public void put_DataOrigin(IfcDataOriginEnum value) { var str = EnumString<IfcDataOriginEnum>.FromValue(value, EnumNames.IfcDataOriginEnum_); ifcengine.sdaiPutAttrBN(m_instance, "DataOrigin", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedDataOrigin() { return get_string("UserDefinedDataOrigin", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedDataOrigin { get { return get_UserDefinedDataOrigin(); } }
         public void put_UserDefinedDataOrigin(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedDataOrigin", ifcengine.sdaiSTRING, value); }
 
         public IfcUnit_get get_Unit() { return new IfcUnit_get(m_instance, "Unit", 0); }
+        public IfcUnit_get _Unit { get { return new IfcUnit_get(m_instance, "Unit", 0); } }
         public IfcUnit_put put_Unit() { return new IfcUnit_put(m_instance, "Unit", 0); }
         public SetOfIfcTimeSeriesReferenceRelationship get_DocumentedBy() { return (new SetOfIfcTimeSeriesReferenceRelationshipSerializer()).FromAttr(m_instance, "DocumentedBy"); }
+        public SetOfIfcTimeSeriesReferenceRelationship _DocumentedBy { get { return get_DocumentedBy(); } }
 
         protected override TextValue EntityName() { return "IfcTimeSeries"; }
     };
@@ -17063,6 +18590,7 @@ namespace IFC2x3
         public static new IfcIrregularTimeSeries Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcIrregularTimeSeries"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcIrregularTimeSeriesValue get_Values() { return (new ListOfIfcIrregularTimeSeriesValueSerializer()).FromAttr(m_instance, "Values"); }
+        public ListOfIfcIrregularTimeSeriesValue _Values { get { return get_Values(); } }
         public void put_Values(IEnumerable<IfcIrregularTimeSeriesValue> lst) { (new ListOfIfcIrregularTimeSeriesValueSerializer()).ToSdaiAggr(lst, m_instance, "Values"); }
         //public void put_Values_untyped(IEnumerable lst) { (new ListOfIfcIrregularTimeSeriesValueSerializer()).ToSdaiAggr(lst, m_instance, "Values"); }
 
@@ -17092,8 +18620,10 @@ namespace IFC2x3
 
 
         public IfcDateTimeSelect_get get_TimeStamp() { return new IfcDateTimeSelect_get(m_instance, "TimeStamp", 0); }
+        public IfcDateTimeSelect_get _TimeStamp { get { return new IfcDateTimeSelect_get(m_instance, "TimeStamp", 0); } }
         public IfcDateTimeSelect_put put_TimeStamp() { return new IfcDateTimeSelect_put(m_instance, "TimeStamp", 0); }
         public ListOfIfcValue get_ListValues() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "ListValues"); }
+        public ListOfIfcValue _ListValues { get { return get_ListValues(); } }
         public void put_ListValues(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "ListValues"); }
         //public void put_ListValues_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "ListValues"); }
 
@@ -17122,6 +18652,7 @@ namespace IFC2x3
         public static new IfcJunctionBoxType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcJunctionBoxType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcJunctionBoxTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcJunctionBoxTypeEnum_); return EnumValue<IfcJunctionBoxTypeEnum>.FromIndex(ind); }
+        public IfcJunctionBoxTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcJunctionBoxTypeEnum value) { var str = EnumString<IfcJunctionBoxTypeEnum>.FromValue(value, EnumNames.IfcJunctionBoxTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcJunctionBoxType"; }
@@ -17149,6 +18680,7 @@ namespace IFC2x3
         public static new IfcLaborResource Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLaborResource"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_SkillSet() { return get_string("SkillSet", ifcengine.sdaiSTRING); }
+        public TextValue _SkillSet { get { return get_SkillSet(); } }
         public void put_SkillSet(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "SkillSet", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcLaborResource"; }
@@ -17176,6 +18708,7 @@ namespace IFC2x3
         public static new IfcLampType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLampType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcLampTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcLampTypeEnum_); return EnumValue<IfcLampTypeEnum>.FromIndex(ind); }
+        public IfcLampTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcLampTypeEnum value) { var str = EnumString<IfcLampTypeEnum>.FromValue(value, EnumNames.IfcLampTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcLampType"; }
@@ -17203,14 +18736,19 @@ namespace IFC2x3
         public static new IfcLibraryInformation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLibraryInformation"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Version() { return get_string("Version", ifcengine.sdaiSTRING); }
+        public TextValue _Version { get { return get_Version(); } }
         public void put_Version(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Version", ifcengine.sdaiSTRING, value); }
         public IfcOrganization get_Publisher() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Publisher", ifcengine.sdaiINSTANCE, out inst); return new IfcOrganization (inst); }
+        public IfcOrganization _Publisher { get { return get_Publisher(); } }
         public void put_Publisher(IfcOrganization inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Publisher", ifcengine.sdaiINSTANCE, i); }
         public IfcCalendarDate get_VersionDate() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VersionDate", ifcengine.sdaiINSTANCE, out inst); return new IfcCalendarDate (inst); }
+        public IfcCalendarDate _VersionDate { get { return get_VersionDate(); } }
         public void put_VersionDate(IfcCalendarDate inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "VersionDate", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcLibraryReference get_LibraryReference() { return (new SetOfIfcLibraryReferenceSerializer()).FromAttr(m_instance, "LibraryReference"); }
+        public SetOfIfcLibraryReference _LibraryReference { get { return get_LibraryReference(); } }
         public void put_LibraryReference(IEnumerable<IfcLibraryReference> lst) { (new SetOfIfcLibraryReferenceSerializer()).ToSdaiAggr(lst, m_instance, "LibraryReference"); }
         //public void put_LibraryReference_untyped(IEnumerable lst) { (new SetOfIfcLibraryReferenceSerializer()).ToSdaiAggr(lst, m_instance, "LibraryReference"); }
 
@@ -17239,6 +18777,7 @@ namespace IFC2x3
         public static new IfcLibraryReference Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLibraryReference"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcLibraryInformation get_ReferenceIntoLibrary() { return (new SetOfIfcLibraryInformationSerializer()).FromAttr(m_instance, "ReferenceIntoLibrary"); }
+        public SetOfIfcLibraryInformation _ReferenceIntoLibrary { get { return get_ReferenceIntoLibrary(); } }
 
         protected override TextValue EntityName() { return "IfcLibraryReference"; }
     };
@@ -17265,11 +18804,14 @@ namespace IFC2x3
         public static new IfcLightDistributionData Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLightDistributionData"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_MainPlaneAngle() { return get_double("MainPlaneAngle", ifcengine.sdaiREAL);}
+        public double? _MainPlaneAngle { get { return get_MainPlaneAngle(); } }
         public void put_MainPlaneAngle(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MainPlaneAngle", ifcengine.sdaiREAL, ref value); }
         public ListOfIfcPlaneAngleMeasure get_SecondaryPlaneAngle() { return (new ListOfIfcPlaneAngleMeasureSerializer()).FromAttr(m_instance, "SecondaryPlaneAngle"); }
+        public ListOfIfcPlaneAngleMeasure _SecondaryPlaneAngle { get { return get_SecondaryPlaneAngle(); } }
         public void put_SecondaryPlaneAngle(IEnumerable<double> lst) { (new ListOfIfcPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, "SecondaryPlaneAngle"); }
         //public void put_SecondaryPlaneAngle_untyped(IEnumerable lst) { (new ListOfIfcPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, "SecondaryPlaneAngle"); }
         public ListOfIfcLuminousIntensityDistributionMeasure get_LuminousIntensity() { return (new ListOfIfcLuminousIntensityDistributionMeasureSerializer()).FromAttr(m_instance, "LuminousIntensity"); }
+        public ListOfIfcLuminousIntensityDistributionMeasure _LuminousIntensity { get { return get_LuminousIntensity(); } }
         public void put_LuminousIntensity(IEnumerable<double> lst) { (new ListOfIfcLuminousIntensityDistributionMeasureSerializer()).ToSdaiAggr(lst, m_instance, "LuminousIntensity"); }
         //public void put_LuminousIntensity_untyped(IEnumerable lst) { (new ListOfIfcLuminousIntensityDistributionMeasureSerializer()).ToSdaiAggr(lst, m_instance, "LuminousIntensity"); }
 
@@ -17298,6 +18840,7 @@ namespace IFC2x3
         public static new IfcLightFixtureType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLightFixtureType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcLightFixtureTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcLightFixtureTypeEnum_); return EnumValue<IfcLightFixtureTypeEnum>.FromIndex(ind); }
+        public IfcLightFixtureTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcLightFixtureTypeEnum value) { var str = EnumString<IfcLightFixtureTypeEnum>.FromValue(value, EnumNames.IfcLightFixtureTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcLightFixtureType"; }
@@ -17325,8 +18868,10 @@ namespace IFC2x3
         public static new IfcLightIntensityDistribution Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLightIntensityDistribution"); Debug.Assert(inst != 0); return inst; }
 
         public IfcLightDistributionCurveEnum? get_LightDistributionCurve() { var str = get_string("LightDistributionCurve", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcLightDistributionCurveEnum_); return EnumValue<IfcLightDistributionCurveEnum>.FromIndex(ind); }
+        public IfcLightDistributionCurveEnum? _LightDistributionCurve { get { return get_LightDistributionCurve(); } }
         public void put_LightDistributionCurve(IfcLightDistributionCurveEnum value) { var str = EnumString<IfcLightDistributionCurveEnum>.FromValue(value, EnumNames.IfcLightDistributionCurveEnum_); ifcengine.sdaiPutAttrBN(m_instance, "LightDistributionCurve", ifcengine.sdaiENUM, str); }
         public ListOfIfcLightDistributionData get_DistributionData() { return (new ListOfIfcLightDistributionDataSerializer()).FromAttr(m_instance, "DistributionData"); }
+        public ListOfIfcLightDistributionData _DistributionData { get { return get_DistributionData(); } }
         public void put_DistributionData(IEnumerable<IfcLightDistributionData> lst) { (new ListOfIfcLightDistributionDataSerializer()).ToSdaiAggr(lst, m_instance, "DistributionData"); }
         //public void put_DistributionData_untyped(IEnumerable lst) { (new ListOfIfcLightDistributionDataSerializer()).ToSdaiAggr(lst, m_instance, "DistributionData"); }
 
@@ -17350,12 +18895,16 @@ namespace IFC2x3
         public static implicit operator IfcLightSource(SdaiInstance instance) => new IfcLightSource(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public IfcColourRgb get_LightColour() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LightColour", ifcengine.sdaiINSTANCE, out inst); return new IfcColourRgb (inst); }
+        public IfcColourRgb _LightColour { get { return get_LightColour(); } }
         public void put_LightColour(IfcColourRgb inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LightColour", ifcengine.sdaiINSTANCE, i); }
         public double? get_AmbientIntensity() { return get_double("AmbientIntensity", ifcengine.sdaiREAL);}
+        public double? _AmbientIntensity { get { return get_AmbientIntensity(); } }
         public void put_AmbientIntensity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "AmbientIntensity", ifcengine.sdaiREAL, ref value); }
         public double? get_Intensity() { return get_double("Intensity", ifcengine.sdaiREAL);}
+        public double? _Intensity { get { return get_Intensity(); } }
         public void put_Intensity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Intensity", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcLightSource"; }
@@ -17408,6 +18957,7 @@ namespace IFC2x3
         public static new IfcLightSourceDirectional Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLightSourceDirectional"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_Orientation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Orientation", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Orientation { get { return get_Orientation(); } }
         public void put_Orientation(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Orientation", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcLightSourceDirectional"; }
@@ -17435,17 +18985,23 @@ namespace IFC2x3
         public static new IfcLightSourceGoniometric Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLightSourceGoniometric"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAxis2Placement3D get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _Position { get { return get_Position(); } }
         public void put_Position(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
         public IfcColourRgb get_ColourAppearance() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ColourAppearance", ifcengine.sdaiINSTANCE, out inst); return new IfcColourRgb (inst); }
+        public IfcColourRgb _ColourAppearance { get { return get_ColourAppearance(); } }
         public void put_ColourAppearance(IfcColourRgb inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ColourAppearance", ifcengine.sdaiINSTANCE, i); }
         public double? get_ColourTemperature() { return get_double("ColourTemperature", ifcengine.sdaiREAL);}
+        public double? _ColourTemperature { get { return get_ColourTemperature(); } }
         public void put_ColourTemperature(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ColourTemperature", ifcengine.sdaiREAL, ref value); }
         public double? get_LuminousFlux() { return get_double("LuminousFlux", ifcengine.sdaiREAL);}
+        public double? _LuminousFlux { get { return get_LuminousFlux(); } }
         public void put_LuminousFlux(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LuminousFlux", ifcengine.sdaiREAL, ref value); }
         public IfcLightEmissionSourceEnum? get_LightEmissionSource() { var str = get_string("LightEmissionSource", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcLightEmissionSourceEnum_); return EnumValue<IfcLightEmissionSourceEnum>.FromIndex(ind); }
+        public IfcLightEmissionSourceEnum? _LightEmissionSource { get { return get_LightEmissionSource(); } }
         public void put_LightEmissionSource(IfcLightEmissionSourceEnum value) { var str = EnumString<IfcLightEmissionSourceEnum>.FromValue(value, EnumNames.IfcLightEmissionSourceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "LightEmissionSource", ifcengine.sdaiENUM, str); }
 
         public IfcLightDistributionDataSourceSelect_get get_LightDistributionDataSource() { return new IfcLightDistributionDataSourceSelect_get(m_instance, "LightDistributionDataSource", 0); }
+        public IfcLightDistributionDataSourceSelect_get _LightDistributionDataSource { get { return new IfcLightDistributionDataSourceSelect_get(m_instance, "LightDistributionDataSource", 0); } }
         public IfcLightDistributionDataSourceSelect_put put_LightDistributionDataSource() { return new IfcLightDistributionDataSourceSelect_put(m_instance, "LightDistributionDataSource", 0); }
 
         protected override TextValue EntityName() { return "IfcLightSourceGoniometric"; }
@@ -17473,14 +19029,19 @@ namespace IFC2x3
         public static new IfcLightSourcePositional Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLightSourcePositional"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCartesianPoint get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint (inst); }
+        public IfcCartesianPoint _Position { get { return get_Position(); } }
         public void put_Position(IfcCartesianPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
         public double? get_ConstantAttenuation() { return get_double("ConstantAttenuation", ifcengine.sdaiREAL);}
+        public double? _ConstantAttenuation { get { return get_ConstantAttenuation(); } }
         public void put_ConstantAttenuation(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ConstantAttenuation", ifcengine.sdaiREAL, ref value); }
         public double? get_DistanceAttenuation() { return get_double("DistanceAttenuation", ifcengine.sdaiREAL);}
+        public double? _DistanceAttenuation { get { return get_DistanceAttenuation(); } }
         public void put_DistanceAttenuation(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DistanceAttenuation", ifcengine.sdaiREAL, ref value); }
         public double? get_QuadricAttenuation() { return get_double("QuadricAttenuation", ifcengine.sdaiREAL);}
+        public double? _QuadricAttenuation { get { return get_QuadricAttenuation(); } }
         public void put_QuadricAttenuation(double value) { ifcengine.sdaiPutAttrBN(m_instance, "QuadricAttenuation", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcLightSourcePositional"; }
@@ -17508,12 +19069,16 @@ namespace IFC2x3
         public static new IfcLightSourceSpot Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLightSourceSpot"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_Orientation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Orientation", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Orientation { get { return get_Orientation(); } }
         public void put_Orientation(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Orientation", ifcengine.sdaiINSTANCE, i); }
         public double? get_ConcentrationExponent() { return get_double("ConcentrationExponent", ifcengine.sdaiREAL);}
+        public double? _ConcentrationExponent { get { return get_ConcentrationExponent(); } }
         public void put_ConcentrationExponent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ConcentrationExponent", ifcengine.sdaiREAL, ref value); }
         public double? get_SpreadAngle() { return get_double("SpreadAngle", ifcengine.sdaiREAL);}
+        public double? _SpreadAngle { get { return get_SpreadAngle(); } }
         public void put_SpreadAngle(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SpreadAngle", ifcengine.sdaiREAL, ref value); }
         public double? get_BeamWidthAngle() { return get_double("BeamWidthAngle", ifcengine.sdaiREAL);}
+        public double? _BeamWidthAngle { get { return get_BeamWidthAngle(); } }
         public void put_BeamWidthAngle(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BeamWidthAngle", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcLightSourceSpot"; }
@@ -17541,8 +19106,10 @@ namespace IFC2x3
         public static new IfcLine Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLine"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCartesianPoint get_Pnt() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Pnt", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint (inst); }
+        public IfcCartesianPoint _Pnt { get { return get_Pnt(); } }
         public void put_Pnt(IfcCartesianPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Pnt", ifcengine.sdaiINSTANCE, i); }
         public IfcVector get_Dir() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Dir", ifcengine.sdaiINSTANCE, out inst); return new IfcVector (inst); }
+        public IfcVector _Dir { get { return get_Dir(); } }
         public void put_Dir(IfcVector inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Dir", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcLine"; }
@@ -17595,9 +19162,11 @@ namespace IFC2x3
         public static new IfcLocalPlacement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLocalPlacement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcObjectPlacement get_PlacementRelTo() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PlacementRelTo", ifcengine.sdaiINSTANCE, out inst); return new IfcObjectPlacement (inst); }
+        public IfcObjectPlacement _PlacementRelTo { get { return get_PlacementRelTo(); } }
         public void put_PlacementRelTo(IfcObjectPlacement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PlacementRelTo", ifcengine.sdaiINSTANCE, i); }
 
         public IfcAxis2Placement_get get_RelativePlacement() { return new IfcAxis2Placement_get(m_instance, "RelativePlacement", 0); }
+        public IfcAxis2Placement_get _RelativePlacement { get { return new IfcAxis2Placement_get(m_instance, "RelativePlacement", 0); } }
         public IfcAxis2Placement_put put_RelativePlacement() { return new IfcAxis2Placement_put(m_instance, "RelativePlacement", 0); }
 
         protected override TextValue EntityName() { return "IfcLocalPlacement"; }
@@ -17625,14 +19194,19 @@ namespace IFC2x3
         public static new IfcLocalTime Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLocalTime"); Debug.Assert(inst != 0); return inst; }
 
         public IntValue? get_HourComponent() { return get_IntValue("HourComponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _HourComponent { get { return get_HourComponent(); } }
         public void put_HourComponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "HourComponent", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_MinuteComponent() { return get_IntValue("MinuteComponent", ifcengine.sdaiINTEGER);}
+        public IntValue? _MinuteComponent { get { return get_MinuteComponent(); } }
         public void put_MinuteComponent(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "MinuteComponent", ifcengine.sdaiINTEGER, ref value); }
         public double? get_SecondComponent() { return get_double("SecondComponent", ifcengine.sdaiREAL);}
+        public double? _SecondComponent { get { return get_SecondComponent(); } }
         public void put_SecondComponent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SecondComponent", ifcengine.sdaiREAL, ref value); }
         public IfcCoordinatedUniversalTimeOffset get_Zone() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Zone", ifcengine.sdaiINSTANCE, out inst); return new IfcCoordinatedUniversalTimeOffset (inst); }
+        public IfcCoordinatedUniversalTimeOffset _Zone { get { return get_Zone(); } }
         public void put_Zone(IfcCoordinatedUniversalTimeOffset inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Zone", ifcengine.sdaiINSTANCE, i); }
         public IntValue? get_DaylightSavingOffset() { return get_IntValue("DaylightSavingOffset", ifcengine.sdaiINTEGER);}
+        public IntValue? _DaylightSavingOffset { get { return get_DaylightSavingOffset(); } }
         public void put_DaylightSavingOffset(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "DaylightSavingOffset", ifcengine.sdaiINTEGER, ref value); }
 
         protected override TextValue EntityName() { return "IfcLocalTime"; }
@@ -17660,20 +19234,28 @@ namespace IFC2x3
         public static new IfcLShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcLShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Depth() { return get_double("Depth", ifcengine.sdaiREAL);}
+        public double? _Depth { get { return get_Depth(); } }
         public void put_Depth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref value); }
         public double? get_Width() { return get_double("Width", ifcengine.sdaiREAL);}
+        public double? _Width { get { return get_Width(); } }
         public void put_Width(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Width", ifcengine.sdaiREAL, ref value); }
         public double? get_Thickness() { return get_double("Thickness", ifcengine.sdaiREAL);}
+        public double? _Thickness { get { return get_Thickness(); } }
         public void put_Thickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Thickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FilletRadius() { return get_double("FilletRadius", ifcengine.sdaiREAL);}
+        public double? _FilletRadius { get { return get_FilletRadius(); } }
         public void put_FilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FilletRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_EdgeRadius() { return get_double("EdgeRadius", ifcengine.sdaiREAL);}
+        public double? _EdgeRadius { get { return get_EdgeRadius(); } }
         public void put_EdgeRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EdgeRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_LegSlope() { return get_double("LegSlope", ifcengine.sdaiREAL);}
+        public double? _LegSlope { get { return get_LegSlope(); } }
         public void put_LegSlope(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LegSlope", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInX() { return get_double("CentreOfGravityInX", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInX { get { return get_CentreOfGravityInX(); } }
         public void put_CentreOfGravityInX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInX", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInY() { return get_double("CentreOfGravityInY", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInY { get { return get_CentreOfGravityInY(); } }
         public void put_CentreOfGravityInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInY", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcLShapeProfileDef"; }
@@ -17701,8 +19283,10 @@ namespace IFC2x3
         public static new IfcMappedItem Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMappedItem"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRepresentationMap get_MappingSource() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "MappingSource", ifcengine.sdaiINSTANCE, out inst); return new IfcRepresentationMap (inst); }
+        public IfcRepresentationMap _MappingSource { get { return get_MappingSource(); } }
         public void put_MappingSource(IfcRepresentationMap inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "MappingSource", ifcengine.sdaiINSTANCE, i); }
         public IfcCartesianTransformationOperator get_MappingTarget() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "MappingTarget", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianTransformationOperator (inst); }
+        public IfcCartesianTransformationOperator _MappingTarget { get { return get_MappingTarget(); } }
         public void put_MappingTarget(IfcCartesianTransformationOperator inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "MappingTarget", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcMappedItem"; }
@@ -17730,9 +19314,12 @@ namespace IFC2x3
         public static new IfcMaterial Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMaterial"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public SetOfIfcMaterialDefinitionRepresentation get_HasRepresentation() { return (new SetOfIfcMaterialDefinitionRepresentationSerializer()).FromAttr(m_instance, "HasRepresentation"); }
+        public SetOfIfcMaterialDefinitionRepresentation _HasRepresentation { get { return get_HasRepresentation(); } }
         public SetOfIfcMaterialClassificationRelationship get_ClassifiedAs() { return (new SetOfIfcMaterialClassificationRelationshipSerializer()).FromAttr(m_instance, "ClassifiedAs"); }
+        public SetOfIfcMaterialClassificationRelationship _ClassifiedAs { get { return get_ClassifiedAs(); } }
 
         protected override TextValue EntityName() { return "IfcMaterial"; }
     };
@@ -17759,9 +19346,11 @@ namespace IFC2x3
         public static new IfcMaterialClassificationRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMaterialClassificationRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcClassificationNotationSelect get_MaterialClassifications() { return (new SetOfIfcClassificationNotationSelectSerializer()).FromAttr(m_instance, "MaterialClassifications"); }
+        public SetOfIfcClassificationNotationSelect _MaterialClassifications { get { return get_MaterialClassifications(); } }
         public void put_MaterialClassifications(IEnumerable<IfcClassificationNotationSelect> lst) { (new SetOfIfcClassificationNotationSelectSerializer()).ToSdaiAggr(lst, m_instance, "MaterialClassifications"); }
         //public void put_MaterialClassifications_untyped(IEnumerable lst) { (new SetOfIfcClassificationNotationSelectSerializer()).ToSdaiAggr(lst, m_instance, "MaterialClassifications"); }
         public IfcMaterial get_ClassifiedMaterial() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ClassifiedMaterial", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterial (inst); }
+        public IfcMaterial _ClassifiedMaterial { get { return get_ClassifiedMaterial(); } }
         public void put_ClassifiedMaterial(IfcMaterial inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ClassifiedMaterial", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcMaterialClassificationRelationship"; }
@@ -17789,10 +19378,13 @@ namespace IFC2x3
         public static new IfcProductRepresentation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProductRepresentation"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public ListOfIfcRepresentation get_Representations() { return (new ListOfIfcRepresentationSerializer()).FromAttr(m_instance, "Representations"); }
+        public ListOfIfcRepresentation _Representations { get { return get_Representations(); } }
         public void put_Representations(IEnumerable<IfcRepresentation> lst) { (new ListOfIfcRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "Representations"); }
         //public void put_Representations_untyped(IEnumerable lst) { (new ListOfIfcRepresentationSerializer()).ToSdaiAggr(lst, m_instance, "Representations"); }
 
@@ -17821,6 +19413,7 @@ namespace IFC2x3
         public static new IfcMaterialDefinitionRepresentation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMaterialDefinitionRepresentation"); Debug.Assert(inst != 0); return inst; }
 
         public IfcMaterial get_RepresentedMaterial() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RepresentedMaterial", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterial (inst); }
+        public IfcMaterial _RepresentedMaterial { get { return get_RepresentedMaterial(); } }
         public void put_RepresentedMaterial(IfcMaterial inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RepresentedMaterial", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcMaterialDefinitionRepresentation"; }
@@ -17848,12 +19441,16 @@ namespace IFC2x3
         public static new IfcMaterialLayer Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMaterialLayer"); Debug.Assert(inst != 0); return inst; }
 
         public IfcMaterial get_Material() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Material", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterial (inst); }
+        public IfcMaterial _Material { get { return get_Material(); } }
         public void put_Material(IfcMaterial inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Material", ifcengine.sdaiINSTANCE, i); }
         public double? get_LayerThickness() { return get_double("LayerThickness", ifcengine.sdaiREAL);}
+        public double? _LayerThickness { get { return get_LayerThickness(); } }
         public void put_LayerThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LayerThickness", ifcengine.sdaiREAL, ref value); }
         public LOGICAL_VALUE? get_IsVentilated() { var str = get_string("IsVentilated", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _IsVentilated { get { return get_IsVentilated(); } }
         public void put_IsVentilated(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "IsVentilated", ifcengine.sdaiENUM, str); }
         public IfcMaterialLayerSet get_ToMaterialLayerSet() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ToMaterialLayerSet", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterialLayerSet (inst); }
+        public IfcMaterialLayerSet _ToMaterialLayerSet { get { return get_ToMaterialLayerSet(); } }
 
         protected override TextValue EntityName() { return "IfcMaterialLayer"; }
     };
@@ -17880,9 +19477,11 @@ namespace IFC2x3
         public static new IfcMaterialLayerSet Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMaterialLayerSet"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcMaterialLayer get_MaterialLayers() { return (new ListOfIfcMaterialLayerSerializer()).FromAttr(m_instance, "MaterialLayers"); }
+        public ListOfIfcMaterialLayer _MaterialLayers { get { return get_MaterialLayers(); } }
         public void put_MaterialLayers(IEnumerable<IfcMaterialLayer> lst) { (new ListOfIfcMaterialLayerSerializer()).ToSdaiAggr(lst, m_instance, "MaterialLayers"); }
         //public void put_MaterialLayers_untyped(IEnumerable lst) { (new ListOfIfcMaterialLayerSerializer()).ToSdaiAggr(lst, m_instance, "MaterialLayers"); }
         public TextValue get_LayerSetName() { return get_string("LayerSetName", ifcengine.sdaiSTRING); }
+        public TextValue _LayerSetName { get { return get_LayerSetName(); } }
         public void put_LayerSetName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LayerSetName", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcMaterialLayerSet"; }
@@ -17910,12 +19509,16 @@ namespace IFC2x3
         public static new IfcMaterialLayerSetUsage Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMaterialLayerSetUsage"); Debug.Assert(inst != 0); return inst; }
 
         public IfcMaterialLayerSet get_ForLayerSet() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ForLayerSet", ifcengine.sdaiINSTANCE, out inst); return new IfcMaterialLayerSet (inst); }
+        public IfcMaterialLayerSet _ForLayerSet { get { return get_ForLayerSet(); } }
         public void put_ForLayerSet(IfcMaterialLayerSet inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ForLayerSet", ifcengine.sdaiINSTANCE, i); }
         public IfcLayerSetDirectionEnum? get_LayerSetDirection() { var str = get_string("LayerSetDirection", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcLayerSetDirectionEnum_); return EnumValue<IfcLayerSetDirectionEnum>.FromIndex(ind); }
+        public IfcLayerSetDirectionEnum? _LayerSetDirection { get { return get_LayerSetDirection(); } }
         public void put_LayerSetDirection(IfcLayerSetDirectionEnum value) { var str = EnumString<IfcLayerSetDirectionEnum>.FromValue(value, EnumNames.IfcLayerSetDirectionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "LayerSetDirection", ifcengine.sdaiENUM, str); }
         public IfcDirectionSenseEnum? get_DirectionSense() { var str = get_string("DirectionSense", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcDirectionSenseEnum_); return EnumValue<IfcDirectionSenseEnum>.FromIndex(ind); }
+        public IfcDirectionSenseEnum? _DirectionSense { get { return get_DirectionSense(); } }
         public void put_DirectionSense(IfcDirectionSenseEnum value) { var str = EnumString<IfcDirectionSenseEnum>.FromValue(value, EnumNames.IfcDirectionSenseEnum_); ifcengine.sdaiPutAttrBN(m_instance, "DirectionSense", ifcengine.sdaiENUM, str); }
         public double? get_OffsetFromReferenceLine() { return get_double("OffsetFromReferenceLine", ifcengine.sdaiREAL);}
+        public double? _OffsetFromReferenceLine { get { return get_OffsetFromReferenceLine(); } }
         public void put_OffsetFromReferenceLine(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OffsetFromReferenceLine", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcMaterialLayerSetUsage"; }
@@ -17943,6 +19546,7 @@ namespace IFC2x3
         public static new IfcMaterialList Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMaterialList"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcMaterial get_Materials() { return (new ListOfIfcMaterialSerializer()).FromAttr(m_instance, "Materials"); }
+        public ListOfIfcMaterial _Materials { get { return get_Materials(); } }
         public void put_Materials(IEnumerable<IfcMaterial> lst) { (new ListOfIfcMaterialSerializer()).ToSdaiAggr(lst, m_instance, "Materials"); }
         //public void put_Materials_untyped(IEnumerable lst) { (new ListOfIfcMaterialSerializer()).ToSdaiAggr(lst, m_instance, "Materials"); }
 
@@ -17972,9 +19576,11 @@ namespace IFC2x3
 
 
         public IfcValue_get get_ValueComponent() { return new IfcValue_get(m_instance, "ValueComponent", 0); }
+        public IfcValue_get _ValueComponent { get { return new IfcValue_get(m_instance, "ValueComponent", 0); } }
         public IfcValue_put put_ValueComponent() { return new IfcValue_put(m_instance, "ValueComponent", 0); }
 
         public IfcUnit_get get_UnitComponent() { return new IfcUnit_get(m_instance, "UnitComponent", 0); }
+        public IfcUnit_get _UnitComponent { get { return new IfcUnit_get(m_instance, "UnitComponent", 0); } }
         public IfcUnit_put put_UnitComponent() { return new IfcUnit_put(m_instance, "UnitComponent", 0); }
 
         protected override TextValue EntityName() { return "IfcMeasureWithUnit"; }
@@ -18002,14 +19608,19 @@ namespace IFC2x3
         public static new IfcMechanicalMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMechanicalMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_DynamicViscosity() { return get_double("DynamicViscosity", ifcengine.sdaiREAL);}
+        public double? _DynamicViscosity { get { return get_DynamicViscosity(); } }
         public void put_DynamicViscosity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DynamicViscosity", ifcengine.sdaiREAL, ref value); }
         public double? get_YoungModulus() { return get_double("YoungModulus", ifcengine.sdaiREAL);}
+        public double? _YoungModulus { get { return get_YoungModulus(); } }
         public void put_YoungModulus(double value) { ifcengine.sdaiPutAttrBN(m_instance, "YoungModulus", ifcengine.sdaiREAL, ref value); }
         public double? get_ShearModulus() { return get_double("ShearModulus", ifcengine.sdaiREAL);}
+        public double? _ShearModulus { get { return get_ShearModulus(); } }
         public void put_ShearModulus(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ShearModulus", ifcengine.sdaiREAL, ref value); }
         public double? get_PoissonRatio() { return get_double("PoissonRatio", ifcengine.sdaiREAL);}
+        public double? _PoissonRatio { get { return get_PoissonRatio(); } }
         public void put_PoissonRatio(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PoissonRatio", ifcengine.sdaiREAL, ref value); }
         public double? get_ThermalExpansionCoefficient() { return get_double("ThermalExpansionCoefficient", ifcengine.sdaiREAL);}
+        public double? _ThermalExpansionCoefficient { get { return get_ThermalExpansionCoefficient(); } }
         public void put_ThermalExpansionCoefficient(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThermalExpansionCoefficient", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcMechanicalMaterialProperties"; }
@@ -18037,16 +19648,22 @@ namespace IFC2x3
         public static new IfcMechanicalConcreteMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMechanicalConcreteMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_CompressiveStrength() { return get_double("CompressiveStrength", ifcengine.sdaiREAL);}
+        public double? _CompressiveStrength { get { return get_CompressiveStrength(); } }
         public void put_CompressiveStrength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CompressiveStrength", ifcengine.sdaiREAL, ref value); }
         public double? get_MaxAggregateSize() { return get_double("MaxAggregateSize", ifcengine.sdaiREAL);}
+        public double? _MaxAggregateSize { get { return get_MaxAggregateSize(); } }
         public void put_MaxAggregateSize(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MaxAggregateSize", ifcengine.sdaiREAL, ref value); }
         public TextValue get_AdmixturesDescription() { return get_string("AdmixturesDescription", ifcengine.sdaiSTRING); }
+        public TextValue _AdmixturesDescription { get { return get_AdmixturesDescription(); } }
         public void put_AdmixturesDescription(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "AdmixturesDescription", ifcengine.sdaiSTRING, value); }
         public TextValue get_Workability() { return get_string("Workability", ifcengine.sdaiSTRING); }
+        public TextValue _Workability { get { return get_Workability(); } }
         public void put_Workability(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Workability", ifcengine.sdaiSTRING, value); }
         public double? get_ProtectivePoreRatio() { return get_double("ProtectivePoreRatio", ifcengine.sdaiREAL);}
+        public double? _ProtectivePoreRatio { get { return get_ProtectivePoreRatio(); } }
         public void put_ProtectivePoreRatio(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ProtectivePoreRatio", ifcengine.sdaiREAL, ref value); }
         public TextValue get_WaterImpermeability() { return get_string("WaterImpermeability", ifcengine.sdaiSTRING); }
+        public TextValue _WaterImpermeability { get { return get_WaterImpermeability(); } }
         public void put_WaterImpermeability(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "WaterImpermeability", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcMechanicalConcreteMaterialProperties"; }
@@ -18074,8 +19691,10 @@ namespace IFC2x3
         public static new IfcMechanicalFastener Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMechanicalFastener"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_NominalDiameter() { return get_double("NominalDiameter", ifcengine.sdaiREAL);}
+        public double? _NominalDiameter { get { return get_NominalDiameter(); } }
         public void put_NominalDiameter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "NominalDiameter", ifcengine.sdaiREAL, ref value); }
         public double? get_NominalLength() { return get_double("NominalLength", ifcengine.sdaiREAL);}
+        public double? _NominalLength { get { return get_NominalLength(); } }
         public void put_NominalLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "NominalLength", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcMechanicalFastener"; }
@@ -18128,18 +19747,25 @@ namespace IFC2x3
         public static new IfcMechanicalSteelMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMechanicalSteelMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_YieldStress() { return get_double("YieldStress", ifcengine.sdaiREAL);}
+        public double? _YieldStress { get { return get_YieldStress(); } }
         public void put_YieldStress(double value) { ifcengine.sdaiPutAttrBN(m_instance, "YieldStress", ifcengine.sdaiREAL, ref value); }
         public double? get_UltimateStress() { return get_double("UltimateStress", ifcengine.sdaiREAL);}
+        public double? _UltimateStress { get { return get_UltimateStress(); } }
         public void put_UltimateStress(double value) { ifcengine.sdaiPutAttrBN(m_instance, "UltimateStress", ifcengine.sdaiREAL, ref value); }
         public double? get_UltimateStrain() { return get_double("UltimateStrain", ifcengine.sdaiREAL);}
+        public double? _UltimateStrain { get { return get_UltimateStrain(); } }
         public void put_UltimateStrain(double value) { ifcengine.sdaiPutAttrBN(m_instance, "UltimateStrain", ifcengine.sdaiREAL, ref value); }
         public double? get_HardeningModule() { return get_double("HardeningModule", ifcengine.sdaiREAL);}
+        public double? _HardeningModule { get { return get_HardeningModule(); } }
         public void put_HardeningModule(double value) { ifcengine.sdaiPutAttrBN(m_instance, "HardeningModule", ifcengine.sdaiREAL, ref value); }
         public double? get_ProportionalStress() { return get_double("ProportionalStress", ifcengine.sdaiREAL);}
+        public double? _ProportionalStress { get { return get_ProportionalStress(); } }
         public void put_ProportionalStress(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ProportionalStress", ifcengine.sdaiREAL, ref value); }
         public double? get_PlasticStrain() { return get_double("PlasticStrain", ifcengine.sdaiREAL);}
+        public double? _PlasticStrain { get { return get_PlasticStrain(); } }
         public void put_PlasticStrain(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PlasticStrain", ifcengine.sdaiREAL, ref value); }
         public SetOfIfcRelaxation get_Relaxations() { return (new SetOfIfcRelaxationSerializer()).FromAttr(m_instance, "Relaxations"); }
+        public SetOfIfcRelaxation _Relaxations { get { return get_Relaxations(); } }
         public void put_Relaxations(IEnumerable<IfcRelaxation> lst) { (new SetOfIfcRelaxationSerializer()).ToSdaiAggr(lst, m_instance, "Relaxations"); }
         //public void put_Relaxations_untyped(IEnumerable lst) { (new SetOfIfcRelaxationSerializer()).ToSdaiAggr(lst, m_instance, "Relaxations"); }
 
@@ -18193,6 +19819,7 @@ namespace IFC2x3
         public static new IfcMemberType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMemberType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcMemberTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcMemberTypeEnum_); return EnumValue<IfcMemberTypeEnum>.FromIndex(ind); }
+        public IfcMemberTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcMemberTypeEnum value) { var str = EnumString<IfcMemberTypeEnum>.FromValue(value, EnumNames.IfcMemberTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcMemberType"; }
@@ -18220,11 +19847,14 @@ namespace IFC2x3
         public static new IfcMetric Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMetric"); Debug.Assert(inst != 0); return inst; }
 
         public IfcBenchmarkEnum? get_Benchmark() { var str = get_string("Benchmark", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcBenchmarkEnum_); return EnumValue<IfcBenchmarkEnum>.FromIndex(ind); }
+        public IfcBenchmarkEnum? _Benchmark { get { return get_Benchmark(); } }
         public void put_Benchmark(IfcBenchmarkEnum value) { var str = EnumString<IfcBenchmarkEnum>.FromValue(value, EnumNames.IfcBenchmarkEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Benchmark", ifcengine.sdaiENUM, str); }
         public TextValue get_ValueSource() { return get_string("ValueSource", ifcengine.sdaiSTRING); }
+        public TextValue _ValueSource { get { return get_ValueSource(); } }
         public void put_ValueSource(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ValueSource", ifcengine.sdaiSTRING, value); }
 
         public IfcMetricValueSelect_get get_DataValue() { return new IfcMetricValueSelect_get(m_instance, "DataValue", 0); }
+        public IfcMetricValueSelect_get _DataValue { get { return new IfcMetricValueSelect_get(m_instance, "DataValue", 0); } }
         public IfcMetricValueSelect_put put_DataValue() { return new IfcMetricValueSelect_put(m_instance, "DataValue", 0); }
 
         protected override TextValue EntityName() { return "IfcMetric"; }
@@ -18252,6 +19882,7 @@ namespace IFC2x3
         public static new IfcMonetaryUnit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMonetaryUnit"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurrencyEnum? get_Currency() { var str = get_string("Currency", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcCurrencyEnum_); return EnumValue<IfcCurrencyEnum>.FromIndex(ind); }
+        public IfcCurrencyEnum? _Currency { get { return get_Currency(); } }
         public void put_Currency(IfcCurrencyEnum value) { var str = EnumString<IfcCurrencyEnum>.FromValue(value, EnumNames.IfcCurrencyEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Currency", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcMonetaryUnit"; }
@@ -18279,6 +19910,7 @@ namespace IFC2x3
         public static new IfcMotorConnectionType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMotorConnectionType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcMotorConnectionTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcMotorConnectionTypeEnum_); return EnumValue<IfcMotorConnectionTypeEnum>.FromIndex(ind); }
+        public IfcMotorConnectionTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcMotorConnectionTypeEnum value) { var str = EnumString<IfcMotorConnectionTypeEnum>.FromValue(value, EnumNames.IfcMotorConnectionTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcMotorConnectionType"; }
@@ -18301,8 +19933,11 @@ namespace IFC2x3
         public static implicit operator IfcProcess(SdaiInstance instance) => new IfcProcess(instance);
 
         public SetOfIfcRelAssignsToProcess get_OperatesOn() { return (new SetOfIfcRelAssignsToProcessSerializer()).FromAttr(m_instance, "OperatesOn"); }
+        public SetOfIfcRelAssignsToProcess _OperatesOn { get { return get_OperatesOn(); } }
         public SetOfIfcRelSequence get_IsSuccessorFrom() { return (new SetOfIfcRelSequenceSerializer()).FromAttr(m_instance, "IsSuccessorFrom"); }
+        public SetOfIfcRelSequence _IsSuccessorFrom { get { return get_IsSuccessorFrom(); } }
         public SetOfIfcRelSequence get_IsPredecessorTo() { return (new SetOfIfcRelSequenceSerializer()).FromAttr(m_instance, "IsPredecessorTo"); }
+        public SetOfIfcRelSequence _IsPredecessorTo { get { return get_IsPredecessorTo(); } }
 
         protected override TextValue EntityName() { return "IfcProcess"; }
     };
@@ -18329,14 +19964,19 @@ namespace IFC2x3
         public static new IfcTask Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTask"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_TaskId() { return get_string("TaskId", ifcengine.sdaiSTRING); }
+        public TextValue _TaskId { get { return get_TaskId(); } }
         public void put_TaskId(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "TaskId", ifcengine.sdaiSTRING, value); }
         public TextValue get_Status() { return get_string("Status", ifcengine.sdaiSTRING); }
+        public TextValue _Status { get { return get_Status(); } }
         public void put_Status(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Status", ifcengine.sdaiSTRING, value); }
         public TextValue get_WorkMethod() { return get_string("WorkMethod", ifcengine.sdaiSTRING); }
+        public TextValue _WorkMethod { get { return get_WorkMethod(); } }
         public void put_WorkMethod(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "WorkMethod", ifcengine.sdaiSTRING, value); }
         public bool? get_IsMilestone() { return get_bool("IsMilestone", ifcengine.sdaiBOOLEAN);}
+        public bool? _IsMilestone { get { return get_IsMilestone(); } }
         public void put_IsMilestone(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsMilestone", ifcengine.sdaiBOOLEAN, ref value); }
         public IntValue? get_Priority() { return get_IntValue("Priority", ifcengine.sdaiINTEGER);}
+        public IntValue? _Priority { get { return get_Priority(); } }
         public void put_Priority(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Priority", ifcengine.sdaiINTEGER, ref value); }
 
         protected override TextValue EntityName() { return "IfcTask"; }
@@ -18364,10 +20004,13 @@ namespace IFC2x3
         public static new IfcMove Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcMove"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSpatialStructureElement get_MoveFrom() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "MoveFrom", ifcengine.sdaiINSTANCE, out inst); return new IfcSpatialStructureElement (inst); }
+        public IfcSpatialStructureElement _MoveFrom { get { return get_MoveFrom(); } }
         public void put_MoveFrom(IfcSpatialStructureElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "MoveFrom", ifcengine.sdaiINSTANCE, i); }
         public IfcSpatialStructureElement get_MoveTo() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "MoveTo", ifcengine.sdaiINSTANCE, out inst); return new IfcSpatialStructureElement (inst); }
+        public IfcSpatialStructureElement _MoveTo { get { return get_MoveTo(); } }
         public void put_MoveTo(IfcSpatialStructureElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "MoveTo", ifcengine.sdaiINSTANCE, i); }
         public ListOfIfcText get_PunchList() { return (new ListOfIfcTextSerializer()).FromAttr(m_instance, "PunchList"); }
+        public ListOfIfcText _PunchList { get { return get_PunchList(); } }
         public void put_PunchList(IEnumerable<TextValue> lst) { (new ListOfIfcTextSerializer()).ToSdaiAggr(lst, m_instance, "PunchList"); }
         //public void put_PunchList_untyped(IEnumerable lst) { (new ListOfIfcTextSerializer()).ToSdaiAggr(lst, m_instance, "PunchList"); }
 
@@ -18396,12 +20039,16 @@ namespace IFC2x3
         public static new IfcObjective Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcObjective"); Debug.Assert(inst != 0); return inst; }
 
         public IfcMetric get_BenchmarkValues() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BenchmarkValues", ifcengine.sdaiINSTANCE, out inst); return new IfcMetric (inst); }
+        public IfcMetric _BenchmarkValues { get { return get_BenchmarkValues(); } }
         public void put_BenchmarkValues(IfcMetric inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BenchmarkValues", ifcengine.sdaiINSTANCE, i); }
         public IfcMetric get_ResultValues() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ResultValues", ifcengine.sdaiINSTANCE, out inst); return new IfcMetric (inst); }
+        public IfcMetric _ResultValues { get { return get_ResultValues(); } }
         public void put_ResultValues(IfcMetric inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ResultValues", ifcengine.sdaiINSTANCE, i); }
         public IfcObjectiveEnum? get_ObjectiveQualifier() { var str = get_string("ObjectiveQualifier", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcObjectiveEnum_); return EnumValue<IfcObjectiveEnum>.FromIndex(ind); }
+        public IfcObjectiveEnum? _ObjectiveQualifier { get { return get_ObjectiveQualifier(); } }
         public void put_ObjectiveQualifier(IfcObjectiveEnum value) { var str = EnumString<IfcObjectiveEnum>.FromValue(value, EnumNames.IfcObjectiveEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ObjectiveQualifier", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedQualifier() { return get_string("UserDefinedQualifier", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedQualifier { get { return get_UserDefinedQualifier(); } }
         public void put_UserDefinedQualifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedQualifier", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcObjective"; }
@@ -18429,6 +20076,7 @@ namespace IFC2x3
         public static new IfcOccupant Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOccupant"); Debug.Assert(inst != 0); return inst; }
 
         public IfcOccupantTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcOccupantTypeEnum_); return EnumValue<IfcOccupantTypeEnum>.FromIndex(ind); }
+        public IfcOccupantTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcOccupantTypeEnum value) { var str = EnumString<IfcOccupantTypeEnum>.FromValue(value, EnumNames.IfcOccupantTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcOccupant"; }
@@ -18456,10 +20104,13 @@ namespace IFC2x3
         public static new IfcOffsetCurve2D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOffsetCurve2D"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_BasisCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _BasisCurve { get { return get_BasisCurve(); } }
         public void put_BasisCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, i); }
         public double? get_Distance() { return get_double("Distance", ifcengine.sdaiREAL);}
+        public double? _Distance { get { return get_Distance(); } }
         public void put_Distance(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Distance", ifcengine.sdaiREAL, ref value); }
         public LOGICAL_VALUE? get_SelfIntersect() { var str = get_string("SelfIntersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _SelfIntersect { get { return get_SelfIntersect(); } }
         public void put_SelfIntersect(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "SelfIntersect", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcOffsetCurve2D"; }
@@ -18487,12 +20138,16 @@ namespace IFC2x3
         public static new IfcOffsetCurve3D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOffsetCurve3D"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_BasisCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _BasisCurve { get { return get_BasisCurve(); } }
         public void put_BasisCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, i); }
         public double? get_Distance() { return get_double("Distance", ifcengine.sdaiREAL);}
+        public double? _Distance { get { return get_Distance(); } }
         public void put_Distance(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Distance", ifcengine.sdaiREAL, ref value); }
         public LOGICAL_VALUE? get_SelfIntersect() { var str = get_string("SelfIntersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _SelfIntersect { get { return get_SelfIntersect(); } }
         public void put_SelfIntersect(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "SelfIntersect", ifcengine.sdaiENUM, str); }
         public IfcDirection get_RefDirection() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _RefDirection { get { return get_RefDirection(); } }
         public void put_RefDirection(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcOffsetCurve3D"; }
@@ -18520,6 +20175,7 @@ namespace IFC2x3
         public static new IfcOneDirectionRepeatFactor Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOneDirectionRepeatFactor"); Debug.Assert(inst != 0); return inst; }
 
         public IfcVector get_RepeatFactor() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RepeatFactor", ifcengine.sdaiINSTANCE, out inst); return new IfcVector (inst); }
+        public IfcVector _RepeatFactor { get { return get_RepeatFactor(); } }
         public void put_RepeatFactor(IfcVector inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RepeatFactor", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcOneDirectionRepeatFactor"; }
@@ -18547,6 +20203,7 @@ namespace IFC2x3
         public static new IfcOpeningElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOpeningElement"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRelFillsElement get_HasFillings() { return (new SetOfIfcRelFillsElementSerializer()).FromAttr(m_instance, "HasFillings"); }
+        public SetOfIfcRelFillsElement _HasFillings { get { return get_HasFillings(); } }
 
         protected override TextValue EntityName() { return "IfcOpeningElement"; }
     };
@@ -18598,22 +20255,31 @@ namespace IFC2x3
         public static new IfcOpticalMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOpticalMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_VisibleTransmittance() { return get_double("VisibleTransmittance", ifcengine.sdaiREAL);}
+        public double? _VisibleTransmittance { get { return get_VisibleTransmittance(); } }
         public void put_VisibleTransmittance(double value) { ifcengine.sdaiPutAttrBN(m_instance, "VisibleTransmittance", ifcengine.sdaiREAL, ref value); }
         public double? get_SolarTransmittance() { return get_double("SolarTransmittance", ifcengine.sdaiREAL);}
+        public double? _SolarTransmittance { get { return get_SolarTransmittance(); } }
         public void put_SolarTransmittance(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SolarTransmittance", ifcengine.sdaiREAL, ref value); }
         public double? get_ThermalIrTransmittance() { return get_double("ThermalIrTransmittance", ifcengine.sdaiREAL);}
+        public double? _ThermalIrTransmittance { get { return get_ThermalIrTransmittance(); } }
         public void put_ThermalIrTransmittance(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThermalIrTransmittance", ifcengine.sdaiREAL, ref value); }
         public double? get_ThermalIrEmissivityBack() { return get_double("ThermalIrEmissivityBack", ifcengine.sdaiREAL);}
+        public double? _ThermalIrEmissivityBack { get { return get_ThermalIrEmissivityBack(); } }
         public void put_ThermalIrEmissivityBack(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThermalIrEmissivityBack", ifcengine.sdaiREAL, ref value); }
         public double? get_ThermalIrEmissivityFront() { return get_double("ThermalIrEmissivityFront", ifcengine.sdaiREAL);}
+        public double? _ThermalIrEmissivityFront { get { return get_ThermalIrEmissivityFront(); } }
         public void put_ThermalIrEmissivityFront(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThermalIrEmissivityFront", ifcengine.sdaiREAL, ref value); }
         public double? get_VisibleReflectanceBack() { return get_double("VisibleReflectanceBack", ifcengine.sdaiREAL);}
+        public double? _VisibleReflectanceBack { get { return get_VisibleReflectanceBack(); } }
         public void put_VisibleReflectanceBack(double value) { ifcengine.sdaiPutAttrBN(m_instance, "VisibleReflectanceBack", ifcengine.sdaiREAL, ref value); }
         public double? get_VisibleReflectanceFront() { return get_double("VisibleReflectanceFront", ifcengine.sdaiREAL);}
+        public double? _VisibleReflectanceFront { get { return get_VisibleReflectanceFront(); } }
         public void put_VisibleReflectanceFront(double value) { ifcengine.sdaiPutAttrBN(m_instance, "VisibleReflectanceFront", ifcengine.sdaiREAL, ref value); }
         public double? get_SolarReflectanceFront() { return get_double("SolarReflectanceFront", ifcengine.sdaiREAL);}
+        public double? _SolarReflectanceFront { get { return get_SolarReflectanceFront(); } }
         public void put_SolarReflectanceFront(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SolarReflectanceFront", ifcengine.sdaiREAL, ref value); }
         public double? get_SolarReflectanceBack() { return get_double("SolarReflectanceBack", ifcengine.sdaiREAL);}
+        public double? _SolarReflectanceBack { get { return get_SolarReflectanceBack(); } }
         public void put_SolarReflectanceBack(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SolarReflectanceBack", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcOpticalMaterialProperties"; }
@@ -18641,6 +20307,7 @@ namespace IFC2x3
         public static new IfcOrderAction Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOrderAction"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_ActionID() { return get_string("ActionID", ifcengine.sdaiSTRING); }
+        public TextValue _ActionID { get { return get_ActionID(); } }
         public void put_ActionID(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ActionID", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcOrderAction"; }
@@ -18668,20 +20335,28 @@ namespace IFC2x3
         public static new IfcOrganization Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOrganization"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Id() { return get_string("Id", ifcengine.sdaiSTRING); }
+        public TextValue _Id { get { return get_Id(); } }
         public void put_Id(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Id", ifcengine.sdaiSTRING, value); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public ListOfIfcActorRole get_Roles() { return (new ListOfIfcActorRoleSerializer()).FromAttr(m_instance, "Roles"); }
+        public ListOfIfcActorRole _Roles { get { return get_Roles(); } }
         public void put_Roles(IEnumerable<IfcActorRole> lst) { (new ListOfIfcActorRoleSerializer()).ToSdaiAggr(lst, m_instance, "Roles"); }
         //public void put_Roles_untyped(IEnumerable lst) { (new ListOfIfcActorRoleSerializer()).ToSdaiAggr(lst, m_instance, "Roles"); }
         public ListOfIfcAddress get_Addresses() { return (new ListOfIfcAddressSerializer()).FromAttr(m_instance, "Addresses"); }
+        public ListOfIfcAddress _Addresses { get { return get_Addresses(); } }
         public void put_Addresses(IEnumerable<IfcAddress> lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         //public void put_Addresses_untyped(IEnumerable lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         public SetOfIfcOrganizationRelationship get_IsRelatedBy() { return (new SetOfIfcOrganizationRelationshipSerializer()).FromAttr(m_instance, "IsRelatedBy"); }
+        public SetOfIfcOrganizationRelationship _IsRelatedBy { get { return get_IsRelatedBy(); } }
         public SetOfIfcOrganizationRelationship get_Relates() { return (new SetOfIfcOrganizationRelationshipSerializer()).FromAttr(m_instance, "Relates"); }
+        public SetOfIfcOrganizationRelationship _Relates { get { return get_Relates(); } }
         public SetOfIfcPersonAndOrganization get_Engages() { return (new SetOfIfcPersonAndOrganizationSerializer()).FromAttr(m_instance, "Engages"); }
+        public SetOfIfcPersonAndOrganization _Engages { get { return get_Engages(); } }
 
         protected override TextValue EntityName() { return "IfcOrganization"; }
     };
@@ -18708,12 +20383,16 @@ namespace IFC2x3
         public static new IfcOrganizationRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOrganizationRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public IfcOrganization get_RelatingOrganization() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingOrganization", ifcengine.sdaiINSTANCE, out inst); return new IfcOrganization (inst); }
+        public IfcOrganization _RelatingOrganization { get { return get_RelatingOrganization(); } }
         public void put_RelatingOrganization(IfcOrganization inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingOrganization", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcOrganization get_RelatedOrganizations() { return (new SetOfIfcOrganizationSerializer()).FromAttr(m_instance, "RelatedOrganizations"); }
+        public SetOfIfcOrganization _RelatedOrganizations { get { return get_RelatedOrganizations(); } }
         public void put_RelatedOrganizations(IEnumerable<IfcOrganization> lst) { (new SetOfIfcOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "RelatedOrganizations"); }
         //public void put_RelatedOrganizations_untyped(IEnumerable lst) { (new SetOfIfcOrganizationSerializer()).ToSdaiAggr(lst, m_instance, "RelatedOrganizations"); }
 
@@ -18742,8 +20421,10 @@ namespace IFC2x3
         public static new IfcOrientedEdge Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOrientedEdge"); Debug.Assert(inst != 0); return inst; }
 
         public IfcEdge get_EdgeElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "EdgeElement", ifcengine.sdaiINSTANCE, out inst); return new IfcEdge (inst); }
+        public IfcEdge _EdgeElement { get { return get_EdgeElement(); } }
         public void put_EdgeElement(IfcEdge inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "EdgeElement", ifcengine.sdaiINSTANCE, i); }
         public bool? get_Orientation() { return get_bool("Orientation", ifcengine.sdaiBOOLEAN);}
+        public bool? _Orientation { get { return get_Orientation(); } }
         public void put_Orientation(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "Orientation", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcOrientedEdge"; }
@@ -18771,6 +20452,7 @@ namespace IFC2x3
         public static new IfcOutletType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOutletType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcOutletTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcOutletTypeEnum_); return EnumValue<IfcOutletTypeEnum>.FromIndex(ind); }
+        public IfcOutletTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcOutletTypeEnum value) { var str = EnumString<IfcOutletTypeEnum>.FromValue(value, EnumNames.IfcOutletTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcOutletType"; }
@@ -18798,20 +20480,28 @@ namespace IFC2x3
         public static new IfcOwnerHistory Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcOwnerHistory"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPersonAndOrganization get_OwningUser() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OwningUser", ifcengine.sdaiINSTANCE, out inst); return new IfcPersonAndOrganization (inst); }
+        public IfcPersonAndOrganization _OwningUser { get { return get_OwningUser(); } }
         public void put_OwningUser(IfcPersonAndOrganization inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OwningUser", ifcengine.sdaiINSTANCE, i); }
         public IfcApplication get_OwningApplication() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OwningApplication", ifcengine.sdaiINSTANCE, out inst); return new IfcApplication (inst); }
+        public IfcApplication _OwningApplication { get { return get_OwningApplication(); } }
         public void put_OwningApplication(IfcApplication inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OwningApplication", ifcengine.sdaiINSTANCE, i); }
         public IfcStateEnum? get_State() { var str = get_string("State", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcStateEnum_); return EnumValue<IfcStateEnum>.FromIndex(ind); }
+        public IfcStateEnum? _State { get { return get_State(); } }
         public void put_State(IfcStateEnum value) { var str = EnumString<IfcStateEnum>.FromValue(value, EnumNames.IfcStateEnum_); ifcengine.sdaiPutAttrBN(m_instance, "State", ifcengine.sdaiENUM, str); }
         public IfcChangeActionEnum? get_ChangeAction() { var str = get_string("ChangeAction", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcChangeActionEnum_); return EnumValue<IfcChangeActionEnum>.FromIndex(ind); }
+        public IfcChangeActionEnum? _ChangeAction { get { return get_ChangeAction(); } }
         public void put_ChangeAction(IfcChangeActionEnum value) { var str = EnumString<IfcChangeActionEnum>.FromValue(value, EnumNames.IfcChangeActionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ChangeAction", ifcengine.sdaiENUM, str); }
         public IntValue? get_LastModifiedDate() { return get_IntValue("LastModifiedDate", ifcengine.sdaiINTEGER);}
+        public IntValue? _LastModifiedDate { get { return get_LastModifiedDate(); } }
         public void put_LastModifiedDate(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LastModifiedDate", ifcengine.sdaiINTEGER, ref value); }
         public IfcPersonAndOrganization get_LastModifyingUser() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LastModifyingUser", ifcengine.sdaiINSTANCE, out inst); return new IfcPersonAndOrganization (inst); }
+        public IfcPersonAndOrganization _LastModifyingUser { get { return get_LastModifyingUser(); } }
         public void put_LastModifyingUser(IfcPersonAndOrganization inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LastModifyingUser", ifcengine.sdaiINSTANCE, i); }
         public IfcApplication get_LastModifyingApplication() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LastModifyingApplication", ifcengine.sdaiINSTANCE, out inst); return new IfcApplication (inst); }
+        public IfcApplication _LastModifyingApplication { get { return get_LastModifyingApplication(); } }
         public void put_LastModifyingApplication(IfcApplication inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LastModifyingApplication", ifcengine.sdaiINSTANCE, i); }
         public IntValue? get_CreationDate() { return get_IntValue("CreationDate", ifcengine.sdaiINTEGER);}
+        public IntValue? _CreationDate { get { return get_CreationDate(); } }
         public void put_CreationDate(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "CreationDate", ifcengine.sdaiINTEGER, ref value); }
 
         protected override TextValue EntityName() { return "IfcOwnerHistory"; }
@@ -18839,6 +20529,7 @@ namespace IFC2x3
         public static new IfcPath Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPath"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcOrientedEdge get_EdgeList() { return (new ListOfIfcOrientedEdgeSerializer()).FromAttr(m_instance, "EdgeList"); }
+        public ListOfIfcOrientedEdge _EdgeList { get { return get_EdgeList(); } }
         public void put_EdgeList(IEnumerable<IfcOrientedEdge> lst) { (new ListOfIfcOrientedEdgeSerializer()).ToSdaiAggr(lst, m_instance, "EdgeList"); }
         //public void put_EdgeList_untyped(IEnumerable lst) { (new ListOfIfcOrientedEdgeSerializer()).ToSdaiAggr(lst, m_instance, "EdgeList"); }
 
@@ -18867,6 +20558,7 @@ namespace IFC2x3
         public static new IfcPerformanceHistory Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPerformanceHistory"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_LifeCyclePhase() { return get_string("LifeCyclePhase", ifcengine.sdaiSTRING); }
+        public TextValue _LifeCyclePhase { get { return get_LifeCyclePhase(); } }
         public void put_LifeCyclePhase(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LifeCyclePhase", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPerformanceHistory"; }
@@ -18894,14 +20586,19 @@ namespace IFC2x3
         public static new IfcPermeableCoveringProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPermeableCoveringProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPermeableCoveringOperationEnum? get_OperationType() { var str = get_string("OperationType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPermeableCoveringOperationEnum_); return EnumValue<IfcPermeableCoveringOperationEnum>.FromIndex(ind); }
+        public IfcPermeableCoveringOperationEnum? _OperationType { get { return get_OperationType(); } }
         public void put_OperationType(IfcPermeableCoveringOperationEnum value) { var str = EnumString<IfcPermeableCoveringOperationEnum>.FromValue(value, EnumNames.IfcPermeableCoveringOperationEnum_); ifcengine.sdaiPutAttrBN(m_instance, "OperationType", ifcengine.sdaiENUM, str); }
         public IfcWindowPanelPositionEnum? get_PanelPosition() { var str = get_string("PanelPosition", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWindowPanelPositionEnum_); return EnumValue<IfcWindowPanelPositionEnum>.FromIndex(ind); }
+        public IfcWindowPanelPositionEnum? _PanelPosition { get { return get_PanelPosition(); } }
         public void put_PanelPosition(IfcWindowPanelPositionEnum value) { var str = EnumString<IfcWindowPanelPositionEnum>.FromValue(value, EnumNames.IfcWindowPanelPositionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PanelPosition", ifcengine.sdaiENUM, str); }
         public double? get_FrameDepth() { return get_double("FrameDepth", ifcengine.sdaiREAL);}
+        public double? _FrameDepth { get { return get_FrameDepth(); } }
         public void put_FrameDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FrameDepth", ifcengine.sdaiREAL, ref value); }
         public double? get_FrameThickness() { return get_double("FrameThickness", ifcengine.sdaiREAL);}
+        public double? _FrameThickness { get { return get_FrameThickness(); } }
         public void put_FrameThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FrameThickness", ifcengine.sdaiREAL, ref value); }
         public IfcShapeAspect get_ShapeAspectStyle() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _ShapeAspectStyle { get { return get_ShapeAspectStyle(); } }
         public void put_ShapeAspectStyle(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcPermeableCoveringProperties"; }
@@ -18929,6 +20626,7 @@ namespace IFC2x3
         public static new IfcPermit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPermit"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_PermitID() { return get_string("PermitID", ifcengine.sdaiSTRING); }
+        public TextValue _PermitID { get { return get_PermitID(); } }
         public void put_PermitID(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "PermitID", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPermit"; }
@@ -18956,27 +20654,36 @@ namespace IFC2x3
         public static new IfcPerson Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPerson"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Id() { return get_string("Id", ifcengine.sdaiSTRING); }
+        public TextValue _Id { get { return get_Id(); } }
         public void put_Id(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Id", ifcengine.sdaiSTRING, value); }
         public TextValue get_FamilyName() { return get_string("FamilyName", ifcengine.sdaiSTRING); }
+        public TextValue _FamilyName { get { return get_FamilyName(); } }
         public void put_FamilyName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "FamilyName", ifcengine.sdaiSTRING, value); }
         public TextValue get_GivenName() { return get_string("GivenName", ifcengine.sdaiSTRING); }
+        public TextValue _GivenName { get { return get_GivenName(); } }
         public void put_GivenName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "GivenName", ifcengine.sdaiSTRING, value); }
         public ListOfIfcLabel get_MiddleNames() { return (new ListOfIfcLabelSerializer()).FromAttr(m_instance, "MiddleNames"); }
+        public ListOfIfcLabel _MiddleNames { get { return get_MiddleNames(); } }
         public void put_MiddleNames(IEnumerable<TextValue> lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "MiddleNames"); }
         //public void put_MiddleNames_untyped(IEnumerable lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "MiddleNames"); }
         public ListOfIfcLabel get_PrefixTitles() { return (new ListOfIfcLabelSerializer()).FromAttr(m_instance, "PrefixTitles"); }
+        public ListOfIfcLabel _PrefixTitles { get { return get_PrefixTitles(); } }
         public void put_PrefixTitles(IEnumerable<TextValue> lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "PrefixTitles"); }
         //public void put_PrefixTitles_untyped(IEnumerable lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "PrefixTitles"); }
         public ListOfIfcLabel get_SuffixTitles() { return (new ListOfIfcLabelSerializer()).FromAttr(m_instance, "SuffixTitles"); }
+        public ListOfIfcLabel _SuffixTitles { get { return get_SuffixTitles(); } }
         public void put_SuffixTitles(IEnumerable<TextValue> lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "SuffixTitles"); }
         //public void put_SuffixTitles_untyped(IEnumerable lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "SuffixTitles"); }
         public ListOfIfcActorRole get_Roles() { return (new ListOfIfcActorRoleSerializer()).FromAttr(m_instance, "Roles"); }
+        public ListOfIfcActorRole _Roles { get { return get_Roles(); } }
         public void put_Roles(IEnumerable<IfcActorRole> lst) { (new ListOfIfcActorRoleSerializer()).ToSdaiAggr(lst, m_instance, "Roles"); }
         //public void put_Roles_untyped(IEnumerable lst) { (new ListOfIfcActorRoleSerializer()).ToSdaiAggr(lst, m_instance, "Roles"); }
         public ListOfIfcAddress get_Addresses() { return (new ListOfIfcAddressSerializer()).FromAttr(m_instance, "Addresses"); }
+        public ListOfIfcAddress _Addresses { get { return get_Addresses(); } }
         public void put_Addresses(IEnumerable<IfcAddress> lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         //public void put_Addresses_untyped(IEnumerable lst) { (new ListOfIfcAddressSerializer()).ToSdaiAggr(lst, m_instance, "Addresses"); }
         public SetOfIfcPersonAndOrganization get_EngagedIn() { return (new SetOfIfcPersonAndOrganizationSerializer()).FromAttr(m_instance, "EngagedIn"); }
+        public SetOfIfcPersonAndOrganization _EngagedIn { get { return get_EngagedIn(); } }
 
         protected override TextValue EntityName() { return "IfcPerson"; }
     };
@@ -19003,10 +20710,13 @@ namespace IFC2x3
         public static new IfcPersonAndOrganization Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPersonAndOrganization"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPerson get_ThePerson() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ThePerson", ifcengine.sdaiINSTANCE, out inst); return new IfcPerson (inst); }
+        public IfcPerson _ThePerson { get { return get_ThePerson(); } }
         public void put_ThePerson(IfcPerson inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ThePerson", ifcengine.sdaiINSTANCE, i); }
         public IfcOrganization get_TheOrganization() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TheOrganization", ifcengine.sdaiINSTANCE, out inst); return new IfcOrganization (inst); }
+        public IfcOrganization _TheOrganization { get { return get_TheOrganization(); } }
         public void put_TheOrganization(IfcOrganization inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TheOrganization", ifcengine.sdaiINSTANCE, i); }
         public ListOfIfcActorRole get_Roles() { return (new ListOfIfcActorRoleSerializer()).FromAttr(m_instance, "Roles"); }
+        public ListOfIfcActorRole _Roles { get { return get_Roles(); } }
         public void put_Roles(IEnumerable<IfcActorRole> lst) { (new ListOfIfcActorRoleSerializer()).ToSdaiAggr(lst, m_instance, "Roles"); }
         //public void put_Roles_untyped(IEnumerable lst) { (new ListOfIfcActorRoleSerializer()).ToSdaiAggr(lst, m_instance, "Roles"); }
 
@@ -19030,10 +20740,13 @@ namespace IFC2x3
         public static implicit operator IfcPhysicalQuantity(SdaiInstance instance) => new IfcPhysicalQuantity(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public SetOfIfcPhysicalComplexQuantity get_PartOfComplex() { return (new SetOfIfcPhysicalComplexQuantitySerializer()).FromAttr(m_instance, "PartOfComplex"); }
+        public SetOfIfcPhysicalComplexQuantity _PartOfComplex { get { return get_PartOfComplex(); } }
 
         protected override TextValue EntityName() { return "IfcPhysicalQuantity"; }
     };
@@ -19060,13 +20773,17 @@ namespace IFC2x3
         public static new IfcPhysicalComplexQuantity Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPhysicalComplexQuantity"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcPhysicalQuantity get_HasQuantities() { return (new SetOfIfcPhysicalQuantitySerializer()).FromAttr(m_instance, "HasQuantities"); }
+        public SetOfIfcPhysicalQuantity _HasQuantities { get { return get_HasQuantities(); } }
         public void put_HasQuantities(IEnumerable<IfcPhysicalQuantity> lst) { (new SetOfIfcPhysicalQuantitySerializer()).ToSdaiAggr(lst, m_instance, "HasQuantities"); }
         //public void put_HasQuantities_untyped(IEnumerable lst) { (new SetOfIfcPhysicalQuantitySerializer()).ToSdaiAggr(lst, m_instance, "HasQuantities"); }
         public TextValue get_Discrimination() { return get_string("Discrimination", ifcengine.sdaiSTRING); }
+        public TextValue _Discrimination { get { return get_Discrimination(); } }
         public void put_Discrimination(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Discrimination", ifcengine.sdaiSTRING, value); }
         public TextValue get_Quality() { return get_string("Quality", ifcengine.sdaiSTRING); }
+        public TextValue _Quality { get { return get_Quality(); } }
         public void put_Quality(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Quality", ifcengine.sdaiSTRING, value); }
         public TextValue get_Usage() { return get_string("Usage", ifcengine.sdaiSTRING); }
+        public TextValue _Usage { get { return get_Usage(); } }
         public void put_Usage(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Usage", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPhysicalComplexQuantity"; }
@@ -19089,6 +20806,7 @@ namespace IFC2x3
         public static implicit operator IfcPhysicalSimpleQuantity(SdaiInstance instance) => new IfcPhysicalSimpleQuantity(instance);
 
         public IfcNamedUnit get_Unit() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Unit", ifcengine.sdaiINSTANCE, out inst); return new IfcNamedUnit (inst); }
+        public IfcNamedUnit _Unit { get { return get_Unit(); } }
         public void put_Unit(IfcNamedUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Unit", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcPhysicalSimpleQuantity"; }
@@ -19116,8 +20834,10 @@ namespace IFC2x3
         public static new IfcPile Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPile"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPileTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPileTypeEnum_); return EnumValue<IfcPileTypeEnum>.FromIndex(ind); }
+        public IfcPileTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcPileTypeEnum value) { var str = EnumString<IfcPileTypeEnum>.FromValue(value, EnumNames.IfcPileTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public IfcPileConstructionEnum? get_ConstructionType() { var str = get_string("ConstructionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPileConstructionEnum_); return EnumValue<IfcPileConstructionEnum>.FromIndex(ind); }
+        public IfcPileConstructionEnum? _ConstructionType { get { return get_ConstructionType(); } }
         public void put_ConstructionType(IfcPileConstructionEnum value) { var str = EnumString<IfcPileConstructionEnum>.FromValue(value, EnumNames.IfcPileConstructionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ConstructionType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcPile"; }
@@ -19145,6 +20865,7 @@ namespace IFC2x3
         public static new IfcPipeFittingType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPipeFittingType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPipeFittingTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPipeFittingTypeEnum_); return EnumValue<IfcPipeFittingTypeEnum>.FromIndex(ind); }
+        public IfcPipeFittingTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcPipeFittingTypeEnum value) { var str = EnumString<IfcPipeFittingTypeEnum>.FromValue(value, EnumNames.IfcPipeFittingTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcPipeFittingType"; }
@@ -19172,6 +20893,7 @@ namespace IFC2x3
         public static new IfcPipeSegmentType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPipeSegmentType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPipeSegmentTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPipeSegmentTypeEnum_); return EnumValue<IfcPipeSegmentTypeEnum>.FromIndex(ind); }
+        public IfcPipeSegmentTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcPipeSegmentTypeEnum value) { var str = EnumString<IfcPipeSegmentTypeEnum>.FromValue(value, EnumNames.IfcPipeSegmentTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcPipeSegmentType"; }
@@ -19199,12 +20921,16 @@ namespace IFC2x3
         public static new IfcPixelTexture Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPixelTexture"); Debug.Assert(inst != 0); return inst; }
 
         public IntValue? get_Width() { return get_IntValue("Width", ifcengine.sdaiINTEGER);}
+        public IntValue? _Width { get { return get_Width(); } }
         public void put_Width(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Width", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_Height() { return get_IntValue("Height", ifcengine.sdaiINTEGER);}
+        public IntValue? _Height { get { return get_Height(); } }
         public void put_Height(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Height", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_ColourComponents() { return get_IntValue("ColourComponents", ifcengine.sdaiINTEGER);}
+        public IntValue? _ColourComponents { get { return get_ColourComponents(); } }
         public void put_ColourComponents(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ColourComponents", ifcengine.sdaiINTEGER, ref value); }
         public ListOfTextValue get_Pixel() { return (new ListOfTextValueSerializer()).FromAttr(m_instance, "Pixel"); }
+        public ListOfTextValue _Pixel { get { return get_Pixel(); } }
         public void put_Pixel(IEnumerable<TextValue> lst) { (new ListOfTextValueSerializer()).ToSdaiAggr(lst, m_instance, "Pixel"); }
         //public void put_Pixel_untyped(IEnumerable lst) { (new ListOfTextValueSerializer()).ToSdaiAggr(lst, m_instance, "Pixel"); }
 
@@ -19233,8 +20959,10 @@ namespace IFC2x3
         public static new IfcPlanarExtent Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPlanarExtent"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_SizeInX() { return get_double("SizeInX", ifcengine.sdaiREAL);}
+        public double? _SizeInX { get { return get_SizeInX(); } }
         public void put_SizeInX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SizeInX", ifcengine.sdaiREAL, ref value); }
         public double? get_SizeInY() { return get_double("SizeInY", ifcengine.sdaiREAL);}
+        public double? _SizeInY { get { return get_SizeInY(); } }
         public void put_SizeInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SizeInY", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcPlanarExtent"; }
@@ -19263,6 +20991,7 @@ namespace IFC2x3
 
 
         public IfcAxis2Placement_get get_Placement() { return new IfcAxis2Placement_get(m_instance, "Placement", 0); }
+        public IfcAxis2Placement_get _Placement { get { return new IfcAxis2Placement_get(m_instance, "Placement", 0); } }
         public IfcAxis2Placement_put put_Placement() { return new IfcAxis2Placement_put(m_instance, "Placement", 0); }
 
         protected override TextValue EntityName() { return "IfcPlanarBox"; }
@@ -19340,6 +21069,7 @@ namespace IFC2x3
         public static new IfcPlateType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPlateType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPlateTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPlateTypeEnum_); return EnumValue<IfcPlateTypeEnum>.FromIndex(ind); }
+        public IfcPlateTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcPlateTypeEnum value) { var str = EnumString<IfcPlateTypeEnum>.FromValue(value, EnumNames.IfcPlateTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcPlateType"; }
@@ -19367,8 +21097,10 @@ namespace IFC2x3
         public static new IfcPointOnCurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPointOnCurve"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_BasisCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _BasisCurve { get { return get_BasisCurve(); } }
         public void put_BasisCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, i); }
         public double? get_PointParameter() { return get_double("PointParameter", ifcengine.sdaiREAL);}
+        public double? _PointParameter { get { return get_PointParameter(); } }
         public void put_PointParameter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PointParameter", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcPointOnCurve"; }
@@ -19396,10 +21128,13 @@ namespace IFC2x3
         public static new IfcPointOnSurface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPointOnSurface"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSurface get_BasisSurface() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BasisSurface", ifcengine.sdaiINSTANCE, out inst); return new IfcSurface (inst); }
+        public IfcSurface _BasisSurface { get { return get_BasisSurface(); } }
         public void put_BasisSurface(IfcSurface inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BasisSurface", ifcengine.sdaiINSTANCE, i); }
         public double? get_PointParameterU() { return get_double("PointParameterU", ifcengine.sdaiREAL);}
+        public double? _PointParameterU { get { return get_PointParameterU(); } }
         public void put_PointParameterU(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PointParameterU", ifcengine.sdaiREAL, ref value); }
         public double? get_PointParameterV() { return get_double("PointParameterV", ifcengine.sdaiREAL);}
+        public double? _PointParameterV { get { return get_PointParameterV(); } }
         public void put_PointParameterV(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PointParameterV", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcPointOnSurface"; }
@@ -19427,8 +21162,10 @@ namespace IFC2x3
         public static new IfcPolygonalBoundedHalfSpace Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPolygonalBoundedHalfSpace"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAxis2Placement3D get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _Position { get { return get_Position(); } }
         public void put_Position(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
         public IfcBoundedCurve get_PolygonalBoundary() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PolygonalBoundary", ifcengine.sdaiINSTANCE, out inst); return new IfcBoundedCurve (inst); }
+        public IfcBoundedCurve _PolygonalBoundary { get { return get_PolygonalBoundary(); } }
         public void put_PolygonalBoundary(IfcBoundedCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PolygonalBoundary", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcPolygonalBoundedHalfSpace"; }
@@ -19456,6 +21193,7 @@ namespace IFC2x3
         public static new IfcPolyline Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPolyline"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcCartesianPoint get_Points() { return (new ListOfIfcCartesianPointSerializer()).FromAttr(m_instance, "Points"); }
+        public ListOfIfcCartesianPoint _Points { get { return get_Points(); } }
         public void put_Points(IEnumerable<IfcCartesianPoint> lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "Points"); }
         //public void put_Points_untyped(IEnumerable lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "Points"); }
 
@@ -19484,6 +21222,7 @@ namespace IFC2x3
         public static new IfcPolyLoop Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPolyLoop"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcCartesianPoint get_Polygon() { return (new ListOfIfcCartesianPointSerializer()).FromAttr(m_instance, "Polygon"); }
+        public ListOfIfcCartesianPoint _Polygon { get { return get_Polygon(); } }
         public void put_Polygon(IEnumerable<IfcCartesianPoint> lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "Polygon"); }
         //public void put_Polygon_untyped(IEnumerable lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "Polygon"); }
 
@@ -19512,19 +21251,26 @@ namespace IFC2x3
         public static new IfcPostalAddress Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPostalAddress"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_InternalLocation() { return get_string("InternalLocation", ifcengine.sdaiSTRING); }
+        public TextValue _InternalLocation { get { return get_InternalLocation(); } }
         public void put_InternalLocation(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "InternalLocation", ifcengine.sdaiSTRING, value); }
         public ListOfIfcLabel get_AddressLines() { return (new ListOfIfcLabelSerializer()).FromAttr(m_instance, "AddressLines"); }
+        public ListOfIfcLabel _AddressLines { get { return get_AddressLines(); } }
         public void put_AddressLines(IEnumerable<TextValue> lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "AddressLines"); }
         //public void put_AddressLines_untyped(IEnumerable lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "AddressLines"); }
         public TextValue get_PostalBox() { return get_string("PostalBox", ifcengine.sdaiSTRING); }
+        public TextValue _PostalBox { get { return get_PostalBox(); } }
         public void put_PostalBox(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "PostalBox", ifcengine.sdaiSTRING, value); }
         public TextValue get_Town() { return get_string("Town", ifcengine.sdaiSTRING); }
+        public TextValue _Town { get { return get_Town(); } }
         public void put_Town(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Town", ifcengine.sdaiSTRING, value); }
         public TextValue get_Region() { return get_string("Region", ifcengine.sdaiSTRING); }
+        public TextValue _Region { get { return get_Region(); } }
         public void put_Region(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Region", ifcengine.sdaiSTRING, value); }
         public TextValue get_PostalCode() { return get_string("PostalCode", ifcengine.sdaiSTRING); }
+        public TextValue _PostalCode { get { return get_PostalCode(); } }
         public void put_PostalCode(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "PostalCode", ifcengine.sdaiSTRING, value); }
         public TextValue get_Country() { return get_string("Country", ifcengine.sdaiSTRING); }
+        public TextValue _Country { get { return get_Country(); } }
         public void put_Country(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Country", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPostalAddress"; }
@@ -19647,13 +21393,17 @@ namespace IFC2x3
         public static new IfcPresentationLayerAssignment Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPresentationLayerAssignment"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public SetOfIfcLayeredItem get_AssignedItems() { return (new SetOfIfcLayeredItemSerializer()).FromAttr(m_instance, "AssignedItems"); }
+        public SetOfIfcLayeredItem _AssignedItems { get { return get_AssignedItems(); } }
         public void put_AssignedItems(IEnumerable<IfcLayeredItem> lst) { (new SetOfIfcLayeredItemSerializer()).ToSdaiAggr(lst, m_instance, "AssignedItems"); }
         //public void put_AssignedItems_untyped(IEnumerable lst) { (new SetOfIfcLayeredItemSerializer()).ToSdaiAggr(lst, m_instance, "AssignedItems"); }
         public TextValue get_Identifier() { return get_string("Identifier", ifcengine.sdaiSTRING); }
+        public TextValue _Identifier { get { return get_Identifier(); } }
         public void put_Identifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Identifier", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPresentationLayerAssignment"; }
@@ -19681,12 +21431,16 @@ namespace IFC2x3
         public static new IfcPresentationLayerWithStyle Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPresentationLayerWithStyle"); Debug.Assert(inst != 0); return inst; }
 
         public LOGICAL_VALUE? get_LayerOn() { var str = get_string("LayerOn", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _LayerOn { get { return get_LayerOn(); } }
         public void put_LayerOn(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "LayerOn", ifcengine.sdaiENUM, str); }
         public LOGICAL_VALUE? get_LayerFrozen() { var str = get_string("LayerFrozen", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _LayerFrozen { get { return get_LayerFrozen(); } }
         public void put_LayerFrozen(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "LayerFrozen", ifcengine.sdaiENUM, str); }
         public LOGICAL_VALUE? get_LayerBlocked() { var str = get_string("LayerBlocked", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _LayerBlocked { get { return get_LayerBlocked(); } }
         public void put_LayerBlocked(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "LayerBlocked", ifcengine.sdaiENUM, str); }
         public SetOfIfcPresentationStyleSelect get_LayerStyles() { return (new SetOfIfcPresentationStyleSelectSerializer()).FromAttr(m_instance, "LayerStyles"); }
+        public SetOfIfcPresentationStyleSelect _LayerStyles { get { return get_LayerStyles(); } }
         public void put_LayerStyles(IEnumerable<IfcPresentationStyleSelect> lst) { (new SetOfIfcPresentationStyleSelectSerializer()).ToSdaiAggr(lst, m_instance, "LayerStyles"); }
         //public void put_LayerStyles_untyped(IEnumerable lst) { (new SetOfIfcPresentationStyleSelectSerializer()).ToSdaiAggr(lst, m_instance, "LayerStyles"); }
 
@@ -19715,6 +21469,7 @@ namespace IFC2x3
         public static new IfcPresentationStyleAssignment Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPresentationStyleAssignment"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcPresentationStyleSelect get_Styles() { return (new SetOfIfcPresentationStyleSelectSerializer()).FromAttr(m_instance, "Styles"); }
+        public SetOfIfcPresentationStyleSelect _Styles { get { return get_Styles(); } }
         public void put_Styles(IEnumerable<IfcPresentationStyleSelect> lst) { (new SetOfIfcPresentationStyleSelectSerializer()).ToSdaiAggr(lst, m_instance, "Styles"); }
         //public void put_Styles_untyped(IEnumerable lst) { (new SetOfIfcPresentationStyleSelectSerializer()).ToSdaiAggr(lst, m_instance, "Styles"); }
 
@@ -19743,10 +21498,13 @@ namespace IFC2x3
         public static new IfcProcedure Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProcedure"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_ProcedureID() { return get_string("ProcedureID", ifcengine.sdaiSTRING); }
+        public TextValue _ProcedureID { get { return get_ProcedureID(); } }
         public void put_ProcedureID(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ProcedureID", ifcengine.sdaiSTRING, value); }
         public IfcProcedureTypeEnum? get_ProcedureType() { var str = get_string("ProcedureType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcProcedureTypeEnum_); return EnumValue<IfcProcedureTypeEnum>.FromIndex(ind); }
+        public IfcProcedureTypeEnum? _ProcedureType { get { return get_ProcedureType(); } }
         public void put_ProcedureType(IfcProcedureTypeEnum value) { var str = EnumString<IfcProcedureTypeEnum>.FromValue(value, EnumNames.IfcProcedureTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ProcedureType", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedProcedureType() { return get_string("UserDefinedProcedureType", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedProcedureType { get { return get_UserDefinedProcedureType(); } }
         public void put_UserDefinedProcedureType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedProcedureType", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcProcedure"; }
@@ -19774,7 +21532,9 @@ namespace IFC2x3
         public static new IfcProductDefinitionShape Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProductDefinitionShape"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProduct get_ShapeOfProduct() { return (new SetOfIfcProductSerializer()).FromAttr(m_instance, "ShapeOfProduct"); }
+        public SetOfIfcProduct _ShapeOfProduct { get { return get_ShapeOfProduct(); } }
         public SetOfIfcShapeAspect get_HasShapeAspects() { return (new SetOfIfcShapeAspectSerializer()).FromAttr(m_instance, "HasShapeAspects"); }
+        public SetOfIfcShapeAspect _HasShapeAspects { get { return get_HasShapeAspects(); } }
 
         protected override TextValue EntityName() { return "IfcProductDefinitionShape"; }
     };
@@ -19801,12 +21561,16 @@ namespace IFC2x3
         public static new IfcProductsOfCombustionProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProductsOfCombustionProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_SpecificHeatCapacity() { return get_double("SpecificHeatCapacity", ifcengine.sdaiREAL);}
+        public double? _SpecificHeatCapacity { get { return get_SpecificHeatCapacity(); } }
         public void put_SpecificHeatCapacity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SpecificHeatCapacity", ifcengine.sdaiREAL, ref value); }
         public double? get_N20Content() { return get_double("N20Content", ifcengine.sdaiREAL);}
+        public double? _N20Content { get { return get_N20Content(); } }
         public void put_N20Content(double value) { ifcengine.sdaiPutAttrBN(m_instance, "N20Content", ifcengine.sdaiREAL, ref value); }
         public double? get_COContent() { return get_double("COContent", ifcengine.sdaiREAL);}
+        public double? _COContent { get { return get_COContent(); } }
         public void put_COContent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "COContent", ifcengine.sdaiREAL, ref value); }
         public double? get_CO2Content() { return get_double("CO2Content", ifcengine.sdaiREAL);}
+        public double? _CO2Content { get { return get_CO2Content(); } }
         public void put_CO2Content(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CO2Content", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcProductsOfCombustionProperties"; }
@@ -19834,13 +21598,17 @@ namespace IFC2x3
         public static new IfcProject Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProject"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_LongName() { return get_string("LongName", ifcengine.sdaiSTRING); }
+        public TextValue _LongName { get { return get_LongName(); } }
         public void put_LongName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LongName", ifcengine.sdaiSTRING, value); }
         public TextValue get_Phase() { return get_string("Phase", ifcengine.sdaiSTRING); }
+        public TextValue _Phase { get { return get_Phase(); } }
         public void put_Phase(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Phase", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRepresentationContext get_RepresentationContexts() { return (new SetOfIfcRepresentationContextSerializer()).FromAttr(m_instance, "RepresentationContexts"); }
+        public SetOfIfcRepresentationContext _RepresentationContexts { get { return get_RepresentationContexts(); } }
         public void put_RepresentationContexts(IEnumerable<IfcRepresentationContext> lst) { (new SetOfIfcRepresentationContextSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationContexts"); }
         //public void put_RepresentationContexts_untyped(IEnumerable lst) { (new SetOfIfcRepresentationContextSerializer()).ToSdaiAggr(lst, m_instance, "RepresentationContexts"); }
         public IfcUnitAssignment get_UnitsInContext() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "UnitsInContext", ifcengine.sdaiINSTANCE, out inst); return new IfcUnitAssignment (inst); }
+        public IfcUnitAssignment _UnitsInContext { get { return get_UnitsInContext(); } }
         public void put_UnitsInContext(IfcUnitAssignment inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "UnitsInContext", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcProject"; }
@@ -19918,10 +21686,13 @@ namespace IFC2x3
         public static new IfcProjectOrder Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProjectOrder"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_ID() { return get_string("ID", ifcengine.sdaiSTRING); }
+        public TextValue _ID { get { return get_ID(); } }
         public void put_ID(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ID", ifcengine.sdaiSTRING, value); }
         public IfcProjectOrderTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcProjectOrderTypeEnum_); return EnumValue<IfcProjectOrderTypeEnum>.FromIndex(ind); }
+        public IfcProjectOrderTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcProjectOrderTypeEnum value) { var str = EnumString<IfcProjectOrderTypeEnum>.FromValue(value, EnumNames.IfcProjectOrderTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public TextValue get_Status() { return get_string("Status", ifcengine.sdaiSTRING); }
+        public TextValue _Status { get { return get_Status(); } }
         public void put_Status(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Status", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcProjectOrder"; }
@@ -19949,9 +21720,11 @@ namespace IFC2x3
         public static new IfcProjectOrderRecord Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProjectOrderRecord"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcRelAssignsToProjectOrder get_Records() { return (new ListOfIfcRelAssignsToProjectOrderSerializer()).FromAttr(m_instance, "Records"); }
+        public ListOfIfcRelAssignsToProjectOrder _Records { get { return get_Records(); } }
         public void put_Records(IEnumerable<IfcRelAssignsToProjectOrder> lst) { (new ListOfIfcRelAssignsToProjectOrderSerializer()).ToSdaiAggr(lst, m_instance, "Records"); }
         //public void put_Records_untyped(IEnumerable lst) { (new ListOfIfcRelAssignsToProjectOrderSerializer()).ToSdaiAggr(lst, m_instance, "Records"); }
         public IfcProjectOrderRecordTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcProjectOrderRecordTypeEnum_); return EnumValue<IfcProjectOrderRecordTypeEnum>.FromIndex(ind); }
+        public IfcProjectOrderRecordTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcProjectOrderRecordTypeEnum value) { var str = EnumString<IfcProjectOrderRecordTypeEnum>.FromValue(value, EnumNames.IfcProjectOrderRecordTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcProjectOrderRecord"; }
@@ -20000,12 +21773,15 @@ namespace IFC2x3
 
 
         public IfcValue_get get_UpperBoundValue() { return new IfcValue_get(m_instance, "UpperBoundValue", 0); }
+        public IfcValue_get _UpperBoundValue { get { return new IfcValue_get(m_instance, "UpperBoundValue", 0); } }
         public IfcValue_put put_UpperBoundValue() { return new IfcValue_put(m_instance, "UpperBoundValue", 0); }
 
         public IfcValue_get get_LowerBoundValue() { return new IfcValue_get(m_instance, "LowerBoundValue", 0); }
+        public IfcValue_get _LowerBoundValue { get { return new IfcValue_get(m_instance, "LowerBoundValue", 0); } }
         public IfcValue_put put_LowerBoundValue() { return new IfcValue_put(m_instance, "LowerBoundValue", 0); }
 
         public IfcUnit_get get_Unit() { return new IfcUnit_get(m_instance, "Unit", 0); }
+        public IfcUnit_get _Unit { get { return new IfcUnit_get(m_instance, "Unit", 0); } }
         public IfcUnit_put put_Unit() { return new IfcUnit_put(m_instance, "Unit", 0); }
 
         protected override TextValue EntityName() { return "IfcPropertyBoundedValue"; }
@@ -20033,13 +21809,17 @@ namespace IFC2x3
         public static new IfcPropertyConstraintRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertyConstraintRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcConstraint get_RelatingConstraint() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, out inst); return new IfcConstraint (inst); }
+        public IfcConstraint _RelatingConstraint { get { return get_RelatingConstraint(); } }
         public void put_RelatingConstraint(IfcConstraint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcProperty get_RelatedProperties() { return (new SetOfIfcPropertySerializer()).FromAttr(m_instance, "RelatedProperties"); }
+        public SetOfIfcProperty _RelatedProperties { get { return get_RelatedProperties(); } }
         public void put_RelatedProperties(IEnumerable<IfcProperty> lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "RelatedProperties"); }
         //public void put_RelatedProperties_untyped(IEnumerable lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "RelatedProperties"); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPropertyConstraintRelationship"; }
@@ -20067,14 +21847,19 @@ namespace IFC2x3
         public static new IfcPropertyDependencyRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertyDependencyRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProperty get_DependingProperty() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "DependingProperty", ifcengine.sdaiINSTANCE, out inst); return new IfcProperty (inst); }
+        public IfcProperty _DependingProperty { get { return get_DependingProperty(); } }
         public void put_DependingProperty(IfcProperty inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "DependingProperty", ifcengine.sdaiINSTANCE, i); }
         public IfcProperty get_DependantProperty() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "DependantProperty", ifcengine.sdaiINSTANCE, out inst); return new IfcProperty (inst); }
+        public IfcProperty _DependantProperty { get { return get_DependantProperty(); } }
         public void put_DependantProperty(IfcProperty inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "DependantProperty", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public TextValue get_Expression() { return get_string("Expression", ifcengine.sdaiSTRING); }
+        public TextValue _Expression { get { return get_Expression(); } }
         public void put_Expression(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Expression", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcPropertyDependencyRelationship"; }
@@ -20102,9 +21887,11 @@ namespace IFC2x3
         public static new IfcPropertyEnumeratedValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertyEnumeratedValue"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcValue get_EnumerationValues() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "EnumerationValues"); }
+        public ListOfIfcValue _EnumerationValues { get { return get_EnumerationValues(); } }
         public void put_EnumerationValues(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "EnumerationValues"); }
         //public void put_EnumerationValues_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "EnumerationValues"); }
         public IfcPropertyEnumeration get_EnumerationReference() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "EnumerationReference", ifcengine.sdaiINSTANCE, out inst); return new IfcPropertyEnumeration (inst); }
+        public IfcPropertyEnumeration _EnumerationReference { get { return get_EnumerationReference(); } }
         public void put_EnumerationReference(IfcPropertyEnumeration inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "EnumerationReference", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcPropertyEnumeratedValue"; }
@@ -20132,12 +21919,15 @@ namespace IFC2x3
         public static new IfcPropertyEnumeration Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertyEnumeration"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public ListOfIfcValue get_EnumerationValues() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "EnumerationValues"); }
+        public ListOfIfcValue _EnumerationValues { get { return get_EnumerationValues(); } }
         public void put_EnumerationValues(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "EnumerationValues"); }
         //public void put_EnumerationValues_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "EnumerationValues"); }
 
         public IfcUnit_get get_Unit() { return new IfcUnit_get(m_instance, "Unit", 0); }
+        public IfcUnit_get _Unit { get { return new IfcUnit_get(m_instance, "Unit", 0); } }
         public IfcUnit_put put_Unit() { return new IfcUnit_put(m_instance, "Unit", 0); }
 
         protected override TextValue EntityName() { return "IfcPropertyEnumeration"; }
@@ -20165,10 +21955,12 @@ namespace IFC2x3
         public static new IfcPropertyListValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertyListValue"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcValue get_ListValues() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "ListValues"); }
+        public ListOfIfcValue _ListValues { get { return get_ListValues(); } }
         public void put_ListValues(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "ListValues"); }
         //public void put_ListValues_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "ListValues"); }
 
         public IfcUnit_get get_Unit() { return new IfcUnit_get(m_instance, "Unit", 0); }
+        public IfcUnit_get _Unit { get { return new IfcUnit_get(m_instance, "Unit", 0); } }
         public IfcUnit_put put_Unit() { return new IfcUnit_put(m_instance, "Unit", 0); }
 
         protected override TextValue EntityName() { return "IfcPropertyListValue"; }
@@ -20196,9 +21988,11 @@ namespace IFC2x3
         public static new IfcPropertyReferenceValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertyReferenceValue"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_UsageName() { return get_string("UsageName", ifcengine.sdaiSTRING); }
+        public TextValue _UsageName { get { return get_UsageName(); } }
         public void put_UsageName(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UsageName", ifcengine.sdaiSTRING, value); }
 
         public IfcObjectReferenceSelect_get get_PropertyReference() { return new IfcObjectReferenceSelect_get(m_instance, "PropertyReference", 0); }
+        public IfcObjectReferenceSelect_get _PropertyReference { get { return new IfcObjectReferenceSelect_get(m_instance, "PropertyReference", 0); } }
         public IfcObjectReferenceSelect_put put_PropertyReference() { return new IfcObjectReferenceSelect_put(m_instance, "PropertyReference", 0); }
 
         protected override TextValue EntityName() { return "IfcPropertyReferenceValue"; }
@@ -20226,6 +22020,7 @@ namespace IFC2x3
         public static new IfcPropertySet Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertySet"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProperty get_HasProperties() { return (new SetOfIfcPropertySerializer()).FromAttr(m_instance, "HasProperties"); }
+        public SetOfIfcProperty _HasProperties { get { return get_HasProperties(); } }
         public void put_HasProperties(IEnumerable<IfcProperty> lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "HasProperties"); }
         //public void put_HasProperties_untyped(IEnumerable lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "HasProperties"); }
 
@@ -20255,9 +22050,11 @@ namespace IFC2x3
 
 
         public IfcValue_get get_NominalValue() { return new IfcValue_get(m_instance, "NominalValue", 0); }
+        public IfcValue_get _NominalValue { get { return new IfcValue_get(m_instance, "NominalValue", 0); } }
         public IfcValue_put put_NominalValue() { return new IfcValue_put(m_instance, "NominalValue", 0); }
 
         public IfcUnit_get get_Unit() { return new IfcUnit_get(m_instance, "Unit", 0); }
+        public IfcUnit_get _Unit { get { return new IfcUnit_get(m_instance, "Unit", 0); } }
         public IfcUnit_put put_Unit() { return new IfcUnit_put(m_instance, "Unit", 0); }
 
         protected override TextValue EntityName() { return "IfcPropertySingleValue"; }
@@ -20285,18 +22082,23 @@ namespace IFC2x3
         public static new IfcPropertyTableValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPropertyTableValue"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcValue get_DefiningValues() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "DefiningValues"); }
+        public ListOfIfcValue _DefiningValues { get { return get_DefiningValues(); } }
         public void put_DefiningValues(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "DefiningValues"); }
         //public void put_DefiningValues_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "DefiningValues"); }
         public ListOfIfcValue get_DefinedValues() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "DefinedValues"); }
+        public ListOfIfcValue _DefinedValues { get { return get_DefinedValues(); } }
         public void put_DefinedValues(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "DefinedValues"); }
         //public void put_DefinedValues_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "DefinedValues"); }
         public TextValue get_Expression() { return get_string("Expression", ifcengine.sdaiSTRING); }
+        public TextValue _Expression { get { return get_Expression(); } }
         public void put_Expression(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Expression", ifcengine.sdaiSTRING, value); }
 
         public IfcUnit_get get_DefiningUnit() { return new IfcUnit_get(m_instance, "DefiningUnit", 0); }
+        public IfcUnit_get _DefiningUnit { get { return new IfcUnit_get(m_instance, "DefiningUnit", 0); } }
         public IfcUnit_put put_DefiningUnit() { return new IfcUnit_put(m_instance, "DefiningUnit", 0); }
 
         public IfcUnit_get get_DefinedUnit() { return new IfcUnit_get(m_instance, "DefinedUnit", 0); }
+        public IfcUnit_get _DefinedUnit { get { return new IfcUnit_get(m_instance, "DefinedUnit", 0); } }
         public IfcUnit_put put_DefinedUnit() { return new IfcUnit_put(m_instance, "DefinedUnit", 0); }
 
         protected override TextValue EntityName() { return "IfcPropertyTableValue"; }
@@ -20324,6 +22126,7 @@ namespace IFC2x3
         public static new IfcProtectiveDeviceType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProtectiveDeviceType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProtectiveDeviceTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcProtectiveDeviceTypeEnum_); return EnumValue<IfcProtectiveDeviceTypeEnum>.FromIndex(ind); }
+        public IfcProtectiveDeviceTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcProtectiveDeviceTypeEnum value) { var str = EnumString<IfcProtectiveDeviceTypeEnum>.FromValue(value, EnumNames.IfcProtectiveDeviceTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcProtectiveDeviceType"; }
@@ -20351,8 +22154,10 @@ namespace IFC2x3
         public static new IfcProxy Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcProxy"); Debug.Assert(inst != 0); return inst; }
 
         public IfcObjectTypeEnum? get_ProxyType() { var str = get_string("ProxyType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcObjectTypeEnum_); return EnumValue<IfcObjectTypeEnum>.FromIndex(ind); }
+        public IfcObjectTypeEnum? _ProxyType { get { return get_ProxyType(); } }
         public void put_ProxyType(IfcObjectTypeEnum value) { var str = EnumString<IfcObjectTypeEnum>.FromValue(value, EnumNames.IfcObjectTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ProxyType", ifcengine.sdaiENUM, str); }
         public TextValue get_Tag() { return get_string("Tag", ifcengine.sdaiSTRING); }
+        public TextValue _Tag { get { return get_Tag(); } }
         public void put_Tag(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Tag", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcProxy"; }
@@ -20380,6 +22185,7 @@ namespace IFC2x3
         public static new IfcPumpType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcPumpType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPumpTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPumpTypeEnum_); return EnumValue<IfcPumpTypeEnum>.FromIndex(ind); }
+        public IfcPumpTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcPumpTypeEnum value) { var str = EnumString<IfcPumpTypeEnum>.FromValue(value, EnumNames.IfcPumpTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcPumpType"; }
@@ -20407,6 +22213,7 @@ namespace IFC2x3
         public static new IfcQuantityArea Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcQuantityArea"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_AreaValue() { return get_double("AreaValue", ifcengine.sdaiREAL);}
+        public double? _AreaValue { get { return get_AreaValue(); } }
         public void put_AreaValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "AreaValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcQuantityArea"; }
@@ -20434,6 +22241,7 @@ namespace IFC2x3
         public static new IfcQuantityCount Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcQuantityCount"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_CountValue() { return get_double("CountValue", ifcengine.sdaiREAL);}
+        public double? _CountValue { get { return get_CountValue(); } }
         public void put_CountValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CountValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcQuantityCount"; }
@@ -20461,6 +22269,7 @@ namespace IFC2x3
         public static new IfcQuantityLength Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcQuantityLength"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LengthValue() { return get_double("LengthValue", ifcengine.sdaiREAL);}
+        public double? _LengthValue { get { return get_LengthValue(); } }
         public void put_LengthValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LengthValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcQuantityLength"; }
@@ -20488,6 +22297,7 @@ namespace IFC2x3
         public static new IfcQuantityTime Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcQuantityTime"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_TimeValue() { return get_double("TimeValue", ifcengine.sdaiREAL);}
+        public double? _TimeValue { get { return get_TimeValue(); } }
         public void put_TimeValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TimeValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcQuantityTime"; }
@@ -20515,6 +22325,7 @@ namespace IFC2x3
         public static new IfcQuantityVolume Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcQuantityVolume"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_VolumeValue() { return get_double("VolumeValue", ifcengine.sdaiREAL);}
+        public double? _VolumeValue { get { return get_VolumeValue(); } }
         public void put_VolumeValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "VolumeValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcQuantityVolume"; }
@@ -20542,6 +22353,7 @@ namespace IFC2x3
         public static new IfcQuantityWeight Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcQuantityWeight"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_WeightValue() { return get_double("WeightValue", ifcengine.sdaiREAL);}
+        public double? _WeightValue { get { return get_WeightValue(); } }
         public void put_WeightValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WeightValue", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcQuantityWeight"; }
@@ -20594,6 +22406,7 @@ namespace IFC2x3
         public static new IfcRailing Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRailing"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRailingTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcRailingTypeEnum_); return EnumValue<IfcRailingTypeEnum>.FromIndex(ind); }
+        public IfcRailingTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcRailingTypeEnum value) { var str = EnumString<IfcRailingTypeEnum>.FromValue(value, EnumNames.IfcRailingTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRailing"; }
@@ -20621,6 +22434,7 @@ namespace IFC2x3
         public static new IfcRailingType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRailingType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRailingTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcRailingTypeEnum_); return EnumValue<IfcRailingTypeEnum>.FromIndex(ind); }
+        public IfcRailingTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcRailingTypeEnum value) { var str = EnumString<IfcRailingTypeEnum>.FromValue(value, EnumNames.IfcRailingTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRailingType"; }
@@ -20648,6 +22462,7 @@ namespace IFC2x3
         public static new IfcRamp Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRamp"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRampTypeEnum? get_ShapeType() { var str = get_string("ShapeType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcRampTypeEnum_); return EnumValue<IfcRampTypeEnum>.FromIndex(ind); }
+        public IfcRampTypeEnum? _ShapeType { get { return get_ShapeType(); } }
         public void put_ShapeType(IfcRampTypeEnum value) { var str = EnumString<IfcRampTypeEnum>.FromValue(value, EnumNames.IfcRampTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ShapeType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRamp"; }
@@ -20700,6 +22515,7 @@ namespace IFC2x3
         public static new IfcRampFlightType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRampFlightType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRampFlightTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcRampFlightTypeEnum_); return EnumValue<IfcRampFlightTypeEnum>.FromIndex(ind); }
+        public IfcRampFlightTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcRampFlightTypeEnum value) { var str = EnumString<IfcRampFlightTypeEnum>.FromValue(value, EnumNames.IfcRampFlightTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRampFlightType"; }
@@ -20727,6 +22543,7 @@ namespace IFC2x3
         public static new IfcRationalBezierCurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRationalBezierCurve"); Debug.Assert(inst != 0); return inst; }
 
         public list_of_double get_WeightsData() { return (new list_of_doubleSerializer()).FromAttr(m_instance, "WeightsData"); }
+        public list_of_double _WeightsData { get { return get_WeightsData(); } }
         public void put_WeightsData(IEnumerable<double> lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "WeightsData"); }
         //public void put_WeightsData_untyped(IEnumerable lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "WeightsData"); }
 
@@ -20755,8 +22572,10 @@ namespace IFC2x3
         public static new IfcRectangleProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRectangleProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_XDim() { return get_double("XDim", ifcengine.sdaiREAL);}
+        public double? _XDim { get { return get_XDim(); } }
         public void put_XDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "XDim", ifcengine.sdaiREAL, ref value); }
         public double? get_YDim() { return get_double("YDim", ifcengine.sdaiREAL);}
+        public double? _YDim { get { return get_YDim(); } }
         public void put_YDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "YDim", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRectangleProfileDef"; }
@@ -20784,10 +22603,13 @@ namespace IFC2x3
         public static new IfcRectangleHollowProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRectangleHollowProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_WallThickness() { return get_double("WallThickness", ifcengine.sdaiREAL);}
+        public double? _WallThickness { get { return get_WallThickness(); } }
         public void put_WallThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WallThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_InnerFilletRadius() { return get_double("InnerFilletRadius", ifcengine.sdaiREAL);}
+        public double? _InnerFilletRadius { get { return get_InnerFilletRadius(); } }
         public void put_InnerFilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "InnerFilletRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_OuterFilletRadius() { return get_double("OuterFilletRadius", ifcengine.sdaiREAL);}
+        public double? _OuterFilletRadius { get { return get_OuterFilletRadius(); } }
         public void put_OuterFilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OuterFilletRadius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRectangleHollowProfileDef"; }
@@ -20815,10 +22637,13 @@ namespace IFC2x3
         public static new IfcRectangularPyramid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRectangularPyramid"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_XLength() { return get_double("XLength", ifcengine.sdaiREAL);}
+        public double? _XLength { get { return get_XLength(); } }
         public void put_XLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "XLength", ifcengine.sdaiREAL, ref value); }
         public double? get_YLength() { return get_double("YLength", ifcengine.sdaiREAL);}
+        public double? _YLength { get { return get_YLength(); } }
         public void put_YLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "YLength", ifcengine.sdaiREAL, ref value); }
         public double? get_Height() { return get_double("Height", ifcengine.sdaiREAL);}
+        public double? _Height { get { return get_Height(); } }
         public void put_Height(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Height", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRectangularPyramid"; }
@@ -20846,18 +22671,25 @@ namespace IFC2x3
         public static new IfcRectangularTrimmedSurface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRectangularTrimmedSurface"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSurface get_BasisSurface() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BasisSurface", ifcengine.sdaiINSTANCE, out inst); return new IfcSurface (inst); }
+        public IfcSurface _BasisSurface { get { return get_BasisSurface(); } }
         public void put_BasisSurface(IfcSurface inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BasisSurface", ifcengine.sdaiINSTANCE, i); }
         public double? get_U1() { return get_double("U1", ifcengine.sdaiREAL);}
+        public double? _U1 { get { return get_U1(); } }
         public void put_U1(double value) { ifcengine.sdaiPutAttrBN(m_instance, "U1", ifcengine.sdaiREAL, ref value); }
         public double? get_V1() { return get_double("V1", ifcengine.sdaiREAL);}
+        public double? _V1 { get { return get_V1(); } }
         public void put_V1(double value) { ifcengine.sdaiPutAttrBN(m_instance, "V1", ifcengine.sdaiREAL, ref value); }
         public double? get_U2() { return get_double("U2", ifcengine.sdaiREAL);}
+        public double? _U2 { get { return get_U2(); } }
         public void put_U2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "U2", ifcengine.sdaiREAL, ref value); }
         public double? get_V2() { return get_double("V2", ifcengine.sdaiREAL);}
+        public double? _V2 { get { return get_V2(); } }
         public void put_V2(double value) { ifcengine.sdaiPutAttrBN(m_instance, "V2", ifcengine.sdaiREAL, ref value); }
         public bool? get_Usense() { return get_bool("Usense", ifcengine.sdaiBOOLEAN);}
+        public bool? _Usense { get { return get_Usense(); } }
         public void put_Usense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "Usense", ifcengine.sdaiBOOLEAN, ref value); }
         public bool? get_Vsense() { return get_bool("Vsense", ifcengine.sdaiBOOLEAN);}
+        public bool? _Vsense { get { return get_Vsense(); } }
         public void put_Vsense(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "Vsense", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcRectangularTrimmedSurface"; }
@@ -20886,13 +22718,17 @@ namespace IFC2x3
 
 
         public IfcDocumentSelect_get get_ReferencedDocument() { return new IfcDocumentSelect_get(m_instance, "ReferencedDocument", 0); }
+        public IfcDocumentSelect_get _ReferencedDocument { get { return new IfcDocumentSelect_get(m_instance, "ReferencedDocument", 0); } }
         public IfcDocumentSelect_put put_ReferencedDocument() { return new IfcDocumentSelect_put(m_instance, "ReferencedDocument", 0); }
         public SetOfIfcAppliedValue get_ReferencingValues() { return (new SetOfIfcAppliedValueSerializer()).FromAttr(m_instance, "ReferencingValues"); }
+        public SetOfIfcAppliedValue _ReferencingValues { get { return get_ReferencingValues(); } }
         public void put_ReferencingValues(IEnumerable<IfcAppliedValue> lst) { (new SetOfIfcAppliedValueSerializer()).ToSdaiAggr(lst, m_instance, "ReferencingValues"); }
         //public void put_ReferencingValues_untyped(IEnumerable lst) { (new SetOfIfcAppliedValueSerializer()).ToSdaiAggr(lst, m_instance, "ReferencingValues"); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcReferencesValueDocument"; }
@@ -20920,8 +22756,10 @@ namespace IFC2x3
         public static new IfcRegularTimeSeries Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRegularTimeSeries"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_TimeStep() { return get_double("TimeStep", ifcengine.sdaiREAL);}
+        public double? _TimeStep { get { return get_TimeStep(); } }
         public void put_TimeStep(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TimeStep", ifcengine.sdaiREAL, ref value); }
         public ListOfIfcTimeSeriesValue get_Values() { return (new ListOfIfcTimeSeriesValueSerializer()).FromAttr(m_instance, "Values"); }
+        public ListOfIfcTimeSeriesValue _Values { get { return get_Values(); } }
         public void put_Values(IEnumerable<IfcTimeSeriesValue> lst) { (new ListOfIfcTimeSeriesValueSerializer()).ToSdaiAggr(lst, m_instance, "Values"); }
         //public void put_Values_untyped(IEnumerable lst) { (new ListOfIfcTimeSeriesValueSerializer()).ToSdaiAggr(lst, m_instance, "Values"); }
 
@@ -20950,16 +22788,22 @@ namespace IFC2x3
         public static new IfcReinforcementBarProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcReinforcementBarProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_TotalCrossSectionArea() { return get_double("TotalCrossSectionArea", ifcengine.sdaiREAL);}
+        public double? _TotalCrossSectionArea { get { return get_TotalCrossSectionArea(); } }
         public void put_TotalCrossSectionArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TotalCrossSectionArea", ifcengine.sdaiREAL, ref value); }
         public TextValue get_SteelGrade() { return get_string("SteelGrade", ifcengine.sdaiSTRING); }
+        public TextValue _SteelGrade { get { return get_SteelGrade(); } }
         public void put_SteelGrade(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "SteelGrade", ifcengine.sdaiSTRING, value); }
         public IfcReinforcingBarSurfaceEnum? get_BarSurface() { var str = get_string("BarSurface", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcReinforcingBarSurfaceEnum_); return EnumValue<IfcReinforcingBarSurfaceEnum>.FromIndex(ind); }
+        public IfcReinforcingBarSurfaceEnum? _BarSurface { get { return get_BarSurface(); } }
         public void put_BarSurface(IfcReinforcingBarSurfaceEnum value) { var str = EnumString<IfcReinforcingBarSurfaceEnum>.FromValue(value, EnumNames.IfcReinforcingBarSurfaceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "BarSurface", ifcengine.sdaiENUM, str); }
         public double? get_EffectiveDepth() { return get_double("EffectiveDepth", ifcengine.sdaiREAL);}
+        public double? _EffectiveDepth { get { return get_EffectiveDepth(); } }
         public void put_EffectiveDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EffectiveDepth", ifcengine.sdaiREAL, ref value); }
         public double? get_NominalBarDiameter() { return get_double("NominalBarDiameter", ifcengine.sdaiREAL);}
+        public double? _NominalBarDiameter { get { return get_NominalBarDiameter(); } }
         public void put_NominalBarDiameter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "NominalBarDiameter", ifcengine.sdaiREAL, ref value); }
         public double? get_BarCount() { return get_double("BarCount", ifcengine.sdaiREAL);}
+        public double? _BarCount { get { return get_BarCount(); } }
         public void put_BarCount(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BarCount", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcReinforcementBarProperties"; }
@@ -20987,8 +22831,10 @@ namespace IFC2x3
         public static new IfcReinforcementDefinitionProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcReinforcementDefinitionProperties"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_DefinitionType() { return get_string("DefinitionType", ifcengine.sdaiSTRING); }
+        public TextValue _DefinitionType { get { return get_DefinitionType(); } }
         public void put_DefinitionType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "DefinitionType", ifcengine.sdaiSTRING, value); }
         public ListOfIfcSectionReinforcementProperties get_ReinforcementSectionDefinitions() { return (new ListOfIfcSectionReinforcementPropertiesSerializer()).FromAttr(m_instance, "ReinforcementSectionDefinitions"); }
+        public ListOfIfcSectionReinforcementProperties _ReinforcementSectionDefinitions { get { return get_ReinforcementSectionDefinitions(); } }
         public void put_ReinforcementSectionDefinitions(IEnumerable<IfcSectionReinforcementProperties> lst) { (new ListOfIfcSectionReinforcementPropertiesSerializer()).ToSdaiAggr(lst, m_instance, "ReinforcementSectionDefinitions"); }
         //public void put_ReinforcementSectionDefinitions_untyped(IEnumerable lst) { (new ListOfIfcSectionReinforcementPropertiesSerializer()).ToSdaiAggr(lst, m_instance, "ReinforcementSectionDefinitions"); }
 
@@ -21012,6 +22858,7 @@ namespace IFC2x3
         public static implicit operator IfcReinforcingElement(SdaiInstance instance) => new IfcReinforcingElement(instance);
 
         public TextValue get_SteelGrade() { return get_string("SteelGrade", ifcengine.sdaiSTRING); }
+        public TextValue _SteelGrade { get { return get_SteelGrade(); } }
         public void put_SteelGrade(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "SteelGrade", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcReinforcingElement"; }
@@ -21039,14 +22886,19 @@ namespace IFC2x3
         public static new IfcReinforcingBar Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcReinforcingBar"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_NominalDiameter() { return get_double("NominalDiameter", ifcengine.sdaiREAL);}
+        public double? _NominalDiameter { get { return get_NominalDiameter(); } }
         public void put_NominalDiameter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "NominalDiameter", ifcengine.sdaiREAL, ref value); }
         public double? get_CrossSectionArea() { return get_double("CrossSectionArea", ifcengine.sdaiREAL);}
+        public double? _CrossSectionArea { get { return get_CrossSectionArea(); } }
         public void put_CrossSectionArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CrossSectionArea", ifcengine.sdaiREAL, ref value); }
         public double? get_BarLength() { return get_double("BarLength", ifcengine.sdaiREAL);}
+        public double? _BarLength { get { return get_BarLength(); } }
         public void put_BarLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BarLength", ifcengine.sdaiREAL, ref value); }
         public IfcReinforcingBarRoleEnum? get_BarRole() { var str = get_string("BarRole", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcReinforcingBarRoleEnum_); return EnumValue<IfcReinforcingBarRoleEnum>.FromIndex(ind); }
+        public IfcReinforcingBarRoleEnum? _BarRole { get { return get_BarRole(); } }
         public void put_BarRole(IfcReinforcingBarRoleEnum value) { var str = EnumString<IfcReinforcingBarRoleEnum>.FromValue(value, EnumNames.IfcReinforcingBarRoleEnum_); ifcengine.sdaiPutAttrBN(m_instance, "BarRole", ifcengine.sdaiENUM, str); }
         public IfcReinforcingBarSurfaceEnum? get_BarSurface() { var str = get_string("BarSurface", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcReinforcingBarSurfaceEnum_); return EnumValue<IfcReinforcingBarSurfaceEnum>.FromIndex(ind); }
+        public IfcReinforcingBarSurfaceEnum? _BarSurface { get { return get_BarSurface(); } }
         public void put_BarSurface(IfcReinforcingBarSurfaceEnum value) { var str = EnumString<IfcReinforcingBarSurfaceEnum>.FromValue(value, EnumNames.IfcReinforcingBarSurfaceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "BarSurface", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcReinforcingBar"; }
@@ -21074,20 +22926,28 @@ namespace IFC2x3
         public static new IfcReinforcingMesh Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcReinforcingMesh"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_MeshLength() { return get_double("MeshLength", ifcengine.sdaiREAL);}
+        public double? _MeshLength { get { return get_MeshLength(); } }
         public void put_MeshLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MeshLength", ifcengine.sdaiREAL, ref value); }
         public double? get_MeshWidth() { return get_double("MeshWidth", ifcengine.sdaiREAL);}
+        public double? _MeshWidth { get { return get_MeshWidth(); } }
         public void put_MeshWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MeshWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_LongitudinalBarNominalDiameter() { return get_double("LongitudinalBarNominalDiameter", ifcengine.sdaiREAL);}
+        public double? _LongitudinalBarNominalDiameter { get { return get_LongitudinalBarNominalDiameter(); } }
         public void put_LongitudinalBarNominalDiameter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LongitudinalBarNominalDiameter", ifcengine.sdaiREAL, ref value); }
         public double? get_TransverseBarNominalDiameter() { return get_double("TransverseBarNominalDiameter", ifcengine.sdaiREAL);}
+        public double? _TransverseBarNominalDiameter { get { return get_TransverseBarNominalDiameter(); } }
         public void put_TransverseBarNominalDiameter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TransverseBarNominalDiameter", ifcengine.sdaiREAL, ref value); }
         public double? get_LongitudinalBarCrossSectionArea() { return get_double("LongitudinalBarCrossSectionArea", ifcengine.sdaiREAL);}
+        public double? _LongitudinalBarCrossSectionArea { get { return get_LongitudinalBarCrossSectionArea(); } }
         public void put_LongitudinalBarCrossSectionArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LongitudinalBarCrossSectionArea", ifcengine.sdaiREAL, ref value); }
         public double? get_TransverseBarCrossSectionArea() { return get_double("TransverseBarCrossSectionArea", ifcengine.sdaiREAL);}
+        public double? _TransverseBarCrossSectionArea { get { return get_TransverseBarCrossSectionArea(); } }
         public void put_TransverseBarCrossSectionArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TransverseBarCrossSectionArea", ifcengine.sdaiREAL, ref value); }
         public double? get_LongitudinalBarSpacing() { return get_double("LongitudinalBarSpacing", ifcengine.sdaiREAL);}
+        public double? _LongitudinalBarSpacing { get { return get_LongitudinalBarSpacing(); } }
         public void put_LongitudinalBarSpacing(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LongitudinalBarSpacing", ifcengine.sdaiREAL, ref value); }
         public double? get_TransverseBarSpacing() { return get_double("TransverseBarSpacing", ifcengine.sdaiREAL);}
+        public double? _TransverseBarSpacing { get { return get_TransverseBarSpacing(); } }
         public void put_TransverseBarSpacing(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TransverseBarSpacing", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcReinforcingMesh"; }
@@ -21130,8 +22990,10 @@ namespace IFC2x3
         public static implicit operator IfcRelDecomposes(SdaiInstance instance) => new IfcRelDecomposes(instance);
 
         public IfcObjectDefinition get_RelatingObject() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingObject", ifcengine.sdaiINSTANCE, out inst); return new IfcObjectDefinition (inst); }
+        public IfcObjectDefinition _RelatingObject { get { return get_RelatingObject(); } }
         public void put_RelatingObject(IfcObjectDefinition inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingObject", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcObjectDefinition get_RelatedObjects() { return (new SetOfIfcObjectDefinitionSerializer()).FromAttr(m_instance, "RelatedObjects"); }
+        public SetOfIfcObjectDefinition _RelatedObjects { get { return get_RelatedObjects(); } }
         public void put_RelatedObjects(IEnumerable<IfcObjectDefinition> lst) { (new SetOfIfcObjectDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
         //public void put_RelatedObjects_untyped(IEnumerable lst) { (new SetOfIfcObjectDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
 
@@ -21180,9 +23042,11 @@ namespace IFC2x3
         public static implicit operator IfcRelAssigns(SdaiInstance instance) => new IfcRelAssigns(instance);
 
         public SetOfIfcObjectDefinition get_RelatedObjects() { return (new SetOfIfcObjectDefinitionSerializer()).FromAttr(m_instance, "RelatedObjects"); }
+        public SetOfIfcObjectDefinition _RelatedObjects { get { return get_RelatedObjects(); } }
         public void put_RelatedObjects(IEnumerable<IfcObjectDefinition> lst) { (new SetOfIfcObjectDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
         //public void put_RelatedObjects_untyped(IEnumerable lst) { (new SetOfIfcObjectDefinitionSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
         public IfcObjectTypeEnum? get_RelatedObjectsType() { var str = get_string("RelatedObjectsType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcObjectTypeEnum_); return EnumValue<IfcObjectTypeEnum>.FromIndex(ind); }
+        public IfcObjectTypeEnum? _RelatedObjectsType { get { return get_RelatedObjectsType(); } }
         public void put_RelatedObjectsType(IfcObjectTypeEnum value) { var str = EnumString<IfcObjectTypeEnum>.FromValue(value, EnumNames.IfcObjectTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "RelatedObjectsType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRelAssigns"; }
@@ -21210,6 +23074,7 @@ namespace IFC2x3
         public static new IfcRelAssignsToControl Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssignsToControl"); Debug.Assert(inst != 0); return inst; }
 
         public IfcControl get_RelatingControl() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingControl", ifcengine.sdaiINSTANCE, out inst); return new IfcControl (inst); }
+        public IfcControl _RelatingControl { get { return get_RelatingControl(); } }
         public void put_RelatingControl(IfcControl inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingControl", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssignsToControl"; }
@@ -21237,6 +23102,7 @@ namespace IFC2x3
         public static new IfcRelAssignsTasks Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssignsTasks"); Debug.Assert(inst != 0); return inst; }
 
         public IfcScheduleTimeControl get_TimeForTask() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TimeForTask", ifcengine.sdaiINSTANCE, out inst); return new IfcScheduleTimeControl (inst); }
+        public IfcScheduleTimeControl _TimeForTask { get { return get_TimeForTask(); } }
         public void put_TimeForTask(IfcScheduleTimeControl inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TimeForTask", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssignsTasks"; }
@@ -21264,8 +23130,10 @@ namespace IFC2x3
         public static new IfcRelAssignsToActor Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssignsToActor"); Debug.Assert(inst != 0); return inst; }
 
         public IfcActor get_RelatingActor() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingActor", ifcengine.sdaiINSTANCE, out inst); return new IfcActor (inst); }
+        public IfcActor _RelatingActor { get { return get_RelatingActor(); } }
         public void put_RelatingActor(IfcActor inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingActor", ifcengine.sdaiINSTANCE, i); }
         public IfcActorRole get_ActingRole() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ActingRole", ifcengine.sdaiINSTANCE, out inst); return new IfcActorRole (inst); }
+        public IfcActorRole _ActingRole { get { return get_ActingRole(); } }
         public void put_ActingRole(IfcActorRole inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ActingRole", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssignsToActor"; }
@@ -21293,6 +23161,7 @@ namespace IFC2x3
         public static new IfcRelAssignsToGroup Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssignsToGroup"); Debug.Assert(inst != 0); return inst; }
 
         public IfcGroup get_RelatingGroup() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingGroup", ifcengine.sdaiINSTANCE, out inst); return new IfcGroup (inst); }
+        public IfcGroup _RelatingGroup { get { return get_RelatingGroup(); } }
         public void put_RelatingGroup(IfcGroup inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingGroup", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssignsToGroup"; }
@@ -21320,8 +23189,10 @@ namespace IFC2x3
         public static new IfcRelAssignsToProcess Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssignsToProcess"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProcess get_RelatingProcess() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingProcess", ifcengine.sdaiINSTANCE, out inst); return new IfcProcess (inst); }
+        public IfcProcess _RelatingProcess { get { return get_RelatingProcess(); } }
         public void put_RelatingProcess(IfcProcess inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingProcess", ifcengine.sdaiINSTANCE, i); }
         public IfcMeasureWithUnit get_QuantityInProcess() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "QuantityInProcess", ifcengine.sdaiINSTANCE, out inst); return new IfcMeasureWithUnit (inst); }
+        public IfcMeasureWithUnit _QuantityInProcess { get { return get_QuantityInProcess(); } }
         public void put_QuantityInProcess(IfcMeasureWithUnit inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "QuantityInProcess", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssignsToProcess"; }
@@ -21349,6 +23220,7 @@ namespace IFC2x3
         public static new IfcRelAssignsToProduct Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssignsToProduct"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProduct get_RelatingProduct() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingProduct", ifcengine.sdaiINSTANCE, out inst); return new IfcProduct (inst); }
+        public IfcProduct _RelatingProduct { get { return get_RelatingProduct(); } }
         public void put_RelatingProduct(IfcProduct inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingProduct", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssignsToProduct"; }
@@ -21401,6 +23273,7 @@ namespace IFC2x3
         public static new IfcRelAssignsToResource Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssignsToResource"); Debug.Assert(inst != 0); return inst; }
 
         public IfcResource get_RelatingResource() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingResource", ifcengine.sdaiINSTANCE, out inst); return new IfcResource (inst); }
+        public IfcResource _RelatingResource { get { return get_RelatingResource(); } }
         public void put_RelatingResource(IfcResource inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingResource", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssignsToResource"; }
@@ -21428,6 +23301,7 @@ namespace IFC2x3
         public static new IfcRelAssociates Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssociates"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcRoot get_RelatedObjects() { return (new SetOfIfcRootSerializer()).FromAttr(m_instance, "RelatedObjects"); }
+        public SetOfIfcRoot _RelatedObjects { get { return get_RelatedObjects(); } }
         public void put_RelatedObjects(IEnumerable<IfcRoot> lst) { (new SetOfIfcRootSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
         //public void put_RelatedObjects_untyped(IEnumerable lst) { (new SetOfIfcRootSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
 
@@ -21456,6 +23330,7 @@ namespace IFC2x3
         public static new IfcRelAssociatesAppliedValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssociatesAppliedValue"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAppliedValue get_RelatingAppliedValue() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingAppliedValue", ifcengine.sdaiINSTANCE, out inst); return new IfcAppliedValue (inst); }
+        public IfcAppliedValue _RelatingAppliedValue { get { return get_RelatingAppliedValue(); } }
         public void put_RelatingAppliedValue(IfcAppliedValue inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingAppliedValue", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesAppliedValue"; }
@@ -21483,6 +23358,7 @@ namespace IFC2x3
         public static new IfcRelAssociatesApproval Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssociatesApproval"); Debug.Assert(inst != 0); return inst; }
 
         public IfcApproval get_RelatingApproval() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingApproval", ifcengine.sdaiINSTANCE, out inst); return new IfcApproval (inst); }
+        public IfcApproval _RelatingApproval { get { return get_RelatingApproval(); } }
         public void put_RelatingApproval(IfcApproval inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingApproval", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesApproval"; }
@@ -21511,6 +23387,7 @@ namespace IFC2x3
 
 
         public IfcClassificationNotationSelect_get get_RelatingClassification() { return new IfcClassificationNotationSelect_get(m_instance, "RelatingClassification", 0); }
+        public IfcClassificationNotationSelect_get _RelatingClassification { get { return new IfcClassificationNotationSelect_get(m_instance, "RelatingClassification", 0); } }
         public IfcClassificationNotationSelect_put put_RelatingClassification() { return new IfcClassificationNotationSelect_put(m_instance, "RelatingClassification", 0); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesClassification"; }
@@ -21538,8 +23415,10 @@ namespace IFC2x3
         public static new IfcRelAssociatesConstraint Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssociatesConstraint"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Intent() { return get_string("Intent", ifcengine.sdaiSTRING); }
+        public TextValue _Intent { get { return get_Intent(); } }
         public void put_Intent(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Intent", ifcengine.sdaiSTRING, value); }
         public IfcConstraint get_RelatingConstraint() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, out inst); return new IfcConstraint (inst); }
+        public IfcConstraint _RelatingConstraint { get { return get_RelatingConstraint(); } }
         public void put_RelatingConstraint(IfcConstraint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingConstraint", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesConstraint"; }
@@ -21568,6 +23447,7 @@ namespace IFC2x3
 
 
         public IfcDocumentSelect_get get_RelatingDocument() { return new IfcDocumentSelect_get(m_instance, "RelatingDocument", 0); }
+        public IfcDocumentSelect_get _RelatingDocument { get { return new IfcDocumentSelect_get(m_instance, "RelatingDocument", 0); } }
         public IfcDocumentSelect_put put_RelatingDocument() { return new IfcDocumentSelect_put(m_instance, "RelatingDocument", 0); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesDocument"; }
@@ -21596,6 +23476,7 @@ namespace IFC2x3
 
 
         public IfcLibrarySelect_get get_RelatingLibrary() { return new IfcLibrarySelect_get(m_instance, "RelatingLibrary", 0); }
+        public IfcLibrarySelect_get _RelatingLibrary { get { return new IfcLibrarySelect_get(m_instance, "RelatingLibrary", 0); } }
         public IfcLibrarySelect_put put_RelatingLibrary() { return new IfcLibrarySelect_put(m_instance, "RelatingLibrary", 0); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesLibrary"; }
@@ -21624,6 +23505,7 @@ namespace IFC2x3
 
 
         public IfcMaterialSelect_get get_RelatingMaterial() { return new IfcMaterialSelect_get(m_instance, "RelatingMaterial", 0); }
+        public IfcMaterialSelect_get _RelatingMaterial { get { return new IfcMaterialSelect_get(m_instance, "RelatingMaterial", 0); } }
         public IfcMaterialSelect_put put_RelatingMaterial() { return new IfcMaterialSelect_put(m_instance, "RelatingMaterial", 0); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesMaterial"; }
@@ -21651,11 +23533,14 @@ namespace IFC2x3
         public static new IfcRelAssociatesProfileProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelAssociatesProfileProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProfileProperties get_RelatingProfileProperties() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingProfileProperties", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileProperties (inst); }
+        public IfcProfileProperties _RelatingProfileProperties { get { return get_RelatingProfileProperties(); } }
         public void put_RelatingProfileProperties(IfcProfileProperties inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingProfileProperties", ifcengine.sdaiINSTANCE, i); }
         public IfcShapeAspect get_ProfileSectionLocation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ProfileSectionLocation", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _ProfileSectionLocation { get { return get_ProfileSectionLocation(); } }
         public void put_ProfileSectionLocation(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ProfileSectionLocation", ifcengine.sdaiINSTANCE, i); }
 
         public IfcOrientationSelect_get get_ProfileOrientation() { return new IfcOrientationSelect_get(m_instance, "ProfileOrientation", 0); }
+        public IfcOrientationSelect_get _ProfileOrientation { get { return new IfcOrientationSelect_get(m_instance, "ProfileOrientation", 0); } }
         public IfcOrientationSelect_put put_ProfileOrientation() { return new IfcOrientationSelect_put(m_instance, "ProfileOrientation", 0); }
 
         protected override TextValue EntityName() { return "IfcRelAssociatesProfileProperties"; }
@@ -21683,8 +23568,10 @@ namespace IFC2x3
         public static new IfcRelaxation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelaxation"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_RelaxationValue() { return get_double("RelaxationValue", ifcengine.sdaiREAL);}
+        public double? _RelaxationValue { get { return get_RelaxationValue(); } }
         public void put_RelaxationValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RelaxationValue", ifcengine.sdaiREAL, ref value); }
         public double? get_InitialStress() { return get_double("InitialStress", ifcengine.sdaiREAL);}
+        public double? _InitialStress { get { return get_InitialStress(); } }
         public void put_InitialStress(double value) { ifcengine.sdaiPutAttrBN(m_instance, "InitialStress", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRelaxation"; }
@@ -21732,10 +23619,13 @@ namespace IFC2x3
         public static new IfcRelConnectsElements Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsElements"); Debug.Assert(inst != 0); return inst; }
 
         public IfcConnectionGeometry get_ConnectionGeometry() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ConnectionGeometry", ifcengine.sdaiINSTANCE, out inst); return new IfcConnectionGeometry (inst); }
+        public IfcConnectionGeometry _ConnectionGeometry { get { return get_ConnectionGeometry(); } }
         public void put_ConnectionGeometry(IfcConnectionGeometry inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ConnectionGeometry", ifcengine.sdaiINSTANCE, i); }
         public IfcElement get_RelatingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatingElement { get { return get_RelatingElement(); } }
         public void put_RelatingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingElement", ifcengine.sdaiINSTANCE, i); }
         public IfcElement get_RelatedElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatedElement { get { return get_RelatedElement(); } }
         public void put_RelatedElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedElement", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsElements"; }
@@ -21763,14 +23653,18 @@ namespace IFC2x3
         public static new IfcRelConnectsPathElements Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsPathElements"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIntValue get_RelatingPriorities() { return (new ListOfIntValueSerializer()).FromAttr(m_instance, "RelatingPriorities"); }
+        public ListOfIntValue _RelatingPriorities { get { return get_RelatingPriorities(); } }
         public void put_RelatingPriorities(IEnumerable<IntValue> lst) { (new ListOfIntValueSerializer()).ToSdaiAggr(lst, m_instance, "RelatingPriorities"); }
         //public void put_RelatingPriorities_untyped(IEnumerable lst) { (new ListOfIntValueSerializer()).ToSdaiAggr(lst, m_instance, "RelatingPriorities"); }
         public ListOfIntValue get_RelatedPriorities() { return (new ListOfIntValueSerializer()).FromAttr(m_instance, "RelatedPriorities"); }
+        public ListOfIntValue _RelatedPriorities { get { return get_RelatedPriorities(); } }
         public void put_RelatedPriorities(IEnumerable<IntValue> lst) { (new ListOfIntValueSerializer()).ToSdaiAggr(lst, m_instance, "RelatedPriorities"); }
         //public void put_RelatedPriorities_untyped(IEnumerable lst) { (new ListOfIntValueSerializer()).ToSdaiAggr(lst, m_instance, "RelatedPriorities"); }
         public IfcConnectionTypeEnum? get_RelatedConnectionType() { var str = get_string("RelatedConnectionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcConnectionTypeEnum_); return EnumValue<IfcConnectionTypeEnum>.FromIndex(ind); }
+        public IfcConnectionTypeEnum? _RelatedConnectionType { get { return get_RelatedConnectionType(); } }
         public void put_RelatedConnectionType(IfcConnectionTypeEnum value) { var str = EnumString<IfcConnectionTypeEnum>.FromValue(value, EnumNames.IfcConnectionTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "RelatedConnectionType", ifcengine.sdaiENUM, str); }
         public IfcConnectionTypeEnum? get_RelatingConnectionType() { var str = get_string("RelatingConnectionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcConnectionTypeEnum_); return EnumValue<IfcConnectionTypeEnum>.FromIndex(ind); }
+        public IfcConnectionTypeEnum? _RelatingConnectionType { get { return get_RelatingConnectionType(); } }
         public void put_RelatingConnectionType(IfcConnectionTypeEnum value) { var str = EnumString<IfcConnectionTypeEnum>.FromValue(value, EnumNames.IfcConnectionTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "RelatingConnectionType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsPathElements"; }
@@ -21798,10 +23692,13 @@ namespace IFC2x3
         public static new IfcRelConnectsPorts Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsPorts"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPort get_RelatingPort() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingPort", ifcengine.sdaiINSTANCE, out inst); return new IfcPort (inst); }
+        public IfcPort _RelatingPort { get { return get_RelatingPort(); } }
         public void put_RelatingPort(IfcPort inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingPort", ifcengine.sdaiINSTANCE, i); }
         public IfcPort get_RelatedPort() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedPort", ifcengine.sdaiINSTANCE, out inst); return new IfcPort (inst); }
+        public IfcPort _RelatedPort { get { return get_RelatedPort(); } }
         public void put_RelatedPort(IfcPort inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedPort", ifcengine.sdaiINSTANCE, i); }
         public IfcElement get_RealizingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RealizingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RealizingElement { get { return get_RealizingElement(); } }
         public void put_RealizingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RealizingElement", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsPorts"; }
@@ -21829,8 +23726,10 @@ namespace IFC2x3
         public static new IfcRelConnectsPortToElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsPortToElement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPort get_RelatingPort() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingPort", ifcengine.sdaiINSTANCE, out inst); return new IfcPort (inst); }
+        public IfcPort _RelatingPort { get { return get_RelatingPort(); } }
         public void put_RelatingPort(IfcPort inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingPort", ifcengine.sdaiINSTANCE, i); }
         public IfcElement get_RelatedElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatedElement { get { return get_RelatedElement(); } }
         public void put_RelatedElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedElement", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsPortToElement"; }
@@ -21859,8 +23758,10 @@ namespace IFC2x3
 
 
         public IfcStructuralActivityAssignmentSelect_get get_RelatingElement() { return new IfcStructuralActivityAssignmentSelect_get(m_instance, "RelatingElement", 0); }
+        public IfcStructuralActivityAssignmentSelect_get _RelatingElement { get { return new IfcStructuralActivityAssignmentSelect_get(m_instance, "RelatingElement", 0); } }
         public IfcStructuralActivityAssignmentSelect_put put_RelatingElement() { return new IfcStructuralActivityAssignmentSelect_put(m_instance, "RelatingElement", 0); }
         public IfcStructuralActivity get_RelatedStructuralActivity() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedStructuralActivity", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralActivity (inst); }
+        public IfcStructuralActivity _RelatedStructuralActivity { get { return get_RelatedStructuralActivity(); } }
         public void put_RelatedStructuralActivity(IfcStructuralActivity inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedStructuralActivity", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsStructuralActivity"; }
@@ -21888,8 +23789,10 @@ namespace IFC2x3
         public static new IfcRelConnectsStructuralElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsStructuralElement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElement get_RelatingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatingElement { get { return get_RelatingElement(); } }
         public void put_RelatingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingElement", ifcengine.sdaiINSTANCE, i); }
         public IfcStructuralMember get_RelatedStructuralMember() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedStructuralMember", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralMember (inst); }
+        public IfcStructuralMember _RelatedStructuralMember { get { return get_RelatedStructuralMember(); } }
         public void put_RelatedStructuralMember(IfcStructuralMember inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedStructuralMember", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsStructuralElement"; }
@@ -21917,16 +23820,22 @@ namespace IFC2x3
         public static new IfcRelConnectsStructuralMember Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsStructuralMember"); Debug.Assert(inst != 0); return inst; }
 
         public IfcStructuralMember get_RelatingStructuralMember() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingStructuralMember", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralMember (inst); }
+        public IfcStructuralMember _RelatingStructuralMember { get { return get_RelatingStructuralMember(); } }
         public void put_RelatingStructuralMember(IfcStructuralMember inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingStructuralMember", ifcengine.sdaiINSTANCE, i); }
         public IfcStructuralConnection get_RelatedStructuralConnection() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedStructuralConnection", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralConnection (inst); }
+        public IfcStructuralConnection _RelatedStructuralConnection { get { return get_RelatedStructuralConnection(); } }
         public void put_RelatedStructuralConnection(IfcStructuralConnection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedStructuralConnection", ifcengine.sdaiINSTANCE, i); }
         public IfcBoundaryCondition get_AppliedCondition() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AppliedCondition", ifcengine.sdaiINSTANCE, out inst); return new IfcBoundaryCondition (inst); }
+        public IfcBoundaryCondition _AppliedCondition { get { return get_AppliedCondition(); } }
         public void put_AppliedCondition(IfcBoundaryCondition inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AppliedCondition", ifcengine.sdaiINSTANCE, i); }
         public IfcStructuralConnectionCondition get_AdditionalConditions() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AdditionalConditions", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralConnectionCondition (inst); }
+        public IfcStructuralConnectionCondition _AdditionalConditions { get { return get_AdditionalConditions(); } }
         public void put_AdditionalConditions(IfcStructuralConnectionCondition inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AdditionalConditions", ifcengine.sdaiINSTANCE, i); }
         public double? get_SupportedLength() { return get_double("SupportedLength", ifcengine.sdaiREAL);}
+        public double? _SupportedLength { get { return get_SupportedLength(); } }
         public void put_SupportedLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SupportedLength", ifcengine.sdaiREAL, ref value); }
         public IfcAxis2Placement3D get_ConditionCoordinateSystem() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ConditionCoordinateSystem", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _ConditionCoordinateSystem { get { return get_ConditionCoordinateSystem(); } }
         public void put_ConditionCoordinateSystem(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ConditionCoordinateSystem", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsStructuralMember"; }
@@ -21954,6 +23863,7 @@ namespace IFC2x3
         public static new IfcRelConnectsWithEccentricity Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsWithEccentricity"); Debug.Assert(inst != 0); return inst; }
 
         public IfcConnectionGeometry get_ConnectionConstraint() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ConnectionConstraint", ifcengine.sdaiINSTANCE, out inst); return new IfcConnectionGeometry (inst); }
+        public IfcConnectionGeometry _ConnectionConstraint { get { return get_ConnectionConstraint(); } }
         public void put_ConnectionConstraint(IfcConnectionGeometry inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ConnectionConstraint", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsWithEccentricity"; }
@@ -21981,9 +23891,11 @@ namespace IFC2x3
         public static new IfcRelConnectsWithRealizingElements Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelConnectsWithRealizingElements"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcElement get_RealizingElements() { return (new SetOfIfcElementSerializer()).FromAttr(m_instance, "RealizingElements"); }
+        public SetOfIfcElement _RealizingElements { get { return get_RealizingElements(); } }
         public void put_RealizingElements(IEnumerable<IfcElement> lst) { (new SetOfIfcElementSerializer()).ToSdaiAggr(lst, m_instance, "RealizingElements"); }
         //public void put_RealizingElements_untyped(IEnumerable lst) { (new SetOfIfcElementSerializer()).ToSdaiAggr(lst, m_instance, "RealizingElements"); }
         public TextValue get_ConnectionType() { return get_string("ConnectionType", ifcengine.sdaiSTRING); }
+        public TextValue _ConnectionType { get { return get_ConnectionType(); } }
         public void put_ConnectionType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "ConnectionType", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcRelConnectsWithRealizingElements"; }
@@ -22011,9 +23923,11 @@ namespace IFC2x3
         public static new IfcRelContainedInSpatialStructure Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelContainedInSpatialStructure"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProduct get_RelatedElements() { return (new SetOfIfcProductSerializer()).FromAttr(m_instance, "RelatedElements"); }
+        public SetOfIfcProduct _RelatedElements { get { return get_RelatedElements(); } }
         public void put_RelatedElements(IEnumerable<IfcProduct> lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "RelatedElements"); }
         //public void put_RelatedElements_untyped(IEnumerable lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "RelatedElements"); }
         public IfcSpatialStructureElement get_RelatingStructure() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingStructure", ifcengine.sdaiINSTANCE, out inst); return new IfcSpatialStructureElement (inst); }
+        public IfcSpatialStructureElement _RelatingStructure { get { return get_RelatingStructure(); } }
         public void put_RelatingStructure(IfcSpatialStructureElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingStructure", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelContainedInSpatialStructure"; }
@@ -22041,8 +23955,10 @@ namespace IFC2x3
         public static new IfcRelCoversBldgElements Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelCoversBldgElements"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElement get_RelatingBuildingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingBuildingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatingBuildingElement { get { return get_RelatingBuildingElement(); } }
         public void put_RelatingBuildingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingBuildingElement", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcCovering get_RelatedCoverings() { return (new SetOfIfcCoveringSerializer()).FromAttr(m_instance, "RelatedCoverings"); }
+        public SetOfIfcCovering _RelatedCoverings { get { return get_RelatedCoverings(); } }
         public void put_RelatedCoverings(IEnumerable<IfcCovering> lst) { (new SetOfIfcCoveringSerializer()).ToSdaiAggr(lst, m_instance, "RelatedCoverings"); }
         //public void put_RelatedCoverings_untyped(IEnumerable lst) { (new SetOfIfcCoveringSerializer()).ToSdaiAggr(lst, m_instance, "RelatedCoverings"); }
 
@@ -22071,8 +23987,10 @@ namespace IFC2x3
         public static new IfcRelCoversSpaces Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelCoversSpaces"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSpace get_RelatedSpace() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedSpace", ifcengine.sdaiINSTANCE, out inst); return new IfcSpace (inst); }
+        public IfcSpace _RelatedSpace { get { return get_RelatedSpace(); } }
         public void put_RelatedSpace(IfcSpace inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedSpace", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcCovering get_RelatedCoverings() { return (new SetOfIfcCoveringSerializer()).FromAttr(m_instance, "RelatedCoverings"); }
+        public SetOfIfcCovering _RelatedCoverings { get { return get_RelatedCoverings(); } }
         public void put_RelatedCoverings(IEnumerable<IfcCovering> lst) { (new SetOfIfcCoveringSerializer()).ToSdaiAggr(lst, m_instance, "RelatedCoverings"); }
         //public void put_RelatedCoverings_untyped(IEnumerable lst) { (new SetOfIfcCoveringSerializer()).ToSdaiAggr(lst, m_instance, "RelatedCoverings"); }
 
@@ -22096,6 +24014,7 @@ namespace IFC2x3
         public static implicit operator IfcRelDefines(SdaiInstance instance) => new IfcRelDefines(instance);
 
         public SetOfIfcObject get_RelatedObjects() { return (new SetOfIfcObjectSerializer()).FromAttr(m_instance, "RelatedObjects"); }
+        public SetOfIfcObject _RelatedObjects { get { return get_RelatedObjects(); } }
         public void put_RelatedObjects(IEnumerable<IfcObject> lst) { (new SetOfIfcObjectSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
         //public void put_RelatedObjects_untyped(IEnumerable lst) { (new SetOfIfcObjectSerializer()).ToSdaiAggr(lst, m_instance, "RelatedObjects"); }
 
@@ -22124,6 +24043,7 @@ namespace IFC2x3
         public static new IfcRelDefinesByProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelDefinesByProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPropertySetDefinition get_RelatingPropertyDefinition() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingPropertyDefinition", ifcengine.sdaiINSTANCE, out inst); return new IfcPropertySetDefinition (inst); }
+        public IfcPropertySetDefinition _RelatingPropertyDefinition { get { return get_RelatingPropertyDefinition(); } }
         public void put_RelatingPropertyDefinition(IfcPropertySetDefinition inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingPropertyDefinition", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelDefinesByProperties"; }
@@ -22151,6 +24071,7 @@ namespace IFC2x3
         public static new IfcRelDefinesByType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelDefinesByType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTypeObject get_RelatingType() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingType", ifcengine.sdaiINSTANCE, out inst); return new IfcTypeObject (inst); }
+        public IfcTypeObject _RelatingType { get { return get_RelatingType(); } }
         public void put_RelatingType(IfcTypeObject inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingType", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelDefinesByType"; }
@@ -22178,8 +24099,10 @@ namespace IFC2x3
         public static new IfcRelFillsElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelFillsElement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcOpeningElement get_RelatingOpeningElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingOpeningElement", ifcengine.sdaiINSTANCE, out inst); return new IfcOpeningElement (inst); }
+        public IfcOpeningElement _RelatingOpeningElement { get { return get_RelatingOpeningElement(); } }
         public void put_RelatingOpeningElement(IfcOpeningElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingOpeningElement", ifcengine.sdaiINSTANCE, i); }
         public IfcElement get_RelatedBuildingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedBuildingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatedBuildingElement { get { return get_RelatedBuildingElement(); } }
         public void put_RelatedBuildingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedBuildingElement", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelFillsElement"; }
@@ -22207,9 +24130,11 @@ namespace IFC2x3
         public static new IfcRelFlowControlElements Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelFlowControlElements"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcDistributionControlElement get_RelatedControlElements() { return (new SetOfIfcDistributionControlElementSerializer()).FromAttr(m_instance, "RelatedControlElements"); }
+        public SetOfIfcDistributionControlElement _RelatedControlElements { get { return get_RelatedControlElements(); } }
         public void put_RelatedControlElements(IEnumerable<IfcDistributionControlElement> lst) { (new SetOfIfcDistributionControlElementSerializer()).ToSdaiAggr(lst, m_instance, "RelatedControlElements"); }
         //public void put_RelatedControlElements_untyped(IEnumerable lst) { (new SetOfIfcDistributionControlElementSerializer()).ToSdaiAggr(lst, m_instance, "RelatedControlElements"); }
         public IfcDistributionFlowElement get_RelatingFlowElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingFlowElement", ifcengine.sdaiINSTANCE, out inst); return new IfcDistributionFlowElement (inst); }
+        public IfcDistributionFlowElement _RelatingFlowElement { get { return get_RelatingFlowElement(); } }
         public void put_RelatingFlowElement(IfcDistributionFlowElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingFlowElement", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelFlowControlElements"; }
@@ -22237,14 +24162,19 @@ namespace IFC2x3
         public static new IfcRelInteractionRequirements Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelInteractionRequirements"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_DailyInteraction() { return get_double("DailyInteraction", ifcengine.sdaiREAL);}
+        public double? _DailyInteraction { get { return get_DailyInteraction(); } }
         public void put_DailyInteraction(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DailyInteraction", ifcengine.sdaiREAL, ref value); }
         public double? get_ImportanceRating() { return get_double("ImportanceRating", ifcengine.sdaiREAL);}
+        public double? _ImportanceRating { get { return get_ImportanceRating(); } }
         public void put_ImportanceRating(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ImportanceRating", ifcengine.sdaiREAL, ref value); }
         public IfcSpatialStructureElement get_LocationOfInteraction() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LocationOfInteraction", ifcengine.sdaiINSTANCE, out inst); return new IfcSpatialStructureElement (inst); }
+        public IfcSpatialStructureElement _LocationOfInteraction { get { return get_LocationOfInteraction(); } }
         public void put_LocationOfInteraction(IfcSpatialStructureElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LocationOfInteraction", ifcengine.sdaiINSTANCE, i); }
         public IfcSpaceProgram get_RelatedSpaceProgram() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedSpaceProgram", ifcengine.sdaiINSTANCE, out inst); return new IfcSpaceProgram (inst); }
+        public IfcSpaceProgram _RelatedSpaceProgram { get { return get_RelatedSpaceProgram(); } }
         public void put_RelatedSpaceProgram(IfcSpaceProgram inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedSpaceProgram", ifcengine.sdaiINSTANCE, i); }
         public IfcSpaceProgram get_RelatingSpaceProgram() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingSpaceProgram", ifcengine.sdaiINSTANCE, out inst); return new IfcSpaceProgram (inst); }
+        public IfcSpaceProgram _RelatingSpaceProgram { get { return get_RelatingSpaceProgram(); } }
         public void put_RelatingSpaceProgram(IfcSpaceProgram inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingSpaceProgram", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelInteractionRequirements"; }
@@ -22322,6 +24252,7 @@ namespace IFC2x3
         public static new IfcRelOverridesProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelOverridesProperties"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProperty get_OverridingProperties() { return (new SetOfIfcPropertySerializer()).FromAttr(m_instance, "OverridingProperties"); }
+        public SetOfIfcProperty _OverridingProperties { get { return get_OverridingProperties(); } }
         public void put_OverridingProperties(IEnumerable<IfcProperty> lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "OverridingProperties"); }
         //public void put_OverridingProperties_untyped(IEnumerable lst) { (new SetOfIfcPropertySerializer()).ToSdaiAggr(lst, m_instance, "OverridingProperties"); }
 
@@ -22350,8 +24281,10 @@ namespace IFC2x3
         public static new IfcRelProjectsElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelProjectsElement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElement get_RelatingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatingElement { get { return get_RelatingElement(); } }
         public void put_RelatingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingElement", ifcengine.sdaiINSTANCE, i); }
         public IfcFeatureElementAddition get_RelatedFeatureElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedFeatureElement", ifcengine.sdaiINSTANCE, out inst); return new IfcFeatureElementAddition (inst); }
+        public IfcFeatureElementAddition _RelatedFeatureElement { get { return get_RelatedFeatureElement(); } }
         public void put_RelatedFeatureElement(IfcFeatureElementAddition inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedFeatureElement", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelProjectsElement"; }
@@ -22379,9 +24312,11 @@ namespace IFC2x3
         public static new IfcRelReferencedInSpatialStructure Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelReferencedInSpatialStructure"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcProduct get_RelatedElements() { return (new SetOfIfcProductSerializer()).FromAttr(m_instance, "RelatedElements"); }
+        public SetOfIfcProduct _RelatedElements { get { return get_RelatedElements(); } }
         public void put_RelatedElements(IEnumerable<IfcProduct> lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "RelatedElements"); }
         //public void put_RelatedElements_untyped(IEnumerable lst) { (new SetOfIfcProductSerializer()).ToSdaiAggr(lst, m_instance, "RelatedElements"); }
         public IfcSpatialStructureElement get_RelatingStructure() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingStructure", ifcengine.sdaiINSTANCE, out inst); return new IfcSpatialStructureElement (inst); }
+        public IfcSpatialStructureElement _RelatingStructure { get { return get_RelatingStructure(); } }
         public void put_RelatingStructure(IfcSpatialStructureElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingStructure", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelReferencedInSpatialStructure"; }
@@ -22434,12 +24369,16 @@ namespace IFC2x3
         public static new IfcRelSequence Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelSequence"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProcess get_RelatingProcess() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingProcess", ifcengine.sdaiINSTANCE, out inst); return new IfcProcess (inst); }
+        public IfcProcess _RelatingProcess { get { return get_RelatingProcess(); } }
         public void put_RelatingProcess(IfcProcess inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingProcess", ifcengine.sdaiINSTANCE, i); }
         public IfcProcess get_RelatedProcess() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedProcess", ifcengine.sdaiINSTANCE, out inst); return new IfcProcess (inst); }
+        public IfcProcess _RelatedProcess { get { return get_RelatedProcess(); } }
         public void put_RelatedProcess(IfcProcess inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedProcess", ifcengine.sdaiINSTANCE, i); }
         public double? get_TimeLag() { return get_double("TimeLag", ifcengine.sdaiREAL);}
+        public double? _TimeLag { get { return get_TimeLag(); } }
         public void put_TimeLag(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TimeLag", ifcengine.sdaiREAL, ref value); }
         public IfcSequenceEnum? get_SequenceType() { var str = get_string("SequenceType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSequenceEnum_); return EnumValue<IfcSequenceEnum>.FromIndex(ind); }
+        public IfcSequenceEnum? _SequenceType { get { return get_SequenceType(); } }
         public void put_SequenceType(IfcSequenceEnum value) { var str = EnumString<IfcSequenceEnum>.FromValue(value, EnumNames.IfcSequenceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "SequenceType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRelSequence"; }
@@ -22467,8 +24406,10 @@ namespace IFC2x3
         public static new IfcRelServicesBuildings Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelServicesBuildings"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSystem get_RelatingSystem() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingSystem", ifcengine.sdaiINSTANCE, out inst); return new IfcSystem (inst); }
+        public IfcSystem _RelatingSystem { get { return get_RelatingSystem(); } }
         public void put_RelatingSystem(IfcSystem inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingSystem", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcSpatialStructureElement get_RelatedBuildings() { return (new SetOfIfcSpatialStructureElementSerializer()).FromAttr(m_instance, "RelatedBuildings"); }
+        public SetOfIfcSpatialStructureElement _RelatedBuildings { get { return get_RelatedBuildings(); } }
         public void put_RelatedBuildings(IEnumerable<IfcSpatialStructureElement> lst) { (new SetOfIfcSpatialStructureElementSerializer()).ToSdaiAggr(lst, m_instance, "RelatedBuildings"); }
         //public void put_RelatedBuildings_untyped(IEnumerable lst) { (new SetOfIfcSpatialStructureElementSerializer()).ToSdaiAggr(lst, m_instance, "RelatedBuildings"); }
 
@@ -22497,14 +24438,19 @@ namespace IFC2x3
         public static new IfcRelSpaceBoundary Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelSpaceBoundary"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSpace get_RelatingSpace() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingSpace", ifcengine.sdaiINSTANCE, out inst); return new IfcSpace (inst); }
+        public IfcSpace _RelatingSpace { get { return get_RelatingSpace(); } }
         public void put_RelatingSpace(IfcSpace inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingSpace", ifcengine.sdaiINSTANCE, i); }
         public IfcElement get_RelatedBuildingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedBuildingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatedBuildingElement { get { return get_RelatedBuildingElement(); } }
         public void put_RelatedBuildingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedBuildingElement", ifcengine.sdaiINSTANCE, i); }
         public IfcConnectionGeometry get_ConnectionGeometry() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ConnectionGeometry", ifcengine.sdaiINSTANCE, out inst); return new IfcConnectionGeometry (inst); }
+        public IfcConnectionGeometry _ConnectionGeometry { get { return get_ConnectionGeometry(); } }
         public void put_ConnectionGeometry(IfcConnectionGeometry inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ConnectionGeometry", ifcengine.sdaiINSTANCE, i); }
         public IfcPhysicalOrVirtualEnum? get_PhysicalOrVirtualBoundary() { var str = get_string("PhysicalOrVirtualBoundary", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPhysicalOrVirtualEnum_); return EnumValue<IfcPhysicalOrVirtualEnum>.FromIndex(ind); }
+        public IfcPhysicalOrVirtualEnum? _PhysicalOrVirtualBoundary { get { return get_PhysicalOrVirtualBoundary(); } }
         public void put_PhysicalOrVirtualBoundary(IfcPhysicalOrVirtualEnum value) { var str = EnumString<IfcPhysicalOrVirtualEnum>.FromValue(value, EnumNames.IfcPhysicalOrVirtualEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PhysicalOrVirtualBoundary", ifcengine.sdaiENUM, str); }
         public IfcInternalOrExternalEnum? get_InternalOrExternalBoundary() { var str = get_string("InternalOrExternalBoundary", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcInternalOrExternalEnum_); return EnumValue<IfcInternalOrExternalEnum>.FromIndex(ind); }
+        public IfcInternalOrExternalEnum? _InternalOrExternalBoundary { get { return get_InternalOrExternalBoundary(); } }
         public void put_InternalOrExternalBoundary(IfcInternalOrExternalEnum value) { var str = EnumString<IfcInternalOrExternalEnum>.FromValue(value, EnumNames.IfcInternalOrExternalEnum_); ifcengine.sdaiPutAttrBN(m_instance, "InternalOrExternalBoundary", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRelSpaceBoundary"; }
@@ -22532,8 +24478,10 @@ namespace IFC2x3
         public static new IfcRelVoidsElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRelVoidsElement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcElement get_RelatingBuildingElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatingBuildingElement", ifcengine.sdaiINSTANCE, out inst); return new IfcElement (inst); }
+        public IfcElement _RelatingBuildingElement { get { return get_RelatingBuildingElement(); } }
         public void put_RelatingBuildingElement(IfcElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatingBuildingElement", ifcengine.sdaiINSTANCE, i); }
         public IfcFeatureElementSubtraction get_RelatedOpeningElement() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RelatedOpeningElement", ifcengine.sdaiINSTANCE, out inst); return new IfcFeatureElementSubtraction (inst); }
+        public IfcFeatureElementSubtraction _RelatedOpeningElement { get { return get_RelatedOpeningElement(); } }
         public void put_RelatedOpeningElement(IfcFeatureElementSubtraction inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RelatedOpeningElement", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcRelVoidsElement"; }
@@ -22561,17 +24509,24 @@ namespace IFC2x3
         public static new IfcRepresentation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRepresentation"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRepresentationContext get_ContextOfItems() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ContextOfItems", ifcengine.sdaiINSTANCE, out inst); return new IfcRepresentationContext (inst); }
+        public IfcRepresentationContext _ContextOfItems { get { return get_ContextOfItems(); } }
         public void put_ContextOfItems(IfcRepresentationContext inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ContextOfItems", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_RepresentationIdentifier() { return get_string("RepresentationIdentifier", ifcengine.sdaiSTRING); }
+        public TextValue _RepresentationIdentifier { get { return get_RepresentationIdentifier(); } }
         public void put_RepresentationIdentifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "RepresentationIdentifier", ifcengine.sdaiSTRING, value); }
         public TextValue get_RepresentationType() { return get_string("RepresentationType", ifcengine.sdaiSTRING); }
+        public TextValue _RepresentationType { get { return get_RepresentationType(); } }
         public void put_RepresentationType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "RepresentationType", ifcengine.sdaiSTRING, value); }
         public SetOfIfcRepresentationItem get_Items() { return (new SetOfIfcRepresentationItemSerializer()).FromAttr(m_instance, "Items"); }
+        public SetOfIfcRepresentationItem _Items { get { return get_Items(); } }
         public void put_Items(IEnumerable<IfcRepresentationItem> lst) { (new SetOfIfcRepresentationItemSerializer()).ToSdaiAggr(lst, m_instance, "Items"); }
         //public void put_Items_untyped(IEnumerable lst) { (new SetOfIfcRepresentationItemSerializer()).ToSdaiAggr(lst, m_instance, "Items"); }
         public SetOfIfcRepresentationMap get_RepresentationMap() { return (new SetOfIfcRepresentationMapSerializer()).FromAttr(m_instance, "RepresentationMap"); }
+        public SetOfIfcRepresentationMap _RepresentationMap { get { return get_RepresentationMap(); } }
         public SetOfIfcPresentationLayerAssignment get_LayerAssignments() { return (new SetOfIfcPresentationLayerAssignmentSerializer()).FromAttr(m_instance, "LayerAssignments"); }
+        public SetOfIfcPresentationLayerAssignment _LayerAssignments { get { return get_LayerAssignments(); } }
         public SetOfIfcProductRepresentation get_OfProductRepresentation() { return (new SetOfIfcProductRepresentationSerializer()).FromAttr(m_instance, "OfProductRepresentation"); }
+        public SetOfIfcProductRepresentation _OfProductRepresentation { get { return get_OfProductRepresentation(); } }
 
         protected override TextValue EntityName() { return "IfcRepresentation"; }
     };
@@ -22599,10 +24554,13 @@ namespace IFC2x3
 
 
         public IfcAxis2Placement_get get_MappingOrigin() { return new IfcAxis2Placement_get(m_instance, "MappingOrigin", 0); }
+        public IfcAxis2Placement_get _MappingOrigin { get { return new IfcAxis2Placement_get(m_instance, "MappingOrigin", 0); } }
         public IfcAxis2Placement_put put_MappingOrigin() { return new IfcAxis2Placement_put(m_instance, "MappingOrigin", 0); }
         public IfcRepresentation get_MappedRepresentation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "MappedRepresentation", ifcengine.sdaiINSTANCE, out inst); return new IfcRepresentation (inst); }
+        public IfcRepresentation _MappedRepresentation { get { return get_MappedRepresentation(); } }
         public void put_MappedRepresentation(IfcRepresentation inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "MappedRepresentation", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcMappedItem get_MapUsage() { return (new SetOfIfcMappedItemSerializer()).FromAttr(m_instance, "MapUsage"); }
+        public SetOfIfcMappedItem _MapUsage { get { return get_MapUsage(); } }
 
         protected override TextValue EntityName() { return "IfcRepresentationMap"; }
     };
@@ -22629,8 +24587,10 @@ namespace IFC2x3
         public static new IfcRevolvedAreaSolid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRevolvedAreaSolid"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAxis1Placement get_Axis() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis1Placement (inst); }
+        public IfcAxis1Placement _Axis { get { return get_Axis(); } }
         public void put_Axis(IfcAxis1Placement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, i); }
         public double? get_Angle() { return get_double("Angle", ifcengine.sdaiREAL);}
+        public double? _Angle { get { return get_Angle(); } }
         public void put_Angle(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Angle", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRevolvedAreaSolid"; }
@@ -22658,14 +24618,19 @@ namespace IFC2x3
         public static new IfcRibPlateProfileProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRibPlateProfileProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Thickness() { return get_double("Thickness", ifcengine.sdaiREAL);}
+        public double? _Thickness { get { return get_Thickness(); } }
         public void put_Thickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Thickness", ifcengine.sdaiREAL, ref value); }
         public double? get_RibHeight() { return get_double("RibHeight", ifcengine.sdaiREAL);}
+        public double? _RibHeight { get { return get_RibHeight(); } }
         public void put_RibHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RibHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_RibWidth() { return get_double("RibWidth", ifcengine.sdaiREAL);}
+        public double? _RibWidth { get { return get_RibWidth(); } }
         public void put_RibWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RibWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_RibSpacing() { return get_double("RibSpacing", ifcengine.sdaiREAL);}
+        public double? _RibSpacing { get { return get_RibSpacing(); } }
         public void put_RibSpacing(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RibSpacing", ifcengine.sdaiREAL, ref value); }
         public IfcRibPlateDirectionEnum? get_Direction() { var str = get_string("Direction", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcRibPlateDirectionEnum_); return EnumValue<IfcRibPlateDirectionEnum>.FromIndex(ind); }
+        public IfcRibPlateDirectionEnum? _Direction { get { return get_Direction(); } }
         public void put_Direction(IfcRibPlateDirectionEnum value) { var str = EnumString<IfcRibPlateDirectionEnum>.FromValue(value, EnumNames.IfcRibPlateDirectionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "Direction", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRibPlateProfileProperties"; }
@@ -22693,8 +24658,10 @@ namespace IFC2x3
         public static new IfcRightCircularCone Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRightCircularCone"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Height() { return get_double("Height", ifcengine.sdaiREAL);}
+        public double? _Height { get { return get_Height(); } }
         public void put_Height(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Height", ifcengine.sdaiREAL, ref value); }
         public double? get_BottomRadius() { return get_double("BottomRadius", ifcengine.sdaiREAL);}
+        public double? _BottomRadius { get { return get_BottomRadius(); } }
         public void put_BottomRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BottomRadius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRightCircularCone"; }
@@ -22722,8 +24689,10 @@ namespace IFC2x3
         public static new IfcRightCircularCylinder Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRightCircularCylinder"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Height() { return get_double("Height", ifcengine.sdaiREAL);}
+        public double? _Height { get { return get_Height(); } }
         public void put_Height(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Height", ifcengine.sdaiREAL, ref value); }
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRightCircularCylinder"; }
@@ -22751,6 +24720,7 @@ namespace IFC2x3
         public static new IfcRoof Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRoof"); Debug.Assert(inst != 0); return inst; }
 
         public IfcRoofTypeEnum? get_ShapeType() { var str = get_string("ShapeType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcRoofTypeEnum_); return EnumValue<IfcRoofTypeEnum>.FromIndex(ind); }
+        public IfcRoofTypeEnum? _ShapeType { get { return get_ShapeType(); } }
         public void put_ShapeType(IfcRoofTypeEnum value) { var str = EnumString<IfcRoofTypeEnum>.FromValue(value, EnumNames.IfcRoofTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ShapeType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcRoof"; }
@@ -22778,6 +24748,7 @@ namespace IFC2x3
         public static new IfcRoundedEdgeFeature Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRoundedEdgeFeature"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRoundedEdgeFeature"; }
@@ -22805,6 +24776,7 @@ namespace IFC2x3
         public static new IfcRoundedRectangleProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcRoundedRectangleProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_RoundingRadius() { return get_double("RoundingRadius", ifcengine.sdaiREAL);}
+        public double? _RoundingRadius { get { return get_RoundingRadius(); } }
         public void put_RoundingRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RoundingRadius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcRoundedRectangleProfileDef"; }
@@ -22832,6 +24804,7 @@ namespace IFC2x3
         public static new IfcSanitaryTerminalType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSanitaryTerminalType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSanitaryTerminalTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSanitaryTerminalTypeEnum_); return EnumValue<IfcSanitaryTerminalTypeEnum>.FromIndex(ind); }
+        public IfcSanitaryTerminalTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcSanitaryTerminalTypeEnum value) { var str = EnumString<IfcSanitaryTerminalTypeEnum>.FromValue(value, EnumNames.IfcSanitaryTerminalTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSanitaryTerminalType"; }
@@ -22860,50 +24833,69 @@ namespace IFC2x3
 
 
         public IfcDateTimeSelect_get get_ActualStart() { return new IfcDateTimeSelect_get(m_instance, "ActualStart", 0); }
+        public IfcDateTimeSelect_get _ActualStart { get { return new IfcDateTimeSelect_get(m_instance, "ActualStart", 0); } }
         public IfcDateTimeSelect_put put_ActualStart() { return new IfcDateTimeSelect_put(m_instance, "ActualStart", 0); }
 
         public IfcDateTimeSelect_get get_EarlyStart() { return new IfcDateTimeSelect_get(m_instance, "EarlyStart", 0); }
+        public IfcDateTimeSelect_get _EarlyStart { get { return new IfcDateTimeSelect_get(m_instance, "EarlyStart", 0); } }
         public IfcDateTimeSelect_put put_EarlyStart() { return new IfcDateTimeSelect_put(m_instance, "EarlyStart", 0); }
 
         public IfcDateTimeSelect_get get_LateStart() { return new IfcDateTimeSelect_get(m_instance, "LateStart", 0); }
+        public IfcDateTimeSelect_get _LateStart { get { return new IfcDateTimeSelect_get(m_instance, "LateStart", 0); } }
         public IfcDateTimeSelect_put put_LateStart() { return new IfcDateTimeSelect_put(m_instance, "LateStart", 0); }
 
         public IfcDateTimeSelect_get get_ScheduleStart() { return new IfcDateTimeSelect_get(m_instance, "ScheduleStart", 0); }
+        public IfcDateTimeSelect_get _ScheduleStart { get { return new IfcDateTimeSelect_get(m_instance, "ScheduleStart", 0); } }
         public IfcDateTimeSelect_put put_ScheduleStart() { return new IfcDateTimeSelect_put(m_instance, "ScheduleStart", 0); }
 
         public IfcDateTimeSelect_get get_ActualFinish() { return new IfcDateTimeSelect_get(m_instance, "ActualFinish", 0); }
+        public IfcDateTimeSelect_get _ActualFinish { get { return new IfcDateTimeSelect_get(m_instance, "ActualFinish", 0); } }
         public IfcDateTimeSelect_put put_ActualFinish() { return new IfcDateTimeSelect_put(m_instance, "ActualFinish", 0); }
 
         public IfcDateTimeSelect_get get_EarlyFinish() { return new IfcDateTimeSelect_get(m_instance, "EarlyFinish", 0); }
+        public IfcDateTimeSelect_get _EarlyFinish { get { return new IfcDateTimeSelect_get(m_instance, "EarlyFinish", 0); } }
         public IfcDateTimeSelect_put put_EarlyFinish() { return new IfcDateTimeSelect_put(m_instance, "EarlyFinish", 0); }
 
         public IfcDateTimeSelect_get get_LateFinish() { return new IfcDateTimeSelect_get(m_instance, "LateFinish", 0); }
+        public IfcDateTimeSelect_get _LateFinish { get { return new IfcDateTimeSelect_get(m_instance, "LateFinish", 0); } }
         public IfcDateTimeSelect_put put_LateFinish() { return new IfcDateTimeSelect_put(m_instance, "LateFinish", 0); }
 
         public IfcDateTimeSelect_get get_ScheduleFinish() { return new IfcDateTimeSelect_get(m_instance, "ScheduleFinish", 0); }
+        public IfcDateTimeSelect_get _ScheduleFinish { get { return new IfcDateTimeSelect_get(m_instance, "ScheduleFinish", 0); } }
         public IfcDateTimeSelect_put put_ScheduleFinish() { return new IfcDateTimeSelect_put(m_instance, "ScheduleFinish", 0); }
         public double? get_ScheduleDuration() { return get_double("ScheduleDuration", ifcengine.sdaiREAL);}
+        public double? _ScheduleDuration { get { return get_ScheduleDuration(); } }
         public void put_ScheduleDuration(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ScheduleDuration", ifcengine.sdaiREAL, ref value); }
         public double? get_ActualDuration() { return get_double("ActualDuration", ifcengine.sdaiREAL);}
+        public double? _ActualDuration { get { return get_ActualDuration(); } }
         public void put_ActualDuration(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ActualDuration", ifcengine.sdaiREAL, ref value); }
         public double? get_RemainingTime() { return get_double("RemainingTime", ifcengine.sdaiREAL);}
+        public double? _RemainingTime { get { return get_RemainingTime(); } }
         public void put_RemainingTime(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RemainingTime", ifcengine.sdaiREAL, ref value); }
         public double? get_FreeFloat() { return get_double("FreeFloat", ifcengine.sdaiREAL);}
+        public double? _FreeFloat { get { return get_FreeFloat(); } }
         public void put_FreeFloat(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FreeFloat", ifcengine.sdaiREAL, ref value); }
         public double? get_TotalFloat() { return get_double("TotalFloat", ifcengine.sdaiREAL);}
+        public double? _TotalFloat { get { return get_TotalFloat(); } }
         public void put_TotalFloat(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TotalFloat", ifcengine.sdaiREAL, ref value); }
         public bool? get_IsCritical() { return get_bool("IsCritical", ifcengine.sdaiBOOLEAN);}
+        public bool? _IsCritical { get { return get_IsCritical(); } }
         public void put_IsCritical(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsCritical", ifcengine.sdaiBOOLEAN, ref value); }
 
         public IfcDateTimeSelect_get get_StatusTime() { return new IfcDateTimeSelect_get(m_instance, "StatusTime", 0); }
+        public IfcDateTimeSelect_get _StatusTime { get { return new IfcDateTimeSelect_get(m_instance, "StatusTime", 0); } }
         public IfcDateTimeSelect_put put_StatusTime() { return new IfcDateTimeSelect_put(m_instance, "StatusTime", 0); }
         public double? get_StartFloat() { return get_double("StartFloat", ifcengine.sdaiREAL);}
+        public double? _StartFloat { get { return get_StartFloat(); } }
         public void put_StartFloat(double value) { ifcengine.sdaiPutAttrBN(m_instance, "StartFloat", ifcengine.sdaiREAL, ref value); }
         public double? get_FinishFloat() { return get_double("FinishFloat", ifcengine.sdaiREAL);}
+        public double? _FinishFloat { get { return get_FinishFloat(); } }
         public void put_FinishFloat(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FinishFloat", ifcengine.sdaiREAL, ref value); }
         public double? get_Completion() { return get_double("Completion", ifcengine.sdaiREAL);}
+        public double? _Completion { get { return get_Completion(); } }
         public void put_Completion(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Completion", ifcengine.sdaiREAL, ref value); }
         public IfcRelAssignsTasks get_ScheduleTimeControlAssigned() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ScheduleTimeControlAssigned", ifcengine.sdaiINSTANCE, out inst); return new IfcRelAssignsTasks (inst); }
+        public IfcRelAssignsTasks _ScheduleTimeControlAssigned { get { return get_ScheduleTimeControlAssigned(); } }
 
         protected override TextValue EntityName() { return "IfcScheduleTimeControl"; }
     };
@@ -22930,11 +24922,14 @@ namespace IFC2x3
         public static new IfcSectionedSpine Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSectionedSpine"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCompositeCurve get_SpineCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SpineCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCompositeCurve (inst); }
+        public IfcCompositeCurve _SpineCurve { get { return get_SpineCurve(); } }
         public void put_SpineCurve(IfcCompositeCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SpineCurve", ifcengine.sdaiINSTANCE, i); }
         public ListOfIfcProfileDef get_CrossSections() { return (new ListOfIfcProfileDefSerializer()).FromAttr(m_instance, "CrossSections"); }
+        public ListOfIfcProfileDef _CrossSections { get { return get_CrossSections(); } }
         public void put_CrossSections(IEnumerable<IfcProfileDef> lst) { (new ListOfIfcProfileDefSerializer()).ToSdaiAggr(lst, m_instance, "CrossSections"); }
         //public void put_CrossSections_untyped(IEnumerable lst) { (new ListOfIfcProfileDefSerializer()).ToSdaiAggr(lst, m_instance, "CrossSections"); }
         public ListOfIfcAxis2Placement3D get_CrossSectionPositions() { return (new ListOfIfcAxis2Placement3DSerializer()).FromAttr(m_instance, "CrossSectionPositions"); }
+        public ListOfIfcAxis2Placement3D _CrossSectionPositions { get { return get_CrossSectionPositions(); } }
         public void put_CrossSectionPositions(IEnumerable<IfcAxis2Placement3D> lst) { (new ListOfIfcAxis2Placement3DSerializer()).ToSdaiAggr(lst, m_instance, "CrossSectionPositions"); }
         //public void put_CrossSectionPositions_untyped(IEnumerable lst) { (new ListOfIfcAxis2Placement3DSerializer()).ToSdaiAggr(lst, m_instance, "CrossSectionPositions"); }
 
@@ -22963,10 +24958,13 @@ namespace IFC2x3
         public static new IfcSectionProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSectionProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSectionTypeEnum? get_SectionType() { var str = get_string("SectionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSectionTypeEnum_); return EnumValue<IfcSectionTypeEnum>.FromIndex(ind); }
+        public IfcSectionTypeEnum? _SectionType { get { return get_SectionType(); } }
         public void put_SectionType(IfcSectionTypeEnum value) { var str = EnumString<IfcSectionTypeEnum>.FromValue(value, EnumNames.IfcSectionTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "SectionType", ifcengine.sdaiENUM, str); }
         public IfcProfileDef get_StartProfile() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "StartProfile", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileDef (inst); }
+        public IfcProfileDef _StartProfile { get { return get_StartProfile(); } }
         public void put_StartProfile(IfcProfileDef inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "StartProfile", ifcengine.sdaiINSTANCE, i); }
         public IfcProfileDef get_EndProfile() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "EndProfile", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileDef (inst); }
+        public IfcProfileDef _EndProfile { get { return get_EndProfile(); } }
         public void put_EndProfile(IfcProfileDef inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "EndProfile", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSectionProperties"; }
@@ -22994,16 +24992,22 @@ namespace IFC2x3
         public static new IfcSectionReinforcementProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSectionReinforcementProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LongitudinalStartPosition() { return get_double("LongitudinalStartPosition", ifcengine.sdaiREAL);}
+        public double? _LongitudinalStartPosition { get { return get_LongitudinalStartPosition(); } }
         public void put_LongitudinalStartPosition(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LongitudinalStartPosition", ifcengine.sdaiREAL, ref value); }
         public double? get_LongitudinalEndPosition() { return get_double("LongitudinalEndPosition", ifcengine.sdaiREAL);}
+        public double? _LongitudinalEndPosition { get { return get_LongitudinalEndPosition(); } }
         public void put_LongitudinalEndPosition(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LongitudinalEndPosition", ifcengine.sdaiREAL, ref value); }
         public double? get_TransversePosition() { return get_double("TransversePosition", ifcengine.sdaiREAL);}
+        public double? _TransversePosition { get { return get_TransversePosition(); } }
         public void put_TransversePosition(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TransversePosition", ifcengine.sdaiREAL, ref value); }
         public IfcReinforcingBarRoleEnum? get_ReinforcementRole() { var str = get_string("ReinforcementRole", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcReinforcingBarRoleEnum_); return EnumValue<IfcReinforcingBarRoleEnum>.FromIndex(ind); }
+        public IfcReinforcingBarRoleEnum? _ReinforcementRole { get { return get_ReinforcementRole(); } }
         public void put_ReinforcementRole(IfcReinforcingBarRoleEnum value) { var str = EnumString<IfcReinforcingBarRoleEnum>.FromValue(value, EnumNames.IfcReinforcingBarRoleEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ReinforcementRole", ifcengine.sdaiENUM, str); }
         public IfcSectionProperties get_SectionDefinition() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SectionDefinition", ifcengine.sdaiINSTANCE, out inst); return new IfcSectionProperties (inst); }
+        public IfcSectionProperties _SectionDefinition { get { return get_SectionDefinition(); } }
         public void put_SectionDefinition(IfcSectionProperties inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SectionDefinition", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcReinforcementBarProperties get_CrossSectionReinforcementDefinitions() { return (new SetOfIfcReinforcementBarPropertiesSerializer()).FromAttr(m_instance, "CrossSectionReinforcementDefinitions"); }
+        public SetOfIfcReinforcementBarProperties _CrossSectionReinforcementDefinitions { get { return get_CrossSectionReinforcementDefinitions(); } }
         public void put_CrossSectionReinforcementDefinitions(IEnumerable<IfcReinforcementBarProperties> lst) { (new SetOfIfcReinforcementBarPropertiesSerializer()).ToSdaiAggr(lst, m_instance, "CrossSectionReinforcementDefinitions"); }
         //public void put_CrossSectionReinforcementDefinitions_untyped(IEnumerable lst) { (new SetOfIfcReinforcementBarPropertiesSerializer()).ToSdaiAggr(lst, m_instance, "CrossSectionReinforcementDefinitions"); }
 
@@ -23032,6 +25036,7 @@ namespace IFC2x3
         public static new IfcSensorType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSensorType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSensorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSensorTypeEnum_); return EnumValue<IfcSensorTypeEnum>.FromIndex(ind); }
+        public IfcSensorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcSensorTypeEnum value) { var str = EnumString<IfcSensorTypeEnum>.FromValue(value, EnumNames.IfcSensorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSensorType"; }
@@ -23059,8 +25064,10 @@ namespace IFC2x3
         public static new IfcServiceLife Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcServiceLife"); Debug.Assert(inst != 0); return inst; }
 
         public IfcServiceLifeTypeEnum? get_ServiceLifeType() { var str = get_string("ServiceLifeType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcServiceLifeTypeEnum_); return EnumValue<IfcServiceLifeTypeEnum>.FromIndex(ind); }
+        public IfcServiceLifeTypeEnum? _ServiceLifeType { get { return get_ServiceLifeType(); } }
         public void put_ServiceLifeType(IfcServiceLifeTypeEnum value) { var str = EnumString<IfcServiceLifeTypeEnum>.FromValue(value, EnumNames.IfcServiceLifeTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ServiceLifeType", ifcengine.sdaiENUM, str); }
         public double? get_ServiceLifeDuration() { return get_double("ServiceLifeDuration", ifcengine.sdaiREAL);}
+        public double? _ServiceLifeDuration { get { return get_ServiceLifeDuration(); } }
         public void put_ServiceLifeDuration(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ServiceLifeDuration", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcServiceLife"; }
@@ -23088,15 +25095,19 @@ namespace IFC2x3
         public static new IfcServiceLifeFactor Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcServiceLifeFactor"); Debug.Assert(inst != 0); return inst; }
 
         public IfcServiceLifeFactorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcServiceLifeFactorTypeEnum_); return EnumValue<IfcServiceLifeFactorTypeEnum>.FromIndex(ind); }
+        public IfcServiceLifeFactorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcServiceLifeFactorTypeEnum value) { var str = EnumString<IfcServiceLifeFactorTypeEnum>.FromValue(value, EnumNames.IfcServiceLifeFactorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         public IfcMeasureValue_get get_UpperValue() { return new IfcMeasureValue_get(m_instance, "UpperValue", 0); }
+        public IfcMeasureValue_get _UpperValue { get { return new IfcMeasureValue_get(m_instance, "UpperValue", 0); } }
         public IfcMeasureValue_put put_UpperValue() { return new IfcMeasureValue_put(m_instance, "UpperValue", 0); }
 
         public IfcMeasureValue_get get_MostUsedValue() { return new IfcMeasureValue_get(m_instance, "MostUsedValue", 0); }
+        public IfcMeasureValue_get _MostUsedValue { get { return new IfcMeasureValue_get(m_instance, "MostUsedValue", 0); } }
         public IfcMeasureValue_put put_MostUsedValue() { return new IfcMeasureValue_put(m_instance, "MostUsedValue", 0); }
 
         public IfcMeasureValue_get get_LowerValue() { return new IfcMeasureValue_get(m_instance, "LowerValue", 0); }
+        public IfcMeasureValue_get _LowerValue { get { return new IfcMeasureValue_get(m_instance, "LowerValue", 0); } }
         public IfcMeasureValue_put put_LowerValue() { return new IfcMeasureValue_put(m_instance, "LowerValue", 0); }
 
         protected override TextValue EntityName() { return "IfcServiceLifeFactor"; }
@@ -23124,15 +25135,20 @@ namespace IFC2x3
         public static new IfcShapeAspect Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcShapeAspect"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcShapeModel get_ShapeRepresentations() { return (new ListOfIfcShapeModelSerializer()).FromAttr(m_instance, "ShapeRepresentations"); }
+        public ListOfIfcShapeModel _ShapeRepresentations { get { return get_ShapeRepresentations(); } }
         public void put_ShapeRepresentations(IEnumerable<IfcShapeModel> lst) { (new ListOfIfcShapeModelSerializer()).ToSdaiAggr(lst, m_instance, "ShapeRepresentations"); }
         //public void put_ShapeRepresentations_untyped(IEnumerable lst) { (new ListOfIfcShapeModelSerializer()).ToSdaiAggr(lst, m_instance, "ShapeRepresentations"); }
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public TextValue get_Description() { return get_string("Description", ifcengine.sdaiSTRING); }
+        public TextValue _Description { get { return get_Description(); } }
         public void put_Description(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
         public LOGICAL_VALUE? get_ProductDefinitional() { var str = get_string("ProductDefinitional", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); }
+        public LOGICAL_VALUE? _ProductDefinitional { get { return get_ProductDefinitional(); } }
         public void put_ProductDefinitional(LOGICAL_VALUE value) { var str = EnumString<LOGICAL_VALUE>.FromValue(value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "ProductDefinitional", ifcengine.sdaiENUM, str); }
         public IfcProductDefinitionShape get_PartOfProductDefinitionShape() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "PartOfProductDefinitionShape", ifcengine.sdaiINSTANCE, out inst); return new IfcProductDefinitionShape (inst); }
+        public IfcProductDefinitionShape _PartOfProductDefinitionShape { get { return get_PartOfProductDefinitionShape(); } }
         public void put_PartOfProductDefinitionShape(IfcProductDefinitionShape inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "PartOfProductDefinitionShape", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcShapeAspect"; }
@@ -23155,6 +25171,7 @@ namespace IFC2x3
         public static implicit operator IfcShapeModel(SdaiInstance instance) => new IfcShapeModel(instance);
 
         public SetOfIfcShapeAspect get_OfShapeAspect() { return (new SetOfIfcShapeAspectSerializer()).FromAttr(m_instance, "OfShapeAspect"); }
+        public SetOfIfcShapeAspect _OfShapeAspect { get { return get_OfShapeAspect(); } }
 
         protected override TextValue EntityName() { return "IfcShapeModel"; }
     };
@@ -23206,6 +25223,7 @@ namespace IFC2x3
         public static new IfcShellBasedSurfaceModel Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcShellBasedSurfaceModel"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcShell get_SbsmBoundary() { return (new SetOfIfcShellSerializer()).FromAttr(m_instance, "SbsmBoundary"); }
+        public SetOfIfcShell _SbsmBoundary { get { return get_SbsmBoundary(); } }
         public void put_SbsmBoundary(IEnumerable<IfcShell> lst) { (new SetOfIfcShellSerializer()).ToSdaiAggr(lst, m_instance, "SbsmBoundary"); }
         //public void put_SbsmBoundary_untyped(IEnumerable lst) { (new SetOfIfcShellSerializer()).ToSdaiAggr(lst, m_instance, "SbsmBoundary"); }
 
@@ -23234,16 +25252,21 @@ namespace IFC2x3
         public static new IfcSite Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSite"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCompoundPlaneAngleMeasure get_RefLatitude() { return (new IfcCompoundPlaneAngleMeasureSerializer()).FromAttr(m_instance, "RefLatitude"); }
+        public IfcCompoundPlaneAngleMeasure _RefLatitude { get { return get_RefLatitude(); } }
         public void put_RefLatitude(IEnumerable<IntValue> lst) { (new IfcCompoundPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, "RefLatitude"); }
         //public void put_RefLatitude_untyped(IEnumerable lst) { (new IfcCompoundPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, "RefLatitude"); }
         public IfcCompoundPlaneAngleMeasure get_RefLongitude() { return (new IfcCompoundPlaneAngleMeasureSerializer()).FromAttr(m_instance, "RefLongitude"); }
+        public IfcCompoundPlaneAngleMeasure _RefLongitude { get { return get_RefLongitude(); } }
         public void put_RefLongitude(IEnumerable<IntValue> lst) { (new IfcCompoundPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, "RefLongitude"); }
         //public void put_RefLongitude_untyped(IEnumerable lst) { (new IfcCompoundPlaneAngleMeasureSerializer()).ToSdaiAggr(lst, m_instance, "RefLongitude"); }
         public double? get_RefElevation() { return get_double("RefElevation", ifcengine.sdaiREAL);}
+        public double? _RefElevation { get { return get_RefElevation(); } }
         public void put_RefElevation(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RefElevation", ifcengine.sdaiREAL, ref value); }
         public TextValue get_LandTitleNumber() { return get_string("LandTitleNumber", ifcengine.sdaiSTRING); }
+        public TextValue _LandTitleNumber { get { return get_LandTitleNumber(); } }
         public void put_LandTitleNumber(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "LandTitleNumber", ifcengine.sdaiSTRING, value); }
         public IfcPostalAddress get_SiteAddress() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SiteAddress", ifcengine.sdaiINSTANCE, out inst); return new IfcPostalAddress (inst); }
+        public IfcPostalAddress _SiteAddress { get { return get_SiteAddress(); } }
         public void put_SiteAddress(IfcPostalAddress inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SiteAddress", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSite"; }
@@ -23271,8 +25294,10 @@ namespace IFC2x3
         public static new IfcSIUnit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSIUnit"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSIPrefix? get_Prefix() { var str = get_string("Prefix", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSIPrefix_); return EnumValue<IfcSIPrefix>.FromIndex(ind); }
+        public IfcSIPrefix? _Prefix { get { return get_Prefix(); } }
         public void put_Prefix(IfcSIPrefix value) { var str = EnumString<IfcSIPrefix>.FromValue(value, EnumNames.IfcSIPrefix_); ifcengine.sdaiPutAttrBN(m_instance, "Prefix", ifcengine.sdaiENUM, str); }
         public IfcSIUnitName? get_Name() { var str = get_string("Name", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSIUnitName_); return EnumValue<IfcSIUnitName>.FromIndex(ind); }
+        public IfcSIUnitName? _Name { get { return get_Name(); } }
         public void put_Name(IfcSIUnitName value) { var str = EnumString<IfcSIUnitName>.FromValue(value, EnumNames.IfcSIUnitName_); ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSIUnit"; }
@@ -23300,6 +25325,7 @@ namespace IFC2x3
         public static new IfcSlab Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSlab"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSlabTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSlabTypeEnum_); return EnumValue<IfcSlabTypeEnum>.FromIndex(ind); }
+        public IfcSlabTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcSlabTypeEnum value) { var str = EnumString<IfcSlabTypeEnum>.FromValue(value, EnumNames.IfcSlabTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSlab"; }
@@ -23327,6 +25353,7 @@ namespace IFC2x3
         public static new IfcSlabType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSlabType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSlabTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSlabTypeEnum_); return EnumValue<IfcSlabTypeEnum>.FromIndex(ind); }
+        public IfcSlabTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcSlabTypeEnum value) { var str = EnumString<IfcSlabTypeEnum>.FromValue(value, EnumNames.IfcSlabTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSlabType"; }
@@ -23354,10 +25381,13 @@ namespace IFC2x3
         public static new IfcSlippageConnectionCondition Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSlippageConnectionCondition"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_SlippageX() { return get_double("SlippageX", ifcengine.sdaiREAL);}
+        public double? _SlippageX { get { return get_SlippageX(); } }
         public void put_SlippageX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SlippageX", ifcengine.sdaiREAL, ref value); }
         public double? get_SlippageY() { return get_double("SlippageY", ifcengine.sdaiREAL);}
+        public double? _SlippageY { get { return get_SlippageY(); } }
         public void put_SlippageY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SlippageY", ifcengine.sdaiREAL, ref value); }
         public double? get_SlippageZ() { return get_double("SlippageZ", ifcengine.sdaiREAL);}
+        public double? _SlippageZ { get { return get_SlippageZ(); } }
         public void put_SlippageZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SlippageZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcSlippageConnectionCondition"; }
@@ -23385,10 +25415,13 @@ namespace IFC2x3
         public static new IfcSoundProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSoundProperties"); Debug.Assert(inst != 0); return inst; }
 
         public bool? get_IsAttenuating() { return get_bool("IsAttenuating", ifcengine.sdaiBOOLEAN);}
+        public bool? _IsAttenuating { get { return get_IsAttenuating(); } }
         public void put_IsAttenuating(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsAttenuating", ifcengine.sdaiBOOLEAN, ref value); }
         public IfcSoundScaleEnum? get_SoundScale() { var str = get_string("SoundScale", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSoundScaleEnum_); return EnumValue<IfcSoundScaleEnum>.FromIndex(ind); }
+        public IfcSoundScaleEnum? _SoundScale { get { return get_SoundScale(); } }
         public void put_SoundScale(IfcSoundScaleEnum value) { var str = EnumString<IfcSoundScaleEnum>.FromValue(value, EnumNames.IfcSoundScaleEnum_); ifcengine.sdaiPutAttrBN(m_instance, "SoundScale", ifcengine.sdaiENUM, str); }
         public ListOfIfcSoundValue get_SoundValues() { return (new ListOfIfcSoundValueSerializer()).FromAttr(m_instance, "SoundValues"); }
+        public ListOfIfcSoundValue _SoundValues { get { return get_SoundValues(); } }
         public void put_SoundValues(IEnumerable<IfcSoundValue> lst) { (new ListOfIfcSoundValueSerializer()).ToSdaiAggr(lst, m_instance, "SoundValues"); }
         //public void put_SoundValues_untyped(IEnumerable lst) { (new ListOfIfcSoundValueSerializer()).ToSdaiAggr(lst, m_instance, "SoundValues"); }
 
@@ -23417,11 +25450,14 @@ namespace IFC2x3
         public static new IfcSoundValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSoundValue"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTimeSeries get_SoundLevelTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SoundLevelTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _SoundLevelTimeSeries { get { return get_SoundLevelTimeSeries(); } }
         public void put_SoundLevelTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SoundLevelTimeSeries", ifcengine.sdaiINSTANCE, i); }
         public double? get_Frequency() { return get_double("Frequency", ifcengine.sdaiREAL);}
+        public double? _Frequency { get { return get_Frequency(); } }
         public void put_Frequency(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Frequency", ifcengine.sdaiREAL, ref value); }
 
         public IfcDerivedMeasureValue_get get_SoundLevelSingleValue() { return new IfcDerivedMeasureValue_get(m_instance, "SoundLevelSingleValue", 0); }
+        public IfcDerivedMeasureValue_get _SoundLevelSingleValue { get { return new IfcDerivedMeasureValue_get(m_instance, "SoundLevelSingleValue", 0); } }
         public IfcDerivedMeasureValue_put put_SoundLevelSingleValue() { return new IfcDerivedMeasureValue_put(m_instance, "SoundLevelSingleValue", 0); }
 
         protected override TextValue EntityName() { return "IfcSoundValue"; }
@@ -23449,11 +25485,15 @@ namespace IFC2x3
         public static new IfcSpace Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSpace"); Debug.Assert(inst != 0); return inst; }
 
         public IfcInternalOrExternalEnum? get_InteriorOrExteriorSpace() { var str = get_string("InteriorOrExteriorSpace", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcInternalOrExternalEnum_); return EnumValue<IfcInternalOrExternalEnum>.FromIndex(ind); }
+        public IfcInternalOrExternalEnum? _InteriorOrExteriorSpace { get { return get_InteriorOrExteriorSpace(); } }
         public void put_InteriorOrExteriorSpace(IfcInternalOrExternalEnum value) { var str = EnumString<IfcInternalOrExternalEnum>.FromValue(value, EnumNames.IfcInternalOrExternalEnum_); ifcengine.sdaiPutAttrBN(m_instance, "InteriorOrExteriorSpace", ifcengine.sdaiENUM, str); }
         public double? get_ElevationWithFlooring() { return get_double("ElevationWithFlooring", ifcengine.sdaiREAL);}
+        public double? _ElevationWithFlooring { get { return get_ElevationWithFlooring(); } }
         public void put_ElevationWithFlooring(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ElevationWithFlooring", ifcengine.sdaiREAL, ref value); }
         public SetOfIfcRelCoversSpaces get_HasCoverings() { return (new SetOfIfcRelCoversSpacesSerializer()).FromAttr(m_instance, "HasCoverings"); }
+        public SetOfIfcRelCoversSpaces _HasCoverings { get { return get_HasCoverings(); } }
         public SetOfIfcRelSpaceBoundary get_BoundedBy() { return (new SetOfIfcRelSpaceBoundarySerializer()).FromAttr(m_instance, "BoundedBy"); }
+        public SetOfIfcRelSpaceBoundary _BoundedBy { get { return get_BoundedBy(); } }
 
         protected override TextValue EntityName() { return "IfcSpace"; }
     };
@@ -23480,6 +25520,7 @@ namespace IFC2x3
         public static new IfcSpaceHeaterType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSpaceHeaterType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSpaceHeaterTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSpaceHeaterTypeEnum_); return EnumValue<IfcSpaceHeaterTypeEnum>.FromIndex(ind); }
+        public IfcSpaceHeaterTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcSpaceHeaterTypeEnum value) { var str = EnumString<IfcSpaceHeaterTypeEnum>.FromValue(value, EnumNames.IfcSpaceHeaterTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSpaceHeaterType"; }
@@ -23507,17 +25548,24 @@ namespace IFC2x3
         public static new IfcSpaceProgram Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSpaceProgram"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_SpaceProgramIdentifier() { return get_string("SpaceProgramIdentifier", ifcengine.sdaiSTRING); }
+        public TextValue _SpaceProgramIdentifier { get { return get_SpaceProgramIdentifier(); } }
         public void put_SpaceProgramIdentifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "SpaceProgramIdentifier", ifcengine.sdaiSTRING, value); }
         public double? get_MaxRequiredArea() { return get_double("MaxRequiredArea", ifcengine.sdaiREAL);}
+        public double? _MaxRequiredArea { get { return get_MaxRequiredArea(); } }
         public void put_MaxRequiredArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MaxRequiredArea", ifcengine.sdaiREAL, ref value); }
         public double? get_MinRequiredArea() { return get_double("MinRequiredArea", ifcengine.sdaiREAL);}
+        public double? _MinRequiredArea { get { return get_MinRequiredArea(); } }
         public void put_MinRequiredArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MinRequiredArea", ifcengine.sdaiREAL, ref value); }
         public IfcSpatialStructureElement get_RequestedLocation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RequestedLocation", ifcengine.sdaiINSTANCE, out inst); return new IfcSpatialStructureElement (inst); }
+        public IfcSpatialStructureElement _RequestedLocation { get { return get_RequestedLocation(); } }
         public void put_RequestedLocation(IfcSpatialStructureElement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "RequestedLocation", ifcengine.sdaiINSTANCE, i); }
         public double? get_StandardRequiredArea() { return get_double("StandardRequiredArea", ifcengine.sdaiREAL);}
+        public double? _StandardRequiredArea { get { return get_StandardRequiredArea(); } }
         public void put_StandardRequiredArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "StandardRequiredArea", ifcengine.sdaiREAL, ref value); }
         public SetOfIfcRelInteractionRequirements get_HasInteractionReqsFrom() { return (new SetOfIfcRelInteractionRequirementsSerializer()).FromAttr(m_instance, "HasInteractionReqsFrom"); }
+        public SetOfIfcRelInteractionRequirements _HasInteractionReqsFrom { get { return get_HasInteractionReqsFrom(); } }
         public SetOfIfcRelInteractionRequirements get_HasInteractionReqsTo() { return (new SetOfIfcRelInteractionRequirementsSerializer()).FromAttr(m_instance, "HasInteractionReqsTo"); }
+        public SetOfIfcRelInteractionRequirements _HasInteractionReqsTo { get { return get_HasInteractionReqsTo(); } }
 
         protected override TextValue EntityName() { return "IfcSpaceProgram"; }
     };
@@ -23544,24 +25592,34 @@ namespace IFC2x3
         public static new IfcSpaceThermalLoadProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSpaceThermalLoadProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_ApplicableValueRatio() { return get_double("ApplicableValueRatio", ifcengine.sdaiREAL);}
+        public double? _ApplicableValueRatio { get { return get_ApplicableValueRatio(); } }
         public void put_ApplicableValueRatio(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ApplicableValueRatio", ifcengine.sdaiREAL, ref value); }
         public IfcThermalLoadSourceEnum? get_ThermalLoadSource() { var str = get_string("ThermalLoadSource", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcThermalLoadSourceEnum_); return EnumValue<IfcThermalLoadSourceEnum>.FromIndex(ind); }
+        public IfcThermalLoadSourceEnum? _ThermalLoadSource { get { return get_ThermalLoadSource(); } }
         public void put_ThermalLoadSource(IfcThermalLoadSourceEnum value) { var str = EnumString<IfcThermalLoadSourceEnum>.FromValue(value, EnumNames.IfcThermalLoadSourceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ThermalLoadSource", ifcengine.sdaiENUM, str); }
         public IfcPropertySourceEnum? get_PropertySource() { var str = get_string("PropertySource", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPropertySourceEnum_); return EnumValue<IfcPropertySourceEnum>.FromIndex(ind); }
+        public IfcPropertySourceEnum? _PropertySource { get { return get_PropertySource(); } }
         public void put_PropertySource(IfcPropertySourceEnum value) { var str = EnumString<IfcPropertySourceEnum>.FromValue(value, EnumNames.IfcPropertySourceEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PropertySource", ifcengine.sdaiENUM, str); }
         public TextValue get_SourceDescription() { return get_string("SourceDescription", ifcengine.sdaiSTRING); }
+        public TextValue _SourceDescription { get { return get_SourceDescription(); } }
         public void put_SourceDescription(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "SourceDescription", ifcengine.sdaiSTRING, value); }
         public double? get_MaximumValue() { return get_double("MaximumValue", ifcengine.sdaiREAL);}
+        public double? _MaximumValue { get { return get_MaximumValue(); } }
         public void put_MaximumValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MaximumValue", ifcengine.sdaiREAL, ref value); }
         public double? get_MinimumValue() { return get_double("MinimumValue", ifcengine.sdaiREAL);}
+        public double? _MinimumValue { get { return get_MinimumValue(); } }
         public void put_MinimumValue(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MinimumValue", ifcengine.sdaiREAL, ref value); }
         public IfcTimeSeries get_ThermalLoadTimeSeriesValues() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ThermalLoadTimeSeriesValues", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _ThermalLoadTimeSeriesValues { get { return get_ThermalLoadTimeSeriesValues(); } }
         public void put_ThermalLoadTimeSeriesValues(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ThermalLoadTimeSeriesValues", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_UserDefinedThermalLoadSource() { return get_string("UserDefinedThermalLoadSource", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedThermalLoadSource { get { return get_UserDefinedThermalLoadSource(); } }
         public void put_UserDefinedThermalLoadSource(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedThermalLoadSource", ifcengine.sdaiSTRING, value); }
         public TextValue get_UserDefinedPropertySource() { return get_string("UserDefinedPropertySource", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedPropertySource { get { return get_UserDefinedPropertySource(); } }
         public void put_UserDefinedPropertySource(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedPropertySource", ifcengine.sdaiSTRING, value); }
         public IfcThermalLoadTypeEnum? get_ThermalLoadType() { var str = get_string("ThermalLoadType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcThermalLoadTypeEnum_); return EnumValue<IfcThermalLoadTypeEnum>.FromIndex(ind); }
+        public IfcThermalLoadTypeEnum? _ThermalLoadType { get { return get_ThermalLoadType(); } }
         public void put_ThermalLoadType(IfcThermalLoadTypeEnum value) { var str = EnumString<IfcThermalLoadTypeEnum>.FromValue(value, EnumNames.IfcThermalLoadTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ThermalLoadType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSpaceThermalLoadProperties"; }
@@ -23609,6 +25667,7 @@ namespace IFC2x3
         public static new IfcSpaceType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSpaceType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSpaceTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSpaceTypeEnum_); return EnumValue<IfcSpaceTypeEnum>.FromIndex(ind); }
+        public IfcSpaceTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcSpaceTypeEnum value) { var str = EnumString<IfcSpaceTypeEnum>.FromValue(value, EnumNames.IfcSpaceTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSpaceType"; }
@@ -23636,6 +25695,7 @@ namespace IFC2x3
         public static new IfcSphere Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSphere"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcSphere"; }
@@ -23663,6 +25723,7 @@ namespace IFC2x3
         public static new IfcStackTerminalType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStackTerminalType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcStackTerminalTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcStackTerminalTypeEnum_); return EnumValue<IfcStackTerminalTypeEnum>.FromIndex(ind); }
+        public IfcStackTerminalTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcStackTerminalTypeEnum value) { var str = EnumString<IfcStackTerminalTypeEnum>.FromValue(value, EnumNames.IfcStackTerminalTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcStackTerminalType"; }
@@ -23690,6 +25751,7 @@ namespace IFC2x3
         public static new IfcStair Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStair"); Debug.Assert(inst != 0); return inst; }
 
         public IfcStairTypeEnum? get_ShapeType() { var str = get_string("ShapeType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcStairTypeEnum_); return EnumValue<IfcStairTypeEnum>.FromIndex(ind); }
+        public IfcStairTypeEnum? _ShapeType { get { return get_ShapeType(); } }
         public void put_ShapeType(IfcStairTypeEnum value) { var str = EnumString<IfcStairTypeEnum>.FromValue(value, EnumNames.IfcStairTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ShapeType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcStair"; }
@@ -23717,12 +25779,16 @@ namespace IFC2x3
         public static new IfcStairFlight Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStairFlight"); Debug.Assert(inst != 0); return inst; }
 
         public IntValue? get_NumberOfRiser() { return get_IntValue("NumberOfRiser", ifcengine.sdaiINTEGER);}
+        public IntValue? _NumberOfRiser { get { return get_NumberOfRiser(); } }
         public void put_NumberOfRiser(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "NumberOfRiser", ifcengine.sdaiINTEGER, ref value); }
         public IntValue? get_NumberOfTreads() { return get_IntValue("NumberOfTreads", ifcengine.sdaiINTEGER);}
+        public IntValue? _NumberOfTreads { get { return get_NumberOfTreads(); } }
         public void put_NumberOfTreads(IntValue value) { ifcengine.sdaiPutAttrBN(m_instance, "NumberOfTreads", ifcengine.sdaiINTEGER, ref value); }
         public double? get_RiserHeight() { return get_double("RiserHeight", ifcengine.sdaiREAL);}
+        public double? _RiserHeight { get { return get_RiserHeight(); } }
         public void put_RiserHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RiserHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_TreadLength() { return get_double("TreadLength", ifcengine.sdaiREAL);}
+        public double? _TreadLength { get { return get_TreadLength(); } }
         public void put_TreadLength(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TreadLength", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStairFlight"; }
@@ -23750,6 +25816,7 @@ namespace IFC2x3
         public static new IfcStairFlightType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStairFlightType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcStairFlightTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcStairFlightTypeEnum_); return EnumValue<IfcStairFlightTypeEnum>.FromIndex(ind); }
+        public IfcStairFlightTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcStairFlightTypeEnum value) { var str = EnumString<IfcStairFlightTypeEnum>.FromValue(value, EnumNames.IfcStairFlightTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcStairFlightType"; }
@@ -23772,10 +25839,13 @@ namespace IFC2x3
         public static implicit operator IfcStructuralActivity(SdaiInstance instance) => new IfcStructuralActivity(instance);
 
         public IfcStructuralLoad get_AppliedLoad() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AppliedLoad", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralLoad (inst); }
+        public IfcStructuralLoad _AppliedLoad { get { return get_AppliedLoad(); } }
         public void put_AppliedLoad(IfcStructuralLoad inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AppliedLoad", ifcengine.sdaiINSTANCE, i); }
         public IfcGlobalOrLocalEnum? get_GlobalOrLocal() { var str = get_string("GlobalOrLocal", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcGlobalOrLocalEnum_); return EnumValue<IfcGlobalOrLocalEnum>.FromIndex(ind); }
+        public IfcGlobalOrLocalEnum? _GlobalOrLocal { get { return get_GlobalOrLocal(); } }
         public void put_GlobalOrLocal(IfcGlobalOrLocalEnum value) { var str = EnumString<IfcGlobalOrLocalEnum>.FromValue(value, EnumNames.IfcGlobalOrLocalEnum_); ifcengine.sdaiPutAttrBN(m_instance, "GlobalOrLocal", ifcengine.sdaiENUM, str); }
         public IfcRelConnectsStructuralActivity get_AssignedToStructuralItem() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AssignedToStructuralItem", ifcengine.sdaiINSTANCE, out inst); return new IfcRelConnectsStructuralActivity (inst); }
+        public IfcRelConnectsStructuralActivity _AssignedToStructuralItem { get { return get_AssignedToStructuralItem(); } }
 
         protected override TextValue EntityName() { return "IfcStructuralActivity"; }
     };
@@ -23797,8 +25867,10 @@ namespace IFC2x3
         public static implicit operator IfcStructuralAction(SdaiInstance instance) => new IfcStructuralAction(instance);
 
         public bool? get_DestabilizingLoad() { return get_bool("DestabilizingLoad", ifcengine.sdaiBOOLEAN);}
+        public bool? _DestabilizingLoad { get { return get_DestabilizingLoad(); } }
         public void put_DestabilizingLoad(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "DestabilizingLoad", ifcengine.sdaiBOOLEAN, ref value); }
         public IfcStructuralReaction get_CausedBy() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "CausedBy", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralReaction (inst); }
+        public IfcStructuralReaction _CausedBy { get { return get_CausedBy(); } }
         public void put_CausedBy(IfcStructuralReaction inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "CausedBy", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcStructuralAction"; }
@@ -23826,13 +25898,17 @@ namespace IFC2x3
         public static new IfcStructuralAnalysisModel Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralAnalysisModel"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAnalysisModelTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAnalysisModelTypeEnum_); return EnumValue<IfcAnalysisModelTypeEnum>.FromIndex(ind); }
+        public IfcAnalysisModelTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcAnalysisModelTypeEnum value) { var str = EnumString<IfcAnalysisModelTypeEnum>.FromValue(value, EnumNames.IfcAnalysisModelTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public IfcAxis2Placement3D get_OrientationOf2DPlane() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OrientationOf2DPlane", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _OrientationOf2DPlane { get { return get_OrientationOf2DPlane(); } }
         public void put_OrientationOf2DPlane(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "OrientationOf2DPlane", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcStructuralLoadGroup get_LoadedBy() { return (new SetOfIfcStructuralLoadGroupSerializer()).FromAttr(m_instance, "LoadedBy"); }
+        public SetOfIfcStructuralLoadGroup _LoadedBy { get { return get_LoadedBy(); } }
         public void put_LoadedBy(IEnumerable<IfcStructuralLoadGroup> lst) { (new SetOfIfcStructuralLoadGroupSerializer()).ToSdaiAggr(lst, m_instance, "LoadedBy"); }
         //public void put_LoadedBy_untyped(IEnumerable lst) { (new SetOfIfcStructuralLoadGroupSerializer()).ToSdaiAggr(lst, m_instance, "LoadedBy"); }
         public SetOfIfcStructuralResultGroup get_HasResults() { return (new SetOfIfcStructuralResultGroupSerializer()).FromAttr(m_instance, "HasResults"); }
+        public SetOfIfcStructuralResultGroup _HasResults { get { return get_HasResults(); } }
         public void put_HasResults(IEnumerable<IfcStructuralResultGroup> lst) { (new SetOfIfcStructuralResultGroupSerializer()).ToSdaiAggr(lst, m_instance, "HasResults"); }
         //public void put_HasResults_untyped(IEnumerable lst) { (new SetOfIfcStructuralResultGroupSerializer()).ToSdaiAggr(lst, m_instance, "HasResults"); }
 
@@ -23856,6 +25932,7 @@ namespace IFC2x3
         public static implicit operator IfcStructuralItem(SdaiInstance instance) => new IfcStructuralItem(instance);
 
         public SetOfIfcRelConnectsStructuralActivity get_AssignedStructuralActivity() { return (new SetOfIfcRelConnectsStructuralActivitySerializer()).FromAttr(m_instance, "AssignedStructuralActivity"); }
+        public SetOfIfcRelConnectsStructuralActivity _AssignedStructuralActivity { get { return get_AssignedStructuralActivity(); } }
 
         protected override TextValue EntityName() { return "IfcStructuralItem"; }
     };
@@ -23877,8 +25954,10 @@ namespace IFC2x3
         public static implicit operator IfcStructuralConnection(SdaiInstance instance) => new IfcStructuralConnection(instance);
 
         public IfcBoundaryCondition get_AppliedCondition() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AppliedCondition", ifcengine.sdaiINSTANCE, out inst); return new IfcBoundaryCondition (inst); }
+        public IfcBoundaryCondition _AppliedCondition { get { return get_AppliedCondition(); } }
         public void put_AppliedCondition(IfcBoundaryCondition inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AppliedCondition", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcRelConnectsStructuralMember get_ConnectsStructuralMembers() { return (new SetOfIfcRelConnectsStructuralMemberSerializer()).FromAttr(m_instance, "ConnectsStructuralMembers"); }
+        public SetOfIfcRelConnectsStructuralMember _ConnectsStructuralMembers { get { return get_ConnectsStructuralMembers(); } }
 
         protected override TextValue EntityName() { return "IfcStructuralConnection"; }
     };
@@ -23925,7 +26004,9 @@ namespace IFC2x3
         public static implicit operator IfcStructuralMember(SdaiInstance instance) => new IfcStructuralMember(instance);
 
         public SetOfIfcRelConnectsStructuralElement get_ReferencesElement() { return (new SetOfIfcRelConnectsStructuralElementSerializer()).FromAttr(m_instance, "ReferencesElement"); }
+        public SetOfIfcRelConnectsStructuralElement _ReferencesElement { get { return get_ReferencesElement(); } }
         public SetOfIfcRelConnectsStructuralMember get_ConnectedBy() { return (new SetOfIfcRelConnectsStructuralMemberSerializer()).FromAttr(m_instance, "ConnectedBy"); }
+        public SetOfIfcRelConnectsStructuralMember _ConnectedBy { get { return get_ConnectedBy(); } }
 
         protected override TextValue EntityName() { return "IfcStructuralMember"; }
     };
@@ -23952,6 +26033,7 @@ namespace IFC2x3
         public static new IfcStructuralCurveMember Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralCurveMember"); Debug.Assert(inst != 0); return inst; }
 
         public IfcStructuralCurveTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcStructuralCurveTypeEnum_); return EnumValue<IfcStructuralCurveTypeEnum>.FromIndex(ind); }
+        public IfcStructuralCurveTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcStructuralCurveTypeEnum value) { var str = EnumString<IfcStructuralCurveTypeEnum>.FromValue(value, EnumNames.IfcStructuralCurveTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcStructuralCurveMember"; }
@@ -24004,6 +26086,7 @@ namespace IFC2x3
         public static new IfcStructuralLinearAction Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLinearAction"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProjectedOrTrueLengthEnum? get_ProjectedOrTrue() { var str = get_string("ProjectedOrTrue", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcProjectedOrTrueLengthEnum_); return EnumValue<IfcProjectedOrTrueLengthEnum>.FromIndex(ind); }
+        public IfcProjectedOrTrueLengthEnum? _ProjectedOrTrue { get { return get_ProjectedOrTrue(); } }
         public void put_ProjectedOrTrue(IfcProjectedOrTrueLengthEnum value) { var str = EnumString<IfcProjectedOrTrueLengthEnum>.FromValue(value, EnumNames.IfcProjectedOrTrueLengthEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ProjectedOrTrue", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcStructuralLinearAction"; }
@@ -24031,8 +26114,10 @@ namespace IFC2x3
         public static new IfcStructuralLinearActionVarying Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLinearActionVarying"); Debug.Assert(inst != 0); return inst; }
 
         public IfcShapeAspect get_VaryingAppliedLoadLocation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VaryingAppliedLoadLocation", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _VaryingAppliedLoadLocation { get { return get_VaryingAppliedLoadLocation(); } }
         public void put_VaryingAppliedLoadLocation(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "VaryingAppliedLoadLocation", ifcengine.sdaiINSTANCE, i); }
         public ListOfIfcStructuralLoad get_SubsequentAppliedLoads() { return (new ListOfIfcStructuralLoadSerializer()).FromAttr(m_instance, "SubsequentAppliedLoads"); }
+        public ListOfIfcStructuralLoad _SubsequentAppliedLoads { get { return get_SubsequentAppliedLoads(); } }
         public void put_SubsequentAppliedLoads(IEnumerable<IfcStructuralLoad> lst) { (new ListOfIfcStructuralLoadSerializer()).ToSdaiAggr(lst, m_instance, "SubsequentAppliedLoads"); }
         //public void put_SubsequentAppliedLoads_untyped(IEnumerable lst) { (new ListOfIfcStructuralLoadSerializer()).ToSdaiAggr(lst, m_instance, "SubsequentAppliedLoads"); }
 
@@ -24056,6 +26141,7 @@ namespace IFC2x3
         public static implicit operator IfcStructuralLoad(SdaiInstance instance) => new IfcStructuralLoad(instance);
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoad"; }
@@ -24083,17 +26169,24 @@ namespace IFC2x3
         public static new IfcStructuralLoadGroup Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadGroup"); Debug.Assert(inst != 0); return inst; }
 
         public IfcLoadGroupTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcLoadGroupTypeEnum_); return EnumValue<IfcLoadGroupTypeEnum>.FromIndex(ind); }
+        public IfcLoadGroupTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcLoadGroupTypeEnum value) { var str = EnumString<IfcLoadGroupTypeEnum>.FromValue(value, EnumNames.IfcLoadGroupTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public IfcActionTypeEnum? get_ActionType() { var str = get_string("ActionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcActionTypeEnum_); return EnumValue<IfcActionTypeEnum>.FromIndex(ind); }
+        public IfcActionTypeEnum? _ActionType { get { return get_ActionType(); } }
         public void put_ActionType(IfcActionTypeEnum value) { var str = EnumString<IfcActionTypeEnum>.FromValue(value, EnumNames.IfcActionTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ActionType", ifcengine.sdaiENUM, str); }
         public IfcActionSourceTypeEnum? get_ActionSource() { var str = get_string("ActionSource", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcActionSourceTypeEnum_); return EnumValue<IfcActionSourceTypeEnum>.FromIndex(ind); }
+        public IfcActionSourceTypeEnum? _ActionSource { get { return get_ActionSource(); } }
         public void put_ActionSource(IfcActionSourceTypeEnum value) { var str = EnumString<IfcActionSourceTypeEnum>.FromValue(value, EnumNames.IfcActionSourceTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ActionSource", ifcengine.sdaiENUM, str); }
         public double? get_Coefficient() { return get_double("Coefficient", ifcengine.sdaiREAL);}
+        public double? _Coefficient { get { return get_Coefficient(); } }
         public void put_Coefficient(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Coefficient", ifcengine.sdaiREAL, ref value); }
         public TextValue get_Purpose() { return get_string("Purpose", ifcengine.sdaiSTRING); }
+        public TextValue _Purpose { get { return get_Purpose(); } }
         public void put_Purpose(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Purpose", ifcengine.sdaiSTRING, value); }
         public SetOfIfcStructuralResultGroup get_SourceOfResultGroup() { return (new SetOfIfcStructuralResultGroupSerializer()).FromAttr(m_instance, "SourceOfResultGroup"); }
+        public SetOfIfcStructuralResultGroup _SourceOfResultGroup { get { return get_SourceOfResultGroup(); } }
         public SetOfIfcStructuralAnalysisModel get_LoadGroupFor() { return (new SetOfIfcStructuralAnalysisModelSerializer()).FromAttr(m_instance, "LoadGroupFor"); }
+        public SetOfIfcStructuralAnalysisModel _LoadGroupFor { get { return get_LoadGroupFor(); } }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadGroup"; }
     };
@@ -24140,16 +26233,22 @@ namespace IFC2x3
         public static new IfcStructuralLoadLinearForce Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadLinearForce"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LinearForceX() { return get_double("LinearForceX", ifcengine.sdaiREAL);}
+        public double? _LinearForceX { get { return get_LinearForceX(); } }
         public void put_LinearForceX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearForceX", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearForceY() { return get_double("LinearForceY", ifcengine.sdaiREAL);}
+        public double? _LinearForceY { get { return get_LinearForceY(); } }
         public void put_LinearForceY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearForceY", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearForceZ() { return get_double("LinearForceZ", ifcengine.sdaiREAL);}
+        public double? _LinearForceZ { get { return get_LinearForceZ(); } }
         public void put_LinearForceZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearForceZ", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearMomentX() { return get_double("LinearMomentX", ifcengine.sdaiREAL);}
+        public double? _LinearMomentX { get { return get_LinearMomentX(); } }
         public void put_LinearMomentX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearMomentX", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearMomentY() { return get_double("LinearMomentY", ifcengine.sdaiREAL);}
+        public double? _LinearMomentY { get { return get_LinearMomentY(); } }
         public void put_LinearMomentY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearMomentY", ifcengine.sdaiREAL, ref value); }
         public double? get_LinearMomentZ() { return get_double("LinearMomentZ", ifcengine.sdaiREAL);}
+        public double? _LinearMomentZ { get { return get_LinearMomentZ(); } }
         public void put_LinearMomentZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LinearMomentZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadLinearForce"; }
@@ -24177,10 +26276,13 @@ namespace IFC2x3
         public static new IfcStructuralLoadPlanarForce Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadPlanarForce"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_PlanarForceX() { return get_double("PlanarForceX", ifcengine.sdaiREAL);}
+        public double? _PlanarForceX { get { return get_PlanarForceX(); } }
         public void put_PlanarForceX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PlanarForceX", ifcengine.sdaiREAL, ref value); }
         public double? get_PlanarForceY() { return get_double("PlanarForceY", ifcengine.sdaiREAL);}
+        public double? _PlanarForceY { get { return get_PlanarForceY(); } }
         public void put_PlanarForceY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PlanarForceY", ifcengine.sdaiREAL, ref value); }
         public double? get_PlanarForceZ() { return get_double("PlanarForceZ", ifcengine.sdaiREAL);}
+        public double? _PlanarForceZ { get { return get_PlanarForceZ(); } }
         public void put_PlanarForceZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PlanarForceZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadPlanarForce"; }
@@ -24208,16 +26310,22 @@ namespace IFC2x3
         public static new IfcStructuralLoadSingleDisplacement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadSingleDisplacement"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_DisplacementX() { return get_double("DisplacementX", ifcengine.sdaiREAL);}
+        public double? _DisplacementX { get { return get_DisplacementX(); } }
         public void put_DisplacementX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DisplacementX", ifcengine.sdaiREAL, ref value); }
         public double? get_DisplacementY() { return get_double("DisplacementY", ifcengine.sdaiREAL);}
+        public double? _DisplacementY { get { return get_DisplacementY(); } }
         public void put_DisplacementY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DisplacementY", ifcengine.sdaiREAL, ref value); }
         public double? get_DisplacementZ() { return get_double("DisplacementZ", ifcengine.sdaiREAL);}
+        public double? _DisplacementZ { get { return get_DisplacementZ(); } }
         public void put_DisplacementZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DisplacementZ", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalDisplacementRX() { return get_double("RotationalDisplacementRX", ifcengine.sdaiREAL);}
+        public double? _RotationalDisplacementRX { get { return get_RotationalDisplacementRX(); } }
         public void put_RotationalDisplacementRX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalDisplacementRX", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalDisplacementRY() { return get_double("RotationalDisplacementRY", ifcengine.sdaiREAL);}
+        public double? _RotationalDisplacementRY { get { return get_RotationalDisplacementRY(); } }
         public void put_RotationalDisplacementRY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalDisplacementRY", ifcengine.sdaiREAL, ref value); }
         public double? get_RotationalDisplacementRZ() { return get_double("RotationalDisplacementRZ", ifcengine.sdaiREAL);}
+        public double? _RotationalDisplacementRZ { get { return get_RotationalDisplacementRZ(); } }
         public void put_RotationalDisplacementRZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RotationalDisplacementRZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadSingleDisplacement"; }
@@ -24245,6 +26353,7 @@ namespace IFC2x3
         public static new IfcStructuralLoadSingleDisplacementDistortion Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadSingleDisplacementDistortion"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Distortion() { return get_double("Distortion", ifcengine.sdaiREAL);}
+        public double? _Distortion { get { return get_Distortion(); } }
         public void put_Distortion(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Distortion", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadSingleDisplacementDistortion"; }
@@ -24272,16 +26381,22 @@ namespace IFC2x3
         public static new IfcStructuralLoadSingleForce Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadSingleForce"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_ForceX() { return get_double("ForceX", ifcengine.sdaiREAL);}
+        public double? _ForceX { get { return get_ForceX(); } }
         public void put_ForceX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ForceX", ifcengine.sdaiREAL, ref value); }
         public double? get_ForceY() { return get_double("ForceY", ifcengine.sdaiREAL);}
+        public double? _ForceY { get { return get_ForceY(); } }
         public void put_ForceY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ForceY", ifcengine.sdaiREAL, ref value); }
         public double? get_ForceZ() { return get_double("ForceZ", ifcengine.sdaiREAL);}
+        public double? _ForceZ { get { return get_ForceZ(); } }
         public void put_ForceZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ForceZ", ifcengine.sdaiREAL, ref value); }
         public double? get_MomentX() { return get_double("MomentX", ifcengine.sdaiREAL);}
+        public double? _MomentX { get { return get_MomentX(); } }
         public void put_MomentX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MomentX", ifcengine.sdaiREAL, ref value); }
         public double? get_MomentY() { return get_double("MomentY", ifcengine.sdaiREAL);}
+        public double? _MomentY { get { return get_MomentY(); } }
         public void put_MomentY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MomentY", ifcengine.sdaiREAL, ref value); }
         public double? get_MomentZ() { return get_double("MomentZ", ifcengine.sdaiREAL);}
+        public double? _MomentZ { get { return get_MomentZ(); } }
         public void put_MomentZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MomentZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadSingleForce"; }
@@ -24309,6 +26424,7 @@ namespace IFC2x3
         public static new IfcStructuralLoadSingleForceWarping Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadSingleForceWarping"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_WarpingMoment() { return get_double("WarpingMoment", ifcengine.sdaiREAL);}
+        public double? _WarpingMoment { get { return get_WarpingMoment(); } }
         public void put_WarpingMoment(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WarpingMoment", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadSingleForceWarping"; }
@@ -24336,10 +26452,13 @@ namespace IFC2x3
         public static new IfcStructuralLoadTemperature Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralLoadTemperature"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_DeltaT_Constant() { return get_double("DeltaT_Constant", ifcengine.sdaiREAL);}
+        public double? _DeltaT_Constant { get { return get_DeltaT_Constant(); } }
         public void put_DeltaT_Constant(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DeltaT_Constant", ifcengine.sdaiREAL, ref value); }
         public double? get_DeltaT_Y() { return get_double("DeltaT_Y", ifcengine.sdaiREAL);}
+        public double? _DeltaT_Y { get { return get_DeltaT_Y(); } }
         public void put_DeltaT_Y(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DeltaT_Y", ifcengine.sdaiREAL, ref value); }
         public double? get_DeltaT_Z() { return get_double("DeltaT_Z", ifcengine.sdaiREAL);}
+        public double? _DeltaT_Z { get { return get_DeltaT_Z(); } }
         public void put_DeltaT_Z(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DeltaT_Z", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralLoadTemperature"; }
@@ -24367,6 +26486,7 @@ namespace IFC2x3
         public static new IfcStructuralPlanarAction Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralPlanarAction"); Debug.Assert(inst != 0); return inst; }
 
         public IfcProjectedOrTrueLengthEnum? get_ProjectedOrTrue() { var str = get_string("ProjectedOrTrue", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcProjectedOrTrueLengthEnum_); return EnumValue<IfcProjectedOrTrueLengthEnum>.FromIndex(ind); }
+        public IfcProjectedOrTrueLengthEnum? _ProjectedOrTrue { get { return get_ProjectedOrTrue(); } }
         public void put_ProjectedOrTrue(IfcProjectedOrTrueLengthEnum value) { var str = EnumString<IfcProjectedOrTrueLengthEnum>.FromValue(value, EnumNames.IfcProjectedOrTrueLengthEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ProjectedOrTrue", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcStructuralPlanarAction"; }
@@ -24394,8 +26514,10 @@ namespace IFC2x3
         public static new IfcStructuralPlanarActionVarying Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralPlanarActionVarying"); Debug.Assert(inst != 0); return inst; }
 
         public IfcShapeAspect get_VaryingAppliedLoadLocation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VaryingAppliedLoadLocation", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _VaryingAppliedLoadLocation { get { return get_VaryingAppliedLoadLocation(); } }
         public void put_VaryingAppliedLoadLocation(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "VaryingAppliedLoadLocation", ifcengine.sdaiINSTANCE, i); }
         public ListOfIfcStructuralLoad get_SubsequentAppliedLoads() { return (new ListOfIfcStructuralLoadSerializer()).FromAttr(m_instance, "SubsequentAppliedLoads"); }
+        public ListOfIfcStructuralLoad _SubsequentAppliedLoads { get { return get_SubsequentAppliedLoads(); } }
         public void put_SubsequentAppliedLoads(IEnumerable<IfcStructuralLoad> lst) { (new ListOfIfcStructuralLoadSerializer()).ToSdaiAggr(lst, m_instance, "SubsequentAppliedLoads"); }
         //public void put_SubsequentAppliedLoads_untyped(IEnumerable lst) { (new ListOfIfcStructuralLoadSerializer()).ToSdaiAggr(lst, m_instance, "SubsequentAppliedLoads"); }
 
@@ -24469,6 +26591,7 @@ namespace IFC2x3
         public static implicit operator IfcStructuralReaction(SdaiInstance instance) => new IfcStructuralReaction(instance);
 
         public SetOfIfcStructuralAction get_Causes() { return (new SetOfIfcStructuralActionSerializer()).FromAttr(m_instance, "Causes"); }
+        public SetOfIfcStructuralAction _Causes { get { return get_Causes(); } }
 
         protected override TextValue EntityName() { return "IfcStructuralReaction"; }
     };
@@ -24520,36 +26643,52 @@ namespace IFC2x3
         public static new IfcStructuralProfileProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralProfileProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_TorsionalConstantX() { return get_double("TorsionalConstantX", ifcengine.sdaiREAL);}
+        public double? _TorsionalConstantX { get { return get_TorsionalConstantX(); } }
         public void put_TorsionalConstantX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TorsionalConstantX", ifcengine.sdaiREAL, ref value); }
         public double? get_MomentOfInertiaYZ() { return get_double("MomentOfInertiaYZ", ifcengine.sdaiREAL);}
+        public double? _MomentOfInertiaYZ { get { return get_MomentOfInertiaYZ(); } }
         public void put_MomentOfInertiaYZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MomentOfInertiaYZ", ifcengine.sdaiREAL, ref value); }
         public double? get_MomentOfInertiaY() { return get_double("MomentOfInertiaY", ifcengine.sdaiREAL);}
+        public double? _MomentOfInertiaY { get { return get_MomentOfInertiaY(); } }
         public void put_MomentOfInertiaY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MomentOfInertiaY", ifcengine.sdaiREAL, ref value); }
         public double? get_MomentOfInertiaZ() { return get_double("MomentOfInertiaZ", ifcengine.sdaiREAL);}
+        public double? _MomentOfInertiaZ { get { return get_MomentOfInertiaZ(); } }
         public void put_MomentOfInertiaZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MomentOfInertiaZ", ifcengine.sdaiREAL, ref value); }
         public double? get_WarpingConstant() { return get_double("WarpingConstant", ifcengine.sdaiREAL);}
+        public double? _WarpingConstant { get { return get_WarpingConstant(); } }
         public void put_WarpingConstant(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WarpingConstant", ifcengine.sdaiREAL, ref value); }
         public double? get_ShearCentreZ() { return get_double("ShearCentreZ", ifcengine.sdaiREAL);}
+        public double? _ShearCentreZ { get { return get_ShearCentreZ(); } }
         public void put_ShearCentreZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ShearCentreZ", ifcengine.sdaiREAL, ref value); }
         public double? get_ShearCentreY() { return get_double("ShearCentreY", ifcengine.sdaiREAL);}
+        public double? _ShearCentreY { get { return get_ShearCentreY(); } }
         public void put_ShearCentreY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ShearCentreY", ifcengine.sdaiREAL, ref value); }
         public double? get_ShearDeformationAreaZ() { return get_double("ShearDeformationAreaZ", ifcengine.sdaiREAL);}
+        public double? _ShearDeformationAreaZ { get { return get_ShearDeformationAreaZ(); } }
         public void put_ShearDeformationAreaZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ShearDeformationAreaZ", ifcengine.sdaiREAL, ref value); }
         public double? get_ShearDeformationAreaY() { return get_double("ShearDeformationAreaY", ifcengine.sdaiREAL);}
+        public double? _ShearDeformationAreaY { get { return get_ShearDeformationAreaY(); } }
         public void put_ShearDeformationAreaY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ShearDeformationAreaY", ifcengine.sdaiREAL, ref value); }
         public double? get_MaximumSectionModulusY() { return get_double("MaximumSectionModulusY", ifcengine.sdaiREAL);}
+        public double? _MaximumSectionModulusY { get { return get_MaximumSectionModulusY(); } }
         public void put_MaximumSectionModulusY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MaximumSectionModulusY", ifcengine.sdaiREAL, ref value); }
         public double? get_MinimumSectionModulusY() { return get_double("MinimumSectionModulusY", ifcengine.sdaiREAL);}
+        public double? _MinimumSectionModulusY { get { return get_MinimumSectionModulusY(); } }
         public void put_MinimumSectionModulusY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MinimumSectionModulusY", ifcengine.sdaiREAL, ref value); }
         public double? get_MaximumSectionModulusZ() { return get_double("MaximumSectionModulusZ", ifcengine.sdaiREAL);}
+        public double? _MaximumSectionModulusZ { get { return get_MaximumSectionModulusZ(); } }
         public void put_MaximumSectionModulusZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MaximumSectionModulusZ", ifcengine.sdaiREAL, ref value); }
         public double? get_MinimumSectionModulusZ() { return get_double("MinimumSectionModulusZ", ifcengine.sdaiREAL);}
+        public double? _MinimumSectionModulusZ { get { return get_MinimumSectionModulusZ(); } }
         public void put_MinimumSectionModulusZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MinimumSectionModulusZ", ifcengine.sdaiREAL, ref value); }
         public double? get_TorsionalSectionModulus() { return get_double("TorsionalSectionModulus", ifcengine.sdaiREAL);}
+        public double? _TorsionalSectionModulus { get { return get_TorsionalSectionModulus(); } }
         public void put_TorsionalSectionModulus(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TorsionalSectionModulus", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInX() { return get_double("CentreOfGravityInX", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInX { get { return get_CentreOfGravityInX(); } }
         public void put_CentreOfGravityInX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInX", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInY() { return get_double("CentreOfGravityInY", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInY { get { return get_CentreOfGravityInY(); } }
         public void put_CentreOfGravityInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInY", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralProfileProperties"; }
@@ -24577,12 +26716,16 @@ namespace IFC2x3
         public static new IfcStructuralResultGroup Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralResultGroup"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAnalysisTheoryTypeEnum? get_TheoryType() { var str = get_string("TheoryType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcAnalysisTheoryTypeEnum_); return EnumValue<IfcAnalysisTheoryTypeEnum>.FromIndex(ind); }
+        public IfcAnalysisTheoryTypeEnum? _TheoryType { get { return get_TheoryType(); } }
         public void put_TheoryType(IfcAnalysisTheoryTypeEnum value) { var str = EnumString<IfcAnalysisTheoryTypeEnum>.FromValue(value, EnumNames.IfcAnalysisTheoryTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "TheoryType", ifcengine.sdaiENUM, str); }
         public IfcStructuralLoadGroup get_ResultForLoadGroup() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ResultForLoadGroup", ifcengine.sdaiINSTANCE, out inst); return new IfcStructuralLoadGroup (inst); }
+        public IfcStructuralLoadGroup _ResultForLoadGroup { get { return get_ResultForLoadGroup(); } }
         public void put_ResultForLoadGroup(IfcStructuralLoadGroup inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ResultForLoadGroup", ifcengine.sdaiINSTANCE, i); }
         public bool? get_IsLinear() { return get_bool("IsLinear", ifcengine.sdaiBOOLEAN);}
+        public bool? _IsLinear { get { return get_IsLinear(); } }
         public void put_IsLinear(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsLinear", ifcengine.sdaiBOOLEAN, ref value); }
         public SetOfIfcStructuralAnalysisModel get_ResultGroupFor() { return (new SetOfIfcStructuralAnalysisModelSerializer()).FromAttr(m_instance, "ResultGroupFor"); }
+        public SetOfIfcStructuralAnalysisModel _ResultGroupFor { get { return get_ResultGroupFor(); } }
 
         protected override TextValue EntityName() { return "IfcStructuralResultGroup"; }
     };
@@ -24609,12 +26752,16 @@ namespace IFC2x3
         public static new IfcStructuralSteelProfileProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralSteelProfileProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_ShearAreaZ() { return get_double("ShearAreaZ", ifcengine.sdaiREAL);}
+        public double? _ShearAreaZ { get { return get_ShearAreaZ(); } }
         public void put_ShearAreaZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ShearAreaZ", ifcengine.sdaiREAL, ref value); }
         public double? get_ShearAreaY() { return get_double("ShearAreaY", ifcengine.sdaiREAL);}
+        public double? _ShearAreaY { get { return get_ShearAreaY(); } }
         public void put_ShearAreaY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ShearAreaY", ifcengine.sdaiREAL, ref value); }
         public double? get_PlasticShapeFactorY() { return get_double("PlasticShapeFactorY", ifcengine.sdaiREAL);}
+        public double? _PlasticShapeFactorY { get { return get_PlasticShapeFactorY(); } }
         public void put_PlasticShapeFactorY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PlasticShapeFactorY", ifcengine.sdaiREAL, ref value); }
         public double? get_PlasticShapeFactorZ() { return get_double("PlasticShapeFactorZ", ifcengine.sdaiREAL);}
+        public double? _PlasticShapeFactorZ { get { return get_PlasticShapeFactorZ(); } }
         public void put_PlasticShapeFactorZ(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PlasticShapeFactorZ", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralSteelProfileProperties"; }
@@ -24667,8 +26814,10 @@ namespace IFC2x3
         public static new IfcStructuralSurfaceMember Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralSurfaceMember"); Debug.Assert(inst != 0); return inst; }
 
         public IfcStructuralSurfaceTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcStructuralSurfaceTypeEnum_); return EnumValue<IfcStructuralSurfaceTypeEnum>.FromIndex(ind); }
+        public IfcStructuralSurfaceTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcStructuralSurfaceTypeEnum value) { var str = EnumString<IfcStructuralSurfaceTypeEnum>.FromValue(value, EnumNames.IfcStructuralSurfaceTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public double? get_Thickness() { return get_double("Thickness", ifcengine.sdaiREAL);}
+        public double? _Thickness { get { return get_Thickness(); } }
         public void put_Thickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Thickness", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcStructuralSurfaceMember"; }
@@ -24696,9 +26845,11 @@ namespace IFC2x3
         public static new IfcStructuralSurfaceMemberVarying Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcStructuralSurfaceMemberVarying"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcPositiveLengthMeasure get_SubsequentThickness() { return (new ListOfIfcPositiveLengthMeasureSerializer()).FromAttr(m_instance, "SubsequentThickness"); }
+        public ListOfIfcPositiveLengthMeasure _SubsequentThickness { get { return get_SubsequentThickness(); } }
         public void put_SubsequentThickness(IEnumerable<double> lst) { (new ListOfIfcPositiveLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "SubsequentThickness"); }
         //public void put_SubsequentThickness_untyped(IEnumerable lst) { (new ListOfIfcPositiveLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "SubsequentThickness"); }
         public IfcShapeAspect get_VaryingThicknessLocation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VaryingThicknessLocation", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _VaryingThicknessLocation { get { return get_VaryingThicknessLocation(); } }
         public void put_VaryingThicknessLocation(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "VaryingThicknessLocation", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcStructuralSurfaceMemberVarying"; }
@@ -24797,8 +26948,10 @@ namespace IFC2x3
 
 
         public IfcActorSelect_get get_SubContractor() { return new IfcActorSelect_get(m_instance, "SubContractor", 0); }
+        public IfcActorSelect_get _SubContractor { get { return new IfcActorSelect_get(m_instance, "SubContractor", 0); } }
         public IfcActorSelect_put put_SubContractor() { return new IfcActorSelect_put(m_instance, "SubContractor", 0); }
         public TextValue get_JobDescription() { return get_string("JobDescription", ifcengine.sdaiSTRING); }
+        public TextValue _JobDescription { get { return get_JobDescription(); } }
         public void put_JobDescription(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "JobDescription", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcSubContractResource"; }
@@ -24826,6 +26979,7 @@ namespace IFC2x3
         public static new IfcSubedge Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSubedge"); Debug.Assert(inst != 0); return inst; }
 
         public IfcEdge get_ParentEdge() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ParentEdge", ifcengine.sdaiINSTANCE, out inst); return new IfcEdge (inst); }
+        public IfcEdge _ParentEdge { get { return get_ParentEdge(); } }
         public void put_ParentEdge(IfcEdge inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ParentEdge", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSubedge"; }
@@ -24853,12 +27007,16 @@ namespace IFC2x3
         public static new IfcSurfaceCurveSweptAreaSolid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceCurveSweptAreaSolid"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_Directrix() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Directrix", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _Directrix { get { return get_Directrix(); } }
         public void put_Directrix(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Directrix", ifcengine.sdaiINSTANCE, i); }
         public double? get_StartParam() { return get_double("StartParam", ifcengine.sdaiREAL);}
+        public double? _StartParam { get { return get_StartParam(); } }
         public void put_StartParam(double value) { ifcengine.sdaiPutAttrBN(m_instance, "StartParam", ifcengine.sdaiREAL, ref value); }
         public double? get_EndParam() { return get_double("EndParam", ifcengine.sdaiREAL);}
+        public double? _EndParam { get { return get_EndParam(); } }
         public void put_EndParam(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EndParam", ifcengine.sdaiREAL, ref value); }
         public IfcSurface get_ReferenceSurface() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ReferenceSurface", ifcengine.sdaiINSTANCE, out inst); return new IfcSurface (inst); }
+        public IfcSurface _ReferenceSurface { get { return get_ReferenceSurface(); } }
         public void put_ReferenceSurface(IfcSurface inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ReferenceSurface", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSurfaceCurveSweptAreaSolid"; }
@@ -24881,8 +27039,10 @@ namespace IFC2x3
         public static implicit operator IfcSweptSurface(SdaiInstance instance) => new IfcSweptSurface(instance);
 
         public IfcProfileDef get_SweptCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SweptCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcProfileDef (inst); }
+        public IfcProfileDef _SweptCurve { get { return get_SweptCurve(); } }
         public void put_SweptCurve(IfcProfileDef inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SweptCurve", ifcengine.sdaiINSTANCE, i); }
         public IfcAxis2Placement3D get_Position() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D (inst); }
+        public IfcAxis2Placement3D _Position { get { return get_Position(); } }
         public void put_Position(IfcAxis2Placement3D inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSweptSurface"; }
@@ -24910,8 +27070,10 @@ namespace IFC2x3
         public static new IfcSurfaceOfLinearExtrusion Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceOfLinearExtrusion"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_ExtrudedDirection() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ExtrudedDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _ExtrudedDirection { get { return get_ExtrudedDirection(); } }
         public void put_ExtrudedDirection(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ExtrudedDirection", ifcengine.sdaiINSTANCE, i); }
         public double? get_Depth() { return get_double("Depth", ifcengine.sdaiREAL);}
+        public double? _Depth { get { return get_Depth(); } }
         public void put_Depth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcSurfaceOfLinearExtrusion"; }
@@ -24939,6 +27101,7 @@ namespace IFC2x3
         public static new IfcSurfaceOfRevolution Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceOfRevolution"); Debug.Assert(inst != 0); return inst; }
 
         public IfcAxis1Placement get_AxisPosition() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AxisPosition", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis1Placement (inst); }
+        public IfcAxis1Placement _AxisPosition { get { return get_AxisPosition(); } }
         public void put_AxisPosition(IfcAxis1Placement inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "AxisPosition", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSurfaceOfRevolution"; }
@@ -24966,8 +27129,10 @@ namespace IFC2x3
         public static new IfcSurfaceStyle Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceStyle"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSurfaceSide? get_Side() { var str = get_string("Side", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSurfaceSide_); return EnumValue<IfcSurfaceSide>.FromIndex(ind); }
+        public IfcSurfaceSide? _Side { get { return get_Side(); } }
         public void put_Side(IfcSurfaceSide value) { var str = EnumString<IfcSurfaceSide>.FromValue(value, EnumNames.IfcSurfaceSide_); ifcengine.sdaiPutAttrBN(m_instance, "Side", ifcengine.sdaiENUM, str); }
         public SetOfIfcSurfaceStyleElementSelect get_Styles() { return (new SetOfIfcSurfaceStyleElementSelectSerializer()).FromAttr(m_instance, "Styles"); }
+        public SetOfIfcSurfaceStyleElementSelect _Styles { get { return get_Styles(); } }
         public void put_Styles(IEnumerable<IfcSurfaceStyleElementSelect> lst) { (new SetOfIfcSurfaceStyleElementSelectSerializer()).ToSdaiAggr(lst, m_instance, "Styles"); }
         //public void put_Styles_untyped(IEnumerable lst) { (new SetOfIfcSurfaceStyleElementSelectSerializer()).ToSdaiAggr(lst, m_instance, "Styles"); }
 
@@ -24996,12 +27161,16 @@ namespace IFC2x3
         public static new IfcSurfaceStyleLighting Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceStyleLighting"); Debug.Assert(inst != 0); return inst; }
 
         public IfcColourRgb get_DiffuseTransmissionColour() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "DiffuseTransmissionColour", ifcengine.sdaiINSTANCE, out inst); return new IfcColourRgb (inst); }
+        public IfcColourRgb _DiffuseTransmissionColour { get { return get_DiffuseTransmissionColour(); } }
         public void put_DiffuseTransmissionColour(IfcColourRgb inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "DiffuseTransmissionColour", ifcengine.sdaiINSTANCE, i); }
         public IfcColourRgb get_DiffuseReflectionColour() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "DiffuseReflectionColour", ifcengine.sdaiINSTANCE, out inst); return new IfcColourRgb (inst); }
+        public IfcColourRgb _DiffuseReflectionColour { get { return get_DiffuseReflectionColour(); } }
         public void put_DiffuseReflectionColour(IfcColourRgb inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "DiffuseReflectionColour", ifcengine.sdaiINSTANCE, i); }
         public IfcColourRgb get_TransmissionColour() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TransmissionColour", ifcengine.sdaiINSTANCE, out inst); return new IfcColourRgb (inst); }
+        public IfcColourRgb _TransmissionColour { get { return get_TransmissionColour(); } }
         public void put_TransmissionColour(IfcColourRgb inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TransmissionColour", ifcengine.sdaiINSTANCE, i); }
         public IfcColourRgb get_ReflectanceColour() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ReflectanceColour", ifcengine.sdaiINSTANCE, out inst); return new IfcColourRgb (inst); }
+        public IfcColourRgb _ReflectanceColour { get { return get_ReflectanceColour(); } }
         public void put_ReflectanceColour(IfcColourRgb inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ReflectanceColour", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSurfaceStyleLighting"; }
@@ -25029,8 +27198,10 @@ namespace IFC2x3
         public static new IfcSurfaceStyleRefraction Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceStyleRefraction"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_RefractionIndex() { return get_double("RefractionIndex", ifcengine.sdaiREAL);}
+        public double? _RefractionIndex { get { return get_RefractionIndex(); } }
         public void put_RefractionIndex(double value) { ifcengine.sdaiPutAttrBN(m_instance, "RefractionIndex", ifcengine.sdaiREAL, ref value); }
         public double? get_DispersionFactor() { return get_double("DispersionFactor", ifcengine.sdaiREAL);}
+        public double? _DispersionFactor { get { return get_DispersionFactor(); } }
         public void put_DispersionFactor(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DispersionFactor", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcSurfaceStyleRefraction"; }
@@ -25058,6 +27229,7 @@ namespace IFC2x3
         public static new IfcSurfaceStyleShading Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceStyleShading"); Debug.Assert(inst != 0); return inst; }
 
         public IfcColourRgb get_SurfaceColour() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SurfaceColour", ifcengine.sdaiINSTANCE, out inst); return new IfcColourRgb (inst); }
+        public IfcColourRgb _SurfaceColour { get { return get_SurfaceColour(); } }
         public void put_SurfaceColour(IfcColourRgb inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SurfaceColour", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcSurfaceStyleShading"; }
@@ -25085,26 +27257,34 @@ namespace IFC2x3
         public static new IfcSurfaceStyleRendering Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceStyleRendering"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Transparency() { return get_double("Transparency", ifcengine.sdaiREAL);}
+        public double? _Transparency { get { return get_Transparency(); } }
         public void put_Transparency(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Transparency", ifcengine.sdaiREAL, ref value); }
 
         public IfcColourOrFactor_get get_DiffuseColour() { return new IfcColourOrFactor_get(m_instance, "DiffuseColour", 0); }
+        public IfcColourOrFactor_get _DiffuseColour { get { return new IfcColourOrFactor_get(m_instance, "DiffuseColour", 0); } }
         public IfcColourOrFactor_put put_DiffuseColour() { return new IfcColourOrFactor_put(m_instance, "DiffuseColour", 0); }
 
         public IfcColourOrFactor_get get_TransmissionColour() { return new IfcColourOrFactor_get(m_instance, "TransmissionColour", 0); }
+        public IfcColourOrFactor_get _TransmissionColour { get { return new IfcColourOrFactor_get(m_instance, "TransmissionColour", 0); } }
         public IfcColourOrFactor_put put_TransmissionColour() { return new IfcColourOrFactor_put(m_instance, "TransmissionColour", 0); }
 
         public IfcColourOrFactor_get get_DiffuseTransmissionColour() { return new IfcColourOrFactor_get(m_instance, "DiffuseTransmissionColour", 0); }
+        public IfcColourOrFactor_get _DiffuseTransmissionColour { get { return new IfcColourOrFactor_get(m_instance, "DiffuseTransmissionColour", 0); } }
         public IfcColourOrFactor_put put_DiffuseTransmissionColour() { return new IfcColourOrFactor_put(m_instance, "DiffuseTransmissionColour", 0); }
 
         public IfcColourOrFactor_get get_ReflectionColour() { return new IfcColourOrFactor_get(m_instance, "ReflectionColour", 0); }
+        public IfcColourOrFactor_get _ReflectionColour { get { return new IfcColourOrFactor_get(m_instance, "ReflectionColour", 0); } }
         public IfcColourOrFactor_put put_ReflectionColour() { return new IfcColourOrFactor_put(m_instance, "ReflectionColour", 0); }
 
         public IfcColourOrFactor_get get_SpecularColour() { return new IfcColourOrFactor_get(m_instance, "SpecularColour", 0); }
+        public IfcColourOrFactor_get _SpecularColour { get { return new IfcColourOrFactor_get(m_instance, "SpecularColour", 0); } }
         public IfcColourOrFactor_put put_SpecularColour() { return new IfcColourOrFactor_put(m_instance, "SpecularColour", 0); }
 
         public IfcSpecularHighlightSelect_get get_SpecularHighlight() { return new IfcSpecularHighlightSelect_get(m_instance, "SpecularHighlight", 0); }
+        public IfcSpecularHighlightSelect_get _SpecularHighlight { get { return new IfcSpecularHighlightSelect_get(m_instance, "SpecularHighlight", 0); } }
         public IfcSpecularHighlightSelect_put put_SpecularHighlight() { return new IfcSpecularHighlightSelect_put(m_instance, "SpecularHighlight", 0); }
         public IfcReflectanceMethodEnum? get_ReflectanceMethod() { var str = get_string("ReflectanceMethod", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcReflectanceMethodEnum_); return EnumValue<IfcReflectanceMethodEnum>.FromIndex(ind); }
+        public IfcReflectanceMethodEnum? _ReflectanceMethod { get { return get_ReflectanceMethod(); } }
         public void put_ReflectanceMethod(IfcReflectanceMethodEnum value) { var str = EnumString<IfcReflectanceMethodEnum>.FromValue(value, EnumNames.IfcReflectanceMethodEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ReflectanceMethod", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSurfaceStyleRendering"; }
@@ -25132,6 +27312,7 @@ namespace IFC2x3
         public static new IfcSurfaceStyleWithTextures Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSurfaceStyleWithTextures"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcSurfaceTexture get_Textures() { return (new ListOfIfcSurfaceTextureSerializer()).FromAttr(m_instance, "Textures"); }
+        public ListOfIfcSurfaceTexture _Textures { get { return get_Textures(); } }
         public void put_Textures(IEnumerable<IfcSurfaceTexture> lst) { (new ListOfIfcSurfaceTextureSerializer()).ToSdaiAggr(lst, m_instance, "Textures"); }
         //public void put_Textures_untyped(IEnumerable lst) { (new ListOfIfcSurfaceTextureSerializer()).ToSdaiAggr(lst, m_instance, "Textures"); }
 
@@ -25160,14 +27341,19 @@ namespace IFC2x3
         public static new IfcSweptDiskSolid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSweptDiskSolid"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_Directrix() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Directrix", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _Directrix { get { return get_Directrix(); } }
         public void put_Directrix(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Directrix", ifcengine.sdaiINSTANCE, i); }
         public double? get_Radius() { return get_double("Radius", ifcengine.sdaiREAL);}
+        public double? _Radius { get { return get_Radius(); } }
         public void put_Radius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Radius", ifcengine.sdaiREAL, ref value); }
         public double? get_InnerRadius() { return get_double("InnerRadius", ifcengine.sdaiREAL);}
+        public double? _InnerRadius { get { return get_InnerRadius(); } }
         public void put_InnerRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "InnerRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_StartParam() { return get_double("StartParam", ifcengine.sdaiREAL);}
+        public double? _StartParam { get { return get_StartParam(); } }
         public void put_StartParam(double value) { ifcengine.sdaiPutAttrBN(m_instance, "StartParam", ifcengine.sdaiREAL, ref value); }
         public double? get_EndParam() { return get_double("EndParam", ifcengine.sdaiREAL);}
+        public double? _EndParam { get { return get_EndParam(); } }
         public void put_EndParam(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EndParam", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcSweptDiskSolid"; }
@@ -25195,6 +27381,7 @@ namespace IFC2x3
         public static new IfcSwitchingDeviceType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcSwitchingDeviceType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcSwitchingDeviceTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcSwitchingDeviceTypeEnum_); return EnumValue<IfcSwitchingDeviceTypeEnum>.FromIndex(ind); }
+        public IfcSwitchingDeviceTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcSwitchingDeviceTypeEnum value) { var str = EnumString<IfcSwitchingDeviceTypeEnum>.FromValue(value, EnumNames.IfcSwitchingDeviceTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcSwitchingDeviceType"; }
@@ -25223,6 +27410,7 @@ namespace IFC2x3
 
 
         public IfcSymbolStyleSelect_get get_StyleOfSymbol() { return new IfcSymbolStyleSelect_get(m_instance, "StyleOfSymbol", 0); }
+        public IfcSymbolStyleSelect_get _StyleOfSymbol { get { return new IfcSymbolStyleSelect_get(m_instance, "StyleOfSymbol", 0); } }
         public IfcSymbolStyleSelect_put put_StyleOfSymbol() { return new IfcSymbolStyleSelect_put(m_instance, "StyleOfSymbol", 0); }
 
         protected override TextValue EntityName() { return "IfcSymbolStyle"; }
@@ -25275,8 +27463,10 @@ namespace IFC2x3
         public static new IfcTable Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTable"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Name() { return get_string("Name", ifcengine.sdaiSTRING); }
+        public TextValue _Name { get { return get_Name(); } }
         public void put_Name(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Name", ifcengine.sdaiSTRING, value); }
         public ListOfIfcTableRow get_Rows() { return (new ListOfIfcTableRowSerializer()).FromAttr(m_instance, "Rows"); }
+        public ListOfIfcTableRow _Rows { get { return get_Rows(); } }
         public void put_Rows(IEnumerable<IfcTableRow> lst) { (new ListOfIfcTableRowSerializer()).ToSdaiAggr(lst, m_instance, "Rows"); }
         //public void put_Rows_untyped(IEnumerable lst) { (new ListOfIfcTableRowSerializer()).ToSdaiAggr(lst, m_instance, "Rows"); }
 
@@ -25305,11 +27495,14 @@ namespace IFC2x3
         public static new IfcTableRow Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTableRow"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcValue get_RowCells() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "RowCells"); }
+        public ListOfIfcValue _RowCells { get { return get_RowCells(); } }
         public void put_RowCells(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "RowCells"); }
         //public void put_RowCells_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "RowCells"); }
         public bool? get_IsHeading() { return get_bool("IsHeading", ifcengine.sdaiBOOLEAN);}
+        public bool? _IsHeading { get { return get_IsHeading(); } }
         public void put_IsHeading(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsHeading", ifcengine.sdaiBOOLEAN, ref value); }
         public IfcTable get_OfTable() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "OfTable", ifcengine.sdaiINSTANCE, out inst); return new IfcTable (inst); }
+        public IfcTable _OfTable { get { return get_OfTable(); } }
 
         protected override TextValue EntityName() { return "IfcTableRow"; }
     };
@@ -25336,6 +27529,7 @@ namespace IFC2x3
         public static new IfcTankType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTankType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTankTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTankTypeEnum_); return EnumValue<IfcTankTypeEnum>.FromIndex(ind); }
+        public IfcTankTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcTankTypeEnum value) { var str = EnumString<IfcTankTypeEnum>.FromValue(value, EnumNames.IfcTankTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcTankType"; }
@@ -25363,17 +27557,22 @@ namespace IFC2x3
         public static new IfcTelecomAddress Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTelecomAddress"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcLabel get_TelephoneNumbers() { return (new ListOfIfcLabelSerializer()).FromAttr(m_instance, "TelephoneNumbers"); }
+        public ListOfIfcLabel _TelephoneNumbers { get { return get_TelephoneNumbers(); } }
         public void put_TelephoneNumbers(IEnumerable<TextValue> lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "TelephoneNumbers"); }
         //public void put_TelephoneNumbers_untyped(IEnumerable lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "TelephoneNumbers"); }
         public ListOfIfcLabel get_FacsimileNumbers() { return (new ListOfIfcLabelSerializer()).FromAttr(m_instance, "FacsimileNumbers"); }
+        public ListOfIfcLabel _FacsimileNumbers { get { return get_FacsimileNumbers(); } }
         public void put_FacsimileNumbers(IEnumerable<TextValue> lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "FacsimileNumbers"); }
         //public void put_FacsimileNumbers_untyped(IEnumerable lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "FacsimileNumbers"); }
         public TextValue get_PagerNumber() { return get_string("PagerNumber", ifcengine.sdaiSTRING); }
+        public TextValue _PagerNumber { get { return get_PagerNumber(); } }
         public void put_PagerNumber(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "PagerNumber", ifcengine.sdaiSTRING, value); }
         public ListOfIfcLabel get_ElectronicMailAddresses() { return (new ListOfIfcLabelSerializer()).FromAttr(m_instance, "ElectronicMailAddresses"); }
+        public ListOfIfcLabel _ElectronicMailAddresses { get { return get_ElectronicMailAddresses(); } }
         public void put_ElectronicMailAddresses(IEnumerable<TextValue> lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "ElectronicMailAddresses"); }
         //public void put_ElectronicMailAddresses_untyped(IEnumerable lst) { (new ListOfIfcLabelSerializer()).ToSdaiAggr(lst, m_instance, "ElectronicMailAddresses"); }
         public TextValue get_WWWHomePageURL() { return get_string("WWWHomePageURL", ifcengine.sdaiSTRING); }
+        public TextValue _WWWHomePageURL { get { return get_WWWHomePageURL(); } }
         public void put_WWWHomePageURL(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "WWWHomePageURL", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcTelecomAddress"; }
@@ -25401,20 +27600,28 @@ namespace IFC2x3
         public static new IfcTendon Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTendon"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTendonTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTendonTypeEnum_); return EnumValue<IfcTendonTypeEnum>.FromIndex(ind); }
+        public IfcTendonTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcTendonTypeEnum value) { var str = EnumString<IfcTendonTypeEnum>.FromValue(value, EnumNames.IfcTendonTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
         public double? get_NominalDiameter() { return get_double("NominalDiameter", ifcengine.sdaiREAL);}
+        public double? _NominalDiameter { get { return get_NominalDiameter(); } }
         public void put_NominalDiameter(double value) { ifcengine.sdaiPutAttrBN(m_instance, "NominalDiameter", ifcengine.sdaiREAL, ref value); }
         public double? get_CrossSectionArea() { return get_double("CrossSectionArea", ifcengine.sdaiREAL);}
+        public double? _CrossSectionArea { get { return get_CrossSectionArea(); } }
         public void put_CrossSectionArea(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CrossSectionArea", ifcengine.sdaiREAL, ref value); }
         public double? get_TensionForce() { return get_double("TensionForce", ifcengine.sdaiREAL);}
+        public double? _TensionForce { get { return get_TensionForce(); } }
         public void put_TensionForce(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TensionForce", ifcengine.sdaiREAL, ref value); }
         public double? get_PreStress() { return get_double("PreStress", ifcengine.sdaiREAL);}
+        public double? _PreStress { get { return get_PreStress(); } }
         public void put_PreStress(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PreStress", ifcengine.sdaiREAL, ref value); }
         public double? get_FrictionCoefficient() { return get_double("FrictionCoefficient", ifcengine.sdaiREAL);}
+        public double? _FrictionCoefficient { get { return get_FrictionCoefficient(); } }
         public void put_FrictionCoefficient(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FrictionCoefficient", ifcengine.sdaiREAL, ref value); }
         public double? get_AnchorageSlip() { return get_double("AnchorageSlip", ifcengine.sdaiREAL);}
+        public double? _AnchorageSlip { get { return get_AnchorageSlip(); } }
         public void put_AnchorageSlip(double value) { ifcengine.sdaiPutAttrBN(m_instance, "AnchorageSlip", ifcengine.sdaiREAL, ref value); }
         public double? get_MinCurvatureRadius() { return get_double("MinCurvatureRadius", ifcengine.sdaiREAL);}
+        public double? _MinCurvatureRadius { get { return get_MinCurvatureRadius(); } }
         public void put_MinCurvatureRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MinCurvatureRadius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcTendon"; }
@@ -25467,11 +27674,14 @@ namespace IFC2x3
         public static new IfcTextLiteral Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTextLiteral"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Literal() { return get_string("Literal", ifcengine.sdaiSTRING); }
+        public TextValue _Literal { get { return get_Literal(); } }
         public void put_Literal(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Literal", ifcengine.sdaiSTRING, value); }
 
         public IfcAxis2Placement_get get_Placement() { return new IfcAxis2Placement_get(m_instance, "Placement", 0); }
+        public IfcAxis2Placement_get _Placement { get { return new IfcAxis2Placement_get(m_instance, "Placement", 0); } }
         public IfcAxis2Placement_put put_Placement() { return new IfcAxis2Placement_put(m_instance, "Placement", 0); }
         public IfcTextPath? get_Path() { var str = get_string("Path", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTextPath_); return EnumValue<IfcTextPath>.FromIndex(ind); }
+        public IfcTextPath? _Path { get { return get_Path(); } }
         public void put_Path(IfcTextPath value) { var str = EnumString<IfcTextPath>.FromValue(value, EnumNames.IfcTextPath_); ifcengine.sdaiPutAttrBN(m_instance, "Path", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcTextLiteral"; }
@@ -25499,8 +27709,10 @@ namespace IFC2x3
         public static new IfcTextLiteralWithExtent Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTextLiteralWithExtent"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPlanarExtent get_Extent() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Extent", ifcengine.sdaiINSTANCE, out inst); return new IfcPlanarExtent (inst); }
+        public IfcPlanarExtent _Extent { get { return get_Extent(); } }
         public void put_Extent(IfcPlanarExtent inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Extent", ifcengine.sdaiINSTANCE, i); }
         public TextValue get_BoxAlignment() { return get_string("BoxAlignment", ifcengine.sdaiSTRING); }
+        public TextValue _BoxAlignment { get { return get_BoxAlignment(); } }
         public void put_BoxAlignment(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "BoxAlignment", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcTextLiteralWithExtent"; }
@@ -25529,12 +27741,15 @@ namespace IFC2x3
 
 
         public IfcCharacterStyleSelect_get get_TextCharacterAppearance() { return new IfcCharacterStyleSelect_get(m_instance, "TextCharacterAppearance", 0); }
+        public IfcCharacterStyleSelect_get _TextCharacterAppearance { get { return new IfcCharacterStyleSelect_get(m_instance, "TextCharacterAppearance", 0); } }
         public IfcCharacterStyleSelect_put put_TextCharacterAppearance() { return new IfcCharacterStyleSelect_put(m_instance, "TextCharacterAppearance", 0); }
 
         public IfcTextStyleSelect_get get_TextStyle() { return new IfcTextStyleSelect_get(m_instance, "TextStyle", 0); }
+        public IfcTextStyleSelect_get _TextStyle { get { return new IfcTextStyleSelect_get(m_instance, "TextStyle", 0); } }
         public IfcTextStyleSelect_put put_TextStyle() { return new IfcTextStyleSelect_put(m_instance, "TextStyle", 0); }
 
         public IfcTextFontSelect_get get_TextFontStyle() { return new IfcTextFontSelect_get(m_instance, "TextFontStyle", 0); }
+        public IfcTextFontSelect_get _TextFontStyle { get { return new IfcTextFontSelect_get(m_instance, "TextFontStyle", 0); } }
         public IfcTextFontSelect_put put_TextFontStyle() { return new IfcTextFontSelect_put(m_instance, "TextFontStyle", 0); }
 
         protected override TextValue EntityName() { return "IfcTextStyle"; }
@@ -25562,16 +27777,21 @@ namespace IFC2x3
         public static new IfcTextStyleFontModel Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTextStyleFontModel"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcTextFontName get_FontFamily() { return (new ListOfIfcTextFontNameSerializer()).FromAttr(m_instance, "FontFamily"); }
+        public ListOfIfcTextFontName _FontFamily { get { return get_FontFamily(); } }
         public void put_FontFamily(IEnumerable<TextValue> lst) { (new ListOfIfcTextFontNameSerializer()).ToSdaiAggr(lst, m_instance, "FontFamily"); }
         //public void put_FontFamily_untyped(IEnumerable lst) { (new ListOfIfcTextFontNameSerializer()).ToSdaiAggr(lst, m_instance, "FontFamily"); }
         public TextValue get_FontStyle() { return get_string("FontStyle", ifcengine.sdaiSTRING); }
+        public TextValue _FontStyle { get { return get_FontStyle(); } }
         public void put_FontStyle(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "FontStyle", ifcengine.sdaiSTRING, value); }
         public TextValue get_FontVariant() { return get_string("FontVariant", ifcengine.sdaiSTRING); }
+        public TextValue _FontVariant { get { return get_FontVariant(); } }
         public void put_FontVariant(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "FontVariant", ifcengine.sdaiSTRING, value); }
         public TextValue get_FontWeight() { return get_string("FontWeight", ifcengine.sdaiSTRING); }
+        public TextValue _FontWeight { get { return get_FontWeight(); } }
         public void put_FontWeight(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "FontWeight", ifcengine.sdaiSTRING, value); }
 
         public IfcSizeSelect_get get_FontSize() { return new IfcSizeSelect_get(m_instance, "FontSize", 0); }
+        public IfcSizeSelect_get _FontSize { get { return new IfcSizeSelect_get(m_instance, "FontSize", 0); } }
         public IfcSizeSelect_put put_FontSize() { return new IfcSizeSelect_put(m_instance, "FontSize", 0); }
 
         protected override TextValue EntityName() { return "IfcTextStyleFontModel"; }
@@ -25600,9 +27820,11 @@ namespace IFC2x3
 
 
         public IfcColour_get get_Colour() { return new IfcColour_get(m_instance, "Colour", 0); }
+        public IfcColour_get _Colour { get { return new IfcColour_get(m_instance, "Colour", 0); } }
         public IfcColour_put put_Colour() { return new IfcColour_put(m_instance, "Colour", 0); }
 
         public IfcColour_get get_BackgroundColour() { return new IfcColour_get(m_instance, "BackgroundColour", 0); }
+        public IfcColour_get _BackgroundColour { get { return new IfcColour_get(m_instance, "BackgroundColour", 0); } }
         public IfcColour_put put_BackgroundColour() { return new IfcColour_put(m_instance, "BackgroundColour", 0); }
 
         protected override TextValue EntityName() { return "IfcTextStyleForDefinedFont"; }
@@ -25631,21 +27853,28 @@ namespace IFC2x3
 
 
         public IfcSizeSelect_get get_TextIndent() { return new IfcSizeSelect_get(m_instance, "TextIndent", 0); }
+        public IfcSizeSelect_get _TextIndent { get { return new IfcSizeSelect_get(m_instance, "TextIndent", 0); } }
         public IfcSizeSelect_put put_TextIndent() { return new IfcSizeSelect_put(m_instance, "TextIndent", 0); }
         public TextValue get_TextAlign() { return get_string("TextAlign", ifcengine.sdaiSTRING); }
+        public TextValue _TextAlign { get { return get_TextAlign(); } }
         public void put_TextAlign(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "TextAlign", ifcengine.sdaiSTRING, value); }
         public TextValue get_TextDecoration() { return get_string("TextDecoration", ifcengine.sdaiSTRING); }
+        public TextValue _TextDecoration { get { return get_TextDecoration(); } }
         public void put_TextDecoration(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "TextDecoration", ifcengine.sdaiSTRING, value); }
 
         public IfcSizeSelect_get get_LetterSpacing() { return new IfcSizeSelect_get(m_instance, "LetterSpacing", 0); }
+        public IfcSizeSelect_get _LetterSpacing { get { return new IfcSizeSelect_get(m_instance, "LetterSpacing", 0); } }
         public IfcSizeSelect_put put_LetterSpacing() { return new IfcSizeSelect_put(m_instance, "LetterSpacing", 0); }
 
         public IfcSizeSelect_get get_WordSpacing() { return new IfcSizeSelect_get(m_instance, "WordSpacing", 0); }
+        public IfcSizeSelect_get _WordSpacing { get { return new IfcSizeSelect_get(m_instance, "WordSpacing", 0); } }
         public IfcSizeSelect_put put_WordSpacing() { return new IfcSizeSelect_put(m_instance, "WordSpacing", 0); }
         public TextValue get_TextTransform() { return get_string("TextTransform", ifcengine.sdaiSTRING); }
+        public TextValue _TextTransform { get { return get_TextTransform(); } }
         public void put_TextTransform(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "TextTransform", ifcengine.sdaiSTRING, value); }
 
         public IfcSizeSelect_get get_LineHeight() { return new IfcSizeSelect_get(m_instance, "LineHeight", 0); }
+        public IfcSizeSelect_get _LineHeight { get { return new IfcSizeSelect_get(m_instance, "LineHeight", 0); } }
         public IfcSizeSelect_put put_LineHeight() { return new IfcSizeSelect_put(m_instance, "LineHeight", 0); }
 
         protected override TextValue EntityName() { return "IfcTextStyleTextModel"; }
@@ -25673,15 +27902,20 @@ namespace IFC2x3
         public static new IfcTextStyleWithBoxCharacteristics Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTextStyleWithBoxCharacteristics"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_BoxHeight() { return get_double("BoxHeight", ifcengine.sdaiREAL);}
+        public double? _BoxHeight { get { return get_BoxHeight(); } }
         public void put_BoxHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BoxHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_BoxWidth() { return get_double("BoxWidth", ifcengine.sdaiREAL);}
+        public double? _BoxWidth { get { return get_BoxWidth(); } }
         public void put_BoxWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BoxWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_BoxSlantAngle() { return get_double("BoxSlantAngle", ifcengine.sdaiREAL);}
+        public double? _BoxSlantAngle { get { return get_BoxSlantAngle(); } }
         public void put_BoxSlantAngle(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BoxSlantAngle", ifcengine.sdaiREAL, ref value); }
         public double? get_BoxRotateAngle() { return get_double("BoxRotateAngle", ifcengine.sdaiREAL);}
+        public double? _BoxRotateAngle { get { return get_BoxRotateAngle(); } }
         public void put_BoxRotateAngle(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BoxRotateAngle", ifcengine.sdaiREAL, ref value); }
 
         public IfcSizeSelect_get get_CharacterSpacing() { return new IfcSizeSelect_get(m_instance, "CharacterSpacing", 0); }
+        public IfcSizeSelect_get _CharacterSpacing { get { return new IfcSizeSelect_get(m_instance, "CharacterSpacing", 0); } }
         public IfcSizeSelect_put put_CharacterSpacing() { return new IfcSizeSelect_put(m_instance, "CharacterSpacing", 0); }
 
         protected override TextValue EntityName() { return "IfcTextStyleWithBoxCharacteristics"; }
@@ -25704,6 +27938,7 @@ namespace IFC2x3
         public static implicit operator IfcTextureCoordinate(SdaiInstance instance) => new IfcTextureCoordinate(instance);
 
         public SetOfIfcAnnotationSurface get_AnnotatedSurface() { return (new SetOfIfcAnnotationSurfaceSerializer()).FromAttr(m_instance, "AnnotatedSurface"); }
+        public SetOfIfcAnnotationSurface _AnnotatedSurface { get { return get_AnnotatedSurface(); } }
 
         protected override TextValue EntityName() { return "IfcTextureCoordinate"; }
     };
@@ -25730,8 +27965,10 @@ namespace IFC2x3
         public static new IfcTextureCoordinateGenerator Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTextureCoordinateGenerator"); Debug.Assert(inst != 0); return inst; }
 
         public TextValue get_Mode() { return get_string("Mode", ifcengine.sdaiSTRING); }
+        public TextValue _Mode { get { return get_Mode(); } }
         public void put_Mode(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Mode", ifcengine.sdaiSTRING, value); }
         public ListOfIfcSimpleValue get_Parameter() { return (new ListOfIfcSimpleValueSerializer()).FromAttr(m_instance, "Parameter"); }
+        public ListOfIfcSimpleValue _Parameter { get { return get_Parameter(); } }
         public void put_Parameter(IEnumerable<IfcSimpleValue> lst) { (new ListOfIfcSimpleValueSerializer()).ToSdaiAggr(lst, m_instance, "Parameter"); }
         //public void put_Parameter_untyped(IEnumerable lst) { (new ListOfIfcSimpleValueSerializer()).ToSdaiAggr(lst, m_instance, "Parameter"); }
 
@@ -25760,6 +27997,7 @@ namespace IFC2x3
         public static new IfcTextureMap Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTextureMap"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcVertexBasedTextureMap get_TextureMaps() { return (new SetOfIfcVertexBasedTextureMapSerializer()).FromAttr(m_instance, "TextureMaps"); }
+        public SetOfIfcVertexBasedTextureMap _TextureMaps { get { return get_TextureMaps(); } }
         public void put_TextureMaps(IEnumerable<IfcVertexBasedTextureMap> lst) { (new SetOfIfcVertexBasedTextureMapSerializer()).ToSdaiAggr(lst, m_instance, "TextureMaps"); }
         //public void put_TextureMaps_untyped(IEnumerable lst) { (new SetOfIfcVertexBasedTextureMapSerializer()).ToSdaiAggr(lst, m_instance, "TextureMaps"); }
 
@@ -25788,6 +28026,7 @@ namespace IFC2x3
         public static new IfcTextureVertex Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTextureVertex"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcParameterValue get_Coordinates() { return (new ListOfIfcParameterValueSerializer()).FromAttr(m_instance, "Coordinates"); }
+        public ListOfIfcParameterValue _Coordinates { get { return get_Coordinates(); } }
         public void put_Coordinates(IEnumerable<double> lst) { (new ListOfIfcParameterValueSerializer()).ToSdaiAggr(lst, m_instance, "Coordinates"); }
         //public void put_Coordinates_untyped(IEnumerable lst) { (new ListOfIfcParameterValueSerializer()).ToSdaiAggr(lst, m_instance, "Coordinates"); }
 
@@ -25816,12 +28055,16 @@ namespace IFC2x3
         public static new IfcThermalMaterialProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcThermalMaterialProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_SpecificHeatCapacity() { return get_double("SpecificHeatCapacity", ifcengine.sdaiREAL);}
+        public double? _SpecificHeatCapacity { get { return get_SpecificHeatCapacity(); } }
         public void put_SpecificHeatCapacity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SpecificHeatCapacity", ifcengine.sdaiREAL, ref value); }
         public double? get_BoilingPoint() { return get_double("BoilingPoint", ifcengine.sdaiREAL);}
+        public double? _BoilingPoint { get { return get_BoilingPoint(); } }
         public void put_BoilingPoint(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BoilingPoint", ifcengine.sdaiREAL, ref value); }
         public double? get_FreezingPoint() { return get_double("FreezingPoint", ifcengine.sdaiREAL);}
+        public double? _FreezingPoint { get { return get_FreezingPoint(); } }
         public void put_FreezingPoint(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FreezingPoint", ifcengine.sdaiREAL, ref value); }
         public double? get_ThermalConductivity() { return get_double("ThermalConductivity", ifcengine.sdaiREAL);}
+        public double? _ThermalConductivity { get { return get_ThermalConductivity(); } }
         public void put_ThermalConductivity(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ThermalConductivity", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcThermalMaterialProperties"; }
@@ -25849,8 +28092,10 @@ namespace IFC2x3
         public static new IfcTimeSeriesReferenceRelationship Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTimeSeriesReferenceRelationship"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTimeSeries get_ReferencedTimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ReferencedTimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _ReferencedTimeSeries { get { return get_ReferencedTimeSeries(); } }
         public void put_ReferencedTimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ReferencedTimeSeries", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcDocumentSelect get_TimeSeriesReferences() { return (new SetOfIfcDocumentSelectSerializer()).FromAttr(m_instance, "TimeSeriesReferences"); }
+        public SetOfIfcDocumentSelect _TimeSeriesReferences { get { return get_TimeSeriesReferences(); } }
         public void put_TimeSeriesReferences(IEnumerable<IfcDocumentSelect> lst) { (new SetOfIfcDocumentSelectSerializer()).ToSdaiAggr(lst, m_instance, "TimeSeriesReferences"); }
         //public void put_TimeSeriesReferences_untyped(IEnumerable lst) { (new SetOfIfcDocumentSelectSerializer()).ToSdaiAggr(lst, m_instance, "TimeSeriesReferences"); }
 
@@ -25879,11 +28124,14 @@ namespace IFC2x3
         public static new IfcTimeSeriesSchedule Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTimeSeriesSchedule"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcDateTimeSelect get_ApplicableDates() { return (new ListOfIfcDateTimeSelectSerializer()).FromAttr(m_instance, "ApplicableDates"); }
+        public ListOfIfcDateTimeSelect _ApplicableDates { get { return get_ApplicableDates(); } }
         public void put_ApplicableDates(IEnumerable<IfcDateTimeSelect> lst) { (new ListOfIfcDateTimeSelectSerializer()).ToSdaiAggr(lst, m_instance, "ApplicableDates"); }
         //public void put_ApplicableDates_untyped(IEnumerable lst) { (new ListOfIfcDateTimeSelectSerializer()).ToSdaiAggr(lst, m_instance, "ApplicableDates"); }
         public IfcTimeSeriesScheduleTypeEnum? get_TimeSeriesScheduleType() { var str = get_string("TimeSeriesScheduleType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTimeSeriesScheduleTypeEnum_); return EnumValue<IfcTimeSeriesScheduleTypeEnum>.FromIndex(ind); }
+        public IfcTimeSeriesScheduleTypeEnum? _TimeSeriesScheduleType { get { return get_TimeSeriesScheduleType(); } }
         public void put_TimeSeriesScheduleType(IfcTimeSeriesScheduleTypeEnum value) { var str = EnumString<IfcTimeSeriesScheduleTypeEnum>.FromValue(value, EnumNames.IfcTimeSeriesScheduleTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "TimeSeriesScheduleType", ifcengine.sdaiENUM, str); }
         public IfcTimeSeries get_TimeSeries() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "TimeSeries", ifcengine.sdaiINSTANCE, out inst); return new IfcTimeSeries (inst); }
+        public IfcTimeSeries _TimeSeries { get { return get_TimeSeries(); } }
         public void put_TimeSeries(IfcTimeSeries inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "TimeSeries", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcTimeSeriesSchedule"; }
@@ -25911,6 +28159,7 @@ namespace IFC2x3
         public static new IfcTimeSeriesValue Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTimeSeriesValue"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcValue get_ListValues() { return (new ListOfIfcValueSerializer()).FromAttr(m_instance, "ListValues"); }
+        public ListOfIfcValue _ListValues { get { return get_ListValues(); } }
         public void put_ListValues(IEnumerable<IfcValue> lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "ListValues"); }
         //public void put_ListValues_untyped(IEnumerable lst) { (new ListOfIfcValueSerializer()).ToSdaiAggr(lst, m_instance, "ListValues"); }
 
@@ -25964,6 +28213,7 @@ namespace IFC2x3
         public static new IfcTransformerType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTransformerType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTransformerTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTransformerTypeEnum_); return EnumValue<IfcTransformerTypeEnum>.FromIndex(ind); }
+        public IfcTransformerTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcTransformerTypeEnum value) { var str = EnumString<IfcTransformerTypeEnum>.FromValue(value, EnumNames.IfcTransformerTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcTransformerType"; }
@@ -25991,10 +28241,13 @@ namespace IFC2x3
         public static new IfcTransportElement Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTransportElement"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTransportElementTypeEnum? get_OperationType() { var str = get_string("OperationType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTransportElementTypeEnum_); return EnumValue<IfcTransportElementTypeEnum>.FromIndex(ind); }
+        public IfcTransportElementTypeEnum? _OperationType { get { return get_OperationType(); } }
         public void put_OperationType(IfcTransportElementTypeEnum value) { var str = EnumString<IfcTransportElementTypeEnum>.FromValue(value, EnumNames.IfcTransportElementTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "OperationType", ifcengine.sdaiENUM, str); }
         public double? get_CapacityByWeight() { return get_double("CapacityByWeight", ifcengine.sdaiREAL);}
+        public double? _CapacityByWeight { get { return get_CapacityByWeight(); } }
         public void put_CapacityByWeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CapacityByWeight", ifcengine.sdaiREAL, ref value); }
         public double? get_CapacityByNumber() { return get_double("CapacityByNumber", ifcengine.sdaiREAL);}
+        public double? _CapacityByNumber { get { return get_CapacityByNumber(); } }
         public void put_CapacityByNumber(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CapacityByNumber", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcTransportElement"; }
@@ -26022,6 +28275,7 @@ namespace IFC2x3
         public static new IfcTransportElementType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTransportElementType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTransportElementTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTransportElementTypeEnum_); return EnumValue<IfcTransportElementTypeEnum>.FromIndex(ind); }
+        public IfcTransportElementTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcTransportElementTypeEnum value) { var str = EnumString<IfcTransportElementTypeEnum>.FromValue(value, EnumNames.IfcTransportElementTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcTransportElementType"; }
@@ -26049,12 +28303,16 @@ namespace IFC2x3
         public static new IfcTrapeziumProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTrapeziumProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_BottomXDim() { return get_double("BottomXDim", ifcengine.sdaiREAL);}
+        public double? _BottomXDim { get { return get_BottomXDim(); } }
         public void put_BottomXDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "BottomXDim", ifcengine.sdaiREAL, ref value); }
         public double? get_TopXDim() { return get_double("TopXDim", ifcengine.sdaiREAL);}
+        public double? _TopXDim { get { return get_TopXDim(); } }
         public void put_TopXDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TopXDim", ifcengine.sdaiREAL, ref value); }
         public double? get_YDim() { return get_double("YDim", ifcengine.sdaiREAL);}
+        public double? _YDim { get { return get_YDim(); } }
         public void put_YDim(double value) { ifcengine.sdaiPutAttrBN(m_instance, "YDim", ifcengine.sdaiREAL, ref value); }
         public double? get_TopXOffset() { return get_double("TopXOffset", ifcengine.sdaiREAL);}
+        public double? _TopXOffset { get { return get_TopXOffset(); } }
         public void put_TopXOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TopXOffset", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcTrapeziumProfileDef"; }
@@ -26082,16 +28340,21 @@ namespace IFC2x3
         public static new IfcTrimmedCurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTrimmedCurve"); Debug.Assert(inst != 0); return inst; }
 
         public IfcCurve get_BasisCurve() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, out inst); return new IfcCurve (inst); }
+        public IfcCurve _BasisCurve { get { return get_BasisCurve(); } }
         public void put_BasisCurve(IfcCurve inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "BasisCurve", ifcengine.sdaiINSTANCE, i); }
         public SetOfIfcTrimmingSelect get_Trim1() { return (new SetOfIfcTrimmingSelectSerializer()).FromAttr(m_instance, "Trim1"); }
+        public SetOfIfcTrimmingSelect _Trim1 { get { return get_Trim1(); } }
         public void put_Trim1(IEnumerable<IfcTrimmingSelect> lst) { (new SetOfIfcTrimmingSelectSerializer()).ToSdaiAggr(lst, m_instance, "Trim1"); }
         //public void put_Trim1_untyped(IEnumerable lst) { (new SetOfIfcTrimmingSelectSerializer()).ToSdaiAggr(lst, m_instance, "Trim1"); }
         public SetOfIfcTrimmingSelect get_Trim2() { return (new SetOfIfcTrimmingSelectSerializer()).FromAttr(m_instance, "Trim2"); }
+        public SetOfIfcTrimmingSelect _Trim2 { get { return get_Trim2(); } }
         public void put_Trim2(IEnumerable<IfcTrimmingSelect> lst) { (new SetOfIfcTrimmingSelectSerializer()).ToSdaiAggr(lst, m_instance, "Trim2"); }
         //public void put_Trim2_untyped(IEnumerable lst) { (new SetOfIfcTrimmingSelectSerializer()).ToSdaiAggr(lst, m_instance, "Trim2"); }
         public bool? get_SenseAgreement() { return get_bool("SenseAgreement", ifcengine.sdaiBOOLEAN);}
+        public bool? _SenseAgreement { get { return get_SenseAgreement(); } }
         public void put_SenseAgreement(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "SenseAgreement", ifcengine.sdaiBOOLEAN, ref value); }
         public IfcTrimmingPreference? get_MasterRepresentation() { var str = get_string("MasterRepresentation", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTrimmingPreference_); return EnumValue<IfcTrimmingPreference>.FromIndex(ind); }
+        public IfcTrimmingPreference? _MasterRepresentation { get { return get_MasterRepresentation(); } }
         public void put_MasterRepresentation(IfcTrimmingPreference value) { var str = EnumString<IfcTrimmingPreference>.FromValue(value, EnumNames.IfcTrimmingPreference_); ifcengine.sdaiPutAttrBN(m_instance, "MasterRepresentation", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcTrimmedCurve"; }
@@ -26119,24 +28382,34 @@ namespace IFC2x3
         public static new IfcTShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Depth() { return get_double("Depth", ifcengine.sdaiREAL);}
+        public double? _Depth { get { return get_Depth(); } }
         public void put_Depth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeWidth() { return get_double("FlangeWidth", ifcengine.sdaiREAL);}
+        public double? _FlangeWidth { get { return get_FlangeWidth(); } }
         public void put_FlangeWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_WebThickness() { return get_double("WebThickness", ifcengine.sdaiREAL);}
+        public double? _WebThickness { get { return get_WebThickness(); } }
         public void put_WebThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeThickness() { return get_double("FlangeThickness", ifcengine.sdaiREAL);}
+        public double? _FlangeThickness { get { return get_FlangeThickness(); } }
         public void put_FlangeThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FilletRadius() { return get_double("FilletRadius", ifcengine.sdaiREAL);}
+        public double? _FilletRadius { get { return get_FilletRadius(); } }
         public void put_FilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FilletRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeEdgeRadius() { return get_double("FlangeEdgeRadius", ifcengine.sdaiREAL);}
+        public double? _FlangeEdgeRadius { get { return get_FlangeEdgeRadius(); } }
         public void put_FlangeEdgeRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeEdgeRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_WebEdgeRadius() { return get_double("WebEdgeRadius", ifcengine.sdaiREAL);}
+        public double? _WebEdgeRadius { get { return get_WebEdgeRadius(); } }
         public void put_WebEdgeRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebEdgeRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_WebSlope() { return get_double("WebSlope", ifcengine.sdaiREAL);}
+        public double? _WebSlope { get { return get_WebSlope(); } }
         public void put_WebSlope(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebSlope", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeSlope() { return get_double("FlangeSlope", ifcengine.sdaiREAL);}
+        public double? _FlangeSlope { get { return get_FlangeSlope(); } }
         public void put_FlangeSlope(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeSlope", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInY() { return get_double("CentreOfGravityInY", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInY { get { return get_CentreOfGravityInY(); } }
         public void put_CentreOfGravityInY(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInY", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcTShapeProfileDef"; }
@@ -26164,6 +28437,7 @@ namespace IFC2x3
         public static new IfcTubeBundleType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTubeBundleType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcTubeBundleTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcTubeBundleTypeEnum_); return EnumValue<IfcTubeBundleTypeEnum>.FromIndex(ind); }
+        public IfcTubeBundleTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcTubeBundleTypeEnum value) { var str = EnumString<IfcTubeBundleTypeEnum>.FromValue(value, EnumNames.IfcTubeBundleTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcTubeBundleType"; }
@@ -26191,6 +28465,7 @@ namespace IFC2x3
         public static new IfcTwoDirectionRepeatFactor Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcTwoDirectionRepeatFactor"); Debug.Assert(inst != 0); return inst; }
 
         public IfcVector get_SecondRepeatFactor() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "SecondRepeatFactor", ifcengine.sdaiINSTANCE, out inst); return new IfcVector (inst); }
+        public IfcVector _SecondRepeatFactor { get { return get_SecondRepeatFactor(); } }
         public void put_SecondRepeatFactor(IfcVector inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "SecondRepeatFactor", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcTwoDirectionRepeatFactor"; }
@@ -26218,6 +28493,7 @@ namespace IFC2x3
         public static new IfcUnitaryEquipmentType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcUnitaryEquipmentType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcUnitaryEquipmentTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcUnitaryEquipmentTypeEnum_); return EnumValue<IfcUnitaryEquipmentTypeEnum>.FromIndex(ind); }
+        public IfcUnitaryEquipmentTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcUnitaryEquipmentTypeEnum value) { var str = EnumString<IfcUnitaryEquipmentTypeEnum>.FromValue(value, EnumNames.IfcUnitaryEquipmentTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcUnitaryEquipmentType"; }
@@ -26245,6 +28521,7 @@ namespace IFC2x3
         public static new IfcUnitAssignment Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcUnitAssignment"); Debug.Assert(inst != 0); return inst; }
 
         public SetOfIfcUnit get_Units() { return (new SetOfIfcUnitSerializer()).FromAttr(m_instance, "Units"); }
+        public SetOfIfcUnit _Units { get { return get_Units(); } }
         public void put_Units(IEnumerable<IfcUnit> lst) { (new SetOfIfcUnitSerializer()).ToSdaiAggr(lst, m_instance, "Units"); }
         //public void put_Units_untyped(IEnumerable lst) { (new SetOfIfcUnitSerializer()).ToSdaiAggr(lst, m_instance, "Units"); }
 
@@ -26273,20 +28550,28 @@ namespace IFC2x3
         public static new IfcUShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcUShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Depth() { return get_double("Depth", ifcengine.sdaiREAL);}
+        public double? _Depth { get { return get_Depth(); } }
         public void put_Depth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeWidth() { return get_double("FlangeWidth", ifcengine.sdaiREAL);}
+        public double? _FlangeWidth { get { return get_FlangeWidth(); } }
         public void put_FlangeWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_WebThickness() { return get_double("WebThickness", ifcengine.sdaiREAL);}
+        public double? _WebThickness { get { return get_WebThickness(); } }
         public void put_WebThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeThickness() { return get_double("FlangeThickness", ifcengine.sdaiREAL);}
+        public double? _FlangeThickness { get { return get_FlangeThickness(); } }
         public void put_FlangeThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FilletRadius() { return get_double("FilletRadius", ifcengine.sdaiREAL);}
+        public double? _FilletRadius { get { return get_FilletRadius(); } }
         public void put_FilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FilletRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_EdgeRadius() { return get_double("EdgeRadius", ifcengine.sdaiREAL);}
+        public double? _EdgeRadius { get { return get_EdgeRadius(); } }
         public void put_EdgeRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EdgeRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeSlope() { return get_double("FlangeSlope", ifcengine.sdaiREAL);}
+        public double? _FlangeSlope { get { return get_FlangeSlope(); } }
         public void put_FlangeSlope(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeSlope", ifcengine.sdaiREAL, ref value); }
         public double? get_CentreOfGravityInX() { return get_double("CentreOfGravityInX", ifcengine.sdaiREAL);}
+        public double? _CentreOfGravityInX { get { return get_CentreOfGravityInX(); } }
         public void put_CentreOfGravityInX(double value) { ifcengine.sdaiPutAttrBN(m_instance, "CentreOfGravityInX", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcUShapeProfileDef"; }
@@ -26314,6 +28599,7 @@ namespace IFC2x3
         public static new IfcValveType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcValveType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcValveTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcValveTypeEnum_); return EnumValue<IfcValveTypeEnum>.FromIndex(ind); }
+        public IfcValveTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcValveTypeEnum value) { var str = EnumString<IfcValveTypeEnum>.FromValue(value, EnumNames.IfcValveTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcValveType"; }
@@ -26341,8 +28627,10 @@ namespace IFC2x3
         public static new IfcVector Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcVector"); Debug.Assert(inst != 0); return inst; }
 
         public IfcDirection get_Orientation() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Orientation", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection (inst); }
+        public IfcDirection _Orientation { get { return get_Orientation(); } }
         public void put_Orientation(IfcDirection inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "Orientation", ifcengine.sdaiINSTANCE, i); }
         public double? get_Magnitude() { return get_double("Magnitude", ifcengine.sdaiREAL);}
+        public double? _Magnitude { get { return get_Magnitude(); } }
         public void put_Magnitude(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Magnitude", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcVector"; }
@@ -26395,9 +28683,11 @@ namespace IFC2x3
         public static new IfcVertexBasedTextureMap Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcVertexBasedTextureMap"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcTextureVertex get_TextureVertices() { return (new ListOfIfcTextureVertexSerializer()).FromAttr(m_instance, "TextureVertices"); }
+        public ListOfIfcTextureVertex _TextureVertices { get { return get_TextureVertices(); } }
         public void put_TextureVertices(IEnumerable<IfcTextureVertex> lst) { (new ListOfIfcTextureVertexSerializer()).ToSdaiAggr(lst, m_instance, "TextureVertices"); }
         //public void put_TextureVertices_untyped(IEnumerable lst) { (new ListOfIfcTextureVertexSerializer()).ToSdaiAggr(lst, m_instance, "TextureVertices"); }
         public ListOfIfcCartesianPoint get_TexturePoints() { return (new ListOfIfcCartesianPointSerializer()).FromAttr(m_instance, "TexturePoints"); }
+        public ListOfIfcCartesianPoint _TexturePoints { get { return get_TexturePoints(); } }
         public void put_TexturePoints(IEnumerable<IfcCartesianPoint> lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "TexturePoints"); }
         //public void put_TexturePoints_untyped(IEnumerable lst) { (new ListOfIfcCartesianPointSerializer()).ToSdaiAggr(lst, m_instance, "TexturePoints"); }
 
@@ -26426,6 +28716,7 @@ namespace IFC2x3
         public static new IfcVertexLoop Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcVertexLoop"); Debug.Assert(inst != 0); return inst; }
 
         public IfcVertex get_LoopVertex() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "LoopVertex", ifcengine.sdaiINSTANCE, out inst); return new IfcVertex (inst); }
+        public IfcVertex _LoopVertex { get { return get_LoopVertex(); } }
         public void put_LoopVertex(IfcVertex inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "LoopVertex", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcVertexLoop"; }
@@ -26453,6 +28744,7 @@ namespace IFC2x3
         public static new IfcVertexPoint Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcVertexPoint"); Debug.Assert(inst != 0); return inst; }
 
         public IfcPoint get_VertexGeometry() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "VertexGeometry", ifcengine.sdaiINSTANCE, out inst); return new IfcPoint (inst); }
+        public IfcPoint _VertexGeometry { get { return get_VertexGeometry(); } }
         public void put_VertexGeometry(IfcPoint inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "VertexGeometry", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcVertexPoint"; }
@@ -26480,6 +28772,7 @@ namespace IFC2x3
         public static new IfcVibrationIsolatorType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcVibrationIsolatorType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcVibrationIsolatorTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcVibrationIsolatorTypeEnum_); return EnumValue<IfcVibrationIsolatorTypeEnum>.FromIndex(ind); }
+        public IfcVibrationIsolatorTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcVibrationIsolatorTypeEnum value) { var str = EnumString<IfcVibrationIsolatorTypeEnum>.FromValue(value, EnumNames.IfcVibrationIsolatorTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcVibrationIsolatorType"; }
@@ -26532,9 +28825,11 @@ namespace IFC2x3
         public static new IfcVirtualGridIntersection Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcVirtualGridIntersection"); Debug.Assert(inst != 0); return inst; }
 
         public ListOfIfcGridAxis get_IntersectingAxes() { return (new ListOfIfcGridAxisSerializer()).FromAttr(m_instance, "IntersectingAxes"); }
+        public ListOfIfcGridAxis _IntersectingAxes { get { return get_IntersectingAxes(); } }
         public void put_IntersectingAxes(IEnumerable<IfcGridAxis> lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "IntersectingAxes"); }
         //public void put_IntersectingAxes_untyped(IEnumerable lst) { (new ListOfIfcGridAxisSerializer()).ToSdaiAggr(lst, m_instance, "IntersectingAxes"); }
         public ListOfIfcLengthMeasure get_OffsetDistances() { return (new ListOfIfcLengthMeasureSerializer()).FromAttr(m_instance, "OffsetDistances"); }
+        public ListOfIfcLengthMeasure _OffsetDistances { get { return get_OffsetDistances(); } }
         public void put_OffsetDistances(IEnumerable<double> lst) { (new ListOfIfcLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "OffsetDistances"); }
         //public void put_OffsetDistances_untyped(IEnumerable lst) { (new ListOfIfcLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "OffsetDistances"); }
 
@@ -26613,6 +28908,7 @@ namespace IFC2x3
         public static new IfcWallType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcWallType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcWallTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWallTypeEnum_); return EnumValue<IfcWallTypeEnum>.FromIndex(ind); }
+        public IfcWallTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcWallTypeEnum value) { var str = EnumString<IfcWallTypeEnum>.FromValue(value, EnumNames.IfcWallTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcWallType"; }
@@ -26640,6 +28936,7 @@ namespace IFC2x3
         public static new IfcWasteTerminalType Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcWasteTerminalType"); Debug.Assert(inst != 0); return inst; }
 
         public IfcWasteTerminalTypeEnum? get_PredefinedType() { var str = get_string("PredefinedType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWasteTerminalTypeEnum_); return EnumValue<IfcWasteTerminalTypeEnum>.FromIndex(ind); }
+        public IfcWasteTerminalTypeEnum? _PredefinedType { get { return get_PredefinedType(); } }
         public void put_PredefinedType(IfcWasteTerminalTypeEnum value) { var str = EnumString<IfcWasteTerminalTypeEnum>.FromValue(value, EnumNames.IfcWasteTerminalTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PredefinedType", ifcengine.sdaiENUM, str); }
 
         protected override TextValue EntityName() { return "IfcWasteTerminalType"; }
@@ -26667,18 +28964,25 @@ namespace IFC2x3
         public static new IfcWaterProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcWaterProperties"); Debug.Assert(inst != 0); return inst; }
 
         public bool? get_IsPotable() { return get_bool("IsPotable", ifcengine.sdaiBOOLEAN);}
+        public bool? _IsPotable { get { return get_IsPotable(); } }
         public void put_IsPotable(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "IsPotable", ifcengine.sdaiBOOLEAN, ref value); }
         public double? get_Hardness() { return get_double("Hardness", ifcengine.sdaiREAL);}
+        public double? _Hardness { get { return get_Hardness(); } }
         public void put_Hardness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Hardness", ifcengine.sdaiREAL, ref value); }
         public double? get_AlkalinityConcentration() { return get_double("AlkalinityConcentration", ifcengine.sdaiREAL);}
+        public double? _AlkalinityConcentration { get { return get_AlkalinityConcentration(); } }
         public void put_AlkalinityConcentration(double value) { ifcengine.sdaiPutAttrBN(m_instance, "AlkalinityConcentration", ifcengine.sdaiREAL, ref value); }
         public double? get_AcidityConcentration() { return get_double("AcidityConcentration", ifcengine.sdaiREAL);}
+        public double? _AcidityConcentration { get { return get_AcidityConcentration(); } }
         public void put_AcidityConcentration(double value) { ifcengine.sdaiPutAttrBN(m_instance, "AcidityConcentration", ifcengine.sdaiREAL, ref value); }
         public double? get_ImpuritiesContent() { return get_double("ImpuritiesContent", ifcengine.sdaiREAL);}
+        public double? _ImpuritiesContent { get { return get_ImpuritiesContent(); } }
         public void put_ImpuritiesContent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "ImpuritiesContent", ifcengine.sdaiREAL, ref value); }
         public double? get_PHLevel() { return get_double("PHLevel", ifcengine.sdaiREAL);}
+        public double? _PHLevel { get { return get_PHLevel(); } }
         public void put_PHLevel(double value) { ifcengine.sdaiPutAttrBN(m_instance, "PHLevel", ifcengine.sdaiREAL, ref value); }
         public double? get_DissolvedSolidsContent() { return get_double("DissolvedSolidsContent", ifcengine.sdaiREAL);}
+        public double? _DissolvedSolidsContent { get { return get_DissolvedSolidsContent(); } }
         public void put_DissolvedSolidsContent(double value) { ifcengine.sdaiPutAttrBN(m_instance, "DissolvedSolidsContent", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcWaterProperties"; }
@@ -26706,8 +29010,10 @@ namespace IFC2x3
         public static new IfcWindow Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcWindow"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_OverallHeight() { return get_double("OverallHeight", ifcengine.sdaiREAL);}
+        public double? _OverallHeight { get { return get_OverallHeight(); } }
         public void put_OverallHeight(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallHeight", ifcengine.sdaiREAL, ref value); }
         public double? get_OverallWidth() { return get_double("OverallWidth", ifcengine.sdaiREAL);}
+        public double? _OverallWidth { get { return get_OverallWidth(); } }
         public void put_OverallWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "OverallWidth", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcWindow"; }
@@ -26735,22 +29041,31 @@ namespace IFC2x3
         public static new IfcWindowLiningProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcWindowLiningProperties"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_LiningDepth() { return get_double("LiningDepth", ifcengine.sdaiREAL);}
+        public double? _LiningDepth { get { return get_LiningDepth(); } }
         public void put_LiningDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LiningDepth", ifcengine.sdaiREAL, ref value); }
         public double? get_LiningThickness() { return get_double("LiningThickness", ifcengine.sdaiREAL);}
+        public double? _LiningThickness { get { return get_LiningThickness(); } }
         public void put_LiningThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "LiningThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_TransomThickness() { return get_double("TransomThickness", ifcengine.sdaiREAL);}
+        public double? _TransomThickness { get { return get_TransomThickness(); } }
         public void put_TransomThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TransomThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_MullionThickness() { return get_double("MullionThickness", ifcengine.sdaiREAL);}
+        public double? _MullionThickness { get { return get_MullionThickness(); } }
         public void put_MullionThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "MullionThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FirstTransomOffset() { return get_double("FirstTransomOffset", ifcengine.sdaiREAL);}
+        public double? _FirstTransomOffset { get { return get_FirstTransomOffset(); } }
         public void put_FirstTransomOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FirstTransomOffset", ifcengine.sdaiREAL, ref value); }
         public double? get_SecondTransomOffset() { return get_double("SecondTransomOffset", ifcengine.sdaiREAL);}
+        public double? _SecondTransomOffset { get { return get_SecondTransomOffset(); } }
         public void put_SecondTransomOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SecondTransomOffset", ifcengine.sdaiREAL, ref value); }
         public double? get_FirstMullionOffset() { return get_double("FirstMullionOffset", ifcengine.sdaiREAL);}
+        public double? _FirstMullionOffset { get { return get_FirstMullionOffset(); } }
         public void put_FirstMullionOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FirstMullionOffset", ifcengine.sdaiREAL, ref value); }
         public double? get_SecondMullionOffset() { return get_double("SecondMullionOffset", ifcengine.sdaiREAL);}
+        public double? _SecondMullionOffset { get { return get_SecondMullionOffset(); } }
         public void put_SecondMullionOffset(double value) { ifcengine.sdaiPutAttrBN(m_instance, "SecondMullionOffset", ifcengine.sdaiREAL, ref value); }
         public IfcShapeAspect get_ShapeAspectStyle() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _ShapeAspectStyle { get { return get_ShapeAspectStyle(); } }
         public void put_ShapeAspectStyle(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcWindowLiningProperties"; }
@@ -26778,14 +29093,19 @@ namespace IFC2x3
         public static new IfcWindowPanelProperties Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcWindowPanelProperties"); Debug.Assert(inst != 0); return inst; }
 
         public IfcWindowPanelOperationEnum? get_OperationType() { var str = get_string("OperationType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWindowPanelOperationEnum_); return EnumValue<IfcWindowPanelOperationEnum>.FromIndex(ind); }
+        public IfcWindowPanelOperationEnum? _OperationType { get { return get_OperationType(); } }
         public void put_OperationType(IfcWindowPanelOperationEnum value) { var str = EnumString<IfcWindowPanelOperationEnum>.FromValue(value, EnumNames.IfcWindowPanelOperationEnum_); ifcengine.sdaiPutAttrBN(m_instance, "OperationType", ifcengine.sdaiENUM, str); }
         public IfcWindowPanelPositionEnum? get_PanelPosition() { var str = get_string("PanelPosition", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWindowPanelPositionEnum_); return EnumValue<IfcWindowPanelPositionEnum>.FromIndex(ind); }
+        public IfcWindowPanelPositionEnum? _PanelPosition { get { return get_PanelPosition(); } }
         public void put_PanelPosition(IfcWindowPanelPositionEnum value) { var str = EnumString<IfcWindowPanelPositionEnum>.FromValue(value, EnumNames.IfcWindowPanelPositionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "PanelPosition", ifcengine.sdaiENUM, str); }
         public double? get_FrameDepth() { return get_double("FrameDepth", ifcengine.sdaiREAL);}
+        public double? _FrameDepth { get { return get_FrameDepth(); } }
         public void put_FrameDepth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FrameDepth", ifcengine.sdaiREAL, ref value); }
         public double? get_FrameThickness() { return get_double("FrameThickness", ifcengine.sdaiREAL);}
+        public double? _FrameThickness { get { return get_FrameThickness(); } }
         public void put_FrameThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FrameThickness", ifcengine.sdaiREAL, ref value); }
         public IfcShapeAspect get_ShapeAspectStyle() { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, out inst); return new IfcShapeAspect (inst); }
+        public IfcShapeAspect _ShapeAspectStyle { get { return get_ShapeAspectStyle(); } }
         public void put_ShapeAspectStyle(IfcShapeAspect inst) { SdaiInstance i = inst; ifcengine.sdaiPutAttrBN(m_instance, "ShapeAspectStyle", ifcengine.sdaiINSTANCE, i); }
 
         protected override TextValue EntityName() { return "IfcWindowPanelProperties"; }
@@ -26813,12 +29133,16 @@ namespace IFC2x3
         public static new IfcWindowStyle Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcWindowStyle"); Debug.Assert(inst != 0); return inst; }
 
         public IfcWindowStyleConstructionEnum? get_ConstructionType() { var str = get_string("ConstructionType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWindowStyleConstructionEnum_); return EnumValue<IfcWindowStyleConstructionEnum>.FromIndex(ind); }
+        public IfcWindowStyleConstructionEnum? _ConstructionType { get { return get_ConstructionType(); } }
         public void put_ConstructionType(IfcWindowStyleConstructionEnum value) { var str = EnumString<IfcWindowStyleConstructionEnum>.FromValue(value, EnumNames.IfcWindowStyleConstructionEnum_); ifcengine.sdaiPutAttrBN(m_instance, "ConstructionType", ifcengine.sdaiENUM, str); }
         public IfcWindowStyleOperationEnum? get_OperationType() { var str = get_string("OperationType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWindowStyleOperationEnum_); return EnumValue<IfcWindowStyleOperationEnum>.FromIndex(ind); }
+        public IfcWindowStyleOperationEnum? _OperationType { get { return get_OperationType(); } }
         public void put_OperationType(IfcWindowStyleOperationEnum value) { var str = EnumString<IfcWindowStyleOperationEnum>.FromValue(value, EnumNames.IfcWindowStyleOperationEnum_); ifcengine.sdaiPutAttrBN(m_instance, "OperationType", ifcengine.sdaiENUM, str); }
         public bool? get_ParameterTakesPrecedence() { return get_bool("ParameterTakesPrecedence", ifcengine.sdaiBOOLEAN);}
+        public bool? _ParameterTakesPrecedence { get { return get_ParameterTakesPrecedence(); } }
         public void put_ParameterTakesPrecedence(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "ParameterTakesPrecedence", ifcengine.sdaiBOOLEAN, ref value); }
         public bool? get_Sizeable() { return get_bool("Sizeable", ifcengine.sdaiBOOLEAN);}
+        public bool? _Sizeable { get { return get_Sizeable(); } }
         public void put_Sizeable(bool value) { ifcengine.sdaiPutAttrBN(m_instance, "Sizeable", ifcengine.sdaiBOOLEAN, ref value); }
 
         protected override TextValue EntityName() { return "IfcWindowStyle"; }
@@ -26841,28 +29165,38 @@ namespace IFC2x3
         public static implicit operator IfcWorkControl(SdaiInstance instance) => new IfcWorkControl(instance);
 
         public TextValue get_Identifier() { return get_string("Identifier", ifcengine.sdaiSTRING); }
+        public TextValue _Identifier { get { return get_Identifier(); } }
         public void put_Identifier(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Identifier", ifcengine.sdaiSTRING, value); }
 
         public IfcDateTimeSelect_get get_CreationDate() { return new IfcDateTimeSelect_get(m_instance, "CreationDate", 0); }
+        public IfcDateTimeSelect_get _CreationDate { get { return new IfcDateTimeSelect_get(m_instance, "CreationDate", 0); } }
         public IfcDateTimeSelect_put put_CreationDate() { return new IfcDateTimeSelect_put(m_instance, "CreationDate", 0); }
         public SetOfIfcPerson get_Creators() { return (new SetOfIfcPersonSerializer()).FromAttr(m_instance, "Creators"); }
+        public SetOfIfcPerson _Creators { get { return get_Creators(); } }
         public void put_Creators(IEnumerable<IfcPerson> lst) { (new SetOfIfcPersonSerializer()).ToSdaiAggr(lst, m_instance, "Creators"); }
         //public void put_Creators_untyped(IEnumerable lst) { (new SetOfIfcPersonSerializer()).ToSdaiAggr(lst, m_instance, "Creators"); }
         public TextValue get_Purpose() { return get_string("Purpose", ifcengine.sdaiSTRING); }
+        public TextValue _Purpose { get { return get_Purpose(); } }
         public void put_Purpose(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "Purpose", ifcengine.sdaiSTRING, value); }
         public double? get_Duration() { return get_double("Duration", ifcengine.sdaiREAL);}
+        public double? _Duration { get { return get_Duration(); } }
         public void put_Duration(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Duration", ifcengine.sdaiREAL, ref value); }
         public double? get_TotalFloat() { return get_double("TotalFloat", ifcengine.sdaiREAL);}
+        public double? _TotalFloat { get { return get_TotalFloat(); } }
         public void put_TotalFloat(double value) { ifcengine.sdaiPutAttrBN(m_instance, "TotalFloat", ifcengine.sdaiREAL, ref value); }
 
         public IfcDateTimeSelect_get get_StartTime() { return new IfcDateTimeSelect_get(m_instance, "StartTime", 0); }
+        public IfcDateTimeSelect_get _StartTime { get { return new IfcDateTimeSelect_get(m_instance, "StartTime", 0); } }
         public IfcDateTimeSelect_put put_StartTime() { return new IfcDateTimeSelect_put(m_instance, "StartTime", 0); }
 
         public IfcDateTimeSelect_get get_FinishTime() { return new IfcDateTimeSelect_get(m_instance, "FinishTime", 0); }
+        public IfcDateTimeSelect_get _FinishTime { get { return new IfcDateTimeSelect_get(m_instance, "FinishTime", 0); } }
         public IfcDateTimeSelect_put put_FinishTime() { return new IfcDateTimeSelect_put(m_instance, "FinishTime", 0); }
         public IfcWorkControlTypeEnum? get_WorkControlType() { var str = get_string("WorkControlType", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcWorkControlTypeEnum_); return EnumValue<IfcWorkControlTypeEnum>.FromIndex(ind); }
+        public IfcWorkControlTypeEnum? _WorkControlType { get { return get_WorkControlType(); } }
         public void put_WorkControlType(IfcWorkControlTypeEnum value) { var str = EnumString<IfcWorkControlTypeEnum>.FromValue(value, EnumNames.IfcWorkControlTypeEnum_); ifcengine.sdaiPutAttrBN(m_instance, "WorkControlType", ifcengine.sdaiENUM, str); }
         public TextValue get_UserDefinedControlType() { return get_string("UserDefinedControlType", ifcengine.sdaiSTRING); }
+        public TextValue _UserDefinedControlType { get { return get_UserDefinedControlType(); } }
         public void put_UserDefinedControlType(TextValue value) { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedControlType", ifcengine.sdaiSTRING, value); }
 
         protected override TextValue EntityName() { return "IfcWorkControl"; }
@@ -26965,16 +29299,22 @@ namespace IFC2x3
         public static new IfcZShapeProfileDef Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcZShapeProfileDef"); Debug.Assert(inst != 0); return inst; }
 
         public double? get_Depth() { return get_double("Depth", ifcengine.sdaiREAL);}
+        public double? _Depth { get { return get_Depth(); } }
         public void put_Depth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeWidth() { return get_double("FlangeWidth", ifcengine.sdaiREAL);}
+        public double? _FlangeWidth { get { return get_FlangeWidth(); } }
         public void put_FlangeWidth(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeWidth", ifcengine.sdaiREAL, ref value); }
         public double? get_WebThickness() { return get_double("WebThickness", ifcengine.sdaiREAL);}
+        public double? _WebThickness { get { return get_WebThickness(); } }
         public void put_WebThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "WebThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FlangeThickness() { return get_double("FlangeThickness", ifcengine.sdaiREAL);}
+        public double? _FlangeThickness { get { return get_FlangeThickness(); } }
         public void put_FlangeThickness(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FlangeThickness", ifcengine.sdaiREAL, ref value); }
         public double? get_FilletRadius() { return get_double("FilletRadius", ifcengine.sdaiREAL);}
+        public double? _FilletRadius { get { return get_FilletRadius(); } }
         public void put_FilletRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "FilletRadius", ifcengine.sdaiREAL, ref value); }
         public double? get_EdgeRadius() { return get_double("EdgeRadius", ifcengine.sdaiREAL);}
+        public double? _EdgeRadius { get { return get_EdgeRadius(); } }
         public void put_EdgeRadius(double value) { ifcengine.sdaiPutAttrBN(m_instance, "EdgeRadius", ifcengine.sdaiREAL, ref value); }
 
         protected override TextValue EntityName() { return "IfcZShapeProfileDef"; }
