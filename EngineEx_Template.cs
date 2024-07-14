@@ -187,6 +187,21 @@ namespace NAMESPACE_NAME
             return path != null && path == typeName;
         }
 
+        public TextValue TypePath 
+            { get 
+                {
+                var adb = ADB();
+                if (adb == 0)
+                    {
+                    return null;
+                    }
+                else 
+                    {
+                    return ifcengine.sdaiGetADBTypePathx(m_adb, 0);
+                    }
+                } 
+            }
+
         //
         //
         protected BaseCType? get_BaseCType(TextValue typeName, IntValue sdaiType) { return null; } //## IGNORE
@@ -655,8 +670,15 @@ namespace NAMESPACE_NAME
         public static Entity Create(SdaiModel model) { System.Diagnostics.Debug.Assert(false); return null; }
 
         //
-        public long _stepID { get { return ifcengine.internalGetP21Line(m_instance); } }
-        public string _entityName { get { return ifcengine.engiGetEntityName (ifcengine.sdaiGetInstanceType(m_instance)); } }
+        public long _stepID { get { return m_instance!=0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
+        public string _entityName { get
+                {
+                var type = ifcengine.sdaiGetInstanceType(m_instance);
+                if (type != 0)
+                    return ifcengine.engiGetEntityName(type);
+                else
+                    return "-NULL TYPE-";
+                } }
 
         //
         protected SdaiInstance m_instance = 0;
@@ -872,33 +894,44 @@ namespace NAMESPACE_NAME
 
         //## SelectSimpleGet
         public bool is_TypeNameIfc() { return IsADBType("TypeNameUpper"); }
+        //public bool _is_TypeNameIfc { get { return is_TypeNameIfc(); } }
         public BaseCType? get_TypeNameifc() { return get_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE); }
+        public BaseCType? _TypeNameifc { get { return get_TypeNameifc(); } }
         //## SelectSimplePut
         public void put_TypeNameIfc (BaseCType value) { put_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE, value); }
         //## SelectTextGet
         public bool is_TypeNameIFC() { return IsADBType("TypeNameUpper"); }
+        public bool _isTypeNameIFC { get { return is_TypeNameIFC(); } }
         public TextValue get_TypeNameIFC() { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); }
+        public TextValue _TypeNameIFC { get { return get_TypeNameIFC(); } }
         //## SelectTextPut
         public void put_TypeNameIFC(TextValue value) { putTextValue("TypeNameUpper", ifcengine.sdaiTYPE, value); }
         //## SelectEntityGet
         public bool is_REF_ENTITY() { return IsADBEntity("REF_ENTITY"); }
+        public bool _is_REF_ENTITY { get { return is_REF_ENTITY(); } }
         public REF_ENTITY get_REF_ENTITY() { return new REF_ENTITY (getEntityInstance("TypeNameUpper")); }
+        public REF_ENTITY _REF_ENTITY { get { return get_REF_ENTITY(); } }
         //## SelectEntityPut
         public void put_REF_ENTITY(REF_ENTITY inst) { putEntityInstance("TypeNameUpper", inst); }
         //## SelectEnumerationGet
         public bool is_TypeNAmeIFC() { return IsADBType("TypeNameUpper"); }
+        public bool _is_TypeNAmeIFC { get { return is_TypeNAmeIFC(); } }
         public ENUMERATION_NAME? get_TypeNAmeIFC() { int ind = getEnumerationIndex("TypeNameUpper", EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); }
+        public ENUMERATION_NAME? _TypeNAmeIFC { get { return get_TypeNAmeIFC(); } }
         //## SelectEnumerationPut
         public void put_TypeNAmeIFC(ENUMERATION_NAME value) { TextValue val = EnumString<ENUMERATION_NAME>.FromValue(value, EnumNames.ENUMERATION_VALUES_ARRAY); putEnumerationValue("TypeNameUpper", val); }
         //## SelectAggregationGet
         public bool is_AggregationType() { return IsADBType("TypeNameUpper"); }
+        public bool _is_AggregationType { get { return is_AggregationType(); } }
         public AggregationType get_AggregationType() { SdaiAggr aggr = getAggrValue("TypeNameUpper"); return (new AggregationTypeSerializer()).FromSdaiAggr(m_instance, aggr); }
+        public AggregationType _AggregationType { get { return get_AggregationType(); } }
         //## SelectAggregationPut
         public void put_AggregationType(IEnumerable<REF_ENTITY> lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
         //public void put_AggregationType(IEnumerable lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
         //## SelectAggregationPutArray
         //## SelectNested
         public GEN_TYPE_NAME_accessor nestedSelectAccess_GEN_TYPE_NAME() { return new GEN_TYPE_NAME_accessor(this); }
+        public GEN_TYPE_NAME_accessor __GEN_TYPE_NAME { get { return nestedSelectAccess_GEN_TYPE_NAME(); } }
         //## SelectGetAsDouble
         public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
         //## SelectGetAsInt
@@ -910,7 +943,7 @@ namespace NAMESPACE_NAME
         //## SelectGetAsEntity
         public SdaiInstance as_instance() { return getEntityInstance(null); }
         //## SelectAccessorEnd
-    };
+        };
 
     //## TEMPLATE: EntitiesBegin
 
