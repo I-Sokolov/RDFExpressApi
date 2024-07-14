@@ -28,12 +28,31 @@
         <Compile Remove="ifcEngine\**" />
         <EmbeddedResource Remove="ifcEngine\**" />
         <None Remove="ifcEngine\**" />
+        <Compile Remove="API.generated\AP203.cs" />
+        <Compile Remove="API.generated\AP214.cs" />
+        <Compile Remove="API.generated\AP242.cs" />
+        <Compile Remove="API.generated\CIS2.cs" />
+        <Compile Remove="API.generated\IFC2x3.cs" />
+        <Compile Remove="API.generated\IFC4.cs" />
+        <Compile Remove="API.generated\IFC4x3.cs" />
+        <Compile Remove="API.generated\IFC4x4.cs" />
         <Compile Include="ifcEngine\ifcEngine.cs" />
     </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="EngineEx_Template.cs" />
     <EmbeddedResource Include="EngineEx_Template.h" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="API.generated\AP203.cs" />
+    <None Include="API.generated\AP214.cs" />
+    <None Include="API.generated\AP242.cs" />
+    <None Include="API.generated\CIS2.cs" />
+    <None Include="API.generated\IFC2x3.cs" />
+    <None Include="API.generated\IFC4.cs" />
+    <None Include="API.generated\IFC4x3.cs" />
+    <None Include="API.generated\IFC4x4.cs" />
   </ItemGroup>
 
   <ItemGroup>

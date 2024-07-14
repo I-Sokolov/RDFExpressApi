@@ -104,6 +104,7 @@ namespace RDFWrappers
             AttributeEnumGet,
             AttributeEnumPut,
             AttributeSelectAccessor,
+            AttributeSelectAccessorProp,
             AttributeAggregationGet,
             AttributeAggregationPut,
             AttributeAggregationPutArray,
@@ -596,6 +597,7 @@ namespace RDFWrappers
             generator.m_replacements[Generator.KWD_GETPUT] = "get";
             generator.m_replacements[Generator.KWD_ACCESSOR] = "_get";
             generator.WriteByTemplate(Generator.Template.AttributeSelectAccessor);
+            generator.WriteByTemplate(Generator.Template.AttributeSelectAccessorProp);
 
             if (!attr.inverse)
             {

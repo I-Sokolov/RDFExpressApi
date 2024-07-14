@@ -963,6 +963,8 @@ namespace NAMESPACE_NAME
         public void put_ATTR_NAME(ENUMERATION_NAME value) { var str = EnumString<ENUMERATION_NAME>.FromValue(value, EnumNames.ENUMERATION_VALUES_ARRAY); ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiENUM, str); }
         //## AttributeSelectAccessor        
         public GEN_TYPE_NAME_accessor getOrPut_ATTR_NAME() { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); }
+        //## AttributeSelectAccessorProp        
+        public GEN_TYPE_NAME_accessor _ATtR_NAME { get { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); } }
         //## AttributeAggregationGet
         public AggregationType get_ATTr_NAME() { return (new AggregationTypeSerializer()).FromAttr(m_instance, "ATTR_NAME"); }
         public AggregationType _ATTr_NAME { get { return get_ATTr_NAME(); } }
