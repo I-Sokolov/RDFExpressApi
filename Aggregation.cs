@@ -79,7 +79,8 @@ namespace RDFWrappers
                 while (aggregation!=0)
                 {
                     Int64 crdMin, crdMax;
-                    ifcengine.engiGetAggregation(aggregation, out aggrType, out crdMin, out crdMax, out aggregation);
+                    byte optional, unique;
+                    ifcengine.engiGetAggregation(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
                     System.Diagnostics.Debug.Assert(!(aggregation != 0 && name != null), "test nested aggregation for definded type"); 
 
                     string aggrName = (aggregation == 0) ? name : null; //use given name for outer aggregation
@@ -314,7 +315,8 @@ namespace RDFWrappers
                     {
                         enum_express_aggr aggrType;
                         Int64 crdMin, crdMax;
-                        ifcengine.engiGetAggregation(aggregation, out aggrType, out crdMin, out crdMax, out aggregation);
+                        byte optional, unique;
+                        ifcengine.engiGetAggregation(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
                         aggrTypeName = MakeAggregationTypeName(aggrType, aggrTypeName);
                         if (aggregation != 0)
                         {
