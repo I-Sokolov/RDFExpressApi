@@ -55,31 +55,31 @@ namespace CS_IFC
             // Hint: in Visual Studio pay attention to inetlli-sense for possible methods help tool-tips for possible arguments
             // 
 
-            wall.put_Name("MyWall");
-            assert(wall.get_Name() == "MyWall");
+            wall.Name = "MyWall";
+            assert(wall.Name == "MyWall");
 
             //
             // nullable values
             //
 
             // get_* method will return domain type if attribute domain includes null value
-            string text = wall.get_Description();
+            string text = wall.Description;
             assert(text == null); //not set
 
             // but if null value outside of domain type, get_* method will return nullable<> type extension
             // use nullable.Isnull and nullable.Value
 
-            double? width = door.get_OverallWidth();
+            double? width = door.OverallWidth;
             assert(width==null); //not set
 
-            door.put_OverallWidth(900);
+            door.OverallWidth = 900;
 
-            width = door.get_OverallWidth();
+            width = door.OverallWidth;
             assert(width!=null && width! == 900);
 
             // Hint: use var to simplify code
 
-            var height = door.get_OverallHeight();
+            var height = door.OverallHeight;
             assert(height==null); //not set
 
             //
@@ -87,14 +87,14 @@ namespace CS_IFC
             // enum class defined for each EXPRESS enumeration
             //
 
-            wall.put_PredefinedType(IFC4.IfcWallTypeEnum.MOVABLE);
+            wall.PredefinedType = IFC4.IfcWallTypeEnum.MOVABLE;
 
             // get_* methods will return nullable extension
-            IFC4.IfcWallTypeEnum? wallPredefinedType = wall.get_PredefinedType();
+            IFC4.IfcWallTypeEnum? wallPredefinedType = wall.PredefinedType;
             assert(wallPredefinedType! == IFC4.IfcWallTypeEnum.MOVABLE);
 
             //Hint: simplify with var
-            var doorPredefinedType = door.get_PredefinedType();
+            var doorPredefinedType = door.PredefinedType;
             assert(doorPredefinedType==null);
 
             //
@@ -103,10 +103,10 @@ namespace CS_IFC
             //
 
             /*IFC4.IfcPositiveLengthMeasure*/ double measureHeight = 2000;
-            door.put_OverallHeight(measureHeight);
+            door.OverallHeight = measureHeight;
 
             //and to get
-            /*IFC4.IfcPositiveLengthMeasure>*/ double? getMeasure = door.get_OverallHeight();
+            /*IFC4.IfcPositiveLengthMeasure>*/ double? getMeasure = door.OverallHeight;
             assert(getMeasure! == 2000);
 
             //
@@ -195,9 +195,9 @@ namespace CS_IFC
             planeAngle.Add(34);
             planeAngle.Add(3);
 
-            site.put_RefLatitude(planeAngle);
+            site.put_RefLatitude (planeAngle);
 
-            IFC4.IfcCompoundPlaneAngleMeasure gotPlaneAngle = site.get_RefLatitude();
+            IFC4.IfcCompoundPlaneAngleMeasure gotPlaneAngle = site.RefLatitude;
             assert(gotPlaneAngle.Count == 3 && gotPlaneAngle.First() == 44 && gotPlaneAngle[1]==34 && gotPlaneAngle[2]==3);
 
             //to put you can use any IEnumerable of base type
@@ -209,10 +209,10 @@ namespace CS_IFC
             site.put_RefLongitude(arrInt);
 
             //get_* method will return a subclass of List<> of base type
-            List<int_t> gotLongitued = site.get_RefLongitude();
+            List<int_t> gotLongitued = site.RefLongitude;
             assert(gotLongitued.Count == 4 && gotLongitued[2] == 3);
 
-            IFC4.IfcCompoundPlaneAngleMeasure gotLatitude = site.get_RefLatitude();
+            IFC4.IfcCompoundPlaneAngleMeasure gotLatitude = site.RefLatitude;
             assert(gotLatitude.Count == 1 && gotLatitude.First() == 56);
 
             //
@@ -223,7 +223,7 @@ namespace CS_IFC
             IFC4.IfcObjectDefinition[] gropObjects = { wall, site };
             group.put_RelatedObjects(gropObjects);
 
-            IFC4.SetOfIfcObjectDefinition gotGroup = group.get_RelatedObjects();
+            IFC4.SetOfIfcObjectDefinition gotGroup = group.RelatedObjects;
             assert(gotGroup.Count == 2 && gotGroup.First() == wall && gotGroup.Last() == site);
 
             //
@@ -246,7 +246,7 @@ namespace CS_IFC
 
             propEnumValue.put_EnumerationValues(lstValue);
 
-            IFC4.ListOfIfcValue gotValues = propEnumValue.get_EnumerationValues();
+            IFC4.ListOfIfcValue gotValues = propEnumValue.EnumerationValues;
             assert(gotValues.Count == 2);
 
             string v1 = gotValues.First()._IfcSimpleValue().get_IfcLabel();
@@ -276,7 +276,7 @@ namespace CS_IFC
 
             pointList.put_CoordList(coordList);
 
-            IFC4.ListOfListOfIfcLengthMeasure coordListCheck = pointList.get_CoordList();
+            IFC4.ListOfListOfIfcLengthMeasure coordListCheck = pointList.CoordList;
             assert_equal(coordList, coordListCheck);
 
             //

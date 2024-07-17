@@ -26,29 +26,29 @@ namespace CS_IFC
             //spatial structure
             //
             var project = IfcProject.Create(model);
-            project.put_GlobalId("1o1ykWxGT4ZxPjHNe4gayR");
-            project.put_Name("HelloWall project");
-            project.put_Description("Example to demonstract early-binding abilities");
+            project.GlobalId = "1o1ykWxGT4ZxPjHNe4gayR";
+            project.Name = "HelloWall project";
+            project.Description = "Example to demonstract early-binding abilities";
 
             var ifcSite = IfcSite.Create(model);
-            ifcSite.put_Name("HelloWall site");
+            ifcSite.Name = "HelloWall site";
             SetupAggregation(model, project, ifcSite);
 
             var ifcBuilding = IfcBuilding.Create(model);
-            ifcBuilding.put_Name("HelloWall building");
+            ifcBuilding.Name = "HelloWall building";
             SetupAggregation(model, ifcSite, ifcBuilding);
 
             var ifcStory = IfcBuildingStorey.Create(model);
-            ifcStory.put_Name("My first storey");
+            ifcStory.Name = "My first storey";
             SetupAggregation(model, ifcBuilding, ifcStory);
 
             //wall
             //
             var wall = IfcWall.Create(model);
-            wall.put_GlobalId("2o1ykWxGT4ZxPjHNe4gayR");
-            wall.put_Name("My wall");
-            wall.put_Description("My wall description");
-            wall.put_PredefinedType(IfcWallTypeEnum.SOLIDWALL);
+            wall.GlobalId = "2o1ykWxGT4ZxPjHNe4gayR";
+            wall.Name = "My wall";
+            wall.Description = "My wall description";
+            wall.PredefinedType = IfcWallTypeEnum.SOLIDWALL;
 
             CreateGeometry(model, wall);
 
@@ -61,21 +61,21 @@ namespace CS_IFC
         private static void SetupAggregation(int_t model, IfcObjectDefinition aggregator, IfcObjectDefinition part)
         {
             var aggregate = IfcRelAggregates.Create(model);
-            aggregate.put_RelatingObject(aggregator);
+            aggregate.RelatingObject = aggregator;
 
             var aggregated = new SetOfIfcObjectDefinition();
             aggregated.Add(part);
-            aggregate.put_RelatedObjects(aggregated);
+            aggregate.put_RelatedObjects (aggregated);
         }
 
         private static void SetupContainment(int_t model, IfcSpatialStructureElement spatialElement, IfcProduct product)
         {
             var contain = IfcRelContainedInSpatialStructure.Create(model);
-            contain.put_RelatingStructure(spatialElement);
+            contain.RelatingStructure = spatialElement;
 
             var products = new SetOfIfcProduct();
             products.Add(product);
-            contain.put_RelatedElements(products);
+            contain.put_RelatedElements (products);
         }
 
         private static void CreateGeometry(int_t model, IfcWall wall)
@@ -83,24 +83,24 @@ namespace CS_IFC
             IfcCurve footprint = CreateFootprintCurve(model);
 
             var profile = IfcArbitraryClosedProfileDef.Create(model);
-            profile.put_OuterCurve(footprint);
+            profile.OuterCurve = footprint;
 
             double[] zdir = { 0, 0, 1 };
             var zDir = IfcDirection.Create(model);
             zDir.put_DirectionRatios(zdir);
 
             var solid = IfcExtrudedAreaSolid.Create(model);
-            solid.put_SweptArea(profile);
-            solid.put_ExtrudedDirection(zDir);
-            solid.put_Depth(2500);
+            solid.SweptArea = profile;
+            solid.ExtrudedDirection = zDir;
+            solid.Depth = 2500;
 
             var lstReprItems = new SetOfIfcRepresentationItem ();
             lstReprItems.Add(solid);
 
             var shapeRepr = IfcShapeRepresentation.Create(model);
-            shapeRepr.put_RepresentationIdentifier("Body");
-            shapeRepr.put_RepresentationType("SweptSolid");
-            shapeRepr.put_Items(lstReprItems);
+            shapeRepr.RepresentationIdentifier = "Body";
+            shapeRepr.RepresentationType = "SweptSolid";
+            shapeRepr.put_Items (lstReprItems);
 
             var lstRepr = new ListOfIfcRepresentation();
             lstRepr.Add(shapeRepr);
@@ -108,7 +108,7 @@ namespace CS_IFC
             var prodShape = IfcProductDefinitionShape.Create(model);
             prodShape.put_Representations(lstRepr);
 
-            wall.put_Representation(prodShape);
+            wall.Representation = prodShape;
         }
 
         class Point2D : ListOfIfcLengthMeasure { public Point2D(double x, double y) { Add(x); Add(y); } };
@@ -130,7 +130,7 @@ namespace CS_IFC
             var points = IfcCartesianPointList2D.Create(model);
             points.put_CoordList(points2D);
 
-            poly.put_Points(points);
+            poly.Points = points;
 
             //////
 
@@ -159,7 +159,7 @@ namespace CS_IFC
 
             poly.put_Segments(segments);
 
-            poly.put_SelfIntersect(false);
+            poly.SelfIntersect = false;
 
             return poly;
         }

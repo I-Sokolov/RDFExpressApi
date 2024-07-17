@@ -1001,20 +1001,23 @@ namespace NAMESPACE_NAME
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, i); }
             }
         //## AttributeEnumGet
-        public ENUMERATION_NAME? get_ATtr_NAME() { var str = get_string("ATTR_NAME", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); }
-        public ENUMERATION_NAME? _ATtr_NAME { get { return get_ATtr_NAME(); } }
+        public ENUMERATION_NAME? ATtr_nAME { get { var str = get_string("ATTR_NAME", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); } }
         //## AttributeEnumPut
-        public void put_ATTR_NAME(ENUMERATION_NAME value) { var str = EnumString<ENUMERATION_NAME>.FromValue(value, EnumNames.ENUMERATION_VALUES_ARRAY); ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiENUM, str); }
+        public ENUMERATION_NAME? ATtr_NAME 
+            { 
+            get { var str = get_string("ATTR_NAME", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); } 
+            set { if (value.HasValue) { var str = EnumString<ENUMERATION_NAME>.FromValue(value.Value, EnumNames.ENUMERATION_VALUES_ARRAY); ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
+            }
         //## AttributeSelectAccessor        
         public GEN_TYPE_NAME_accessor getOrPut_ATTR_NAME() { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); }
         //## AttributeSelectAccessorProp        
         public GEN_TYPE_NAME_accessor _ATtR_NAME { get { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); } }
         //## AttributeAggregationGet
-        public AggregationType get_ATTr_NAME() { return (new AggregationTypeSerializer()).FromAttr(m_instance, "ATTR_NAME"); }
-        public AggregationType _ATTr_NAME { get { return get_ATTr_NAME(); } }
+        public AggregationType ATTr_NAMe { get { return (new AggregationTypeSerializer()).FromAttr(m_instance, "ATTR_NAME"); } }
         //## AttributeAggregationPut
+        public AggregationType ATTr_NAME { get { return (new AggregationTypeSerializer()).FromAttr(m_instance, "ATTR_NAME"); } }
         public void put_ATTr_NAME(IEnumerable<SimpleType> lst) { (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, "ATTR_NAME"); }
-        //public void put_ATTr_NAME_untyped(IEnumerable lst) { (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, "ATTR_NAME"); }
+        public void put_ATTr_NAME_untyped(IEnumerable lst) { (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, "ATTR_NAME"); }
         //## AttributeAggregationPutArray
         //## EntityEnd
 
