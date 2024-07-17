@@ -205,7 +205,7 @@ namespace NAMESPACE_NAME
         //
         //
         protected BaseCType? get_BaseCType(TextValue typeName, IntValue sdaiType) { return null; } //## IGNORE
-        protected void put_BaseCType(TextValue typeName, IntValue sdaiType, BaseCType value) { } //## IGNORE
+        protected void put_BaseCType(TextValue typeName, IntValue sdaiType, BaseCType? value) { } //## IGNORE
         protected IntValue? get_IntValue(TextValue typeName, IntValue sdaiType)
             {
             IntValue? ret = null;
@@ -221,11 +221,19 @@ namespace NAMESPACE_NAME
             return ret;
             }
 
-        protected void put_IntValue(TextValue typeName, IntValue sdaiType, IntValue value)
+        protected void put_IntValue(TextValue typeName, IntValue sdaiType, IntValue? value)
             {
-            var adb = ifcengine.sdaiCreateADB(sdaiType, ref value);
-            ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
-            SetADB(adb);
+            if (value.HasValue)
+                {
+                IntValue v = value.Value;
+                var adb = ifcengine.sdaiCreateADB(sdaiType, ref v);
+                ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+                SetADB(adb);
+                }
+            else
+                {
+                Debug.Assert(false);
+                }
             }
 
         //
@@ -260,18 +268,34 @@ namespace NAMESPACE_NAME
             }
 
         //
-        protected void put_double(TextValue typeName, IntValue sdaiType, double value)
+        protected void put_double(TextValue typeName, IntValue sdaiType, double? value)
             {
-            var adb = ifcengine.sdaiCreateADB(sdaiType, ref value);
-            ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
-            SetADB(adb);
+            if (value.HasValue)
+                {
+                double v = value.Value;
+                var adb = ifcengine.sdaiCreateADB(sdaiType, ref v);
+                ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+                SetADB(adb);
+                }
+            else
+                {
+                Debug.Assert(false);
+                }
             }
-        protected void put_bool(TextValue typeName, IntValue sdaiType, bool value)
+        protected void put_bool(TextValue typeName, IntValue sdaiType, bool? value)
             {
-            Debug.Assert(sdaiType == ifcengine.sdaiBOOLEAN);
-            var adb = ifcengine.sdaiCreateADB(sdaiType, ref value);
-            ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
-            SetADB(adb);
+            if (value.HasValue)
+                {
+                bool v = value.Value;
+                Debug.Assert(sdaiType == ifcengine.sdaiBOOLEAN);
+                var adb = ifcengine.sdaiCreateADB(sdaiType, ref v);
+                ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+                SetADB(adb);
+                }
+            else
+                {
+                Debug.Assert(false);
+                }
             }
 
         //
@@ -895,55 +919,93 @@ namespace NAMESPACE_NAME
         public GEN_TYPE_NAME_accessor() : base(null) { }
 
         //## SelectSimpleGet
-        public bool is_TypeNameIfc() { return IsADBType("TypeNameUpper"); }
-        //public bool _is_TypeNameIfc { get { return is_TypeNameIfc(); } }
-        public BaseCType? get_TypeNameifc() { return get_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE); }
-        public BaseCType? _TypeNameifc { get { return get_TypeNameifc(); } }
+        public bool is_TypeNameIfc { get { return IsADBType("TypeNameUpper"); } }
+        public BaseCType? TypeNameIfc
+            {
+            get { return get_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE); }
+            }
         //## SelectSimplePut
-        public void put_TypeNameIfc(BaseCType value) { put_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE, value); }
+        public bool Is_TypeNameIfc { get { return IsADBType("TypeNameUpper"); } }
+        public BaseCType? TypeNameifc
+            {
+            set { put_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE, value); }
+            get { return get_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE); }
+            }
         //## SelectTextGet
-        public bool is_TypeNameIFC() { return IsADBType("TypeNameUpper"); }
-        public bool _isTypeNameIFC { get { return is_TypeNameIFC(); } }
-        public TextValue get_TypeNameIFC() { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); }
-        public TextValue _TypeNameIFC { get { return get_TypeNameIFC(); } }
+        public bool is_TypeNameIFC { get { return IsADBType("TypeNameUpper"); } }
+        public TextValue TypeNameIFc
+            {
+            get { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); }
+            }
         //## SelectTextPut
-        public void put_TypeNameIFC(TextValue value) { putTextValue("TypeNameUpper", ifcengine.sdaiTYPE, value); }
+        public bool Is_TypeNameIFC { get { return IsADBType("TypeNameUpper"); } }
+        public TextValue TypeNameIFC { 
+            set { putTextValue("TypeNameUpper", ifcengine.sdaiTYPE, value); }
+            get { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); } 
+            }
         //## SelectEntityGet
-        public bool is_REF_ENTITY() { return IsADBEntity("REF_ENTITY"); }
-        public bool _is_REF_ENTITY { get { return is_REF_ENTITY(); } }
-        public REF_ENTITY get_REF_ENTITY() { return new REF_ENTITY(getEntityInstance("TypeNameUpper")); }
-        public REF_ENTITY _REF_ENTITY { get { return get_REF_ENTITY(); } }
+        public bool is_REF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
+        public REF_ENTITY REF_ENTITy
+            {
+            get { return new REF_ENTITY(getEntityInstance("TypeNameUpper")); }
+            }
         //## SelectEntityPut
-        public void put_REF_ENTITY(REF_ENTITY inst) { putEntityInstance("TypeNameUpper", inst); }
+        public bool Is_REF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
+        public REF_ENTITY REF_ENTITY
+            {
+            set { putEntityInstance("TypeNameUpper", value); }
+            get { return new REF_ENTITY(getEntityInstance("TypeNameUpper")); } 
+            }
         //## SelectEnumerationGet
-        public bool is_TypeNAmeIFC() { return IsADBType("TypeNameUpper"); }
-        public bool _is_TypeNAmeIFC { get { return is_TypeNAmeIFC(); } }
-        public ENUMERATION_NAME? get_TypeNAmeIFC() { int ind = getEnumerationIndex("TypeNameUpper", EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); }
-        public ENUMERATION_NAME? _TypeNAmeIFC { get { return get_TypeNAmeIFC(); } }
+        public bool is_TypeNAmeIFC { get { return IsADBType("TypeNameUpper"); } }
+        public ENUMERATION_NAME? TypeNAmeIFc
+            {
+            get
+                {
+                int ind = getEnumerationIndex("TypeNameUpper", EnumNames.ENUMERATION_VALUES_ARRAY);
+                return EnumValue<ENUMERATION_NAME>.FromIndex(ind);
+                }
+            }
         //## SelectEnumerationPut
-        public void put_TypeNAmeIFC(ENUMERATION_NAME value) { TextValue val = EnumString<ENUMERATION_NAME>.FromValue(value, EnumNames.ENUMERATION_VALUES_ARRAY); putEnumerationValue("TypeNameUpper", val); }
+        public bool Is_TypeNAmeIFC { get { return IsADBType("TypeNameUpper"); } }
+        public ENUMERATION_NAME? TypeNAmeIFC 
+            { 
+            set {
+                if (value.HasValue)
+                    {
+                    TextValue val = EnumString<ENUMERATION_NAME>.FromValue(value.Value, EnumNames.ENUMERATION_VALUES_ARRAY); putEnumerationValue("TypeNameUpper", val);
+                    }
+                else
+                    {
+                    Debug.Assert(false);
+                    }
+                }
+            get { 
+                int ind = getEnumerationIndex("TypeNameUpper", EnumNames.ENUMERATION_VALUES_ARRAY); 
+                return EnumValue<ENUMERATION_NAME>.FromIndex(ind); 
+                } 
+            }
         //## SelectAggregationGet
-        public bool is_AggregationType() { return IsADBType("TypeNameUpper"); }
-        public bool _is_AggregationType { get { return is_AggregationType(); } }
-        public AggregationType get_AggregationType() { SdaiAggr aggr = getAggrValue("TypeNameUpper"); return (new AggregationTypeSerializer()).FromSdaiAggr(m_instance, aggr); }
-        public AggregationType _AggregationType { get { return get_AggregationType(); } }
+        public bool is_AggregationType { get { return IsADBType("TypeNameUpper"); } }
+        public AggregationType AggregationType { get { SdaiAggr aggr = getAggrValue("TypeNameUpper"); return (new AggregationTypeSerializer()).FromSdaiAggr(m_instance, aggr); } }
         //## SelectAggregationPut
+        public bool Is_AggregationType { get { return IsADBType("TypeNameUpper"); } }
+        public AggregationType AGgregationType { get { SdaiAggr aggr = getAggrValue("TypeNameUpper"); return (new AggregationTypeSerializer()).FromSdaiAggr(m_instance, aggr); } }
         public void put_AggregationType(IEnumerable<REF_ENTITY> lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
-        //public void put_AggregationType(IEnumerable lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
+        public void put_AggregationType(IEnumerable lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
         //## SelectAggregationPutArray
         //## SelectNested
-        public GEN_TYPE_NAME_accessor nestedSelectAccess_GEN_TYPE_NAME() { return new GEN_TYPE_NAME_accessor(this); }
-        public GEN_TYPE_NAME_accessor __GEN_TYPE_NAME { get { return nestedSelectAccess_GEN_TYPE_NAME(); } }
+        public GEN_TYPE_NAME_accessor _GEN_TYPE_NAME { get { return new GEN_TYPE_NAME_accessor(this); } }
         //## SelectGetAsDouble
-        public double? as_double() { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; }
+        public double? as_double { get { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; } }
         //## SelectGetAsInt
-        public IntValue? as_int() { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; }
+        public IntValue? as_int { get { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; } }
         //## SelectGetAsBool
-        public bool? as_bool() { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; }
+        public bool? as_bool { get { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; } }
         //## SelectGetAsText
-        public TextValue as_text() { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; }
+        public TextValue as_text { get { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; } }
         //## SelectGetAsEntity
-        public SdaiInstance as_instance() { return getEntityInstance(null); }
+        public SdaiInstance as_instance { get { return getEntityInstance(null); } }
         //## SelectAccessorEnd
         };
 
@@ -1009,9 +1071,10 @@ namespace NAMESPACE_NAME
             set { if (value.HasValue) { var str = EnumString<ENUMERATION_NAME>.FromValue(value.Value, EnumNames.ENUMERATION_VALUES_ARRAY); ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
         //## AttributeSelectAccessor        
-        public GEN_TYPE_NAME_accessor getOrPut_ATTR_NAME() { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); }
-        //## AttributeSelectAccessorProp        
-        public GEN_TYPE_NAME_accessor _ATtR_NAME { get { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); } }
+        public GEN_TYPE_NAME_accessor ATtR_NAME
+            {
+            get { return new GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", 0); }
+            }
         //## AttributeAggregationGet
         public AggregationType ATTr_NAMe { get { return (new AggregationTypeSerializer()).FromAttr(m_instance, "ATTR_NAME"); } }
         //## AttributeAggregationPut

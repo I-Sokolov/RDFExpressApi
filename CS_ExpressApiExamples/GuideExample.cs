@@ -115,54 +115,72 @@ namespace CS_IFC
 
             var actor = IFC4.IfcActor.Create(model);
             var person = IFC4.IfcPerson.Create(model);
+            var organisation = IFC4.IfcOrganization.Create(model);
+
+            person.FamilyName = "Smith";
+            organisation.Name = "FBI";
 
             //when you put a value to SELECT you shold specify type of the value
             //to do this, attribute put_* methods return a put-selector with method for each possible type
 
-            actor.put_TheActor().put_IfcPerson(person);
+            IFC4.IfcActorSelect selector = actor.TheActor;
+
+            assert(!actor.TheActor.is_IfcPerson);
+            assert(!actor.TheActor.is_IfcOrganization);
+            assert(!selector.is_IfcPerson);
+            assert(!selector.is_IfcOrganization);
+
+            //
+            actor.TheActor.IfcOrganization = organisation;
+
+            assert(!actor.TheActor.is_IfcPerson);
+            assert(actor.TheActor.is_IfcOrganization);
+            assert(!selector.is_IfcPerson);
+            assert(selector.is_IfcOrganization);
 
             //or this form
-            IFC4.IfcActorSelect_put putSelector = actor.put_TheActor();
-            putSelector.put_IfcPerson(person);
+            selector.IfcPerson = person;
+            assert(actor.TheActor.is_IfcPerson);
+            assert(!actor.TheActor.is_IfcOrganization);
+            assert(selector.is_IfcPerson);
+            assert(!selector.is_IfcOrganization);
 
             //similary, attribute get_* methods return a get-selector and you can inquire content
-            IFC4.IfcActorSelect_get getSelector = actor.get_TheActor();
+            var p = selector.IfcPerson;
 
-            assert(getSelector.is_IfcPerson());
-            assert(!getSelector.is_IfcOrganization());
+            assert(selector.is_IfcPerson);
+            assert(!selector.is_IfcOrganization);
 
-            IFC4.IfcPerson gotPerson = getSelector.get_IfcPerson();
+            IFC4.IfcPerson gotPerson = selector.IfcPerson;
             assert(gotPerson == person);
 
-            IFC4.IfcOrganization gotOrganization = getSelector.get_IfcOrganization();
+            IFC4.IfcOrganization gotOrganization = selector.IfcOrganization;
             assert(gotOrganization == 0);
 
             //get-selector may provide a method to get as base C++ type without specifing IFC type
-
-            SdaiInstance inst = getSelector.as_instance();
+            SdaiInstance inst = selector.as_instance;
 
             //check instance class
             assert((IFC4.IfcPerson)(inst)!=0);
             assert((IFC4.IfcOrganization)(inst)==0);
             assert(RDF.ifcengine.sdaiIsKindOfBN(inst, "IfcPerson")!=0);
 
-
             //work with nested SELECT
             var measure = IFC4.IfcMeasureWithUnit.Create(model);
 
             //when put you have to specify type path
-            measure.put_ValueComponent().put_IfcSimpleValue().put_IfcInteger(75);
+            measure.ValueComponent.IfcSimpleValue.IfcInteger = 75;
 
             //you can get with type path
-            assert(measure.get_ValueComponent().get_IfcSimpleValue().is_IfcInteger());
-            assert(!measure.get_ValueComponent().get_IfcMeasureValue().is_IfcAreaMeasure());
+            assert(measure.ValueComponent.get_IfcSimpleValue().is_IfcInteger());
+            assert(!measure.ValueComponent.get_IfcMeasureValue().is_IfcAreaMeasure());
 
-            var valueSelector = measure.get_ValueComponent(); //you can save selector in a variable
+            var valueSelector = measure.ValueComponent; //you can save selector in a variable
 
             var gotInt = valueSelector.get_IfcSimpleValue().get_IfcInteger();
             assert(gotInt != null && gotInt! == 75);
 
-            var gotArea = measure.get_ValueComponent().get_IfcMeasureValue().get_IfcAreaMeasure();
+            var gotArea = measure.ValueComponent.get_IfcMeasureValue().get_IfcAreaMeasure();
             assert(gotArea==null);
 
             //if you are not interested in type, you can get as C++ base type
@@ -172,7 +190,7 @@ namespace CS_IFC
             var gotDouble = valueSelector.as_double();
             assert(gotDouble != null && gotDouble! == 75);
 
-            var gotText = measure.get_ValueComponent().as_text();
+            var gotText = measure.ValueComponent.as_text();
             assert(gotText != null && gotText == "75");
 
             var gotBool = valueSelector.as_bool();
@@ -237,11 +255,11 @@ namespace CS_IFC
             var lstValue = new IFC4.ListOfIfcValue();
 
             var value = new IFC4.IfcValue (propEnumValue);
-            value._IfcSimpleValue().put_IfcLabel("MyLabel");
+            value.IfcSimpleValue.IfcLabel = "MyLabel";
             lstValue.Add(value);
 
             value = new IFC4.IfcValue(propEnumValue);
-            value._IfcMeasureValue().put_IfcCountMeasure(4);
+            value.IfcMeasureValue.IfcCountMeasure = 4;
             lstValue.Add(value);
 
             propEnumValue.put_EnumerationValues(lstValue);
@@ -249,10 +267,10 @@ namespace CS_IFC
             IFC4.ListOfIfcValue gotValues = propEnumValue.EnumerationValues;
             assert(gotValues.Count == 2);
 
-            string v1 = gotValues.First()._IfcSimpleValue().get_IfcLabel();
+            string v1 = gotValues.First().IfcSimpleValue.IfcLabel;
             assert(v1 != null && v1== "MyLabel");
             
-            double? v2 = gotValues.Last()._IfcMeasureValue().get_IfcCountMeasure();
+            double? v2 = gotValues.Last().IfcMeasureValue.IfcCountMeasure;
             assert(v2 != null && v2! == 4);
 
             //
@@ -285,9 +303,9 @@ namespace CS_IFC
             var prop = IFC4.IfcPropertySingleValue.Create(model);
 
             double[] cplx = { 2.1, 1.5 };
-            prop.put_NominalValue().put_IfcMeasureValue().put_IfcComplexNumber(cplx);
+            prop.NominalValue.IfcMeasureValue.put_IfcComplexNumber (cplx);
 
-            IFC4.IfcComplexNumber cplxNum = prop.get_NominalValue().get_IfcMeasureValue().get_IfcComplexNumber();
+            IFC4.IfcComplexNumber cplxNum = prop.NominalValue.IfcMeasureValue.IfcComplexNumber;
             assert(cplxNum.Count == 2 && cplxNum.First() == 2.1 && cplxNum.Last() == 1.5);
         }
 

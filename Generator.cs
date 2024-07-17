@@ -104,7 +104,6 @@ namespace RDFWrappers
             AttributeEnumGet,
             AttributeEnumPut,
             AttributeSelectAccessor,
-            AttributeSelectAccessorProp,
             AttributeAggregationGet,
             AttributeAggregationPut,
             AttributeAggregationPutArray,
@@ -600,17 +599,19 @@ namespace RDFWrappers
 
             generator.m_replacements[Generator.KWD_TYPE_NAME] = Generator.ValidateIdentifier(selectName);
 
-            generator.m_replacements[Generator.KWD_GETPUT] = "get";
-            generator.m_replacements[Generator.KWD_ACCESSOR] = "_get";
-            generator.WriteByTemplate(Generator.Template.AttributeSelectAccessor);
-            generator.WriteByTemplate(Generator.Template.AttributeSelectAccessorProp);
+            if (!m_cs || attr.inverse)
+                {
+                generator.m_replacements[Generator.KWD_GETPUT] = "get";
+                generator.m_replacements[Generator.KWD_ACCESSOR] = "_get";
+                generator.WriteByTemplate(Generator.Template.AttributeSelectAccessor);
+                }
 
             if (!attr.inverse)
-            {
-                generator.m_replacements[Generator.KWD_GETPUT] = "put";
-                generator.m_replacements[Generator.KWD_ACCESSOR] = "_put";
+                {
+                generator.m_replacements[Generator.KWD_GETPUT] = m_cs ? "" : "put";
+                generator.m_replacements[Generator.KWD_ACCESSOR] = m_cs ? "" : "_put";
                 generator.WriteByTemplate(Generator.Template.AttributeSelectAccessor);
-            }
+                }
 
             generator.m_replacements.Remove(Generator.KWD_GETPUT);
             generator.m_replacements.Remove(Generator.KWD_ACCESSOR);

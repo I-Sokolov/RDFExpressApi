@@ -161,9 +161,31 @@ namespace RDFWrappers
 
             generator.m_replacements[Generator.KWD_TYPE_NAME] = Generator.ValidateIdentifier (name);
 
-            foreach (var bGet in new bool?[] { null, true, false })
+            bool?[] gettypes = null;
+            if (generator.m_cs)
+                {
+                gettypes = new bool?[] { false, true };
+                }
+            else
+                {
+                gettypes = new bool?[] { null, true, false };
+                }
+
+            foreach (var bGet in gettypes)
             {
-                generator.m_replacements[Generator.KWD_ACCESSOR] = bGet.HasValue ? (bGet.Value ? "_get" : "_put") : "";
+                var accessor = "";
+                if (bGet.HasValue)
+                    {
+                    if (bGet.Value)
+                        {
+                        accessor = "_get";
+                        }
+                    else if (!generator.m_cs)
+                        {
+                        accessor = "_put";
+                        }
+                    }
+                generator.m_replacements[Generator.KWD_ACCESSOR] = accessor;
 
                 generator.WriteByTemplate(Generator.Template.SelectAccessorBegin);
 
@@ -175,7 +197,7 @@ namespace RDFWrappers
                     WriteAccessorMethod(generator, variant, bGet);
                 }
 
-                if (bGet.HasValue && bGet.Value) //to implement for detached selects it needs implementation with m_adb
+                if (bGet.HasValue && bGet.Value || generator.m_cs) 
                 {
                     var astypes = CollectAsTypes();
                     if (astypes.Count > 0)

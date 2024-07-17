@@ -721,7 +721,6 @@ namespace NAMESPACE_NAME
         void put_ATTR_NAME(TypeNameIFC value) { TextValue val = ENUMERATION_VALUES_ARRAY[(int) value]; sdaiPutAttrBN(m_instance, "ATTR_NAME", sdaiENUM, val); }
         //## AttributeSelectAccessor
         GEN_TYPE_NAME_accessor getOrPut_ATTR_NAME() { return GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", NULL); }
-        //## AttributeSelectAccessorProp
         //## AttributeAggregationGet
 
         //TList may be AggregationType or list of converible elements
