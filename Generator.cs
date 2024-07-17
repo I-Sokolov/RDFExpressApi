@@ -535,24 +535,30 @@ namespace RDFWrappers
             WriteGetPut(tplGet, tplPut, attr.inverse);
         }
 
-        public void WriteGetPut(Template tplGet, Template tplPut, bool inverse)
+        public void WriteGetPut(Template tplGet, Template tplPut, bool readOnly)
         {
-            var str = BuildGetPut(tplGet, tplPut, inverse);
+            var str = BuildGetPut(tplGet, tplPut, readOnly);
             m_writer.Write(str);
         }
 
-        private string BuildGetPut (Template tplGet, Template tplPut, bool inverse)
+        private string BuildGetPut (Template tplGet, Template tplPut, bool readOnly)
         {
+            bool get = readOnly || !m_cs;
+            bool put = !readOnly;
+
             StringBuilder str = new StringBuilder();
 
-            string s = StringByTemplate(tplGet);
-            str.Append(s);
-            
-            if (!inverse)
-            {
-                s = StringByTemplate(tplPut);
+            if (get)
+                {
+                string s = StringByTemplate(tplGet);
                 str.Append(s);
-            }
+                }
+
+            if (put)
+                {
+                string s = StringByTemplate(tplPut);
+                str.Append(s);
+                }
 
             return str.ToString();
         }
