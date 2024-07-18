@@ -995,7 +995,7 @@ namespace NAMESPACE_NAME
         public void put_AggregationType(IEnumerable lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
         //## SelectAggregationPutArray
         //## SelectNested
-        public GEN_TYPE_NAME_accessor _GEN_TYPE_NAME { get { return new GEN_TYPE_NAME_accessor(this); } }
+        public GEN_TYPE_NAME_accessor GEN_TYPE_NAME { get { return new GEN_TYPE_NAME_accessor(this); } }
         //## SelectGetAsDouble
         public double? as_double { get { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; } }
         //## SelectGetAsInt

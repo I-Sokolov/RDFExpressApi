@@ -172,28 +172,28 @@ namespace CS_IFC
             measure.ValueComponent.IfcSimpleValue.IfcInteger = 75;
 
             //you can get with type path
-            assert(measure.ValueComponent.get_IfcSimpleValue().is_IfcInteger());
-            assert(!measure.ValueComponent.get_IfcMeasureValue().is_IfcAreaMeasure());
+            assert(measure.ValueComponent.IfcSimpleValue.is_IfcInteger);
+            assert(!measure.ValueComponent.IfcMeasureValue.is_IfcAreaMeasure);
 
             var valueSelector = measure.ValueComponent; //you can save selector in a variable
 
-            var gotInt = valueSelector.get_IfcSimpleValue().get_IfcInteger();
+            var gotInt = valueSelector.IfcSimpleValue.IfcInteger;
             assert(gotInt != null && gotInt! == 75);
 
-            var gotArea = measure.ValueComponent.get_IfcMeasureValue().get_IfcAreaMeasure();
+            var gotArea = measure.ValueComponent.IfcMeasureValue.IfcAreaMeasure;
             assert(gotArea==null);
 
             //if you are not interested in type, you can get as C++ base type
-            gotInt = valueSelector.as_int();
+            gotInt = valueSelector.as_int;
             assert(gotInt != null && gotInt! == 75);
 
-            var gotDouble = valueSelector.as_double();
+            var gotDouble = valueSelector.as_double;
             assert(gotDouble != null && gotDouble! == 75);
 
-            var gotText = measure.ValueComponent.as_text();
+            var gotText = measure.ValueComponent.as_text;
             assert(gotText != null && gotText == "75");
 
-            var gotBool = valueSelector.as_bool();
+            var gotBool = valueSelector.as_bool;
             assert(gotBool==null); //IfcInteger is not convertable to bool
 
             //
