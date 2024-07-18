@@ -271,12 +271,24 @@ namespace RDFWrappers
             }
         }
 
+        private string GetPropNameSuffix (Generator generator, string propName)
+            {
+            if (generator.m_cs)
+                {
+                if (propName == "item_defined_transformation" || propName == "representation_item")
+                    {
+                    return "_";
+                    }
+                }
+            return "";
+            }
 
         private void WriteAccessorMethod(Generator generator, Entity entityType, bool? bGet)
         {
             generator.m_replacements[Generator.KWD_REF_ENTITY] = Generator.ValidateIdentifier (entityType.name);
             generator.m_replacements[Generator.KWD_TypeNameIFC] = entityType.name;
             generator.m_replacements[Generator.KWD_TypeNameUpper] = entityType.name.ToUpper();
+            generator.m_replacements[Generator.KWD_suffix] = GetPropNameSuffix(generator, entityType.name);
 
             if (bGet.HasValue)
             {

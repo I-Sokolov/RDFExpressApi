@@ -167,9 +167,12 @@ namespace RDFWrappers
 
                 if (foundation.declarationType == enum_express_declaration.__SELECT)
                 {
-                    generator.m_replacements[Generator.KWD_DEFINED_TYPE] = name + "_put";
-                    generator.m_replacements[Generator.KWD_SimpleType] = referTypeName + "_put";
-                    generator.WriteByTemplate(template);
+                    if (!generator.m_cs)
+                        {
+                        generator.m_replacements[Generator.KWD_DEFINED_TYPE] = name + "_put";
+                        generator.m_replacements[Generator.KWD_SimpleType] = referTypeName + "_put";
+                        generator.WriteByTemplate(template);
+                        }
 
                     generator.m_replacements[Generator.KWD_DEFINED_TYPE] = name + "_get";
                     generator.m_replacements[Generator.KWD_SimpleType] = referTypeName + "_get";

@@ -44,6 +44,7 @@ namespace RDFWrappers
         public const string KWD_nestedSelectAccess = "nestedSelectAccess";
         public const string KWD_GETPUT = "getOrPut";
         public const string KWD_AggregationType = "AggregationType";
+        public const string KWD_suffix = "_suffix";
 
         /// <summary>
         /// 

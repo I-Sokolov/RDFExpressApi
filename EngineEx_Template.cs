@@ -925,7 +925,7 @@ namespace NAMESPACE_NAME
             get { return get_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE); }
             }
         //## SelectSimplePut
-        public bool Is_TypeNameIfc { get { return IsADBType("TypeNameUpper"); } }
+        public bool is_typeNameIfc { get { return IsADBType("TypeNameUpper"); } }
         public BaseCType? TypeNameifc
             {
             set { put_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE, value); }
@@ -938,20 +938,20 @@ namespace NAMESPACE_NAME
             get { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); }
             }
         //## SelectTextPut
-        public bool Is_TypeNameIFC { get { return IsADBType("TypeNameUpper"); } }
+        public bool is_typeNameIFC { get { return IsADBType("TypeNameUpper"); } }
         public TextValue TypeNameIFC { 
             set { putTextValue("TypeNameUpper", ifcengine.sdaiTYPE, value); }
             get { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); } 
             }
         //## SelectEntityGet
         public bool is_REF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
-        public REF_ENTITY REF_ENTITy
+        public REF_ENTITY REF_ENTITy_suffix
             {
             get { return new REF_ENTITY(getEntityInstance("TypeNameUpper")); }
             }
         //## SelectEntityPut
-        public bool Is_REF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
-        public REF_ENTITY REF_ENTITY
+        public bool is_rEF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
+        public REF_ENTITY REF_ENTITY_suffix
             {
             set { putEntityInstance("TypeNameUpper", value); }
             get { return new REF_ENTITY(getEntityInstance("TypeNameUpper")); } 
@@ -967,7 +967,7 @@ namespace NAMESPACE_NAME
                 }
             }
         //## SelectEnumerationPut
-        public bool Is_TypeNAmeIFC { get { return IsADBType("TypeNameUpper"); } }
+        public bool is_typeNAmeIFC { get { return IsADBType("TypeNameUpper"); } }
         public ENUMERATION_NAME? TypeNAmeIFC 
             { 
             set {
@@ -989,7 +989,7 @@ namespace NAMESPACE_NAME
         public bool is_AggregationType { get { return IsADBType("TypeNameUpper"); } }
         public AggregationType AggregationType { get { SdaiAggr aggr = getAggrValue("TypeNameUpper"); return (new AggregationTypeSerializer()).FromSdaiAggr(m_instance, aggr); } }
         //## SelectAggregationPut
-        public bool Is_AggregationType { get { return IsADBType("TypeNameUpper"); } }
+        public bool is_aggregationType { get { return IsADBType("TypeNameUpper"); } }
         public AggregationType AGgregationType { get { SdaiAggr aggr = getAggrValue("TypeNameUpper"); return (new AggregationTypeSerializer()).FromSdaiAggr(m_instance, aggr); } }
         public void put_AggregationType(IEnumerable<REF_ENTITY> lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
         public void put_AggregationType(IEnumerable lst) { SdaiAggr aggr = (new AggregationTypeSerializer()).ToSdaiAggr(lst, m_instance, null); putAggrValue("TypeNameUpper", aggr); }
