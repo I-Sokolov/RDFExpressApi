@@ -427,7 +427,7 @@ namespace RDFWrappers
                 enum_express_aggr aggr;
                 Int64 crdMin, crdMax, nestedAggr;
                 byte optional, unique;
-                ifcengine.engiGetAggregation(definedType.aggregation, out aggr, out crdMin, out crdMax, out optional, out unique, out nestedAggr);
+                ifcengine.engiGetAggregationDefinition(definedType.aggregation, out aggr, out crdMin, out crdMax, out optional, out unique, out nestedAggr);
                 System.Diagnostics.Debug.Assert(nestedAggr == 0); //to test
                 if (nestedAggr == 0 && sdaiType != null)
                 {

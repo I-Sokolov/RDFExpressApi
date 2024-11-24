@@ -40,12 +40,12 @@ namespace RDFWrappers
                     IntPtr ptrName = IntPtr.Zero;
                     Int64 definingEntity, domainEntity, aggregation;
                     enum_express_attr_type attrType;
-                    byte inverse, optional;
+                    byte direct, inverse, optional;
 
                     ifcengine.engiGetAttributeTraits
                                     (attribute,
                                     out ptrName,
-                                    out definingEntity, out inverse,
+                                    out definingEntity, out direct, out inverse,
                                     out attrType, out domainEntity,
                                     out aggregation,
                                     out optional
