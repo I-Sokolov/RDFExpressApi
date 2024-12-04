@@ -17,7 +17,7 @@ namespace RDFWrappers
     {
         public class Foundation
             {
-            public enum_express_declaration declarationType = enum_express_declaration.__UNDEF; //Undef for primitive types, see attrType 
+            public enum_express_declaration declarationType = enum_express_declaration.__NONE; //Undef for primitive types, see attrType 
             public enum_express_attr_type attrType = enum_express_attr_type.__NONE;        
             public enum_express_aggr aggrType = enum_express_aggr.__NONE;
             };
@@ -144,7 +144,7 @@ namespace RDFWrappers
                 Generator.Template template;
                 switch (foundation.declarationType)
                 {
-                    case enum_express_declaration.__UNDEF:
+                    case enum_express_declaration.__NONE:
                         template = Generator.Template.DefinedTypeSimple;
                         break;
                     case enum_express_declaration.__ENTITY:

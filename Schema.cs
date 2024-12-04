@@ -133,9 +133,9 @@ namespace RDFWrappers
         private void CollectDefinitions()
         {
             Int64 it = 0;
-            while (0 != (it = ifcengine.engiGetNextDeclarationIterator(m_model, it)))
+            while (0 != (it = ifcengine.engiGetNextTypeDeclarationIterator(m_model, it)))
             {
-                ExpressHandle defenition = ifcengine.engiGetDeclarationFromIterator(m_model, it);
+                ExpressHandle defenition = ifcengine.engiGetTypeDeclarationFromIterator(m_model, it);
 
                 var name = GetNameOfDeclaration(defenition);
                 var type = ifcengine.engiGetDeclarationType(defenition);

@@ -174,15 +174,15 @@ namespace RDFWrappers
             {
                 enum_express_aggr aggrType;
                 Int64 cardMin, cardMax;
-                byte optional, unique;
+                bool optional, unique;
                 ifcengine.engiGetAggregationDefinition(aggr, out aggrType, out cardMin, out cardMax, out optional, out unique, out aggr);
 
                 str.Append(aggrType.ToString() + "[" + cardMin.ToString() + ".." + cardMax.ToString() + "] OF ");
-                if (optional!=0)
+                if (optional)
                     {
                     str.Append("OPTIONAL ");
                     }
-                if (unique!=0)
+                if (unique)
                     {
                     str.Append("UNIQUE ");
                     }

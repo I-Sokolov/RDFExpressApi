@@ -328,7 +328,7 @@ namespace RDFWrappers
             {
                 switch (foundation.declarationType)
                 {
-                    case enum_express_declaration.__UNDEF: //based on primitive
+                    case enum_express_declaration.__NONE: //based on primitive
                         switch (foundation.attrType)
                         {
                             case enum_express_attr_type.__LOGICAL:
@@ -426,7 +426,7 @@ namespace RDFWrappers
             {
                 enum_express_aggr aggr;
                 Int64 crdMin, crdMax, nestedAggr;
-                byte optional, unique;
+                bool optional, unique;
                 ifcengine.engiGetAggregationDefinition(definedType.aggregation, out aggr, out crdMin, out crdMax, out optional, out unique, out nestedAggr);
                 System.Diagnostics.Debug.Assert(nestedAggr == 0); //to test
                 if (nestedAggr == 0 && sdaiType != null)
