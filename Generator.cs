@@ -339,7 +339,7 @@ namespace RDFWrappers
         /// </summary>
         private void WriteEntity(Entity entity, HashSet<ExpressHandle> wroteEntities)
         {
-            if (!wroteEntities.Add(entity.inst))
+            if (!wroteEntities.Add(entity.sdaiEntity))
             {
                 return;
             }
@@ -532,19 +532,19 @@ namespace RDFWrappers
             Template tplGet = baseType == "TextValue" ? Template.AttributeTextGet : Template.AttributeSimpleGet;
             Template tplPut = baseType == "TextValue" ? Template.AttributeTextPut : Template.AttributeSimplePut;
 
-            WriteGetPut(tplGet, tplPut, attr.inverse);
+            WriteGetPut(tplGet, tplPut, attr.direct);
         }
 
-        public void WriteGetPut(Template tplGet, Template tplPut, bool readOnly)
+        public void WriteGetPut(Template tplGet, Template tplPut, bool direct)
         {
-            var str = BuildGetPut(tplGet, tplPut, readOnly);
+            var str = BuildGetPut(tplGet, tplPut, direct);
             m_writer.Write(str);
         }
 
-        private string BuildGetPut (Template tplGet, Template tplPut, bool readOnly)
+        private string BuildGetPut (Template tplGet, Template tplPut, bool direct)
         {
-            bool get = readOnly || !m_cs;
-            bool put = !readOnly;
+            bool get = !direct || !m_cs;
+            bool put = direct;
 
             StringBuilder str = new StringBuilder();
 
@@ -568,9 +568,9 @@ namespace RDFWrappers
         {
             m_replacements[KWD_REF_ENTITY] = domain;
 
-            WriteGetPut(Template.AttributeEntityGet, Template.AttributeEntityPut, attr.inverse);
+            WriteGetPut(Template.AttributeEntityGet, Template.AttributeEntityPut, attr.direct);
 
-            var impl = BuildGetPut(Template.AttributeEntityGetImplementation, Template.AttributeEntityPutImplementation, attr.inverse);
+            var impl = BuildGetPut(Template.AttributeEntityGetImplementation, Template.AttributeEntityPutImplementation, attr.direct);
             m_implementations.Append(impl);
         }
 
@@ -586,7 +586,7 @@ namespace RDFWrappers
             m_replacements[Generator.KWD_TypeNameIFC] = ifcTypeName;
             m_replacements[Generator.KWD_TypeNameUpper] = ifcTypeName.ToUpper();
             m_replacements[Generator.KWD_ENUMERATION_VALUES_ARRAY] = valuesArrayName;
-            WriteGetPut(Template.AttributeEnumGet, Template.AttributeEnumPut, attr.inverse);
+            WriteGetPut(Template.AttributeEnumGet, Template.AttributeEnumPut, attr.direct);
         }
 
         /// <summary>
@@ -600,14 +600,14 @@ namespace RDFWrappers
 
             generator.m_replacements[Generator.KWD_TYPE_NAME] = Generator.ValidateIdentifier(selectName);
 
-            if (!m_cs || attr.inverse)
+            if (!m_cs || !attr.direct)
                 {
                 generator.m_replacements[Generator.KWD_GETPUT] = "get";
                 generator.m_replacements[Generator.KWD_ACCESSOR] = "_get";
                 generator.WriteByTemplate(Generator.Template.AttributeSelectAccessor);
                 }
 
-            if (!attr.inverse)
+            if (attr.direct)
                 {
                 generator.m_replacements[Generator.KWD_GETPUT] = m_cs ? "" : "put";
                 generator.m_replacements[Generator.KWD_ACCESSOR] = m_cs ? "" : "_put";

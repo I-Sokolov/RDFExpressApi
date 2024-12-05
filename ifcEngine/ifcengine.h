@@ -2455,69 +2455,6 @@ SdaiAttr		DECL STDC	engiGetEntityAttributeByIndex(
 								);
 
 //
-//		engiGetAttributeTraits                                  (http://rdf.bg/ifcdoc/CP64/engiGetAttributeTraits.html)
-//				const SdaiAttr			attribute							IN
-//				const char				** name								IN / OUT
-//				SdaiEntity				* definingEntity					IN / OUT
-//				bool					* direct							IN / OUT
-//				bool					* inverse							IN / OUT
-//				enum_express_attr_type	* attrType							IN / OUT
-//				SdaiEntity				* domainEntity						IN / OUT
-//				SchemaAggr				* aggregationDefinition				IN / OUT
-//				bool					* optional							IN / OUT
-//
-//				void					returns
-//
-//	...
-//
-void			DECL STDC	engiGetAttributeTraits(
-									const SdaiAttr			attribute,
-									const char				** name,
-									SdaiEntity				* definingEntity,
-									bool					* direct,
-									bool					* inverse,
-									enum_express_attr_type	* attrType,
-									SdaiEntity				* domainEntity,
-									SchemaAggr				* aggregationDefinition,
-									bool					* optional
-								);
-
-#ifdef __cplusplus
-	}
-//{{ Begin C++ polymorphic versions
-
-//
-//
-static	inline	void	engiGetAttributeTraits(
-								const SdaiAttr			attribute,
-								char					** name,
-								SdaiEntity				* definingEntity,
-								bool					* direct,
-								bool					* inverse,
-								enum_express_attr_type	* attrType,
-								SdaiEntity				* domainEntity,
-								SchemaAggr				* aggregationDefinition,
-								bool					* optional
-							)
-{
-	return	engiGetAttributeTraits(
-					attribute,
-					(const char**) name,
-					definingEntity,
-					direct,
-					inverse,
-					attrType,
-					domainEntity,
-					aggregationDefinition,
-					optional
-				);
-}
-
-//}} End C++ polymorphic versions
-	extern "C" {
-#endif
-
-//
 //		engiGetAggregationDefinition                            (http://rdf.bg/ifcdoc/CP64/engiGetAggregationDefinition.html)
 //				SchemaAggr				aggregationDefinition				IN
 //				enum_express_aggr		* aggregationType					IN / OUT

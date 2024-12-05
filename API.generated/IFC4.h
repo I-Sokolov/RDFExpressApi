@@ -8131,6 +8131,8 @@ namespace IFC4
     template <typename TList> class SetOfIfcProfilePropertiesSerializer : public AggrSerializerInstance<TList, IfcProfileProperties> {};
     typedef std::list<IfcRelAssignsToGroup> SetOfIfcRelAssignsToGroup;
     template <typename TList> class SetOfIfcRelAssignsToGroupSerializer : public AggrSerializerInstance<TList, IfcRelAssignsToGroup> {};
+    typedef std::list<IfcDirection> ListOfIfcDirection;
+    template <typename TList> class ListOfIfcDirectionSerializer : public AggrSerializerInstance<TList, IfcDirection> {};
     typedef std::list<StringValue> ListOfIfcIdentifier;
     template <typename TList> class ListOfIfcIdentifierSerializer : public AggrSerializerText<ListOfIfcIdentifier, IfcIdentifier, sdaiSTRING> {};
     typedef std::list<IfcTextureCoordinate> SetOfIfcTextureCoordinate;
@@ -8139,14 +8141,20 @@ namespace IFC4
     template <typename TList> class SetOfIfcSurfaceStyleWithTexturesSerializer : public AggrSerializerInstance<TList, IfcSurfaceStyleWithTextures> {};
     typedef std::list<IfcCompositeCurveSegment> ListOfIfcCompositeCurveSegment;
     template <typename TList> class ListOfIfcCompositeCurveSegmentSerializer : public AggrSerializerInstance<TList, IfcCompositeCurveSegment> {};
+    typedef std::list<IfcSurface> SetOfIfcSurface;
+    template <typename TList> class SetOfIfcSurfaceSerializer : public AggrSerializerInstance<TList, IfcSurface> {};
     typedef std::list<IfcCartesianPoint> ListOfIfcCartesianPoint;
     template <typename TList> class ListOfIfcCartesianPointSerializer : public AggrSerializerInstance<TList, IfcCartesianPoint> {};
+    typedef std::list<IfcCartesianPoint> ArrayOfIfcCartesianPoint;
+    template <typename TList> class ArrayOfIfcCartesianPointSerializer : public AggrSerializerInstance<TList, IfcCartesianPoint> {};
     typedef std::list<IfcInteger> ListOfIfcInteger;
     template <typename TList> class ListOfIfcIntegerSerializer : public AggrSerializerSimple<TList, IfcInteger, sdaiINTEGER> {};
     typedef std::list<IfcParameterValue> ListOfIfcParameterValue;
     template <typename TList> class ListOfIfcParameterValueSerializer : public AggrSerializerSimple<TList, IfcParameterValue, sdaiREAL> {};
     typedef std::list<ListOfIfcCartesianPoint> ListOfListOfIfcCartesianPoint;
     template <typename TList> class ListOfListOfIfcCartesianPointSerializer : public AggrSerializerAggr<TList, ListOfIfcCartesianPoint, ListOfIfcCartesianPointSerializer<ListOfIfcCartesianPoint>> {};
+    typedef std::list<ArrayOfIfcCartesianPoint> ArrayOfArrayOfIfcCartesianPoint;
+    template <typename TList> class ArrayOfArrayOfIfcCartesianPointSerializer : public AggrSerializerAggr<TList, ArrayOfIfcCartesianPoint, ArrayOfIfcCartesianPointSerializer<ArrayOfIfcCartesianPoint>> {};
     typedef std::list<IfcRelServicesBuildings> SetOfIfcRelServicesBuildings;
     template <typename TList> class SetOfIfcRelServicesBuildingsSerializer : public AggrSerializerInstance<TList, IfcRelServicesBuildings> {};
     typedef std::list<IfcLengthMeasure> ListOfIfcLengthMeasure;
@@ -8331,8 +8339,12 @@ namespace IFC4
     template <typename TList> class SetOfIfcPresentationStyleSelectSerializer : public AggrSerializerSelect<TList, IfcPresentationStyleSelect> {};
     typedef std::list<IfcShapeAspect> SetOfIfcShapeAspect;
     template <typename TList> class SetOfIfcShapeAspectSerializer : public AggrSerializerInstance<TList, IfcShapeAspect> {};
+    typedef std::list<IfcReal> ArrayOfIfcReal;
+    template <typename TList> class ArrayOfIfcRealSerializer : public AggrSerializerSimple<TList, IfcReal, sdaiREAL> {};
     typedef std::list<ListOfIfcReal> ListOfListOfIfcReal;
     template <typename TList> class ListOfListOfIfcRealSerializer : public AggrSerializerAggr<TList, ListOfIfcReal, ListOfIfcRealSerializer<ListOfIfcReal>> {};
+    typedef std::list<ArrayOfIfcReal> ArrayOfArrayOfIfcReal;
+    template <typename TList> class ArrayOfArrayOfIfcRealSerializer : public AggrSerializerAggr<TList, ArrayOfIfcReal, ArrayOfIfcRealSerializer<ArrayOfIfcReal>> {};
     typedef std::list<IfcDayInMonthNumber> SetOfIfcDayInMonthNumber;
     template <typename TList> class SetOfIfcDayInMonthNumberSerializer : public AggrSerializerSimple<TList, IfcDayInMonthNumber, sdaiINTEGER> {};
     typedef std::list<IfcDayInWeekNumber> SetOfIfcDayInWeekNumber;
@@ -9055,6 +9067,8 @@ namespace IFC4
             : Entity(instance, entityName ? entityName : "IfcSolidModel")
         {}
 
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -10209,6 +10223,8 @@ namespace IFC4
 
         IfcCartesianPoint get_Location();
         void put_Location(IfcCartesianPoint inst);
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -10234,6 +10250,8 @@ namespace IFC4
 
         IfcDirection get_Axis();
         void put_Axis(IfcDirection inst);
+
+        IfcDirection get_Z();
     };
 
 
@@ -10259,6 +10277,9 @@ namespace IFC4
 
         IfcDirection get_RefDirection();
         void put_RefDirection(IfcDirection inst);
+
+        //TList may be ListOfIfcDirection or list of converible elements
+        template <typename TList> void get_P(TList& lst) { ListOfIfcDirectionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "P"); }
     };
 
 
@@ -10287,6 +10308,9 @@ namespace IFC4
 
         IfcDirection get_RefDirection();
         void put_RefDirection(IfcDirection inst);
+
+        //TList may be ListOfIfcDirection or list of converible elements
+        template <typename TList> void get_P(TList& lst) { ListOfIfcDirectionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "P"); }
     };
 
 
@@ -10507,6 +10531,8 @@ namespace IFC4
 
         IfcAxis2Placement3D get_Position();
         void put_Position(IfcAxis2Placement3D inst);
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -10619,6 +10645,8 @@ namespace IFC4
 
         IfcBooleanOperand_get get_SecondOperand() { return IfcBooleanOperand_get(m_instance, "SecondOperand", NULL); }
         IfcBooleanOperand_put put_SecondOperand() { return IfcBooleanOperand_put(m_instance, "SecondOperand", NULL); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -10680,6 +10708,8 @@ namespace IFC4
             : Entity(instance, entityName ? entityName : "IfcCurve")
         {}
 
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -10732,6 +10762,10 @@ namespace IFC4
 
         Nullable<IfcLogical> get_SelfIntersect() { int v = getENUM("SelfIntersect", LOGICAL_VALUE_); if (v >= 0) return (IfcLogical) v; else return Nullable<IfcLogical>(); }
         void put_SelfIntersect(IfcLogical value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "SelfIntersect", sdaiENUM, val); }
+
+        Nullable<IfcInteger> get_NSegments() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NSegments", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
+
+        Nullable<IfcLogical> get_ClosedCurve() { int v = getENUM("ClosedCurve", LOGICAL_VALUE_); if (v >= 0) return (IfcLogical) v; else return Nullable<IfcLogical>(); }
     };
 
 
@@ -10754,6 +10788,9 @@ namespace IFC4
                 /// Create new instace of IfcCompositeCurveOnSurface and returns object of this C++ class to interact with
                 /// </summary>
         static IfcCompositeCurveOnSurface Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcCompositeCurveOnSurface"); assert(inst); return inst; }
+
+        //TList may be SetOfIfcSurface or list of converible elements
+        template <typename TList> void get_BasisSurface(TList& lst) { SetOfIfcSurfaceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "BasisSurface"); }
     };
 
 
@@ -10930,6 +10967,8 @@ namespace IFC4
             : Entity(instance, entityName ? entityName : "IfcSurface")
         {}
 
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -10982,6 +11021,8 @@ namespace IFC4
 
         Nullable<IfcPositiveLengthMeasure> get_ZDim() { IfcPositiveLengthMeasure val = (IfcPositiveLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "ZDim", sdaiREAL, &val)) return val; else return Nullable<IfcPositiveLengthMeasure>(); }
         void put_ZDim(IfcPositiveLengthMeasure value) { sdaiPutAttrBN(m_instance, "ZDim", sdaiREAL, &value); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -11010,6 +11051,8 @@ namespace IFC4
 
         Nullable<IfcBoolean> get_AgreementFlag() { IfcBoolean val = (IfcBoolean) 0; if (sdaiGetAttrBN(m_instance, "AgreementFlag", sdaiBOOLEAN, &val)) return val; else return Nullable<IfcBoolean>(); }
         void put_AgreementFlag(IfcBoolean value) { sdaiPutAttrBN(m_instance, "AgreementFlag", sdaiBOOLEAN, &value); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -11074,6 +11117,11 @@ namespace IFC4
 
         Nullable<IfcLogical> get_SelfIntersect() { int v = getENUM("SelfIntersect", LOGICAL_VALUE_); if (v >= 0) return (IfcLogical) v; else return Nullable<IfcLogical>(); }
         void put_SelfIntersect(IfcLogical value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "SelfIntersect", sdaiENUM, val); }
+
+        Nullable<IfcInteger> get_UpperIndexOnControlPoints() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "UpperIndexOnControlPoints", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
+
+        //TList may be ArrayOfIfcCartesianPoint or list of converible elements
+        template <typename TList> void get_ControlPoints(TList& lst) { ArrayOfIfcCartesianPointSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ControlPoints"); }
     };
 
 
@@ -11117,6 +11165,8 @@ namespace IFC4
 
         Nullable<IfcKnotType> get_KnotSpec() { int v = getENUM("KnotSpec", IfcKnotType_); if (v >= 0) return (IfcKnotType) v; else return Nullable<IfcKnotType>(); }
         void put_KnotSpec(IfcKnotType value) { TextValue val = IfcKnotType_[(int) value]; sdaiPutAttrBN(m_instance, "KnotSpec", sdaiENUM, val); }
+
+        Nullable<IfcInteger> get_UpperIndexOnKnots() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "UpperIndexOnKnots", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
     };
 
 
@@ -11159,6 +11209,13 @@ namespace IFC4
 
         Nullable<IfcLogical> get_SelfIntersect() { int v = getENUM("SelfIntersect", LOGICAL_VALUE_); if (v >= 0) return (IfcLogical) v; else return Nullable<IfcLogical>(); }
         void put_SelfIntersect(IfcLogical value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "SelfIntersect", sdaiENUM, val); }
+
+        Nullable<IfcInteger> get_UUpper() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "UUpper", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
+
+        Nullable<IfcInteger> get_VUpper() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "VUpper", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
+
+        //TList may be ArrayOfArrayOfIfcCartesianPoint or list of converible elements
+        template <typename TList> void get_ControlPoints(TList& lst) { ArrayOfArrayOfIfcCartesianPointSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ControlPoints"); }
     };
 
 
@@ -11220,6 +11277,10 @@ namespace IFC4
 
         Nullable<IfcKnotType> get_KnotSpec() { int v = getENUM("KnotSpec", IfcKnotType_); if (v >= 0) return (IfcKnotType) v; else return Nullable<IfcKnotType>(); }
         void put_KnotSpec(IfcKnotType value) { TextValue val = IfcKnotType_[(int) value]; sdaiPutAttrBN(m_instance, "KnotSpec", sdaiENUM, val); }
+
+        Nullable<IfcInteger> get_KnotVUpper() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "KnotVUpper", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
+
+        Nullable<IfcInteger> get_KnotUUpper() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "KnotUUpper", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
     };
 
 
@@ -11895,6 +11956,8 @@ namespace IFC4
 
         //TArrayElem[] may be IfcLengthMeasure[] or array of convertible elements
         template <typename TArrayElem> void put_Coordinates(TArrayElem arr[], size_t n) { ListOfIfcLengthMeasure lst; ArrayToList(arr, n, lst); put_Coordinates(lst); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -11913,6 +11976,8 @@ namespace IFC4
             : Entity(instance, entityName ? entityName : "IfcCartesianPointList")
         {}
 
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -11999,6 +12064,10 @@ namespace IFC4
 
         Nullable<IfcReal> get_Scale() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "Scale", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
         void put_Scale(IfcReal value) { sdaiPutAttrBN(m_instance, "Scale", sdaiREAL, &value); }
+
+        Nullable<IfcReal> get_Scl() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "Scl", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -12021,6 +12090,9 @@ namespace IFC4
                 /// Create new instace of IfcCartesianTransformationOperator2D and returns object of this C++ class to interact with
                 /// </summary>
         static IfcCartesianTransformationOperator2D Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "IfcCartesianTransformationOperator2D"); assert(inst); return inst; }
+
+        //TList may be ListOfIfcDirection or list of converible elements
+        template <typename TList> void get_U(TList& lst) { ListOfIfcDirectionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "U"); }
     };
 
 
@@ -12046,6 +12118,8 @@ namespace IFC4
 
         Nullable<IfcReal> get_Scale2() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "Scale2", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
         void put_Scale2(IfcReal value) { sdaiPutAttrBN(m_instance, "Scale2", sdaiREAL, &value); }
+
+        Nullable<IfcReal> get_Scl2() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "Scl2", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
     };
 
 
@@ -12071,6 +12145,9 @@ namespace IFC4
 
         IfcDirection get_Axis3();
         void put_Axis3(IfcDirection inst);
+
+        //TList may be ListOfIfcDirection or list of converible elements
+        template <typename TList> void get_U(TList& lst) { ListOfIfcDirectionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "U"); }
     };
 
 
@@ -12099,6 +12176,10 @@ namespace IFC4
 
         Nullable<IfcReal> get_Scale3() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "Scale3", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
         void put_Scale3(IfcReal value) { sdaiPutAttrBN(m_instance, "Scale3", sdaiREAL, &value); }
+
+        Nullable<IfcReal> get_Scl2() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "Scl2", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
+
+        Nullable<IfcReal> get_Scl3() { IfcReal val = (IfcReal) 0; if (sdaiGetAttrBN(m_instance, "Scl3", sdaiREAL, &val)) return val; else return Nullable<IfcReal>(); }
     };
 
 
@@ -13043,6 +13124,8 @@ namespace IFC4
 
         //TList may be SetOfIfcCompositeCurve or list of converible elements
         template <typename TList> void get_UsingCurves(TList& lst) { SetOfIfcCompositeCurveSerializer<TList> sr; sr.FromAttr(lst, m_instance, "UsingCurves"); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -14793,6 +14876,8 @@ namespace IFC4
 
         IfcLabel get_UserDefinedType() { IfcLabel val = NULL; if (sdaiGetAttrBN(m_instance, "UserDefinedType", sdaiSTRING, &val)) return val; else return NULL; }
         void put_UserDefinedType(IfcLabel value) { sdaiPutAttrBN(m_instance, "UserDefinedType", sdaiSTRING, value); }
+
+        IfcDimensionalExponents get_Dimensions();
     };
 
 
@@ -14895,6 +14980,8 @@ namespace IFC4
 
         //TArrayElem[] may be IfcReal[] or array of convertible elements
         template <typename TArrayElem> void put_DirectionRatios(TArrayElem arr[], size_t n) { ListOfIfcReal lst; ArrayToList(arr, n, lst); put_DirectionRatios(lst); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -15929,6 +16016,8 @@ namespace IFC4
 
         //TArrayElem[] may be IfcOrientedEdge[] or array of convertible elements
         template <typename TArrayElem> void put_EdgeList(TArrayElem arr[], size_t n) { ListOfIfcOrientedEdge lst; ArrayToList(arr, n, lst); put_EdgeList(lst); }
+
+        Nullable<IfcInteger> get_Ne() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "Ne", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
     };
 
 
@@ -17053,6 +17142,8 @@ namespace IFC4
 
         //TArrayElem[] may be IfcConnectedFaceSet[] or array of convertible elements
         template <typename TArrayElem> void put_FbsmFaces(TArrayElem arr[], size_t n) { SetOfIfcConnectedFaceSet lst; ArrayToList(arr, n, lst); put_FbsmFaces(lst); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -17945,6 +18036,8 @@ namespace IFC4
 
         //TList may be SetOfIfcGeometricSetSelect or list of converible elements
         template <typename TList> void put_Elements(TList& lst) { SetOfIfcGeometricSetSelectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "Elements"); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -18663,6 +18756,9 @@ namespace IFC4
 
         Nullable<IfcPreferredSurfaceCurveRepresentation> get_MasterRepresentation() { int v = getENUM("MasterRepresentation", IfcPreferredSurfaceCurveRepresentation_); if (v >= 0) return (IfcPreferredSurfaceCurveRepresentation) v; else return Nullable<IfcPreferredSurfaceCurveRepresentation>(); }
         void put_MasterRepresentation(IfcPreferredSurfaceCurveRepresentation value) { TextValue val = IfcPreferredSurfaceCurveRepresentation_[(int) value]; sdaiPutAttrBN(m_instance, "MasterRepresentation", sdaiENUM, val); }
+
+        //TList may be SetOfIfcSurface or list of converible elements
+        template <typename TList> void get_BasisSurface(TList& lst) { SetOfIfcSurfaceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "BasisSurface"); }
     };
 
 
@@ -19932,6 +20028,8 @@ namespace IFC4
 
         IfcText get_Description() { IfcText val = NULL; if (sdaiGetAttrBN(m_instance, "Description", sdaiSTRING, &val)) return val; else return NULL; }
         void put_Description(IfcText value) { sdaiPutAttrBN(m_instance, "Description", sdaiSTRING, value); }
+
+        Nullable<IfcLengthMeasure> get_TotalThickness() { IfcLengthMeasure val = (IfcLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "TotalThickness", sdaiREAL, &val)) return val; else return Nullable<IfcLengthMeasure>(); }
     };
 
 
@@ -21802,6 +21900,8 @@ namespace IFC4
 
         Nullable<IfcParameterValue> get_PointParameter() { IfcParameterValue val = (IfcParameterValue) 0; if (sdaiGetAttrBN(m_instance, "PointParameter", sdaiREAL, &val)) return val; else return Nullable<IfcParameterValue>(); }
         void put_PointParameter(IfcParameterValue value) { sdaiPutAttrBN(m_instance, "PointParameter", sdaiREAL, &value); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -21833,6 +21933,8 @@ namespace IFC4
 
         Nullable<IfcParameterValue> get_PointParameterV() { IfcParameterValue val = (IfcParameterValue) 0; if (sdaiGetAttrBN(m_instance, "PointParameterV", sdaiREAL, &val)) return val; else return Nullable<IfcParameterValue>(); }
         void put_PointParameterV(IfcParameterValue value) { sdaiPutAttrBN(m_instance, "PointParameterV", sdaiREAL, &value); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -21888,6 +21990,8 @@ namespace IFC4
 
         //TList may be SetOfIfcIndexedTextureMap or list of converible elements
         template <typename TList> void get_HasTextures(TList& lst) { SetOfIfcIndexedTextureMapSerializer<TList> sr; sr.FromAttr(lst, m_instance, "HasTextures"); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -23296,6 +23400,9 @@ namespace IFC4
 
         //TArrayElem[] may be IfcReal[] or array of convertible elements
         template <typename TArrayElem> void put_WeightsData(TArrayElem arr[], size_t n) { ListOfIfcReal lst; ArrayToList(arr, n, lst); put_WeightsData(lst); }
+
+        //TList may be ArrayOfIfcReal or list of converible elements
+        template <typename TList> void get_Weights(TList& lst) { ArrayOfIfcRealSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Weights"); }
     };
 
 
@@ -23324,6 +23431,9 @@ namespace IFC4
 
         //TList may be ListOfListOfIfcReal or list of converible elements
         template <typename TList> void put_WeightsData(TList& lst) { ListOfListOfIfcRealSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "WeightsData"); }
+
+        //TList may be ArrayOfArrayOfIfcReal or list of converible elements
+        template <typename TList> void get_Weights(TList& lst) { ArrayOfArrayOfIfcRealSerializer<TList> sr; sr.FromAttr(lst, m_instance, "Weights"); }
     };
 
 
@@ -25581,6 +25691,8 @@ namespace IFC4
 
         Nullable<IfcPlaneAngleMeasure> get_Angle() { IfcPlaneAngleMeasure val = (IfcPlaneAngleMeasure) 0; if (sdaiGetAttrBN(m_instance, "Angle", sdaiREAL, &val)) return val; else return Nullable<IfcPlaneAngleMeasure>(); }
         void put_Angle(IfcPlaneAngleMeasure value) { sdaiPutAttrBN(m_instance, "Angle", sdaiREAL, &value); }
+
+        IfcLine get_AxisLine();
     };
 
 
@@ -25852,6 +25964,8 @@ namespace IFC4
 
         //TArrayElem[] may be IfcAxis2Placement3D[] or array of convertible elements
         template <typename TArrayElem> void put_CrossSectionPositions(TArrayElem arr[], size_t n) { ListOfIfcAxis2Placement3D lst; ArrayToList(arr, n, lst); put_CrossSectionPositions(lst); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -26143,6 +26257,8 @@ namespace IFC4
 
         //TList may be SetOfIfcShell or list of converible elements
         template <typename TList> void put_SbsmBoundary(TList& lst) { SetOfIfcShellSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "SbsmBoundary"); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -28098,6 +28214,8 @@ namespace IFC4
 
         Nullable<IfcLengthMeasure> get_Depth() { IfcLengthMeasure val = (IfcLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "Depth", sdaiREAL, &val)) return val; else return Nullable<IfcLengthMeasure>(); }
         void put_Depth(IfcLengthMeasure value) { sdaiPutAttrBN(m_instance, "Depth", sdaiREAL, &value); }
+
+        IfcVector get_ExtrusionAxis();
     };
 
 
@@ -28123,6 +28241,8 @@ namespace IFC4
 
         IfcAxis1Placement get_AxisPosition();
         void put_AxisPosition(IfcAxis1Placement inst);
+
+        IfcLine get_AxisLine();
     };
 
 
@@ -28566,6 +28686,12 @@ namespace IFC4
 
         //TArrayElem[] may be IfcTableColumn[] or array of convertible elements
         template <typename TArrayElem> void put_Columns(TArrayElem arr[], size_t n) { ListOfIfcTableColumn lst; ArrayToList(arr, n, lst); put_Columns(lst); }
+
+        Nullable<IfcInteger> get_NumberOfCellsInRow() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfCellsInRow", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
+
+        Nullable<IfcInteger> get_NumberOfHeadings() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfHeadings", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
+
+        Nullable<IfcInteger> get_NumberOfDataRows() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfDataRows", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
     };
 
 
@@ -29664,6 +29790,8 @@ namespace IFC4
 
         //TArrayElem[] may be IfcPositiveInteger[] or array of convertible elements
         template <typename TArrayElem> void put_PnIndex(TArrayElem arr[], size_t n) { ListOfIfcPositiveInteger lst; ArrayToList(arr, n, lst); put_PnIndex(lst); }
+
+        Nullable<IfcInteger> get_NumberOfTriangles() { IfcInteger val = (IfcInteger) 0; if (sdaiGetAttrBN(m_instance, "NumberOfTriangles", sdaiINTEGER, &val)) return val; else return Nullable<IfcInteger>(); }
     };
 
 
@@ -30055,6 +30183,8 @@ namespace IFC4
 
         Nullable<IfcLengthMeasure> get_Magnitude() { IfcLengthMeasure val = (IfcLengthMeasure) 0; if (sdaiGetAttrBN(m_instance, "Magnitude", sdaiREAL, &val)) return val; else return Nullable<IfcLengthMeasure>(); }
         void put_Magnitude(IfcLengthMeasure value) { sdaiPutAttrBN(m_instance, "Magnitude", sdaiREAL, &value); }
+
+        Nullable<IfcDimensionCount> get_Dim() { IfcDimensionCount val = (IfcDimensionCount) 0; if (sdaiGetAttrBN(m_instance, "Dim", sdaiINTEGER, &val)) return val; else return Nullable<IfcDimensionCount>(); }
     };
 
 
@@ -31400,6 +31530,7 @@ namespace IFC4
     inline void IfcPlacement::put_Location(IfcCartesianPoint inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Location", sdaiINSTANCE, (void*) i); }
     inline IfcDirection IfcAxis1Placement::get_Axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Axis", sdaiINSTANCE, &inst); return inst; }
     inline void IfcAxis1Placement::put_Axis(IfcDirection inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Axis", sdaiINSTANCE, (void*) i); }
+    inline IfcDirection IfcAxis1Placement::get_Z() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Z", sdaiINSTANCE, &inst); return inst; }
     inline IfcDirection IfcAxis2Placement2D::get_RefDirection() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "RefDirection", sdaiINSTANCE, &inst); return inst; }
     inline void IfcAxis2Placement2D::put_RefDirection(IfcDirection inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "RefDirection", sdaiINSTANCE, (void*) i); }
     inline IfcDirection IfcAxis2Placement3D::get_Axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Axis", sdaiINSTANCE, &inst); return inst; }
@@ -31460,6 +31591,7 @@ namespace IFC4
     inline void IfcDerivedProfileDef::put_ParentProfile(IfcProfileDef inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ParentProfile", sdaiINSTANCE, (void*) i); }
     inline IfcCartesianTransformationOperator2D IfcDerivedProfileDef::get_Operator() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Operator", sdaiINSTANCE, &inst); return inst; }
     inline void IfcDerivedProfileDef::put_Operator(IfcCartesianTransformationOperator2D inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Operator", sdaiINSTANCE, (void*) i); }
+    inline IfcDimensionalExponents IfcDerivedUnit::get_Dimensions() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Dimensions", sdaiINSTANCE, &inst); return inst; }
     inline IfcNamedUnit IfcDerivedUnitElement::get_Unit() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Unit", sdaiINSTANCE, &inst); return inst; }
     inline void IfcDerivedUnitElement::put_Unit(IfcNamedUnit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Unit", sdaiINSTANCE, (void*) i); }
     inline IfcDocumentInformation IfcDocumentInformationRelationship::get_RelatingDocument() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "RelatingDocument", sdaiINSTANCE, &inst); return inst; }
@@ -31743,6 +31875,7 @@ namespace IFC4
     inline void IfcResourceConstraintRelationship::put_RelatingConstraint(IfcConstraint inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "RelatingConstraint", sdaiINSTANCE, (void*) i); }
     inline IfcAxis1Placement IfcRevolvedAreaSolid::get_Axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "Axis", sdaiINSTANCE, &inst); return inst; }
     inline void IfcRevolvedAreaSolid::put_Axis(IfcAxis1Placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Axis", sdaiINSTANCE, (void*) i); }
+    inline IfcLine IfcRevolvedAreaSolid::get_AxisLine() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "AxisLine", sdaiINSTANCE, &inst); return inst; }
     inline IfcProfileDef IfcRevolvedAreaSolidTapered::get_EndSweptArea() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "EndSweptArea", sdaiINSTANCE, &inst); return inst; }
     inline void IfcRevolvedAreaSolidTapered::put_EndSweptArea(IfcProfileDef inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "EndSweptArea", sdaiINSTANCE, (void*) i); }
     inline IfcCompositeCurve IfcSectionedSpine::get_SpineCurve() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "SpineCurve", sdaiINSTANCE, &inst); return inst; }
@@ -31787,8 +31920,10 @@ namespace IFC4
     inline void IfcSweptSurface::put_Position(IfcAxis2Placement3D inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "Position", sdaiINSTANCE, (void*) i); }
     inline IfcDirection IfcSurfaceOfLinearExtrusion::get_ExtrudedDirection() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ExtrudedDirection", sdaiINSTANCE, &inst); return inst; }
     inline void IfcSurfaceOfLinearExtrusion::put_ExtrudedDirection(IfcDirection inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ExtrudedDirection", sdaiINSTANCE, (void*) i); }
+    inline IfcVector IfcSurfaceOfLinearExtrusion::get_ExtrusionAxis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ExtrusionAxis", sdaiINSTANCE, &inst); return inst; }
     inline IfcAxis1Placement IfcSurfaceOfRevolution::get_AxisPosition() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "AxisPosition", sdaiINSTANCE, &inst); return inst; }
     inline void IfcSurfaceOfRevolution::put_AxisPosition(IfcAxis1Placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "AxisPosition", sdaiINSTANCE, (void*) i); }
+    inline IfcLine IfcSurfaceOfRevolution::get_AxisLine() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "AxisLine", sdaiINSTANCE, &inst); return inst; }
     inline IfcColourRgb IfcSurfaceStyleLighting::get_DiffuseTransmissionColour() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "DiffuseTransmissionColour", sdaiINSTANCE, &inst); return inst; }
     inline void IfcSurfaceStyleLighting::put_DiffuseTransmissionColour(IfcColourRgb inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "DiffuseTransmissionColour", sdaiINSTANCE, (void*) i); }
     inline IfcColourRgb IfcSurfaceStyleLighting::get_DiffuseReflectionColour() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "DiffuseReflectionColour", sdaiINSTANCE, &inst); return inst; }

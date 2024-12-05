@@ -47,7 +47,7 @@ namespace RDFWrappers
         public static void WriteAttribute (Generator generator, Attribute attr)
         {
             var aggr = new Aggregation(generator, attr);
-            aggr.WriteAttribute(attr.name, attr.inverse);
+            aggr.WriteAttribute(attr.name, attr.direct);
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace RDFWrappers
             return template;
         }
 
-        private void WriteAttribute(string attrName, bool isInverse)
+        private void WriteAttribute(string attrName, bool isDirect)
         {
             string aggrTypeName = null;
             bool nested = false;
@@ -346,7 +346,7 @@ namespace RDFWrappers
             }
             else
             {
-                throw new ApplicationException("unsupprorted aggregation " + typeDef.ToString());
+                throw new ApplicationException("unsupported aggregation " + typeDef.ToString());
             }
 
             if (template != Generator.Template.None)
@@ -360,8 +360,8 @@ namespace RDFWrappers
                     generator.m_replacements[Generator.KWD_REF_ENTITY] = elemApiType;
                     generator.m_replacements[Generator.KWD_TypeNameIFC] = elemIfcType;
 
-                    generator.WriteGetPut(Generator.Template.AttributeAggregationGet, Generator.Template.AttributeAggregationPut, isInverse);
-                    if (!nested && sdaiType != null && !isInverse)
+                    generator.WriteGetPut(Generator.Template.AttributeAggregationGet, Generator.Template.AttributeAggregationPut, isDirect);
+                    if (!nested && sdaiType != null && isDirect)
                     {
                         generator.WriteByTemplate(Generator.Template.AttributeAggregationPutArray);
                     }

@@ -9636,6 +9636,8 @@ namespace IFC4
     class SetOfIfcProfilePropertiesSerializer : AggrSerializerInstance<IfcProfileProperties, SetOfIfcProfileProperties> { }
     public class SetOfIfcRelAssignsToGroup : List<IfcRelAssignsToGroup> { }
     class SetOfIfcRelAssignsToGroupSerializer : AggrSerializerInstance<IfcRelAssignsToGroup, SetOfIfcRelAssignsToGroup> { }
+    public class ListOfIfcDirection : List<IfcDirection> { }
+    class ListOfIfcDirectionSerializer : AggrSerializerInstance<IfcDirection, ListOfIfcDirection> { }
     public class ListOfIfcIdentifier : List<TextValue> { }
     class ListOfIfcIdentifierSerializer : AggrSerializerText<TextValue, ListOfIfcIdentifier> { public ListOfIfcIdentifierSerializer() : base(ifcengine.sdaiSTRING) { } }
     public class SetOfIfcTextureCoordinate : List<IfcTextureCoordinate> { }
@@ -9644,14 +9646,20 @@ namespace IFC4
     class SetOfIfcSurfaceStyleWithTexturesSerializer : AggrSerializerInstance<IfcSurfaceStyleWithTextures, SetOfIfcSurfaceStyleWithTextures> { }
     public class ListOfIfcCompositeCurveSegment : List<IfcCompositeCurveSegment> { }
     class ListOfIfcCompositeCurveSegmentSerializer : AggrSerializerInstance<IfcCompositeCurveSegment, ListOfIfcCompositeCurveSegment> { }
+    public class SetOfIfcSurface : List<IfcSurface> { }
+    class SetOfIfcSurfaceSerializer : AggrSerializerInstance<IfcSurface, SetOfIfcSurface> { }
     public class ListOfIfcCartesianPoint : List<IfcCartesianPoint> { }
     class ListOfIfcCartesianPointSerializer : AggrSerializerInstance<IfcCartesianPoint, ListOfIfcCartesianPoint> { }
+    public class ArrayOfIfcCartesianPoint : List<IfcCartesianPoint> { }
+    class ArrayOfIfcCartesianPointSerializer : AggrSerializerInstance<IfcCartesianPoint, ArrayOfIfcCartesianPoint> { }
     public class ListOfIfcInteger : List<IntValue> { }
     class ListOfIfcIntegerSerializer : AggrSerializer_IntValue<IntValue, ListOfIfcInteger> { }
     public class ListOfIfcParameterValue : List<double> { }
     class ListOfIfcParameterValueSerializer : AggrSerializer_double<double, ListOfIfcParameterValue> { }
     public class ListOfListOfIfcCartesianPoint : List<ListOfIfcCartesianPoint> { }
     class ListOfListOfIfcCartesianPointSerializer : AggrSerializerAggr<ListOfIfcCartesianPoint, ListOfIfcCartesianPointSerializer, ListOfListOfIfcCartesianPoint> { }
+    public class ArrayOfArrayOfIfcCartesianPoint : List<ArrayOfIfcCartesianPoint> { }
+    class ArrayOfArrayOfIfcCartesianPointSerializer : AggrSerializerAggr<ArrayOfIfcCartesianPoint, ArrayOfIfcCartesianPointSerializer, ArrayOfArrayOfIfcCartesianPoint> { }
     public class SetOfIfcRelServicesBuildings : List<IfcRelServicesBuildings> { }
     class SetOfIfcRelServicesBuildingsSerializer : AggrSerializerInstance<IfcRelServicesBuildings, SetOfIfcRelServicesBuildings> { }
     public class ListOfIfcLengthMeasure : List<double> { }
@@ -9836,8 +9844,12 @@ namespace IFC4
     class SetOfIfcPresentationStyleSelectSerializer : AggrSerializerSelect<IfcPresentationStyleSelect, SetOfIfcPresentationStyleSelect> { }
     public class SetOfIfcShapeAspect : List<IfcShapeAspect> { }
     class SetOfIfcShapeAspectSerializer : AggrSerializerInstance<IfcShapeAspect, SetOfIfcShapeAspect> { }
+    public class ArrayOfIfcReal : List<double> { }
+    class ArrayOfIfcRealSerializer : AggrSerializer_double<double, ArrayOfIfcReal> { }
     public class ListOfListOfIfcReal : List<ListOfIfcReal> { }
     class ListOfListOfIfcRealSerializer : AggrSerializerAggr<ListOfIfcReal, ListOfIfcRealSerializer, ListOfListOfIfcReal> { }
+    public class ArrayOfArrayOfIfcReal : List<ArrayOfIfcReal> { }
+    class ArrayOfArrayOfIfcRealSerializer : AggrSerializerAggr<ArrayOfIfcReal, ArrayOfIfcRealSerializer, ArrayOfArrayOfIfcReal> { }
     public class SetOfIfcDayInMonthNumber : List<IntValue> { }
     class SetOfIfcDayInMonthNumberSerializer : AggrSerializer_IntValue<IntValue, SetOfIfcDayInMonthNumber> { }
     public class SetOfIfcDayInWeekNumber : List<IntValue> { }
@@ -10578,6 +10590,7 @@ namespace IFC4
 
         public static implicit operator IfcSolidModel(SdaiInstance instance) => new IfcSolidModel(instance);
 
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcSolidModel"; }
     };
@@ -11918,6 +11931,7 @@ namespace IFC4
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Location", ifcengine.sdaiINSTANCE, out inst); return new IfcCartesianPoint(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "Location", ifcengine.sdaiINSTANCE, i); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcPlacement"; }
     };
@@ -11948,6 +11962,7 @@ namespace IFC4
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "Axis", ifcengine.sdaiINSTANCE, i); }
             }
+        public IfcDirection Z { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Z", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection(inst); } }
 
         protected override TextValue EntityName() { return "IfcAxis1Placement"; }
     };
@@ -11978,6 +11993,7 @@ namespace IFC4
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, i); }
             }
+        public ListOfIfcDirection P { get { return (new ListOfIfcDirectionSerializer()).FromAttr(m_instance, "P"); } }
 
         protected override TextValue EntityName() { return "IfcAxis2Placement2D"; }
     };
@@ -12013,6 +12029,7 @@ namespace IFC4
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "RefDirection", ifcengine.sdaiINSTANCE, i); }
             }
+        public ListOfIfcDirection P { get { return (new ListOfIfcDirectionSerializer()).FromAttr(m_instance, "P"); } }
 
         protected override TextValue EntityName() { return "IfcAxis2Placement3D"; }
     };
@@ -12263,6 +12280,7 @@ namespace IFC4
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis2Placement3D(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "Position", ifcengine.sdaiINSTANCE, i); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcCsgPrimitive3D"; }
     };
@@ -12403,6 +12421,7 @@ namespace IFC4
             {
             get { return new IfcBooleanOperand(m_instance, "SecondOperand", 0); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcBooleanResult"; }
     };
@@ -12473,6 +12492,7 @@ namespace IFC4
 
         public static implicit operator IfcCurve(SdaiInstance instance) => new IfcCurve(instance);
 
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcCurve"; }
     };
@@ -12526,6 +12546,8 @@ namespace IFC4
             get { var str = get_string("SelfIntersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "SelfIntersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? NSegments { get { return get_IntValue("NSegments", ifcengine.sdaiINTEGER); } }
+        public LOGICAL_VALUE? ClosedCurve { get { var str = get_string("ClosedCurve", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
 
         protected override TextValue EntityName() { return "IfcCompositeCurve"; }
     };
@@ -12551,6 +12573,7 @@ namespace IFC4
         /// </summary>
         public static new IfcCompositeCurveOnSurface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCompositeCurveOnSurface"); Debug.Assert(inst != 0); return inst; }
 
+        public SetOfIfcSurface BasisSurface { get { return (new SetOfIfcSurfaceSerializer()).FromAttr(m_instance, "BasisSurface"); } }
 
         protected override TextValue EntityName() { return "IfcCompositeCurveOnSurface"; }
     };
@@ -12776,6 +12799,7 @@ namespace IFC4
 
         public static implicit operator IfcSurface(SdaiInstance instance) => new IfcSurface(instance);
 
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcSurface"; }
     };
@@ -12841,6 +12865,7 @@ namespace IFC4
             get { return get_double("ZDim", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "ZDim", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcBoundingBox"; }
     };
@@ -12876,6 +12901,7 @@ namespace IFC4
             get { return get_bool("AgreementFlag", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "AgreementFlag", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcHalfSpaceSolid"; }
     };
@@ -12949,6 +12975,8 @@ namespace IFC4
             get { var str = get_string("SelfIntersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "SelfIntersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? UpperIndexOnControlPoints { get { return get_IntValue("UpperIndexOnControlPoints", ifcengine.sdaiINTEGER); } }
+        public ArrayOfIfcCartesianPoint ControlPoints { get { return (new ArrayOfIfcCartesianPointSerializer()).FromAttr(m_instance, "ControlPoints"); } }
 
         protected override TextValue EntityName() { return "IfcBSplineCurve"; }
     };
@@ -12985,6 +13013,7 @@ namespace IFC4
             get { var str = get_string("KnotSpec", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcKnotType_); return EnumValue<IfcKnotType>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<IfcKnotType>.FromValue(value.Value, EnumNames.IfcKnotType_); ifcengine.sdaiPutAttrBN(m_instance, "KnotSpec", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? UpperIndexOnKnots { get { return get_IntValue("UpperIndexOnKnots", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcBSplineCurveWithKnots"; }
     };
@@ -13038,6 +13067,9 @@ namespace IFC4
             get { var str = get_string("SelfIntersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "SelfIntersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? UUpper { get { return get_IntValue("UUpper", ifcengine.sdaiINTEGER); } }
+        public IntValue? VUpper { get { return get_IntValue("VUpper", ifcengine.sdaiINTEGER); } }
+        public ArrayOfArrayOfIfcCartesianPoint ControlPoints { get { return (new ArrayOfArrayOfIfcCartesianPointSerializer()).FromAttr(m_instance, "ControlPoints"); } }
 
         protected override TextValue EntityName() { return "IfcBSplineSurface"; }
     };
@@ -13080,6 +13112,8 @@ namespace IFC4
             get { var str = get_string("KnotSpec", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcKnotType_); return EnumValue<IfcKnotType>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<IfcKnotType>.FromValue(value.Value, EnumNames.IfcKnotType_); ifcengine.sdaiPutAttrBN(m_instance, "KnotSpec", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? KnotVUpper { get { return get_IntValue("KnotVUpper", ifcengine.sdaiINTEGER); } }
+        public IntValue? KnotUUpper { get { return get_IntValue("KnotUUpper", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcBSplineSurfaceWithKnots"; }
     };
@@ -13862,6 +13896,7 @@ namespace IFC4
         public ListOfIfcLengthMeasure Coordinates { get { return (new ListOfIfcLengthMeasureSerializer()).FromAttr(m_instance, "Coordinates"); } }
         public void put_Coordinates(IEnumerable<double> lst) { (new ListOfIfcLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "Coordinates"); }
         public void put_Coordinates_untyped(IEnumerable lst) { (new ListOfIfcLengthMeasureSerializer()).ToSdaiAggr(lst, m_instance, "Coordinates"); }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcCartesianPoint"; }
     };
@@ -13882,6 +13917,7 @@ namespace IFC4
 
         public static implicit operator IfcCartesianPointList(SdaiInstance instance) => new IfcCartesianPointList(instance);
 
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcCartesianPointList"; }
     };
@@ -13978,6 +14014,8 @@ namespace IFC4
             get { return get_double("Scale", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "Scale", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? Scl { get { return get_double("Scl", ifcengine.sdaiREAL); } }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator"; }
     };
@@ -14003,6 +14041,7 @@ namespace IFC4
         /// </summary>
         public static new IfcCartesianTransformationOperator2D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "IfcCartesianTransformationOperator2D"); Debug.Assert(inst != 0); return inst; }
 
+        public ListOfIfcDirection U { get { return (new ListOfIfcDirectionSerializer()).FromAttr(m_instance, "U"); } }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator2D"; }
     };
@@ -14033,6 +14072,7 @@ namespace IFC4
             get { return get_double("Scale2", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "Scale2", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? Scl2 { get { return get_double("Scl2", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator2DnonUniform"; }
     };
@@ -14063,6 +14103,7 @@ namespace IFC4
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Axis3", ifcengine.sdaiINSTANCE, out inst); return new IfcDirection(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "Axis3", ifcengine.sdaiINSTANCE, i); }
             }
+        public ListOfIfcDirection U { get { return (new ListOfIfcDirectionSerializer()).FromAttr(m_instance, "U"); } }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator3D"; }
     };
@@ -14098,6 +14139,8 @@ namespace IFC4
             get { return get_double("Scale3", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "Scale3", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? Scl2 { get { return get_double("Scl2", ifcengine.sdaiREAL); } }
+        public double? Scl3 { get { return get_double("Scl3", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "IfcCartesianTransformationOperator3DnonUniform"; }
     };
@@ -15155,6 +15198,7 @@ namespace IFC4
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ParentCurve", ifcengine.sdaiINSTANCE, i); }
             }
         public SetOfIfcCompositeCurve UsingCurves { get { return (new SetOfIfcCompositeCurveSerializer()).FromAttr(m_instance, "UsingCurves"); } }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcCompositeCurveSegment"; }
     };
@@ -17206,6 +17250,7 @@ namespace IFC4
             get { return get_string("UserDefinedType", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "UserDefinedType", ifcengine.sdaiSTRING, value); }
             }
+        public IfcDimensionalExponents Dimensions { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "Dimensions", ifcengine.sdaiINSTANCE, out inst); return new IfcDimensionalExponents(inst); } }
 
         protected override TextValue EntityName() { return "IfcDerivedUnit"; }
     };
@@ -17329,6 +17374,7 @@ namespace IFC4
         public ListOfIfcReal DirectionRatios { get { return (new ListOfIfcRealSerializer()).FromAttr(m_instance, "DirectionRatios"); } }
         public void put_DirectionRatios(IEnumerable<double> lst) { (new ListOfIfcRealSerializer()).ToSdaiAggr(lst, m_instance, "DirectionRatios"); }
         public void put_DirectionRatios_untyped(IEnumerable lst) { (new ListOfIfcRealSerializer()).ToSdaiAggr(lst, m_instance, "DirectionRatios"); }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcDirection"; }
     };
@@ -18569,6 +18615,7 @@ namespace IFC4
         public ListOfIfcOrientedEdge EdgeList { get { return (new ListOfIfcOrientedEdgeSerializer()).FromAttr(m_instance, "EdgeList"); } }
         public void put_EdgeList(IEnumerable<IfcOrientedEdge> lst) { (new ListOfIfcOrientedEdgeSerializer()).ToSdaiAggr(lst, m_instance, "EdgeList"); }
         public void put_EdgeList_untyped(IEnumerable lst) { (new ListOfIfcOrientedEdgeSerializer()).ToSdaiAggr(lst, m_instance, "EdgeList"); }
+        public IntValue? Ne { get { return get_IntValue("Ne", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcEdgeLoop"; }
     };
@@ -19891,6 +19938,7 @@ namespace IFC4
         public SetOfIfcConnectedFaceSet FbsmFaces { get { return (new SetOfIfcConnectedFaceSetSerializer()).FromAttr(m_instance, "FbsmFaces"); } }
         public void put_FbsmFaces(IEnumerable<IfcConnectedFaceSet> lst) { (new SetOfIfcConnectedFaceSetSerializer()).ToSdaiAggr(lst, m_instance, "FbsmFaces"); }
         public void put_FbsmFaces_untyped(IEnumerable lst) { (new SetOfIfcConnectedFaceSetSerializer()).ToSdaiAggr(lst, m_instance, "FbsmFaces"); }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcFaceBasedSurfaceModel"; }
     };
@@ -20933,6 +20981,7 @@ namespace IFC4
         public SetOfIfcGeometricSetSelect Elements { get { return (new SetOfIfcGeometricSetSelectSerializer()).FromAttr(m_instance, "Elements"); } }
         public void put_Elements(IEnumerable<IfcGeometricSetSelect> lst) { (new SetOfIfcGeometricSetSelectSerializer()).ToSdaiAggr(lst, m_instance, "Elements"); }
         public void put_Elements_untyped(IEnumerable lst) { (new SetOfIfcGeometricSetSelectSerializer()).ToSdaiAggr(lst, m_instance, "Elements"); }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcGeometricSet"; }
     };
@@ -21709,6 +21758,7 @@ namespace IFC4
             get { var str = get_string("MasterRepresentation", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.IfcPreferredSurfaceCurveRepresentation_); return EnumValue<IfcPreferredSurfaceCurveRepresentation>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<IfcPreferredSurfaceCurveRepresentation>.FromValue(value.Value, EnumNames.IfcPreferredSurfaceCurveRepresentation_); ifcengine.sdaiPutAttrBN(m_instance, "MasterRepresentation", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public SetOfIfcSurface BasisSurface { get { return (new SetOfIfcSurfaceSerializer()).FromAttr(m_instance, "BasisSurface"); } }
 
         protected override TextValue EntityName() { return "IfcSurfaceCurve"; }
     };
@@ -23221,6 +23271,7 @@ namespace IFC4
             get { return get_string("Description", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "Description", ifcengine.sdaiSTRING, value); }
             }
+        public double? TotalThickness { get { return get_double("TotalThickness", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "IfcMaterialLayerSet"; }
     };
@@ -25369,6 +25420,7 @@ namespace IFC4
             get { return get_double("PointParameter", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "PointParameter", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcPointOnCurve"; }
     };
@@ -25409,6 +25461,7 @@ namespace IFC4
             get { return get_double("PointParameterV", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "PointParameterV", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcPointOnSurface"; }
     };
@@ -25471,6 +25524,7 @@ namespace IFC4
             }
         public SetOfIfcIndexedColourMap HasColours { get { return (new SetOfIfcIndexedColourMapSerializer()).FromAttr(m_instance, "HasColours"); } }
         public SetOfIfcIndexedTextureMap HasTextures { get { return (new SetOfIfcIndexedTextureMapSerializer()).FromAttr(m_instance, "HasTextures"); } }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcTessellatedFaceSet"; }
     };
@@ -27082,6 +27136,7 @@ namespace IFC4
         public ListOfIfcReal WeightsData { get { return (new ListOfIfcRealSerializer()).FromAttr(m_instance, "WeightsData"); } }
         public void put_WeightsData(IEnumerable<double> lst) { (new ListOfIfcRealSerializer()).ToSdaiAggr(lst, m_instance, "WeightsData"); }
         public void put_WeightsData_untyped(IEnumerable lst) { (new ListOfIfcRealSerializer()).ToSdaiAggr(lst, m_instance, "WeightsData"); }
+        public ArrayOfIfcReal Weights { get { return (new ArrayOfIfcRealSerializer()).FromAttr(m_instance, "Weights"); } }
 
         protected override TextValue EntityName() { return "IfcRationalBSplineCurveWithKnots"; }
     };
@@ -27110,6 +27165,7 @@ namespace IFC4
         public ListOfListOfIfcReal WeightsData { get { return (new ListOfListOfIfcRealSerializer()).FromAttr(m_instance, "WeightsData"); } }
         public void put_WeightsData(IEnumerable<ListOfIfcReal> lst) { (new ListOfListOfIfcRealSerializer()).ToSdaiAggr(lst, m_instance, "WeightsData"); }
         public void put_WeightsData_untyped(IEnumerable lst) { (new ListOfListOfIfcRealSerializer()).ToSdaiAggr(lst, m_instance, "WeightsData"); }
+        public ArrayOfArrayOfIfcReal Weights { get { return (new ArrayOfArrayOfIfcRealSerializer()).FromAttr(m_instance, "Weights"); } }
 
         protected override TextValue EntityName() { return "IfcRationalBSplineSurfaceWithKnots"; }
     };
@@ -29712,6 +29768,7 @@ namespace IFC4
             get { return get_double("Angle", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "Angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public IfcLine AxisLine { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AxisLine", ifcengine.sdaiINSTANCE, out inst); return new IfcLine(inst); } }
 
         protected override TextValue EntityName() { return "IfcRevolvedAreaSolid"; }
     };
@@ -30023,6 +30080,7 @@ namespace IFC4
         public ListOfIfcAxis2Placement3D CrossSectionPositions { get { return (new ListOfIfcAxis2Placement3DSerializer()).FromAttr(m_instance, "CrossSectionPositions"); } }
         public void put_CrossSectionPositions(IEnumerable<IfcAxis2Placement3D> lst) { (new ListOfIfcAxis2Placement3DSerializer()).ToSdaiAggr(lst, m_instance, "CrossSectionPositions"); }
         public void put_CrossSectionPositions_untyped(IEnumerable lst) { (new ListOfIfcAxis2Placement3DSerializer()).ToSdaiAggr(lst, m_instance, "CrossSectionPositions"); }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcSectionedSpine"; }
     };
@@ -30358,6 +30416,7 @@ namespace IFC4
         public SetOfIfcShell SbsmBoundary { get { return (new SetOfIfcShellSerializer()).FromAttr(m_instance, "SbsmBoundary"); } }
         public void put_SbsmBoundary(IEnumerable<IfcShell> lst) { (new SetOfIfcShellSerializer()).ToSdaiAggr(lst, m_instance, "SbsmBoundary"); }
         public void put_SbsmBoundary_untyped(IEnumerable lst) { (new SetOfIfcShellSerializer()).ToSdaiAggr(lst, m_instance, "SbsmBoundary"); }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcShellBasedSurfaceModel"; }
     };
@@ -32676,6 +32735,7 @@ namespace IFC4
             get { return get_double("Depth", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "Depth", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public IfcVector ExtrusionAxis { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ExtrusionAxis", ifcengine.sdaiINSTANCE, out inst); return new IfcVector(inst); } }
 
         protected override TextValue EntityName() { return "IfcSurfaceOfLinearExtrusion"; }
     };
@@ -32706,6 +32766,7 @@ namespace IFC4
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AxisPosition", ifcengine.sdaiINSTANCE, out inst); return new IfcAxis1Placement(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "AxisPosition", ifcengine.sdaiINSTANCE, i); }
             }
+        public IfcLine AxisLine { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "AxisLine", ifcengine.sdaiINSTANCE, out inst); return new IfcLine(inst); } }
 
         protected override TextValue EntityName() { return "IfcSurfaceOfRevolution"; }
     };
@@ -33214,6 +33275,9 @@ namespace IFC4
         public ListOfIfcTableColumn Columns { get { return (new ListOfIfcTableColumnSerializer()).FromAttr(m_instance, "Columns"); } }
         public void put_Columns(IEnumerable<IfcTableColumn> lst) { (new ListOfIfcTableColumnSerializer()).ToSdaiAggr(lst, m_instance, "Columns"); }
         public void put_Columns_untyped(IEnumerable lst) { (new ListOfIfcTableColumnSerializer()).ToSdaiAggr(lst, m_instance, "Columns"); }
+        public IntValue? NumberOfCellsInRow { get { return get_IntValue("NumberOfCellsInRow", ifcengine.sdaiINTEGER); } }
+        public IntValue? NumberOfHeadings { get { return get_IntValue("NumberOfHeadings", ifcengine.sdaiINTEGER); } }
+        public IntValue? NumberOfDataRows { get { return get_IntValue("NumberOfDataRows", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcTable"; }
     };
@@ -34516,6 +34580,7 @@ namespace IFC4
         public ListOfIfcPositiveInteger PnIndex { get { return (new ListOfIfcPositiveIntegerSerializer()).FromAttr(m_instance, "PnIndex"); } }
         public void put_PnIndex(IEnumerable<IntValue> lst) { (new ListOfIfcPositiveIntegerSerializer()).ToSdaiAggr(lst, m_instance, "PnIndex"); }
         public void put_PnIndex_untyped(IEnumerable lst) { (new ListOfIfcPositiveIntegerSerializer()).ToSdaiAggr(lst, m_instance, "PnIndex"); }
+        public IntValue? NumberOfTriangles { get { return get_IntValue("NumberOfTriangles", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcTriangulatedFaceSet"; }
     };
@@ -34995,6 +35060,7 @@ namespace IFC4
             get { return get_double("Magnitude", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "Magnitude", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? Dim { get { return get_IntValue("Dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "IfcVector"; }
     };

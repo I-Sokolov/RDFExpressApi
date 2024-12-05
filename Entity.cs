@@ -12,12 +12,12 @@ namespace RDFWrappers
     class Entity
     {
         public string name;
-        public ExpressHandle inst;
+        public ExpressHandle sdaiEntity;
 
-        public Entity(ExpressHandle inst)
+        public Entity(ExpressHandle sdaiEntity)
         {
-            this.name = Schema.GetNameOfDeclaration (inst);
-            this.inst = inst;
+            this.name = Schema.GetNameOfDeclaration (sdaiEntity);
+            this.sdaiEntity = sdaiEntity;
         }
 
         
@@ -29,55 +29,58 @@ namespace RDFWrappers
         {
             var ret = new List<Attribute>();
 
-            var nattr = ifcengine.engiGetEntityNoAttributes(inst);
-            for (int i = 0; i < nattr; i++)
+            var model = ifcengine.engiGetEntityModel(sdaiEntity);
+            var modelName = ifcengine.GetSchemaName (model);
+            var isIFC = modelName.StartsWith("ifc", StringComparison.OrdinalIgnoreCase);
+
+            ExpressHandle attribute = 0;
+            while (0 != (attribute = ifcengine.engiGetEntityAttributeByIterator(sdaiEntity, attribute)))
             {
-                var attribute = ifcengine.engiGetEntityAttributeByIndex(inst, i, true, true);
-                System.Diagnostics.Debug.Assert(attribute != 0);
+                IntPtr ptrName = IntPtr.Zero;
+                Int64 definingEntity, domainEntity, aggregation;
+                enum_express_attr_type attrType;
+                bool inverse, direct, optional;
 
-                if (attribute != 0)
+                ifcengine.engiGetAttrTraits
+                                (attribute,
+                                out ptrName,
+                                out definingEntity, out direct, out inverse,
+                                out attrType, out domainEntity,
+                                out aggregation,
+                                out optional
+                                );
+
+                if (!isIFC && !inverse && !direct)
                 {
-                    IntPtr ptrName = IntPtr.Zero;
-                    Int64 definingEntity, domainEntity, aggregation;
-                    enum_express_attr_type attrType;
-                    bool inverse, optional;
-
-                    ifcengine.engiGetAttrTraits
-                                    (attribute,
-                                    out ptrName,
-                                    out definingEntity, out _, out inverse,
-                                    out attrType, out domainEntity,
-                                    out aggregation,
-                                    out optional
-                                    );
-
-                    var prop = new Attribute
-                    {
-                        name = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptrName),
-                        definingEntity = definingEntity,
-                        inverse = inverse,
-                        attrType = attrType,
-                        domain = domainEntity,
-                        aggregation = aggregation,
-                        optional = optional                        
-                    };
-
-                    //check duplications
-                    bool add = true;
-                    foreach (var a in ret)
-                    {
-                        if (a.name == prop.name)
-                        {
-                            //see AP242 abstract_variable  System.Diagnostics.Debug.Assert(false);
-                            add = false;
-                            break;
-                        }
-                    }
-
-                    //
-                    if (add)
-                        ret.Add(prop);
+                    break;
                 }
+
+                var prop = new Attribute
+                {
+                    name = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptrName),
+                    definingEntity = definingEntity,
+                    direct = direct,
+                    attrType = attrType,
+                    domain = domainEntity,
+                    aggregation = aggregation,
+                    optional = optional
+                };
+
+                //check duplications
+                bool add = true;
+                foreach (var a in ret)
+                {
+                    if (a.name == prop.name)
+                    {
+                        //see AP242 abstract_variable  System.Diagnostics.Debug.Assert(false);
+                        add = false;
+                        break;
+                    }
+                }
+
+                //
+                if (add)
+                    ret.Add(prop);
             }
 
             return ret;
@@ -90,7 +93,7 @@ namespace RDFWrappers
             int ind = 0;
             while (true)
             {
-                var parentId = ifcengine.engiGetEntityParentEx(inst, ind++);
+                var parentId = ifcengine.engiGetEntityParentEx(sdaiEntity, ind++);
                 if (parentId == 0)
                     break;
                 ret.Add(parentId);
@@ -121,7 +124,7 @@ namespace RDFWrappers
 
         public bool IsAbstract()
         {
-            return 0!=ifcengine.engiGetEntityIsAbstract(inst);
+            return 0!=ifcengine.engiGetEntityIsAbstract(sdaiEntity);
         }
     }
 }

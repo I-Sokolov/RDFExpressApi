@@ -16,7 +16,7 @@ namespace RDFWrappers
     {
         public string name;
         public ExpressHandle definingEntity;
-        public bool inverse;
+        public bool direct;
         public bool optional;
 
         private string DefiningEntity { get { return Schema.GetNameOfDeclaration(definingEntity); } }
@@ -28,9 +28,9 @@ namespace RDFWrappers
 
             str.Append(name + ": ");
 
-            if (inverse)
+            if (direct)
             {
-                str.Append("inverse ");
+                str.Append("direct ");
             }
 
             str.Append(base.ToString());
