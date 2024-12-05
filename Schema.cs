@@ -135,13 +135,13 @@ namespace RDFWrappers
             Int64 it = 0;
             while (0 != (it = ifcengine.engiGetNextTypeDeclarationIterator(m_model, it)))
             {
-                ExpressHandle defenition = ifcengine.engiGetTypeDeclarationFromIterator(m_model, it);
+                ExpressHandle difenition = ifcengine.engiGetTypeDeclarationFromIterator(m_model, it);
 
-                var name = GetNameOfDeclaration(defenition);
-                var type = ifcengine.engiGetDeclarationType(defenition);
+                var name = GetNameOfDeclaration(difenition);
+                var type = ifcengine.engiGetDeclarationType(difenition);
 
                 var defs = m_declarations[type];
-                defs.Add(name, defenition);
+                defs.Add(name, difenition);
             }
         }
 
