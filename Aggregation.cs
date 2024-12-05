@@ -47,7 +47,7 @@ namespace RDFWrappers
         public static void WriteAttribute (Generator generator, Attribute attr)
         {
             var aggr = new Aggregation(generator, attr);
-            aggr.WriteAttribute(attr.name, attr.direct);
+            aggr.WriteAttribute(attr.name, attr.explicit_);
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace RDFWrappers
             return template;
         }
 
-        private void WriteAttribute(string attrName, bool isDirect)
+        private void WriteAttribute(string attrName, bool explicit_)
         {
             string aggrTypeName = null;
             bool nested = false;
@@ -360,8 +360,8 @@ namespace RDFWrappers
                     generator.m_replacements[Generator.KWD_REF_ENTITY] = elemApiType;
                     generator.m_replacements[Generator.KWD_TypeNameIFC] = elemIfcType;
 
-                    generator.WriteGetPut(Generator.Template.AttributeAggregationGet, Generator.Template.AttributeAggregationPut, isDirect);
-                    if (!nested && sdaiType != null && isDirect)
+                    generator.WriteGetPut(Generator.Template.AttributeAggregationGet, Generator.Template.AttributeAggregationPut, explicit_);
+                    if (!nested && sdaiType != null && explicit_)
                     {
                         generator.WriteByTemplate(Generator.Template.AttributeAggregationPutArray);
                     }

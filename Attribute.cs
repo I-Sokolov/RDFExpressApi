@@ -16,7 +16,7 @@ namespace RDFWrappers
     {
         public string name;
         public ExpressHandle definingEntity;
-        public bool direct;
+        public bool explicit_;
         public bool optional;
 
         private string DefiningEntity { get { return Schema.GetNameOfDeclaration(definingEntity); } }
@@ -28,9 +28,9 @@ namespace RDFWrappers
 
             str.Append(name + ": ");
 
-            if (direct)
+            if (explicit_)
             {
-                str.Append("direct ");
+                str.Append("explicit ");
             }
 
             str.Append(base.ToString());
