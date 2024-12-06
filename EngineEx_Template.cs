@@ -694,8 +694,11 @@ namespace NAMESPACE_NAME
         public static Entity Create(SdaiModel model) { System.Diagnostics.Debug.Assert(false); return null; }
 
         //
-        public long _stepID { get { return m_instance != 0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
-        public string _entityName { get
+        public Int64 StepID { get { return m_instance != 0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
+
+        public bool IsNull { get { return m_instance == 0; } }
+
+        public string EntityName_ { get
                 {
                 if (m_instance != 0)
                     {
