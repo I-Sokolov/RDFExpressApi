@@ -682,8 +682,11 @@ namespace CIS2
         public static Entity Create(SdaiModel model) { System.Diagnostics.Debug.Assert(false); return null; }
 
         //
-        public long _stepID { get { return m_instance != 0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
-        public string _entityName { get
+        public Int64 StepID { get { return m_instance != 0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
+
+        public bool IsNull { get { return m_instance == 0; } }
+
+        public string EntityName { get
                 {
                 if (m_instance != 0)
                     {
@@ -708,14 +711,14 @@ namespace CIS2
 
             if (m_instance != 0)
                 {
-                if (ifcengine.sdaiIsKindOfBN(m_instance, EntityName()) == 0)
+                if (ifcengine.sdaiIsKindOfBN(m_instance, WrapperEntityName()) == 0)
                     {
                     m_instance = 0;
                     }
                 }
             }
 
-        protected abstract TextValue EntityName();
+        protected abstract TextValue WrapperEntityName();
 
         /// <summary>
         /// Conversion to instance handle, so the object of the class can be used anywhere where a handle required
@@ -6918,7 +6921,7 @@ namespace CIS2
             }
         public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "action"; }
+        protected override TextValue WrapperEntityName() { return "action"; }
     };
 
 
@@ -6966,7 +6969,7 @@ namespace CIS2
         public void put_requests(IEnumerable<versioned_action_request> lst) { (new set_of_versioned_action_requestSerializer()).ToSdaiAggr(lst, m_instance, "requests"); }
         public void put_requests_untyped(IEnumerable lst) { (new set_of_versioned_action_requestSerializer()).ToSdaiAggr(lst, m_instance, "requests"); }
 
-        protected override TextValue EntityName() { return "action_directive"; }
+        protected override TextValue WrapperEntityName() { return "action_directive"; }
     };
 
 
@@ -7011,7 +7014,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "purpose", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "action_method"; }
+        protected override TextValue WrapperEntityName() { return "action_method"; }
     };
 
 
@@ -7098,7 +7101,7 @@ namespace CIS2
         public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
         public TextValue url { get { return get_string("url", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "address"; }
+        protected override TextValue WrapperEntityName() { return "address"; }
     };
 
 
@@ -7133,7 +7136,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "analysis_assumptions", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "analysis_method"; }
+        protected override TextValue WrapperEntityName() { return "analysis_method"; }
     };
 
 
@@ -7161,7 +7164,7 @@ namespace CIS2
         public void put_documented_constraints(IEnumerable<document_usage_constraint> lst) { (new set_of_document_usage_constraintSerializer()).ToSdaiAggr(lst, m_instance, "documented_constraints"); }
         public void put_documented_constraints_untyped(IEnumerable lst) { (new set_of_document_usage_constraintSerializer()).ToSdaiAggr(lst, m_instance, "documented_constraints"); }
 
-        protected override TextValue EntityName() { return "analysis_method_documented"; }
+        protected override TextValue WrapperEntityName() { return "analysis_method_documented"; }
     };
 
 
@@ -7191,7 +7194,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<dynamic_analysis_type>.FromValue(value.Value, EnumNames.dynamic_analysis_type_); ifcengine.sdaiPutAttrBN(m_instance, "analysis_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "analysis_method_dynamic"; }
+        protected override TextValue WrapperEntityName() { return "analysis_method_dynamic"; }
     };
 
 
@@ -7221,7 +7224,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "analysis_type", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "analysis_method_pseudo_dynamic"; }
+        protected override TextValue WrapperEntityName() { return "analysis_method_pseudo_dynamic"; }
     };
 
 
@@ -7251,7 +7254,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<static_analysis_type>.FromValue(value.Value, EnumNames.static_analysis_type_); ifcengine.sdaiPutAttrBN(m_instance, "analysis_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "analysis_method_static"; }
+        protected override TextValue WrapperEntityName() { return "analysis_method_static"; }
     };
 
 
@@ -7303,7 +7306,7 @@ namespace CIS2
         public set_of_element component_elements { get { return (new set_of_elementSerializer()).FromAttr(m_instance, "component_elements"); } }
         public set_of_node component_nodes { get { return (new set_of_nodeSerializer()).FromAttr(m_instance, "component_nodes"); } }
 
-        protected override TextValue EntityName() { return "analysis_model"; }
+        protected override TextValue WrapperEntityName() { return "analysis_model"; }
     };
 
 
@@ -7328,7 +7331,7 @@ namespace CIS2
         public static new analysis_model_2D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "analysis_model_2D"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "analysis_model_2D"; }
+        protected override TextValue WrapperEntityName() { return "analysis_model_2D"; }
     };
 
 
@@ -7353,7 +7356,7 @@ namespace CIS2
         public static new analysis_model_3D Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "analysis_model_3D"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "analysis_model_3D"; }
+        protected override TextValue WrapperEntityName() { return "analysis_model_3D"; }
     };
 
 
@@ -7383,7 +7386,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_model", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_model_child"; }
+        protected override TextValue WrapperEntityName() { return "analysis_model_child"; }
     };
 
 
@@ -7413,7 +7416,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "model_coord_sys", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_model_located"; }
+        protected override TextValue WrapperEntityName() { return "analysis_model_located"; }
     };
 
 
@@ -7446,7 +7449,7 @@ namespace CIS2
         public void put_represented_assemblies(IEnumerable<assembly> lst) { (new set_of_assemblySerializer()).ToSdaiAggr(lst, m_instance, "represented_assemblies"); }
         public void put_represented_assemblies_untyped(IEnumerable lst) { (new set_of_assemblySerializer()).ToSdaiAggr(lst, m_instance, "represented_assemblies"); }
 
-        protected override TextValue EntityName() { return "analysis_model_mapping"; }
+        protected override TextValue WrapperEntityName() { return "analysis_model_mapping"; }
     };
 
 
@@ -7491,7 +7494,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "related_model", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_model_relationship"; }
+        protected override TextValue WrapperEntityName() { return "analysis_model_relationship"; }
     };
 
 
@@ -7526,7 +7529,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "results_for_analysis", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result"; }
     };
 
 
@@ -7546,7 +7549,7 @@ namespace CIS2
         public static implicit operator analysis_result_element(SdaiInstance instance) => new analysis_result_element(instance);
 
 
-        protected override TextValue EntityName() { return "analysis_result_element"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element"; }
     };
 
 
@@ -7596,7 +7599,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "position_label", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_curve"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_curve"; }
     };
 
 
@@ -7631,7 +7634,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "result_values", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_node"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_node"; }
     };
 
 
@@ -7666,7 +7669,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "result_values", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_point"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_point"; }
     };
 
 
@@ -7701,7 +7704,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "position_label", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_surface"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_surface"; }
     };
 
 
@@ -7741,7 +7744,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "direct_stress_sigma_z", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_surface_stresses"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_surface_stresses"; }
     };
 
 
@@ -7806,7 +7809,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "bending_traction_mz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_surface_tractions"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_surface_tractions"; }
     };
 
 
@@ -7841,7 +7844,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "position_label", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_volume"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_volume"; }
     };
 
 
@@ -7911,7 +7914,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "shear_stress_tau_xy", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_element_volume_stress_tensor"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_element_volume_stress_tensor"; }
     };
 
 
@@ -7946,7 +7949,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "result_values", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_result_node"; }
+        protected override TextValue WrapperEntityName() { return "analysis_result_node"; }
     };
 
 
@@ -7979,7 +7982,7 @@ namespace CIS2
         public void put_component_results(IEnumerable<analysis_result> lst) { (new set_of_analysis_resultSerializer()).ToSdaiAggr(lst, m_instance, "component_results"); }
         public void put_component_results_untyped(IEnumerable lst) { (new set_of_analysis_resultSerializer()).ToSdaiAggr(lst, m_instance, "component_results"); }
 
-        protected override TextValue EntityName() { return "analysis_results_set"; }
+        protected override TextValue WrapperEntityName() { return "analysis_results_set"; }
     };
 
 
@@ -8009,7 +8012,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "basic_load_case", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_results_set_basic"; }
+        protected override TextValue WrapperEntityName() { return "analysis_results_set_basic"; }
     };
 
 
@@ -8039,7 +8042,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "loading_combination_ref", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "analysis_results_set_combined"; }
+        protected override TextValue WrapperEntityName() { return "analysis_results_set_combined"; }
     };
 
 
@@ -8072,7 +8075,7 @@ namespace CIS2
         public void put_component_combinations(IEnumerable<analysis_results_set_combined> lst) { (new set_of_analysis_results_set_combinedSerializer()).ToSdaiAggr(lst, m_instance, "component_combinations"); }
         public void put_component_combinations_untyped(IEnumerable lst) { (new set_of_analysis_results_set_combinedSerializer()).ToSdaiAggr(lst, m_instance, "component_combinations"); }
 
-        protected override TextValue EntityName() { return "analysis_results_set_envelope"; }
+        protected override TextValue WrapperEntityName() { return "analysis_results_set_envelope"; }
     };
 
 
@@ -8100,7 +8103,7 @@ namespace CIS2
         public void put_redistribution_factors(IEnumerable<ratio_measure_with_unit> lst) { (new list_of_ratio_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "redistribution_factors"); }
         public void put_redistribution_factors_untyped(IEnumerable lst) { (new list_of_ratio_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "redistribution_factors"); }
 
-        protected override TextValue EntityName() { return "analysis_results_set_redistributed"; }
+        protected override TextValue WrapperEntityName() { return "analysis_results_set_redistributed"; }
     };
 
 
@@ -8125,7 +8128,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "applied_load_name", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "applied_load"; }
+        protected override TextValue WrapperEntityName() { return "applied_load"; }
     };
 
 
@@ -8185,7 +8188,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "load_frequency", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "applied_load_dynamic"; }
+        protected override TextValue WrapperEntityName() { return "applied_load_dynamic"; }
     };
 
 
@@ -8240,7 +8243,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "preset_acceleration_arz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "applied_load_dynamic_acceleration"; }
+        protected override TextValue WrapperEntityName() { return "applied_load_dynamic_acceleration"; }
     };
 
 
@@ -8295,7 +8298,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "preset_velocity_vrz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "applied_load_dynamic_velocity"; }
+        protected override TextValue WrapperEntityName() { return "applied_load_dynamic_velocity"; }
     };
 
 
@@ -8315,7 +8318,7 @@ namespace CIS2
         public static implicit operator applied_load_static(SdaiInstance instance) => new applied_load_static(instance);
 
 
-        protected override TextValue EntityName() { return "applied_load_static"; }
+        protected override TextValue WrapperEntityName() { return "applied_load_static"; }
     };
 
 
@@ -8370,7 +8373,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "preset_displacement_rz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "applied_load_static_displacement"; }
+        protected override TextValue WrapperEntityName() { return "applied_load_static_displacement"; }
     };
 
 
@@ -8425,7 +8428,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "applied_moment_mz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "applied_load_static_force"; }
+        protected override TextValue WrapperEntityName() { return "applied_load_static_force"; }
     };
 
 
@@ -8465,7 +8468,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "applied_pressure_pz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "applied_load_static_pressure"; }
+        protected override TextValue WrapperEntityName() { return "applied_load_static_pressure"; }
     };
 
 
@@ -8500,7 +8503,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "level", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "approval"; }
+        protected override TextValue WrapperEntityName() { return "approval"; }
     };
 
 
@@ -8530,7 +8533,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "approval_status"; }
+        protected override TextValue WrapperEntityName() { return "approval_status"; }
     };
 
 
@@ -8565,7 +8568,7 @@ namespace CIS2
             get { return new unit(m_instance, "unit_component", 0); }
             }
 
-        protected override TextValue EntityName() { return "measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "measure_with_unit"; }
     };
 
 
@@ -8590,7 +8593,7 @@ namespace CIS2
         public static new area_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "area_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "area_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "area_measure_with_unit"; }
     };
 
 
@@ -8620,7 +8623,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "dimensions", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "named_unit"; }
+        protected override TextValue WrapperEntityName() { return "named_unit"; }
     };
 
 
@@ -8645,7 +8648,7 @@ namespace CIS2
         public static new area_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "area_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "area_unit"; }
+        protected override TextValue WrapperEntityName() { return "area_unit"; }
     };
 
 
@@ -8688,7 +8691,7 @@ namespace CIS2
         public bag_of_label cost_code { get { return (new bag_of_labelSerializer()).FromAttr(m_instance, "cost_code"); } }
         public TextValue object_id { get { return get_string("object_id", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "structural_frame_item"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_item"; }
     };
 
 
@@ -8718,7 +8721,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "place_of_process", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_process"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_process"; }
     };
 
 
@@ -8754,7 +8757,7 @@ namespace CIS2
         public void put_required_processes(IEnumerable<structural_frame_process> lst) { (new set_of_structural_frame_processSerializer()).ToSdaiAggr(lst, m_instance, "required_processes"); }
         public void put_required_processes_untyped(IEnumerable lst) { (new set_of_structural_frame_processSerializer()).ToSdaiAggr(lst, m_instance, "required_processes"); }
 
-        protected override TextValue EntityName() { return "assemble"; }
+        protected override TextValue WrapperEntityName() { return "assemble"; }
     };
 
 
@@ -8784,7 +8787,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "life_cycle_stage", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_product"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_product"; }
     };
 
 
@@ -8815,7 +8818,7 @@ namespace CIS2
             }
         public set_of_located_assembly uses { get { return (new set_of_located_assemblySerializer()).FromAttr(m_instance, "uses"); } }
 
-        protected override TextValue EntityName() { return "assembly"; }
+        protected override TextValue WrapperEntityName() { return "assembly"; }
     };
 
 
@@ -8856,7 +8859,7 @@ namespace CIS2
         public void put_governing_criteria(IEnumerable<design_criterion> lst) { (new set_of_design_criterionSerializer()).ToSdaiAggr(lst, m_instance, "governing_criteria"); }
         public void put_governing_criteria_untyped(IEnumerable lst) { (new set_of_design_criterionSerializer()).ToSdaiAggr(lst, m_instance, "governing_criteria"); }
 
-        protected override TextValue EntityName() { return "assembly_design"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design"; }
     };
 
 
@@ -8884,7 +8887,7 @@ namespace CIS2
         public void put_parent_assemblies(IEnumerable<assembly_design> lst) { (new set_of_assembly_designSerializer()).ToSdaiAggr(lst, m_instance, "parent_assemblies"); }
         public void put_parent_assemblies_untyped(IEnumerable lst) { (new set_of_assembly_designSerializer()).ToSdaiAggr(lst, m_instance, "parent_assemblies"); }
 
-        protected override TextValue EntityName() { return "assembly_design_child"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_child"; }
     };
 
 
@@ -8914,7 +8917,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<connection_type>.FromValue(value.Value, EnumNames.connection_type_); ifcengine.sdaiPutAttrBN(m_instance, "struc_connection_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_connection"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_connection"; }
     };
 
 
@@ -8944,7 +8947,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "connected_member", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_connection_external"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_connection_external"; }
     };
 
 
@@ -8972,7 +8975,7 @@ namespace CIS2
         public void put_connected_members(IEnumerable<assembly_design_structural_member> lst) { (new set_of_assembly_design_structural_memberSerializer()).ToSdaiAggr(lst, m_instance, "connected_members"); }
         public void put_connected_members_untyped(IEnumerable lst) { (new set_of_assembly_design_structural_memberSerializer()).ToSdaiAggr(lst, m_instance, "connected_members"); }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_connection_internal"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_connection_internal"; }
     };
 
 
@@ -9028,7 +9031,7 @@ namespace CIS2
         public void put_frame_connections(IEnumerable<assembly_design_structural_connection> lst) { (new set_of_assembly_design_structural_connectionSerializer()).ToSdaiAggr(lst, m_instance, "frame_connections"); }
         public void put_frame_connections_untyped(IEnumerable lst) { (new set_of_assembly_design_structural_connectionSerializer()).ToSdaiAggr(lst, m_instance, "frame_connections"); }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_frame"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_frame"; }
     };
 
 
@@ -9070,7 +9073,7 @@ namespace CIS2
         public set_of_restraint restraints { get { return (new set_of_restraintSerializer()).FromAttr(m_instance, "restraints"); } }
         public set_of_effective_buckling_length effective_lengths { get { return (new set_of_effective_buckling_lengthSerializer()).FromAttr(m_instance, "effective_lengths"); } }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member"; }
     };
 
 
@@ -9103,7 +9106,7 @@ namespace CIS2
         public void put_cubic_member_components(IEnumerable<assembly_design_structural_member> lst) { (new set_of_assembly_design_structural_memberSerializer()).ToSdaiAggr(lst, m_instance, "cubic_member_components"); }
         public void put_cubic_member_components_untyped(IEnumerable lst) { (new set_of_assembly_design_structural_memberSerializer()).ToSdaiAggr(lst, m_instance, "cubic_member_components"); }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_cubic"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_cubic"; }
     };
 
 
@@ -9133,7 +9136,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<member_linear_type>.FromValue(value.Value, EnumNames.member_linear_type_); ifcengine.sdaiPutAttrBN(m_instance, "linear_member_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear"; }
     };
 
 
@@ -9174,7 +9177,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "deep_beam", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear_beam"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear_beam"; }
     };
 
 
@@ -9204,7 +9207,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<member_brace_type>.FromValue(value.Value, EnumNames.member_brace_type_); ifcengine.sdaiPutAttrBN(m_instance, "brace_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear_brace"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear_brace"; }
     };
 
 
@@ -9234,7 +9237,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<member_cable_type>.FromValue(value.Value, EnumNames.member_cable_type_); ifcengine.sdaiPutAttrBN(m_instance, "cable_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear_cable"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear_cable"; }
     };
 
 
@@ -9264,7 +9267,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "camber_description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear_cambered"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear_cambered"; }
     };
 
 
@@ -9304,7 +9307,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "absolute_offset_z", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear_cambered_absolute"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear_cambered_absolute"; }
     };
 
 
@@ -9344,7 +9347,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "relative_offset_z", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear_cambered_relative"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear_cambered_relative"; }
     };
 
 
@@ -9377,7 +9380,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "slender_column", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_linear_column"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_linear_column"; }
     };
 
 
@@ -9410,7 +9413,7 @@ namespace CIS2
         public void put_planar_member_components(IEnumerable<assembly_design_structural_member_linear> lst) { (new set_of_assembly_design_structural_member_linearSerializer()).ToSdaiAggr(lst, m_instance, "planar_member_components"); }
         public void put_planar_member_components_untyped(IEnumerable lst) { (new set_of_assembly_design_structural_member_linearSerializer()).ToSdaiAggr(lst, m_instance, "planar_member_components"); }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_planar"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_planar"; }
     };
 
 
@@ -9450,7 +9453,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "thick_plate", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_planar_plate"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_planar_plate"; }
     };
 
 
@@ -9480,7 +9483,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<member_slab_type>.FromValue(value.Value, EnumNames.member_slab_type_); ifcengine.sdaiPutAttrBN(m_instance, "slab_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_planar_slab"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_planar_slab"; }
     };
 
 
@@ -9510,7 +9513,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<member_wall_type>.FromValue(value.Value, EnumNames.member_wall_type_); ifcengine.sdaiPutAttrBN(m_instance, "wall_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_design_structural_member_planar_wall"; }
+        protected override TextValue WrapperEntityName() { return "assembly_design_structural_member_planar_wall"; }
     };
 
 
@@ -9555,7 +9558,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<shop_or_site>.FromValue(value.Value, EnumNames.shop_or_site_); ifcengine.sdaiPutAttrBN(m_instance, "place_of_assembly", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "assembly_manufacturing"; }
+        protected override TextValue WrapperEntityName() { return "assembly_manufacturing"; }
     };
 
 
@@ -9585,7 +9588,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_assembly", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "assembly_manufacturing_child"; }
+        protected override TextValue WrapperEntityName() { return "assembly_manufacturing_child"; }
     };
 
 
@@ -9618,7 +9621,7 @@ namespace CIS2
         public void put_representing_elements(IEnumerable<element> lst) { (new set_of_elementSerializer()).ToSdaiAggr(lst, m_instance, "representing_elements"); }
         public void put_representing_elements_untyped(IEnumerable lst) { (new set_of_elementSerializer()).ToSdaiAggr(lst, m_instance, "representing_elements"); }
 
-        protected override TextValue EntityName() { return "assembly_map"; }
+        protected override TextValue WrapperEntityName() { return "assembly_map"; }
     };
 
 
@@ -9663,7 +9666,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "relating_assembly", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "assembly_relationship"; }
+        protected override TextValue WrapperEntityName() { return "assembly_relationship"; }
     };
 
 
@@ -9693,7 +9696,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "assembly_with_shape"; }
+        protected override TextValue WrapperEntityName() { return "assembly_with_shape"; }
     };
 
 
@@ -9719,7 +9722,7 @@ namespace CIS2
 
         public set_of_representation_item bounding_box { get { return (new set_of_representation_itemSerializer()).FromAttr(m_instance, "bounding_box"); } }
 
-        protected override TextValue EntityName() { return "assembly_with_bounding_box"; }
+        protected override TextValue WrapperEntityName() { return "assembly_with_bounding_box"; }
     };
 
 
@@ -9749,7 +9752,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "representation_item"; }
+        protected override TextValue WrapperEntityName() { return "representation_item"; }
     };
 
 
@@ -9775,7 +9778,7 @@ namespace CIS2
 
         public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "geometric_representation_item"; }
+        protected override TextValue WrapperEntityName() { return "geometric_representation_item"; }
     };
 
 
@@ -9805,7 +9808,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "location", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "placement"; }
+        protected override TextValue WrapperEntityName() { return "placement"; }
     };
 
 
@@ -9836,7 +9839,7 @@ namespace CIS2
             }
         public direction z { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "z", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } }
 
-        protected override TextValue EntityName() { return "axis1_placement"; }
+        protected override TextValue WrapperEntityName() { return "axis1_placement"; }
     };
 
 
@@ -9867,7 +9870,7 @@ namespace CIS2
             }
         public list_of_direction p { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "p"); } }
 
-        protected override TextValue EntityName() { return "axis2_placement_2d"; }
+        protected override TextValue WrapperEntityName() { return "axis2_placement_2d"; }
     };
 
 
@@ -9903,7 +9906,7 @@ namespace CIS2
             }
         public list_of_direction p { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "p"); } }
 
-        protected override TextValue EntityName() { return "axis2_placement_3d"; }
+        protected override TextValue WrapperEntityName() { return "axis2_placement_3d"; }
     };
 
 
@@ -9928,7 +9931,7 @@ namespace CIS2
         public static new curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "curve"; }
+        protected override TextValue WrapperEntityName() { return "curve"; }
     };
 
 
@@ -9953,7 +9956,7 @@ namespace CIS2
         public static new bounded_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "bounded_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "bounded_curve"; }
+        protected override TextValue WrapperEntityName() { return "bounded_curve"; }
     };
 
 
@@ -10003,7 +10006,7 @@ namespace CIS2
         public IntValue? upper_index_on_control_points { get { return get_IntValue("upper_index_on_control_points", ifcengine.sdaiINTEGER); } }
         public array_of_cartesian_point control_points { get { return (new array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
-        protected override TextValue EntityName() { return "b_spline_curve"; }
+        protected override TextValue WrapperEntityName() { return "b_spline_curve"; }
     };
 
 
@@ -10040,7 +10043,7 @@ namespace CIS2
             }
         public IntValue? upper_index_on_knots { get { return get_IntValue("upper_index_on_knots", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "b_spline_curve_with_knots"; }
+        protected override TextValue WrapperEntityName() { return "b_spline_curve_with_knots"; }
     };
 
 
@@ -10065,7 +10068,7 @@ namespace CIS2
         public static new surface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "surface"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "surface"; }
+        protected override TextValue WrapperEntityName() { return "surface"; }
     };
 
 
@@ -10090,7 +10093,7 @@ namespace CIS2
         public static new bounded_surface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "bounded_surface"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "bounded_surface"; }
+        protected override TextValue WrapperEntityName() { return "bounded_surface"; }
     };
 
 
@@ -10151,7 +10154,7 @@ namespace CIS2
         public IntValue? v_upper { get { return get_IntValue("v_upper", ifcengine.sdaiINTEGER); } }
         public array_of_array_of_cartesian_point control_points { get { return (new array_of_array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
-        protected override TextValue EntityName() { return "b_spline_surface"; }
+        protected override TextValue WrapperEntityName() { return "b_spline_surface"; }
     };
 
 
@@ -10195,7 +10198,7 @@ namespace CIS2
         public IntValue? knot_u_upper { get { return get_IntValue("knot_u_upper", ifcengine.sdaiINTEGER); } }
         public IntValue? knot_v_upper { get { return get_IntValue("knot_v_upper", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "b_spline_surface_with_knots"; }
+        protected override TextValue WrapperEntityName() { return "b_spline_surface_with_knots"; }
     };
 
 
@@ -10220,7 +10223,7 @@ namespace CIS2
         public static new volume Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "volume"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "volume"; }
+        protected override TextValue WrapperEntityName() { return "volume"; }
     };
 
 
@@ -10267,7 +10270,7 @@ namespace CIS2
         public IntValue? w_upper { get { return get_IntValue("w_upper", ifcengine.sdaiINTEGER); } }
         public array_of_array_of_array_of_cartesian_point control_points { get { return (new array_of_array_of_array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
-        protected override TextValue EntityName() { return "b_spline_volume"; }
+        protected override TextValue WrapperEntityName() { return "b_spline_volume"; }
     };
 
 
@@ -10313,7 +10316,7 @@ namespace CIS2
         public IntValue? knot_v_upper { get { return get_IntValue("knot_v_upper", ifcengine.sdaiINTEGER); } }
         public IntValue? knot_w_upper { get { return get_IntValue("knot_w_upper", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "b_spline_volume_with_knots"; }
+        protected override TextValue WrapperEntityName() { return "b_spline_volume_with_knots"; }
     };
 
 
@@ -10343,7 +10346,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<bending_method>.FromValue(value.Value, EnumNames.bending_method_); ifcengine.sdaiPutAttrBN(m_instance, "method", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "bend"; }
+        protected override TextValue WrapperEntityName() { return "bend"; }
     };
 
 
@@ -10368,7 +10371,7 @@ namespace CIS2
         public static new bezier_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "bezier_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "bezier_curve"; }
+        protected override TextValue WrapperEntityName() { return "bezier_curve"; }
     };
 
 
@@ -10393,7 +10396,7 @@ namespace CIS2
         public static new bezier_surface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "bezier_surface"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "bezier_surface"; }
+        protected override TextValue WrapperEntityName() { return "bezier_surface"; }
     };
 
 
@@ -10418,7 +10421,7 @@ namespace CIS2
         public static new bezier_volume Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "bezier_volume"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "bezier_volume"; }
+        protected override TextValue WrapperEntityName() { return "bezier_volume"; }
     };
 
 
@@ -10463,7 +10466,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "z", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "block"; }
+        protected override TextValue WrapperEntityName() { return "block"; }
     };
 
 
@@ -10508,7 +10511,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "z", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "block_volume"; }
+        protected override TextValue WrapperEntityName() { return "block_volume"; }
     };
 
 
@@ -10548,7 +10551,7 @@ namespace CIS2
             get { return new boolean_operand(m_instance, "second_operand", 0); }
             }
 
-        protected override TextValue EntityName() { return "boolean_result"; }
+        protected override TextValue WrapperEntityName() { return "boolean_result"; }
     };
 
 
@@ -10579,7 +10582,7 @@ namespace CIS2
             }
         public set_of_node restrained_nodes { get { return (new set_of_nodeSerializer()).FromAttr(m_instance, "restrained_nodes"); } }
 
-        protected override TextValue EntityName() { return "boundary_condition"; }
+        protected override TextValue WrapperEntityName() { return "boundary_condition"; }
     };
 
 
@@ -10634,7 +10637,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "bc_z_rotation_free", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "boundary_condition_logical"; }
+        protected override TextValue WrapperEntityName() { return "boundary_condition_logical"; }
     };
 
 
@@ -10674,7 +10677,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "z_skew_angle", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "boundary_condition_skewed"; }
+        protected override TextValue WrapperEntityName() { return "boundary_condition_skewed"; }
     };
 
 
@@ -10729,7 +10732,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "bc_z_rotation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "boundary_condition_spring_linear"; }
+        protected override TextValue WrapperEntityName() { return "boundary_condition_spring_linear"; }
     };
 
 
@@ -10761,7 +10764,7 @@ namespace CIS2
         public void put_values_untyped(IEnumerable lst) { (new list_of_boundary_condition_spring_linearSerializer()).ToSdaiAggr(lst, m_instance, "values"); }
         public IntValue? number_of_values { get { return get_IntValue("number_of_values", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "boundary_condition_spring_non_linear"; }
+        protected override TextValue WrapperEntityName() { return "boundary_condition_spring_non_linear"; }
     };
 
 
@@ -10791,7 +10794,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "bc_warping", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "boundary_condition_warping"; }
+        protected override TextValue WrapperEntityName() { return "boundary_condition_warping"; }
     };
 
 
@@ -10826,7 +10829,7 @@ namespace CIS2
         public IntValue? n_segments { get { return get_IntValue("n_segments", ifcengine.sdaiINTEGER); } }
         public LOGICAL_VALUE? closed_curve { get { var str = get_string("closed_curve", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
 
-        protected override TextValue EntityName() { return "composite_curve"; }
+        protected override TextValue WrapperEntityName() { return "composite_curve"; }
     };
 
 
@@ -10852,7 +10855,7 @@ namespace CIS2
 
         public set_of_surface basis_surface { get { return (new set_of_surfaceSerializer()).FromAttr(m_instance, "basis_surface"); } }
 
-        protected override TextValue EntityName() { return "composite_curve_on_surface"; }
+        protected override TextValue WrapperEntityName() { return "composite_curve_on_surface"; }
     };
 
 
@@ -10877,7 +10880,7 @@ namespace CIS2
         public static new boundary_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "boundary_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "boundary_curve"; }
+        protected override TextValue WrapperEntityName() { return "boundary_curve"; }
     };
 
 
@@ -10912,7 +10915,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reference_to_curve", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "pcurve"; }
+        protected override TextValue WrapperEntityName() { return "pcurve"; }
     };
 
 
@@ -10937,7 +10940,7 @@ namespace CIS2
         public static new bounded_pcurve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "bounded_pcurve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "bounded_pcurve"; }
+        protected override TextValue WrapperEntityName() { return "bounded_pcurve"; }
     };
 
 
@@ -10976,7 +10979,7 @@ namespace CIS2
             }
         public set_of_surface basis_surface { get { return (new set_of_surfaceSerializer()).FromAttr(m_instance, "basis_surface"); } }
 
-        protected override TextValue EntityName() { return "surface_curve"; }
+        protected override TextValue WrapperEntityName() { return "surface_curve"; }
     };
 
 
@@ -11001,7 +11004,7 @@ namespace CIS2
         public static new bounded_surface_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "bounded_surface_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "bounded_surface_curve"; }
+        protected override TextValue WrapperEntityName() { return "bounded_surface_curve"; }
     };
 
 
@@ -11046,7 +11049,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "zlength", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "box_domain"; }
+        protected override TextValue WrapperEntityName() { return "box_domain"; }
     };
 
 
@@ -11081,7 +11084,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "agreement_flag", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "half_space_solid"; }
+        protected override TextValue WrapperEntityName() { return "half_space_solid"; }
     };
 
 
@@ -11111,7 +11114,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "enclosure", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "boxed_half_space"; }
+        protected override TextValue WrapperEntityName() { return "boxed_half_space"; }
     };
 
 
@@ -11141,7 +11144,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<brazing_type>.FromValue(value.Value, EnumNames.brazing_type_); ifcengine.sdaiPutAttrBN(m_instance, "braze_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "braze"; }
+        protected override TextValue WrapperEntityName() { return "braze"; }
     };
 
 
@@ -11166,7 +11169,7 @@ namespace CIS2
         public static new solid_model Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "solid_model"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "solid_model"; }
+        protected override TextValue WrapperEntityName() { return "solid_model"; }
     };
 
 
@@ -11196,7 +11199,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "extent", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "brep_2d"; }
+        protected override TextValue WrapperEntityName() { return "brep_2d"; }
     };
 
 
@@ -11226,7 +11229,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "outer", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "manifold_solid_brep"; }
+        protected override TextValue WrapperEntityName() { return "manifold_solid_brep"; }
     };
 
 
@@ -11254,7 +11257,7 @@ namespace CIS2
         public void put_voids(IEnumerable<oriented_closed_shell> lst) { (new set_of_oriented_closed_shellSerializer()).ToSdaiAggr(lst, m_instance, "voids"); }
         public void put_voids_untyped(IEnumerable lst) { (new set_of_oriented_closed_shellSerializer()).ToSdaiAggr(lst, m_instance, "voids"); }
 
-        protected override TextValue EntityName() { return "brep_with_voids"; }
+        protected override TextValue WrapperEntityName() { return "brep_with_voids"; }
     };
 
 
@@ -11292,7 +11295,7 @@ namespace CIS2
         public void put_building_structures(IEnumerable<structure> lst) { (new list_of_structureSerializer()).ToSdaiAggr(lst, m_instance, "building_structures"); }
         public void put_building_structures_untyped(IEnumerable lst) { (new list_of_structureSerializer()).ToSdaiAggr(lst, m_instance, "building_structures"); }
 
-        protected override TextValue EntityName() { return "building"; }
+        protected override TextValue WrapperEntityName() { return "building"; }
     };
 
 
@@ -11325,7 +11328,7 @@ namespace CIS2
         public void put_buildings(IEnumerable<building> lst) { (new list_of_buildingSerializer()).ToSdaiAggr(lst, m_instance, "buildings"); }
         public void put_buildings_untyped(IEnumerable lst) { (new list_of_buildingSerializer()).ToSdaiAggr(lst, m_instance, "buildings"); }
 
-        protected override TextValue EntityName() { return "building_complex"; }
+        protected override TextValue WrapperEntityName() { return "building_complex"; }
     };
 
 
@@ -11355,7 +11358,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "building_with_shape"; }
+        protected override TextValue WrapperEntityName() { return "building_with_shape"; }
     };
 
 
@@ -11385,7 +11388,7 @@ namespace CIS2
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "year_component", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "date"; }
+        protected override TextValue WrapperEntityName() { return "date"; }
     };
 
 
@@ -11420,7 +11423,7 @@ namespace CIS2
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "month_component", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "calendar_date"; }
+        protected override TextValue WrapperEntityName() { return "calendar_date"; }
     };
 
 
@@ -11445,7 +11448,7 @@ namespace CIS2
         public static new point Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "point"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "point"; }
+        protected override TextValue WrapperEntityName() { return "point"; }
     };
 
 
@@ -11473,7 +11476,7 @@ namespace CIS2
         public void put_coordinates(IEnumerable<double> lst) { (new list_of_length_measureSerializer()).ToSdaiAggr(lst, m_instance, "coordinates"); }
         public void put_coordinates_untyped(IEnumerable lst) { (new list_of_length_measureSerializer()).ToSdaiAggr(lst, m_instance, "coordinates"); }
 
-        protected override TextValue EntityName() { return "cartesian_point"; }
+        protected override TextValue WrapperEntityName() { return "cartesian_point"; }
     };
 
 
@@ -11524,7 +11527,7 @@ namespace CIS2
             }
         public double? scl { get { return get_double("scl", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "cartesian_transformation_operator"; }
+        protected override TextValue WrapperEntityName() { return "cartesian_transformation_operator"; }
     };
 
 
@@ -11550,7 +11553,7 @@ namespace CIS2
 
         public list_of_direction u { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "u"); } }
 
-        protected override TextValue EntityName() { return "cartesian_transformation_operator_2d"; }
+        protected override TextValue WrapperEntityName() { return "cartesian_transformation_operator_2d"; }
     };
 
 
@@ -11581,7 +11584,7 @@ namespace CIS2
             }
         public list_of_direction u { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "u"); } }
 
-        protected override TextValue EntityName() { return "cartesian_transformation_operator_3d"; }
+        protected override TextValue WrapperEntityName() { return "cartesian_transformation_operator_3d"; }
     };
 
 
@@ -11621,7 +11624,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "kind", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "certification"; }
+        protected override TextValue WrapperEntityName() { return "certification"; }
     };
 
 
@@ -11651,7 +11654,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "certification_type"; }
+        protected override TextValue WrapperEntityName() { return "certification_type"; }
     };
 
 
@@ -11691,7 +11694,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<chemical_mechanism_type>.FromValue(value.Value, EnumNames.chemical_mechanism_type_); ifcengine.sdaiPutAttrBN(m_instance, "layer_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "chemical_mechanism"; }
+        protected override TextValue WrapperEntityName() { return "chemical_mechanism"; }
     };
 
 
@@ -11721,7 +11724,7 @@ namespace CIS2
             get { return new axis2_placement(m_instance, "position", 0); }
             }
 
-        protected override TextValue EntityName() { return "conic"; }
+        protected override TextValue WrapperEntityName() { return "conic"; }
     };
 
 
@@ -11751,7 +11754,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "circle"; }
+        protected override TextValue WrapperEntityName() { return "circle"; }
     };
 
 
@@ -11776,7 +11779,7 @@ namespace CIS2
         public static new primitive_2d Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "primitive_2d"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "primitive_2d"; }
+        protected override TextValue WrapperEntityName() { return "primitive_2d"; }
     };
 
 
@@ -11811,7 +11814,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "circular_area"; }
+        protected override TextValue WrapperEntityName() { return "circular_area"; }
     };
 
 
@@ -11836,7 +11839,7 @@ namespace CIS2
         public static new topological_representation_item Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "topological_representation_item"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "topological_representation_item"; }
+        protected override TextValue WrapperEntityName() { return "topological_representation_item"; }
     };
 
 
@@ -11864,7 +11867,7 @@ namespace CIS2
         public void put_cfs_faces(IEnumerable<face> lst) { (new set_of_faceSerializer()).ToSdaiAggr(lst, m_instance, "cfs_faces"); }
         public void put_cfs_faces_untyped(IEnumerable lst) { (new set_of_faceSerializer()).ToSdaiAggr(lst, m_instance, "cfs_faces"); }
 
-        protected override TextValue EntityName() { return "connected_face_set"; }
+        protected override TextValue WrapperEntityName() { return "connected_face_set"; }
     };
 
 
@@ -11889,7 +11892,7 @@ namespace CIS2
         public static new closed_shell Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "closed_shell"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "closed_shell"; }
+        protected override TextValue WrapperEntityName() { return "closed_shell"; }
     };
 
 
@@ -11924,7 +11927,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "clothoid_constant", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "clothoid"; }
+        protected override TextValue WrapperEntityName() { return "clothoid"; }
     };
 
 
@@ -11954,7 +11957,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<coating_purpose>.FromValue(value.Value, EnumNames.coating_purpose_); ifcengine.sdaiPutAttrBN(m_instance, "primary_purpose", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "coating"; }
+        protected override TextValue WrapperEntityName() { return "coating"; }
     };
 
 
@@ -11979,7 +11982,7 @@ namespace CIS2
         public static new founded_item Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "founded_item"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "founded_item"; }
+        protected override TextValue WrapperEntityName() { return "founded_item"; }
     };
 
 
@@ -12020,7 +12023,7 @@ namespace CIS2
             }
         public bag_of_composite_curve using_curves { get { return (new bag_of_composite_curveSerializer()).FromAttr(m_instance, "using_curves"); } }
 
-        protected override TextValue EntityName() { return "composite_curve_segment"; }
+        protected override TextValue WrapperEntityName() { return "composite_curve_segment"; }
     };
 
 
@@ -12050,7 +12053,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "position", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "elementary_surface"; }
+        protected override TextValue WrapperEntityName() { return "elementary_surface"; }
     };
 
 
@@ -12085,7 +12088,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "semi_angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "conical_surface"; }
+        protected override TextValue WrapperEntityName() { return "conical_surface"; }
     };
 
 
@@ -12113,7 +12116,7 @@ namespace CIS2
         public void put_ces_edges(IEnumerable<edge> lst) { (new set_of_edgeSerializer()).ToSdaiAggr(lst, m_instance, "ces_edges"); }
         public void put_ces_edges_untyped(IEnumerable lst) { (new set_of_edgeSerializer()).ToSdaiAggr(lst, m_instance, "ces_edges"); }
 
-        protected override TextValue EntityName() { return "connected_edge_set"; }
+        protected override TextValue WrapperEntityName() { return "connected_edge_set"; }
     };
 
 
@@ -12143,7 +12146,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "context_dependent_unit"; }
+        protected override TextValue WrapperEntityName() { return "context_dependent_unit"; }
     };
 
 
@@ -12183,7 +12186,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "kind", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "contract"; }
+        protected override TextValue WrapperEntityName() { return "contract"; }
     };
 
 
@@ -12213,7 +12216,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "contract_type"; }
+        protected override TextValue WrapperEntityName() { return "contract_type"; }
     };
 
 
@@ -12248,7 +12251,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "conversion_factor", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "conversion_based_unit"; }
+        protected override TextValue WrapperEntityName() { return "conversion_based_unit"; }
     };
 
 
@@ -12276,7 +12279,7 @@ namespace CIS2
         public void put_points(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "points"); }
         public void put_points_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "points"); }
 
-        protected override TextValue EntityName() { return "faceted_primitive"; }
+        protected override TextValue WrapperEntityName() { return "faceted_primitive"; }
     };
 
 
@@ -12301,7 +12304,7 @@ namespace CIS2
         public static new convex_hexahedron Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "convex_hexahedron"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "convex_hexahedron"; }
+        protected override TextValue WrapperEntityName() { return "convex_hexahedron"; }
     };
 
 
@@ -12341,7 +12344,7 @@ namespace CIS2
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "coord_system_dimensionality", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "coord_system"; }
+        protected override TextValue WrapperEntityName() { return "coord_system"; }
     };
 
 
@@ -12373,7 +12376,7 @@ namespace CIS2
         public double? origin_1 { get { return get_double("origin_1", ifcengine.sdaiREAL); } }
         public double? origin_2 { get { return get_double("origin_2", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "coord_system_cartesian_2d"; }
+        protected override TextValue WrapperEntityName() { return "coord_system_cartesian_2d"; }
     };
 
 
@@ -12406,7 +12409,7 @@ namespace CIS2
         public double? origin_y { get { return get_double("origin_y", ifcengine.sdaiREAL); } }
         public double? origin_z { get { return get_double("origin_z", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "coord_system_cartesian_3d"; }
+        protected override TextValue WrapperEntityName() { return "coord_system_cartesian_3d"; }
     };
 
 
@@ -12436,7 +12439,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_coord_system", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "coord_system_child"; }
+        protected override TextValue WrapperEntityName() { return "coord_system_child"; }
     };
 
 
@@ -12469,7 +12472,7 @@ namespace CIS2
         public void put_axes_definition(IEnumerable<direction> lst) { (new list_of_directionSerializer()).ToSdaiAggr(lst, m_instance, "axes_definition"); }
         public void put_axes_definition_untyped(IEnumerable lst) { (new list_of_directionSerializer()).ToSdaiAggr(lst, m_instance, "axes_definition"); }
 
-        protected override TextValue EntityName() { return "coord_system_cylindrical"; }
+        protected override TextValue WrapperEntityName() { return "coord_system_cylindrical"; }
     };
 
 
@@ -12502,7 +12505,7 @@ namespace CIS2
         public void put_axes_definition(IEnumerable<direction> lst) { (new list_of_directionSerializer()).ToSdaiAggr(lst, m_instance, "axes_definition"); }
         public void put_axes_definition_untyped(IEnumerable lst) { (new list_of_directionSerializer()).ToSdaiAggr(lst, m_instance, "axes_definition"); }
 
-        protected override TextValue EntityName() { return "coord_system_spherical"; }
+        protected override TextValue WrapperEntityName() { return "coord_system_spherical"; }
     };
 
 
@@ -12543,7 +12546,7 @@ namespace CIS2
             }
         public IntValue? actual_minute_offset { get { return get_IntValue("actual_minute_offset", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "coordinated_universal_time_offset"; }
+        protected override TextValue WrapperEntityName() { return "coordinated_universal_time_offset"; }
     };
 
 
@@ -12573,7 +12576,7 @@ namespace CIS2
             get { return new csg_select(m_instance, "tree_root_expression", 0); }
             }
 
-        protected override TextValue EntityName() { return "csg_solid"; }
+        protected override TextValue WrapperEntityName() { return "csg_solid"; }
     };
 
 
@@ -12608,7 +12611,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "unit", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "currency_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "currency_measure_with_unit"; }
     };
 
 
@@ -12638,7 +12641,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "per_quantity", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "currency_rate_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "currency_rate_with_unit"; }
     };
 
 
@@ -12673,7 +12676,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "currency_unit"; }
+        protected override TextValue WrapperEntityName() { return "currency_unit"; }
     };
 
 
@@ -12711,7 +12714,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "implicit_outer", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "curve_bounded_surface"; }
+        protected override TextValue WrapperEntityName() { return "curve_bounded_surface"; }
     };
 
 
@@ -12746,7 +12749,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "transformation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "curve_replica"; }
+        protected override TextValue WrapperEntityName() { return "curve_replica"; }
     };
 
 
@@ -12776,7 +12779,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<cutting_type>.FromValue(value.Value, EnumNames.cutting_type_); ifcengine.sdaiPutAttrBN(m_instance, "cutting_method", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "cut"; }
+        protected override TextValue WrapperEntityName() { return "cut"; }
     };
 
 
@@ -12831,7 +12834,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "turn_angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "cyclide_segment_solid"; }
+        protected override TextValue WrapperEntityName() { return "cyclide_segment_solid"; }
     };
 
 
@@ -12871,7 +12874,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "z", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "cylindrical_point"; }
+        protected override TextValue WrapperEntityName() { return "cylindrical_point"; }
     };
 
 
@@ -12901,7 +12904,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "cylindrical_surface"; }
+        protected override TextValue WrapperEntityName() { return "cylindrical_surface"; }
     };
 
 
@@ -12941,7 +12944,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "height", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "cylindrical_volume"; }
+        protected override TextValue WrapperEntityName() { return "cylindrical_volume"; }
     };
 
 
@@ -12976,7 +12979,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "time_component", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "date_and_time"; }
+        protected override TextValue WrapperEntityName() { return "date_and_time"; }
     };
 
 
@@ -13016,7 +13019,7 @@ namespace CIS2
         public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
         public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "representation"; }
+        protected override TextValue WrapperEntityName() { return "representation"; }
     };
 
 
@@ -13041,7 +13044,7 @@ namespace CIS2
         public static new definitional_representation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "definitional_representation"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "definitional_representation"; }
+        protected override TextValue WrapperEntityName() { return "definitional_representation"; }
     };
 
 
@@ -13076,7 +13079,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reference_to_curve", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "degenerate_pcurve"; }
+        protected override TextValue WrapperEntityName() { return "degenerate_pcurve"; }
     };
 
 
@@ -13111,7 +13114,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "minor_radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "toroidal_surface"; }
+        protected override TextValue WrapperEntityName() { return "toroidal_surface"; }
     };
 
 
@@ -13141,7 +13144,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "select_outer", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "degenerate_toroidal_surface"; }
+        protected override TextValue WrapperEntityName() { return "degenerate_toroidal_surface"; }
     };
 
 
@@ -13166,7 +13169,7 @@ namespace CIS2
         public static new derived_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "derived_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "derived_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "derived_measure_with_unit"; }
     };
 
 
@@ -13195,7 +13198,7 @@ namespace CIS2
         public void put_elements_untyped(IEnumerable lst) { (new set_of_derived_unit_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
         public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "derived_unit"; }
+        protected override TextValue WrapperEntityName() { return "derived_unit"; }
     };
 
 
@@ -13230,7 +13233,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "exponent", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "derived_unit_element"; }
+        protected override TextValue WrapperEntityName() { return "derived_unit_element"; }
     };
 
 
@@ -13265,7 +13268,7 @@ namespace CIS2
             get { return new description_attribute_select(m_instance, "described_item", 0); }
             }
 
-        protected override TextValue EntityName() { return "description_attribute"; }
+        protected override TextValue WrapperEntityName() { return "description_attribute"; }
     };
 
 
@@ -13306,7 +13309,7 @@ namespace CIS2
             }
         public set_of_assembly_design governed_assemblies { get { return (new set_of_assembly_designSerializer()).FromAttr(m_instance, "governed_assemblies"); } }
 
-        protected override TextValue EntityName() { return "design_criterion"; }
+        protected override TextValue WrapperEntityName() { return "design_criterion"; }
     };
 
 
@@ -13336,7 +13339,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "documented_reference", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "design_criterion_documented"; }
+        protected override TextValue WrapperEntityName() { return "design_criterion_documented"; }
     };
 
 
@@ -13380,7 +13383,7 @@ namespace CIS2
         public void put_connected_parts(IEnumerable<design_part> lst) { (new set_of_design_partSerializer()).ToSdaiAggr(lst, m_instance, "connected_parts"); }
         public void put_connected_parts_untyped(IEnumerable lst) { (new set_of_design_partSerializer()).ToSdaiAggr(lst, m_instance, "connected_parts"); }
 
-        protected override TextValue EntityName() { return "design_joint_system"; }
+        protected override TextValue WrapperEntityName() { return "design_joint_system"; }
     };
 
 
@@ -13421,7 +13424,7 @@ namespace CIS2
         public void put_locations(IEnumerable<coord_system> lst) { (new list_of_coord_systemSerializer()).ToSdaiAggr(lst, m_instance, "locations"); }
         public void put_locations_untyped(IEnumerable lst) { (new list_of_coord_systemSerializer()).ToSdaiAggr(lst, m_instance, "locations"); }
 
-        protected override TextValue EntityName() { return "design_part"; }
+        protected override TextValue WrapperEntityName() { return "design_part"; }
     };
 
 
@@ -13451,7 +13454,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "design_resistance", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "design_result"; }
+        protected override TextValue WrapperEntityName() { return "design_result"; }
     };
 
 
@@ -13491,7 +13494,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "position_label", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "design_result_connection"; }
+        protected override TextValue WrapperEntityName() { return "design_result_connection"; }
     };
 
 
@@ -13521,7 +13524,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "result_for_joint_system", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "design_result_joint_system"; }
+        protected override TextValue WrapperEntityName() { return "design_result_joint_system"; }
     };
 
 
@@ -13551,7 +13554,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "origin_of_forces", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "design_result_mapped"; }
+        protected override TextValue WrapperEntityName() { return "design_result_mapped"; }
     };
 
 
@@ -13591,7 +13594,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "position_label", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "design_result_member"; }
+        protected override TextValue WrapperEntityName() { return "design_result_member"; }
     };
 
 
@@ -13621,7 +13624,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "result_for_part", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "design_result_part"; }
+        protected override TextValue WrapperEntityName() { return "design_result_part"; }
     };
 
 
@@ -13656,7 +13659,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "design_factor", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "design_result_resolved"; }
+        protected override TextValue WrapperEntityName() { return "design_result_resolved"; }
     };
 
 
@@ -13716,7 +13719,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "luminous_intensity_exponent", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "dimensional_exponents"; }
+        protected override TextValue WrapperEntityName() { return "dimensional_exponents"; }
     };
 
 
@@ -13741,7 +13744,7 @@ namespace CIS2
         public static new executed_action Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "executed_action"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "executed_action"; }
+        protected override TextValue WrapperEntityName() { return "executed_action"; }
     };
 
 
@@ -13771,7 +13774,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "directive", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "directed_action"; }
+        protected override TextValue WrapperEntityName() { return "directed_action"; }
     };
 
 
@@ -13799,7 +13802,7 @@ namespace CIS2
         public void put_direction_ratios(IEnumerable<double> lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "direction_ratios"); }
         public void put_direction_ratios_untyped(IEnumerable lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "direction_ratios"); }
 
-        protected override TextValue EntityName() { return "direction"; }
+        protected override TextValue WrapperEntityName() { return "direction"; }
     };
 
 
@@ -13847,7 +13850,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "delivery_date", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "dispatch"; }
+        protected override TextValue WrapperEntityName() { return "dispatch"; }
     };
 
 
@@ -13893,7 +13896,7 @@ namespace CIS2
             }
         public set_of_document_representation_type representation_types { get { return (new set_of_document_representation_typeSerializer()).FromAttr(m_instance, "representation_types"); } }
 
-        protected override TextValue EntityName() { return "document"; }
+        protected override TextValue WrapperEntityName() { return "document"; }
     };
 
 
@@ -13938,7 +13941,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "related_document", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "document_relationship"; }
+        protected override TextValue WrapperEntityName() { return "document_relationship"; }
     };
 
 
@@ -13973,7 +13976,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "represented_document", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "document_representation_type"; }
+        protected override TextValue WrapperEntityName() { return "document_representation_type"; }
     };
 
 
@@ -14003,7 +14006,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "class_", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "document_with_class"; }
+        protected override TextValue WrapperEntityName() { return "document_with_class"; }
     };
 
 
@@ -14030,7 +14033,7 @@ namespace CIS2
         public set_of_document_usage_constraint relevant_clauses { get { return (new set_of_document_usage_constraintSerializer()).FromAttr(m_instance, "relevant_clauses"); } }
         public set_of_document_usage_constraint clauses { get { return (new set_of_document_usage_constraintSerializer()).FromAttr(m_instance, "clauses"); } }
 
-        protected override TextValue EntityName() { return "document_standard"; }
+        protected override TextValue WrapperEntityName() { return "document_standard"; }
     };
 
 
@@ -14060,7 +14063,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "product_data_type", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "document_type"; }
+        protected override TextValue WrapperEntityName() { return "document_type"; }
     };
 
 
@@ -14085,7 +14088,7 @@ namespace CIS2
         public static new document_usage Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "document_usage"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "document_usage"; }
+        protected override TextValue WrapperEntityName() { return "document_usage"; }
     };
 
 
@@ -14125,7 +14128,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "subject_element_value", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "document_usage_constraint"; }
+        protected override TextValue WrapperEntityName() { return "document_usage_constraint"; }
     };
 
 
@@ -14185,7 +14188,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "ratio", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "eccentric_cone"; }
+        protected override TextValue WrapperEntityName() { return "eccentric_cone"; }
     };
 
 
@@ -14245,7 +14248,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "ratio", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "eccentric_conical_volume"; }
+        protected override TextValue WrapperEntityName() { return "eccentric_conical_volume"; }
     };
 
 
@@ -14280,7 +14283,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "edge_end", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "edge"; }
+        protected override TextValue WrapperEntityName() { return "edge"; }
     };
 
 
@@ -14308,7 +14311,7 @@ namespace CIS2
         public void put_ebwm_boundary(IEnumerable<connected_edge_set> lst) { (new set_of_connected_edge_setSerializer()).ToSdaiAggr(lst, m_instance, "ebwm_boundary"); }
         public void put_ebwm_boundary_untyped(IEnumerable lst) { (new set_of_connected_edge_setSerializer()).ToSdaiAggr(lst, m_instance, "ebwm_boundary"); }
 
-        protected override TextValue EntityName() { return "edge_based_wireframe_model"; }
+        protected override TextValue WrapperEntityName() { return "edge_based_wireframe_model"; }
     };
 
 
@@ -14344,7 +14347,7 @@ namespace CIS2
             }
         public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "edge_curve"; }
+        protected override TextValue WrapperEntityName() { return "edge_curve"; }
     };
 
 
@@ -14369,7 +14372,7 @@ namespace CIS2
         public static new loop Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "loop"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "loop"; }
+        protected override TextValue WrapperEntityName() { return "loop"; }
     };
 
 
@@ -14398,7 +14401,7 @@ namespace CIS2
         public void put_edge_list_untyped(IEnumerable lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
         public IntValue? ne { get { return get_IntValue("ne", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "edge_loop"; }
+        protected override TextValue WrapperEntityName() { return "edge_loop"; }
     };
 
 
@@ -14448,7 +14451,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "applicable_member", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "effective_buckling_length"; }
+        protected override TextValue WrapperEntityName() { return "effective_buckling_length"; }
     };
 
 
@@ -14494,7 +14497,7 @@ namespace CIS2
             }
         public set_of_element_node_connectivity connectivity { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivity"); } }
 
-        protected override TextValue EntityName() { return "element"; }
+        protected override TextValue WrapperEntityName() { return "element"; }
     };
 
 
@@ -14520,7 +14523,7 @@ namespace CIS2
             }
         public set_of_element_node_connectivity connectivities { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
-        protected override TextValue EntityName() { return "element_curve"; }
+        protected override TextValue WrapperEntityName() { return "element_curve"; }
     };
 
 
@@ -14556,7 +14559,7 @@ namespace CIS2
         public IntValue? number_of_sections { get { return get_IntValue("number_of_sections", ifcengine.sdaiINTEGER); } }
         public curve curve_defining_element { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_defining_element", ifcengine.sdaiINSTANCE, out inst); return new curve(inst); } }
 
-        protected override TextValue EntityName() { return "element_curve_complex"; }
+        protected override TextValue WrapperEntityName() { return "element_curve_complex"; }
     };
 
 
@@ -14591,7 +14594,7 @@ namespace CIS2
             get { return new orientation_select(m_instance, "element_orientation", 0); }
             }
 
-        protected override TextValue EntityName() { return "element_curve_simple"; }
+        protected override TextValue WrapperEntityName() { return "element_curve_simple"; }
     };
 
 
@@ -14637,7 +14640,7 @@ namespace CIS2
             }
         public set_of_element_node_connectivity eccentric_connectivities { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "eccentric_connectivities"); } }
 
-        protected override TextValue EntityName() { return "element_eccentricity"; }
+        protected override TextValue WrapperEntityName() { return "element_eccentricity"; }
     };
 
 
@@ -14672,7 +14675,7 @@ namespace CIS2
             get { return new part_select(m_instance, "represented_part", 0); }
             }
 
-        protected override TextValue EntityName() { return "element_mapping"; }
+        protected override TextValue WrapperEntityName() { return "element_mapping"; }
     };
 
 
@@ -14727,7 +14730,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "fixity", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "element_node_connectivity"; }
+        protected override TextValue WrapperEntityName() { return "element_node_connectivity"; }
     };
 
 
@@ -14748,7 +14751,7 @@ namespace CIS2
 
         public bag_of_element_node_connectivity connectivities { get { return (new bag_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
-        protected override TextValue EntityName() { return "element_point"; }
+        protected override TextValue WrapperEntityName() { return "element_point"; }
     };
 
 
@@ -14776,7 +14779,7 @@ namespace CIS2
         public void put_damping_coefficients(IEnumerable<double> lst) { (new array_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "damping_coefficients"); }
         public void put_damping_coefficients_untyped(IEnumerable lst) { (new array_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "damping_coefficients"); }
 
-        protected override TextValue EntityName() { return "element_point_grounded_damper"; }
+        protected override TextValue WrapperEntityName() { return "element_point_grounded_damper"; }
     };
 
 
@@ -14804,7 +14807,7 @@ namespace CIS2
         public void put_stiffness_coefficients(IEnumerable<double> lst) { (new array_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "stiffness_coefficients"); }
         public void put_stiffness_coefficients_untyped(IEnumerable lst) { (new array_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "stiffness_coefficients"); }
 
-        protected override TextValue EntityName() { return "element_point_grounded_spring"; }
+        protected override TextValue WrapperEntityName() { return "element_point_grounded_spring"; }
     };
 
 
@@ -14835,7 +14838,7 @@ namespace CIS2
         public void put_moments_of_inertia(IEnumerable<array_of_double> lst) { (new array_of_array_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "moments_of_inertia"); }
         public void put_moments_of_inertia_untyped(IEnumerable lst) { (new array_of_array_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "moments_of_inertia"); }
 
-        protected override TextValue EntityName() { return "element_point_stationary_mass"; }
+        protected override TextValue WrapperEntityName() { return "element_point_stationary_mass"; }
     };
 
 
@@ -14866,7 +14869,7 @@ namespace CIS2
             }
         public set_of_element_node_connectivity connectivities { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
-        protected override TextValue EntityName() { return "element_surface"; }
+        protected override TextValue WrapperEntityName() { return "element_surface"; }
     };
 
 
@@ -14896,7 +14899,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "surface_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "element_surface_complex"; }
+        protected override TextValue WrapperEntityName() { return "element_surface_complex"; }
     };
 
 
@@ -14921,7 +14924,7 @@ namespace CIS2
         public static new element_surface_plane Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "element_surface_plane"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "element_surface_plane"; }
+        protected override TextValue WrapperEntityName() { return "element_surface_plane"; }
     };
 
 
@@ -14951,7 +14954,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "profile", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "element_surface_profiled"; }
+        protected override TextValue WrapperEntityName() { return "element_surface_profiled"; }
     };
 
 
@@ -14986,7 +14989,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<plane_stress_or_strain>.FromValue(value.Value, EnumNames.plane_stress_or_strain_); ifcengine.sdaiPutAttrBN(m_instance, "assumption", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "element_surface_simple"; }
+        protected override TextValue WrapperEntityName() { return "element_surface_simple"; }
     };
 
 
@@ -15007,7 +15010,7 @@ namespace CIS2
 
         public set_of_element_node_connectivity connectivities { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
-        protected override TextValue EntityName() { return "element_volume"; }
+        protected override TextValue WrapperEntityName() { return "element_volume"; }
     };
 
 
@@ -15037,7 +15040,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "element_volume_complex"; }
+        protected override TextValue WrapperEntityName() { return "element_volume_complex"; }
     };
 
 
@@ -15067,7 +15070,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<element_volume_shape>.FromValue(value.Value, EnumNames.element_volume_shape_); ifcengine.sdaiPutAttrBN(m_instance, "shape", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "element_volume_simple"; }
+        protected override TextValue WrapperEntityName() { return "element_volume_simple"; }
     };
 
 
@@ -15097,7 +15100,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "material_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "element_with_material"; }
+        protected override TextValue WrapperEntityName() { return "element_with_material"; }
     };
 
 
@@ -15132,7 +15135,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "semi_axis_2", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "ellipse"; }
+        protected override TextValue WrapperEntityName() { return "ellipse"; }
     };
 
 
@@ -15177,7 +15180,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "semi_axis_3", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "ellipsoid"; }
+        protected override TextValue WrapperEntityName() { return "ellipsoid"; }
     };
 
 
@@ -15222,7 +15225,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "semi_axis_3", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "ellipsoid_volume"; }
+        protected override TextValue WrapperEntityName() { return "ellipsoid_volume"; }
     };
 
 
@@ -15262,7 +15265,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "semi_axis_2", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "elliptic_area"; }
+        protected override TextValue WrapperEntityName() { return "elliptic_area"; }
     };
 
 
@@ -15292,7 +15295,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "equivalent_point", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "evaluated_degenerate_pcurve"; }
+        protected override TextValue WrapperEntityName() { return "evaluated_degenerate_pcurve"; }
     };
 
 
@@ -15322,7 +15325,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "swept_area", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "swept_area_solid"; }
+        protected override TextValue WrapperEntityName() { return "swept_area_solid"; }
     };
 
 
@@ -15357,7 +15360,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "depth", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "extruded_area_solid"; }
+        protected override TextValue WrapperEntityName() { return "extruded_area_solid"; }
     };
 
 
@@ -15387,7 +15390,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "swept_face", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "swept_face_solid"; }
+        protected override TextValue WrapperEntityName() { return "swept_face_solid"; }
     };
 
 
@@ -15422,7 +15425,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "depth", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "extruded_face_solid"; }
+        protected override TextValue WrapperEntityName() { return "extruded_face_solid"; }
     };
 
 
@@ -15450,7 +15453,7 @@ namespace CIS2
         public void put_bounds(IEnumerable<face_bound> lst) { (new set_of_face_boundSerializer()).ToSdaiAggr(lst, m_instance, "bounds"); }
         public void put_bounds_untyped(IEnumerable lst) { (new set_of_face_boundSerializer()).ToSdaiAggr(lst, m_instance, "bounds"); }
 
-        protected override TextValue EntityName() { return "face"; }
+        protected override TextValue WrapperEntityName() { return "face"; }
     };
 
 
@@ -15478,7 +15481,7 @@ namespace CIS2
         public void put_fbsm_faces(IEnumerable<connected_face_set> lst) { (new set_of_connected_face_setSerializer()).ToSdaiAggr(lst, m_instance, "fbsm_faces"); }
         public void put_fbsm_faces_untyped(IEnumerable lst) { (new set_of_connected_face_setSerializer()).ToSdaiAggr(lst, m_instance, "fbsm_faces"); }
 
-        protected override TextValue EntityName() { return "face_based_surface_model"; }
+        protected override TextValue WrapperEntityName() { return "face_based_surface_model"; }
     };
 
 
@@ -15513,7 +15516,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "orientation", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "face_bound"; }
+        protected override TextValue WrapperEntityName() { return "face_bound"; }
     };
 
 
@@ -15538,7 +15541,7 @@ namespace CIS2
         public static new face_outer_bound Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "face_outer_bound"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "face_outer_bound"; }
+        protected override TextValue WrapperEntityName() { return "face_outer_bound"; }
     };
 
 
@@ -15574,7 +15577,7 @@ namespace CIS2
             }
         public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "face_surface"; }
+        protected override TextValue WrapperEntityName() { return "face_surface"; }
     };
 
 
@@ -15599,7 +15602,7 @@ namespace CIS2
         public static new faceted_brep Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "faceted_brep"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "faceted_brep"; }
+        protected override TextValue WrapperEntityName() { return "faceted_brep"; }
     };
 
 
@@ -15629,7 +15632,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "fastener_grade", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "fastener"; }
+        protected override TextValue WrapperEntityName() { return "fastener"; }
     };
 
 
@@ -15659,7 +15662,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "fastener_shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_complex"; }
+        protected override TextValue WrapperEntityName() { return "fastener_complex"; }
     };
 
 
@@ -15692,7 +15695,7 @@ namespace CIS2
         public void put_fasteners(IEnumerable<fastener> lst) { (new list_of_fastenerSerializer()).ToSdaiAggr(lst, m_instance, "fasteners"); }
         public void put_fasteners_untyped(IEnumerable lst) { (new list_of_fastenerSerializer()).ToSdaiAggr(lst, m_instance, "fasteners"); }
 
-        protected override TextValue EntityName() { return "fastener_mechanism"; }
+        protected override TextValue WrapperEntityName() { return "fastener_mechanism"; }
     };
 
 
@@ -15720,7 +15723,7 @@ namespace CIS2
         public void put_fastener_positions(IEnumerable<length_measure_with_unit> lst) { (new list_of_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "fastener_positions"); }
         public void put_fastener_positions_untyped(IEnumerable lst) { (new list_of_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "fastener_positions"); }
 
-        protected override TextValue EntityName() { return "fastener_mechanism_with_position"; }
+        protected override TextValue WrapperEntityName() { return "fastener_mechanism_with_position"; }
     };
 
 
@@ -15755,7 +15758,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "nominal_length", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple"; }
     };
 
 
@@ -15801,7 +15804,7 @@ namespace CIS2
             }
         public bag_of_identifier bolt_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "bolt_ref"); } }
 
-        protected override TextValue EntityName() { return "fastener_simple_bolt"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_bolt"; }
     };
 
 
@@ -15836,7 +15839,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "head_diameter", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_bolt_circular_head"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_bolt_circular_head"; }
     };
 
 
@@ -15876,7 +15879,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "distance_across_flats", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_bolt_hexagonal_head"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_bolt_hexagonal_head"; }
     };
 
 
@@ -15911,7 +15914,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "distance_across_flats", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_bolt_square_head"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_bolt_square_head"; }
     };
 
 
@@ -15946,7 +15949,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "countersink_depth", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_countersunk"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_countersunk"; }
     };
 
 
@@ -15976,7 +15979,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "curve_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_curved"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_curved"; }
     };
 
 
@@ -16021,7 +16024,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "nail_point_type", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_nail"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_nail"; }
     };
 
 
@@ -16047,7 +16050,7 @@ namespace CIS2
 
         public bag_of_identifier nut_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "nut_ref"); } }
 
-        protected override TextValue EntityName() { return "fastener_simple_nut"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_nut"; }
     };
 
 
@@ -16077,7 +16080,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "outside_diameter", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_nut_circular"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_nut_circular"; }
     };
 
 
@@ -16107,7 +16110,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "nut_depth", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_nut_closed"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_nut_closed"; }
     };
 
 
@@ -16142,7 +16145,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "distance_across_flats", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_nut_hexagonal"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_nut_hexagonal"; }
     };
 
 
@@ -16172,7 +16175,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "distance_across_flats", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_nut_square"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_nut_square"; }
     };
 
 
@@ -16202,7 +16205,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "pin_type", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_pin"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_pin"; }
     };
 
 
@@ -16257,7 +16260,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reduced_section_area", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_screw"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_screw"; }
     };
 
 
@@ -16282,7 +16285,7 @@ namespace CIS2
         public static new fastener_simple_screw_machine Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "fastener_simple_screw_machine"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "fastener_simple_screw_machine"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_screw_machine"; }
     };
 
 
@@ -16322,7 +16325,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "drill_diameter", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_screw_self_drilling"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_screw_self_drilling"; }
     };
 
 
@@ -16357,7 +16360,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "pilot_hole_diameter", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_screw_self_tapping"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_screw_self_tapping"; }
     };
 
 
@@ -16392,7 +16395,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "relative_taper", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_screw_tapered"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_screw_tapered"; }
     };
 
 
@@ -16432,7 +16435,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "connection_method", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_shear_connector"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_shear_connector"; }
     };
 
 
@@ -16485,7 +16488,7 @@ namespace CIS2
         public double? thread_length_value_2 { get { return get_double("thread_length_value_2", ifcengine.sdaiREAL); } }
         public double? length_of_shank_value { get { return get_double("length_of_shank_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "fastener_simple_stud"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_stud"; }
     };
 
 
@@ -16526,7 +16529,7 @@ namespace CIS2
             }
         public bag_of_identifier washer_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "washer_ref"); } }
 
-        protected override TextValue EntityName() { return "fastener_simple_washer"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_washer"; }
     };
 
 
@@ -16556,7 +16559,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "final_gap", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_washer_load_indicating"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_washer_load_indicating"; }
     };
 
 
@@ -16586,7 +16589,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "taper", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fastener_simple_washer_tapered"; }
+        protected override TextValue WrapperEntityName() { return "fastener_simple_washer_tapered"; }
     };
 
 
@@ -16612,7 +16615,7 @@ namespace CIS2
 
         public set_of_located_feature uses { get { return (new set_of_located_featureSerializer()).FromAttr(m_instance, "uses"); } }
 
-        protected override TextValue EntityName() { return "feature"; }
+        protected override TextValue WrapperEntityName() { return "feature"; }
     };
 
 
@@ -16642,7 +16645,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "plane_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_cutting_plane"; }
+        protected override TextValue WrapperEntityName() { return "feature_cutting_plane"; }
     };
 
 
@@ -16667,7 +16670,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "follow_round", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "feature_edge_chamfer"; }
+        protected override TextValue WrapperEntityName() { return "feature_edge_chamfer"; }
     };
 
 
@@ -16697,7 +16700,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "edge_fillet_radius", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_edge_chamfer_fillet"; }
+        protected override TextValue WrapperEntityName() { return "feature_edge_chamfer_fillet"; }
     };
 
 
@@ -16727,7 +16730,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "edge_rounding_radius", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_edge_chamfer_rounding"; }
+        protected override TextValue WrapperEntityName() { return "feature_edge_chamfer_rounding"; }
     };
 
 
@@ -16762,7 +16765,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "edge_chamfer_depth", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_edge_chamfer_straight"; }
+        protected override TextValue WrapperEntityName() { return "feature_edge_chamfer_straight"; }
     };
 
 
@@ -16782,7 +16785,7 @@ namespace CIS2
         public static implicit operator feature_surface(SdaiInstance instance) => new feature_surface(instance);
 
 
-        protected override TextValue EntityName() { return "feature_surface"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface"; }
     };
 
 
@@ -16812,7 +16815,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "feature_boundary", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_surface_complex"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface_complex"; }
     };
 
 
@@ -16840,7 +16843,7 @@ namespace CIS2
         public void put_name_tag_items(IEnumerable<TextValue> lst) { (new list_of_textSerializer()).ToSdaiAggr(lst, m_instance, "name_tag_items"); }
         public void put_name_tag_items_untyped(IEnumerable lst) { (new list_of_textSerializer()).ToSdaiAggr(lst, m_instance, "name_tag_items"); }
 
-        protected override TextValue EntityName() { return "feature_surface_name_tag"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface_name_tag"; }
     };
 
 
@@ -16870,7 +16873,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "feature_point", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_surface_point"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface_point"; }
     };
 
 
@@ -16900,7 +16903,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "marking_process", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_surface_point_mark"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface_point_mark"; }
     };
 
 
@@ -16928,7 +16931,7 @@ namespace CIS2
         public void put_feature_boundary(IEnumerable<point> lst) { (new list_of_pointSerializer()).ToSdaiAggr(lst, m_instance, "feature_boundary"); }
         public void put_feature_boundary_untyped(IEnumerable lst) { (new list_of_pointSerializer()).ToSdaiAggr(lst, m_instance, "feature_boundary"); }
 
-        protected override TextValue EntityName() { return "feature_surface_simple"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface_simple"; }
     };
 
 
@@ -16958,7 +16961,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "treatment_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_surface_treatment"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface_treatment"; }
     };
 
 
@@ -16986,7 +16989,7 @@ namespace CIS2
         public void put_layout(IEnumerable<point> lst) { (new set_of_pointSerializer()).ToSdaiAggr(lst, m_instance, "layout"); }
         public void put_layout_untyped(IEnumerable lst) { (new set_of_pointSerializer()).ToSdaiAggr(lst, m_instance, "layout"); }
 
-        protected override TextValue EntityName() { return "feature_surface_with_layout"; }
+        protected override TextValue WrapperEntityName() { return "feature_surface_with_layout"; }
     };
 
 
@@ -17036,7 +17039,7 @@ namespace CIS2
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "number_of_threads", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "feature_thread"; }
+        protected override TextValue WrapperEntityName() { return "feature_thread"; }
     };
 
 
@@ -17056,7 +17059,7 @@ namespace CIS2
         public static implicit operator feature_volume(SdaiInstance instance) => new feature_volume(instance);
 
 
-        protected override TextValue EntityName() { return "feature_volume"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume"; }
     };
 
 
@@ -17086,7 +17089,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "feature_shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_complex"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_complex"; }
     };
 
 
@@ -17116,7 +17119,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "feature_trace", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_curved"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_curved"; }
     };
 
 
@@ -17141,7 +17144,7 @@ namespace CIS2
         public static new feature_volume_curved_line Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "feature_volume_curved_line"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "feature_volume_curved_line"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_curved_line"; }
     };
 
 
@@ -17161,7 +17164,7 @@ namespace CIS2
         public static implicit operator feature_volume_hole(SdaiInstance instance) => new feature_volume_hole(instance);
 
 
-        protected override TextValue EntityName() { return "feature_volume_hole"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_hole"; }
     };
 
 
@@ -17191,7 +17194,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "hole_radius", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_hole_circular"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_hole_circular"; }
     };
 
 
@@ -17221,7 +17224,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "thread_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_hole_circular_threaded"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_hole_circular_threaded"; }
     };
 
 
@@ -17264,7 +17267,7 @@ namespace CIS2
         public double? hole_length_value { get { return get_double("hole_length_value", ifcengine.sdaiREAL); } }
         public double? hole_height_value { get { return get_double("hole_height_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "feature_volume_hole_rectangular"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_hole_rectangular"; }
     };
 
 
@@ -17299,7 +17302,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "slot_length", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_hole_slotted"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_hole_slotted"; }
     };
 
 
@@ -17335,7 +17338,7 @@ namespace CIS2
             }
         public double? slot_radius { get { return get_double("slot_radius", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "feature_volume_hole_slotted_curved"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_hole_slotted_curved"; }
     };
 
 
@@ -17370,7 +17373,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "original_face", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_prismatic"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_prismatic"; }
     };
 
 
@@ -17405,7 +17408,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "chamfer_depth", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_prismatic_chamfer"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_prismatic_chamfer"; }
     };
 
 
@@ -17445,7 +17448,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "flange_chamfer_width", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_prismatic_flange_chamfer"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_prismatic_flange_chamfer"; }
     };
 
 
@@ -17490,7 +17493,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "flange_notch_radius", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_prismatic_flange_notch"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_prismatic_flange_notch"; }
     };
 
 
@@ -17530,7 +17533,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "notch_radius", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_prismatic_notch"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_prismatic_notch"; }
     };
 
 
@@ -17565,7 +17568,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "skew_angle_2", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_prismatic_skewed_end"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_prismatic_skewed_end"; }
     };
 
 
@@ -17595,7 +17598,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "penetration_depth", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_with_depth"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_with_depth"; }
     };
 
 
@@ -17623,7 +17626,7 @@ namespace CIS2
         public void put_layout(IEnumerable<point> lst) { (new set_of_pointSerializer()).ToSdaiAggr(lst, m_instance, "layout"); }
         public void put_layout_untyped(IEnumerable lst) { (new set_of_pointSerializer()).ToSdaiAggr(lst, m_instance, "layout"); }
 
-        protected override TextValue EntityName() { return "feature_volume_with_layout"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_with_layout"; }
     };
 
 
@@ -17653,7 +17656,7 @@ namespace CIS2
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "penetration_limit", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_with_limit"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_with_limit"; }
     };
 
 
@@ -17683,7 +17686,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "process_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "feature_volume_with_process"; }
+        protected override TextValue WrapperEntityName() { return "feature_volume_with_process"; }
     };
 
 
@@ -17713,7 +17716,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "swept_curve", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "swept_surface"; }
+        protected override TextValue WrapperEntityName() { return "swept_surface"; }
     };
 
 
@@ -17748,7 +17751,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "fixed_reference", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "fixed_reference_swept_surface"; }
+        protected override TextValue WrapperEntityName() { return "fixed_reference_swept_surface"; }
     };
 
 
@@ -17774,7 +17777,7 @@ namespace CIS2
             }
         public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
-        protected override TextValue EntityName() { return "group_assignment"; }
+        protected override TextValue WrapperEntityName() { return "group_assignment"; }
     };
 
 
@@ -17802,7 +17805,7 @@ namespace CIS2
         public void put_items(IEnumerable<item_reference> lst) { (new set_of_item_referenceSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_item_referenceSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "flavour"; }
+        protected override TextValue WrapperEntityName() { return "flavour"; }
     };
 
 
@@ -17827,7 +17830,7 @@ namespace CIS2
         public static new force_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "force_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "force_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "force_measure_with_unit"; }
     };
 
 
@@ -17852,7 +17855,7 @@ namespace CIS2
         public static new force_per_length_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "force_per_length_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "force_per_length_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "force_per_length_measure_with_unit"; }
     };
 
 
@@ -17877,7 +17880,7 @@ namespace CIS2
         public static new force_per_length_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "force_per_length_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "force_per_length_unit"; }
+        protected override TextValue WrapperEntityName() { return "force_per_length_unit"; }
     };
 
 
@@ -17902,7 +17905,7 @@ namespace CIS2
         public static new force_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "force_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "force_unit"; }
+        protected override TextValue WrapperEntityName() { return "force_unit"; }
     };
 
 
@@ -17927,7 +17930,7 @@ namespace CIS2
         public static new frequency_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "frequency_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "frequency_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "frequency_measure_with_unit"; }
     };
 
 
@@ -17952,7 +17955,7 @@ namespace CIS2
         public static new frequency_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "frequency_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "frequency_unit"; }
+        protected override TextValue WrapperEntityName() { return "frequency_unit"; }
     };
 
 
@@ -17988,7 +17991,7 @@ namespace CIS2
             }
         public set_of_assembly_design role_for_assemblies { get { return (new set_of_assembly_designSerializer()).FromAttr(m_instance, "role_for_assemblies"); } }
 
-        protected override TextValue EntityName() { return "functional_role"; }
+        protected override TextValue WrapperEntityName() { return "functional_role"; }
     };
 
 
@@ -18018,7 +18021,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "document_reference", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "functional_role_documented"; }
+        protected override TextValue WrapperEntityName() { return "functional_role_documented"; }
     };
 
 
@@ -18053,7 +18056,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "functionally_defined_transformation"; }
+        protected override TextValue WrapperEntityName() { return "functionally_defined_transformation"; }
     };
 
 
@@ -18083,7 +18086,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "datum_name", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "geographical_location"; }
+        protected override TextValue WrapperEntityName() { return "geographical_location"; }
     };
 
 
@@ -18111,7 +18114,7 @@ namespace CIS2
         public void put_elements(IEnumerable<geometric_set_select> lst) { (new set_of_geometric_set_selectSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
         public void put_elements_untyped(IEnumerable lst) { (new set_of_geometric_set_selectSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
 
-        protected override TextValue EntityName() { return "geometric_set"; }
+        protected override TextValue WrapperEntityName() { return "geometric_set"; }
     };
 
 
@@ -18136,7 +18139,7 @@ namespace CIS2
         public static new geometric_curve_set Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "geometric_curve_set"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "geometric_curve_set"; }
+        protected override TextValue WrapperEntityName() { return "geometric_curve_set"; }
     };
 
 
@@ -18172,7 +18175,7 @@ namespace CIS2
             }
         public set_of_representation representations_in_context { get { return (new set_of_representationSerializer()).FromAttr(m_instance, "representations_in_context"); } }
 
-        protected override TextValue EntityName() { return "representation_context"; }
+        protected override TextValue WrapperEntityName() { return "representation_context"; }
     };
 
 
@@ -18202,7 +18205,7 @@ namespace CIS2
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "coordinate_space_dimension", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "geometric_representation_context"; }
+        protected override TextValue WrapperEntityName() { return "geometric_representation_context"; }
     };
 
 
@@ -18237,7 +18240,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "transformation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "geometric_set_replica"; }
+        protected override TextValue WrapperEntityName() { return "geometric_set_replica"; }
     };
 
 
@@ -18292,7 +18295,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "longitude_seconds", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "global_location"; }
+        protected override TextValue WrapperEntityName() { return "global_location"; }
     };
 
 
@@ -18320,7 +18323,7 @@ namespace CIS2
         public void put_uncertainty(IEnumerable<uncertainty_measure_with_unit> lst) { (new set_of_uncertainty_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "uncertainty"); }
         public void put_uncertainty_untyped(IEnumerable lst) { (new set_of_uncertainty_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "uncertainty"); }
 
-        protected override TextValue EntityName() { return "global_uncertainty_assigned_context"; }
+        protected override TextValue WrapperEntityName() { return "global_uncertainty_assigned_context"; }
     };
 
 
@@ -18348,7 +18351,7 @@ namespace CIS2
         public void put_units(IEnumerable<unit> lst) { (new set_of_unitSerializer()).ToSdaiAggr(lst, m_instance, "units"); }
         public void put_units_untyped(IEnumerable lst) { (new set_of_unitSerializer()).ToSdaiAggr(lst, m_instance, "units"); }
 
-        protected override TextValue EntityName() { return "global_unit_assigned_context"; }
+        protected override TextValue WrapperEntityName() { return "global_unit_assigned_context"; }
     };
 
 
@@ -18391,7 +18394,7 @@ namespace CIS2
         public set_of_gridline gridlines { get { return (new set_of_gridlineSerializer()).FromAttr(m_instance, "gridlines"); } }
         public set_of_grid_level grid_levels { get { return (new set_of_grid_levelSerializer()).FromAttr(m_instance, "grid_levels"); } }
 
-        protected override TextValue EntityName() { return "grid"; }
+        protected override TextValue WrapperEntityName() { return "grid"; }
     };
 
 
@@ -18429,7 +18432,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "level", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "grid_intersection"; }
+        protected override TextValue WrapperEntityName() { return "grid_intersection"; }
     };
 
 
@@ -18459,7 +18462,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "resolution_point", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "grid_intersection_resolved"; }
+        protected override TextValue WrapperEntityName() { return "grid_intersection_resolved"; }
     };
 
 
@@ -18484,7 +18487,7 @@ namespace CIS2
         public static new plane Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "plane"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "plane"; }
+        protected override TextValue WrapperEntityName() { return "plane"; }
     };
 
 
@@ -18514,7 +18517,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_grid", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "grid_level"; }
+        protected override TextValue WrapperEntityName() { return "grid_level"; }
     };
 
 
@@ -18544,7 +18547,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "grid_for_building", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "grid_of_building"; }
+        protected override TextValue WrapperEntityName() { return "grid_of_building"; }
     };
 
 
@@ -18574,7 +18577,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "grid_for_site", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "grid_of_site"; }
+        protected override TextValue WrapperEntityName() { return "grid_of_site"; }
     };
 
 
@@ -18604,7 +18607,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "grid_for_structure", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "grid_of_structure"; }
+        protected override TextValue WrapperEntityName() { return "grid_of_structure"; }
     };
 
 
@@ -18637,7 +18640,7 @@ namespace CIS2
         public void put_offset(IEnumerable<length_measure_with_unit> lst) { (new list_of_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "offset"); }
         public void put_offset_untyped(IEnumerable lst) { (new list_of_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "offset"); }
 
-        protected override TextValue EntityName() { return "grid_offset"; }
+        protected override TextValue WrapperEntityName() { return "grid_offset"; }
     };
 
 
@@ -18668,7 +18671,7 @@ namespace CIS2
         public void put_spacing_2(IEnumerable<positive_length_measure_with_unit> lst) { (new list_of_positive_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "spacing_2"); }
         public void put_spacing_2_untyped(IEnumerable lst) { (new list_of_positive_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "spacing_2"); }
 
-        protected override TextValue EntityName() { return "grid_orthogonal"; }
+        protected override TextValue WrapperEntityName() { return "grid_orthogonal"; }
     };
 
 
@@ -18696,7 +18699,7 @@ namespace CIS2
         public void put_spacing_1(IEnumerable<plane_angle_measure_with_unit> lst) { (new list_of_plane_angle_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "spacing_1"); }
         public void put_spacing_1_untyped(IEnumerable lst) { (new list_of_plane_angle_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "spacing_1"); }
 
-        protected override TextValue EntityName() { return "grid_radial"; }
+        protected override TextValue WrapperEntityName() { return "grid_radial"; }
     };
 
 
@@ -18732,7 +18735,7 @@ namespace CIS2
         public void put_spacing_2(IEnumerable<positive_length_measure_with_unit> lst) { (new list_of_positive_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "spacing_2"); }
         public void put_spacing_2_untyped(IEnumerable lst) { (new list_of_positive_length_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "spacing_2"); }
 
-        protected override TextValue EntityName() { return "grid_skewed"; }
+        protected override TextValue WrapperEntityName() { return "grid_skewed"; }
     };
 
 
@@ -18768,7 +18771,7 @@ namespace CIS2
             }
         public set_of_gridline succeeding_line { get { return (new set_of_gridlineSerializer()).FromAttr(m_instance, "succeeding_line"); } }
 
-        protected override TextValue EntityName() { return "gridline"; }
+        protected override TextValue WrapperEntityName() { return "gridline"; }
     };
 
 
@@ -18804,7 +18807,7 @@ namespace CIS2
             }
         public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "group"; }
+        protected override TextValue WrapperEntityName() { return "group"; }
     };
 
 
@@ -18834,7 +18837,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_action", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "group_assignment_actioned"; }
+        protected override TextValue WrapperEntityName() { return "group_assignment_actioned"; }
     };
 
 
@@ -18864,7 +18867,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_approval", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "group_assignment_approved"; }
+        protected override TextValue WrapperEntityName() { return "group_assignment_approved"; }
     };
 
 
@@ -18892,7 +18895,7 @@ namespace CIS2
         public void put_items(IEnumerable<select_analysis_item> lst) { (new set_of_select_analysis_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_select_analysis_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "group_of_analysis_data"; }
+        protected override TextValue WrapperEntityName() { return "group_of_analysis_data"; }
     };
 
 
@@ -18920,7 +18923,7 @@ namespace CIS2
         public void put_items(IEnumerable<select_design_item> lst) { (new set_of_select_design_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_select_design_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "group_of_design_data"; }
+        protected override TextValue WrapperEntityName() { return "group_of_design_data"; }
     };
 
 
@@ -18948,7 +18951,7 @@ namespace CIS2
         public void put_items(IEnumerable<select_generic_item> lst) { (new set_of_select_generic_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_select_generic_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "group_of_generic_data"; }
+        protected override TextValue WrapperEntityName() { return "group_of_generic_data"; }
     };
 
 
@@ -18976,7 +18979,7 @@ namespace CIS2
         public void put_items(IEnumerable<select_physical_item> lst) { (new set_of_select_physical_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_select_physical_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "group_of_physical_data"; }
+        protected override TextValue WrapperEntityName() { return "group_of_physical_data"; }
     };
 
 
@@ -19004,7 +19007,7 @@ namespace CIS2
         public void put_items(IEnumerable<select_project_definition_item> lst) { (new set_of_select_project_definition_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_select_project_definition_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "group_of_project_definition_data"; }
+        protected override TextValue WrapperEntityName() { return "group_of_project_definition_data"; }
     };
 
 
@@ -19032,7 +19035,7 @@ namespace CIS2
         public void put_items(IEnumerable<select_structural_item> lst) { (new set_of_select_structural_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_select_structural_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "group_of_structural_data"; }
+        protected override TextValue WrapperEntityName() { return "group_of_structural_data"; }
     };
 
 
@@ -19077,7 +19080,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "related_group", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "group_relationship"; }
+        protected override TextValue WrapperEntityName() { return "group_relationship"; }
     };
 
 
@@ -19102,7 +19105,7 @@ namespace CIS2
         public static new group_usage Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "group_usage"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "group_usage"; }
+        protected override TextValue WrapperEntityName() { return "group_usage"; }
     };
 
 
@@ -19137,7 +19140,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "agreement_flag", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "half_space_2d"; }
+        protected override TextValue WrapperEntityName() { return "half_space_2d"; }
     };
 
 
@@ -19165,7 +19168,7 @@ namespace CIS2
         public void put_points(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "points"); }
         public void put_points_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "points"); }
 
-        protected override TextValue EntityName() { return "hexahedron_volume"; }
+        protected override TextValue WrapperEntityName() { return "hexahedron_volume"; }
     };
 
 
@@ -19200,7 +19203,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "semi_imag_axis", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "hyperbola"; }
+        protected override TextValue WrapperEntityName() { return "hyperbola"; }
     };
 
 
@@ -19235,7 +19238,7 @@ namespace CIS2
             get { return new id_attribute_select(m_instance, "identified_item", 0); }
             }
 
-        protected override TextValue EntityName() { return "id_attribute"; }
+        protected override TextValue WrapperEntityName() { return "id_attribute"; }
     };
 
 
@@ -19260,7 +19263,7 @@ namespace CIS2
         public static new inertia_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "inertia_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "inertia_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "inertia_measure_with_unit"; }
     };
 
 
@@ -19285,7 +19288,7 @@ namespace CIS2
         public static new inertia_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "inertia_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "inertia_unit"; }
+        protected override TextValue WrapperEntityName() { return "inertia_unit"; }
     };
 
 
@@ -19310,7 +19313,7 @@ namespace CIS2
         public static new intersection_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "intersection_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "intersection_curve"; }
+        protected override TextValue WrapperEntityName() { return "intersection_curve"; }
     };
 
 
@@ -19345,7 +19348,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "item_cost_code"; }
+        protected override TextValue WrapperEntityName() { return "item_cost_code"; }
     };
 
 
@@ -19380,7 +19383,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "costed_item", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_cost_code_assigned"; }
+        protected override TextValue WrapperEntityName() { return "item_cost_code_assigned"; }
     };
 
 
@@ -19410,7 +19413,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "source", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_cost_code_with_source"; }
+        protected override TextValue WrapperEntityName() { return "item_cost_code_with_source"; }
     };
 
 
@@ -19455,7 +19458,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "transform_item_2", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_defined_transformation"; }
+        protected override TextValue WrapperEntityName() { return "item_defined_transformation"; }
     };
 
 
@@ -19495,7 +19498,7 @@ namespace CIS2
             get { return new measure_select(m_instance, "property_value", 0); }
             }
 
-        protected override TextValue EntityName() { return "item_property"; }
+        protected override TextValue WrapperEntityName() { return "item_property"; }
     };
 
 
@@ -19530,7 +19533,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "item", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_property_assigned"; }
+        protected override TextValue WrapperEntityName() { return "item_property_assigned"; }
     };
 
 
@@ -19560,7 +19563,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "source", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_property_with_source"; }
+        protected override TextValue WrapperEntityName() { return "item_property_with_source"; }
     };
 
 
@@ -19580,7 +19583,7 @@ namespace CIS2
         public static implicit operator item_ref_source(SdaiInstance instance) => new item_ref_source(instance);
 
 
-        protected override TextValue EntityName() { return "item_ref_source"; }
+        protected override TextValue WrapperEntityName() { return "item_ref_source"; }
     };
 
 
@@ -19615,7 +19618,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "document_reference", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_ref_source_documented"; }
+        protected override TextValue WrapperEntityName() { return "item_ref_source_documented"; }
     };
 
 
@@ -19661,7 +19664,7 @@ namespace CIS2
             }
         public set_of_item_reference_library library_items { get { return (new set_of_item_reference_librarySerializer()).FromAttr(m_instance, "library_items"); } }
 
-        protected override TextValue EntityName() { return "item_ref_source_library"; }
+        protected override TextValue WrapperEntityName() { return "item_ref_source_library"; }
     };
 
 
@@ -19707,7 +19710,7 @@ namespace CIS2
             }
         public set_of_item_reference_proprietary proprietary_items { get { return (new set_of_item_reference_proprietarySerializer()).FromAttr(m_instance, "proprietary_items"); } }
 
-        protected override TextValue EntityName() { return "item_ref_source_proprietary"; }
+        protected override TextValue WrapperEntityName() { return "item_ref_source_proprietary"; }
     };
 
 
@@ -19753,7 +19756,7 @@ namespace CIS2
             }
         public set_of_item_reference_standard standard_items { get { return (new set_of_item_reference_standardSerializer()).FromAttr(m_instance, "standard_items"); } }
 
-        protected override TextValue EntityName() { return "item_ref_source_standard"; }
+        protected override TextValue WrapperEntityName() { return "item_ref_source_standard"; }
     };
 
 
@@ -19783,7 +19786,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "ref_", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "item_reference"; }
+        protected override TextValue WrapperEntityName() { return "item_reference"; }
     };
 
 
@@ -19818,7 +19821,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_to_item", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_reference_assigned"; }
+        protected override TextValue WrapperEntityName() { return "item_reference_assigned"; }
     };
 
 
@@ -19848,7 +19851,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "source", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_reference_library"; }
+        protected override TextValue WrapperEntityName() { return "item_reference_library"; }
     };
 
 
@@ -19878,7 +19881,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "source", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_reference_proprietary"; }
+        protected override TextValue WrapperEntityName() { return "item_reference_proprietary"; }
     };
 
 
@@ -19908,7 +19911,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "source", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "item_reference_standard"; }
+        protected override TextValue WrapperEntityName() { return "item_reference_standard"; }
     };
 
 
@@ -19942,7 +19945,7 @@ namespace CIS2
         public set_of_design_joint_system design_uses { get { return (new set_of_design_joint_systemSerializer()).FromAttr(m_instance, "design_uses"); } }
         public set_of_located_joint_system physical_uses { get { return (new set_of_located_joint_systemSerializer()).FromAttr(m_instance, "physical_uses"); } }
 
-        protected override TextValue EntityName() { return "joint_system"; }
+        protected override TextValue WrapperEntityName() { return "joint_system"; }
     };
 
 
@@ -19972,7 +19975,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "specification", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "joint_system_amorphous"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_amorphous"; }
     };
 
 
@@ -20011,7 +20014,7 @@ namespace CIS2
         public void put_specification_untyped(IEnumerable lst) { (new list_of_chemical_mechanismSerializer()).ToSdaiAggr(lst, m_instance, "specification"); }
         public IntValue? number_of_layers { get { return get_IntValue("number_of_layers", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "joint_system_chemical"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_chemical"; }
     };
 
 
@@ -20039,7 +20042,7 @@ namespace CIS2
         public void put_systems(IEnumerable<joint_system> lst) { (new list_of_joint_systemSerializer()).ToSdaiAggr(lst, m_instance, "systems"); }
         public void put_systems_untyped(IEnumerable lst) { (new list_of_joint_systemSerializer()).ToSdaiAggr(lst, m_instance, "systems"); }
 
-        protected override TextValue EntityName() { return "joint_system_complex"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_complex"; }
     };
 
 
@@ -20072,7 +20075,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "mechanism", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "joint_system_mechanical"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_mechanical"; }
     };
 
 
@@ -20102,7 +20105,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "weld_specification", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "joint_system_welded"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_welded"; }
     };
 
 
@@ -20132,7 +20135,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "weld_path", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "joint_system_welded_linear"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_welded_linear"; }
     };
 
 
@@ -20162,7 +20165,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "weld_position", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "joint_system_welded_point"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_welded_point"; }
     };
 
 
@@ -20192,7 +20195,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "weld_surface", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "joint_system_welded_surface"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_welded_surface"; }
     };
 
 
@@ -20222,7 +20225,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "weld_shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "joint_system_welded_with_shape"; }
+        protected override TextValue WrapperEntityName() { return "joint_system_welded_with_shape"; }
     };
 
 
@@ -20247,7 +20250,7 @@ namespace CIS2
         public static new length_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "length_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "length_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "length_measure_with_unit"; }
     };
 
 
@@ -20272,7 +20275,7 @@ namespace CIS2
         public static new length_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "length_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "length_unit"; }
+        protected override TextValue WrapperEntityName() { return "length_unit"; }
     };
 
 
@@ -20307,7 +20310,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "dir", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "line"; }
+        protected override TextValue WrapperEntityName() { return "line"; }
     };
 
 
@@ -20332,7 +20335,7 @@ namespace CIS2
         public static new linear_acceleration_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "linear_acceleration_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "linear_acceleration_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "linear_acceleration_measure_with_unit"; }
     };
 
 
@@ -20357,7 +20360,7 @@ namespace CIS2
         public static new linear_acceleration_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "linear_acceleration_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "linear_acceleration_unit"; }
+        protected override TextValue WrapperEntityName() { return "linear_acceleration_unit"; }
     };
 
 
@@ -20382,7 +20385,7 @@ namespace CIS2
         public static new linear_stiffness_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "linear_stiffness_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "linear_stiffness_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "linear_stiffness_measure_with_unit"; }
     };
 
 
@@ -20407,7 +20410,7 @@ namespace CIS2
         public static new linear_stiffness_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "linear_stiffness_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "linear_stiffness_unit"; }
+        protected override TextValue WrapperEntityName() { return "linear_stiffness_unit"; }
     };
 
 
@@ -20432,7 +20435,7 @@ namespace CIS2
         public static new linear_velocity_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "linear_velocity_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "linear_velocity_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "linear_velocity_measure_with_unit"; }
     };
 
 
@@ -20457,7 +20460,7 @@ namespace CIS2
         public static new linear_velocity_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "linear_velocity_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "linear_velocity_unit"; }
+        protected override TextValue WrapperEntityName() { return "linear_velocity_unit"; }
     };
 
 
@@ -20492,7 +20495,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "load_description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "load"; }
+        protected override TextValue WrapperEntityName() { return "load"; }
     };
 
 
@@ -20537,7 +20540,7 @@ namespace CIS2
         public set_of_load loads { get { return (new set_of_loadSerializer()).FromAttr(m_instance, "loads"); } }
         public set_of_load load_components { get { return (new set_of_loadSerializer()).FromAttr(m_instance, "load_components"); } }
 
-        protected override TextValue EntityName() { return "load_case"; }
+        protected override TextValue WrapperEntityName() { return "load_case"; }
     };
 
 
@@ -20567,7 +20570,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "code_ref", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_case_documented"; }
+        protected override TextValue WrapperEntityName() { return "load_case_documented"; }
     };
 
 
@@ -20607,7 +20610,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "component_load_case", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_combination_occurrence"; }
+        protected override TextValue WrapperEntityName() { return "load_combination_occurrence"; }
     };
 
 
@@ -20642,7 +20645,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "load_values", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_connection"; }
+        protected override TextValue WrapperEntityName() { return "load_connection"; }
     };
 
 
@@ -20687,7 +20690,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<global_or_local_load>.FromValue(value.Value, EnumNames.global_or_local_load_); ifcengine.sdaiPutAttrBN(m_instance, "global_or_local", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "load_element"; }
+        protected override TextValue WrapperEntityName() { return "load_element"; }
     };
 
 
@@ -20722,7 +20725,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "load_value", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_element_concentrated"; }
+        protected override TextValue WrapperEntityName() { return "load_element_concentrated"; }
     };
 
 
@@ -20747,7 +20750,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<projected_or_true_length>.FromValue(value.Value, EnumNames.projected_or_true_length_); ifcengine.sdaiPutAttrBN(m_instance, "projected_or_true", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "load_element_distributed"; }
+        protected override TextValue WrapperEntityName() { return "load_element_distributed"; }
     };
 
 
@@ -20787,7 +20790,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "curve_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_element_distributed_curve"; }
+        protected override TextValue WrapperEntityName() { return "load_element_distributed_curve"; }
     };
 
 
@@ -20812,7 +20815,7 @@ namespace CIS2
         public static new load_element_distributed_curve_line Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "load_element_distributed_curve_line"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "load_element_distributed_curve_line"; }
+        protected override TextValue WrapperEntityName() { return "load_element_distributed_curve_line"; }
     };
 
 
@@ -20837,7 +20840,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "surface_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_element_distributed_surface"; }
+        protected override TextValue WrapperEntityName() { return "load_element_distributed_surface"; }
     };
 
 
@@ -20867,7 +20870,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "load_value", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_element_distributed_surface_uniform"; }
+        protected override TextValue WrapperEntityName() { return "load_element_distributed_surface_uniform"; }
     };
 
 
@@ -20895,7 +20898,7 @@ namespace CIS2
         public void put_load_values(IEnumerable<applied_load_static_pressure> lst) { (new set_of_applied_load_static_pressureSerializer()).ToSdaiAggr(lst, m_instance, "load_values"); }
         public void put_load_values_untyped(IEnumerable lst) { (new set_of_applied_load_static_pressureSerializer()).ToSdaiAggr(lst, m_instance, "load_values"); }
 
-        protected override TextValue EntityName() { return "load_element_distributed_surface_varying"; }
+        protected override TextValue WrapperEntityName() { return "load_element_distributed_surface_varying"; }
     };
 
 
@@ -20923,7 +20926,7 @@ namespace CIS2
         public void put_temperature_gradients(IEnumerable<measure_with_unit> lst) { (new list_of_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "temperature_gradients"); }
         public void put_temperature_gradients_untyped(IEnumerable lst) { (new list_of_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "temperature_gradients"); }
 
-        protected override TextValue EntityName() { return "load_element_thermal"; }
+        protected override TextValue WrapperEntityName() { return "load_element_thermal"; }
     };
 
 
@@ -20968,7 +20971,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<global_or_local_load>.FromValue(value.Value, EnumNames.global_or_local_load_); ifcengine.sdaiPutAttrBN(m_instance, "global_or_local", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "load_member"; }
+        protected override TextValue WrapperEntityName() { return "load_member"; }
     };
 
 
@@ -21003,7 +21006,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "load_value", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_member_concentrated"; }
+        protected override TextValue WrapperEntityName() { return "load_member_concentrated"; }
     };
 
 
@@ -21028,7 +21031,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<projected_or_true_length>.FromValue(value.Value, EnumNames.projected_or_true_length_); ifcengine.sdaiPutAttrBN(m_instance, "projected_or_true", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "load_member_distributed"; }
+        protected override TextValue WrapperEntityName() { return "load_member_distributed"; }
     };
 
 
@@ -21068,7 +21071,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "curve_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_member_distributed_curve"; }
+        protected override TextValue WrapperEntityName() { return "load_member_distributed_curve"; }
     };
 
 
@@ -21093,7 +21096,7 @@ namespace CIS2
         public static new load_member_distributed_curve_line Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "load_member_distributed_curve_line"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "load_member_distributed_curve_line"; }
+        protected override TextValue WrapperEntityName() { return "load_member_distributed_curve_line"; }
     };
 
 
@@ -21118,7 +21121,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "surface_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_member_distributed_surface"; }
+        protected override TextValue WrapperEntityName() { return "load_member_distributed_surface"; }
     };
 
 
@@ -21148,7 +21151,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "load_value", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_member_distributed_surface_uniform"; }
+        protected override TextValue WrapperEntityName() { return "load_member_distributed_surface_uniform"; }
     };
 
 
@@ -21176,7 +21179,7 @@ namespace CIS2
         public void put_load_values(IEnumerable<applied_load_static_pressure> lst) { (new set_of_applied_load_static_pressureSerializer()).ToSdaiAggr(lst, m_instance, "load_values"); }
         public void put_load_values_untyped(IEnumerable lst) { (new set_of_applied_load_static_pressureSerializer()).ToSdaiAggr(lst, m_instance, "load_values"); }
 
-        protected override TextValue EntityName() { return "load_member_distributed_surface_varying"; }
+        protected override TextValue WrapperEntityName() { return "load_member_distributed_surface_varying"; }
     };
 
 
@@ -21211,7 +21214,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "load_values", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "load_node"; }
+        protected override TextValue WrapperEntityName() { return "load_node"; }
     };
 
 
@@ -21251,7 +21254,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "time_variation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "loaded_product"; }
+        protected override TextValue WrapperEntityName() { return "loaded_product"; }
     };
 
 
@@ -21293,7 +21296,7 @@ namespace CIS2
         public set_of_load_combination_occurrence load_cases { get { return (new set_of_load_combination_occurrenceSerializer()).FromAttr(m_instance, "load_cases"); } }
         public set_of_load_combination_occurrence cases { get { return (new set_of_load_combination_occurrenceSerializer()).FromAttr(m_instance, "cases"); } }
 
-        protected override TextValue EntityName() { return "loading_combination"; }
+        protected override TextValue WrapperEntityName() { return "loading_combination"; }
     };
 
 
@@ -21338,7 +21341,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "zone", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "local_time"; }
+        protected override TextValue WrapperEntityName() { return "local_time"; }
     };
 
 
@@ -21363,7 +21366,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "location", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_item"; }
+        protected override TextValue WrapperEntityName() { return "located_item"; }
     };
 
 
@@ -21403,7 +21406,7 @@ namespace CIS2
         public set_of_located_part component_parts { get { return (new set_of_located_partSerializer()).FromAttr(m_instance, "component_parts"); } }
         public set_of_located_assembly sub_assemblies { get { return (new set_of_located_assemblySerializer()).FromAttr(m_instance, "sub_assemblies"); } }
 
-        protected override TextValue EntityName() { return "located_assembly"; }
+        protected override TextValue WrapperEntityName() { return "located_assembly"; }
     };
 
 
@@ -21428,7 +21431,7 @@ namespace CIS2
         public static new located_assembly_child Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "located_assembly_child"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "located_assembly_child"; }
+        protected override TextValue WrapperEntityName() { return "located_assembly_child"; }
     };
 
 
@@ -21478,7 +21481,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "bar_code", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "located_assembly_marked"; }
+        protected override TextValue WrapperEntityName() { return "located_assembly_marked"; }
     };
 
 
@@ -21503,7 +21506,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "descriptive_feature", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_feature"; }
+        protected override TextValue WrapperEntityName() { return "located_feature"; }
     };
 
 
@@ -21533,7 +21536,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "modified_assembly", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_feature_for_assembly"; }
+        protected override TextValue WrapperEntityName() { return "located_feature_for_assembly"; }
     };
 
 
@@ -21563,7 +21566,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "modified_part", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_feature_for_design_part"; }
+        protected override TextValue WrapperEntityName() { return "located_feature_for_design_part"; }
     };
 
 
@@ -21593,7 +21596,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "modified_assembly", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_feature_for_located_assembly"; }
+        protected override TextValue WrapperEntityName() { return "located_feature_for_located_assembly"; }
     };
 
 
@@ -21623,7 +21626,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "modified_part", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_feature_for_located_part"; }
+        protected override TextValue WrapperEntityName() { return "located_feature_for_located_part"; }
     };
 
 
@@ -21653,7 +21656,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "modified_part", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_feature_for_part"; }
+        protected override TextValue WrapperEntityName() { return "located_feature_for_part"; }
     };
 
 
@@ -21683,7 +21686,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "feature_for_joint", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "located_feature_joint_dependent"; }
+        protected override TextValue WrapperEntityName() { return "located_feature_joint_dependent"; }
     };
 
 
@@ -21719,7 +21722,7 @@ namespace CIS2
             }
         public set_of_located_feature_joint_dependent features { get { return (new set_of_located_feature_joint_dependentSerializer()).FromAttr(m_instance, "features"); } }
 
-        protected override TextValue EntityName() { return "located_joint_system"; }
+        protected override TextValue WrapperEntityName() { return "located_joint_system"; }
     };
 
 
@@ -21755,7 +21758,7 @@ namespace CIS2
             }
         public set_of_located_feature_for_located_part features { get { return (new set_of_located_feature_for_located_partSerializer()).FromAttr(m_instance, "features"); } }
 
-        protected override TextValue EntityName() { return "located_part"; }
+        protected override TextValue WrapperEntityName() { return "located_part"; }
     };
 
 
@@ -21796,7 +21799,7 @@ namespace CIS2
         public void put_required_joints(IEnumerable<located_joint_system> lst) { (new set_of_located_joint_systemSerializer()).ToSdaiAggr(lst, m_instance, "required_joints"); }
         public void put_required_joints_untyped(IEnumerable lst) { (new set_of_located_joint_systemSerializer()).ToSdaiAggr(lst, m_instance, "required_joints"); }
 
-        protected override TextValue EntityName() { return "located_part_joint"; }
+        protected override TextValue WrapperEntityName() { return "located_part_joint"; }
     };
 
 
@@ -21846,7 +21849,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "main_piece", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "located_part_marked"; }
+        protected override TextValue WrapperEntityName() { return "located_part_marked"; }
     };
 
 
@@ -21881,7 +21884,7 @@ namespace CIS2
             get { return new project_select(m_instance, "parent_project", 0); }
             }
 
-        protected override TextValue EntityName() { return "located_site"; }
+        protected override TextValue WrapperEntityName() { return "located_site"; }
     };
 
 
@@ -21916,7 +21919,7 @@ namespace CIS2
             get { return new site_select(m_instance, "parent_site", 0); }
             }
 
-        protected override TextValue EntityName() { return "located_structure"; }
+        protected override TextValue WrapperEntityName() { return "located_structure"; }
     };
 
 
@@ -21981,7 +21984,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "installation_owner", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "managed_application_installation"; }
+        protected override TextValue WrapperEntityName() { return "managed_application_installation"; }
     };
 
 
@@ -22037,7 +22040,7 @@ namespace CIS2
             }
         public set_of_managed_data_item processed_items { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "processed_items"); } }
 
-        protected override TextValue EntityName() { return "managed_data_transaction"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_transaction"; }
     };
 
 
@@ -22063,7 +22066,7 @@ namespace CIS2
 
         public set_of_managed_data_item created_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "created_set"); } }
 
-        protected override TextValue EntityName() { return "managed_data_creation"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_creation"; }
     };
 
 
@@ -22094,7 +22097,7 @@ namespace CIS2
             }
         public set_of_managed_data_item deleted_data_items { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "deleted_data_items"); } }
 
-        protected override TextValue EntityName() { return "managed_data_deleted"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_deleted"; }
     };
 
 
@@ -22126,7 +22129,7 @@ namespace CIS2
         public set_of_managed_data_item exported_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "exported_set"); } }
         public set_of_managed_data_group assignments { get { return (new set_of_managed_data_groupSerializer()).FromAttr(m_instance, "assignments"); } }
 
-        protected override TextValue EntityName() { return "managed_data_export"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_export"; }
     };
 
 
@@ -22154,7 +22157,7 @@ namespace CIS2
         public void put_items(IEnumerable<managed_data_transaction> lst) { (new set_of_managed_data_transactionSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_managed_data_transactionSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
 
-        protected override TextValue EntityName() { return "managed_data_group"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_group"; }
     };
 
 
@@ -22186,7 +22189,7 @@ namespace CIS2
         public set_of_managed_data_item imported_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "imported_set"); } }
         public set_of_managed_data_group assignments { get { return (new set_of_managed_data_groupSerializer()).FromAttr(m_instance, "assignments"); } }
 
-        protected override TextValue EntityName() { return "managed_data_import"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_import"; }
     };
 
 
@@ -22234,7 +22237,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "original_data", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "managed_data_item"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_item"; }
     };
 
 
@@ -22266,7 +22269,7 @@ namespace CIS2
         public person last_managing_person { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "last_managing_person", ifcengine.sdaiINSTANCE, out inst); return new person(inst); } }
         public calendar_date date_last_managed { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "date_last_managed", ifcengine.sdaiINSTANCE, out inst); return new calendar_date(inst); } }
 
-        protected override TextValue EntityName() { return "managed_data_item_with_history"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_item_with_history"; }
     };
 
 
@@ -22292,7 +22295,7 @@ namespace CIS2
 
         public set_of_managed_data_item modified_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "modified_set"); } }
 
-        protected override TextValue EntityName() { return "managed_data_modification"; }
+        protected override TextValue WrapperEntityName() { return "managed_data_modification"; }
     };
 
 
@@ -22337,7 +22340,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "northings", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "map_location"; }
+        protected override TextValue WrapperEntityName() { return "map_location"; }
     };
 
 
@@ -22372,7 +22375,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "mapping_target", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "mapped_item"; }
+        protected override TextValue WrapperEntityName() { return "mapped_item"; }
     };
 
 
@@ -22397,7 +22400,7 @@ namespace CIS2
         public static new mass_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "mass_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "mass_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "mass_measure_with_unit"; }
     };
 
 
@@ -22422,7 +22425,7 @@ namespace CIS2
         public static new mass_per_length_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "mass_per_length_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "mass_per_length_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "mass_per_length_measure_with_unit"; }
     };
 
 
@@ -22447,7 +22450,7 @@ namespace CIS2
         public static new mass_per_length_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "mass_per_length_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "mass_per_length_unit"; }
+        protected override TextValue WrapperEntityName() { return "mass_per_length_unit"; }
     };
 
 
@@ -22472,7 +22475,7 @@ namespace CIS2
         public static new mass_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "mass_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "mass_unit"; }
+        protected override TextValue WrapperEntityName() { return "mass_unit"; }
     };
 
 
@@ -22500,7 +22503,7 @@ namespace CIS2
         public TextValue material_name { get { return get_string("material_name", ifcengine.sdaiSTRING); } }
         public bag_of_identifier material_grade { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "material_grade"); } }
 
-        protected override TextValue EntityName() { return "material"; }
+        protected override TextValue WrapperEntityName() { return "material"; }
     };
 
 
@@ -22531,7 +22534,7 @@ namespace CIS2
         public void put_material_location(IEnumerable<placement> lst) { (new list_of_placementSerializer()).ToSdaiAggr(lst, m_instance, "material_location"); }
         public void put_material_location_untyped(IEnumerable lst) { (new list_of_placementSerializer()).ToSdaiAggr(lst, m_instance, "material_location"); }
 
-        protected override TextValue EntityName() { return "material_anisotropic"; }
+        protected override TextValue WrapperEntityName() { return "material_anisotropic"; }
     };
 
 
@@ -22581,7 +22584,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "determination_method", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "material_constituent"; }
+        protected override TextValue WrapperEntityName() { return "material_constituent"; }
     };
 
 
@@ -22606,7 +22609,7 @@ namespace CIS2
         public static new material_representation_item Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "material_representation_item"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "material_representation_item"; }
+        protected override TextValue WrapperEntityName() { return "material_representation_item"; }
     };
 
 
@@ -22651,7 +22654,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "secant_modulus", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_elasticity"; }
+        protected override TextValue WrapperEntityName() { return "material_elasticity"; }
     };
 
 
@@ -22681,7 +22684,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "hardness_values", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_hardness"; }
+        protected override TextValue WrapperEntityName() { return "material_hardness"; }
     };
 
 
@@ -22711,7 +22714,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "material_isotropic"; }
+        protected override TextValue WrapperEntityName() { return "material_isotropic"; }
     };
 
 
@@ -22741,7 +22744,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "mass_density", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_mass_density"; }
+        protected override TextValue WrapperEntityName() { return "material_mass_density"; }
     };
 
 
@@ -22776,7 +22779,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "out_of_plane_properties", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "material_orthotropic"; }
+        protected override TextValue WrapperEntityName() { return "material_orthotropic"; }
     };
 
 
@@ -22796,7 +22799,7 @@ namespace CIS2
         public static implicit operator material_property_context(SdaiInstance instance) => new material_property_context(instance);
 
 
-        protected override TextValue EntityName() { return "material_property_context"; }
+        protected override TextValue WrapperEntityName() { return "material_property_context"; }
     };
 
 
@@ -22831,7 +22834,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "upper_value_for_dimension", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_property_context_dimensional"; }
+        protected override TextValue WrapperEntityName() { return "material_property_context_dimensional"; }
     };
 
 
@@ -22861,7 +22864,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<loading_status>.FromValue(value.Value, EnumNames.loading_status_); ifcengine.sdaiPutAttrBN(m_instance, "loading", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_property_context_loading"; }
+        protected override TextValue WrapperEntityName() { return "material_property_context_loading"; }
     };
 
 
@@ -22896,7 +22899,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "upper_value_for_strain", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_property_context_strain"; }
+        protected override TextValue WrapperEntityName() { return "material_property_context_strain"; }
     };
 
 
@@ -22931,7 +22934,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "upper_value_for_stress", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_property_context_stress"; }
+        protected override TextValue WrapperEntityName() { return "material_property_context_stress"; }
     };
 
 
@@ -22966,7 +22969,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "temperature_upper_bound", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_property_context_temperature"; }
+        protected override TextValue WrapperEntityName() { return "material_property_context_temperature"; }
     };
 
 
@@ -22991,7 +22994,7 @@ namespace CIS2
         public static new material_representation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "material_representation"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "material_representation"; }
+        protected override TextValue WrapperEntityName() { return "material_representation"; }
     };
 
 
@@ -23021,7 +23024,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "material_strength_value", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_strength"; }
+        protected override TextValue WrapperEntityName() { return "material_strength"; }
     };
 
 
@@ -23051,7 +23054,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "thermal_expansion_coeff", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_thermal_expansion"; }
+        protected override TextValue WrapperEntityName() { return "material_thermal_expansion"; }
     };
 
 
@@ -23081,7 +23084,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "toughness_values", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "material_toughness"; }
+        protected override TextValue WrapperEntityName() { return "material_toughness"; }
     };
 
 
@@ -23124,7 +23127,7 @@ namespace CIS2
         public void put_qualifiers(IEnumerable<value_qualifier> lst) { (new set_of_value_qualifierSerializer()).ToSdaiAggr(lst, m_instance, "qualifiers"); }
         public void put_qualifiers_untyped(IEnumerable lst) { (new set_of_value_qualifierSerializer()).ToSdaiAggr(lst, m_instance, "qualifiers"); }
 
-        protected override TextValue EntityName() { return "measure_qualification"; }
+        protected override TextValue WrapperEntityName() { return "measure_qualification"; }
     };
 
 
@@ -23149,7 +23152,7 @@ namespace CIS2
         public static new media_content Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "media_content"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "media_content"; }
+        protected override TextValue WrapperEntityName() { return "media_content"; }
     };
 
 
@@ -23174,7 +23177,7 @@ namespace CIS2
         public static new media_content_drawing Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "media_content_drawing"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "media_content_drawing"; }
+        protected override TextValue WrapperEntityName() { return "media_content_drawing"; }
     };
 
 
@@ -23225,7 +23228,7 @@ namespace CIS2
         public void put_owner(IEnumerable<person_and_organization> lst) { (new list_of_person_and_organizationSerializer()).ToSdaiAggr(lst, m_instance, "owner"); }
         public void put_owner_untyped(IEnumerable lst) { (new list_of_person_and_organizationSerializer()).ToSdaiAggr(lst, m_instance, "owner"); }
 
-        protected override TextValue EntityName() { return "media_file"; }
+        protected override TextValue WrapperEntityName() { return "media_file"; }
     };
 
 
@@ -23260,7 +23263,7 @@ namespace CIS2
         public date_and_time creation_date { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "creation_date", ifcengine.sdaiINSTANCE, out inst); return new date_and_time(inst); } }
         public TextValue cnc_filename { get { return get_string("cnc_filename", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "media_file_cnc"; }
+        protected override TextValue WrapperEntityName() { return "media_file_cnc"; }
     };
 
 
@@ -23325,7 +23328,7 @@ namespace CIS2
         public date_and_time creation_date { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "creation_date", ifcengine.sdaiINSTANCE, out inst); return new date_and_time(inst); } }
         public TextValue drawing_filename { get { return get_string("drawing_filename", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "media_file_drawing"; }
+        protected override TextValue WrapperEntityName() { return "media_file_drawing"; }
     };
 
 
@@ -23350,7 +23353,7 @@ namespace CIS2
         public static new modulus_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "modulus_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "modulus_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "modulus_measure_with_unit"; }
     };
 
 
@@ -23375,7 +23378,7 @@ namespace CIS2
         public static new modulus_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "modulus_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "modulus_unit"; }
+        protected override TextValue WrapperEntityName() { return "modulus_unit"; }
     };
 
 
@@ -23400,7 +23403,7 @@ namespace CIS2
         public static new moment_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "moment_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "moment_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "moment_measure_with_unit"; }
     };
 
 
@@ -23425,7 +23428,7 @@ namespace CIS2
         public static new moment_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "moment_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "moment_unit"; }
+        protected override TextValue WrapperEntityName() { return "moment_unit"; }
     };
 
 
@@ -23465,7 +23468,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "path", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "move"; }
+        protected override TextValue WrapperEntityName() { return "move"; }
     };
 
 
@@ -23500,7 +23503,7 @@ namespace CIS2
             get { return new name_attribute_select(m_instance, "named_item", 0); }
             }
 
-        protected override TextValue EntityName() { return "name_attribute"; }
+        protected override TextValue WrapperEntityName() { return "name_attribute"; }
     };
 
 
@@ -23545,7 +23548,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_model", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "node"; }
+        protected override TextValue WrapperEntityName() { return "node"; }
     };
 
 
@@ -23585,7 +23588,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "dependency_description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "node_dependency"; }
+        protected override TextValue WrapperEntityName() { return "node_dependency"; }
     };
 
 
@@ -23620,7 +23623,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "object_role"; }
+        protected override TextValue WrapperEntityName() { return "object_role"; }
     };
 
 
@@ -23660,7 +23663,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "offset_curve_2d"; }
+        protected override TextValue WrapperEntityName() { return "offset_curve_2d"; }
     };
 
 
@@ -23705,7 +23708,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "offset_curve_3d"; }
+        protected override TextValue WrapperEntityName() { return "offset_curve_3d"; }
     };
 
 
@@ -23745,7 +23748,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "offset_surface"; }
+        protected override TextValue WrapperEntityName() { return "offset_surface"; }
     };
 
 
@@ -23773,7 +23776,7 @@ namespace CIS2
         public void put_edge_list(IEnumerable<oriented_edge> lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
         public void put_edge_list_untyped(IEnumerable lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
 
-        protected override TextValue EntityName() { return "path"; }
+        protected override TextValue WrapperEntityName() { return "path"; }
     };
 
 
@@ -23799,7 +23802,7 @@ namespace CIS2
 
         public IntValue? ne { get { return get_IntValue("ne", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "open_path"; }
+        protected override TextValue WrapperEntityName() { return "open_path"; }
     };
 
 
@@ -23824,7 +23827,7 @@ namespace CIS2
         public static new open_shell Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "open_shell"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "open_shell"; }
+        protected override TextValue WrapperEntityName() { return "open_shell"; }
     };
 
 
@@ -23864,7 +23867,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "organization"; }
+        protected override TextValue WrapperEntityName() { return "organization"; }
     };
 
 
@@ -23909,7 +23912,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "related_organization", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "organization_relationship"; }
+        protected override TextValue WrapperEntityName() { return "organization_relationship"; }
     };
 
 
@@ -23949,7 +23952,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "effective_end_date", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "organization_relationship_contractual"; }
+        protected override TextValue WrapperEntityName() { return "organization_relationship_contractual"; }
     };
 
 
@@ -23982,7 +23985,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "organizational_address"; }
+        protected override TextValue WrapperEntityName() { return "organizational_address"; }
     };
 
 
@@ -24017,7 +24020,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "orientation", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "oriented_closed_shell"; }
+        protected override TextValue WrapperEntityName() { return "oriented_closed_shell"; }
     };
 
 
@@ -24052,7 +24055,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "orientation", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "oriented_edge"; }
+        protected override TextValue WrapperEntityName() { return "oriented_edge"; }
     };
 
 
@@ -24087,7 +24090,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "orientation", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "oriented_face"; }
+        protected override TextValue WrapperEntityName() { return "oriented_face"; }
     };
 
 
@@ -24122,7 +24125,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "orientation", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "oriented_open_shell"; }
+        protected override TextValue WrapperEntityName() { return "oriented_open_shell"; }
     };
 
 
@@ -24157,7 +24160,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "orientation", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "oriented_path"; }
+        protected override TextValue WrapperEntityName() { return "oriented_path"; }
     };
 
 
@@ -24187,7 +24190,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "orientation", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "oriented_surface"; }
+        protected override TextValue WrapperEntityName() { return "oriented_surface"; }
     };
 
 
@@ -24212,7 +24215,7 @@ namespace CIS2
         public static new outer_boundary_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "outer_boundary_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "outer_boundary_curve"; }
+        protected override TextValue WrapperEntityName() { return "outer_boundary_curve"; }
     };
 
 
@@ -24242,7 +24245,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "focal_dist", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "parabola"; }
+        protected override TextValue WrapperEntityName() { return "parabola"; }
     };
 
 
@@ -24267,7 +24270,7 @@ namespace CIS2
         public static new parametric_representation_context Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "parametric_representation_context"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "parametric_representation_context"; }
+        protected override TextValue WrapperEntityName() { return "parametric_representation_context"; }
     };
 
 
@@ -24306,7 +24309,7 @@ namespace CIS2
         public set_of_design_part design_uses { get { return (new set_of_design_partSerializer()).FromAttr(m_instance, "design_uses"); } }
         public set_of_located_part physical_uses { get { return (new set_of_located_partSerializer()).FromAttr(m_instance, "physical_uses"); } }
 
-        protected override TextValue EntityName() { return "part"; }
+        protected override TextValue WrapperEntityName() { return "part"; }
     };
 
 
@@ -24336,7 +24339,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "part_shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_complex"; }
+        protected override TextValue WrapperEntityName() { return "part_complex"; }
     };
 
 
@@ -24369,7 +24372,7 @@ namespace CIS2
         public void put_involved_processes(IEnumerable<structural_frame_process> lst) { (new set_of_structural_frame_processSerializer()).ToSdaiAggr(lst, m_instance, "involved_processes"); }
         public void put_involved_processes_untyped(IEnumerable lst) { (new set_of_structural_frame_processSerializer()).ToSdaiAggr(lst, m_instance, "involved_processes"); }
 
-        protected override TextValue EntityName() { return "part_derived"; }
+        protected override TextValue WrapperEntityName() { return "part_derived"; }
     };
 
 
@@ -24402,7 +24405,7 @@ namespace CIS2
         public void put_representing_elements(IEnumerable<element> lst) { (new set_of_elementSerializer()).ToSdaiAggr(lst, m_instance, "representing_elements"); }
         public void put_representing_elements_untyped(IEnumerable lst) { (new set_of_elementSerializer()).ToSdaiAggr(lst, m_instance, "representing_elements"); }
 
-        protected override TextValue EntityName() { return "part_map"; }
+        protected override TextValue WrapperEntityName() { return "part_map"; }
     };
 
 
@@ -24422,7 +24425,7 @@ namespace CIS2
         public static implicit operator part_prismatic(SdaiInstance instance) => new part_prismatic(instance);
 
 
-        protected override TextValue EntityName() { return "part_prismatic"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic"; }
     };
 
 
@@ -24458,7 +24461,7 @@ namespace CIS2
         public IntValue? number_of_sections { get { return get_IntValue("number_of_sections", ifcengine.sdaiINTEGER); } }
         public curve curve_defining_part { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_defining_part", ifcengine.sdaiINSTANCE, out inst); return new curve(inst); } }
 
-        protected override TextValue EntityName() { return "part_prismatic_complex"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_complex"; }
     };
 
 
@@ -24508,7 +24511,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "relative_taper_2", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_prismatic_complex_tapered"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_complex_tapered"; }
     };
 
 
@@ -24553,7 +24556,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "x_offset", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_prismatic_simple"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_simple"; }
     };
 
 
@@ -24583,7 +24586,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "camber_description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "part_prismatic_simple_cambered"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_simple_cambered"; }
     };
 
 
@@ -24623,7 +24626,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "absolute_offset_z", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_prismatic_simple_cambered_absolute"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_simple_cambered_absolute"; }
     };
 
 
@@ -24663,7 +24666,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "relative_offset_z", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_prismatic_simple_cambered_relative"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_simple_cambered_relative"; }
     };
 
 
@@ -24723,7 +24726,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "castellation_depth", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_prismatic_simple_castellated"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_simple_castellated"; }
     };
 
 
@@ -24753,7 +24756,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axis_definition", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_prismatic_simple_curved"; }
+        protected override TextValue WrapperEntityName() { return "part_prismatic_simple_curved"; }
     };
 
 
@@ -24783,7 +24786,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "sheet_thickness", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_sheet"; }
+        protected override TextValue WrapperEntityName() { return "part_sheet"; }
     };
 
 
@@ -24803,7 +24806,7 @@ namespace CIS2
         public static implicit operator part_sheet_bounded(SdaiInstance instance) => new part_sheet_bounded(instance);
 
 
-        protected override TextValue EntityName() { return "part_sheet_bounded"; }
+        protected override TextValue WrapperEntityName() { return "part_sheet_bounded"; }
     };
 
 
@@ -24833,7 +24836,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "sheet_boundary", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_sheet_bounded_complex"; }
+        protected override TextValue WrapperEntityName() { return "part_sheet_bounded_complex"; }
     };
 
 
@@ -24888,7 +24891,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "z_offset", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_sheet_bounded_simple"; }
+        protected override TextValue WrapperEntityName() { return "part_sheet_bounded_simple"; }
     };
 
 
@@ -24923,7 +24926,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "profile_properties", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "part_sheet_profiled"; }
+        protected override TextValue WrapperEntityName() { return "part_sheet_profiled"; }
     };
 
 
@@ -24972,7 +24975,7 @@ namespace CIS2
         public void put_suffix_titles(IEnumerable<TextValue> lst) { (new list_of_labelSerializer()).ToSdaiAggr(lst, m_instance, "suffix_titles"); }
         public void put_suffix_titles_untyped(IEnumerable lst) { (new list_of_labelSerializer()).ToSdaiAggr(lst, m_instance, "suffix_titles"); }
 
-        protected override TextValue EntityName() { return "person"; }
+        protected override TextValue WrapperEntityName() { return "person"; }
     };
 
 
@@ -25009,7 +25012,7 @@ namespace CIS2
         public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
         public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "person_and_organization"; }
+        protected override TextValue WrapperEntityName() { return "person_and_organization"; }
     };
 
 
@@ -25040,7 +25043,7 @@ namespace CIS2
             }
         public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
-        protected override TextValue EntityName() { return "person_and_organization_role"; }
+        protected override TextValue WrapperEntityName() { return "person_and_organization_role"; }
     };
 
 
@@ -25073,7 +25076,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "personal_address"; }
+        protected override TextValue WrapperEntityName() { return "personal_address"; }
     };
 
 
@@ -25129,7 +25132,7 @@ namespace CIS2
         public void put_derivation_factor_labels(IEnumerable<TextValue> lst) { (new list_of_labelSerializer()).ToSdaiAggr(lst, m_instance, "derivation_factor_labels"); }
         public void put_derivation_factor_labels_untyped(IEnumerable lst) { (new list_of_labelSerializer()).ToSdaiAggr(lst, m_instance, "derivation_factor_labels"); }
 
-        protected override TextValue EntityName() { return "physical_action"; }
+        protected override TextValue WrapperEntityName() { return "physical_action"; }
     };
 
 
@@ -25159,7 +25162,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<action_source_accidential>.FromValue(value.Value, EnumNames.action_source_accidential_); ifcengine.sdaiPutAttrBN(m_instance, "action_source", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "physical_action_accidental"; }
+        protected override TextValue WrapperEntityName() { return "physical_action_accidental"; }
     };
 
 
@@ -25189,7 +25192,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<action_source_permanent>.FromValue(value.Value, EnumNames.action_source_permanent_); ifcengine.sdaiPutAttrBN(m_instance, "action_source", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "physical_action_permanent"; }
+        protected override TextValue WrapperEntityName() { return "physical_action_permanent"; }
     };
 
 
@@ -25214,7 +25217,7 @@ namespace CIS2
         public static new physical_action_seismic Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "physical_action_seismic"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "physical_action_seismic"; }
+        protected override TextValue WrapperEntityName() { return "physical_action_seismic"; }
     };
 
 
@@ -25234,7 +25237,7 @@ namespace CIS2
         public static implicit operator physical_action_variable(SdaiInstance instance) => new physical_action_variable(instance);
 
 
-        protected override TextValue EntityName() { return "physical_action_variable"; }
+        protected override TextValue WrapperEntityName() { return "physical_action_variable"; }
     };
 
 
@@ -25264,7 +25267,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<action_source_variable_long_term>.FromValue(value.Value, EnumNames.action_source_variable_long_term_); ifcengine.sdaiPutAttrBN(m_instance, "action_source", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "physical_action_variable_long_term"; }
+        protected override TextValue WrapperEntityName() { return "physical_action_variable_long_term"; }
     };
 
 
@@ -25294,7 +25297,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<action_source_variable_short_term>.FromValue(value.Value, EnumNames.action_source_variable_short_term_); ifcengine.sdaiPutAttrBN(m_instance, "action_source", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "physical_action_variable_short_term"; }
+        protected override TextValue WrapperEntityName() { return "physical_action_variable_short_term"; }
     };
 
 
@@ -25324,7 +25327,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<action_source_variable_transient>.FromValue(value.Value, EnumNames.action_source_variable_transient_); ifcengine.sdaiPutAttrBN(m_instance, "action_source", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "physical_action_variable_transient"; }
+        protected override TextValue WrapperEntityName() { return "physical_action_variable_transient"; }
     };
 
 
@@ -25349,7 +25352,7 @@ namespace CIS2
         public static new plane_angle_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "plane_angle_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "plane_angle_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "plane_angle_measure_with_unit"; }
     };
 
 
@@ -25374,7 +25377,7 @@ namespace CIS2
         public static new plane_angle_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "plane_angle_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "plane_angle_unit"; }
+        protected override TextValue WrapperEntityName() { return "plane_angle_unit"; }
     };
 
 
@@ -25419,7 +25422,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "point_parameter_w", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "point_in_volume"; }
+        protected override TextValue WrapperEntityName() { return "point_in_volume"; }
     };
 
 
@@ -25454,7 +25457,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "point_parameter", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "point_on_curve"; }
+        protected override TextValue WrapperEntityName() { return "point_on_curve"; }
     };
 
 
@@ -25494,7 +25497,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "point_parameter_v", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "point_on_surface"; }
+        protected override TextValue WrapperEntityName() { return "point_on_surface"; }
     };
 
 
@@ -25529,7 +25532,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "transformation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "point_replica"; }
+        protected override TextValue WrapperEntityName() { return "point_replica"; }
     };
 
 
@@ -25564,7 +25567,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "theta", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "polar_point"; }
+        protected override TextValue WrapperEntityName() { return "polar_point"; }
     };
 
 
@@ -25593,7 +25596,7 @@ namespace CIS2
         public void put_polygon_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
         public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "poly_loop"; }
+        protected override TextValue WrapperEntityName() { return "poly_loop"; }
     };
 
 
@@ -25621,7 +25624,7 @@ namespace CIS2
         public void put_bounds(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "bounds"); }
         public void put_bounds_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "bounds"); }
 
-        protected override TextValue EntityName() { return "polygonal_area"; }
+        protected override TextValue WrapperEntityName() { return "polygonal_area"; }
     };
 
 
@@ -25649,7 +25652,7 @@ namespace CIS2
         public void put_points(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "points"); }
         public void put_points_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "points"); }
 
-        protected override TextValue EntityName() { return "polyline"; }
+        protected override TextValue WrapperEntityName() { return "polyline"; }
     };
 
 
@@ -25674,7 +25677,7 @@ namespace CIS2
         public static new positive_length_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "positive_length_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "positive_length_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "positive_length_measure_with_unit"; }
     };
 
 
@@ -25704,7 +25707,7 @@ namespace CIS2
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "precision_value", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "precision_qualifier"; }
+        protected override TextValue WrapperEntityName() { return "precision_qualifier"; }
     };
 
 
@@ -25729,7 +25732,7 @@ namespace CIS2
         public static new pressure_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "pressure_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "pressure_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "pressure_measure_with_unit"; }
     };
 
 
@@ -25754,7 +25757,7 @@ namespace CIS2
         public static new pressure_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "pressure_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "pressure_unit"; }
+        protected override TextValue WrapperEntityName() { return "pressure_unit"; }
     };
 
 
@@ -25801,7 +25804,7 @@ namespace CIS2
         public void put_delivery_dates_untyped(IEnumerable lst) { (new list_of_calendar_dateSerializer()).ToSdaiAggr(lst, m_instance, "delivery_dates"); }
         public set_of_structural_frame_item_priced prices { get { return (new set_of_structural_frame_item_pricedSerializer()).FromAttr(m_instance, "prices"); } }
 
-        protected override TextValue EntityName() { return "procure"; }
+        protected override TextValue WrapperEntityName() { return "procure"; }
     };
 
 
@@ -25826,7 +25829,7 @@ namespace CIS2
         public static new project Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "project"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "project"; }
+        protected override TextValue WrapperEntityName() { return "project"; }
     };
 
 
@@ -25856,7 +25859,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_project", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "project_data_group"; }
+        protected override TextValue WrapperEntityName() { return "project_data_group"; }
     };
 
 
@@ -25896,7 +25899,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "project_organization"; }
+        protected override TextValue WrapperEntityName() { return "project_organization"; }
     };
 
 
@@ -25937,7 +25940,7 @@ namespace CIS2
             }
         public set_of_project_plan_item items { get { return (new set_of_project_plan_itemSerializer()).FromAttr(m_instance, "items"); } }
 
-        protected override TextValue EntityName() { return "project_plan"; }
+        protected override TextValue WrapperEntityName() { return "project_plan"; }
     };
 
 
@@ -25995,7 +25998,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "item_status", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "project_plan_item"; }
+        protected override TextValue WrapperEntityName() { return "project_plan_item"; }
     };
 
 
@@ -26040,7 +26043,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "relating_plan_item", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "project_plan_item_relationship"; }
+        protected override TextValue WrapperEntityName() { return "project_plan_item_relationship"; }
     };
 
 
@@ -26076,7 +26079,7 @@ namespace CIS2
         public void put_processed_products(IEnumerable<product_item_select> lst) { (new set_of_product_item_selectSerializer()).ToSdaiAggr(lst, m_instance, "processed_products"); }
         public void put_processed_products_untyped(IEnumerable lst) { (new set_of_product_item_selectSerializer()).ToSdaiAggr(lst, m_instance, "processed_products"); }
 
-        protected override TextValue EntityName() { return "project_process_item"; }
+        protected override TextValue WrapperEntityName() { return "project_process_item"; }
     };
 
 
@@ -26121,7 +26124,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "height", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "pyramid_volume"; }
+        protected override TextValue WrapperEntityName() { return "pyramid_volume"; }
     };
 
 
@@ -26156,7 +26159,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "uncertainty_qualifier"; }
+        protected override TextValue WrapperEntityName() { return "uncertainty_qualifier"; }
     };
 
 
@@ -26186,7 +26189,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "uncertainty_value", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "qualitative_uncertainty"; }
+        protected override TextValue WrapperEntityName() { return "qualitative_uncertainty"; }
     };
 
 
@@ -26211,7 +26214,7 @@ namespace CIS2
         public static new quasi_uniform_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "quasi_uniform_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "quasi_uniform_curve"; }
+        protected override TextValue WrapperEntityName() { return "quasi_uniform_curve"; }
     };
 
 
@@ -26236,7 +26239,7 @@ namespace CIS2
         public static new quasi_uniform_surface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "quasi_uniform_surface"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "quasi_uniform_surface"; }
+        protected override TextValue WrapperEntityName() { return "quasi_uniform_surface"; }
     };
 
 
@@ -26261,7 +26264,7 @@ namespace CIS2
         public static new quasi_uniform_volume Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "quasi_uniform_volume"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "quasi_uniform_volume"; }
+        protected override TextValue WrapperEntityName() { return "quasi_uniform_volume"; }
     };
 
 
@@ -26286,7 +26289,7 @@ namespace CIS2
         public static new ratio_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "ratio_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "ratio_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "ratio_measure_with_unit"; }
     };
 
 
@@ -26311,7 +26314,7 @@ namespace CIS2
         public static new ratio_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "ratio_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "ratio_unit"; }
+        protected override TextValue WrapperEntityName() { return "ratio_unit"; }
     };
 
 
@@ -26340,7 +26343,7 @@ namespace CIS2
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public array_of_double weights { get { return (new array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
-        protected override TextValue EntityName() { return "rational_b_spline_curve"; }
+        protected override TextValue WrapperEntityName() { return "rational_b_spline_curve"; }
     };
 
 
@@ -26369,7 +26372,7 @@ namespace CIS2
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public array_of_array_of_double weights { get { return (new array_of_array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
-        protected override TextValue EntityName() { return "rational_b_spline_surface"; }
+        protected override TextValue WrapperEntityName() { return "rational_b_spline_surface"; }
     };
 
 
@@ -26398,7 +26401,7 @@ namespace CIS2
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public array_of_array_of_array_of_double weights { get { return (new array_of_array_of_array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
-        protected override TextValue EntityName() { return "rational_b_spline_volume"; }
+        protected override TextValue WrapperEntityName() { return "rational_b_spline_volume"; }
     };
 
 
@@ -26418,7 +26421,7 @@ namespace CIS2
         public static implicit operator reaction(SdaiInstance instance) => new reaction(instance);
 
 
-        protected override TextValue EntityName() { return "reaction"; }
+        protected override TextValue WrapperEntityName() { return "reaction"; }
     };
 
 
@@ -26473,7 +26476,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reaction_acceleration_arz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "reaction_acceleration"; }
+        protected override TextValue WrapperEntityName() { return "reaction_acceleration"; }
     };
 
 
@@ -26528,7 +26531,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reaction_displacement_rz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "reaction_displacement"; }
+        protected override TextValue WrapperEntityName() { return "reaction_displacement"; }
     };
 
 
@@ -26568,7 +26571,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "natural_frequency", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "reaction_dynamic"; }
+        protected override TextValue WrapperEntityName() { return "reaction_dynamic"; }
     };
 
 
@@ -26623,7 +26626,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "equilibrium_mz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "reaction_equilibrium"; }
+        protected override TextValue WrapperEntityName() { return "reaction_equilibrium"; }
     };
 
 
@@ -26678,7 +26681,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reaction_force_mz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "reaction_force"; }
+        protected override TextValue WrapperEntityName() { return "reaction_force"; }
     };
 
 
@@ -26733,7 +26736,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reaction_velocity_vrz", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "reaction_velocity"; }
+        protected override TextValue WrapperEntityName() { return "reaction_velocity"; }
     };
 
 
@@ -26773,7 +26776,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "y", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "rectangular_area"; }
+        protected override TextValue WrapperEntityName() { return "rectangular_area"; }
     };
 
 
@@ -26803,7 +26806,7 @@ namespace CIS2
         public IntValue? n_u { get { return get_IntValue("n_u", ifcengine.sdaiINTEGER); } }
         public IntValue? n_v { get { return get_IntValue("n_v", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "rectangular_composite_surface"; }
+        protected override TextValue WrapperEntityName() { return "rectangular_composite_surface"; }
     };
 
 
@@ -26848,7 +26851,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "height", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "rectangular_pyramid"; }
+        protected override TextValue WrapperEntityName() { return "rectangular_pyramid"; }
     };
 
 
@@ -26908,7 +26911,7 @@ namespace CIS2
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "vsense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "rectangular_trimmed_surface"; }
+        protected override TextValue WrapperEntityName() { return "rectangular_trimmed_surface"; }
     };
 
 
@@ -26939,7 +26942,7 @@ namespace CIS2
             }
         public set_of_element_node_connectivity release_for_element_nodes { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "release_for_element_nodes"); } }
 
-        protected override TextValue EntityName() { return "release"; }
+        protected override TextValue WrapperEntityName() { return "release"; }
     };
 
 
@@ -26994,7 +26997,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "release_z_bending_moment", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "release_logical"; }
+        protected override TextValue WrapperEntityName() { return "release_logical"; }
     };
 
 
@@ -27049,7 +27052,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "release_z_bending_moment", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "release_spring_linear"; }
+        protected override TextValue WrapperEntityName() { return "release_spring_linear"; }
     };
 
 
@@ -27081,7 +27084,7 @@ namespace CIS2
         public void put_values_untyped(IEnumerable lst) { (new list_of_release_spring_linearSerializer()).ToSdaiAggr(lst, m_instance, "values"); }
         public IntValue? number_of_values { get { return get_IntValue("number_of_values", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "release_spring_non_linear"; }
+        protected override TextValue WrapperEntityName() { return "release_spring_non_linear"; }
     };
 
 
@@ -27111,7 +27114,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "release_warping_moment", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "release_warping"; }
+        protected override TextValue WrapperEntityName() { return "release_warping"; }
     };
 
 
@@ -27141,7 +27144,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "param_length", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "reparametrised_composite_curve_segment"; }
+        protected override TextValue WrapperEntityName() { return "reparametrised_composite_curve_segment"; }
     };
 
 
@@ -27177,7 +27180,7 @@ namespace CIS2
             }
         public set_of_mapped_item map_usage { get { return (new set_of_mapped_itemSerializer()).FromAttr(m_instance, "map_usage"); } }
 
-        protected override TextValue EntityName() { return "representation_map"; }
+        protected override TextValue WrapperEntityName() { return "representation_map"; }
     };
 
 
@@ -27222,7 +27225,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "rep_2", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "representation_relationship"; }
+        protected override TextValue WrapperEntityName() { return "representation_relationship"; }
     };
 
 
@@ -27252,7 +27255,7 @@ namespace CIS2
             get { return new transformation(m_instance, "transformation_operator", 0); }
             }
 
-        protected override TextValue EntityName() { return "representation_relationship_with_transformation"; }
+        protected override TextValue WrapperEntityName() { return "representation_relationship_with_transformation"; }
     };
 
 
@@ -27298,7 +27301,7 @@ namespace CIS2
             }
         public set_of_design_result results { get { return (new set_of_design_resultSerializer()).FromAttr(m_instance, "results"); } }
 
-        protected override TextValue EntityName() { return "resistance"; }
+        protected override TextValue WrapperEntityName() { return "resistance"; }
     };
 
 
@@ -27333,7 +27336,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "compressive_resistance_pcx", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "resistance_axial"; }
+        protected override TextValue WrapperEntityName() { return "resistance_axial"; }
     };
 
 
@@ -27378,7 +27381,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "buckling_resistance_mb", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "resistance_bending"; }
+        protected override TextValue WrapperEntityName() { return "resistance_bending"; }
     };
 
 
@@ -27413,7 +27416,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "buckling_shear_resistance_pbv", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "resistance_shear"; }
+        protected override TextValue WrapperEntityName() { return "resistance_shear"; }
     };
 
 
@@ -27453,7 +27456,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "restrained_mbr", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "restraint"; }
+        protected override TextValue WrapperEntityName() { return "restraint"; }
     };
 
 
@@ -27508,7 +27511,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "restraint_z_rotation", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "restraint_logical"; }
+        protected override TextValue WrapperEntityName() { return "restraint_logical"; }
     };
 
 
@@ -27563,7 +27566,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "restraint_z_rotation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "restraint_spring"; }
+        protected override TextValue WrapperEntityName() { return "restraint_spring"; }
     };
 
 
@@ -27593,7 +27596,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "restraint_w_rotation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "restraint_warping"; }
+        protected override TextValue WrapperEntityName() { return "restraint_warping"; }
     };
 
 
@@ -27629,7 +27632,7 @@ namespace CIS2
             }
         public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
-        protected override TextValue EntityName() { return "revolved_area_solid"; }
+        protected override TextValue WrapperEntityName() { return "revolved_area_solid"; }
     };
 
 
@@ -27665,7 +27668,7 @@ namespace CIS2
             }
         public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
-        protected override TextValue EntityName() { return "revolved_face_solid"; }
+        protected override TextValue WrapperEntityName() { return "revolved_face_solid"; }
     };
 
 
@@ -27715,7 +27718,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "ltx", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "right_angular_wedge"; }
+        protected override TextValue WrapperEntityName() { return "right_angular_wedge"; }
     };
 
 
@@ -27760,7 +27763,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "semi_angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "right_circular_cone"; }
+        protected override TextValue WrapperEntityName() { return "right_circular_cone"; }
     };
 
 
@@ -27800,7 +27803,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "right_circular_cylinder"; }
+        protected override TextValue WrapperEntityName() { return "right_circular_cylinder"; }
     };
 
 
@@ -27835,7 +27838,7 @@ namespace CIS2
             get { return new role_select(m_instance, "item_with_role", 0); }
             }
 
-        protected override TextValue EntityName() { return "role_association"; }
+        protected override TextValue WrapperEntityName() { return "role_association"; }
     };
 
 
@@ -27860,7 +27863,7 @@ namespace CIS2
         public static new rotational_acceleration_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "rotational_acceleration_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "rotational_acceleration_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "rotational_acceleration_measure_with_unit"; }
     };
 
 
@@ -27885,7 +27888,7 @@ namespace CIS2
         public static new rotational_acceleration_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "rotational_acceleration_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "rotational_acceleration_unit"; }
+        protected override TextValue WrapperEntityName() { return "rotational_acceleration_unit"; }
     };
 
 
@@ -27910,7 +27913,7 @@ namespace CIS2
         public static new rotational_stiffness_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "rotational_stiffness_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "rotational_stiffness_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "rotational_stiffness_measure_with_unit"; }
     };
 
 
@@ -27935,7 +27938,7 @@ namespace CIS2
         public static new rotational_stiffness_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "rotational_stiffness_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "rotational_stiffness_unit"; }
+        protected override TextValue WrapperEntityName() { return "rotational_stiffness_unit"; }
     };
 
 
@@ -27960,7 +27963,7 @@ namespace CIS2
         public static new rotational_velocity_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "rotational_velocity_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "rotational_velocity_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "rotational_velocity_measure_with_unit"; }
     };
 
 
@@ -27985,7 +27988,7 @@ namespace CIS2
         public static new rotational_velocity_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "rotational_velocity_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "rotational_velocity_unit"; }
+        protected override TextValue WrapperEntityName() { return "rotational_velocity_unit"; }
     };
 
 
@@ -28010,7 +28013,7 @@ namespace CIS2
         public static new seam_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "seam_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "seam_curve"; }
+        protected override TextValue WrapperEntityName() { return "seam_curve"; }
     };
 
 
@@ -28051,7 +28054,7 @@ namespace CIS2
             }
         public bag_of_identifier section_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "section_ref"); } }
 
-        protected override TextValue EntityName() { return "section_profile"; }
+        protected override TextValue WrapperEntityName() { return "section_profile"; }
     };
 
 
@@ -28071,7 +28074,7 @@ namespace CIS2
         public static implicit operator section_profile_simple(SdaiInstance instance) => new section_profile_simple(instance);
 
 
-        protected override TextValue EntityName() { return "section_profile_simple"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_simple"; }
     };
 
 
@@ -28127,7 +28130,7 @@ namespace CIS2
             }
         public double? width_value { get { return get_double("width_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_profile_angle"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_angle"; }
     };
 
 
@@ -28147,7 +28150,7 @@ namespace CIS2
         public static implicit operator section_profile_complex(SdaiInstance instance) => new section_profile_complex(instance);
 
 
-        protected override TextValue EntityName() { return "section_profile_complex"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_complex"; }
     };
 
 
@@ -28182,7 +28185,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "thickness", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "section_profile_centreline"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_centreline"; }
     };
 
 
@@ -28246,7 +28249,7 @@ namespace CIS2
         public double? flange_thickness_value { get { return get_double("flange_thickness_value", ifcengine.sdaiREAL); } }
         public double? web_thickness_value { get { return get_double("web_thickness_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_profile_channel"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_channel"; }
     };
 
 
@@ -28276,7 +28279,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "external_radius", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "section_profile_circle"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_circle"; }
     };
 
 
@@ -28309,7 +28312,7 @@ namespace CIS2
         public double? wall_thickness_value { get { return get_double("wall_thickness_value", ifcengine.sdaiREAL); } }
         public double? inside_diameter { get { return get_double("inside_diameter", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_profile_circle_hollow"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_circle_hollow"; }
     };
 
 
@@ -28344,7 +28347,7 @@ namespace CIS2
         public void put_orientations_untyped(IEnumerable lst) { (new list_of_orientation_selectSerializer()).ToSdaiAggr(lst, m_instance, "orientations"); }
         public IntValue? number_of_sections { get { return get_IntValue("number_of_sections", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "section_profile_compound"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_compound"; }
     };
 
 
@@ -28374,7 +28377,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "original_section", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "section_profile_derived"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_derived"; }
     };
 
 
@@ -28407,7 +28410,7 @@ namespace CIS2
         public void put_internal_edges(IEnumerable<bounded_curve> lst) { (new list_of_bounded_curveSerializer()).ToSdaiAggr(lst, m_instance, "internal_edges"); }
         public void put_internal_edges_untyped(IEnumerable lst) { (new list_of_bounded_curveSerializer()).ToSdaiAggr(lst, m_instance, "internal_edges"); }
 
-        protected override TextValue EntityName() { return "section_profile_edge_defined"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_edge_defined"; }
     };
 
 
@@ -28476,7 +28479,7 @@ namespace CIS2
         public double? web_thickness_value { get { return get_double("web_thickness_value", ifcengine.sdaiREAL); } }
         public double? flange_thickness_value { get { return get_double("flange_thickness_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_profile_i_type"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_i_type"; }
     };
 
 
@@ -28531,7 +28534,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "bottom_flange_edge_radius", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "section_profile_i_type_asymmetric"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_i_type_asymmetric"; }
     };
 
 
@@ -28586,7 +28589,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "transition_radius_bottom", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "section_profile_i_type_rail"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_i_type_rail"; }
     };
 
 
@@ -28629,7 +28632,7 @@ namespace CIS2
         public double? overall_width_value { get { return get_double("overall_width_value", ifcengine.sdaiREAL); } }
         public double? external_fillet_value { get { return get_double("external_fillet_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_profile_rectangle"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_rectangle"; }
     };
 
 
@@ -28666,7 +28669,7 @@ namespace CIS2
         public double? wall_thickness_value { get { return get_double("wall_thickness_value", ifcengine.sdaiREAL); } }
         public double? internal_radius_value { get { return get_double("internal_radius_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_profile_rectangle_hollow"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_rectangle_hollow"; }
     };
 
 
@@ -28735,7 +28738,7 @@ namespace CIS2
         public double? flange_thickness_value { get { return get_double("flange_thickness_value", ifcengine.sdaiREAL); } }
         public double? web_thickness_value { get { return get_double("web_thickness_value", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_profile_t_type"; }
+        protected override TextValue WrapperEntityName() { return "section_profile_t_type"; }
     };
 
 
@@ -28860,7 +28863,7 @@ namespace CIS2
         public double? y_offset { get { return get_double("y_offset", ifcengine.sdaiREAL); } }
         public double? z_offset { get { return get_double("z_offset", ifcengine.sdaiREAL); } }
 
-        protected override TextValue EntityName() { return "section_properties"; }
+        protected override TextValue WrapperEntityName() { return "section_properties"; }
     };
 
 
@@ -28916,7 +28919,7 @@ namespace CIS2
         public void put_section_modulii(IEnumerable<modulus_measure_with_unit> lst) { (new array_of_modulus_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "section_modulii"); }
         public void put_section_modulii_untyped(IEnumerable lst) { (new array_of_modulus_measure_with_unitSerializer()).ToSdaiAggr(lst, m_instance, "section_modulii"); }
 
-        protected override TextValue EntityName() { return "section_properties_asymmetric"; }
+        protected override TextValue WrapperEntityName() { return "section_properties_asymmetric"; }
     };
 
 
@@ -28951,7 +28954,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "location", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "setting_out_point"; }
+        protected override TextValue WrapperEntityName() { return "setting_out_point"; }
     };
 
 
@@ -28976,7 +28979,7 @@ namespace CIS2
         public static new shape_representation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "shape_representation"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "shape_representation"; }
+        protected override TextValue WrapperEntityName() { return "shape_representation"; }
     };
 
 
@@ -29001,7 +29004,7 @@ namespace CIS2
         public static new shape_representation_with_units Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "shape_representation_with_units"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "shape_representation_with_units"; }
+        protected override TextValue WrapperEntityName() { return "shape_representation_with_units"; }
     };
 
 
@@ -29029,7 +29032,7 @@ namespace CIS2
         public void put_sbsm_boundary(IEnumerable<shell> lst) { (new set_of_shellSerializer()).ToSdaiAggr(lst, m_instance, "sbsm_boundary"); }
         public void put_sbsm_boundary_untyped(IEnumerable lst) { (new set_of_shellSerializer()).ToSdaiAggr(lst, m_instance, "sbsm_boundary"); }
 
-        protected override TextValue EntityName() { return "shell_based_surface_model"; }
+        protected override TextValue WrapperEntityName() { return "shell_based_surface_model"; }
     };
 
 
@@ -29057,7 +29060,7 @@ namespace CIS2
         public void put_sbwm_boundary(IEnumerable<shell> lst) { (new set_of_shellSerializer()).ToSdaiAggr(lst, m_instance, "sbwm_boundary"); }
         public void put_sbwm_boundary_untyped(IEnumerable lst) { (new set_of_shellSerializer()).ToSdaiAggr(lst, m_instance, "sbwm_boundary"); }
 
-        protected override TextValue EntityName() { return "shell_based_wireframe_model"; }
+        protected override TextValue WrapperEntityName() { return "shell_based_wireframe_model"; }
     };
 
 
@@ -29092,7 +29095,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<si_unit_name>.FromValue(value.Value, EnumNames.si_unit_name_); ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "si_unit"; }
+        protected override TextValue WrapperEntityName() { return "si_unit"; }
     };
 
 
@@ -29122,7 +29125,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "site_address", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "site"; }
+        protected override TextValue WrapperEntityName() { return "site"; }
     };
 
 
@@ -29152,7 +29155,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "site_with_shape"; }
+        protected override TextValue WrapperEntityName() { return "site_with_shape"; }
     };
 
 
@@ -29182,7 +29185,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<soldering_type>.FromValue(value.Value, EnumNames.soldering_type_); ifcengine.sdaiPutAttrBN(m_instance, "solder_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "solder"; }
+        protected override TextValue WrapperEntityName() { return "solder"; }
     };
 
 
@@ -29207,7 +29210,7 @@ namespace CIS2
         public static new solid_angle_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "solid_angle_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "solid_angle_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "solid_angle_measure_with_unit"; }
     };
 
 
@@ -29232,7 +29235,7 @@ namespace CIS2
         public static new solid_angle_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "solid_angle_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "solid_angle_unit"; }
+        protected override TextValue WrapperEntityName() { return "solid_angle_unit"; }
     };
 
 
@@ -29267,7 +29270,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "transformation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "solid_replica"; }
+        protected override TextValue WrapperEntityName() { return "solid_replica"; }
     };
 
 
@@ -29302,7 +29305,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "centre", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "sphere"; }
+        protected override TextValue WrapperEntityName() { return "sphere"; }
     };
 
 
@@ -29342,7 +29345,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "phi", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "spherical_point"; }
+        protected override TextValue WrapperEntityName() { return "spherical_point"; }
     };
 
 
@@ -29372,7 +29375,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "spherical_surface"; }
+        protected override TextValue WrapperEntityName() { return "spherical_surface"; }
     };
 
 
@@ -29407,7 +29410,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "spherical_volume"; }
+        protected override TextValue WrapperEntityName() { return "spherical_volume"; }
     };
 
 
@@ -29437,7 +29440,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "uncertainty_value", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "standard_uncertainty"; }
+        protected override TextValue WrapperEntityName() { return "standard_uncertainty"; }
     };
 
 
@@ -29463,7 +29466,7 @@ namespace CIS2
 
         public set_of_group_assignment selected_content { get { return (new set_of_group_assignmentSerializer()).FromAttr(m_instance, "selected_content"); } }
 
-        protected override TextValue EntityName() { return "step_file"; }
+        protected override TextValue WrapperEntityName() { return "step_file"; }
     };
 
 
@@ -29498,7 +29501,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_approval", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_item_approved"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_item_approved"; }
     };
 
 
@@ -29533,7 +29536,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_certification", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_item_certified"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_item_certified"; }
     };
 
 
@@ -29568,7 +29571,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "document_reference", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_item_documented"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_item_documented"; }
     };
 
 
@@ -29608,7 +29611,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "price_description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_item_priced"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_item_priced"; }
     };
 
 
@@ -29653,7 +29656,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "relating_item", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_item_relationship"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_item_relationship"; }
     };
 
 
@@ -29693,7 +29696,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "actual_mass", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "structural_frame_product_with_material"; }
+        protected override TextValue WrapperEntityName() { return "structural_frame_product_with_material"; }
     };
 
 
@@ -29718,7 +29721,7 @@ namespace CIS2
         public static new structure Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "structure"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "structure"; }
+        protected override TextValue WrapperEntityName() { return "structure"; }
     };
 
 
@@ -29748,7 +29751,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_edge", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "subedge"; }
+        protected override TextValue WrapperEntityName() { return "subedge"; }
     };
 
 
@@ -29778,7 +29781,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_face", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "subface"; }
+        protected override TextValue WrapperEntityName() { return "subface"; }
     };
 
 
@@ -29823,7 +29826,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reference_surface", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_curve_swept_area_solid"; }
+        protected override TextValue WrapperEntityName() { return "surface_curve_swept_area_solid"; }
     };
 
 
@@ -29868,7 +29871,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reference_surface", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_curve_swept_face_solid"; }
+        protected override TextValue WrapperEntityName() { return "surface_curve_swept_face_solid"; }
     };
 
 
@@ -29903,7 +29906,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reference_surface", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_curve_swept_surface"; }
+        protected override TextValue WrapperEntityName() { return "surface_curve_swept_surface"; }
     };
 
 
@@ -29933,7 +29936,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "extrusion_axis", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_of_linear_extrusion"; }
+        protected override TextValue WrapperEntityName() { return "surface_of_linear_extrusion"; }
     };
 
 
@@ -29964,7 +29967,7 @@ namespace CIS2
             }
         public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
-        protected override TextValue EntityName() { return "surface_of_revolution"; }
+        protected override TextValue WrapperEntityName() { return "surface_of_revolution"; }
     };
 
 
@@ -30015,7 +30018,7 @@ namespace CIS2
             }
         public bag_of_rectangular_composite_surface using_surfaces { get { return (new bag_of_rectangular_composite_surfaceSerializer()).FromAttr(m_instance, "using_surfaces"); } }
 
-        protected override TextValue EntityName() { return "surface_patch"; }
+        protected override TextValue WrapperEntityName() { return "surface_patch"; }
     };
 
 
@@ -30050,7 +30053,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "transformation", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_replica"; }
+        protected override TextValue WrapperEntityName() { return "surface_replica"; }
     };
 
 
@@ -30075,7 +30078,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "surface_finish_specification", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "surface_treatment"; }
+        protected override TextValue WrapperEntityName() { return "surface_treatment"; }
     };
 
 
@@ -30105,7 +30108,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<cleaning_method>.FromValue(value.Value, EnumNames.cleaning_method_); ifcengine.sdaiPutAttrBN(m_instance, "method", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "surface_treatment_clean"; }
+        protected override TextValue WrapperEntityName() { return "surface_treatment_clean"; }
     };
 
 
@@ -30140,7 +30143,7 @@ namespace CIS2
         public void put_coating_specifications_untyped(IEnumerable lst) { (new list_of_coatingSerializer()).ToSdaiAggr(lst, m_instance, "coating_specifications"); }
         public IntValue? number_of_layers { get { return get_IntValue("number_of_layers", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "surface_treatment_coat"; }
+        protected override TextValue WrapperEntityName() { return "surface_treatment_coat"; }
     };
 
 
@@ -30170,7 +30173,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "finished_surface_irregularity", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_treatment_grind"; }
+        protected override TextValue WrapperEntityName() { return "surface_treatment_grind"; }
     };
 
 
@@ -30200,7 +30203,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<cutting_type>.FromValue(value.Value, EnumNames.cutting_type_); ifcengine.sdaiPutAttrBN(m_instance, "stamp_method", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "surface_treatment_hard_stamp"; }
+        protected override TextValue WrapperEntityName() { return "surface_treatment_hard_stamp"; }
     };
 
 
@@ -30240,7 +30243,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "maximum_temperature", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_treatment_thermal"; }
+        protected override TextValue WrapperEntityName() { return "surface_treatment_thermal"; }
     };
 
 
@@ -30280,7 +30283,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "time_to_final", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "surface_treatment_thermal_timed"; }
+        protected override TextValue WrapperEntityName() { return "surface_treatment_thermal_timed"; }
     };
 
 
@@ -30305,7 +30308,7 @@ namespace CIS2
         public static new tetrahedron Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "tetrahedron"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "tetrahedron"; }
+        protected override TextValue WrapperEntityName() { return "tetrahedron"; }
     };
 
 
@@ -30350,7 +30353,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "point_4", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "tetrahedron_volume"; }
+        protected override TextValue WrapperEntityName() { return "tetrahedron_volume"; }
     };
 
 
@@ -30375,7 +30378,7 @@ namespace CIS2
         public static new thermodynamic_temperature_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "thermodynamic_temperature_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "thermodynamic_temperature_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "thermodynamic_temperature_measure_with_unit"; }
     };
 
 
@@ -30400,7 +30403,7 @@ namespace CIS2
         public static new thermodynamic_temperature_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "thermodynamic_temperature_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "thermodynamic_temperature_unit"; }
+        protected override TextValue WrapperEntityName() { return "thermodynamic_temperature_unit"; }
     };
 
 
@@ -30425,7 +30428,7 @@ namespace CIS2
         public static new time_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "time_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "time_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "time_measure_with_unit"; }
     };
 
 
@@ -30450,7 +30453,7 @@ namespace CIS2
         public static new time_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "time_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "time_unit"; }
+        protected override TextValue WrapperEntityName() { return "time_unit"; }
     };
 
 
@@ -30490,7 +30493,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "minor_radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "toroidal_volume"; }
+        protected override TextValue WrapperEntityName() { return "toroidal_volume"; }
     };
 
 
@@ -30530,7 +30533,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "minor_radius", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "torus"; }
+        protected override TextValue WrapperEntityName() { return "torus"; }
     };
 
 
@@ -30576,7 +30579,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<trimming_preference>.FromValue(value.Value, EnumNames.trimming_preference_); ifcengine.sdaiPutAttrBN(m_instance, "master_representation", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "trimmed_curve"; }
+        protected override TextValue WrapperEntityName() { return "trimmed_curve"; }
     };
 
 
@@ -30636,7 +30639,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "w2", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "trimmed_volume"; }
+        protected override TextValue WrapperEntityName() { return "trimmed_volume"; }
     };
 
 
@@ -30661,7 +30664,7 @@ namespace CIS2
         public static new truncated_pyramid Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "truncated_pyramid"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "truncated_pyramid"; }
+        protected override TextValue WrapperEntityName() { return "truncated_pyramid"; }
     };
 
 
@@ -30691,7 +30694,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "type_qualifier"; }
+        protected override TextValue WrapperEntityName() { return "type_qualifier"; }
     };
 
 
@@ -30726,7 +30729,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "uncertainty_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "uncertainty_measure_with_unit"; }
     };
 
 
@@ -30751,7 +30754,7 @@ namespace CIS2
         public static new uniform_curve Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "uniform_curve"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "uniform_curve"; }
+        protected override TextValue WrapperEntityName() { return "uniform_curve"; }
     };
 
 
@@ -30776,7 +30779,7 @@ namespace CIS2
         public static new uniform_surface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "uniform_surface"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "uniform_surface"; }
+        protected override TextValue WrapperEntityName() { return "uniform_surface"; }
     };
 
 
@@ -30801,7 +30804,7 @@ namespace CIS2
         public static new uniform_volume Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "uniform_volume"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "uniform_volume"; }
+        protected override TextValue WrapperEntityName() { return "uniform_volume"; }
     };
 
 
@@ -30836,7 +30839,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "magnitude", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "vector"; }
+        protected override TextValue WrapperEntityName() { return "vector"; }
     };
 
 
@@ -30881,7 +30884,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "versioned_action_request"; }
+        protected override TextValue WrapperEntityName() { return "versioned_action_request"; }
     };
 
 
@@ -30906,7 +30909,7 @@ namespace CIS2
         public static new vertex Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "vertex"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "vertex"; }
+        protected override TextValue WrapperEntityName() { return "vertex"; }
     };
 
 
@@ -30936,7 +30939,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "loop_vertex", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "vertex_loop"; }
+        protected override TextValue WrapperEntityName() { return "vertex_loop"; }
     };
 
 
@@ -30967,7 +30970,7 @@ namespace CIS2
             }
         public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
-        protected override TextValue EntityName() { return "vertex_point"; }
+        protected override TextValue WrapperEntityName() { return "vertex_point"; }
     };
 
 
@@ -30997,7 +31000,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "vertex_shell_extent", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "vertex_shell"; }
+        protected override TextValue WrapperEntityName() { return "vertex_shell"; }
     };
 
 
@@ -31022,7 +31025,7 @@ namespace CIS2
         public static new volume_measure_with_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "volume_measure_with_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "volume_measure_with_unit"; }
+        protected override TextValue WrapperEntityName() { return "volume_measure_with_unit"; }
     };
 
 
@@ -31047,7 +31050,7 @@ namespace CIS2
         public static new volume_unit Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "volume_unit"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "volume_unit"; }
+        protected override TextValue WrapperEntityName() { return "volume_unit"; }
     };
 
 
@@ -31097,7 +31100,7 @@ namespace CIS2
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "ltx", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "wedge_volume"; }
+        protected override TextValue WrapperEntityName() { return "wedge_volume"; }
     };
 
 
@@ -31132,7 +31135,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type>.FromValue(value.Value, EnumNames.welding_type_); ifcengine.sdaiPutAttrBN(m_instance, "weld_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld"; }
+        protected override TextValue WrapperEntityName() { return "weld"; }
     };
 
 
@@ -31162,7 +31165,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type_arc>.FromValue(value.Value, EnumNames.welding_type_arc_); ifcengine.sdaiPutAttrBN(m_instance, "weld_arc_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_arc"; }
+        protected override TextValue WrapperEntityName() { return "weld_arc"; }
     };
 
 
@@ -31192,7 +31195,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type_beam>.FromValue(value.Value, EnumNames.welding_type_beam_); ifcengine.sdaiPutAttrBN(m_instance, "weld_beam_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_beam"; }
+        protected override TextValue WrapperEntityName() { return "weld_beam"; }
     };
 
 
@@ -31222,7 +31225,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type_gas>.FromValue(value.Value, EnumNames.welding_type_gas_); ifcengine.sdaiPutAttrBN(m_instance, "weld_gas_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_gas"; }
+        protected override TextValue WrapperEntityName() { return "weld_gas"; }
     };
 
 
@@ -31272,7 +31275,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "weld_design_strength", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism"; }
     };
 
 
@@ -31302,7 +31305,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "weld_shape", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism_complex"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_complex"; }
     };
 
 
@@ -31352,7 +31355,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "leg_length_z", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism_fillet"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_fillet"; }
     };
 
 
@@ -31377,7 +31380,7 @@ namespace CIS2
         public static new weld_mechanism_fillet_continuous Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "weld_mechanism_fillet_continuous"); Debug.Assert(inst != 0); return inst; }
 
 
-        protected override TextValue EntityName() { return "weld_mechanism_fillet_continuous"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_fillet_continuous"; }
     };
 
 
@@ -31432,7 +31435,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<weld_alignment>.FromValue(value.Value, EnumNames.weld_alignment_); ifcengine.sdaiPutAttrBN(m_instance, "fillet_alignment", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism_fillet_intermittent"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_fillet_intermittent"; }
     };
 
 
@@ -31492,7 +31495,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "root_face", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism_groove"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_groove"; }
     };
 
 
@@ -31547,7 +31550,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "taper_angle", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism_groove_beveled"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_groove_beveled"; }
     };
 
 
@@ -31577,7 +31580,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<weld_shape_butt>.FromValue(value.Value, EnumNames.weld_shape_butt_); ifcengine.sdaiPutAttrBN(m_instance, "face_shape", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism_groove_butt"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_groove_butt"; }
     };
 
 
@@ -31619,7 +31622,7 @@ namespace CIS2
         public curve curve_defining_weld { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_defining_weld", ifcengine.sdaiINSTANCE, out inst); return new curve(inst); } }
         public set_of_joint_system_welded joints { get { return (new set_of_joint_system_weldedSerializer()).FromAttr(m_instance, "joints"); } }
 
-        protected override TextValue EntityName() { return "weld_mechanism_prismatic"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_prismatic"; }
     };
 
 
@@ -31649,7 +31652,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<weld_configuration>.FromValue(value.Value, EnumNames.weld_configuration_); ifcengine.sdaiPutAttrBN(m_instance, "joint_configuration", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_mechanism_spot_seam"; }
+        protected override TextValue WrapperEntityName() { return "weld_mechanism_spot_seam"; }
     };
 
 
@@ -31679,7 +31682,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type_other>.FromValue(value.Value, EnumNames.welding_type_other_); ifcengine.sdaiPutAttrBN(m_instance, "weld_other_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_other"; }
+        protected override TextValue WrapperEntityName() { return "weld_other"; }
     };
 
 
@@ -31709,7 +31712,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type_pressure>.FromValue(value.Value, EnumNames.welding_type_pressure_); ifcengine.sdaiPutAttrBN(m_instance, "weld_pressure_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_pressure"; }
+        protected override TextValue WrapperEntityName() { return "weld_pressure"; }
     };
 
 
@@ -31739,7 +31742,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type_resistance>.FromValue(value.Value, EnumNames.welding_type_resistance_); ifcengine.sdaiPutAttrBN(m_instance, "weld_resistance_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_resistance"; }
+        protected override TextValue WrapperEntityName() { return "weld_resistance"; }
     };
 
 
@@ -31769,7 +31772,7 @@ namespace CIS2
             set { if (value.HasValue) { var str = EnumString<welding_type_stud>.FromValue(value.Value, EnumNames.welding_type_stud_); ifcengine.sdaiPutAttrBN(m_instance, "weld_stud_type", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
 
-        protected override TextValue EntityName() { return "weld_stud"; }
+        protected override TextValue WrapperEntityName() { return "weld_stud"; }
     };
 
 
@@ -31797,7 +31800,7 @@ namespace CIS2
         public void put_wire_shell_extent(IEnumerable<loop> lst) { (new set_of_loopSerializer()).ToSdaiAggr(lst, m_instance, "wire_shell_extent"); }
         public void put_wire_shell_extent_untyped(IEnumerable lst) { (new set_of_loopSerializer()).ToSdaiAggr(lst, m_instance, "wire_shell_extent"); }
 
-        protected override TextValue EntityName() { return "wire_shell"; }
+        protected override TextValue WrapperEntityName() { return "wire_shell"; }
     };
 
 
@@ -31827,7 +31830,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "zone_description", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "zone"; }
+        protected override TextValue WrapperEntityName() { return "zone"; }
     };
 
 
@@ -31859,7 +31862,7 @@ namespace CIS2
         public void put_bounding_levels_untyped(IEnumerable lst) { (new set_of_grid_levelSerializer()).ToSdaiAggr(lst, m_instance, "bounding_levels"); }
         public grid bounding_grid { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "bounding_grid", ifcengine.sdaiINSTANCE, out inst); return new grid(inst); } }
 
-        protected override TextValue EntityName() { return "zone_bounded"; }
+        protected override TextValue WrapperEntityName() { return "zone_bounded"; }
     };
 
 
@@ -31889,7 +31892,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "zone_for_building", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "zone_of_building"; }
+        protected override TextValue WrapperEntityName() { return "zone_of_building"; }
     };
 
 
@@ -31929,7 +31932,7 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "datum_name", ifcengine.sdaiSTRING, value); }
             }
 
-        protected override TextValue EntityName() { return "zone_of_building_storey"; }
+        protected override TextValue WrapperEntityName() { return "zone_of_building_storey"; }
     };
 
 
@@ -31959,7 +31962,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "zone_for_project", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "zone_of_project"; }
+        protected override TextValue WrapperEntityName() { return "zone_of_project"; }
     };
 
 
@@ -31989,7 +31992,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "zone_for_site", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "zone_of_site"; }
+        protected override TextValue WrapperEntityName() { return "zone_of_site"; }
     };
 
 
@@ -32019,7 +32022,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "zone_for_structure", ifcengine.sdaiINSTANCE, i); }
             }
 
-        protected override TextValue EntityName() { return "zone_of_structure"; }
+        protected override TextValue WrapperEntityName() { return "zone_of_structure"; }
     };
 
 
@@ -32051,7 +32054,7 @@ namespace CIS2
         public set_of_zone_of_structure_sequence_lot lots { get { return (new set_of_zone_of_structure_sequence_lotSerializer()).FromAttr(m_instance, "lots"); } }
         public set_of_located_assembly assemblies { get { return (new set_of_located_assemblySerializer()).FromAttr(m_instance, "assemblies"); } }
 
-        protected override TextValue EntityName() { return "zone_of_structure_sequence"; }
+        protected override TextValue WrapperEntityName() { return "zone_of_structure_sequence"; }
     };
 
 
@@ -32077,7 +32080,7 @@ namespace CIS2
 
         public zone_of_structure parent_sequence { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "parent_sequence", ifcengine.sdaiINSTANCE, out inst); return new zone_of_structure(inst); } }
 
-        protected override TextValue EntityName() { return "zone_of_structure_sequence_lot"; }
+        protected override TextValue WrapperEntityName() { return "zone_of_structure_sequence_lot"; }
     };
 
 }

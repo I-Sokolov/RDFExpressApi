@@ -28,7 +28,7 @@ namespace NAMESPACE_NAME
     using SimpleType = Double; //## IGNORE
     using BaseCType = Double; //## IGNORE
     public class SIMpleType : List<SimpleType> { }  //## IGNORE
-    public class REF_ENTITY : Entity { public REF_ENTITY(SdaiInstance ints) : base(0) { } public REF_ENTITY() : base(0) { } protected override string EntityName() { return null; } } //## IGNORE
+    public class REF_ENTITY : Entity { public REF_ENTITY(SdaiInstance ints) : base(0) { } public REF_ENTITY() : base(0) { } protected override string WrapperEntityName() { return null; } } //## IGNORE
 
     public class SImpleType : Select                        //##IGNORE
         {                                                       //##IGNORE
@@ -698,7 +698,7 @@ namespace NAMESPACE_NAME
 
         public bool IsNull { get { return m_instance == 0; } }
 
-        public string EntityName_ { get
+        public string EntityName { get
                 {
                 if (m_instance != 0)
                     {
@@ -723,14 +723,14 @@ namespace NAMESPACE_NAME
 
             if (m_instance != 0)
                 {
-                if (ifcengine.sdaiIsKindOfBN(m_instance, EntityName()) == 0)
+                if (ifcengine.sdaiIsKindOfBN(m_instance, WrapperEntityName()) == 0)
                     {
                     m_instance = 0;
                     }
                 }
             }
 
-        protected abstract TextValue EntityName();
+        protected abstract TextValue WrapperEntityName();
 
         /// <summary>
         /// Conversion to instance handle, so the object of the class can be used anywhere where a handle required
@@ -1087,7 +1087,7 @@ namespace NAMESPACE_NAME
         //## AttributeAggregationPutArray
         //## EntityEnd
 
-        protected override TextValue EntityName() { return "ENTITY_NAME"; }
+        protected override TextValue WrapperEntityName() { return "ENTITY_NAME"; }
     };
 
     //## SelectEntityGetImplementation
