@@ -6617,6 +6617,12 @@ namespace CIS2
     class set_of_assembly_component_selectSerializer : AggrSerializerSelect<assembly_component_select, set_of_assembly_component_select> { }
     public class set_of_structural_frame_process : List<structural_frame_process> { }
     class set_of_structural_frame_processSerializer : AggrSerializerInstance<structural_frame_process, set_of_structural_frame_process> { }
+    public class bag_of_identifier : List<TextValue> { }
+    class bag_of_identifierSerializer : AggrSerializerText<TextValue, bag_of_identifier> { public bag_of_identifierSerializer() : base(ifcengine.sdaiSTRING) { } }
+    public class bag_of_label : List<TextValue> { }
+    class bag_of_labelSerializer : AggrSerializerText<TextValue, bag_of_label> { public bag_of_labelSerializer() : base(ifcengine.sdaiSTRING) { } }
+    public class set_of_located_assembly : List<located_assembly> { }
+    class set_of_located_assemblySerializer : AggrSerializerInstance<located_assembly, set_of_located_assembly> { }
     public class set_of_functional_role : List<functional_role> { }
     class set_of_functional_roleSerializer : AggrSerializerInstance<functional_role, set_of_functional_role> { }
     public class set_of_design_criterion : List<design_criterion> { }
@@ -6627,6 +6633,10 @@ namespace CIS2
     class set_of_assembly_design_structural_memberSerializer : AggrSerializerInstance<assembly_design_structural_member, set_of_assembly_design_structural_member> { }
     public class set_of_assembly_design_structural_connection : List<assembly_design_structural_connection> { }
     class set_of_assembly_design_structural_connectionSerializer : AggrSerializerInstance<assembly_design_structural_connection, set_of_assembly_design_structural_connection> { }
+    public class set_of_restraint : List<restraint> { }
+    class set_of_restraintSerializer : AggrSerializerInstance<restraint, set_of_restraint> { }
+    public class set_of_effective_buckling_length : List<effective_buckling_length> { }
+    class set_of_effective_buckling_lengthSerializer : AggrSerializerInstance<effective_buckling_length, set_of_effective_buckling_length> { }
     public class set_of_member_beam_type : List<member_beam_type> { }
     class set_of_member_beam_typeSerializer : AggrSerializerEnum<member_beam_type, set_of_member_beam_type> { public set_of_member_beam_typeSerializer() : base(EnumNames.member_beam_type_, ifcengine.sdaiENUM) { } };
     //class set_of_member_beam_typeSerializer : AggrSerializerEnum<member_beam_type, set_of_member_beam_type> { public set_of_member_beam_typeSerializer() : base(EnumNames.member_beam_type_, ifcengine.sdaiENUM) { } };
@@ -6638,22 +6648,34 @@ namespace CIS2
     //class set_of_member_column_typeSerializer : AggrSerializerEnum<member_column_type, set_of_member_column_type> { public set_of_member_column_typeSerializer() : base(EnumNames.member_column_type_, ifcengine.sdaiENUM) { } };
     public class set_of_assembly_design_structural_member_linear : List<assembly_design_structural_member_linear> { }
     class set_of_assembly_design_structural_member_linearSerializer : AggrSerializerInstance<assembly_design_structural_member_linear, set_of_assembly_design_structural_member_linear> { }
+    public class set_of_representation_item : List<representation_item> { }
+    class set_of_representation_itemSerializer : AggrSerializerInstance<representation_item, set_of_representation_item> { }
+    public class list_of_direction : List<direction> { }
+    class list_of_directionSerializer : AggrSerializerInstance<direction, list_of_direction> { }
     public class list_of_cartesian_point : List<cartesian_point> { }
     class list_of_cartesian_pointSerializer : AggrSerializerInstance<cartesian_point, list_of_cartesian_point> { }
+    public class array_of_cartesian_point : List<cartesian_point> { }
+    class array_of_cartesian_pointSerializer : AggrSerializerInstance<cartesian_point, array_of_cartesian_point> { }
     public class ListOfIntValue : List<IntValue> { }
     class ListOfIntValueSerializer : AggrSerializer_IntValue<IntValue, ListOfIntValue> { }
     public class list_of_parameter_value : List<double> { }
     class list_of_parameter_valueSerializer : AggrSerializer_double<double, list_of_parameter_value> { }
     public class list_of_list_of_cartesian_point : List<list_of_cartesian_point> { }
     class list_of_list_of_cartesian_pointSerializer : AggrSerializerAggr<list_of_cartesian_point, list_of_cartesian_pointSerializer, list_of_list_of_cartesian_point> { }
+    public class array_of_array_of_cartesian_point : List<array_of_cartesian_point> { }
+    class array_of_array_of_cartesian_pointSerializer : AggrSerializerAggr<array_of_cartesian_point, array_of_cartesian_pointSerializer, array_of_array_of_cartesian_point> { }
     public class list_of_list_of_list_of_cartesian_point : List<list_of_list_of_cartesian_point> { }
     class list_of_list_of_list_of_cartesian_pointSerializer : AggrSerializerAggr<list_of_list_of_cartesian_point, list_of_list_of_cartesian_pointSerializer, list_of_list_of_list_of_cartesian_point> { }
+    public class array_of_array_of_array_of_cartesian_point : List<array_of_array_of_cartesian_point> { }
+    class array_of_array_of_array_of_cartesian_pointSerializer : AggrSerializerAggr<array_of_array_of_cartesian_point, array_of_array_of_cartesian_pointSerializer, array_of_array_of_array_of_cartesian_point> { }
     public class list_of_measure_with_unit : List<measure_with_unit> { }
     class list_of_measure_with_unitSerializer : AggrSerializerInstance<measure_with_unit, list_of_measure_with_unit> { }
     public class list_of_boundary_condition_spring_linear : List<boundary_condition_spring_linear> { }
     class list_of_boundary_condition_spring_linearSerializer : AggrSerializerInstance<boundary_condition_spring_linear, list_of_boundary_condition_spring_linear> { }
     public class list_of_composite_curve_segment : List<composite_curve_segment> { }
     class list_of_composite_curve_segmentSerializer : AggrSerializerInstance<composite_curve_segment, list_of_composite_curve_segment> { }
+    public class set_of_surface : List<surface> { }
+    class set_of_surfaceSerializer : AggrSerializerInstance<surface, set_of_surface> { }
     public class list_of_pcurve_or_surface : List<pcurve_or_surface> { }
     class list_of_pcurve_or_surfaceSerializer : AggrSerializerSelect<pcurve_or_surface, list_of_pcurve_or_surface> { }
     public class set_of_oriented_closed_shell : List<oriented_closed_shell> { }
@@ -6670,12 +6692,8 @@ namespace CIS2
     class bag_of_composite_curveSerializer : AggrSerializerInstance<composite_curve, bag_of_composite_curve> { }
     public class set_of_edge : List<edge> { }
     class set_of_edgeSerializer : AggrSerializerInstance<edge, set_of_edge> { }
-    public class list_of_direction : List<direction> { }
-    class list_of_directionSerializer : AggrSerializerInstance<direction, list_of_direction> { }
     public class set_of_boundary_curve : List<boundary_curve> { }
     class set_of_boundary_curveSerializer : AggrSerializerInstance<boundary_curve, set_of_boundary_curve> { }
-    public class set_of_representation_item : List<representation_item> { }
-    class set_of_representation_itemSerializer : AggrSerializerInstance<representation_item, set_of_representation_item> { }
     public class set_of_derived_unit_element : List<derived_unit_element> { }
     class set_of_derived_unit_elementSerializer : AggrSerializerInstance<derived_unit_element, set_of_derived_unit_element> { }
     public class list_of_assembly_design : List<assembly_design> { }
@@ -6702,6 +6720,8 @@ namespace CIS2
     class list_of_point_on_curveSerializer : AggrSerializerInstance<point_on_curve, list_of_point_on_curve> { }
     public class list_of_orientation_select : List<orientation_select> { }
     class list_of_orientation_selectSerializer : AggrSerializerSelect<orientation_select, list_of_orientation_select> { }
+    public class bag_of_element_node_connectivity : List<element_node_connectivity> { }
+    class bag_of_element_node_connectivitySerializer : AggrSerializerInstance<element_node_connectivity, bag_of_element_node_connectivity> { }
     public class array_of_double : List<double> { }
     class array_of_doubleSerializer : AggrSerializer_double<double, array_of_double> { }
     public class array_of_array_of_double : List<array_of_double> { }
@@ -6714,6 +6734,8 @@ namespace CIS2
     class list_of_fastenerSerializer : AggrSerializerInstance<fastener, list_of_fastener> { }
     public class list_of_length_measure_with_unit : List<length_measure_with_unit> { }
     class list_of_length_measure_with_unitSerializer : AggrSerializerInstance<length_measure_with_unit, list_of_length_measure_with_unit> { }
+    public class set_of_located_feature : List<located_feature> { }
+    class set_of_located_featureSerializer : AggrSerializerInstance<located_feature, set_of_located_feature> { }
     public class list_of_text : List<TextValue> { }
     class list_of_textSerializer : AggrSerializerText<TextValue, list_of_text> { public list_of_textSerializer() : base(ifcengine.sdaiSTRING) { } }
     public class list_of_point : List<point> { }
@@ -6732,6 +6754,8 @@ namespace CIS2
     class set_of_unitSerializer : AggrSerializerSelect<unit, set_of_unit> { }
     public class set_of_gridline : List<gridline> { }
     class set_of_gridlineSerializer : AggrSerializerInstance<gridline, set_of_gridline> { }
+    public class set_of_grid_level : List<grid_level> { }
+    class set_of_grid_levelSerializer : AggrSerializerInstance<grid_level, set_of_grid_level> { }
     public class list_of_positive_length_measure_with_unit : List<positive_length_measure_with_unit> { }
     class list_of_positive_length_measure_with_unitSerializer : AggrSerializerInstance<positive_length_measure_with_unit, list_of_positive_length_measure_with_unit> { }
     public class list_of_plane_angle_measure_with_unit : List<plane_angle_measure_with_unit> { }
@@ -6754,6 +6778,10 @@ namespace CIS2
     class set_of_item_reference_proprietarySerializer : AggrSerializerInstance<item_reference_proprietary, set_of_item_reference_proprietary> { }
     public class set_of_item_reference_standard : List<item_reference_standard> { }
     class set_of_item_reference_standardSerializer : AggrSerializerInstance<item_reference_standard, set_of_item_reference_standard> { }
+    public class set_of_design_joint_system : List<design_joint_system> { }
+    class set_of_design_joint_systemSerializer : AggrSerializerInstance<design_joint_system, set_of_design_joint_system> { }
+    public class set_of_located_joint_system : List<located_joint_system> { }
+    class set_of_located_joint_systemSerializer : AggrSerializerInstance<located_joint_system, set_of_located_joint_system> { }
     public class list_of_chemical_mechanism : List<chemical_mechanism> { }
     class list_of_chemical_mechanismSerializer : AggrSerializerInstance<chemical_mechanism, list_of_chemical_mechanism> { }
     public class list_of_joint_system : List<joint_system> { }
@@ -6770,10 +6798,14 @@ namespace CIS2
     class set_of_grid_offsetSerializer : AggrSerializerInstance<grid_offset, set_of_grid_offset> { }
     public class set_of_located_part : List<located_part> { }
     class set_of_located_partSerializer : AggrSerializerInstance<located_part, set_of_located_part> { }
-    public class set_of_located_joint_system : List<located_joint_system> { }
-    class set_of_located_joint_systemSerializer : AggrSerializerInstance<located_joint_system, set_of_located_joint_system> { }
+    public class set_of_located_feature_joint_dependent : List<located_feature_joint_dependent> { }
+    class set_of_located_feature_joint_dependentSerializer : AggrSerializerInstance<located_feature_joint_dependent, set_of_located_feature_joint_dependent> { }
+    public class set_of_located_feature_for_located_part : List<located_feature_for_located_part> { }
+    class set_of_located_feature_for_located_partSerializer : AggrSerializerInstance<located_feature_for_located_part, set_of_located_feature_for_located_part> { }
     public class set_of_managed_data_item : List<managed_data_item> { }
     class set_of_managed_data_itemSerializer : AggrSerializerInstance<managed_data_item, set_of_managed_data_item> { }
+    public class set_of_managed_data_group : List<managed_data_group> { }
+    class set_of_managed_data_groupSerializer : AggrSerializerInstance<managed_data_group, set_of_managed_data_group> { }
     public class set_of_managed_data_transaction : List<managed_data_transaction> { }
     class set_of_managed_data_transactionSerializer : AggrSerializerInstance<managed_data_transaction, set_of_managed_data_transaction> { }
     public class list_of_managed_data_transaction : List<managed_data_transaction> { }
@@ -6806,6 +6838,8 @@ namespace CIS2
     class list_of_list_of_doubleSerializer : AggrSerializerAggr<list_of_double, list_of_doubleSerializer, list_of_list_of_double> { }
     public class list_of_list_of_list_of_double : List<list_of_list_of_double> { }
     class list_of_list_of_list_of_doubleSerializer : AggrSerializerAggr<list_of_list_of_double, list_of_list_of_doubleSerializer, list_of_list_of_list_of_double> { }
+    public class array_of_array_of_array_of_double : List<array_of_array_of_double> { }
+    class array_of_array_of_array_of_doubleSerializer : AggrSerializerAggr<array_of_array_of_double, array_of_array_of_doubleSerializer, array_of_array_of_array_of_double> { }
     public class list_of_surface_patch : List<surface_patch> { }
     class list_of_surface_patchSerializer : AggrSerializerInstance<surface_patch, list_of_surface_patch> { }
     public class list_of_list_of_surface_patch : List<list_of_surface_patch> { }
@@ -6835,10 +6869,12 @@ namespace CIS2
     class list_of_coatingSerializer : AggrSerializerInstance<coating, list_of_coating> { }
     public class set_of_trimming_select : List<trimming_select> { }
     class set_of_trimming_selectSerializer : AggrSerializerSelect<trimming_select, set_of_trimming_select> { }
+    public class set_of_joint_system_welded : List<joint_system_welded> { }
+    class set_of_joint_system_weldedSerializer : AggrSerializerInstance<joint_system_welded, set_of_joint_system_welded> { }
     public class set_of_loop : List<loop> { }
     class set_of_loopSerializer : AggrSerializerInstance<loop, set_of_loop> { }
-    public class set_of_grid_level : List<grid_level> { }
-    class set_of_grid_levelSerializer : AggrSerializerInstance<grid_level, set_of_grid_level> { }
+    public class set_of_zone_of_structure_sequence_lot : List<zone_of_structure_sequence_lot> { }
+    class set_of_zone_of_structure_sequence_lotSerializer : AggrSerializerInstance<zone_of_structure_sequence_lot, set_of_zone_of_structure_sequence_lot> { }
 
     //
     // Entities
@@ -6880,6 +6916,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "chosen_method", ifcengine.sdaiINSTANCE, out inst); return new action_method(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "chosen_method", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "action"; }
     };
@@ -7058,6 +7095,8 @@ namespace CIS2
             get { return get_string("telex_number", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "telex_number", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
+        public TextValue url { get { return get_string("url", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "address"; }
     };
@@ -8645,6 +8684,9 @@ namespace CIS2
             get { return get_string("item_description", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "item_description", ifcengine.sdaiSTRING, value); }
             }
+        public bag_of_identifier item_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "item_ref"); } }
+        public bag_of_label cost_code { get { return (new bag_of_labelSerializer()).FromAttr(m_instance, "cost_code"); } }
+        public TextValue object_id { get { return get_string("object_id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "structural_frame_item"; }
     };
@@ -8771,6 +8813,7 @@ namespace CIS2
             get { var str = get_string("complexity", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.complexity_level_); return EnumValue<complexity_level>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<complexity_level>.FromValue(value.Value, EnumNames.complexity_level_); ifcengine.sdaiPutAttrBN(m_instance, "complexity", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public set_of_located_assembly uses { get { return (new set_of_located_assemblySerializer()).FromAttr(m_instance, "uses"); } }
 
         protected override TextValue EntityName() { return "assembly"; }
     };
@@ -9024,6 +9067,8 @@ namespace CIS2
             get { var str = get_string("structural_member_class", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.member_class_); return EnumValue<member_class>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<member_class>.FromValue(value.Value, EnumNames.member_class_); ifcengine.sdaiPutAttrBN(m_instance, "structural_member_class", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public set_of_restraint restraints { get { return (new set_of_restraintSerializer()).FromAttr(m_instance, "restraints"); } }
+        public set_of_effective_buckling_length effective_lengths { get { return (new set_of_effective_buckling_lengthSerializer()).FromAttr(m_instance, "effective_lengths"); } }
 
         protected override TextValue EntityName() { return "assembly_design_structural_member"; }
     };
@@ -9672,6 +9717,7 @@ namespace CIS2
         /// </summary>
         public static new assembly_with_bounding_box Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "assembly_with_bounding_box"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_representation_item bounding_box { get { return (new set_of_representation_itemSerializer()).FromAttr(m_instance, "bounding_box"); } }
 
         protected override TextValue EntityName() { return "assembly_with_bounding_box"; }
     };
@@ -9727,6 +9773,7 @@ namespace CIS2
         /// </summary>
         public static new geometric_representation_item Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "geometric_representation_item"); Debug.Assert(inst != 0); return inst; }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "geometric_representation_item"; }
     };
@@ -9787,6 +9834,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axis", ifcengine.sdaiINSTANCE, i); }
             }
+        public direction z { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "z", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } }
 
         protected override TextValue EntityName() { return "axis1_placement"; }
     };
@@ -9817,6 +9865,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, i); }
             }
+        public list_of_direction p { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "p"); } }
 
         protected override TextValue EntityName() { return "axis2_placement_2d"; }
     };
@@ -9852,6 +9901,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, i); }
             }
+        public list_of_direction p { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "p"); } }
 
         protected override TextValue EntityName() { return "axis2_placement_3d"; }
     };
@@ -9950,6 +10000,8 @@ namespace CIS2
             get { var str = get_string("self_intersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? upper_index_on_control_points { get { return get_IntValue("upper_index_on_control_points", ifcengine.sdaiINTEGER); } }
+        public array_of_cartesian_point control_points { get { return (new array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
         protected override TextValue EntityName() { return "b_spline_curve"; }
     };
@@ -9986,6 +10038,7 @@ namespace CIS2
             get { var str = get_string("knot_spec", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.knot_type_); return EnumValue<knot_type>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<knot_type>.FromValue(value.Value, EnumNames.knot_type_); ifcengine.sdaiPutAttrBN(m_instance, "knot_spec", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? upper_index_on_knots { get { return get_IntValue("upper_index_on_knots", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "b_spline_curve_with_knots"; }
     };
@@ -10094,6 +10147,9 @@ namespace CIS2
             get { var str = get_string("self_intersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? u_upper { get { return get_IntValue("u_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? v_upper { get { return get_IntValue("v_upper", ifcengine.sdaiINTEGER); } }
+        public array_of_array_of_cartesian_point control_points { get { return (new array_of_array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
         protected override TextValue EntityName() { return "b_spline_surface"; }
     };
@@ -10136,6 +10192,8 @@ namespace CIS2
             get { var str = get_string("knot_spec", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.knot_type_); return EnumValue<knot_type>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<knot_type>.FromValue(value.Value, EnumNames.knot_type_); ifcengine.sdaiPutAttrBN(m_instance, "knot_spec", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? knot_u_upper { get { return get_IntValue("knot_u_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? knot_v_upper { get { return get_IntValue("knot_v_upper", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "b_spline_surface_with_knots"; }
     };
@@ -10204,6 +10262,10 @@ namespace CIS2
         public list_of_list_of_list_of_cartesian_point control_points_list { get { return (new list_of_list_of_list_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points_list"); } }
         public void put_control_points_list(IEnumerable<list_of_list_of_cartesian_point> lst) { (new list_of_list_of_list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "control_points_list"); }
         public void put_control_points_list_untyped(IEnumerable lst) { (new list_of_list_of_list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "control_points_list"); }
+        public IntValue? u_upper { get { return get_IntValue("u_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? v_upper { get { return get_IntValue("v_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? w_upper { get { return get_IntValue("w_upper", ifcengine.sdaiINTEGER); } }
+        public array_of_array_of_array_of_cartesian_point control_points { get { return (new array_of_array_of_array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
         protected override TextValue EntityName() { return "b_spline_volume"; }
     };
@@ -10247,6 +10309,9 @@ namespace CIS2
         public list_of_parameter_value w_knots { get { return (new list_of_parameter_valueSerializer()).FromAttr(m_instance, "w_knots"); } }
         public void put_w_knots(IEnumerable<double> lst) { (new list_of_parameter_valueSerializer()).ToSdaiAggr(lst, m_instance, "w_knots"); }
         public void put_w_knots_untyped(IEnumerable lst) { (new list_of_parameter_valueSerializer()).ToSdaiAggr(lst, m_instance, "w_knots"); }
+        public IntValue? knot_u_upper { get { return get_IntValue("knot_u_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? knot_v_upper { get { return get_IntValue("knot_v_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? knot_w_upper { get { return get_IntValue("knot_w_upper", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "b_spline_volume_with_knots"; }
     };
@@ -10694,6 +10759,7 @@ namespace CIS2
         public list_of_boundary_condition_spring_linear values { get { return (new list_of_boundary_condition_spring_linearSerializer()).FromAttr(m_instance, "values"); } }
         public void put_values(IEnumerable<boundary_condition_spring_linear> lst) { (new list_of_boundary_condition_spring_linearSerializer()).ToSdaiAggr(lst, m_instance, "values"); }
         public void put_values_untyped(IEnumerable lst) { (new list_of_boundary_condition_spring_linearSerializer()).ToSdaiAggr(lst, m_instance, "values"); }
+        public IntValue? number_of_values { get { return get_IntValue("number_of_values", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "boundary_condition_spring_non_linear"; }
     };
@@ -10757,6 +10823,8 @@ namespace CIS2
             get { var str = get_string("self_intersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? n_segments { get { return get_IntValue("n_segments", ifcengine.sdaiINTEGER); } }
+        public LOGICAL_VALUE? closed_curve { get { var str = get_string("closed_curve", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
 
         protected override TextValue EntityName() { return "composite_curve"; }
     };
@@ -10782,6 +10850,7 @@ namespace CIS2
         /// </summary>
         public static new composite_curve_on_surface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "composite_curve_on_surface"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_surface basis_surface { get { return (new set_of_surfaceSerializer()).FromAttr(m_instance, "basis_surface"); } }
 
         protected override TextValue EntityName() { return "composite_curve_on_surface"; }
     };
@@ -10905,6 +10974,7 @@ namespace CIS2
             get { var str = get_string("master_representation", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.preferred_surface_curve_representation_); return EnumValue<preferred_surface_curve_representation>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<preferred_surface_curve_representation>.FromValue(value.Value, EnumNames.preferred_surface_curve_representation_); ifcengine.sdaiPutAttrBN(m_instance, "master_representation", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public set_of_surface basis_surface { get { return (new set_of_surfaceSerializer()).FromAttr(m_instance, "basis_surface"); } }
 
         protected override TextValue EntityName() { return "surface_curve"; }
     };
@@ -11452,6 +11522,7 @@ namespace CIS2
             get { return get_double("scale", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "scale", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? scl { get { return get_double("scl", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "cartesian_transformation_operator"; }
     };
@@ -11477,6 +11548,7 @@ namespace CIS2
         /// </summary>
         public static new cartesian_transformation_operator_2d Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "cartesian_transformation_operator_2d"); Debug.Assert(inst != 0); return inst; }
 
+        public list_of_direction u { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "u"); } }
 
         protected override TextValue EntityName() { return "cartesian_transformation_operator_2d"; }
     };
@@ -11507,6 +11579,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis3", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axis3", ifcengine.sdaiINSTANCE, i); }
             }
+        public list_of_direction u { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "u"); } }
 
         protected override TextValue EntityName() { return "cartesian_transformation_operator_3d"; }
     };
@@ -12297,6 +12370,8 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axes_definition", ifcengine.sdaiINSTANCE, out inst); return new axis2_placement_2d(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axes_definition", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? origin_1 { get { return get_double("origin_1", ifcengine.sdaiREAL); } }
+        public double? origin_2 { get { return get_double("origin_2", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "coord_system_cartesian_2d"; }
     };
@@ -12327,6 +12402,9 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axes_definition", ifcengine.sdaiINSTANCE, out inst); return new axis2_placement_3d(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axes_definition", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? origin_x { get { return get_double("origin_x", ifcengine.sdaiREAL); } }
+        public double? origin_y { get { return get_double("origin_y", ifcengine.sdaiREAL); } }
+        public double? origin_z { get { return get_double("origin_z", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "coord_system_cartesian_3d"; }
     };
@@ -12463,6 +12541,7 @@ namespace CIS2
             get { var str = get_string("sense", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ahead_or_behind_); return EnumValue<ahead_or_behind>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<ahead_or_behind>.FromValue(value.Value, EnumNames.ahead_or_behind_); ifcengine.sdaiPutAttrBN(m_instance, "sense", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? actual_minute_offset { get { return get_IntValue("actual_minute_offset", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "coordinated_universal_time_offset"; }
     };
@@ -12934,6 +13013,8 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "context_of_items", ifcengine.sdaiINSTANCE, out inst); return new representation_context(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "context_of_items", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "representation"; }
     };
@@ -13112,6 +13193,7 @@ namespace CIS2
         public set_of_derived_unit_element elements { get { return (new set_of_derived_unit_elementSerializer()).FromAttr(m_instance, "elements"); } }
         public void put_elements(IEnumerable<derived_unit_element> lst) { (new set_of_derived_unit_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
         public void put_elements_untyped(IEnumerable lst) { (new set_of_derived_unit_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "derived_unit"; }
     };
@@ -13946,6 +14028,7 @@ namespace CIS2
         public static new document_standard Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "document_standard"); Debug.Assert(inst != 0); return inst; }
 
         public set_of_document_usage_constraint relevant_clauses { get { return (new set_of_document_usage_constraintSerializer()).FromAttr(m_instance, "relevant_clauses"); } }
+        public set_of_document_usage_constraint clauses { get { return (new set_of_document_usage_constraintSerializer()).FromAttr(m_instance, "clauses"); } }
 
         protected override TextValue EntityName() { return "document_standard"; }
     };
@@ -14259,6 +14342,7 @@ namespace CIS2
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "edge_curve"; }
     };
@@ -14312,6 +14396,7 @@ namespace CIS2
         public list_of_oriented_edge edge_list { get { return (new list_of_oriented_edgeSerializer()).FromAttr(m_instance, "edge_list"); } }
         public void put_edge_list(IEnumerable<oriented_edge> lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
         public void put_edge_list_untyped(IEnumerable lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
+        public IntValue? ne { get { return get_IntValue("ne", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "edge_loop"; }
     };
@@ -14433,6 +14518,7 @@ namespace CIS2
             get { return get_IntValue("element_subdivision", ifcengine.sdaiINTEGER); }
             set { if (value.HasValue) { IntValue v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "element_subdivision", ifcengine.sdaiINTEGER, ref v); } else Debug.Assert(false); }
             }
+        public set_of_element_node_connectivity connectivities { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
         protected override TextValue EntityName() { return "element_curve"; }
     };
@@ -14467,6 +14553,8 @@ namespace CIS2
         public list_of_orientation_select element_orientations { get { return (new list_of_orientation_selectSerializer()).FromAttr(m_instance, "element_orientations"); } }
         public void put_element_orientations(IEnumerable<orientation_select> lst) { (new list_of_orientation_selectSerializer()).ToSdaiAggr(lst, m_instance, "element_orientations"); }
         public void put_element_orientations_untyped(IEnumerable lst) { (new list_of_orientation_selectSerializer()).ToSdaiAggr(lst, m_instance, "element_orientations"); }
+        public IntValue? number_of_sections { get { return get_IntValue("number_of_sections", ifcengine.sdaiINTEGER); } }
+        public curve curve_defining_element { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_defining_element", ifcengine.sdaiINSTANCE, out inst); return new curve(inst); } }
 
         protected override TextValue EntityName() { return "element_curve_complex"; }
     };
@@ -14658,6 +14746,7 @@ namespace CIS2
 
         public static implicit operator element_point(SdaiInstance instance) => new element_point(instance);
 
+        public bag_of_element_node_connectivity connectivities { get { return (new bag_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
         protected override TextValue EntityName() { return "element_point"; }
     };
@@ -14775,6 +14864,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "thickness", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "thickness", ifcengine.sdaiINSTANCE, i); }
             }
+        public set_of_element_node_connectivity connectivities { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
         protected override TextValue EntityName() { return "element_surface"; }
     };
@@ -14915,6 +15005,7 @@ namespace CIS2
 
         public static implicit operator element_volume(SdaiInstance instance) => new element_volume(instance);
 
+        public set_of_element_node_connectivity connectivities { get { return (new set_of_element_node_connectivitySerializer()).FromAttr(m_instance, "connectivities"); } }
 
         protected override TextValue EntityName() { return "element_volume"; }
     };
@@ -15481,6 +15572,7 @@ namespace CIS2
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "face_surface"; }
     };
@@ -15707,6 +15799,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "reduced_section_area", ifcengine.sdaiINSTANCE, out inst); return new area_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reduced_section_area", ifcengine.sdaiINSTANCE, i); }
             }
+        public bag_of_identifier bolt_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "bolt_ref"); } }
 
         protected override TextValue EntityName() { return "fastener_simple_bolt"; }
     };
@@ -15952,6 +16045,7 @@ namespace CIS2
         /// </summary>
         public static new fastener_simple_nut Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "fastener_simple_nut"); Debug.Assert(inst != 0); return inst; }
 
+        public bag_of_identifier nut_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "nut_ref"); } }
 
         protected override TextValue EntityName() { return "fastener_simple_nut"; }
     };
@@ -16387,6 +16481,9 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "reduced_section_area", ifcengine.sdaiINSTANCE, out inst); return new area_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "reduced_section_area", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? thread_length_value_1 { get { return get_double("thread_length_value_1", ifcengine.sdaiREAL); } }
+        public double? thread_length_value_2 { get { return get_double("thread_length_value_2", ifcengine.sdaiREAL); } }
+        public double? length_of_shank_value { get { return get_double("length_of_shank_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "fastener_simple_stud"; }
     };
@@ -16427,6 +16524,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "external_dimension", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "external_dimension", ifcengine.sdaiINSTANCE, i); }
             }
+        public bag_of_identifier washer_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "washer_ref"); } }
 
         protected override TextValue EntityName() { return "fastener_simple_washer"; }
     };
@@ -16512,6 +16610,7 @@ namespace CIS2
         /// </summary>
         public static new feature Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "feature"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_located_feature uses { get { return (new set_of_located_featureSerializer()).FromAttr(m_instance, "uses"); } }
 
         protected override TextValue EntityName() { return "feature"; }
     };
@@ -17161,6 +17260,9 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "fillet_radius", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "fillet_radius", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? fillet_radius_value { get { return get_double("fillet_radius_value", ifcengine.sdaiREAL); } }
+        public double? hole_length_value { get { return get_double("hole_length_value", ifcengine.sdaiREAL); } }
+        public double? hole_height_value { get { return get_double("hole_height_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "feature_volume_hole_rectangular"; }
     };
@@ -17231,6 +17333,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "sector_angle", ifcengine.sdaiINSTANCE, out inst); return new plane_angle_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "sector_angle", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? slot_radius { get { return get_double("slot_radius", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "feature_volume_hole_slotted_curved"; }
     };
@@ -17669,6 +17772,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_group", ifcengine.sdaiINSTANCE, out inst); return new group(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_group", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "group_assignment"; }
     };
@@ -18284,6 +18388,8 @@ namespace CIS2
             set { ifcengine.sdaiPutAttrBN(m_instance, "grid_use", ifcengine.sdaiSTRING, value); }
             }
         public set_of_gridline constituent_lines { get { return (new set_of_gridlineSerializer()).FromAttr(m_instance, "constituent_lines"); } }
+        public set_of_gridline gridlines { get { return (new set_of_gridlineSerializer()).FromAttr(m_instance, "gridlines"); } }
+        public set_of_grid_level grid_levels { get { return (new set_of_grid_levelSerializer()).FromAttr(m_instance, "grid_levels"); } }
 
         protected override TextValue EntityName() { return "grid"; }
     };
@@ -18696,6 +18802,7 @@ namespace CIS2
             get { return get_string("group_description", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "group_description", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "group"; }
     };
@@ -19830,6 +19937,10 @@ namespace CIS2
             get { var str = get_string("place_of_assembly", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.shop_or_site_); return EnumValue<shop_or_site>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<shop_or_site>.FromValue(value.Value, EnumNames.shop_or_site_); ifcengine.sdaiPutAttrBN(m_instance, "place_of_assembly", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? joint_system_number { get { return get_IntValue("joint_system_number", ifcengine.sdaiINTEGER); } }
+        public TextValue joint_system_name { get { return get_string("joint_system_name", ifcengine.sdaiSTRING); } }
+        public set_of_design_joint_system design_uses { get { return (new set_of_design_joint_systemSerializer()).FromAttr(m_instance, "design_uses"); } }
+        public set_of_located_joint_system physical_uses { get { return (new set_of_located_joint_systemSerializer()).FromAttr(m_instance, "physical_uses"); } }
 
         protected override TextValue EntityName() { return "joint_system"; }
     };
@@ -19898,6 +20009,7 @@ namespace CIS2
         public list_of_chemical_mechanism specification { get { return (new list_of_chemical_mechanismSerializer()).FromAttr(m_instance, "specification"); } }
         public void put_specification(IEnumerable<chemical_mechanism> lst) { (new list_of_chemical_mechanismSerializer()).ToSdaiAggr(lst, m_instance, "specification"); }
         public void put_specification_untyped(IEnumerable lst) { (new list_of_chemical_mechanismSerializer()).ToSdaiAggr(lst, m_instance, "specification"); }
+        public IntValue? number_of_layers { get { return get_IntValue("number_of_layers", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "joint_system_chemical"; }
     };
@@ -20423,6 +20535,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "time_variation", ifcengine.sdaiINSTANCE, i); }
             }
         public set_of_load loads { get { return (new set_of_loadSerializer()).FromAttr(m_instance, "loads"); } }
+        public set_of_load load_components { get { return (new set_of_loadSerializer()).FromAttr(m_instance, "load_components"); } }
 
         protected override TextValue EntityName() { return "load_case"; }
     };
@@ -21178,6 +21291,7 @@ namespace CIS2
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "loaded_model", ifcengine.sdaiINSTANCE, i); }
             }
         public set_of_load_combination_occurrence load_cases { get { return (new set_of_load_combination_occurrenceSerializer()).FromAttr(m_instance, "load_cases"); } }
+        public set_of_load_combination_occurrence cases { get { return (new set_of_load_combination_occurrenceSerializer()).FromAttr(m_instance, "cases"); } }
 
         protected override TextValue EntityName() { return "loading_combination"; }
     };
@@ -21286,6 +21400,8 @@ namespace CIS2
             {
             get { return new structure_select(m_instance, "parent_structure", 0); }
             }
+        public set_of_located_part component_parts { get { return (new set_of_located_partSerializer()).FromAttr(m_instance, "component_parts"); } }
+        public set_of_located_assembly sub_assemblies { get { return (new set_of_located_assemblySerializer()).FromAttr(m_instance, "sub_assemblies"); } }
 
         protected override TextValue EntityName() { return "located_assembly"; }
     };
@@ -21601,6 +21717,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "parent_assembly", ifcengine.sdaiINSTANCE, out inst); return new located_assembly(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_assembly", ifcengine.sdaiINSTANCE, i); }
             }
+        public set_of_located_feature_joint_dependent features { get { return (new set_of_located_feature_joint_dependentSerializer()).FromAttr(m_instance, "features"); } }
 
         protected override TextValue EntityName() { return "located_joint_system"; }
     };
@@ -21636,6 +21753,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "parent_assembly", ifcengine.sdaiINSTANCE, out inst); return new located_assembly(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_assembly", ifcengine.sdaiINSTANCE, i); }
             }
+        public set_of_located_feature_for_located_part features { get { return (new set_of_located_feature_for_located_partSerializer()).FromAttr(m_instance, "features"); } }
 
         protected override TextValue EntityName() { return "located_part"; }
     };
@@ -21943,6 +22061,7 @@ namespace CIS2
         /// </summary>
         public static new managed_data_creation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "managed_data_creation"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_managed_data_item created_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "created_set"); } }
 
         protected override TextValue EntityName() { return "managed_data_creation"; }
     };
@@ -21973,6 +22092,7 @@ namespace CIS2
             get { var str = get_string("data_status", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.data_status_type_); return EnumValue<data_status_type>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<data_status_type>.FromValue(value.Value, EnumNames.data_status_type_); ifcengine.sdaiPutAttrBN(m_instance, "data_status", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public set_of_managed_data_item deleted_data_items { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "deleted_data_items"); } }
 
         protected override TextValue EntityName() { return "managed_data_deleted"; }
     };
@@ -22003,6 +22123,8 @@ namespace CIS2
             {
             get { return new select_data_source(m_instance, "data_destination", 0); }
             }
+        public set_of_managed_data_item exported_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "exported_set"); } }
+        public set_of_managed_data_group assignments { get { return (new set_of_managed_data_groupSerializer()).FromAttr(m_instance, "assignments"); } }
 
         protected override TextValue EntityName() { return "managed_data_export"; }
     };
@@ -22061,6 +22183,8 @@ namespace CIS2
             {
             get { return new select_data_source(m_instance, "data_source", 0); }
             }
+        public set_of_managed_data_item imported_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "imported_set"); } }
+        public set_of_managed_data_group assignments { get { return (new set_of_managed_data_groupSerializer()).FromAttr(m_instance, "assignments"); } }
 
         protected override TextValue EntityName() { return "managed_data_import"; }
     };
@@ -22134,6 +22258,13 @@ namespace CIS2
         /// </summary>
         public static new managed_data_item_with_history Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "managed_data_item_with_history"); Debug.Assert(inst != 0); return inst; }
 
+        public IntValue? number_of_uses { get { return get_IntValue("number_of_uses", ifcengine.sdaiINTEGER); } }
+        public managed_application_installation first_managing_application { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "first_managing_application", ifcengine.sdaiINSTANCE, out inst); return new managed_application_installation(inst); } }
+        public person first_managing_person { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "first_managing_person", ifcengine.sdaiINSTANCE, out inst); return new person(inst); } }
+        public calendar_date date_first_managed { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "date_first_managed", ifcengine.sdaiINSTANCE, out inst); return new calendar_date(inst); } }
+        public managed_application_installation last_managing_application { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "last_managing_application", ifcengine.sdaiINSTANCE, out inst); return new managed_application_installation(inst); } }
+        public person last_managing_person { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "last_managing_person", ifcengine.sdaiINSTANCE, out inst); return new person(inst); } }
+        public calendar_date date_last_managed { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "date_last_managed", ifcengine.sdaiINSTANCE, out inst); return new calendar_date(inst); } }
 
         protected override TextValue EntityName() { return "managed_data_item_with_history"; }
     };
@@ -22159,6 +22290,7 @@ namespace CIS2
         /// </summary>
         public static new managed_data_modification Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "managed_data_modification"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_managed_data_item modified_set { get { return (new set_of_managed_data_itemSerializer()).FromAttr(m_instance, "modified_set"); } }
 
         protected override TextValue EntityName() { return "managed_data_modification"; }
     };
@@ -22364,6 +22496,9 @@ namespace CIS2
         /// </summary>
         public static new material Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "material"); Debug.Assert(inst != 0); return inst; }
 
+        public IntValue? material_number { get { return get_IntValue("material_number", ifcengine.sdaiINTEGER); } }
+        public TextValue material_name { get { return get_string("material_name", ifcengine.sdaiSTRING); } }
+        public bag_of_identifier material_grade { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "material_grade"); } }
 
         protected override TextValue EntityName() { return "material"; }
     };
@@ -23119,6 +23254,11 @@ namespace CIS2
             get { return get_string("cnc_data_format", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "cnc_data_format", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue cnc_file_title { get { return get_string("cnc_file_title", ifcengine.sdaiSTRING); } }
+        public person created_by { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "created_by", ifcengine.sdaiINSTANCE, out inst); return new person(inst); } }
+        public organization detail_company { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "detail_company", ifcengine.sdaiINSTANCE, out inst); return new organization(inst); } }
+        public date_and_time creation_date { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "creation_date", ifcengine.sdaiINSTANCE, out inst); return new date_and_time(inst); } }
+        public TextValue cnc_filename { get { return get_string("cnc_filename", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "media_file_cnc"; }
     };
@@ -23179,6 +23319,11 @@ namespace CIS2
             get { return get_string("current_revision_note", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "current_revision_note", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue drawing_title { get { return get_string("drawing_title", ifcengine.sdaiSTRING); } }
+        public person drawn_by { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "drawn_by", ifcengine.sdaiINSTANCE, out inst); return new person(inst); } }
+        public organization detail_company { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "detail_company", ifcengine.sdaiINSTANCE, out inst); return new organization(inst); } }
+        public date_and_time creation_date { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "creation_date", ifcengine.sdaiINSTANCE, out inst); return new date_and_time(inst); } }
+        public TextValue drawing_filename { get { return get_string("drawing_filename", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "media_file_drawing"; }
     };
@@ -23652,6 +23797,7 @@ namespace CIS2
         /// </summary>
         public static new open_path Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "open_path"); Debug.Assert(inst != 0); return inst; }
 
+        public IntValue? ne { get { return get_IntValue("ne", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "open_path"; }
     };
@@ -24155,6 +24301,10 @@ namespace CIS2
             get { return get_string("manufacturers_ref", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "manufacturers_ref", ifcengine.sdaiSTRING, value); }
             }
+        public IntValue? part_number { get { return get_IntValue("part_number", ifcengine.sdaiINTEGER); } }
+        public TextValue part_name { get { return get_string("part_name", ifcengine.sdaiSTRING); } }
+        public set_of_design_part design_uses { get { return (new set_of_design_partSerializer()).FromAttr(m_instance, "design_uses"); } }
+        public set_of_located_part physical_uses { get { return (new set_of_located_partSerializer()).FromAttr(m_instance, "physical_uses"); } }
 
         protected override TextValue EntityName() { return "part"; }
     };
@@ -24305,6 +24455,8 @@ namespace CIS2
         public list_of_orientation_select section_orientations { get { return (new list_of_orientation_selectSerializer()).FromAttr(m_instance, "section_orientations"); } }
         public void put_section_orientations(IEnumerable<orientation_select> lst) { (new list_of_orientation_selectSerializer()).ToSdaiAggr(lst, m_instance, "section_orientations"); }
         public void put_section_orientations_untyped(IEnumerable lst) { (new list_of_orientation_selectSerializer()).ToSdaiAggr(lst, m_instance, "section_orientations"); }
+        public IntValue? number_of_sections { get { return get_IntValue("number_of_sections", ifcengine.sdaiINTEGER); } }
+        public curve curve_defining_part { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_defining_part", ifcengine.sdaiINSTANCE, out inst); return new curve(inst); } }
 
         protected override TextValue EntityName() { return "part_prismatic_complex"; }
     };
@@ -24854,6 +25006,8 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "the_organization", ifcengine.sdaiINSTANCE, out inst); return new organization(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "the_organization", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "person_and_organization"; }
     };
@@ -24884,6 +25038,7 @@ namespace CIS2
             get { return get_string("name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "person_and_organization_role"; }
     };
@@ -25436,6 +25591,7 @@ namespace CIS2
         public list_of_cartesian_point polygon { get { return (new list_of_cartesian_pointSerializer()).FromAttr(m_instance, "polygon"); } }
         public void put_polygon(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
         public void put_polygon_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "poly_loop"; }
     };
@@ -26182,6 +26338,7 @@ namespace CIS2
         public list_of_double weights_data { get { return (new list_of_doubleSerializer()).FromAttr(m_instance, "weights_data"); } }
         public void put_weights_data(IEnumerable<double> lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
+        public array_of_double weights { get { return (new array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
         protected override TextValue EntityName() { return "rational_b_spline_curve"; }
     };
@@ -26210,6 +26367,7 @@ namespace CIS2
         public list_of_list_of_double weights_data { get { return (new list_of_list_of_doubleSerializer()).FromAttr(m_instance, "weights_data"); } }
         public void put_weights_data(IEnumerable<list_of_double> lst) { (new list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
+        public array_of_array_of_double weights { get { return (new array_of_array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
         protected override TextValue EntityName() { return "rational_b_spline_surface"; }
     };
@@ -26238,6 +26396,7 @@ namespace CIS2
         public list_of_list_of_list_of_double weights_data { get { return (new list_of_list_of_list_of_doubleSerializer()).FromAttr(m_instance, "weights_data"); } }
         public void put_weights_data(IEnumerable<list_of_list_of_double> lst) { (new list_of_list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
+        public array_of_array_of_array_of_double weights { get { return (new array_of_array_of_array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
         protected override TextValue EntityName() { return "rational_b_spline_volume"; }
     };
@@ -26641,6 +26800,8 @@ namespace CIS2
         public list_of_list_of_surface_patch segments { get { return (new list_of_list_of_surface_patchSerializer()).FromAttr(m_instance, "segments"); } }
         public void put_segments(IEnumerable<list_of_surface_patch> lst) { (new list_of_list_of_surface_patchSerializer()).ToSdaiAggr(lst, m_instance, "segments"); }
         public void put_segments_untyped(IEnumerable lst) { (new list_of_list_of_surface_patchSerializer()).ToSdaiAggr(lst, m_instance, "segments"); }
+        public IntValue? n_u { get { return get_IntValue("n_u", ifcengine.sdaiINTEGER); } }
+        public IntValue? n_v { get { return get_IntValue("n_v", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "rectangular_composite_surface"; }
     };
@@ -26918,6 +27079,7 @@ namespace CIS2
         public list_of_release_spring_linear values { get { return (new list_of_release_spring_linearSerializer()).FromAttr(m_instance, "values"); } }
         public void put_values(IEnumerable<release_spring_linear> lst) { (new list_of_release_spring_linearSerializer()).ToSdaiAggr(lst, m_instance, "values"); }
         public void put_values_untyped(IEnumerable lst) { (new list_of_release_spring_linearSerializer()).ToSdaiAggr(lst, m_instance, "values"); }
+        public IntValue? number_of_values { get { return get_IntValue("number_of_values", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "release_spring_non_linear"; }
     };
@@ -27465,6 +27627,7 @@ namespace CIS2
             get { return get_double("angle", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
         protected override TextValue EntityName() { return "revolved_area_solid"; }
     };
@@ -27500,6 +27663,7 @@ namespace CIS2
             get { return get_double("angle", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
         protected override TextValue EntityName() { return "revolved_face_solid"; }
     };
@@ -27885,6 +28049,7 @@ namespace CIS2
             get { var str = get_string("mirrored", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "mirrored", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public bag_of_identifier section_ref { get { return (new bag_of_identifierSerializer()).FromAttr(m_instance, "section_ref"); } }
 
         protected override TextValue EntityName() { return "section_profile"; }
     };
@@ -27960,6 +28125,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "leg_slope", ifcengine.sdaiINSTANCE, out inst); return new ratio_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "leg_slope", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? width_value { get { return get_double("width_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_profile_angle"; }
     };
@@ -28075,6 +28241,10 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "flange_slope", ifcengine.sdaiINSTANCE, out inst); return new ratio_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "flange_slope", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? overall_depth_value { get { return get_double("overall_depth_value", ifcengine.sdaiREAL); } }
+        public double? flange_width_value { get { return get_double("flange_width_value", ifcengine.sdaiREAL); } }
+        public double? flange_thickness_value { get { return get_double("flange_thickness_value", ifcengine.sdaiREAL); } }
+        public double? web_thickness_value { get { return get_double("web_thickness_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_profile_channel"; }
     };
@@ -28135,6 +28305,9 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "wall_thickness", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "wall_thickness", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? external_radius_value { get { return get_double("external_radius_value", ifcengine.sdaiREAL); } }
+        public double? wall_thickness_value { get { return get_double("wall_thickness_value", ifcengine.sdaiREAL); } }
+        public double? inside_diameter { get { return get_double("inside_diameter", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_profile_circle_hollow"; }
     };
@@ -28169,6 +28342,7 @@ namespace CIS2
         public list_of_orientation_select orientations { get { return (new list_of_orientation_selectSerializer()).FromAttr(m_instance, "orientations"); } }
         public void put_orientations(IEnumerable<orientation_select> lst) { (new list_of_orientation_selectSerializer()).ToSdaiAggr(lst, m_instance, "orientations"); }
         public void put_orientations_untyped(IEnumerable lst) { (new list_of_orientation_selectSerializer()).ToSdaiAggr(lst, m_instance, "orientations"); }
+        public IntValue? number_of_sections { get { return get_IntValue("number_of_sections", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "section_profile_compound"; }
     };
@@ -28297,6 +28471,10 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "edge_radius", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "edge_radius", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? overall_depth_value { get { return get_double("overall_depth_value", ifcengine.sdaiREAL); } }
+        public double? overall_width_value { get { return get_double("overall_width_value", ifcengine.sdaiREAL); } }
+        public double? web_thickness_value { get { return get_double("web_thickness_value", ifcengine.sdaiREAL); } }
+        public double? flange_thickness_value { get { return get_double("flange_thickness_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_profile_i_type"; }
     };
@@ -28447,6 +28625,9 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "external_fillet_radius", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "external_fillet_radius", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? overall_depth_value { get { return get_double("overall_depth_value", ifcengine.sdaiREAL); } }
+        public double? overall_width_value { get { return get_double("overall_width_value", ifcengine.sdaiREAL); } }
+        public double? external_fillet_value { get { return get_double("external_fillet_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_profile_rectangle"; }
     };
@@ -28482,6 +28663,8 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "internal_fillet_radius", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "internal_fillet_radius", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? wall_thickness_value { get { return get_double("wall_thickness_value", ifcengine.sdaiREAL); } }
+        public double? internal_radius_value { get { return get_double("internal_radius_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_profile_rectangle_hollow"; }
     };
@@ -28547,6 +28730,10 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "edge_radius", ifcengine.sdaiINSTANCE, out inst); return new positive_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "edge_radius", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? overall_depth_value { get { return get_double("overall_depth_value", ifcengine.sdaiREAL); } }
+        public double? flange_width_value { get { return get_double("flange_width_value", ifcengine.sdaiREAL); } }
+        public double? flange_thickness_value { get { return get_double("flange_thickness_value", ifcengine.sdaiREAL); } }
+        public double? web_thickness_value { get { return get_double("web_thickness_value", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_profile_t_type"; }
     };
@@ -28670,6 +28857,8 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "actual_mass", ifcengine.sdaiINSTANCE, out inst); return new mass_per_length_measure_with_unit(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "actual_mass", ifcengine.sdaiINSTANCE, i); }
             }
+        public double? y_offset { get { return get_double("y_offset", ifcengine.sdaiREAL); } }
+        public double? z_offset { get { return get_double("z_offset", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "section_properties"; }
     };
@@ -29773,6 +29962,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_position", ifcengine.sdaiINSTANCE, out inst); return new axis1_placement(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axis_position", ifcengine.sdaiINSTANCE, i); }
             }
+        public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
         protected override TextValue EntityName() { return "surface_of_revolution"; }
     };
@@ -29948,6 +30138,7 @@ namespace CIS2
         public list_of_coating coating_specifications { get { return (new list_of_coatingSerializer()).FromAttr(m_instance, "coating_specifications"); } }
         public void put_coating_specifications(IEnumerable<coating> lst) { (new list_of_coatingSerializer()).ToSdaiAggr(lst, m_instance, "coating_specifications"); }
         public void put_coating_specifications_untyped(IEnumerable lst) { (new list_of_coatingSerializer()).ToSdaiAggr(lst, m_instance, "coating_specifications"); }
+        public IntValue? number_of_layers { get { return get_IntValue("number_of_layers", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "surface_treatment_coat"; }
     };
@@ -30774,6 +30965,7 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, out inst); return new point(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, i); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "vertex_point"; }
     };
@@ -31423,6 +31615,9 @@ namespace CIS2
             get { var str = get_string("joint_configuration", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.weld_configuration_); return EnumValue<weld_configuration>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<weld_configuration>.FromValue(value.Value, EnumNames.weld_configuration_); ifcengine.sdaiPutAttrBN(m_instance, "joint_configuration", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? number_of_sections { get { return get_IntValue("number_of_sections", ifcengine.sdaiINTEGER); } }
+        public curve curve_defining_weld { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_defining_weld", ifcengine.sdaiINSTANCE, out inst); return new curve(inst); } }
+        public set_of_joint_system_welded joints { get { return (new set_of_joint_system_weldedSerializer()).FromAttr(m_instance, "joints"); } }
 
         protected override TextValue EntityName() { return "weld_mechanism_prismatic"; }
     };
@@ -31662,6 +31857,7 @@ namespace CIS2
         public set_of_grid_level bounding_levels { get { return (new set_of_grid_levelSerializer()).FromAttr(m_instance, "bounding_levels"); } }
         public void put_bounding_levels(IEnumerable<grid_level> lst) { (new set_of_grid_levelSerializer()).ToSdaiAggr(lst, m_instance, "bounding_levels"); }
         public void put_bounding_levels_untyped(IEnumerable lst) { (new set_of_grid_levelSerializer()).ToSdaiAggr(lst, m_instance, "bounding_levels"); }
+        public grid bounding_grid { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "bounding_grid", ifcengine.sdaiINSTANCE, out inst); return new grid(inst); } }
 
         protected override TextValue EntityName() { return "zone_bounded"; }
     };
@@ -31852,6 +32048,8 @@ namespace CIS2
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "parent_zone", ifcengine.sdaiINSTANCE, out inst); return new zone_of_structure(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "parent_zone", ifcengine.sdaiINSTANCE, i); }
             }
+        public set_of_zone_of_structure_sequence_lot lots { get { return (new set_of_zone_of_structure_sequence_lotSerializer()).FromAttr(m_instance, "lots"); } }
+        public set_of_located_assembly assemblies { get { return (new set_of_located_assemblySerializer()).FromAttr(m_instance, "assemblies"); } }
 
         protected override TextValue EntityName() { return "zone_of_structure_sequence"; }
     };
@@ -31877,6 +32075,7 @@ namespace CIS2
         /// </summary>
         public static new zone_of_structure_sequence_lot Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "zone_of_structure_sequence_lot"); Debug.Assert(inst != 0); return inst; }
 
+        public zone_of_structure parent_sequence { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "parent_sequence", ifcengine.sdaiINSTANCE, out inst); return new zone_of_structure(inst); } }
 
         protected override TextValue EntityName() { return "zone_of_structure_sequence_lot"; }
     };

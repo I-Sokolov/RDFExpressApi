@@ -5326,6 +5326,12 @@ namespace CIS2
     template <typename TList> class set_of_assembly_component_selectSerializer : public AggrSerializerSelect<TList, assembly_component_select> {};
     typedef std::list<structural_frame_process> set_of_structural_frame_process;
     template <typename TList> class set_of_structural_frame_processSerializer : public AggrSerializerInstance<TList, structural_frame_process> {};
+    typedef std::list<StringValue> bag_of_identifier;
+    template <typename TList> class bag_of_identifierSerializer : public AggrSerializerText<bag_of_identifier, identifier, sdaiSTRING> {};
+    typedef std::list<StringValue> bag_of_label;
+    template <typename TList> class bag_of_labelSerializer : public AggrSerializerText<bag_of_label, label, sdaiSTRING> {};
+    typedef std::list<located_assembly> set_of_located_assembly;
+    template <typename TList> class set_of_located_assemblySerializer : public AggrSerializerInstance<TList, located_assembly> {};
     typedef std::list<functional_role> set_of_functional_role;
     template <typename TList> class set_of_functional_roleSerializer : public AggrSerializerInstance<TList, functional_role> {};
     typedef std::list<design_criterion> set_of_design_criterion;
@@ -5336,6 +5342,10 @@ namespace CIS2
     template <typename TList> class set_of_assembly_design_structural_memberSerializer : public AggrSerializerInstance<TList, assembly_design_structural_member> {};
     typedef std::list<assembly_design_structural_connection> set_of_assembly_design_structural_connection;
     template <typename TList> class set_of_assembly_design_structural_connectionSerializer : public AggrSerializerInstance<TList, assembly_design_structural_connection> {};
+    typedef std::list<restraint> set_of_restraint;
+    template <typename TList> class set_of_restraintSerializer : public AggrSerializerInstance<TList, restraint> {};
+    typedef std::list<effective_buckling_length> set_of_effective_buckling_length;
+    template <typename TList> class set_of_effective_buckling_lengthSerializer : public AggrSerializerInstance<TList, effective_buckling_length> {};
     typedef std::list<member_beam_type> set_of_member_beam_type;
     template <typename TList> class set_of_member_beam_typeSerializer : public AggrSerializerEnum<TList, member_beam_type, member_beam_type_, sdaiENUM> {};
     typedef std::list<member_beam_role> set_of_member_beam_role;
@@ -5344,22 +5354,34 @@ namespace CIS2
     template <typename TList> class set_of_member_column_typeSerializer : public AggrSerializerEnum<TList, member_column_type, member_column_type_, sdaiENUM> {};
     typedef std::list<assembly_design_structural_member_linear> set_of_assembly_design_structural_member_linear;
     template <typename TList> class set_of_assembly_design_structural_member_linearSerializer : public AggrSerializerInstance<TList, assembly_design_structural_member_linear> {};
+    typedef std::list<representation_item> set_of_representation_item;
+    template <typename TList> class set_of_representation_itemSerializer : public AggrSerializerInstance<TList, representation_item> {};
+    typedef std::list<direction> list_of_direction;
+    template <typename TList> class list_of_directionSerializer : public AggrSerializerInstance<TList, direction> {};
     typedef std::list<cartesian_point> list_of_cartesian_point;
     template <typename TList> class list_of_cartesian_pointSerializer : public AggrSerializerInstance<TList, cartesian_point> {};
+    typedef std::list<cartesian_point> array_of_cartesian_point;
+    template <typename TList> class array_of_cartesian_pointSerializer : public AggrSerializerInstance<TList, cartesian_point> {};
     typedef std::list<IntValue> ListOfIntValue;
     template <typename TList> class ListOfIntValueSerializer : public AggrSerializerSimple<TList, IntValue, sdaiINTEGER> {};
     typedef std::list<parameter_value> list_of_parameter_value;
     template <typename TList> class list_of_parameter_valueSerializer : public AggrSerializerSimple<TList, parameter_value, sdaiREAL> {};
     typedef std::list<list_of_cartesian_point> list_of_list_of_cartesian_point;
     template <typename TList> class list_of_list_of_cartesian_pointSerializer : public AggrSerializerAggr<TList, list_of_cartesian_point, list_of_cartesian_pointSerializer<list_of_cartesian_point>> {};
+    typedef std::list<array_of_cartesian_point> array_of_array_of_cartesian_point;
+    template <typename TList> class array_of_array_of_cartesian_pointSerializer : public AggrSerializerAggr<TList, array_of_cartesian_point, array_of_cartesian_pointSerializer<array_of_cartesian_point>> {};
     typedef std::list<list_of_list_of_cartesian_point> list_of_list_of_list_of_cartesian_point;
     template <typename TList> class list_of_list_of_list_of_cartesian_pointSerializer : public AggrSerializerAggr<TList, list_of_list_of_cartesian_point, list_of_list_of_cartesian_pointSerializer<list_of_list_of_cartesian_point>> {};
+    typedef std::list<array_of_array_of_cartesian_point> array_of_array_of_array_of_cartesian_point;
+    template <typename TList> class array_of_array_of_array_of_cartesian_pointSerializer : public AggrSerializerAggr<TList, array_of_array_of_cartesian_point, array_of_array_of_cartesian_pointSerializer<array_of_array_of_cartesian_point>> {};
     typedef std::list<measure_with_unit> list_of_measure_with_unit;
     template <typename TList> class list_of_measure_with_unitSerializer : public AggrSerializerInstance<TList, measure_with_unit> {};
     typedef std::list<boundary_condition_spring_linear> list_of_boundary_condition_spring_linear;
     template <typename TList> class list_of_boundary_condition_spring_linearSerializer : public AggrSerializerInstance<TList, boundary_condition_spring_linear> {};
     typedef std::list<composite_curve_segment> list_of_composite_curve_segment;
     template <typename TList> class list_of_composite_curve_segmentSerializer : public AggrSerializerInstance<TList, composite_curve_segment> {};
+    typedef std::list<surface> set_of_surface;
+    template <typename TList> class set_of_surfaceSerializer : public AggrSerializerInstance<TList, surface> {};
     typedef std::list<pcurve_or_surface> list_of_pcurve_or_surface;
     template <typename TList> class list_of_pcurve_or_surfaceSerializer : public AggrSerializerSelect<TList, pcurve_or_surface> {};
     typedef std::list<oriented_closed_shell> set_of_oriented_closed_shell;
@@ -5376,12 +5398,8 @@ namespace CIS2
     template <typename TList> class bag_of_composite_curveSerializer : public AggrSerializerInstance<TList, composite_curve> {};
     typedef std::list<edge> set_of_edge;
     template <typename TList> class set_of_edgeSerializer : public AggrSerializerInstance<TList, edge> {};
-    typedef std::list<direction> list_of_direction;
-    template <typename TList> class list_of_directionSerializer : public AggrSerializerInstance<TList, direction> {};
     typedef std::list<boundary_curve> set_of_boundary_curve;
     template <typename TList> class set_of_boundary_curveSerializer : public AggrSerializerInstance<TList, boundary_curve> {};
-    typedef std::list<representation_item> set_of_representation_item;
-    template <typename TList> class set_of_representation_itemSerializer : public AggrSerializerInstance<TList, representation_item> {};
     typedef std::list<derived_unit_element> set_of_derived_unit_element;
     template <typename TList> class set_of_derived_unit_elementSerializer : public AggrSerializerInstance<TList, derived_unit_element> {};
     typedef std::list<assembly_design> list_of_assembly_design;
@@ -5408,6 +5426,8 @@ namespace CIS2
     template <typename TList> class list_of_point_on_curveSerializer : public AggrSerializerInstance<TList, point_on_curve> {};
     typedef std::list<orientation_select> list_of_orientation_select;
     template <typename TList> class list_of_orientation_selectSerializer : public AggrSerializerSelect<TList, orientation_select> {};
+    typedef std::list<element_node_connectivity> bag_of_element_node_connectivity;
+    template <typename TList> class bag_of_element_node_connectivitySerializer : public AggrSerializerInstance<TList, element_node_connectivity> {};
     typedef std::list<double> array_of_double;
     template <typename TList> class array_of_doubleSerializer : public AggrSerializerSimple<TList, double, sdaiREAL> {};
     typedef std::list<array_of_double> array_of_array_of_double;
@@ -5420,6 +5440,8 @@ namespace CIS2
     template <typename TList> class list_of_fastenerSerializer : public AggrSerializerInstance<TList, fastener> {};
     typedef std::list<length_measure_with_unit> list_of_length_measure_with_unit;
     template <typename TList> class list_of_length_measure_with_unitSerializer : public AggrSerializerInstance<TList, length_measure_with_unit> {};
+    typedef std::list<located_feature> set_of_located_feature;
+    template <typename TList> class set_of_located_featureSerializer : public AggrSerializerInstance<TList, located_feature> {};
     typedef std::list<StringValue> list_of_text;
     template <typename TList> class list_of_textSerializer : public AggrSerializerText<list_of_text, text, sdaiSTRING> {};
     typedef std::list<point> list_of_point;
@@ -5438,6 +5460,8 @@ namespace CIS2
     template <typename TList> class set_of_unitSerializer : public AggrSerializerSelect<TList, unit> {};
     typedef std::list<gridline> set_of_gridline;
     template <typename TList> class set_of_gridlineSerializer : public AggrSerializerInstance<TList, gridline> {};
+    typedef std::list<grid_level> set_of_grid_level;
+    template <typename TList> class set_of_grid_levelSerializer : public AggrSerializerInstance<TList, grid_level> {};
     typedef std::list<positive_length_measure_with_unit> list_of_positive_length_measure_with_unit;
     template <typename TList> class list_of_positive_length_measure_with_unitSerializer : public AggrSerializerInstance<TList, positive_length_measure_with_unit> {};
     typedef std::list<plane_angle_measure_with_unit> list_of_plane_angle_measure_with_unit;
@@ -5460,6 +5484,10 @@ namespace CIS2
     template <typename TList> class set_of_item_reference_proprietarySerializer : public AggrSerializerInstance<TList, item_reference_proprietary> {};
     typedef std::list<item_reference_standard> set_of_item_reference_standard;
     template <typename TList> class set_of_item_reference_standardSerializer : public AggrSerializerInstance<TList, item_reference_standard> {};
+    typedef std::list<design_joint_system> set_of_design_joint_system;
+    template <typename TList> class set_of_design_joint_systemSerializer : public AggrSerializerInstance<TList, design_joint_system> {};
+    typedef std::list<located_joint_system> set_of_located_joint_system;
+    template <typename TList> class set_of_located_joint_systemSerializer : public AggrSerializerInstance<TList, located_joint_system> {};
     typedef std::list<chemical_mechanism> list_of_chemical_mechanism;
     template <typename TList> class list_of_chemical_mechanismSerializer : public AggrSerializerInstance<TList, chemical_mechanism> {};
     typedef std::list<joint_system> list_of_joint_system;
@@ -5476,10 +5504,14 @@ namespace CIS2
     template <typename TList> class set_of_grid_offsetSerializer : public AggrSerializerInstance<TList, grid_offset> {};
     typedef std::list<located_part> set_of_located_part;
     template <typename TList> class set_of_located_partSerializer : public AggrSerializerInstance<TList, located_part> {};
-    typedef std::list<located_joint_system> set_of_located_joint_system;
-    template <typename TList> class set_of_located_joint_systemSerializer : public AggrSerializerInstance<TList, located_joint_system> {};
+    typedef std::list<located_feature_joint_dependent> set_of_located_feature_joint_dependent;
+    template <typename TList> class set_of_located_feature_joint_dependentSerializer : public AggrSerializerInstance<TList, located_feature_joint_dependent> {};
+    typedef std::list<located_feature_for_located_part> set_of_located_feature_for_located_part;
+    template <typename TList> class set_of_located_feature_for_located_partSerializer : public AggrSerializerInstance<TList, located_feature_for_located_part> {};
     typedef std::list<managed_data_item> set_of_managed_data_item;
     template <typename TList> class set_of_managed_data_itemSerializer : public AggrSerializerInstance<TList, managed_data_item> {};
+    typedef std::list<managed_data_group> set_of_managed_data_group;
+    template <typename TList> class set_of_managed_data_groupSerializer : public AggrSerializerInstance<TList, managed_data_group> {};
     typedef std::list<managed_data_transaction> set_of_managed_data_transaction;
     template <typename TList> class set_of_managed_data_transactionSerializer : public AggrSerializerInstance<TList, managed_data_transaction> {};
     typedef std::list<managed_data_transaction> list_of_managed_data_transaction;
@@ -5512,6 +5544,8 @@ namespace CIS2
     template <typename TList> class list_of_list_of_doubleSerializer : public AggrSerializerAggr<TList, list_of_double, list_of_doubleSerializer<list_of_double>> {};
     typedef std::list<list_of_list_of_double> list_of_list_of_list_of_double;
     template <typename TList> class list_of_list_of_list_of_doubleSerializer : public AggrSerializerAggr<TList, list_of_list_of_double, list_of_list_of_doubleSerializer<list_of_list_of_double>> {};
+    typedef std::list<array_of_array_of_double> array_of_array_of_array_of_double;
+    template <typename TList> class array_of_array_of_array_of_doubleSerializer : public AggrSerializerAggr<TList, array_of_array_of_double, array_of_array_of_doubleSerializer<array_of_array_of_double>> {};
     typedef std::list<surface_patch> list_of_surface_patch;
     template <typename TList> class list_of_surface_patchSerializer : public AggrSerializerInstance<TList, surface_patch> {};
     typedef std::list<list_of_surface_patch> list_of_list_of_surface_patch;
@@ -5540,10 +5574,12 @@ namespace CIS2
     template <typename TList> class list_of_coatingSerializer : public AggrSerializerInstance<TList, coating> {};
     typedef std::list<trimming_select> set_of_trimming_select;
     template <typename TList> class set_of_trimming_selectSerializer : public AggrSerializerSelect<TList, trimming_select> {};
+    typedef std::list<joint_system_welded> set_of_joint_system_welded;
+    template <typename TList> class set_of_joint_system_weldedSerializer : public AggrSerializerInstance<TList, joint_system_welded> {};
     typedef std::list<loop> set_of_loop;
     template <typename TList> class set_of_loopSerializer : public AggrSerializerInstance<TList, loop> {};
-    typedef std::list<grid_level> set_of_grid_level;
-    template <typename TList> class set_of_grid_levelSerializer : public AggrSerializerInstance<TList, grid_level> {};
+    typedef std::list<zone_of_structure_sequence_lot> set_of_zone_of_structure_sequence_lot;
+    template <typename TList> class set_of_zone_of_structure_sequence_lotSerializer : public AggrSerializerInstance<TList, zone_of_structure_sequence_lot> {};
 
         //
         // Entities
@@ -5578,6 +5614,8 @@ namespace CIS2
 
         action_method get_chosen_method();
         void put_chosen_method(action_method inst);
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -5713,6 +5751,10 @@ namespace CIS2
 
         label get_telex_number() { label val = NULL; if (sdaiGetAttrBN(m_instance, "telex_number", sdaiSTRING, &val)) return val; else return NULL; }
         void put_telex_number(label value) { sdaiPutAttrBN(m_instance, "telex_number", sdaiSTRING, value); }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
+
+        identifier get_url() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "url", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -7001,6 +7043,14 @@ namespace CIS2
 
         text get_item_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "item_description", sdaiSTRING, &val)) return val; else return NULL; }
         void put_item_description(text value) { sdaiPutAttrBN(m_instance, "item_description", sdaiSTRING, value); }
+
+        //TList may be bag_of_identifier or list of converible elements
+        template <typename TList> void get_item_ref(TList& lst) { bag_of_identifierSerializer<TList> sr; sr.FromAttr(lst, m_instance, "item_ref"); }
+
+        //TList may be bag_of_label or list of converible elements
+        template <typename TList> void get_cost_code(TList& lst) { bag_of_labelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "cost_code"); }
+
+        globally_unique_id get_object_id() { globally_unique_id val = NULL; if (sdaiGetAttrBN(m_instance, "object_id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -7115,6 +7165,9 @@ namespace CIS2
 
         Nullable<complexity_level> get_complexity() { int v = getENUM("complexity", complexity_level_); if (v >= 0) return (complexity_level) v; else return Nullable<complexity_level>(); }
         void put_complexity(complexity_level value) { TextValue val = complexity_level_[(int) value]; sdaiPutAttrBN(m_instance, "complexity", sdaiENUM, val); }
+
+        //TList may be set_of_located_assembly or list of converible elements
+        template <typename TList> void get_uses(TList& lst) { set_of_located_assemblySerializer<TList> sr; sr.FromAttr(lst, m_instance, "uses"); }
     };
 
 
@@ -7359,6 +7412,12 @@ namespace CIS2
 
         Nullable<member_class> get_structural_member_class() { int v = getENUM("structural_member_class", member_class_); if (v >= 0) return (member_class) v; else return Nullable<member_class>(); }
         void put_structural_member_class(member_class value) { TextValue val = member_class_[(int) value]; sdaiPutAttrBN(m_instance, "structural_member_class", sdaiENUM, val); }
+
+        //TList may be set_of_restraint or list of converible elements
+        template <typename TList> void get_restraints(TList& lst) { set_of_restraintSerializer<TList> sr; sr.FromAttr(lst, m_instance, "restraints"); }
+
+        //TList may be set_of_effective_buckling_length or list of converible elements
+        template <typename TList> void get_effective_lengths(TList& lst) { set_of_effective_buckling_lengthSerializer<TList> sr; sr.FromAttr(lst, m_instance, "effective_lengths"); }
     };
 
 
@@ -7924,6 +7983,9 @@ namespace CIS2
                 /// Create new instace of assembly_with_bounding_box and returns object of this C++ class to interact with
                 /// </summary>
         static assembly_with_bounding_box Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "assembly_with_bounding_box"); assert(inst); return inst; }
+
+        //TList may be set_of_representation_item or list of converible elements
+        template <typename TList> void get_bounding_box(TList& lst) { set_of_representation_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "bounding_box"); }
     };
 
 
@@ -7971,6 +8033,8 @@ namespace CIS2
                 /// Create new instace of geometric_representation_item and returns object of this C++ class to interact with
                 /// </summary>
         static geometric_representation_item Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "geometric_representation_item"); assert(inst); return inst; }
+
+        Nullable<dimension_count> get_dim() { dimension_count val = (dimension_count) 0; if (sdaiGetAttrBN(m_instance, "dim", sdaiINTEGER, &val)) return val; else return Nullable<dimension_count>(); }
     };
 
 
@@ -8021,6 +8085,8 @@ namespace CIS2
 
         direction get_axis();
         void put_axis(direction inst);
+
+        direction get_z();
     };
 
 
@@ -8046,6 +8112,9 @@ namespace CIS2
 
         direction get_ref_direction();
         void put_ref_direction(direction inst);
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_p(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "p"); }
     };
 
 
@@ -8074,6 +8143,9 @@ namespace CIS2
 
         direction get_ref_direction();
         void put_ref_direction(direction inst);
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_p(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "p"); }
     };
 
 
@@ -8161,6 +8233,11 @@ namespace CIS2
 
         Nullable<LOGICAL_VALUE> get_self_intersect() { int v = getENUM("self_intersect", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_self_intersect(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "self_intersect", sdaiENUM, val); }
+
+        Nullable<IntValue> get_upper_index_on_control_points() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "upper_index_on_control_points", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        //TList may be array_of_cartesian_point or list of converible elements
+        template <typename TList> void get_control_points(TList& lst) { array_of_cartesian_pointSerializer<TList> sr; sr.FromAttr(lst, m_instance, "control_points"); }
     };
 
 
@@ -8204,6 +8281,8 @@ namespace CIS2
 
         Nullable<knot_type> get_knot_spec() { int v = getENUM("knot_spec", knot_type_); if (v >= 0) return (knot_type) v; else return Nullable<knot_type>(); }
         void put_knot_spec(knot_type value) { TextValue val = knot_type_[(int) value]; sdaiPutAttrBN(m_instance, "knot_spec", sdaiENUM, val); }
+
+        Nullable<IntValue> get_upper_index_on_knots() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "upper_index_on_knots", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -8294,6 +8373,13 @@ namespace CIS2
 
         Nullable<LOGICAL_VALUE> get_self_intersect() { int v = getENUM("self_intersect", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_self_intersect(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "self_intersect", sdaiENUM, val); }
+
+        Nullable<IntValue> get_u_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "u_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_v_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "v_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        //TList may be array_of_array_of_cartesian_point or list of converible elements
+        template <typename TList> void get_control_points(TList& lst) { array_of_array_of_cartesian_pointSerializer<TList> sr; sr.FromAttr(lst, m_instance, "control_points"); }
     };
 
 
@@ -8355,6 +8441,10 @@ namespace CIS2
 
         Nullable<knot_type> get_knot_spec() { int v = getENUM("knot_spec", knot_type_); if (v >= 0) return (knot_type) v; else return Nullable<knot_type>(); }
         void put_knot_spec(knot_type value) { TextValue val = knot_type_[(int) value]; sdaiPutAttrBN(m_instance, "knot_spec", sdaiENUM, val); }
+
+        Nullable<IntValue> get_knot_u_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "knot_u_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_knot_v_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "knot_v_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -8414,6 +8504,15 @@ namespace CIS2
 
         //TList may be list_of_list_of_list_of_cartesian_point or list of converible elements
         template <typename TList> void put_control_points_list(TList& lst) { list_of_list_of_list_of_cartesian_pointSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "control_points_list"); }
+
+        Nullable<IntValue> get_u_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "u_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_v_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "v_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_w_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "w_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        //TList may be array_of_array_of_array_of_cartesian_point or list of converible elements
+        template <typename TList> void get_control_points(TList& lst) { array_of_array_of_array_of_cartesian_pointSerializer<TList> sr; sr.FromAttr(lst, m_instance, "control_points"); }
     };
 
 
@@ -8490,6 +8589,12 @@ namespace CIS2
 
         //TArrayElem[] may be parameter_value[] or array of convertible elements
         template <typename TArrayElem> void put_w_knots(TArrayElem arr[], size_t n) { list_of_parameter_value lst; ArrayToList(arr, n, lst); put_w_knots(lst); }
+
+        Nullable<IntValue> get_knot_u_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "knot_u_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_knot_v_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "knot_v_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_knot_w_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "knot_w_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -8858,6 +8963,8 @@ namespace CIS2
 
         //TArrayElem[] may be boundary_condition_spring_linear[] or array of convertible elements
         template <typename TArrayElem> void put_values(TArrayElem arr[], size_t n) { list_of_boundary_condition_spring_linear lst; ArrayToList(arr, n, lst); put_values(lst); }
+
+        Nullable<IntValue> get_number_of_values() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_values", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -8917,6 +9024,10 @@ namespace CIS2
 
         Nullable<LOGICAL_VALUE> get_self_intersect() { int v = getENUM("self_intersect", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_self_intersect(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "self_intersect", sdaiENUM, val); }
+
+        Nullable<IntValue> get_n_segments() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "n_segments", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<LOGICAL_VALUE> get_closed_curve() { int v = getENUM("closed_curve", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
     };
 
 
@@ -8939,6 +9050,9 @@ namespace CIS2
                 /// Create new instace of composite_curve_on_surface and returns object of this C++ class to interact with
                 /// </summary>
         static composite_curve_on_surface Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "composite_curve_on_surface"); assert(inst); return inst; }
+
+        //TList may be set_of_surface or list of converible elements
+        template <typename TList> void get_basis_surface(TList& lst) { set_of_surfaceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "basis_surface"); }
     };
 
 
@@ -9045,6 +9159,9 @@ namespace CIS2
 
         Nullable<preferred_surface_curve_representation> get_master_representation() { int v = getENUM("master_representation", preferred_surface_curve_representation_); if (v >= 0) return (preferred_surface_curve_representation) v; else return Nullable<preferred_surface_curve_representation>(); }
         void put_master_representation(preferred_surface_curve_representation value) { TextValue val = preferred_surface_curve_representation_[(int) value]; sdaiPutAttrBN(m_instance, "master_representation", sdaiENUM, val); }
+
+        //TList may be set_of_surface or list of converible elements
+        template <typename TList> void get_basis_surface(TList& lst) { set_of_surfaceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "basis_surface"); }
     };
 
 
@@ -9546,6 +9663,8 @@ namespace CIS2
 
         Nullable<double> get_scale() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "scale", sdaiREAL, &val)) return val; else return Nullable<double>(); }
         void put_scale(double value) { sdaiPutAttrBN(m_instance, "scale", sdaiREAL, &value); }
+
+        Nullable<double> get_scl() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "scl", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -9568,6 +9687,9 @@ namespace CIS2
                 /// Create new instace of cartesian_transformation_operator_2d and returns object of this C++ class to interact with
                 /// </summary>
         static cartesian_transformation_operator_2d Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "cartesian_transformation_operator_2d"); assert(inst); return inst; }
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_u(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "u"); }
     };
 
 
@@ -9593,6 +9715,9 @@ namespace CIS2
 
         direction get_axis3();
         void put_axis3(direction inst);
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_u(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "u"); }
     };
 
 
@@ -10265,6 +10390,10 @@ namespace CIS2
 
         axis2_placement_2d get_axes_definition();
         void put_axes_definition(axis2_placement_2d inst);
+
+        Nullable<double> get_origin_1() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "origin_1", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_origin_2() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "origin_2", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -10290,6 +10419,12 @@ namespace CIS2
 
         axis2_placement_3d get_axes_definition();
         void put_axes_definition(axis2_placement_3d inst);
+
+        Nullable<double> get_origin_x() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "origin_x", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_origin_y() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "origin_y", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_origin_z() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "origin_z", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -10414,6 +10549,8 @@ namespace CIS2
 
         Nullable<ahead_or_behind> get_sense() { int v = getENUM("sense", ahead_or_behind_); if (v >= 0) return (ahead_or_behind) v; else return Nullable<ahead_or_behind>(); }
         void put_sense(ahead_or_behind value) { TextValue val = ahead_or_behind_[(int) value]; sdaiPutAttrBN(m_instance, "sense", sdaiENUM, val); }
+
+        Nullable<IntValue> get_actual_minute_offset() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "actual_minute_offset", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -10802,6 +10939,10 @@ namespace CIS2
 
         representation_context get_context_of_items();
         void put_context_of_items(representation_context inst);
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -10958,6 +11099,8 @@ namespace CIS2
 
         //TArrayElem[] may be derived_unit_element[] or array of convertible elements
         template <typename TArrayElem> void put_elements(TArrayElem arr[], size_t n) { set_of_derived_unit_element lst; ArrayToList(arr, n, lst); put_elements(lst); }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -11673,6 +11816,9 @@ namespace CIS2
 
         //TList may be set_of_document_usage_constraint or list of converible elements
         template <typename TList> void get_relevant_clauses(TList& lst) { set_of_document_usage_constraintSerializer<TList> sr; sr.FromAttr(lst, m_instance, "relevant_clauses"); }
+
+        //TList may be set_of_document_usage_constraint or list of converible elements
+        template <typename TList> void get_clauses(TList& lst) { set_of_document_usage_constraintSerializer<TList> sr; sr.FromAttr(lst, m_instance, "clauses"); }
     };
 
 
@@ -11999,6 +12145,8 @@ namespace CIS2
                 /// Create new instace of edge_loop and returns object of this C++ class to interact with
                 /// </summary>
         static edge_loop Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "edge_loop"); assert(inst); return inst; }
+
+        Nullable<IntValue> get_ne() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "ne", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -12094,6 +12242,9 @@ namespace CIS2
 
         Nullable<IntValue> get_element_subdivision() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "element_subdivision", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
         void put_element_subdivision(IntValue value) { sdaiPutAttrBN(m_instance, "element_subdivision", sdaiINTEGER, &value); }
+
+        //TList may be set_of_element_node_connectivity or list of converible elements
+        template <typename TList> void get_connectivities(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "connectivities"); }
     };
 
 
@@ -12140,6 +12291,10 @@ namespace CIS2
 
         //TList may be list_of_orientation_select or list of converible elements
         template <typename TList> void put_element_orientations(TList& lst) { list_of_orientation_selectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "element_orientations"); }
+
+        Nullable<IntValue> get_number_of_sections() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_sections", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        curve get_curve_defining_element();
     };
 
 
@@ -12291,6 +12446,9 @@ namespace CIS2
             : Entity(instance, entityName ? entityName : "element_point")
         {}
 
+
+        //TList may be bag_of_element_node_connectivity or list of converible elements
+        template <typename TList> void get_connectivities(TList& lst) { bag_of_element_node_connectivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "connectivities"); }
     };
 
 
@@ -12415,6 +12573,9 @@ namespace CIS2
 
         positive_length_measure_with_unit get_thickness();
         void put_thickness(positive_length_measure_with_unit inst);
+
+        //TList may be set_of_element_node_connectivity or list of converible elements
+        template <typename TList> void get_connectivities(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "connectivities"); }
     };
 
 
@@ -12533,6 +12694,9 @@ namespace CIS2
             : Entity(instance, entityName ? entityName : "element_volume")
         {}
 
+
+        //TList may be set_of_element_node_connectivity or list of converible elements
+        template <typename TList> void get_connectivities(TList& lst) { set_of_element_node_connectivitySerializer<TList> sr; sr.FromAttr(lst, m_instance, "connectivities"); }
     };
 
 
@@ -13205,6 +13369,9 @@ namespace CIS2
 
         area_measure_with_unit get_reduced_section_area();
         void put_reduced_section_area(area_measure_with_unit inst);
+
+        //TList may be bag_of_identifier or list of converible elements
+        template <typename TList> void get_bolt_ref(TList& lst) { bag_of_identifierSerializer<TList> sr; sr.FromAttr(lst, m_instance, "bolt_ref"); }
     };
 
 
@@ -13401,6 +13568,9 @@ namespace CIS2
                 /// Create new instace of fastener_simple_nut and returns object of this C++ class to interact with
                 /// </summary>
         static fastener_simple_nut Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "fastener_simple_nut"); assert(inst); return inst; }
+
+        //TList may be bag_of_identifier or list of converible elements
+        template <typename TList> void get_nut_ref(TList& lst) { bag_of_identifierSerializer<TList> sr; sr.FromAttr(lst, m_instance, "nut_ref"); }
     };
 
 
@@ -13746,6 +13916,12 @@ namespace CIS2
 
         area_measure_with_unit get_reduced_section_area();
         void put_reduced_section_area(area_measure_with_unit inst);
+
+        Nullable<double> get_thread_length_value_1() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "thread_length_value_1", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_thread_length_value_2() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "thread_length_value_2", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_length_of_shank_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "length_of_shank_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -13777,6 +13953,9 @@ namespace CIS2
 
         positive_length_measure_with_unit get_external_dimension();
         void put_external_dimension(positive_length_measure_with_unit inst);
+
+        //TList may be bag_of_identifier or list of converible elements
+        template <typename TList> void get_washer_ref(TList& lst) { bag_of_identifierSerializer<TList> sr; sr.FromAttr(lst, m_instance, "washer_ref"); }
     };
 
 
@@ -13849,6 +14028,9 @@ namespace CIS2
                 /// Create new instace of feature and returns object of this C++ class to interact with
                 /// </summary>
         static feature Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "feature"); assert(inst); return inst; }
+
+        //TList may be set_of_located_feature or list of converible elements
+        template <typename TList> void get_uses(TList& lst) { set_of_located_featureSerializer<TList> sr; sr.FromAttr(lst, m_instance, "uses"); }
     };
 
 
@@ -14410,6 +14592,12 @@ namespace CIS2
 
         positive_length_measure_with_unit get_fillet_radius();
         void put_fillet_radius(positive_length_measure_with_unit inst);
+
+        Nullable<double> get_fillet_radius_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "fillet_radius_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_hole_length_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "hole_length_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_hole_height_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "hole_height_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -14466,6 +14654,8 @@ namespace CIS2
 
         plane_angle_measure_with_unit get_sector_angle();
         void put_sector_angle(plane_angle_measure_with_unit inst);
+
+        Nullable<double> get_slot_radius() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "slot_radius", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -14825,6 +15015,8 @@ namespace CIS2
 
         group get_assigned_group();
         void put_assigned_group(group inst);
+
+        object_role get_role();
     };
 
 
@@ -15335,6 +15527,12 @@ namespace CIS2
 
         //TList may be set_of_gridline or list of converible elements
         template <typename TList> void get_constituent_lines(TList& lst) { set_of_gridlineSerializer<TList> sr; sr.FromAttr(lst, m_instance, "constituent_lines"); }
+
+        //TList may be set_of_gridline or list of converible elements
+        template <typename TList> void get_gridlines(TList& lst) { set_of_gridlineSerializer<TList> sr; sr.FromAttr(lst, m_instance, "gridlines"); }
+
+        //TList may be set_of_grid_level or list of converible elements
+        template <typename TList> void get_grid_levels(TList& lst) { set_of_grid_levelSerializer<TList> sr; sr.FromAttr(lst, m_instance, "grid_levels"); }
     };
 
 
@@ -15726,6 +15924,8 @@ namespace CIS2
 
         text get_group_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "group_description", sdaiSTRING, &val)) return val; else return NULL; }
         void put_group_description(text value) { sdaiPutAttrBN(m_instance, "group_description", sdaiSTRING, value); }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -16690,6 +16890,16 @@ namespace CIS2
 
         Nullable<shop_or_site> get_place_of_assembly() { int v = getENUM("place_of_assembly", shop_or_site_); if (v >= 0) return (shop_or_site) v; else return Nullable<shop_or_site>(); }
         void put_place_of_assembly(shop_or_site value) { TextValue val = shop_or_site_[(int) value]; sdaiPutAttrBN(m_instance, "place_of_assembly", sdaiENUM, val); }
+
+        Nullable<IntValue> get_joint_system_number() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "joint_system_number", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        label get_joint_system_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "joint_system_name", sdaiSTRING, &val)) return val; else return NULL; }
+
+        //TList may be set_of_design_joint_system or list of converible elements
+        template <typename TList> void get_design_uses(TList& lst) { set_of_design_joint_systemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "design_uses"); }
+
+        //TList may be set_of_located_joint_system or list of converible elements
+        template <typename TList> void get_physical_uses(TList& lst) { set_of_located_joint_systemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "physical_uses"); }
     };
 
 
@@ -16752,6 +16962,8 @@ namespace CIS2
 
         //TArrayElem[] may be chemical_mechanism[] or array of convertible elements
         template <typename TArrayElem> void put_specification(TArrayElem arr[], size_t n) { list_of_chemical_mechanism lst; ArrayToList(arr, n, lst); put_specification(lst); }
+
+        Nullable<IntValue> get_number_of_layers() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_layers", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -17216,6 +17428,9 @@ namespace CIS2
 
         //TList may be set_of_load or list of converible elements
         template <typename TList> void get_loads(TList& lst) { set_of_loadSerializer<TList> sr; sr.FromAttr(lst, m_instance, "loads"); }
+
+        //TList may be set_of_load or list of converible elements
+        template <typename TList> void get_load_components(TList& lst) { set_of_loadSerializer<TList> sr; sr.FromAttr(lst, m_instance, "load_components"); }
     };
 
 
@@ -17848,6 +18063,9 @@ namespace CIS2
 
         //TList may be set_of_load_combination_occurrence or list of converible elements
         template <typename TList> void get_load_cases(TList& lst) { set_of_load_combination_occurrenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "load_cases"); }
+
+        //TList may be set_of_load_combination_occurrence or list of converible elements
+        template <typename TList> void get_cases(TList& lst) { set_of_load_combination_occurrenceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "cases"); }
     };
 
 
@@ -17940,6 +18158,12 @@ namespace CIS2
 
         structure_select_get get_parent_structure() { return structure_select_get(m_instance, "parent_structure", NULL); }
         structure_select_put put_parent_structure() { return structure_select_put(m_instance, "parent_structure", NULL); }
+
+        //TList may be set_of_located_part or list of converible elements
+        template <typename TList> void get_component_parts(TList& lst) { set_of_located_partSerializer<TList> sr; sr.FromAttr(lst, m_instance, "component_parts"); }
+
+        //TList may be set_of_located_assembly or list of converible elements
+        template <typename TList> void get_sub_assemblies(TList& lst) { set_of_located_assemblySerializer<TList> sr; sr.FromAttr(lst, m_instance, "sub_assemblies"); }
     };
 
 
@@ -18198,6 +18422,9 @@ namespace CIS2
 
         located_assembly get_parent_assembly();
         void put_parent_assembly(located_assembly inst);
+
+        //TList may be set_of_located_feature_joint_dependent or list of converible elements
+        template <typename TList> void get_features(TList& lst) { set_of_located_feature_joint_dependentSerializer<TList> sr; sr.FromAttr(lst, m_instance, "features"); }
     };
 
 
@@ -18226,6 +18453,9 @@ namespace CIS2
 
         located_assembly get_parent_assembly();
         void put_parent_assembly(located_assembly inst);
+
+        //TList may be set_of_located_feature_for_located_part or list of converible elements
+        template <typename TList> void get_features(TList& lst) { set_of_located_feature_for_located_partSerializer<TList> sr; sr.FromAttr(lst, m_instance, "features"); }
     };
 
 
@@ -18476,6 +18706,9 @@ namespace CIS2
                 /// Create new instace of managed_data_creation and returns object of this C++ class to interact with
                 /// </summary>
         static managed_data_creation Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "managed_data_creation"); assert(inst); return inst; }
+
+        //TList may be set_of_managed_data_item or list of converible elements
+        template <typename TList> void get_created_set(TList& lst) { set_of_managed_data_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "created_set"); }
     };
 
 
@@ -18501,6 +18734,9 @@ namespace CIS2
 
         Nullable<data_status_type> get_data_status() { int v = getENUM("data_status", data_status_type_); if (v >= 0) return (data_status_type) v; else return Nullable<data_status_type>(); }
         void put_data_status(data_status_type value) { TextValue val = data_status_type_[(int) value]; sdaiPutAttrBN(m_instance, "data_status", sdaiENUM, val); }
+
+        //TList may be set_of_managed_data_item or list of converible elements
+        template <typename TList> void get_deleted_data_items(TList& lst) { set_of_managed_data_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "deleted_data_items"); }
     };
 
 
@@ -18526,6 +18762,12 @@ namespace CIS2
 
         select_data_source_get get_data_destination() { return select_data_source_get(m_instance, "data_destination", NULL); }
         select_data_source_put put_data_destination() { return select_data_source_put(m_instance, "data_destination", NULL); }
+
+        //TList may be set_of_managed_data_item or list of converible elements
+        template <typename TList> void get_exported_set(TList& lst) { set_of_managed_data_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "exported_set"); }
+
+        //TList may be set_of_managed_data_group or list of converible elements
+        template <typename TList> void get_assignments(TList& lst) { set_of_managed_data_groupSerializer<TList> sr; sr.FromAttr(lst, m_instance, "assignments"); }
     };
 
 
@@ -18582,6 +18824,12 @@ namespace CIS2
 
         select_data_source_get get_data_source() { return select_data_source_get(m_instance, "data_source", NULL); }
         select_data_source_put put_data_source() { return select_data_source_put(m_instance, "data_source", NULL); }
+
+        //TList may be set_of_managed_data_item or list of converible elements
+        template <typename TList> void get_imported_set(TList& lst) { set_of_managed_data_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "imported_set"); }
+
+        //TList may be set_of_managed_data_group or list of converible elements
+        template <typename TList> void get_assignments(TList& lst) { set_of_managed_data_groupSerializer<TList> sr; sr.FromAttr(lst, m_instance, "assignments"); }
     };
 
 
@@ -18647,6 +18895,20 @@ namespace CIS2
                 /// Create new instace of managed_data_item_with_history and returns object of this C++ class to interact with
                 /// </summary>
         static managed_data_item_with_history Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "managed_data_item_with_history"); assert(inst); return inst; }
+
+        Nullable<IntValue> get_number_of_uses() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_uses", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        managed_application_installation get_first_managing_application();
+
+        person get_first_managing_person();
+
+        calendar_date get_date_first_managed();
+
+        managed_application_installation get_last_managing_application();
+
+        person get_last_managing_person();
+
+        calendar_date get_date_last_managed();
     };
 
 
@@ -18669,6 +18931,9 @@ namespace CIS2
                 /// Create new instace of managed_data_modification and returns object of this C++ class to interact with
                 /// </summary>
         static managed_data_modification Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "managed_data_modification"); assert(inst); return inst; }
+
+        //TList may be set_of_managed_data_item or list of converible elements
+        template <typename TList> void get_modified_set(TList& lst) { set_of_managed_data_itemSerializer<TList> sr; sr.FromAttr(lst, m_instance, "modified_set"); }
     };
 
 
@@ -18841,6 +19106,13 @@ namespace CIS2
                 /// Create new instace of material and returns object of this C++ class to interact with
                 /// </summary>
         static material Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "material"); assert(inst); return inst; }
+
+        Nullable<IntValue> get_material_number() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "material_number", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        label get_material_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "material_name", sdaiSTRING, &val)) return val; else return NULL; }
+
+        //TList may be bag_of_identifier or list of converible elements
+        template <typename TList> void get_material_grade(TList& lst) { bag_of_identifierSerializer<TList> sr; sr.FromAttr(lst, m_instance, "material_grade"); }
     };
 
 
@@ -19487,6 +19759,16 @@ namespace CIS2
 
         label get_cnc_data_format() { label val = NULL; if (sdaiGetAttrBN(m_instance, "cnc_data_format", sdaiSTRING, &val)) return val; else return NULL; }
         void put_cnc_data_format(label value) { sdaiPutAttrBN(m_instance, "cnc_data_format", sdaiSTRING, value); }
+
+        label get_cnc_file_title() { label val = NULL; if (sdaiGetAttrBN(m_instance, "cnc_file_title", sdaiSTRING, &val)) return val; else return NULL; }
+
+        person get_created_by();
+
+        organization get_detail_company();
+
+        date_and_time get_creation_date();
+
+        label get_cnc_filename() { label val = NULL; if (sdaiGetAttrBN(m_instance, "cnc_filename", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -19530,6 +19812,16 @@ namespace CIS2
 
         text get_current_revision_note() { text val = NULL; if (sdaiGetAttrBN(m_instance, "current_revision_note", sdaiSTRING, &val)) return val; else return NULL; }
         void put_current_revision_note(text value) { sdaiPutAttrBN(m_instance, "current_revision_note", sdaiSTRING, value); }
+
+        label get_drawing_title() { label val = NULL; if (sdaiGetAttrBN(m_instance, "drawing_title", sdaiSTRING, &val)) return val; else return NULL; }
+
+        person get_drawn_by();
+
+        organization get_detail_company();
+
+        date_and_time get_creation_date();
+
+        label get_drawing_filename() { label val = NULL; if (sdaiGetAttrBN(m_instance, "drawing_filename", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -19888,6 +20180,8 @@ namespace CIS2
                 /// Create new instace of open_path and returns object of this C++ class to interact with
                 /// </summary>
         static open_path Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "open_path"); assert(inst); return inst; }
+
+        Nullable<IntValue> get_ne() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "ne", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -20302,6 +20596,16 @@ namespace CIS2
 
         text get_manufacturers_ref() { text val = NULL; if (sdaiGetAttrBN(m_instance, "manufacturers_ref", sdaiSTRING, &val)) return val; else return NULL; }
         void put_manufacturers_ref(text value) { sdaiPutAttrBN(m_instance, "manufacturers_ref", sdaiSTRING, value); }
+
+        Nullable<IntValue> get_part_number() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "part_number", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        label get_part_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "part_name", sdaiSTRING, &val)) return val; else return NULL; }
+
+        //TList may be set_of_design_part or list of converible elements
+        template <typename TList> void get_design_uses(TList& lst) { set_of_design_partSerializer<TList> sr; sr.FromAttr(lst, m_instance, "design_uses"); }
+
+        //TList may be set_of_located_part or list of converible elements
+        template <typename TList> void get_physical_uses(TList& lst) { set_of_located_partSerializer<TList> sr; sr.FromAttr(lst, m_instance, "physical_uses"); }
     };
 
 
@@ -20459,6 +20763,10 @@ namespace CIS2
 
         //TList may be list_of_orientation_select or list of converible elements
         template <typename TList> void put_section_orientations(TList& lst) { list_of_orientation_selectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "section_orientations"); }
+
+        Nullable<IntValue> get_number_of_sections() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_sections", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        curve get_curve_defining_part();
     };
 
 
@@ -20907,6 +21215,10 @@ namespace CIS2
 
         organization get_the_organization();
         void put_the_organization(organization inst);
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -20932,6 +21244,8 @@ namespace CIS2
 
         label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
         void put_name(label value) { sdaiPutAttrBN(m_instance, "name", sdaiSTRING, value); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -22072,6 +22386,9 @@ namespace CIS2
 
         //TArrayElem[] may be double[] or array of convertible elements
         template <typename TArrayElem> void put_weights_data(TArrayElem arr[], size_t n) { list_of_double lst; ArrayToList(arr, n, lst); put_weights_data(lst); }
+
+        //TList may be array_of_double or list of converible elements
+        template <typename TList> void get_weights(TList& lst) { array_of_doubleSerializer<TList> sr; sr.FromAttr(lst, m_instance, "weights"); }
     };
 
 
@@ -22100,6 +22417,9 @@ namespace CIS2
 
         //TList may be list_of_list_of_double or list of converible elements
         template <typename TList> void put_weights_data(TList& lst) { list_of_list_of_doubleSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "weights_data"); }
+
+        //TList may be array_of_array_of_double or list of converible elements
+        template <typename TList> void get_weights(TList& lst) { array_of_array_of_doubleSerializer<TList> sr; sr.FromAttr(lst, m_instance, "weights"); }
     };
 
 
@@ -22128,6 +22448,9 @@ namespace CIS2
 
         //TList may be list_of_list_of_list_of_double or list of converible elements
         template <typename TList> void put_weights_data(TList& lst) { list_of_list_of_list_of_doubleSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "weights_data"); }
+
+        //TList may be array_of_array_of_array_of_double or list of converible elements
+        template <typename TList> void get_weights(TList& lst) { array_of_array_of_array_of_doubleSerializer<TList> sr; sr.FromAttr(lst, m_instance, "weights"); }
     };
 
 
@@ -22436,6 +22759,10 @@ namespace CIS2
 
         //TList may be list_of_list_of_surface_patch or list of converible elements
         template <typename TList> void put_segments(TList& lst) { list_of_list_of_surface_patchSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "segments"); }
+
+        Nullable<IntValue> get_n_u() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "n_u", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_n_v() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "n_v", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -22660,6 +22987,8 @@ namespace CIS2
 
         //TArrayElem[] may be release_spring_linear[] or array of convertible elements
         template <typename TArrayElem> void put_values(TArrayElem arr[], size_t n) { list_of_release_spring_linear lst; ArrayToList(arr, n, lst); put_values(lst); }
+
+        Nullable<IntValue> get_number_of_values() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_values", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -23089,6 +23418,8 @@ namespace CIS2
 
         Nullable<plane_angle_measure> get_angle() { plane_angle_measure val = (plane_angle_measure) 0; if (sdaiGetAttrBN(m_instance, "angle", sdaiREAL, &val)) return val; else return Nullable<plane_angle_measure>(); }
         void put_angle(plane_angle_measure value) { sdaiPutAttrBN(m_instance, "angle", sdaiREAL, &value); }
+
+        line get_axis_line();
     };
 
 
@@ -23117,6 +23448,8 @@ namespace CIS2
 
         Nullable<plane_angle_measure> get_angle() { plane_angle_measure val = (plane_angle_measure) 0; if (sdaiGetAttrBN(m_instance, "angle", sdaiREAL, &val)) return val; else return Nullable<plane_angle_measure>(); }
         void put_angle(plane_angle_measure value) { sdaiPutAttrBN(m_instance, "angle", sdaiREAL, &value); }
+
+        line get_axis_line();
     };
 
 
@@ -23432,6 +23765,9 @@ namespace CIS2
 
         Nullable<LOGICAL_VALUE> get_mirrored() { int v = getENUM("mirrored", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_mirrored(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "mirrored", sdaiENUM, val); }
+
+        //TList may be bag_of_identifier or list of converible elements
+        template <typename TList> void get_section_ref(TList& lst) { bag_of_identifierSerializer<TList> sr; sr.FromAttr(lst, m_instance, "section_ref"); }
     };
 
 
@@ -23490,6 +23826,8 @@ namespace CIS2
 
         ratio_measure_with_unit get_leg_slope();
         void put_leg_slope(ratio_measure_with_unit inst);
+
+        Nullable<double> get_width_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "width_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -23579,6 +23917,14 @@ namespace CIS2
 
         ratio_measure_with_unit get_flange_slope();
         void put_flange_slope(ratio_measure_with_unit inst);
+
+        Nullable<double> get_overall_depth_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "overall_depth_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_flange_width_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "flange_width_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_flange_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "flange_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_web_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "web_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -23629,6 +23975,12 @@ namespace CIS2
 
         positive_length_measure_with_unit get_wall_thickness();
         void put_wall_thickness(positive_length_measure_with_unit inst);
+
+        Nullable<double> get_external_radius_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "external_radius_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_wall_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "wall_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_inside_diameter() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "inside_diameter", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -23675,6 +24027,8 @@ namespace CIS2
 
         //TList may be list_of_orientation_select or list of converible elements
         template <typename TList> void put_orientations(TList& lst) { list_of_orientation_selectSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "orientations"); }
+
+        Nullable<IntValue> get_number_of_sections() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_sections", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -23780,6 +24134,14 @@ namespace CIS2
 
         positive_length_measure_with_unit get_edge_radius();
         void put_edge_radius(positive_length_measure_with_unit inst);
+
+        Nullable<double> get_overall_depth_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "overall_depth_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_overall_width_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "overall_width_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_web_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "web_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_flange_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "flange_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -23891,6 +24253,12 @@ namespace CIS2
 
         positive_length_measure_with_unit get_external_fillet_radius();
         void put_external_fillet_radius(positive_length_measure_with_unit inst);
+
+        Nullable<double> get_overall_depth_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "overall_depth_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_overall_width_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "overall_width_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_external_fillet_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "external_fillet_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -23919,6 +24287,10 @@ namespace CIS2
 
         positive_length_measure_with_unit get_internal_fillet_radius();
         void put_internal_fillet_radius(positive_length_measure_with_unit inst);
+
+        Nullable<double> get_wall_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "wall_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_internal_radius_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "internal_radius_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -23965,6 +24337,14 @@ namespace CIS2
 
         positive_length_measure_with_unit get_edge_radius();
         void put_edge_radius(positive_length_measure_with_unit inst);
+
+        Nullable<double> get_overall_depth_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "overall_depth_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_flange_width_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "flange_width_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_flange_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "flange_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_web_thickness_value() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "web_thickness_value", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -24053,6 +24433,10 @@ namespace CIS2
 
         mass_per_length_measure_with_unit get_actual_mass();
         void put_actual_mass(mass_per_length_measure_with_unit inst);
+
+        Nullable<double> get_y_offset() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "y_offset", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_z_offset() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "z_offset", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -24971,6 +25355,8 @@ namespace CIS2
 
         axis1_placement get_axis_position();
         void put_axis_position(axis1_placement inst);
+
+        line get_axis_line();
     };
 
 
@@ -25134,6 +25520,8 @@ namespace CIS2
 
         //TArrayElem[] may be coating[] or array of convertible elements
         template <typename TArrayElem> void put_coating_specifications(TArrayElem arr[], size_t n) { list_of_coating lst; ArrayToList(arr, n, lst); put_coating_specifications(lst); }
+
+        Nullable<IntValue> get_number_of_layers() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_layers", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -26340,6 +26728,13 @@ namespace CIS2
 
         Nullable<weld_configuration> get_joint_configuration() { int v = getENUM("joint_configuration", weld_configuration_); if (v >= 0) return (weld_configuration) v; else return Nullable<weld_configuration>(); }
         void put_joint_configuration(weld_configuration value) { TextValue val = weld_configuration_[(int) value]; sdaiPutAttrBN(m_instance, "joint_configuration", sdaiENUM, val); }
+
+        Nullable<IntValue> get_number_of_sections() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "number_of_sections", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        curve get_curve_defining_weld();
+
+        //TList may be set_of_joint_system_welded or list of converible elements
+        template <typename TList> void get_joints(TList& lst) { set_of_joint_system_weldedSerializer<TList> sr; sr.FromAttr(lst, m_instance, "joints"); }
     };
 
 
@@ -26560,6 +26955,8 @@ namespace CIS2
 
         //TArrayElem[] may be grid_level[] or array of convertible elements
         template <typename TArrayElem> void put_bounding_levels(TArrayElem arr[], size_t n) { set_of_grid_level lst; ArrayToList(arr, n, lst); put_bounding_levels(lst); }
+
+        grid get_bounding_grid();
     };
 
 
@@ -26716,6 +27113,12 @@ namespace CIS2
 
         zone_of_structure get_parent_zone();
         void put_parent_zone(zone_of_structure inst);
+
+        //TList may be set_of_zone_of_structure_sequence_lot or list of converible elements
+        template <typename TList> void get_lots(TList& lst) { set_of_zone_of_structure_sequence_lotSerializer<TList> sr; sr.FromAttr(lst, m_instance, "lots"); }
+
+        //TList may be set_of_located_assembly or list of converible elements
+        template <typename TList> void get_assemblies(TList& lst) { set_of_located_assemblySerializer<TList> sr; sr.FromAttr(lst, m_instance, "assemblies"); }
     };
 
 
@@ -26738,6 +27141,8 @@ namespace CIS2
                 /// Create new instace of zone_of_structure_sequence_lot and returns object of this C++ class to interact with
                 /// </summary>
         static zone_of_structure_sequence_lot Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "zone_of_structure_sequence_lot"); assert(inst); return inst; }
+
+        zone_of_structure get_parent_sequence();
     };
 
     inline located_assembly assembly_component_select::get_located_assembly() { return getEntityInstance("LOCATED_ASSEMBLY"); }
@@ -27760,6 +28165,7 @@ namespace CIS2
     inline void placement::put_location(cartesian_point inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "location", sdaiINSTANCE, (void*) i); }
     inline direction axis1_placement::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
     inline void axis1_placement::put_axis(direction inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis", sdaiINSTANCE, (void*) i); }
+    inline direction axis1_placement::get_z() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "z", sdaiINSTANCE, &inst); return inst; }
     inline direction axis2_placement_2d::get_ref_direction() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ref_direction", sdaiINSTANCE, &inst); return inst; }
     inline void axis2_placement_2d::put_ref_direction(direction inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ref_direction", sdaiINSTANCE, (void*) i); }
     inline direction axis2_placement_3d::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
@@ -27930,6 +28336,7 @@ namespace CIS2
     inline void effective_buckling_length::put_applicable_member(assembly_design_structural_member inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "applicable_member", sdaiINSTANCE, (void*) i); }
     inline analysis_model element::get_parent_model() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "parent_model", sdaiINSTANCE, &inst); return inst; }
     inline void element::put_parent_model(analysis_model inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "parent_model", sdaiINSTANCE, (void*) i); }
+    inline curve element_curve_complex::get_curve_defining_element() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "curve_defining_element", sdaiINSTANCE, &inst); return inst; }
     inline section_profile element_curve_simple::get_cross_section() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "cross_section", sdaiINSTANCE, &inst); return inst; }
     inline void element_curve_simple::put_cross_section(section_profile inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "cross_section", sdaiINSTANCE, (void*) i); }
     inline length_measure_with_unit element_eccentricity::get_x_eccentricity() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "x_eccentricity", sdaiINSTANCE, &inst); return inst; }
@@ -28138,6 +28545,7 @@ namespace CIS2
     inline void fixed_reference_swept_surface::put_fixed_reference(direction inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "fixed_reference", sdaiINSTANCE, (void*) i); }
     inline group group_assignment::get_assigned_group() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_group", sdaiINSTANCE, &inst); return inst; }
     inline void group_assignment::put_assigned_group(group inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_group", sdaiINSTANCE, (void*) i); }
+    inline object_role group_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline document_usage_constraint functional_role_documented::get_document_reference() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "document_reference", sdaiINSTANCE, &inst); return inst; }
     inline void functional_role_documented::put_document_reference(document_usage_constraint inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "document_reference", sdaiINSTANCE, (void*) i); }
     inline length_measure_with_unit geographical_location::get_height_above_datum() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "height_above_datum", sdaiINSTANCE, &inst); return inst; }
@@ -28336,6 +28744,12 @@ namespace CIS2
     inline void managed_data_transaction::put_processing_date(date_and_time inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "processing_date", sdaiINSTANCE, (void*) i); }
     inline managed_application_installation managed_data_item::get_originating_application() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "originating_application", sdaiINSTANCE, &inst); return inst; }
     inline void managed_data_item::put_originating_application(managed_application_installation inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "originating_application", sdaiINSTANCE, (void*) i); }
+    inline managed_application_installation managed_data_item_with_history::get_first_managing_application() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "first_managing_application", sdaiINSTANCE, &inst); return inst; }
+    inline person managed_data_item_with_history::get_first_managing_person() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "first_managing_person", sdaiINSTANCE, &inst); return inst; }
+    inline calendar_date managed_data_item_with_history::get_date_first_managed() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "date_first_managed", sdaiINSTANCE, &inst); return inst; }
+    inline managed_application_installation managed_data_item_with_history::get_last_managing_application() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "last_managing_application", sdaiINSTANCE, &inst); return inst; }
+    inline person managed_data_item_with_history::get_last_managing_person() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "last_managing_person", sdaiINSTANCE, &inst); return inst; }
+    inline calendar_date managed_data_item_with_history::get_date_last_managed() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "date_last_managed", sdaiINSTANCE, &inst); return inst; }
     inline length_measure_with_unit map_location::get_eastings() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "eastings", sdaiINSTANCE, &inst); return inst; }
     inline void map_location::put_eastings(length_measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "eastings", sdaiINSTANCE, (void*) i); }
     inline length_measure_with_unit map_location::get_northings() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "northings", sdaiINSTANCE, &inst); return inst; }
@@ -28358,10 +28772,16 @@ namespace CIS2
     inline void measure_qualification::put_qualified_measure(measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "qualified_measure", sdaiINSTANCE, (void*) i); }
     inline date_and_time media_file::get_file_date() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "file_date", sdaiINSTANCE, &inst); return inst; }
     inline void media_file::put_file_date(date_and_time inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "file_date", sdaiINSTANCE, (void*) i); }
+    inline person media_file_cnc::get_created_by() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "created_by", sdaiINSTANCE, &inst); return inst; }
+    inline organization media_file_cnc::get_detail_company() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "detail_company", sdaiINSTANCE, &inst); return inst; }
+    inline date_and_time media_file_cnc::get_creation_date() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "creation_date", sdaiINSTANCE, &inst); return inst; }
     inline person_and_organization media_file_drawing::get_current_revision_by() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "current_revision_by", sdaiINSTANCE, &inst); return inst; }
     inline void media_file_drawing::put_current_revision_by(person_and_organization inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "current_revision_by", sdaiINSTANCE, (void*) i); }
     inline date_and_time media_file_drawing::get_current_revision_date() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "current_revision_date", sdaiINSTANCE, &inst); return inst; }
     inline void media_file_drawing::put_current_revision_date(date_and_time inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "current_revision_date", sdaiINSTANCE, (void*) i); }
+    inline person media_file_drawing::get_drawn_by() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "drawn_by", sdaiINSTANCE, &inst); return inst; }
+    inline organization media_file_drawing::get_detail_company() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "detail_company", sdaiINSTANCE, &inst); return inst; }
+    inline date_and_time media_file_drawing::get_creation_date() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "creation_date", sdaiINSTANCE, &inst); return inst; }
     inline placement move::get_initial_location() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "initial_location", sdaiINSTANCE, &inst); return inst; }
     inline void move::put_initial_location(placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "initial_location", sdaiINSTANCE, (void*) i); }
     inline placement move::get_final_location() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "final_location", sdaiINSTANCE, &inst); return inst; }
@@ -28412,6 +28832,7 @@ namespace CIS2
     inline void part_derived::put_made_from(part inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "made_from", sdaiINSTANCE, (void*) i); }
     inline part part_map::get_represented_part() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "represented_part", sdaiINSTANCE, &inst); return inst; }
     inline void part_map::put_represented_part(part inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "represented_part", sdaiINSTANCE, (void*) i); }
+    inline curve part_prismatic_complex::get_curve_defining_part() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "curve_defining_part", sdaiINSTANCE, &inst); return inst; }
     inline length_measure_with_unit part_prismatic_complex_tapered::get_absolute_taper_1() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "absolute_taper_1", sdaiINSTANCE, &inst); return inst; }
     inline void part_prismatic_complex_tapered::put_absolute_taper_1(length_measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "absolute_taper_1", sdaiINSTANCE, (void*) i); }
     inline length_measure_with_unit part_prismatic_complex_tapered::get_absolute_taper_2() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "absolute_taper_2", sdaiINSTANCE, &inst); return inst; }
@@ -28658,8 +29079,10 @@ namespace CIS2
     inline void restraint_warping::put_restraint_w_rotation(rotational_stiffness_measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "restraint_w_rotation", sdaiINSTANCE, (void*) i); }
     inline axis1_placement revolved_area_solid::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
     inline void revolved_area_solid::put_axis(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis", sdaiINSTANCE, (void*) i); }
+    inline line revolved_area_solid::get_axis_line() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_line", sdaiINSTANCE, &inst); return inst; }
     inline axis1_placement revolved_face_solid::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
     inline void revolved_face_solid::put_axis(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis", sdaiINSTANCE, (void*) i); }
+    inline line revolved_face_solid::get_axis_line() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_line", sdaiINSTANCE, &inst); return inst; }
     inline axis2_placement_3d right_angular_wedge::get_position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "position", sdaiINSTANCE, &inst); return inst; }
     inline void right_angular_wedge::put_position(axis2_placement_3d inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "position", sdaiINSTANCE, (void*) i); }
     inline axis1_placement right_circular_cone::get_position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "position", sdaiINSTANCE, &inst); return inst; }
@@ -28878,6 +29301,7 @@ namespace CIS2
     inline void surface_of_linear_extrusion::put_extrusion_axis(vector inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "extrusion_axis", sdaiINSTANCE, (void*) i); }
     inline axis1_placement surface_of_revolution::get_axis_position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_position", sdaiINSTANCE, &inst); return inst; }
     inline void surface_of_revolution::put_axis_position(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis_position", sdaiINSTANCE, (void*) i); }
+    inline line surface_of_revolution::get_axis_line() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_line", sdaiINSTANCE, &inst); return inst; }
     inline bounded_surface surface_patch::get_parent_surface() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "parent_surface", sdaiINSTANCE, &inst); return inst; }
     inline void surface_patch::put_parent_surface(bounded_surface inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "parent_surface", sdaiINSTANCE, (void*) i); }
     inline surface surface_replica::get_parent_surface() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "parent_surface", sdaiINSTANCE, &inst); return inst; }
@@ -28950,6 +29374,8 @@ namespace CIS2
     inline void weld_mechanism_groove_beveled::put_groove_radius(positive_length_measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "groove_radius", sdaiINSTANCE, (void*) i); }
     inline plane_angle_measure_with_unit weld_mechanism_groove_beveled::get_taper_angle() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "taper_angle", sdaiINSTANCE, &inst); return inst; }
     inline void weld_mechanism_groove_beveled::put_taper_angle(plane_angle_measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "taper_angle", sdaiINSTANCE, (void*) i); }
+    inline curve weld_mechanism_prismatic::get_curve_defining_weld() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "curve_defining_weld", sdaiINSTANCE, &inst); return inst; }
+    inline grid zone_bounded::get_bounding_grid() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "bounding_grid", sdaiINSTANCE, &inst); return inst; }
     inline building zone_of_building::get_zone_for_building() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "zone_for_building", sdaiINSTANCE, &inst); return inst; }
     inline void zone_of_building::put_zone_for_building(building inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "zone_for_building", sdaiINSTANCE, (void*) i); }
     inline positive_length_measure_with_unit zone_of_building_storey::get_storey_height() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "storey_height", sdaiINSTANCE, &inst); return inst; }
@@ -28964,6 +29390,7 @@ namespace CIS2
     inline void zone_of_structure::put_zone_for_structure(structure inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "zone_for_structure", sdaiINSTANCE, (void*) i); }
     inline zone_of_structure zone_of_structure_sequence::get_parent_zone() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "parent_zone", sdaiINSTANCE, &inst); return inst; }
     inline void zone_of_structure_sequence::put_parent_zone(zone_of_structure inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "parent_zone", sdaiINSTANCE, (void*) i); }
+    inline zone_of_structure zone_of_structure_sequence_lot::get_parent_sequence() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "parent_sequence", sdaiINSTANCE, &inst); return inst; }
 
 }
 

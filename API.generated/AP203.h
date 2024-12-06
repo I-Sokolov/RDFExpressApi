@@ -13154,20 +13154,30 @@ namespace AP203
     template <typename TList> class set_of_product_definitionSerializer : public AggrSerializerInstance<TList, product_definition> {};
     typedef std::list<attribute_language_item> set_of_attribute_language_item;
     template <typename TList> class set_of_attribute_language_itemSerializer : public AggrSerializerSelect<TList, attribute_language_item> {};
+    typedef std::list<direction> list_of_direction;
+    template <typename TList> class list_of_directionSerializer : public AggrSerializerInstance<TList, direction> {};
     typedef std::list<cartesian_point> list_of_cartesian_point;
     template <typename TList> class list_of_cartesian_pointSerializer : public AggrSerializerInstance<TList, cartesian_point> {};
+    typedef std::list<cartesian_point> array_of_cartesian_point;
+    template <typename TList> class array_of_cartesian_pointSerializer : public AggrSerializerInstance<TList, cartesian_point> {};
     typedef std::list<IntValue> ListOfIntValue;
     template <typename TList> class ListOfIntValueSerializer : public AggrSerializerSimple<TList, IntValue, sdaiINTEGER> {};
     typedef std::list<parameter_value> list_of_parameter_value;
     template <typename TList> class list_of_parameter_valueSerializer : public AggrSerializerSimple<TList, parameter_value, sdaiREAL> {};
     typedef std::list<list_of_cartesian_point> list_of_list_of_cartesian_point;
     template <typename TList> class list_of_list_of_cartesian_pointSerializer : public AggrSerializerAggr<TList, list_of_cartesian_point, list_of_cartesian_pointSerializer<list_of_cartesian_point>> {};
+    typedef std::list<array_of_cartesian_point> array_of_array_of_cartesian_point;
+    template <typename TList> class array_of_array_of_cartesian_pointSerializer : public AggrSerializerAggr<TList, array_of_cartesian_point, array_of_cartesian_pointSerializer<array_of_cartesian_point>> {};
     typedef std::list<generic_expression> list_of_generic_expression;
     template <typename TList> class list_of_generic_expressionSerializer : public AggrSerializerInstance<TList, generic_expression> {};
     typedef std::list<composite_curve_segment> list_of_composite_curve_segment;
     template <typename TList> class list_of_composite_curve_segmentSerializer : public AggrSerializerInstance<TList, composite_curve_segment> {};
+    typedef std::list<surface> set_of_surface;
+    template <typename TList> class set_of_surfaceSerializer : public AggrSerializerInstance<TList, surface> {};
     typedef std::list<pcurve_or_surface> list_of_pcurve_or_surface;
     template <typename TList> class list_of_pcurve_or_surfaceSerializer : public AggrSerializerSelect<TList, pcurve_or_surface> {};
+    typedef std::list<founded_item_select> set_of_founded_item_select;
+    template <typename TList> class set_of_founded_item_selectSerializer : public AggrSerializerSelect<TList, founded_item_select> {};
     typedef std::list<product_definition_or_breakdown_element_usage> set_of_product_definition_or_breakdown_element_usage;
     template <typename TList> class set_of_product_definition_or_breakdown_element_usageSerializer : public AggrSerializerSelect<TList, product_definition_or_breakdown_element_usage> {};
     typedef std::list<oriented_closed_shell> set_of_oriented_closed_shell;
@@ -13308,8 +13318,12 @@ namespace AP203
     template <typename TList> class set_of_productSerializer : public AggrSerializerInstance<TList, product> {};
     typedef std::list<shape_aspect> set_of_shape_aspect;
     template <typename TList> class set_of_shape_aspectSerializer : public AggrSerializerInstance<TList, shape_aspect> {};
+    typedef std::list<double> array_of_double;
+    template <typename TList> class array_of_doubleSerializer : public AggrSerializerSimple<TList, double, sdaiREAL> {};
     typedef std::list<list_of_double> list_of_list_of_double;
     template <typename TList> class list_of_list_of_doubleSerializer : public AggrSerializerAggr<TList, list_of_double, list_of_doubleSerializer<list_of_double>> {};
+    typedef std::list<array_of_double> array_of_array_of_double;
+    template <typename TList> class array_of_array_of_doubleSerializer : public AggrSerializerAggr<TList, array_of_double, array_of_doubleSerializer<array_of_double>> {};
     typedef std::list<surface_patch> list_of_surface_patch;
     template <typename TList> class list_of_surface_patchSerializer : public AggrSerializerInstance<TList, surface_patch> {};
     typedef std::list<list_of_surface_patch> list_of_list_of_surface_patch;
@@ -13446,6 +13460,8 @@ namespace AP203
 
         //TArrayElem[] may be derived_unit_element[] or array of convertible elements
         template <typename TArrayElem> void put_elements(TArrayElem arr[], size_t n) { set_of_derived_unit_element lst; ArrayToList(arr, n, lst); put_elements(lst); }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -13499,6 +13515,8 @@ namespace AP203
 
         characterized_definition_get get_definition() { return characterized_definition_get(m_instance, "definition", NULL); }
         characterized_definition_put put_definition() { return characterized_definition_put(m_instance, "definition", NULL); }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -13527,6 +13545,10 @@ namespace AP203
 
         representation get_used_representation();
         void put_used_representation(representation inst);
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -13564,6 +13586,10 @@ namespace AP203
 
         representation_context get_context_of_items();
         void put_context_of_items(representation_context inst);
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -13686,6 +13712,8 @@ namespace AP203
 
         action_method get_chosen_method();
         void put_chosen_method(action_method inst);
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -13707,6 +13735,8 @@ namespace AP203
 
         action get_assigned_action();
         void put_assigned_action(action inst);
+
+        object_role get_role();
     };
 
 
@@ -13990,6 +14020,8 @@ namespace AP203
 
         versioned_action_request get_assigned_action_request();
         void put_assigned_action_request(versioned_action_request inst);
+
+        object_role get_role();
     };
 
 
@@ -14018,6 +14050,10 @@ namespace AP203
 
         versioned_action_request get_request();
         void put_request(versioned_action_request inst);
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -14132,6 +14168,10 @@ namespace AP203
 
         label get_telex_number() { label val = NULL; if (sdaiGetAttrBN(m_instance, "telex_number", sdaiSTRING, &val)) return val; else return NULL; }
         void put_telex_number(label value) { sdaiPutAttrBN(m_instance, "telex_number", sdaiSTRING, value); }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
+
+        identifier get_url() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "url", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -14251,6 +14291,8 @@ namespace AP203
                 /// Create new instace of geometric_representation_item and returns object of this C++ class to interact with
                 /// </summary>
         static geometric_representation_item Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "geometric_representation_item"); assert(inst); return inst; }
+
+        Nullable<dimension_count> get_dim() { dimension_count val = (dimension_count) 0; if (sdaiGetAttrBN(m_instance, "dim", sdaiINTEGER, &val)) return val; else return Nullable<dimension_count>(); }
     };
 
 
@@ -14569,6 +14611,8 @@ namespace AP203
 
         shape_aspect get_related_shape_aspect();
         void put_related_shape_aspect(shape_aspect inst);
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -15171,6 +15215,8 @@ namespace AP203
 
         Nullable<LOGICAL_VALUE> get_product_definitional() { int v = getENUM("product_definitional", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_product_definitional(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "product_definitional", sdaiENUM, val); }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -15246,6 +15292,10 @@ namespace AP203
 
         //TList may be set_of_application_context_element or list of converible elements
         template <typename TList> void get_context_elements(TList& lst) { set_of_application_context_elementSerializer<TList> sr; sr.FromAttr(lst, m_instance, "context_elements"); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -15413,6 +15463,8 @@ namespace AP203
 
         approval get_assigned_approval();
         void put_assigned_approval(approval inst);
+
+        object_role get_role();
     };
 
 
@@ -15517,6 +15569,8 @@ namespace AP203
 
         certification get_assigned_certification();
         void put_assigned_certification(certification inst);
+
+        object_role get_role();
     };
 
 
@@ -15618,6 +15672,8 @@ namespace AP203
 
         contract get_assigned_contract();
         void put_assigned_contract(contract inst);
+
+        object_role get_role();
     };
 
 
@@ -15774,6 +15830,8 @@ namespace AP203
 
         label get_source() { label val = NULL; if (sdaiGetAttrBN(m_instance, "source", sdaiSTRING, &val)) return val; else return NULL; }
         void put_source(label value) { sdaiPutAttrBN(m_instance, "source", sdaiSTRING, value); }
+
+        object_role get_role();
     };
 
 
@@ -15875,6 +15933,8 @@ namespace AP203
 
         effectivity get_assigned_effectivity();
         void put_assigned_effectivity(effectivity inst);
+
+        object_role get_role();
     };
 
 
@@ -16049,6 +16109,8 @@ namespace AP203
 
         group get_assigned_group();
         void put_assigned_group(group inst);
+
+        object_role get_role();
     };
 
 
@@ -16126,6 +16188,8 @@ namespace AP203
 
         label get_assigned_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "assigned_name", sdaiSTRING, &val)) return val; else return NULL; }
         void put_assigned_name(label value) { sdaiPutAttrBN(m_instance, "assigned_name", sdaiSTRING, value); }
+
+        object_role get_role();
     };
 
 
@@ -16374,6 +16438,8 @@ namespace AP203
 
         security_classification get_assigned_security_classification();
         void put_assigned_security_classification(security_classification inst);
+
+        object_role get_role();
     };
 
 
@@ -16532,6 +16598,8 @@ namespace AP203
 
         approval get_dated_approval();
         void put_dated_approval(approval inst);
+
+        object_role get_role();
     };
 
 
@@ -16622,6 +16690,8 @@ namespace AP203
 
         label get_role() { label val = NULL; if (sdaiGetAttrBN(m_instance, "role", sdaiSTRING, &val)) return val; else return NULL; }
         void put_role(label value) { sdaiPutAttrBN(m_instance, "role", sdaiSTRING, value); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -17132,6 +17202,8 @@ namespace AP203
 
         direction get_axis();
         void put_axis(direction inst);
+
+        direction get_z();
     };
 
 
@@ -17157,6 +17229,9 @@ namespace AP203
 
         direction get_ref_direction();
         void put_ref_direction(direction inst);
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_p(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "p"); }
     };
 
 
@@ -17185,6 +17260,9 @@ namespace AP203
 
         direction get_ref_direction();
         void put_ref_direction(direction inst);
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_p(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "p"); }
     };
 
 
@@ -17272,6 +17350,11 @@ namespace AP203
 
         Nullable<LOGICAL_VALUE> get_self_intersect() { int v = getENUM("self_intersect", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_self_intersect(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "self_intersect", sdaiENUM, val); }
+
+        //TList may be array_of_cartesian_point or list of converible elements
+        template <typename TList> void get_control_points(TList& lst) { array_of_cartesian_pointSerializer<TList> sr; sr.FromAttr(lst, m_instance, "control_points"); }
+
+        Nullable<IntValue> get_upper_index_on_control_points() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "upper_index_on_control_points", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -17315,6 +17398,8 @@ namespace AP203
 
         Nullable<knot_type> get_knot_spec() { int v = getENUM("knot_spec", knot_type_); if (v >= 0) return (knot_type) v; else return Nullable<knot_type>(); }
         void put_knot_spec(knot_type value) { TextValue val = knot_type_[(int) value]; sdaiPutAttrBN(m_instance, "knot_spec", sdaiENUM, val); }
+
+        Nullable<IntValue> get_upper_index_on_knots() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "upper_index_on_knots", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -17405,6 +17490,13 @@ namespace AP203
 
         Nullable<LOGICAL_VALUE> get_self_intersect() { int v = getENUM("self_intersect", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_self_intersect(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "self_intersect", sdaiENUM, val); }
+
+        //TList may be array_of_array_of_cartesian_point or list of converible elements
+        template <typename TList> void get_control_points(TList& lst) { array_of_array_of_cartesian_pointSerializer<TList> sr; sr.FromAttr(lst, m_instance, "control_points"); }
+
+        Nullable<IntValue> get_u_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "u_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_v_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "v_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -17466,6 +17558,10 @@ namespace AP203
 
         Nullable<knot_type> get_knot_spec() { int v = getENUM("knot_spec", knot_type_); if (v >= 0) return (knot_type) v; else return Nullable<knot_type>(); }
         void put_knot_spec(knot_type value) { TextValue val = knot_type_[(int) value]; sdaiPutAttrBN(m_instance, "knot_spec", sdaiENUM, val); }
+
+        Nullable<IntValue> get_knot_u_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "knot_u_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_knot_v_upper() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "knot_v_upper", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -17500,6 +17596,8 @@ namespace AP203
 
         product_definition_context get_frame_of_reference();
         void put_frame_of_reference(product_definition_context inst);
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -17782,6 +17880,10 @@ namespace AP203
             : Entity(instance, entityName ? entityName : "numeric_expression")
         {}
 
+
+        Nullable<LOGICAL_VALUE> get_is_int() { int v = getENUM("is_int", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
+
+        Nullable<LOGICAL_VALUE> get_sql_mappable() { int v = getENUM("sql_mappable", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
     };
 
 
@@ -18043,6 +18145,10 @@ namespace AP203
 
         Nullable<LOGICAL_VALUE> get_self_intersect() { int v = getENUM("self_intersect", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
         void put_self_intersect(LOGICAL_VALUE value) { TextValue val = LOGICAL_VALUE_[(int) value]; sdaiPutAttrBN(m_instance, "self_intersect", sdaiENUM, val); }
+
+        Nullable<LOGICAL_VALUE> get_closed_curve() { int v = getENUM("closed_curve", LOGICAL_VALUE_); if (v >= 0) return (LOGICAL_VALUE) v; else return Nullable<LOGICAL_VALUE>(); }
+
+        Nullable<IntValue> get_n_segments() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "n_segments", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -18065,6 +18171,9 @@ namespace AP203
                 /// Create new instace of composite_curve_on_surface and returns object of this C++ class to interact with
                 /// </summary>
         static composite_curve_on_surface Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "composite_curve_on_surface"); assert(inst); return inst; }
+
+        //TList may be set_of_surface or list of converible elements
+        template <typename TList> void get_basis_surface(TList& lst) { set_of_surfaceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "basis_surface"); }
     };
 
 
@@ -18171,6 +18280,9 @@ namespace AP203
 
         Nullable<preferred_surface_curve_representation> get_master_representation() { int v = getENUM("master_representation", preferred_surface_curve_representation_); if (v >= 0) return (preferred_surface_curve_representation) v; else return Nullable<preferred_surface_curve_representation>(); }
         void put_master_representation(preferred_surface_curve_representation value) { TextValue val = preferred_surface_curve_representation_[(int) value]; sdaiPutAttrBN(m_instance, "master_representation", sdaiENUM, val); }
+
+        //TList may be set_of_surface or list of converible elements
+        template <typename TList> void get_basis_surface(TList& lst) { set_of_surfaceSerializer<TList> sr; sr.FromAttr(lst, m_instance, "basis_surface"); }
     };
 
 
@@ -18215,6 +18327,9 @@ namespace AP203
                 /// Create new instace of founded_item and returns object of this C++ class to interact with
                 /// </summary>
         static founded_item Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "founded_item"); assert(inst); return inst; }
+
+        //TList may be set_of_founded_item_select or list of converible elements
+        template <typename TList> void get_users(TList& lst) { set_of_founded_item_selectSerializer<TList> sr; sr.FromAttr(lst, m_instance, "users"); }
     };
 
 
@@ -18408,6 +18523,8 @@ namespace AP203
 
         text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
         void put_description(text value) { sdaiPutAttrBN(m_instance, "description", sdaiSTRING, value); }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -18596,6 +18713,8 @@ namespace AP203
                 /// Create new instace of bytes_representation_item and returns object of this C++ class to interact with
                 /// </summary>
         static bytes_representation_item Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "bytes_representation_item"); assert(inst); return inst; }
+
+        Nullable<IntValue> get_no_of_bytes() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "no_of_bytes", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -18693,6 +18812,8 @@ namespace AP203
                 /// Create new instace of camera_image_3d_with_scale and returns object of this C++ class to interact with
                 /// </summary>
         static camera_image_3d_with_scale Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "camera_image_3d_with_scale"); assert(inst); return inst; }
+
+        Nullable<positive_ratio_measure> get_scale() { positive_ratio_measure val = (positive_ratio_measure) 0; if (sdaiGetAttrBN(m_instance, "scale", sdaiREAL, &val)) return val; else return Nullable<positive_ratio_measure>(); }
     };
 
 
@@ -19091,6 +19212,8 @@ namespace AP203
 
         Nullable<double> get_scale() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "scale", sdaiREAL, &val)) return val; else return Nullable<double>(); }
         void put_scale(double value) { sdaiPutAttrBN(m_instance, "scale", sdaiREAL, &value); }
+
+        Nullable<double> get_scl() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "scl", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -19113,6 +19236,9 @@ namespace AP203
                 /// Create new instace of cartesian_transformation_operator_2d and returns object of this C++ class to interact with
                 /// </summary>
         static cartesian_transformation_operator_2d Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "cartesian_transformation_operator_2d"); assert(inst); return inst; }
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_u(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "u"); }
     };
 
 
@@ -19138,6 +19264,9 @@ namespace AP203
 
         direction get_axis3();
         void put_axis3(direction inst);
+
+        //TList may be list_of_direction or list of converible elements
+        template <typename TList> void get_u(TList& lst) { list_of_directionSerializer<TList> sr; sr.FromAttr(lst, m_instance, "u"); }
     };
 
 
@@ -19636,6 +19765,8 @@ namespace AP203
 
         Nullable<ratio_measure> get_baseline_ratio() { ratio_measure val = (ratio_measure) 0; if (sdaiGetAttrBN(m_instance, "baseline_ratio", sdaiREAL, &val)) return val; else return Nullable<ratio_measure>(); }
         void put_baseline_ratio(ratio_measure value) { sdaiPutAttrBN(m_instance, "baseline_ratio", sdaiREAL, &value); }
+
+        Nullable<length_measure> get_box_height() { length_measure val = (length_measure) 0; if (sdaiGetAttrBN(m_instance, "box_height", sdaiREAL, &val)) return val; else return Nullable<length_measure>(); }
     };
 
 
@@ -21200,6 +21331,10 @@ namespace AP203
 
         configuration_design_item_get get_design() { return configuration_design_item_get(m_instance, "design", NULL); }
         configuration_design_item_put put_design() { return configuration_design_item_put(m_instance, "design", NULL); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -21225,6 +21360,10 @@ namespace AP203
 
         identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
         void put_id(identifier value) { sdaiPutAttrBN(m_instance, "id", sdaiSTRING, value); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -21783,6 +21922,10 @@ namespace AP203
 
         product_definition_shape get_represented_product_relation();
         void put_represented_product_relation(product_definition_shape inst);
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -21960,6 +22103,8 @@ namespace AP203
 
         Nullable<ahead_or_behind> get_sense() { int v = getENUM("sense", ahead_or_behind_); if (v >= 0) return (ahead_or_behind) v; else return Nullable<ahead_or_behind>(); }
         void put_sense(ahead_or_behind value) { TextValue val = ahead_or_behind_[(int) value]; sdaiPutAttrBN(m_instance, "sense", sdaiENUM, val); }
+
+        Nullable<IntValue> get_actual_minute_offset() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "actual_minute_offset", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -22470,6 +22615,8 @@ namespace AP203
 
         label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
         void put_name(label value) { sdaiPutAttrBN(m_instance, "name", sdaiSTRING, value); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -22517,6 +22664,8 @@ namespace AP203
 
         label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
         void put_name(label value) { sdaiPutAttrBN(m_instance, "name", sdaiSTRING, value); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -24065,6 +24214,8 @@ namespace AP203
                 /// Create new instace of transformation_with_derived_angle and returns object of this C++ class to interact with
                 /// </summary>
         static transformation_with_derived_angle Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "transformation_with_derived_angle"); assert(inst); return inst; }
+
+        Nullable<plane_angle_measure> get_orientation_angle() { plane_angle_measure val = (plane_angle_measure) 0; if (sdaiGetAttrBN(m_instance, "orientation_angle", sdaiREAL, &val)) return val; else return Nullable<plane_angle_measure>(); }
     };
 
 
@@ -24933,6 +25084,8 @@ namespace AP203
                 /// Create new instace of edge_loop and returns object of this C++ class to interact with
                 /// </summary>
         static edge_loop Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "edge_loop"); assert(inst); return inst; }
+
+        Nullable<IntValue> get_ne() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "ne", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -25776,6 +25929,8 @@ namespace AP203
 
         source_item_get get_source_id() { return source_item_get(m_instance, "source_id", NULL); }
         source_item_put put_source_id() { return source_item_put(m_instance, "source_id", NULL); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -28330,6 +28485,12 @@ namespace AP203
                 /// Create new instace of interval_expression and returns object of this C++ class to interact with
                 /// </summary>
         static interval_expression Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "interval_expression"); assert(inst); return inst; }
+
+        generic_expression get_interval_high();
+
+        generic_expression get_interval_item();
+
+        generic_expression get_interval_low();
     };
 
 
@@ -29632,6 +29793,10 @@ namespace AP203
                 /// Create new instace of min_and_major_ply_orientation_basis and returns object of this C++ class to interact with
                 /// </summary>
         static min_and_major_ply_orientation_basis Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "min_and_major_ply_orientation_basis"); assert(inst); return inst; }
+
+        axis2_placement_3d get_major_orientation_basis();
+
+        axis2_placement_3d get_minor_orientation_basis();
     };
 
 
@@ -29731,6 +29896,8 @@ namespace AP203
 
         //TList may be set_of_attribute_language_assignment or list of converible elements
         template <typename TList> void get_language_indication(TList& lst) { set_of_attribute_language_assignmentSerializer<TList> sr; sr.FromAttr(lst, m_instance, "language_indication"); }
+
+        language get_translation_language();
     };
 
 
@@ -30191,6 +30358,8 @@ namespace AP203
 
         label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
         void put_name(label value) { sdaiPutAttrBN(m_instance, "name", sdaiSTRING, value); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -30262,6 +30431,8 @@ namespace AP203
 
         //TArrayElem[] may be organization[] or array of convertible elements
         template <typename TArrayElem> void put_responsible_organizations(TArrayElem arr[], size_t n) { set_of_organization lst; ArrayToList(arr, n, lst); put_responsible_organizations(lst); }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -30867,6 +31038,10 @@ namespace AP203
 
         organization get_the_organization();
         void put_the_organization(organization inst);
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -30948,6 +31123,8 @@ namespace AP203
 
         label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
         void put_name(label value) { sdaiPutAttrBN(m_instance, "name", sdaiSTRING, value); }
+
+        text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -31060,6 +31237,9 @@ namespace AP203
                 /// Create new instace of placed_datum_target_feature and returns object of this C++ class to interact with
                 /// </summary>
         static placed_datum_target_feature Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "placed_datum_target_feature"); assert(inst); return inst; }
+
+        //TList may be set_of_property_definition_representation or list of converible elements
+        template <typename TList> void get_representation_associations(TList& lst) { set_of_property_definition_representationSerializer<TList> sr; sr.FromAttr(lst, m_instance, "representation_associations"); }
     };
 
 
@@ -32237,6 +32417,8 @@ namespace AP203
 
         text get_description() { text val = NULL; if (sdaiGetAttrBN(m_instance, "description", sdaiSTRING, &val)) return val; else return NULL; }
         void put_description(text value) { sdaiPutAttrBN(m_instance, "description", sdaiSTRING, value); }
+
+        identifier get_id() { identifier val = NULL; if (sdaiGetAttrBN(m_instance, "id", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -32681,6 +32863,8 @@ namespace AP203
 
         product_definition get_substitute_definition();
         void put_substitute_definition(product_definition inst);
+
+        label get_name() { label val = NULL; if (sdaiGetAttrBN(m_instance, "name", sdaiSTRING, &val)) return val; else return NULL; }
     };
 
 
@@ -33227,6 +33411,9 @@ namespace AP203
 
         //TArrayElem[] may be double[] or array of convertible elements
         template <typename TArrayElem> void put_weights_data(TArrayElem arr[], size_t n) { list_of_double lst; ArrayToList(arr, n, lst); put_weights_data(lst); }
+
+        //TList may be array_of_double or list of converible elements
+        template <typename TList> void get_weights(TList& lst) { array_of_doubleSerializer<TList> sr; sr.FromAttr(lst, m_instance, "weights"); }
     };
 
 
@@ -33255,6 +33442,9 @@ namespace AP203
 
         //TList may be list_of_list_of_double or list of converible elements
         template <typename TList> void put_weights_data(TList& lst) { list_of_list_of_doubleSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "weights_data"); }
+
+        //TList may be array_of_array_of_double or list of converible elements
+        template <typename TList> void get_weights(TList& lst) { array_of_array_of_doubleSerializer<TList> sr; sr.FromAttr(lst, m_instance, "weights"); }
     };
 
 
@@ -33371,6 +33561,10 @@ namespace AP203
 
         //TList may be list_of_list_of_surface_patch or list of converible elements
         template <typename TList> void put_segments(TList& lst) { list_of_list_of_surface_patchSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "segments"); }
+
+        Nullable<IntValue> get_n_u() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "n_u", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
+
+        Nullable<IntValue> get_n_v() { IntValue val = (IntValue) 0; if (sdaiGetAttrBN(m_instance, "n_v", sdaiINTEGER, &val)) return val; else return Nullable<IntValue>(); }
     };
 
 
@@ -33705,6 +33899,8 @@ namespace AP203
 
         Nullable<plane_angle_measure> get_angle() { plane_angle_measure val = (plane_angle_measure) 0; if (sdaiGetAttrBN(m_instance, "angle", sdaiREAL, &val)) return val; else return Nullable<plane_angle_measure>(); }
         void put_angle(plane_angle_measure value) { sdaiPutAttrBN(m_instance, "angle", sdaiREAL, &value); }
+
+        line get_axis_line();
     };
 
 
@@ -33733,6 +33929,8 @@ namespace AP203
 
         Nullable<plane_angle_measure> get_angle() { plane_angle_measure val = (plane_angle_measure) 0; if (sdaiGetAttrBN(m_instance, "angle", sdaiREAL, &val)) return val; else return Nullable<plane_angle_measure>(); }
         void put_angle(plane_angle_measure value) { sdaiPutAttrBN(m_instance, "angle", sdaiREAL, &value); }
+
+        line get_axis_line();
     };
 
 
@@ -33885,6 +34083,10 @@ namespace AP203
                 /// Create new instace of right_to_usage_association and returns object of this C++ class to interact with
                 /// </summary>
         static right_to_usage_association Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "right_to_usage_association"); assert(inst); return inst; }
+
+        information_right get_right_applied();
+
+        information_usage_right get_right_usage();
     };
 
 
@@ -36669,6 +36871,8 @@ namespace AP203
 
         axis1_placement get_axis_position();
         void put_axis_position(axis1_placement inst);
+
+        line get_axis_line();
     };
 
 
@@ -38241,6 +38445,10 @@ namespace AP203
 
         measure_with_unit get_upper_bound();
         void put_upper_bound(measure_with_unit inst);
+
+        Nullable<double> get_lbvc() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "lbvc", sdaiREAL, &val)) return val; else return Nullable<double>(); }
+
+        Nullable<double> get_ubvc() { double val = (double) 0; if (sdaiGetAttrBN(m_instance, "ubvc", sdaiREAL, &val)) return val; else return Nullable<double>(); }
     };
 
 
@@ -38660,6 +38868,10 @@ namespace AP203
                 /// Create new instace of usage_association and returns object of this C++ class to interact with
                 /// </summary>
         static usage_association Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "usage_association"); assert(inst); return inst; }
+
+        information_usage_right get_related();
+
+        information_usage_right get_relating();
     };
 
 
@@ -42883,6 +43095,7 @@ namespace AP203
     inline void action::put_chosen_method(action_method inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "chosen_method", sdaiINSTANCE, (void*) i); }
     inline action action_assignment::get_assigned_action() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_action", sdaiINSTANCE, &inst); return inst; }
     inline void action_assignment::put_assigned_action(action inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_action", sdaiINSTANCE, (void*) i); }
+    inline object_role action_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline action_method action_method_assignment::get_assigned_action_method() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_action_method", sdaiINSTANCE, &inst); return inst; }
     inline void action_method_assignment::put_assigned_action_method(action_method inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_action_method", sdaiINSTANCE, (void*) i); }
     inline action_method_role action_method_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
@@ -42901,6 +43114,7 @@ namespace AP203
     inline void action_relationship::put_related_action(action inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "related_action", sdaiINSTANCE, (void*) i); }
     inline versioned_action_request action_request_assignment::get_assigned_action_request() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_action_request", sdaiINSTANCE, &inst); return inst; }
     inline void action_request_assignment::put_assigned_action_request(versioned_action_request inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_action_request", sdaiINSTANCE, (void*) i); }
+    inline object_role action_request_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline action_method action_request_solution::get_method() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "method", sdaiINSTANCE, &inst); return inst; }
     inline void action_request_solution::put_method(action_method inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "method", sdaiINSTANCE, (void*) i); }
     inline versioned_action_request action_request_solution::get_request() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "request", sdaiINSTANCE, &inst); return inst; }
@@ -42951,18 +43165,21 @@ namespace AP203
     inline void application_protocol_definition::put_application(application_context inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "application", sdaiINSTANCE, (void*) i); }
     inline approval approval_assignment::get_assigned_approval() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_approval", sdaiINSTANCE, &inst); return inst; }
     inline void approval_assignment::put_assigned_approval(approval inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_approval", sdaiINSTANCE, (void*) i); }
+    inline object_role approval_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline group attribute_classification_assignment::get_assigned_class() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_class", sdaiINSTANCE, &inst); return inst; }
     inline void attribute_classification_assignment::put_assigned_class(group inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_class", sdaiINSTANCE, (void*) i); }
     inline classification_role attribute_classification_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline void attribute_classification_assignment::put_role(classification_role inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "role", sdaiINSTANCE, (void*) i); }
     inline certification certification_assignment::get_assigned_certification() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_certification", sdaiINSTANCE, &inst); return inst; }
     inline void certification_assignment::put_assigned_certification(certification inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_certification", sdaiINSTANCE, (void*) i); }
+    inline object_role certification_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline group classification_assignment::get_assigned_class() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_class", sdaiINSTANCE, &inst); return inst; }
     inline void classification_assignment::put_assigned_class(group inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_class", sdaiINSTANCE, (void*) i); }
     inline classification_role classification_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline void classification_assignment::put_role(classification_role inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "role", sdaiINSTANCE, (void*) i); }
     inline contract contract_assignment::get_assigned_contract() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_contract", sdaiINSTANCE, &inst); return inst; }
     inline void contract_assignment::put_assigned_contract(contract inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_contract", sdaiINSTANCE, (void*) i); }
+    inline object_role contract_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline date_and_time date_and_time_assignment::get_assigned_date_and_time() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_date_and_time", sdaiINSTANCE, &inst); return inst; }
     inline void date_and_time_assignment::put_assigned_date_and_time(date_and_time inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_date_and_time", sdaiINSTANCE, (void*) i); }
     inline date_time_role date_and_time_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
@@ -42973,12 +43190,14 @@ namespace AP203
     inline void date_assignment::put_role(date_role inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "role", sdaiINSTANCE, (void*) i); }
     inline document document_reference::get_assigned_document() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_document", sdaiINSTANCE, &inst); return inst; }
     inline void document_reference::put_assigned_document(document inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_document", sdaiINSTANCE, (void*) i); }
+    inline object_role document_reference::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline document_usage_constraint document_usage_constraint_assignment::get_assigned_document_usage() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_document_usage", sdaiINSTANCE, &inst); return inst; }
     inline void document_usage_constraint_assignment::put_assigned_document_usage(document_usage_constraint inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_document_usage", sdaiINSTANCE, (void*) i); }
     inline document_usage_role document_usage_constraint_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline void document_usage_constraint_assignment::put_role(document_usage_role inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "role", sdaiINSTANCE, (void*) i); }
     inline effectivity effectivity_assignment::get_assigned_effectivity() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_effectivity", sdaiINSTANCE, &inst); return inst; }
     inline void effectivity_assignment::put_assigned_effectivity(effectivity inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_effectivity", sdaiINSTANCE, (void*) i); }
+    inline object_role effectivity_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline event_occurrence event_occurrence_assignment::get_assigned_event_occurrence() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_event_occurrence", sdaiINSTANCE, &inst); return inst; }
     inline void event_occurrence_assignment::put_assigned_event_occurrence(event_occurrence inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_event_occurrence", sdaiINSTANCE, (void*) i); }
     inline event_occurrence_role event_occurrence_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
@@ -42989,6 +43208,8 @@ namespace AP203
     inline void external_identification_assignment::put_source(external_source inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "source", sdaiINSTANCE, (void*) i); }
     inline group group_assignment::get_assigned_group() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_group", sdaiINSTANCE, &inst); return inst; }
     inline void group_assignment::put_assigned_group(group inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_group", sdaiINSTANCE, (void*) i); }
+    inline object_role group_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
+    inline object_role name_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline organization organization_assignment::get_assigned_organization() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_organization", sdaiINSTANCE, &inst); return inst; }
     inline void organization_assignment::put_assigned_organization(organization inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_organization", sdaiINSTANCE, (void*) i); }
     inline organization_role organization_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
@@ -43003,6 +43224,7 @@ namespace AP203
     inline void person_and_organization_assignment::put_role(person_and_organization_role inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "role", sdaiINSTANCE, (void*) i); }
     inline security_classification security_classification_assignment::get_assigned_security_classification() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_security_classification", sdaiINSTANCE, &inst); return inst; }
     inline void security_classification_assignment::put_assigned_security_classification(security_classification inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_security_classification", sdaiINSTANCE, (void*) i); }
+    inline object_role security_classification_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline time_interval time_interval_assignment::get_assigned_time_interval() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "assigned_time_interval", sdaiINSTANCE, &inst); return inst; }
     inline void time_interval_assignment::put_assigned_time_interval(time_interval inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "assigned_time_interval", sdaiINSTANCE, (void*) i); }
     inline time_interval_role time_interval_assignment::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
@@ -43011,6 +43233,7 @@ namespace AP203
     inline void approval::put_status(approval_status inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "status", sdaiINSTANCE, (void*) i); }
     inline approval approval_date_time::get_dated_approval() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "dated_approval", sdaiINSTANCE, &inst); return inst; }
     inline void approval_date_time::put_dated_approval(approval inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "dated_approval", sdaiINSTANCE, (void*) i); }
+    inline object_role approval_date_time::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline approval approval_person_organization::get_authorized_approval() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "authorized_approval", sdaiINSTANCE, &inst); return inst; }
     inline void approval_person_organization::put_authorized_approval(approval inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "authorized_approval", sdaiINSTANCE, (void*) i); }
     inline approval_role approval_person_organization::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
@@ -43037,6 +43260,7 @@ namespace AP203
     inline void placement::put_location(cartesian_point inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "location", sdaiINSTANCE, (void*) i); }
     inline direction axis1_placement::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
     inline void axis1_placement::put_axis(direction inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis", sdaiINSTANCE, (void*) i); }
+    inline direction axis1_placement::get_z() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "z", sdaiINSTANCE, &inst); return inst; }
     inline direction axis2_placement_2d::get_ref_direction() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "ref_direction", sdaiINSTANCE, &inst); return inst; }
     inline void axis2_placement_2d::put_ref_direction(direction inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "ref_direction", sdaiINSTANCE, (void*) i); }
     inline direction axis2_placement_3d::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
@@ -43288,6 +43512,9 @@ namespace AP203
     inline void group_relationship::put_relating_group(group inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "relating_group", sdaiINSTANCE, (void*) i); }
     inline group group_relationship::get_related_group() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "related_group", sdaiINSTANCE, &inst); return inst; }
     inline void group_relationship::put_related_group(group inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "related_group", sdaiINSTANCE, (void*) i); }
+    inline generic_expression interval_expression::get_interval_high() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "interval_high", sdaiINSTANCE, &inst); return inst; }
+    inline generic_expression interval_expression::get_interval_item() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "interval_item", sdaiINSTANCE, &inst); return inst; }
+    inline generic_expression interval_expression::get_interval_low() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "interval_low", sdaiINSTANCE, &inst); return inst; }
     inline colour light_source::get_light_colour() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "light_colour", sdaiINSTANCE, &inst); return inst; }
     inline void light_source::put_light_colour(colour inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "light_colour", sdaiINSTANCE, (void*) i); }
     inline direction light_source_directional::get_orientation() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "orientation", sdaiINSTANCE, &inst); return inst; }
@@ -43314,8 +43541,11 @@ namespace AP203
     inline void material_property_representation::put_dependent_environment(data_environment inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "dependent_environment", sdaiINSTANCE, (void*) i); }
     inline measure_with_unit measure_qualification::get_qualified_measure() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "qualified_measure", sdaiINSTANCE, &inst); return inst; }
     inline void measure_qualification::put_qualified_measure(measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "qualified_measure", sdaiINSTANCE, (void*) i); }
+    inline axis2_placement_3d min_and_major_ply_orientation_basis::get_major_orientation_basis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "major_orientation_basis", sdaiINSTANCE, &inst); return inst; }
+    inline axis2_placement_3d min_and_major_ply_orientation_basis::get_minor_orientation_basis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "minor_orientation_basis", sdaiINSTANCE, &inst); return inst; }
     inline axis2_placement_3d modified_solid_with_placed_configuration::get_placing() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "placing", sdaiINSTANCE, &inst); return inst; }
     inline void modified_solid_with_placed_configuration::put_placing(axis2_placement_3d inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "placing", sdaiINSTANCE, (void*) i); }
+    inline language multi_language_attribute_assignment::get_translation_language() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "translation_language", sdaiINSTANCE, &inst); return inst; }
     inline curve offset_curve_2d::get_basis_curve() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "basis_curve", sdaiINSTANCE, &inst); return inst; }
     inline void offset_curve_2d::put_basis_curve(curve inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "basis_curve", sdaiINSTANCE, (void*) i); }
     inline curve offset_curve_3d::get_basis_curve() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "basis_curve", sdaiINSTANCE, &inst); return inst; }
@@ -43415,14 +43645,18 @@ namespace AP203
     inline void relative_event_occurrence::put_offset(time_measure_with_unit inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "offset", sdaiINSTANCE, (void*) i); }
     inline axis1_placement revolved_area_solid::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
     inline void revolved_area_solid::put_axis(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis", sdaiINSTANCE, (void*) i); }
+    inline line revolved_area_solid::get_axis_line() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_line", sdaiINSTANCE, &inst); return inst; }
     inline axis1_placement revolved_face_solid::get_axis() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis", sdaiINSTANCE, &inst); return inst; }
     inline void revolved_face_solid::put_axis(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis", sdaiINSTANCE, (void*) i); }
+    inline line revolved_face_solid::get_axis_line() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_line", sdaiINSTANCE, &inst); return inst; }
     inline axis2_placement_3d right_angular_wedge::get_position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "position", sdaiINSTANCE, &inst); return inst; }
     inline void right_angular_wedge::put_position(axis2_placement_3d inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "position", sdaiINSTANCE, (void*) i); }
     inline axis1_placement right_circular_cone::get_position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "position", sdaiINSTANCE, &inst); return inst; }
     inline void right_circular_cone::put_position(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "position", sdaiINSTANCE, (void*) i); }
     inline axis1_placement right_circular_cylinder::get_position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "position", sdaiINSTANCE, &inst); return inst; }
     inline void right_circular_cylinder::put_position(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "position", sdaiINSTANCE, (void*) i); }
+    inline information_right right_to_usage_association::get_right_applied() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "right_applied", sdaiINSTANCE, &inst); return inst; }
+    inline information_usage_right right_to_usage_association::get_right_usage() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "right_usage", sdaiINSTANCE, &inst); return inst; }
     inline object_role role_association::get_role() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "role", sdaiINSTANCE, &inst); return inst; }
     inline void role_association::put_role(object_role inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "role", sdaiINSTANCE, (void*) i); }
     inline curve surface_curve_swept_area_solid::get_directrix() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "directrix", sdaiINSTANCE, &inst); return inst; }
@@ -43471,6 +43705,7 @@ namespace AP203
     inline void surface_of_linear_extrusion::put_extrusion_axis(vector inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "extrusion_axis", sdaiINSTANCE, (void*) i); }
     inline axis1_placement surface_of_revolution::get_axis_position() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_position", sdaiINSTANCE, &inst); return inst; }
     inline void surface_of_revolution::put_axis_position(axis1_placement inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "axis_position", sdaiINSTANCE, (void*) i); }
+    inline line surface_of_revolution::get_axis_line() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "axis_line", sdaiINSTANCE, &inst); return inst; }
     inline bounded_surface surface_patch::get_parent_surface() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "parent_surface", sdaiINSTANCE, &inst); return inst; }
     inline void surface_patch::put_parent_surface(bounded_surface inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "parent_surface", sdaiINSTANCE, (void*) i); }
     inline colour surface_rendering_properties::get_rendered_colour() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "rendered_colour", sdaiINSTANCE, &inst); return inst; }
@@ -43521,6 +43756,8 @@ namespace AP203
     inline void two_direction_repeat_factor::put_second_repeat_factor(vector inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "second_repeat_factor", sdaiINSTANCE, (void*) i); }
     inline generic_expression unary_generic_expression::get_operand() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "operand", sdaiINSTANCE, &inst); return inst; }
     inline void unary_generic_expression::put_operand(generic_expression inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "operand", sdaiINSTANCE, (void*) i); }
+    inline information_usage_right usage_association::get_related() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "related", sdaiINSTANCE, &inst); return inst; }
+    inline information_usage_right usage_association::get_relating() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "relating", sdaiINSTANCE, &inst); return inst; }
     inline direction vector::get_orientation() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "orientation", sdaiINSTANCE, &inst); return inst; }
     inline void vector::put_orientation(direction inst) { SdaiInstance i = inst;  sdaiPutAttrBN(m_instance, "orientation", sdaiINSTANCE, (void*) i); }
     inline vertex vertex_loop::get_loop_vertex() { SdaiInstance inst = 0; sdaiGetAttrBN(m_instance, "loop_vertex", sdaiINSTANCE, &inst); return inst; }

@@ -31,7 +31,6 @@ namespace RDFWrappers
 
             var model = ifcengine.engiGetEntityModel(sdaiEntity);
             var modelName = ifcengine.GetSchemaName (model);
-            var isIFC = modelName.StartsWith("ifc", StringComparison.OrdinalIgnoreCase);
 
             ExpressHandle attribute = 0;
             while (0 != (attribute = ifcengine.engiGetEntityAttributeByIterator(sdaiEntity, attribute)))
@@ -49,11 +48,6 @@ namespace RDFWrappers
                                 out aggregation,
                                 out optional
                                 );
-
-                if (!isIFC && !inverse && !explicit_)
-                {
-                    break;
-                }
 
                 var prop = new Attribute
                 {

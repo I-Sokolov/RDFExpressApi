@@ -18957,6 +18957,8 @@ namespace AP214
     class set_of_security_classification_itemSerializer : AggrSerializerSelect<security_classification_item, set_of_security_classification_item> { }
     public class set_of_time_interval_item : List<time_interval_item> { }
     class set_of_time_interval_itemSerializer : AggrSerializerSelect<time_interval_item, set_of_time_interval_item> { }
+    public class set_of_founded_item_select : List<founded_item_select> { }
+    class set_of_founded_item_selectSerializer : AggrSerializerSelect<founded_item_select, set_of_founded_item_select> { }
     public class set_of_tolerance_deviation_select : List<tolerance_deviation_select> { }
     class set_of_tolerance_deviation_selectSerializer : AggrSerializerSelect<tolerance_deviation_select, set_of_tolerance_deviation_select> { }
     public class set_of_tolerance_parameter_select : List<tolerance_parameter_select> { }
@@ -18965,16 +18967,24 @@ namespace AP214
     class set_of_derived_unit_elementSerializer : AggrSerializerInstance<derived_unit_element, set_of_derived_unit_element> { }
     public class set_of_attribute_language_item : List<attribute_language_item> { }
     class set_of_attribute_language_itemSerializer : AggrSerializerSelect<attribute_language_item, set_of_attribute_language_item> { }
+    public class list_of_direction : List<direction> { }
+    class list_of_directionSerializer : AggrSerializerInstance<direction, list_of_direction> { }
     public class list_of_cartesian_point : List<cartesian_point> { }
     class list_of_cartesian_pointSerializer : AggrSerializerInstance<cartesian_point, list_of_cartesian_point> { }
+    public class array_of_cartesian_point : List<cartesian_point> { }
+    class array_of_cartesian_pointSerializer : AggrSerializerInstance<cartesian_point, array_of_cartesian_point> { }
     public class ListOfIntValue : List<IntValue> { }
     class ListOfIntValueSerializer : AggrSerializer_IntValue<IntValue, ListOfIntValue> { }
     public class list_of_parameter_value : List<double> { }
     class list_of_parameter_valueSerializer : AggrSerializer_double<double, list_of_parameter_value> { }
     public class list_of_list_of_cartesian_point : List<list_of_cartesian_point> { }
     class list_of_list_of_cartesian_pointSerializer : AggrSerializerAggr<list_of_cartesian_point, list_of_cartesian_pointSerializer, list_of_list_of_cartesian_point> { }
+    public class array_of_array_of_cartesian_point : List<array_of_cartesian_point> { }
+    class array_of_array_of_cartesian_pointSerializer : AggrSerializerAggr<array_of_cartesian_point, array_of_cartesian_pointSerializer, array_of_array_of_cartesian_point> { }
     public class list_of_composite_curve_segment : List<composite_curve_segment> { }
     class list_of_composite_curve_segmentSerializer : AggrSerializerInstance<composite_curve_segment, list_of_composite_curve_segment> { }
+    public class set_of_surface : List<surface> { }
+    class set_of_surfaceSerializer : AggrSerializerInstance<surface, set_of_surface> { }
     public class list_of_pcurve_or_surface : List<pcurve_or_surface> { }
     class list_of_pcurve_or_surfaceSerializer : AggrSerializerSelect<pcurve_or_surface, list_of_pcurve_or_surface> { }
     public class set_of_oriented_closed_shell : List<oriented_closed_shell> { }
@@ -19031,6 +19041,8 @@ namespace AP214
     class set_of_fill_style_selectSerializer : AggrSerializerSelect<fill_style_select, set_of_fill_style_select> { }
     public class set_of_fill_area_style_tile_shape_select : List<fill_area_style_tile_shape_select> { }
     class set_of_fill_area_style_tile_shape_selectSerializer : AggrSerializerSelect<fill_area_style_tile_shape_select, set_of_fill_area_style_tile_shape_select> { }
+    public class set_of_kinematic_path : List<kinematic_path> { }
+    class set_of_kinematic_pathSerializer : AggrSerializerInstance<kinematic_path, set_of_kinematic_path> { }
     public class set_of_geometric_set_select : List<geometric_set_select> { }
     class set_of_geometric_set_selectSerializer : AggrSerializerSelect<geometric_set_select, set_of_geometric_set_select> { }
     public class set_of_representation : List<representation> { }
@@ -19079,8 +19091,12 @@ namespace AP214
     class set_of_shape_aspectSerializer : AggrSerializerInstance<shape_aspect, set_of_shape_aspect> { }
     public class set_of_process_property_association : List<process_property_association> { }
     class set_of_process_property_associationSerializer : AggrSerializerInstance<process_property_association, set_of_process_property_association> { }
+    public class array_of_double : List<double> { }
+    class array_of_doubleSerializer : AggrSerializer_double<double, array_of_double> { }
     public class list_of_list_of_double : List<list_of_double> { }
     class list_of_list_of_doubleSerializer : AggrSerializerAggr<list_of_double, list_of_doubleSerializer, list_of_list_of_double> { }
+    public class array_of_array_of_double : List<array_of_double> { }
+    class array_of_array_of_doubleSerializer : AggrSerializerAggr<array_of_double, array_of_doubleSerializer, array_of_array_of_double> { }
     public class list_of_surface_patch : List<surface_patch> { }
     class list_of_surface_patchSerializer : AggrSerializerInstance<surface_patch, list_of_surface_patch> { }
     public class list_of_list_of_surface_patch : List<list_of_surface_patch> { }
@@ -19164,6 +19180,8 @@ namespace AP214
 
         public static implicit operator numeric_expression(SdaiInstance instance) => new numeric_expression(instance);
 
+        public bool? is_int { get { return get_bool("is_int", ifcengine.sdaiBOOLEAN); } }
+        public bool? sql_mappable { get { return get_bool("sql_mappable", ifcengine.sdaiBOOLEAN); } }
 
         protected override TextValue EntityName() { return "numeric_expression"; }
     };
@@ -19299,6 +19317,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "chosen_method", ifcengine.sdaiINSTANCE, out inst); return new action_method(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "chosen_method", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "action"; }
     };
@@ -19324,6 +19343,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_action", ifcengine.sdaiINSTANCE, out inst); return new action(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_action", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "action_assignment"; }
     };
@@ -19617,6 +19637,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_action_request", ifcengine.sdaiINSTANCE, out inst); return new versioned_action_request(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_action_request", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "action_request_assignment"; }
     };
@@ -19652,6 +19673,8 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "request", ifcengine.sdaiINSTANCE, out inst); return new versioned_action_request(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "request", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "action_request_solution"; }
     };
@@ -19923,6 +19946,8 @@ namespace AP214
             get { return get_string("telex_number", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "telex_number", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
+        public TextValue url { get { return get_string("url", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "address"; }
     };
@@ -19961,6 +19986,8 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "context_of_items", ifcengine.sdaiINSTANCE, out inst); return new representation_context(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "context_of_items", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "representation"; }
     };
@@ -20129,6 +20156,7 @@ namespace AP214
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "face_surface"; }
     };
@@ -20412,6 +20440,7 @@ namespace AP214
         /// </summary>
         public static new geometric_representation_item Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "geometric_representation_item"); Debug.Assert(inst != 0); return inst; }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "geometric_representation_item"; }
     };
@@ -20535,6 +20564,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "related_shape_aspect", ifcengine.sdaiINSTANCE, out inst); return new shape_aspect(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "related_shape_aspect", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "shape_aspect_relationship"; }
     };
@@ -20992,6 +21022,7 @@ namespace AP214
         public set_of_annotation_plane_element elements { get { return (new set_of_annotation_plane_elementSerializer()).FromAttr(m_instance, "elements"); } }
         public void put_elements(IEnumerable<annotation_plane_element> lst) { (new set_of_annotation_plane_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
         public void put_elements_untyped(IEnumerable lst) { (new set_of_annotation_plane_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "annotation_plane"; }
     };
@@ -21227,6 +21258,7 @@ namespace AP214
             get { var str = get_string("product_definitional", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "product_definitional", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "shape_aspect"; }
     };
@@ -21309,6 +21341,8 @@ namespace AP214
             set { ifcengine.sdaiPutAttrBN(m_instance, "application", ifcengine.sdaiSTRING, value); }
             }
         public set_of_application_context_element context_elements { get { return (new set_of_application_context_elementSerializer()).FromAttr(m_instance, "context_elements"); } }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "application_context"; }
     };
@@ -21515,6 +21549,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_approval", ifcengine.sdaiINSTANCE, out inst); return new approval(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_approval", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "approval_assignment"; }
     };
@@ -21593,6 +21628,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_certification", ifcengine.sdaiINSTANCE, out inst); return new certification(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_certification", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "certification_assignment"; }
     };
@@ -21704,6 +21740,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_contract", ifcengine.sdaiINSTANCE, out inst); return new contract(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_contract", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "contract_assignment"; }
     };
@@ -21878,6 +21915,7 @@ namespace AP214
             get { return get_string("source", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "source", ifcengine.sdaiSTRING, value); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "document_reference"; }
     };
@@ -21989,6 +22027,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_effectivity", ifcengine.sdaiINSTANCE, out inst); return new effectivity(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_effectivity", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "effectivity_assignment"; }
     };
@@ -22183,6 +22222,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_group", ifcengine.sdaiINSTANCE, out inst); return new group(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_group", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "group_assignment"; }
     };
@@ -22292,6 +22332,7 @@ namespace AP214
             get { return get_string("assigned_name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "assigned_name", ifcengine.sdaiSTRING, value); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "name_assignment"; }
     };
@@ -22567,6 +22608,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "assigned_security_classification", ifcengine.sdaiINSTANCE, out inst); return new security_classification(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "assigned_security_classification", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "security_classification_assignment"; }
     };
@@ -22723,6 +22765,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "dated_approval", ifcengine.sdaiINSTANCE, out inst); return new approval(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "dated_approval", ifcengine.sdaiINSTANCE, i); }
             }
+        public object_role role { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "role", ifcengine.sdaiINSTANCE, out inst); return new object_role(inst); } }
 
         protected override TextValue EntityName() { return "approval_date_time"; }
     };
@@ -22838,6 +22881,7 @@ namespace AP214
             get { return get_string("role", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "role", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "approval_role"; }
     };
@@ -22893,6 +22937,7 @@ namespace AP214
         /// </summary>
         public static new founded_item Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "founded_item"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_founded_item_select users { get { return (new set_of_founded_item_selectSerializer()).FromAttr(m_instance, "users"); } }
 
         protected override TextValue EntityName() { return "founded_item"; }
     };
@@ -23077,6 +23122,7 @@ namespace AP214
         public set_of_derived_unit_element elements { get { return (new set_of_derived_unit_elementSerializer()).FromAttr(m_instance, "elements"); } }
         public void put_elements(IEnumerable<derived_unit_element> lst) { (new set_of_derived_unit_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
         public void put_elements_untyped(IEnumerable lst) { (new set_of_derived_unit_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "derived_unit"; }
     };
@@ -23408,6 +23454,7 @@ namespace AP214
         public set_of_attribute_language_item items { get { return (new set_of_attribute_language_itemSerializer()).FromAttr(m_instance, "items"); } }
         public void put_items(IEnumerable<attribute_language_item> lst) { (new set_of_attribute_language_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_attribute_language_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
+        public TextValue language { get { return get_string("language", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "attribute_language_assignment"; }
     };
@@ -23538,6 +23585,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axis", ifcengine.sdaiINSTANCE, i); }
             }
+        public direction z { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "z", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } }
 
         protected override TextValue EntityName() { return "axis1_placement"; }
     };
@@ -23568,6 +23616,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, i); }
             }
+        public list_of_direction p { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "p"); } }
 
         protected override TextValue EntityName() { return "axis2_placement_2d"; }
     };
@@ -23603,6 +23652,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ref_direction", ifcengine.sdaiINSTANCE, i); }
             }
+        public list_of_direction p { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "p"); } }
 
         protected override TextValue EntityName() { return "axis2_placement_3d"; }
     };
@@ -23701,6 +23751,8 @@ namespace AP214
             get { var str = get_string("self_intersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? upper_index_on_control_points { get { return get_IntValue("upper_index_on_control_points", ifcengine.sdaiINTEGER); } }
+        public array_of_cartesian_point control_points { get { return (new array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
         protected override TextValue EntityName() { return "b_spline_curve"; }
     };
@@ -23737,6 +23789,7 @@ namespace AP214
             get { var str = get_string("knot_spec", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.knot_type_); return EnumValue<knot_type>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<knot_type>.FromValue(value.Value, EnumNames.knot_type_); ifcengine.sdaiPutAttrBN(m_instance, "knot_spec", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? upper_index_on_knots { get { return get_IntValue("upper_index_on_knots", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "b_spline_curve_with_knots"; }
     };
@@ -23845,6 +23898,9 @@ namespace AP214
             get { var str = get_string("self_intersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? u_upper { get { return get_IntValue("u_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? v_upper { get { return get_IntValue("v_upper", ifcengine.sdaiINTEGER); } }
+        public array_of_array_of_cartesian_point control_points { get { return (new array_of_array_of_cartesian_pointSerializer()).FromAttr(m_instance, "control_points"); } }
 
         protected override TextValue EntityName() { return "b_spline_surface"; }
     };
@@ -23887,6 +23943,8 @@ namespace AP214
             get { var str = get_string("knot_spec", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.knot_type_); return EnumValue<knot_type>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<knot_type>.FromValue(value.Value, EnumNames.knot_type_); ifcengine.sdaiPutAttrBN(m_instance, "knot_spec", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? knot_u_upper { get { return get_IntValue("knot_u_upper", ifcengine.sdaiINTEGER); } }
+        public IntValue? knot_v_upper { get { return get_IntValue("knot_v_upper", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "b_spline_surface_with_knots"; }
     };
@@ -24457,6 +24515,8 @@ namespace AP214
             get { var str = get_string("self_intersect", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<LOGICAL_VALUE>.FromValue(value.Value, EnumNames.LOGICAL_VALUE_); ifcengine.sdaiPutAttrBN(m_instance, "self_intersect", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? n_segments { get { return get_IntValue("n_segments", ifcengine.sdaiINTEGER); } }
+        public LOGICAL_VALUE? closed_curve { get { var str = get_string("closed_curve", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
 
         protected override TextValue EntityName() { return "composite_curve"; }
     };
@@ -24482,6 +24542,7 @@ namespace AP214
         /// </summary>
         public static new composite_curve_on_surface Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "composite_curve_on_surface"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_surface basis_surface { get { return (new set_of_surfaceSerializer()).FromAttr(m_instance, "basis_surface"); } }
 
         protected override TextValue EntityName() { return "composite_curve_on_surface"; }
     };
@@ -24605,6 +24666,7 @@ namespace AP214
             get { var str = get_string("master_representation", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.preferred_surface_curve_representation_); return EnumValue<preferred_surface_curve_representation>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<preferred_surface_curve_representation>.FromValue(value.Value, EnumNames.preferred_surface_curve_representation_); ifcengine.sdaiPutAttrBN(m_instance, "master_representation", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public set_of_surface basis_surface { get { return (new set_of_surfaceSerializer()).FromAttr(m_instance, "basis_surface"); } }
 
         protected override TextValue EntityName() { return "surface_curve"; }
     };
@@ -24938,6 +25000,7 @@ namespace AP214
         /// </summary>
         public static new camera_image_2d_with_scale Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "camera_image_2d_with_scale"); Debug.Assert(inst != 0); return inst; }
 
+        public double? scale { get { return get_double("scale", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "camera_image_2d_with_scale"; }
     };
@@ -24963,6 +25026,7 @@ namespace AP214
         /// </summary>
         public static new camera_image_3d_with_scale Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "camera_image_3d_with_scale"); Debug.Assert(inst != 0); return inst; }
 
+        public double? scale { get { return get_double("scale", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "camera_image_3d_with_scale"; }
     };
@@ -25247,6 +25311,7 @@ namespace AP214
             get { return get_double("scale", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "scale", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? scl { get { return get_double("scl", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "cartesian_transformation_operator"; }
     };
@@ -25272,6 +25337,7 @@ namespace AP214
         /// </summary>
         public static new cartesian_transformation_operator_2d Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "cartesian_transformation_operator_2d"); Debug.Assert(inst != 0); return inst; }
 
+        public list_of_direction u { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "u"); } }
 
         protected override TextValue EntityName() { return "cartesian_transformation_operator_2d"; }
     };
@@ -25302,6 +25368,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis3", ifcengine.sdaiINSTANCE, out inst); return new direction(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axis3", ifcengine.sdaiINSTANCE, i); }
             }
+        public list_of_direction u { get { return (new list_of_directionSerializer()).FromAttr(m_instance, "u"); } }
 
         protected override TextValue EntityName() { return "cartesian_transformation_operator_3d"; }
     };
@@ -25577,6 +25644,7 @@ namespace AP214
             get { return get_double("baseline_ratio", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "baseline_ratio", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? box_height { get { return get_double("box_height", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "character_glyph_symbol"; }
     };
@@ -25602,6 +25670,7 @@ namespace AP214
         /// </summary>
         public static new characterized_class Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "characterized_class"); Debug.Assert(inst != 0); return inst; }
 
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "characterized_class"; }
     };
@@ -25797,6 +25866,7 @@ namespace AP214
             get { return get_string("description", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "group"; }
     };
@@ -27004,6 +27074,8 @@ namespace AP214
             {
             get { return new configuration_design_item(m_instance, "design", 0); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "configuration_design"; }
     };
@@ -27034,6 +27106,8 @@ namespace AP214
             get { return get_string("id", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "id", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "effectivity"; }
     };
@@ -27584,6 +27658,8 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "represented_product_relation", ifcengine.sdaiINSTANCE, out inst); return new product_definition_shape(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "represented_product_relation", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "context_dependent_shape_representation"; }
     };
@@ -27759,6 +27835,7 @@ namespace AP214
             get { var str = get_string("sense", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ahead_or_behind_); return EnumValue<ahead_or_behind>.FromIndex(ind); } 
             set { if (value.HasValue) { var str = EnumString<ahead_or_behind>.FromValue(value.Value, EnumNames.ahead_or_behind_); ifcengine.sdaiPutAttrBN(m_instance, "sense", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
             }
+        public IntValue? actual_minute_offset { get { return get_IntValue("actual_minute_offset", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "coordinated_universal_time_offset"; }
     };
@@ -28186,6 +28263,16 @@ namespace AP214
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "joint", ifcengine.sdaiINSTANCE, i); }
             }
 
+        public rigid_placement_get pair_placement_in_first_link_context
+            {
+            get { return new rigid_placement_get(m_instance, "pair_placement_in_first_link_context", 0); }
+            }
+
+        public rigid_placement_get pair_placement_in_second_link_context
+            {
+            get { return new rigid_placement_get(m_instance, "pair_placement_in_second_link_context", 0); }
+            }
+
         protected override TextValue EntityName() { return "kinematic_pair"; }
     };
 
@@ -28508,6 +28595,7 @@ namespace AP214
             get { return get_string("name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "date_role"; }
     };
@@ -28538,6 +28626,7 @@ namespace AP214
             get { return get_string("name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "date_time_role"; }
     };
@@ -31051,6 +31140,7 @@ namespace AP214
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "edge_curve"; }
     };
@@ -31104,6 +31194,7 @@ namespace AP214
         public list_of_oriented_edge edge_list { get { return (new list_of_oriented_edgeSerializer()).FromAttr(m_instance, "edge_list"); } }
         public void put_edge_list(IEnumerable<oriented_edge> lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
         public void put_edge_list_untyped(IEnumerable lst) { (new list_of_oriented_edgeSerializer()).ToSdaiAggr(lst, m_instance, "edge_list"); }
+        public IntValue? ne { get { return get_IntValue("ne", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "edge_loop"; }
     };
@@ -31705,6 +31796,7 @@ namespace AP214
             {
             get { return new source_item(m_instance, "source_id", 0); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "external_source"; }
     };
@@ -32000,6 +32092,7 @@ namespace AP214
             get { return get_string("name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "externally_defined_hatch_style"; }
     };
@@ -32070,6 +32163,7 @@ namespace AP214
         /// </summary>
         public static new externally_defined_style Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "externally_defined_style"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_founded_item_select users { get { return (new set_of_founded_item_selectSerializer()).FromAttr(m_instance, "users"); } }
 
         protected override TextValue EntityName() { return "externally_defined_style"; }
     };
@@ -32150,6 +32244,7 @@ namespace AP214
             get { return get_string("name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "externally_defined_tile_style"; }
     };
@@ -32583,6 +32678,7 @@ namespace AP214
             {
             get { return new characterized_definition(m_instance, "definition", 0); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "property_definition"; }
     };
@@ -32897,6 +32993,8 @@ namespace AP214
         public list_of_generic_expression operands { get { return (new list_of_generic_expressionSerializer()).FromAttr(m_instance, "operands"); } }
         public void put_operands(IEnumerable<generic_expression> lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
         public void put_operands_untyped(IEnumerable lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
+        public generic_expression value_to_format { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "value_to_format", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
+        public generic_expression format_string { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "format_string", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
 
         protected override TextValue EntityName() { return "format_function"; }
     };
@@ -32922,6 +33020,8 @@ namespace AP214
         /// </summary>
         public static new founded_kinematic_path Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "founded_kinematic_path"); Debug.Assert(inst != 0); return inst; }
 
+        public set_of_kinematic_path paths { get { return (new set_of_kinematic_pathSerializer()).FromAttr(m_instance, "paths"); } }
+        public geometric_representation_context founding { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "founding", ifcengine.sdaiINSTANCE, out inst); return new geometric_representation_context(inst); } }
 
         protected override TextValue EntityName() { return "founded_kinematic_path"; }
     };
@@ -33097,6 +33197,7 @@ namespace AP214
             get { return get_double("actual_rotation_1", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "actual_rotation_1", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? actual_rotation_2 { get { return get_double("actual_rotation_2", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "gear_pair_value"; }
     };
@@ -33898,6 +33999,7 @@ namespace AP214
             get { return get_double("input_skew_angle", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "input_skew_angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? skew_angle { get { return get_double("skew_angle", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "universal_pair"; }
     };
@@ -34081,6 +34183,8 @@ namespace AP214
         public list_of_generic_expression operands { get { return (new list_of_generic_expressionSerializer()).FromAttr(m_instance, "operands"); } }
         public void put_operands(IEnumerable<generic_expression> lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
         public void put_operands_untyped(IEnumerable lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
+        public generic_expression operand { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "operand", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
+        public generic_expression index { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "index", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
 
         protected override TextValue EntityName() { return "index_expression"; }
     };
@@ -34436,6 +34540,9 @@ namespace AP214
         public list_of_generic_expression operands { get { return (new list_of_generic_expressionSerializer()).FromAttr(m_instance, "operands"); } }
         public void put_operands(IEnumerable<generic_expression> lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
         public void put_operands_untyped(IEnumerable lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
+        public generic_expression interval_low { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "interval_low", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
+        public generic_expression interval_item { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "interval_item", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
+        public generic_expression interval_high { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "interval_high", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
 
         protected override TextValue EntityName() { return "interval_expression"; }
     };
@@ -34815,6 +34922,7 @@ namespace AP214
         public static new kinematic_link_representation Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "kinematic_link_representation"); Debug.Assert(inst != 0); return inst; }
 
         public kinematic_link_representation_relation link_representation_relation { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "link_representation_relation", ifcengine.sdaiINSTANCE, out inst); return new kinematic_link_representation_relation(inst); } }
+        public geometric_representation_context link_frame { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "link_frame", ifcengine.sdaiINSTANCE, out inst); return new geometric_representation_context(inst); } }
 
         protected override TextValue EntityName() { return "kinematic_link_representation"; }
     };
@@ -34965,6 +35073,8 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "used_representation", ifcengine.sdaiINSTANCE, out inst); return new representation(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "used_representation", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "property_definition_representation"; }
     };
@@ -36620,6 +36730,8 @@ namespace AP214
             {
             get { return new rigid_placement(m_instance, "related_frame", 0); }
             }
+        public founded_kinematic_path motion { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "motion", ifcengine.sdaiINSTANCE, out inst); return new founded_kinematic_path(inst); } }
+        public kinematic_link_representation frame_link { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "frame_link", ifcengine.sdaiINSTANCE, out inst); return new kinematic_link_representation(inst); } }
 
         protected override TextValue EntityName() { return "motion_link_relationship"; }
     };
@@ -36673,6 +36785,7 @@ namespace AP214
         public set_of_multi_language_attribute_item items { get { return (new set_of_multi_language_attribute_itemSerializer()).FromAttr(m_instance, "items"); } }
         public void put_items(IEnumerable<multi_language_attribute_item> lst) { (new set_of_multi_language_attribute_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
         public void put_items_untyped(IEnumerable lst) { (new set_of_multi_language_attribute_itemSerializer()).ToSdaiAggr(lst, m_instance, "items"); }
+        public TextValue language { get { return get_string("language", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "multi_language_attribute_assignment"; }
     };
@@ -37337,6 +37450,7 @@ namespace AP214
             get { return get_string("name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "organization_role"; }
     };
@@ -37408,6 +37522,7 @@ namespace AP214
         public set_of_organization responsible_organizations { get { return (new set_of_organizationSerializer()).FromAttr(m_instance, "responsible_organizations"); } }
         public void put_responsible_organizations(IEnumerable<organization> lst) { (new set_of_organizationSerializer()).ToSdaiAggr(lst, m_instance, "responsible_organizations"); }
         public void put_responsible_organizations_untyped(IEnumerable lst) { (new set_of_organizationSerializer()).ToSdaiAggr(lst, m_instance, "responsible_organizations"); }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "organizational_project"; }
     };
@@ -38175,6 +38290,8 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "the_organization", ifcengine.sdaiINSTANCE, out inst); return new organization(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "the_organization", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "person_and_organization"; }
     };
@@ -38233,6 +38350,7 @@ namespace AP214
             get { return get_string("name", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "name", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue description { get { return get_string("description", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "person_and_organization_role"; }
     };
@@ -38311,6 +38429,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "frame_of_reference", ifcengine.sdaiINSTANCE, out inst); return new product_definition_context(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "frame_of_reference", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "product_definition"; }
     };
@@ -39049,6 +39168,7 @@ namespace AP214
             {
             get { return new spatial_rotation(m_instance, "input_orientation", 0); }
             }
+        public ypr_rotation actual_orientation { get { return (new ypr_rotationSerializer()).FromAttr(m_instance, "actual_orientation"); } }
 
         protected override TextValue EntityName() { return "point_on_planar_curve_pair_value"; }
     };
@@ -39214,6 +39334,7 @@ namespace AP214
             {
             get { return new spatial_rotation(m_instance, "input_orientation", 0); }
             }
+        public ypr_rotation actual_orientation { get { return (new ypr_rotationSerializer()).FromAttr(m_instance, "actual_orientation"); } }
 
         protected override TextValue EntityName() { return "point_on_surface_pair_value"; }
     };
@@ -39347,6 +39468,7 @@ namespace AP214
         public list_of_cartesian_point polygon { get { return (new list_of_cartesian_pointSerializer()).FromAttr(m_instance, "polygon"); } }
         public void put_polygon(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
         public void put_polygon_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "poly_loop"; }
     };
@@ -40159,6 +40281,7 @@ namespace AP214
             get { return get_string("description", ifcengine.sdaiSTRING); }
             set { ifcengine.sdaiPutAttrBN(m_instance, "description", ifcengine.sdaiSTRING, value); }
             }
+        public TextValue id { get { return get_string("id", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "product_category"; }
     };
@@ -40833,6 +40956,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "substitute_definition", ifcengine.sdaiINSTANCE, out inst); return new product_definition(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "substitute_definition", ifcengine.sdaiINSTANCE, i); }
             }
+        public TextValue name { get { return get_string("name", ifcengine.sdaiSTRING); } }
 
         protected override TextValue EntityName() { return "product_definition_substitute"; }
     };
@@ -41401,6 +41525,7 @@ namespace AP214
             get { return get_double("actual_displacement", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "actual_displacement", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? actual_rotation { get { return get_double("actual_rotation", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "rack_and_pinion_pair_value"; }
     };
@@ -41504,6 +41629,7 @@ namespace AP214
         public list_of_double weights_data { get { return (new list_of_doubleSerializer()).FromAttr(m_instance, "weights_data"); } }
         public void put_weights_data(IEnumerable<double> lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
+        public array_of_double weights { get { return (new array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
         protected override TextValue EntityName() { return "rational_b_spline_curve"; }
     };
@@ -41532,6 +41658,7 @@ namespace AP214
         public list_of_list_of_double weights_data { get { return (new list_of_list_of_doubleSerializer()).FromAttr(m_instance, "weights_data"); } }
         public void put_weights_data(IEnumerable<list_of_double> lst) { (new list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
         public void put_weights_data_untyped(IEnumerable lst) { (new list_of_list_of_doubleSerializer()).ToSdaiAggr(lst, m_instance, "weights_data"); }
+        public array_of_array_of_double weights { get { return (new array_of_array_of_doubleSerializer()).FromAttr(m_instance, "weights"); } }
 
         protected override TextValue EntityName() { return "rational_b_spline_surface"; }
     };
@@ -41655,6 +41782,8 @@ namespace AP214
         public list_of_list_of_surface_patch segments { get { return (new list_of_list_of_surface_patchSerializer()).FromAttr(m_instance, "segments"); } }
         public void put_segments(IEnumerable<list_of_surface_patch> lst) { (new list_of_list_of_surface_patchSerializer()).ToSdaiAggr(lst, m_instance, "segments"); }
         public void put_segments_untyped(IEnumerable lst) { (new list_of_list_of_surface_patchSerializer()).ToSdaiAggr(lst, m_instance, "segments"); }
+        public IntValue? n_u { get { return get_IntValue("n_u", ifcengine.sdaiINTEGER); } }
+        public IntValue? n_v { get { return get_IntValue("n_v", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "rectangular_composite_surface"; }
     };
@@ -42186,6 +42315,7 @@ namespace AP214
             get { return get_double("angle", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
         protected override TextValue EntityName() { return "revolved_area_solid"; }
     };
@@ -42221,6 +42351,7 @@ namespace AP214
             get { return get_double("angle", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "angle", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
         protected override TextValue EntityName() { return "revolved_face_solid"; }
     };
@@ -42936,6 +43067,7 @@ namespace AP214
             get { return get_double("actual_rotation", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "actual_rotation", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
+        public double? actual_translation { get { return get_double("actual_translation", ifcengine.sdaiREAL); } }
 
         protected override TextValue EntityName() { return "screw_pair_value"; }
     };
@@ -43869,6 +44001,7 @@ namespace AP214
             {
             get { return new spatial_rotation(m_instance, "input_orientation", 0); }
             }
+        public ypr_rotation actual_orientation { get { return (new ypr_rotationSerializer()).FromAttr(m_instance, "actual_orientation"); } }
 
         protected override TextValue EntityName() { return "spherical_pair_value"; }
     };
@@ -44213,6 +44346,9 @@ namespace AP214
         public list_of_generic_expression operands { get { return (new list_of_generic_expressionSerializer()).FromAttr(m_instance, "operands"); } }
         public void put_operands(IEnumerable<generic_expression> lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
         public void put_operands_untyped(IEnumerable lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
+        public generic_expression operand { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "operand", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
+        public generic_expression index1 { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "index1", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
+        public generic_expression index2 { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "index2", ifcengine.sdaiINSTANCE, out inst); return new generic_expression(inst); } }
 
         protected override TextValue EntityName() { return "substring_expression"; }
     };
@@ -44328,6 +44464,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_position", ifcengine.sdaiINSTANCE, out inst); return new axis1_placement(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "axis_position", ifcengine.sdaiINSTANCE, i); }
             }
+        public line axis_line { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "axis_line", ifcengine.sdaiINSTANCE, out inst); return new line(inst); } }
 
         protected override TextValue EntityName() { return "surface_of_revolution"; }
     };
@@ -46587,6 +46724,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_colour", ifcengine.sdaiINSTANCE, out inst); return new colour(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "curve_colour", ifcengine.sdaiINSTANCE, i); }
             }
+        public set_of_founded_item_select users { get { return (new set_of_founded_item_selectSerializer()).FromAttr(m_instance, "users"); } }
 
         protected override TextValue EntityName() { return "vector_style"; }
     };
@@ -46792,6 +46930,7 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, out inst); return new point(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, i); }
             }
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue EntityName() { return "vertex_point"; }
     };
