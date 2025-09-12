@@ -307,6 +307,12 @@ namespace CS_IFC
 
             IFC4.IfcComplexNumber cplxNum = prop.NominalValue.IfcMeasureValue.IfcComplexNumber;
             assert(cplxNum.Count == 2 && cplxNum.First() == 2.1 && cplxNum.Last() == 1.5);
+
+            //
+            // IndexedPolyCurve
+            //
+           int_t ifcPolyCurveInstance = CreateIndexedPolyCurve(model);
+           ParseIndexedPolyCurve(ifcPolyCurveInstance);
         }
 
         private static void assert(bool ok)
@@ -339,7 +345,7 @@ namespace CS_IFC
                     }
                     else
                     {
-                        assert(false); //no comparision is implemented
+                        assert(false); //no comparison is implemented
                     }
                 }
 
@@ -350,5 +356,138 @@ namespace CS_IFC
             assert(!m1 && !m2);
         }
 
+
+        class Point2D : IFC4.ListOfIfcLengthMeasure { public Point2D(double x, double y) { Add(x); Add(y); } };
+
+        private static IFC4.IfcIndexedPolyCurve CreateIndexedPolyCurve(int_t model)
+        {
+            var poly = IFC4.IfcIndexedPolyCurve.Create(model);
+            ////////
+
+            Point2D[] points2D = {
+                    new Point2D (0,0),            //arc1
+                    new Point2D(5457, -1272),
+                    new Point2D(2240, -5586),    //line1
+                    new Point2D(2227, -5900),    //arc2
+                    new Point2D(5294, -260),
+                    new Point2D(-240, 171)        //line2
+            };
+
+            var points = IFC4.IfcCartesianPointList2D.Create(model);
+            points.put_CoordList(points2D);
+
+            poly.Points = points;
+
+            //////
+
+            var arc1 = new IFC4.IfcSegmentIndexSelect(poly);
+            int_t[] _arc1 = { 1, 2, 3 };
+            arc1.put_IfcArcIndex(_arc1);
+
+            var line1 = new IFC4.IfcSegmentIndexSelect(poly);
+            int_t[] _line1 = { 3, 4 };
+            line1.put_IfcLineIndex(_line1);
+
+            var arc2 = new IFC4.IfcSegmentIndexSelect(poly);
+            int_t[] _arc2 = { 4, 5, 6 };
+            arc2.put_IfcArcIndex(_arc2);
+
+            var line2 = new IFC4.IfcSegmentIndexSelect(poly);
+            int_t[] _line2 = { 6, 1 };
+            line2.put_IfcLineIndex(_line2);
+
+
+            var segments = new IFC4.ListOfIfcSegmentIndexSelect();
+            segments.Add(arc1);
+            segments.Add(line1);
+            segments.Add(arc2);
+            segments.Add(line2);
+
+            poly.put_Segments(segments);
+
+            poly.SelfIntersect = false;
+
+            return poly;
+        }
+
+        private static void ParseIndexedPolyCurve(int_t instance)
+        {
+            IFC4.IfcIndexedPolyCurve polyCurve = instance;
+            if (polyCurve.IsNull)
+            {
+                System.Console.WriteLine("This is not a IfcIndexedPolyCurve");
+                return;
+            }
+     
+            System.Console.WriteLine("Dump {0}", polyCurve.EntityName);
+
+            System.Console.WriteLine("---------------- Segments -------------------");
+            int nseg = 0;
+            foreach (var segment in polyCurve.Segments)
+            {
+                System.Console.Write("  #{0} ", nseg++);
+
+                if (segment.is_IfcLineIndex)
+                {
+                    System.Console.Write("is line: ");
+                    var line = segment.IfcLineIndex;
+                    
+                    foreach (var index in line)
+                    {
+                        System.Console.Write("{0} ", index);
+                    }
+                }
+                else if (segment.is_IfcArcIndex) 
+                {
+                    System.Console.Write("is arc: ");
+                    var arc = segment.IfcArcIndex;
+
+                    foreach (var index in arc)
+                    {
+                        System.Console.Write("{0} ", index);
+                    }
+                }
+                else 
+                {
+                    System.Console.WriteLine("ERROR");
+                }
+
+                System.Console.WriteLine();
+            }
+
+            System.Console.WriteLine("--------------------- Points -----------------------");
+            IFC4.ListOfListOfIfcLengthMeasure coords = null;
+
+            var points3D = new IFC4.IfcCartesianPointList3D(polyCurve.Points);
+            if (!points3D.IsNull)
+            {
+                System.Console.WriteLine("  3D: ");
+                coords = points3D.CoordList;
+            }
+            else
+            {
+                var points2D = new IFC4.IfcCartesianPointList2D(polyCurve.Points);
+                if (!points2D.IsNull)
+                {
+                    System.Console.WriteLine("  2D: ");
+                    coords = points2D.CoordList;
+                }
+                else
+                {
+                    System.Console.WriteLine("ERROR");
+                }
+            }
+
+            int npt = 0;
+            foreach (var pt in coords)
+            {
+                System.Console.Write("    [{0}]:", npt++);
+                foreach (var v in pt)
+                {
+                    System.Console.Write("{0},", v);
+                }
+                System.Console.WriteLine();
+            }
+        }
     }
 }
