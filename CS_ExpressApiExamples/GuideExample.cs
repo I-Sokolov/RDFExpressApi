@@ -38,12 +38,12 @@ namespace CS_IFC
             ok = RDF.ifcengine.sdaiIsKindOfBN(sdaiWall, "IfcSlab");
             assert(ok==0);
 
-            //other way, if you have SDAI instance you can construct model instance of appripriate type
+            //other way, if you have SDAI instance you can construct model instance of appropriate type
 
             IFC4.IfcProduct product = sdaiWall; 
             assert(product != 0); //check instance is valid
 
-            //or if somebody loves C# syle
+            //or if somebody loves C# style
             product = new IFC4.IfcProduct (sdaiWall);
             assert(product!=0); 
 
@@ -52,14 +52,14 @@ namespace CS_IFC
 
             //
             // use put_* and set_* methods to access attribute
-            // Hint: in Visual Studio pay attention to inetlli-sense for possible methods help tool-tips for possible arguments
+            // Hint: in Visual Studio pay attention to InetlliSense for possible methods help tool-tips for possible arguments
             // 
 
             wall.Name = "MyWall";
             assert(wall.Name == "MyWall");
 
             //
-            // nullable values
+            // null-able values
             //
 
             // get_* method will return domain type if attribute domain includes null value
@@ -98,7 +98,7 @@ namespace CS_IFC
             assert(doorPredefinedType==null);
 
             //
-            // Definded types
+            // Defined types
             // Use C# base types EXPRESS defined types
             //
 
@@ -120,7 +120,7 @@ namespace CS_IFC
             person.FamilyName = "Smith";
             organisation.Name = "FBI";
 
-            //when you put a value to SELECT you shold specify type of the value
+            //when you put a value to SELECT you should specify type of the value
             //to do this, attribute put_* methods return a put-selector with method for each possible type
 
             IFC4.IfcActorSelect selector = actor.TheActor;
@@ -145,7 +145,7 @@ namespace CS_IFC
             assert(selector.is_IfcPerson);
             assert(!selector.is_IfcOrganization);
 
-            //similary, attribute get_* methods return a get-selector and you can inquire content
+            //similarly, attribute get_* methods return a get-selector and you can inquire content
             var p = selector.IfcPerson;
 
             assert(selector.is_IfcPerson);
@@ -157,7 +157,7 @@ namespace CS_IFC
             IFC4.IfcOrganization gotOrganization = selector.IfcOrganization;
             assert(gotOrganization == 0);
 
-            //get-selector may provide a method to get as base C++ type without specifing IFC type
+            //get-selector may provide a method to get as base C++ type without specifying IFC type
             SdaiInstance inst = selector.as_instance;
 
             //check instance class
@@ -194,14 +194,14 @@ namespace CS_IFC
             assert(gotText != null && gotText == "75");
 
             var gotBool = valueSelector.as_bool;
-            assert(gotBool==null); //IfcInteger is not convertable to bool
+            assert(gotBool==null); //IfcInteger is not convertible to bool
 
             //
             // AGGRAGATIONS
-            // For each unnamed aggragaion there is a ListOf*, SetOf* or BagOf* class
-            // For each named aggragation there is a lst class with the given name
-            // For put_* and get_* methods you can use these lists or any list with converible elements
-            // Additionaly for some put_* methods you can use C-arrays
+            // For each unnamed aggregation there is a ListOf*, SetOf* or BagOf* class
+            // For each named aggregation there is a lst class with the given name
+            // For put_* and get_* methods you can use these lists or any list with convertible elements
+            // Additionally for some put_* methods you can use C-arrays
             // Hint: in Visual Studio pay attention to help tool-tips for possible arguments
             //
 
