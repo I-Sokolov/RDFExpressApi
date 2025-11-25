@@ -19,7 +19,7 @@ extern void HelloWall()
     auto project = IfcProject::Create(model);
     project.put_GlobalId("1o1ykWxGT4ZxPjHNe4gayR");
     project.put_Name("HelloWall project");
-    project.put_Description("Example to demonstract early-binding abilities");
+    project.put_Description("Example to demonstrate early-binding abilities");
     
     auto ifcSite = IfcSite::Create(model);
     ifcSite.put_Name("HelloWall site");

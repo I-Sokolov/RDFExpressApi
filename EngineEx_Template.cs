@@ -686,7 +686,7 @@ namespace NAMESPACE_NAME
         };
 
     /// <summary>
-    /// Provides utility methods to interact with a generic SDAI instnace
+    /// Provides utility methods to interact with a generic SDAI instance
     /// You also can use object of this class instead of SdaiInstance handle in any place where the handle is required
     /// </summary>
     public abstract class Entity : IEquatable<Entity>, IComparable, IComparable<Entity>
@@ -829,7 +829,7 @@ namespace NAMESPACE_NAME
         public DEFINED_TYPE_NAME(SdaiInstance instance, TextValue attrName = null, IntValue adb = 0) : base(instance, attrName, adb) { }
 
         /// <summary>
-        /// Use this constructore to put nested select value
+        /// Use this constructor to put nested select value
         /// </summary>
         /// <param name="outer">outer select</param>
         public DEFINED_TYPE_NAME(Select outer) : base(outer) { }
@@ -911,7 +911,7 @@ namespace NAMESPACE_NAME
         public GEN_TYPE_NAME_accessor(SdaiInstance instance, TextValue attrName = null, IntValue adb = 0) : base(instance, attrName, adb) { }
 
         /// <summary>
-        /// Use this constructore to put nested select value
+        /// Use this constructor to put nested select value
         /// </summary>
         /// <param name="outer">outer select</param>
         public GEN_TYPE_NAME_accessor(Select outer) : base(outer) { }
@@ -1021,7 +1021,7 @@ namespace NAMESPACE_NAME
     //## TEMPLATE: EntityBegin
 
     /// <summary>
-    /// Provides utility methods to interact with an instnace of ENTITY_NAME
+    /// Provides utility methods to interact with an instance of ENTITY_NAME
     /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
     /// </summary>
     public class ENTITY_NAME : /*PARENT_NAME*/Entity
@@ -1037,7 +1037,7 @@ namespace NAMESPACE_NAME
 
         //## EntityCreateMethod
         /// <summary>
-        /// Create new instace of ENTITY_NAME and returns object of this class to interact with
+        /// Create new instance of ENTITY_NAME and returns object of this class to interact with
         /// </summary>
         public static new ENTITY_NAME Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "ENTITY_NAME"); Debug.Assert(inst != 0); return inst; }
 

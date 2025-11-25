@@ -29,7 +29,7 @@ extern void GuideExamples()
     ok = sdaiIsKindOfBN(sdaiWall, "IfcSlab");
     ASSERT(!ok);
 
-    //other way, if you have SDAI instance you can construct model instance of appripriate type
+    //other way, if you have SDAI instance you can construct model instance of appropriate type
 
     IFC4::IfcProduct product(sdaiWall);
     ASSERT(product); //check instance is valid
@@ -39,7 +39,7 @@ extern void GuideExamples()
 
     //
     // use put_* and set_* methods to access attribute
-    // Hint: in Visual Studio pay attention to inetlli-sense for possible methods help tool-tips for possible arguments
+    // Hint: in Visual Studio pay attention to IntelliSense for possible methods help tool-tips for possible arguments
     // 
 
     wall.put_Name("MyWall");
@@ -85,7 +85,7 @@ extern void GuideExamples()
     ASSERT(doorPredefinedType.IsNull());
 
     //
-    // Definded types
+    // Defined types
     // C++ types are declared for each EXPRESS defined type and implicitly converted to base C++ type
     //
    
@@ -108,7 +108,7 @@ extern void GuideExamples()
     auto actor = IFC4::IfcActor::Create(model);
     auto person = IFC4::IfcPerson::Create(model);
 
-    //when you put a value to SELECT you shold specify type of the value
+    //when you put a value to SELECT you should specify type of the value
     //to do this, attribute put_* methods return a put-selector with method for each possible type
 
     actor.put_TheActor().put_IfcPerson(person);
@@ -117,7 +117,7 @@ extern void GuideExamples()
     IFC4::IfcActorSelect_put putSelector = actor.put_TheActor();
     putSelector.put_IfcPerson(person);
 
-    //similary, attribute get_* methods return a get-selector and you can inquire content
+    //similarly, attribute get_* methods return a get-selector and you can inquire content
     IFC4::IfcActorSelect_get getSelector = actor.get_TheActor();
     
     ASSERT(getSelector.is_IfcPerson());
@@ -129,7 +129,7 @@ extern void GuideExamples()
     IFC4::IfcOrganization gotOrganization = getSelector.get_IfcOrganization();
     ASSERT(gotOrganization == 0);
 
-    //get-selector may provide a method to get as base C++ type without specifing IFC type
+    //get-selector may provide a method to get as base C++ type without specifying IFC type
     
     SdaiInstance inst =  getSelector.as_instance();
     
@@ -168,14 +168,14 @@ extern void GuideExamples()
     ASSERT(gotText != NULL && !strcmp(gotText, "75"));
 
     auto gotBool = valueSelector.as_bool();
-    ASSERT(gotBool.IsNull()); //IfcInteger is not convertable to bool
+    ASSERT(gotBool.IsNull()); //IfcInteger is not convertible to bool
 
     //
     // AGGRAGATIONS
-    // For each unnamed aggragaion there is a ListOf*, SetOf* or BagOf* class
-    // For each named aggragation there is a lst class with the given name
-    // For put_* and get_* methods you can use these lists or any list with converible elements
-    // Additionaly for some put_* methods you can use C-arrays
+    // For each unnamed aggregation there is a ListOf*, SetOf* or BagOf* class
+    // For each named aggregation there is a lst class with the given name
+    // For put_* and get_* methods you can use these lists or any list with convertible elements
+    // Additionally for some put_* methods you can use C-arrays
     // Hint: in Visual Studio pay attention to help tool-tips for possible arguments
     //
 
@@ -193,7 +193,7 @@ extern void GuideExamples()
     site.get_RefLatitude(gotPlaneAngle);
     ASSERT(gotPlaneAngle.size() == 3 && gotPlaneAngle.front() == 44);
 
-    //to put you can use lists of convertable types or array
+    //to put you can use lists of convertible types or array
     std::list<int_t> lstInt;
     lstInt.push_back(56);
     site.put_RefLatitude(lstInt);
@@ -201,7 +201,7 @@ extern void GuideExamples()
     int arrInt[] = {43,17,3,4};
     site.put_RefLongitude(arrInt, 4);
 
-    //and get as list of convertable type
+    //and get as list of convertible type
     std::vector<int_t> vector;
     site.get_RefLongitude(vector);
     ASSERT(vector.size() == 4 && vector[2] == 3);
