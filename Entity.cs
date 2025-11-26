@@ -1,10 +1,10 @@
-﻿using System;
+﻿using RDF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RDF;
-
+using System.Xml.Schema;
 using ExpressHandle = System.Int64;
 
 namespace RDFWrappers
@@ -91,6 +91,36 @@ namespace RDFWrappers
                 if (parentId == 0)
                     break;
                 ret.Add(parentId);
+            }
+
+            return ret;
+        }
+
+        public bool IsFirstParentOf(ExpressHandle sdaiEntityChild)
+        {
+            int ind = 0;
+            while (true)
+            {
+                var parentId = ifcengine.engiGetEntityParentEx(sdaiEntityChild, ind++);
+                if (parentId == 0)
+                    break;
+                if (parentId == sdaiEntity)
+                    return true;
+                break; //looking only for first parent
+            }
+            return false;
+        }
+
+        public List<Entity> GetSubTypesByFirstParent(Schema schema)
+        {
+            var ret = new List<Entity>();
+
+            foreach (var decl in schema.m_declarations[RDF.enum_express_declaration.__ENTITY])
+            {
+                if (IsFirstParentOf(decl.Value))
+                {
+                    ret.Add(new Entity(decl.Value));
+                }
             }
 
             return ret;

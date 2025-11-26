@@ -11,6 +11,7 @@ namespace CS_IFC
         {
             HelloWall.Run();
             GuideExample.Run();
+            ExactTypes.Run();
         }
     }
 }

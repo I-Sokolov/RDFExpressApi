@@ -24,6 +24,7 @@ namespace RDFWrappers
         public const string KWD_NAMESPACE = "NAMESPACE_NAME";
         public const string KWD_ENTITY_NAME = "ENTITY_NAME";
         public const string KWD_BASE_CLASS = "/*PARENT_NAME*/Entity";
+        public const string KWD_SUB_CLASS = "SUBENTITY__NAME";
         public const string KWD_DEFINED_TYPE = "DEFINED_TYPE_NAME";
         public const string KWD_BaseCType = "BaseCType";
         public const string KWD_SimpleType = "SimpleType";
@@ -96,6 +97,9 @@ namespace RDFWrappers
             EntitiesBegin,
             EntityBegin,
             EntityCreateMethod,
+            CreateExactSubEntiyMethod,
+            CreateExactSubEntiyCase,
+            CreateExactSubEntityEnd,
             AttributeSimpleGet,
             AttributeSimplePut,
             AttributeTextGet,
@@ -400,10 +404,26 @@ namespace RDFWrappers
             {
                 WriteByTemplate(Template.EntityCreateMethod);
             }
+
+            WriteSubEntityesCreation(entity);
                 
             WriteAttributes(entity, parentAttributes);
 
             WriteByTemplate(Template.EntityEnd);
+        }
+
+        private void WriteSubEntityesCreation(Entity entity)
+        {
+            IList<Entity> subEntities = entity.GetSubTypesByFirstParent(m_schema);
+            WriteByTemplate(Template.CreateExactSubEntiyMethod);
+
+            foreach (var subEntity in subEntities)
+            {
+                m_replacements[KWD_SUB_CLASS] = ValidateIdentifier(subEntity.name);
+                WriteByTemplate(Template.CreateExactSubEntiyCase);
+            }
+
+            WriteByTemplate(Template.CreateExactSubEntityEnd);
         }
 
         /// <summary>

@@ -4,6 +4,7 @@
 
 #pragma warning disable CS1587
 #pragma warning disable CS1591
+#pragma warning disable VSSpell001 // Spell Check
 
 using System;
 using System.Diagnostics;
@@ -28,14 +29,20 @@ namespace NAMESPACE_NAME
     using SimpleType = Double; //## IGNORE
     using BaseCType = Double; //## IGNORE
     public class SIMpleType : List<SimpleType> { }  //## IGNORE
-    public class REF_ENTITY : Entity { public REF_ENTITY(SdaiInstance ints) : base(0) { } public REF_ENTITY() : base(0) { } protected override string WrapperEntityName() { return null; } } //## IGNORE
+    public class REF_ENTITY : ENTITY_NAME                                                       //## IGNORE
+    {                                                                                           //## IGNORE
+        public REF_ENTITY(SdaiInstance ints) : base(0) { }                                      //## IGNORE
+        public new static REF_ENTITY CreateExactEntity(SdaiInstance instance) { return null; } //## IGNORE
+        public REF_ENTITY() : base(0) { }                                                       //## IGNORE
+        protected override string WrapperEntityName() { return null; }                          //## IGNORE
+    }                                                                                           //## IGNORE
 
     public class SImpleType : Select                        //##IGNORE
-        {                                                       //##IGNORE
+        {                                                   //##IGNORE
         public SImpleType() : base(null) { }                //##IGNORE
         public SImpleType(Select outer) : base(outer) { }   //## IGNORE
         public SImpleType(SdaiInstance instance, TextValue attrName = null, IntValue adb = 0) : base(instance, attrName, adb) { }//##IGNORE
-        }                                                       //##IGNORE
+        }                                                   //##IGNORE
     /// <summary>
     /// 
     /// </summary>
@@ -576,6 +583,7 @@ namespace NAMESPACE_NAME
             ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiINSTANCE, out val);
             elem = new TElem();
             elem.Set(val);
+            elem = elem.ToExactEntity() as TElem;
             return (elem != 0);
             }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, TElem elem)
@@ -692,7 +700,8 @@ namespace NAMESPACE_NAME
     public abstract class Entity : IEquatable<Entity>, IComparable, IComparable<Entity>
         {
         public static Entity Create(SdaiModel model) { System.Diagnostics.Debug.Assert(false); return null; }
-
+        public static Entity CreateExactEntity(SdaiInstance instance) { System.Diagnostics.Debug.Assert(false); return null; }
+        public virtual Entity ToExactEntity() { return Entity.CreateExactEntity(m_instance); }
         //
         public Int64 StepID { get { return m_instance != 0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
 
@@ -950,14 +959,14 @@ namespace NAMESPACE_NAME
         public bool is_REF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
         public REF_ENTITY REF_ENTITy_suffix
             {
-            get { return new REF_ENTITY(getEntityInstance("TypeNameUpper")); }
+            get { return REF_ENTITY.CreateExactEntity(getEntityInstance("TypeNameUpper")); }
             }
         //## SelectEntityPut
         public bool is_rEF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
         public REF_ENTITY REF_ENTITY_suffix
             {
             set { putEntityInstance("TypeNameUpper", value); }
-            get { return new REF_ENTITY(getEntityInstance("TypeNameUpper")); } 
+            get { return REF_ENTITY.CreateExactEntity(getEntityInstance("TypeNameUpper")); } 
             }
         //## SelectEnumerationGet
         public bool is_TypeNAmeIFC { get { return IsADBType("TypeNameUpper"); } }
@@ -1041,6 +1050,26 @@ namespace NAMESPACE_NAME
         /// </summary>
         public static new ENTITY_NAME Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "ENTITY_NAME"); Debug.Assert(inst != 0); return inst; }
 
+        //## CreateExactSubEntiyMethod
+        /// <summary>
+        /// Create instance of ENTITY_NAME or its sub-entity based on the actual type of SdaiInstance
+        /// </summary>
+        public new static ENTITY_NAME CreateExactEntity (SdaiInstance instance)
+            {
+        //## CreateExactSubEntiyCase
+            if (ifcengine.sdaiIsKindOfBN(instance, "SUBENTITY__NAME") != 0 )
+                {
+                return SUBENTITY__NAME.CreateExactEntity(instance);
+                }
+            else
+        //## CreateExactSubEntityEnd
+                {
+                return new ENTITY_NAME(instance);
+                }
+            }
+
+        public override Entity ToExactEntity() { return ENTITY_NAME.CreateExactEntity(m_instance); }
+
         //## AttributeSimpleGet
         public BaseCType? aTTR_NAME { get { return get_BaseCType("ATTR_NAME", ifcengine.sdaiTYPE); } }
         //## AttributeSimplePut
@@ -1058,11 +1087,11 @@ namespace NAMESPACE_NAME
             set { ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiTYPE, value); }
             }
         //## AttributeEntityGet
-        public REF_ENTITY Attr_nAME { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, out inst); return new REF_ENTITY(inst); } }
+        public REF_ENTITY Attr_nAME { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, out inst); return REF_ENTITY.CreateExactEntity(inst); } }
         //## AttributeEntityPut
         public REF_ENTITY Attr_NAME 
             {
-            get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, out inst); return new REF_ENTITY(inst); } 
+            get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, out inst); return REF_ENTITY.CreateExactEntity(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, i); }
             }
         //## AttributeEnumGet
@@ -1090,10 +1119,12 @@ namespace NAMESPACE_NAME
         protected override TextValue WrapperEntityName() { return "ENTITY_NAME"; }
     };
 
+    public class SUBENTITY__NAME : ENTITY_NAME {}; //## IGNORE
+
     //## SelectEntityGetImplementation
     //## SelectEntityPutImplementation
     //## AttributeEntityGetImplementation
     //## AttributeEntityPutImplementation
     //## TEMPLATE: EndFile template part
-}
+    }
 

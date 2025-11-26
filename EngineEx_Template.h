@@ -504,7 +504,7 @@ namespace NAMESPACE_NAME
 
 
     /// <summary>
-    /// Provides utility methods to interact with a generic SDAI instnace
+    /// Provides utility methods to interact with a generic SDAI instance
     /// You also can use object of this class instead of SdaiInstance handle in any place where the handle is required
     /// </summary>
     class Entity
@@ -646,11 +646,11 @@ namespace NAMESPACE_NAME
         //## SelectAggregationGet
         bool is_AggregationType() { return IsADBType("TypeNameUpper"); }
 
-        //TList may be AggregationType or list of converible elements
+        //TList may be AggregationType or list of convertible elements
         template <typename TList> void get_AggregationType(TList& lst) { SdaiAggr aggr = getAggrValue("TypeNameUpper"); AggregationTypeSerializer<TList> sr; sr.FromSdaiAggr(lst, m_instance, aggr); }
         //## SelectAggregationPut
 
-                //TList may be AggregationType or list of converible elements
+                //TList may be AggregationType or list of convertible elements
         template <typename TList> void put_AggregationType(TList& lst) { AggregationTypeSerializer<TList> sr; SdaiAggr aggr = sr.ToSdaiAggr(lst, m_instance, NULL); putAggrValue("TypeNameUpper", aggr); }
         //## SelectAggregationPutArray
 
@@ -680,7 +680,7 @@ namespace NAMESPACE_NAME
     //## TEMPLATE: EntityBegin
 
         /// <summary>
-        /// Provides utility methods to interact with an instnace of ENTITY_NAME
+        /// Provides utility methods to interact with an instance of ENTITY_NAME
         /// You also can use object of this C++ class instead of IntValue handle of the OWL instance in any place where the handle is required
         /// </summary>
     class ENTITY_NAME : public virtual /*PARENT_NAME*/Entity
@@ -695,10 +695,17 @@ namespace NAMESPACE_NAME
         {}
 
         //## EntityCreateMethod
-                /// <summary>
-                /// Create new instace of ENTITY_NAME and returns object of this C++ class to interact with
-                /// </summary>
+        /// <summary>
+        /// Create new instance of ENTITY_NAME and returns object of this C++ class to interact with
+        /// </summary>
         static ENTITY_NAME Create(SdaiModel model) { SdaiInstance inst = sdaiCreateInstanceBN(model, "ENTITY_NAME"); assert(inst); return inst; }
+        /// <summary>
+        /// Create instance of ENTITY_NAME or its sub-entity based on the actual type of SdaiInstance
+        /// </summary>
+        //## CreateExactSubEntiyMethod
+        static ENTITY_NAME CreateExactEntity (SdaiInstance instance); //not implemented yet
+        //## CreateExactSubEntiyCase
+        //## CreateExactSubEntityEnd
         //## AttributeSimpleGet
 
         Nullable<SimpleType> get_ATTR_NAME() { SimpleType val = (SimpleType) 0; if (sdaiGetAttrBN(m_instance, "ATTR_NAME", sdaiTYPE, &val)) return val; else return Nullable<SimpleType>(); }
@@ -723,11 +730,11 @@ namespace NAMESPACE_NAME
         GEN_TYPE_NAME_accessor getOrPut_ATTR_NAME() { return GEN_TYPE_NAME_accessor(m_instance, "ATTR_NAME", NULL); }
         //## AttributeAggregationGet
 
-        //TList may be AggregationType or list of converible elements
+        //TList may be AggregationType or list of convertible elements
         template <typename TList> void get_ATTr_NAME(TList& lst) { AggregationTypeSerializer<TList> sr; sr.FromAttr(lst, m_instance, "ATTR_NAME"); }
         //## AttributeAggregationPut
 
-        //TList may be AggregationType or list of converible elements
+        //TList may be AggregationType or list of convertible elements
         template <typename TList> void put_ATTr_NAME(TList& lst) { AggregationTypeSerializer<TList> sr;  sr.ToSdaiAggr(lst, m_instance, "ATTR_NAME"); }
         //## AttributeAggregationPutArray
 
