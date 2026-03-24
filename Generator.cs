@@ -532,7 +532,7 @@ namespace RDFWrappers
             {
                 WriteSelectAttribute(attr, select.name);
             }
-            else if (attr.domain == 0 && attr.attrType == RDF.enum_express_attr_type.__LOGICAL)
+            else if (attr.domain == 0 && attr.dataType == RDF.enum_express_data_type.__LOGICAL)
             {
                 WriteEnumAttribute(attr, "LOGICAL_VALUE", "LOGICAL_VALUE", "LOGICAL_VALUE_");
             }

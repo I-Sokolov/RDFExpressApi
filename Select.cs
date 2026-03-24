@@ -101,7 +101,7 @@ namespace RDFWrappers
 
                     case enum_express_declaration.__DEFINED_TYPE:
                         var definedType = new DefinedType(variant);
-                        if (!definedType.IsAggregation () && definedType.attrType != enum_express_attr_type.__LOGICAL)
+                        if (!definedType.IsAggregation () && definedType.dataType != enum_express_data_type.__LOGICAL)
                         {
                             var cstype = definedType.GetBaseCSType();
                             if (cstype != null)
@@ -329,9 +329,9 @@ namespace RDFWrappers
                 switch (foundation.declarationType)
                 {
                     case enum_express_declaration.__NONE: //based on primitive
-                        switch (foundation.attrType)
+                        switch (foundation.dataType)
                         {
-                            case enum_express_attr_type.__LOGICAL:
+                            case enum_express_data_type.__LOGICAL:
                                 WriteAccessorEnumMethod(generator, definedType.name, "LOGICAL_VALUE", "LOGICAL_VALUE_", bGet);
                                 break;
 

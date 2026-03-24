@@ -18,7 +18,7 @@ namespace RDFWrappers
         public class Foundation
             {
             public enum_express_declaration declarationType = enum_express_declaration.__NONE; //Undef for primitive types, see attrType 
-            public enum_express_attr_type attrType = enum_express_attr_type.__NONE;        
+            public enum_express_data_type dataType = enum_express_data_type.__NONE;        
             public enum_express_aggr aggrType = enum_express_aggr.__NONE;
             };
 
@@ -33,7 +33,7 @@ namespace RDFWrappers
 
             name = Schema.GetNameOfDeclaration(declaration);
 
-            attrType = ifcengine.engiGetDefinedType(declaration, out domain, out aggregation);
+            dataType = ifcengine.engiGetDefinedType(declaration, out domain, out aggregation);
         }
 
         public string GetBaseCSType()
@@ -56,7 +56,7 @@ namespace RDFWrappers
             }
             else
             {
-                return Schema.GetPrimitiveType(attrType);
+                return Schema.GetPrimitiveType(dataType);
             }
         }
 
@@ -86,7 +86,7 @@ namespace RDFWrappers
             }
             else
             {
-                return Schema.GetSdaiType(attrType);
+                return Schema.GetSdaiType(dataType);
             }
         }
 
@@ -100,7 +100,7 @@ namespace RDFWrappers
             }
 
             var foundation = new Foundation();
-            foundation.attrType = attrType;
+            foundation.dataType = dataType;
 
             var referTypeName = "";
 
@@ -117,20 +117,20 @@ namespace RDFWrappers
                     var referencedType = new DefinedType(domain);
                     var baseFoundation = referencedType.WriteType(generator, visitedTypes);
                     foundation.aggrType = baseFoundation.aggrType;
-                    foundation.attrType = baseFoundation.attrType;
+                    foundation.dataType = baseFoundation.dataType;
                     foundation.declarationType = baseFoundation.declarationType;
                 }
             }
-            else if (attrType == RDF.enum_express_attr_type.__LOGICAL)
+            else if (dataType == RDF.enum_express_data_type.__LOGICAL)
             {
                 generator.m_replacements[Generator.KWD_SimpleType] = "LOGICAL_VALUE";
             }
             else
             {
-                var csType = Schema.GetPrimitiveType(attrType);
+                var csType = Schema.GetPrimitiveType(dataType);
                 if (csType == null)
                 {
-                    Console.WriteLine("Defined type {0} is not supproted (primitive type is {1})", name, attrType.ToString());
+                    Console.WriteLine("Defined type {0} is not supproted (primitive type is {1})", name, dataType.ToString());
                     return null;
                 }
 
@@ -199,13 +199,13 @@ namespace RDFWrappers
                 return; //defined type is not supported, message for definded type already done
             }
 
-            switch (attrType)
+            switch (dataType)
             {
-                case RDF.enum_express_attr_type.__LOGICAL:
+                case RDF.enum_express_data_type.__LOGICAL:
                     generator.WriteEnumAttribute(attr, name, "LOGICAL_VALUE", "LOGICAL_VALUE_");
                     return;
 
-                case enum_express_attr_type.__SELECT:
+                case enum_express_data_type.__SELECT:
                     generator.WriteSelectAttribute(attr, name);
                     return;
             }

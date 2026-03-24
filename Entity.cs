@@ -37,14 +37,14 @@ namespace RDFWrappers
             {
                 IntPtr ptrName = IntPtr.Zero;
                 Int64 definingEntity, domainEntity, aggregation;
-                enum_express_attr_type attrType;
+                enum_express_data_type dataType;
                 bool inverse, explicit_, optional;
 
                 ifcengine.engiGetAttrTraits
                                 (attribute,
                                 out ptrName,
                                 out definingEntity, out explicit_, out inverse,
-                                out attrType, out domainEntity,
+                                out dataType, out domainEntity,
                                 out aggregation,
                                 out optional
                                 );
@@ -54,7 +54,7 @@ namespace RDFWrappers
                     name = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptrName),
                     definingEntity = definingEntity,
                     explicit_ = explicit_,
-                    attrType = attrType,
+                    dataType = dataType,
                     domain = domainEntity,
                     aggregation = aggregation,
                     optional = optional

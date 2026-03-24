@@ -14,7 +14,7 @@ namespace RDFWrappers
 {
     public class TypeDef
     {
-        public enum_express_attr_type attrType;
+        public enum_express_data_type dataType;
         public ExpressHandle domain;
 
         public Int64 aggregation;
@@ -40,10 +40,10 @@ namespace RDFWrappers
 
         public bool IsSimpleType(out string domainType, out string baseType, out string sdaiType)
         {
-            return IsSimpleType(attrType, domain, out domainType, out baseType, out sdaiType);
+            return IsSimpleType(dataType, domain, out domainType, out baseType, out sdaiType);
         }
 
-        private bool IsSimpleType(enum_express_attr_type attrType, ExpressHandle domainEntity, out string domainTypeName, out string baseType, out string sdaiType)
+        private bool IsSimpleType(enum_express_data_type dataType, ExpressHandle domainEntity, out string domainTypeName, out string baseType, out string sdaiType)
         {
             domainTypeName = null;
             baseType = null;
@@ -54,16 +54,16 @@ namespace RDFWrappers
                 domainTypeName = Schema.GetNameOfDeclaration(domainEntity);
             }
 
-            baseType = Schema.GetPrimitiveType(attrType);
+            baseType = Schema.GetPrimitiveType(dataType);
 
-            switch (attrType)
+            switch (dataType)
             {
-                case enum_express_attr_type.__NONE: //attribute type is defined by reference domain entity
+                case enum_express_data_type.__NONE: //attribute type is defined by reference domain entity
                     if (enum_express_declaration.__DEFINED_TYPE == ifcengine.engiGetDeclarationType(domainEntity))
                     {
                         var domainType = new DefinedType(domainEntity);
                         string skip;
-                        bool ret = IsSimpleType(domainType.attrType, domainType.domain, out skip, out baseType, out sdaiType);
+                        bool ret = IsSimpleType(domainType.dataType, domainType.domain, out skip, out baseType, out sdaiType);
                         return ret;
                     }
                     else
@@ -71,30 +71,30 @@ namespace RDFWrappers
                         return false;
                     }
 
-                case enum_express_attr_type.__LOGICAL:
-                case enum_express_attr_type.__ENUMERATION:
-                case enum_express_attr_type.__SELECT:
+                case enum_express_data_type.__LOGICAL:
+                case enum_express_data_type.__ENUMERATION:
+                case enum_express_data_type.__SELECT:
                     return false;
 
-                case enum_express_attr_type.__BINARY:
-                case enum_express_attr_type.__BINARY_32:
+                case enum_express_data_type.__BINARY:
+                case enum_express_data_type.__BINARY_32:
                     sdaiType = "sdaiBINARY";
                     return true;
 
-                case enum_express_attr_type.__BOOLEAN:
+                case enum_express_data_type.__BOOLEAN:
                     sdaiType = "sdaiBOOLEAN";
                     return true;
 
-                case enum_express_attr_type.__INTEGER:
+                case enum_express_data_type.__INTEGER:
                     sdaiType = "sdaiINTEGER";
                     return true;
 
-                case enum_express_attr_type.__REAL:
-                case enum_express_attr_type.__NUMBER:
+                case enum_express_data_type.__REAL:
+                case enum_express_data_type.__NUMBER:
                     sdaiType = "sdaiREAL";
                     return true;
 
-                case enum_express_attr_type.__STRING:
+                case enum_express_data_type.__STRING:
                     sdaiType = "sdaiSTRING";
                     return true;
 
@@ -113,7 +113,7 @@ namespace RDFWrappers
         {
             entityName = null;
 
-            if (attrType == enum_express_attr_type.__NONE)
+            if (dataType == enum_express_data_type.__NONE)
             {
                 if (enum_express_declaration.__ENTITY == ifcengine.engiGetDeclarationType(domain))
                 {
@@ -139,7 +139,7 @@ namespace RDFWrappers
 
         public Enumeraion IsEnumeration()
         {
-            if (attrType == enum_express_attr_type.__NONE || attrType == enum_express_attr_type.__ENUMERATION)
+            if (dataType == enum_express_data_type.__NONE || dataType == enum_express_data_type.__ENUMERATION)
             {
                 if (enum_express_declaration.__ENUM == ifcengine.engiGetDeclarationType(domain))
                 {
@@ -153,7 +153,7 @@ namespace RDFWrappers
 
         public Select IsSelect()
         {
-            if (attrType == enum_express_attr_type.__NONE || attrType == enum_express_attr_type.__SELECT)
+            if (dataType == enum_express_data_type.__NONE || dataType == enum_express_data_type.__SELECT)
             {
                 if (enum_express_declaration.__SELECT == ifcengine.engiGetDeclarationType(domain))
                 {
@@ -188,9 +188,9 @@ namespace RDFWrappers
                     }
             }
 
-            switch (attrType)
+            switch (dataType)
             {
-                case enum_express_attr_type.__NONE: //attribute type is defined by reference domain entity
+                case enum_express_data_type.__NONE: //attribute type is defined by reference domain entity
                     if (domain != 0)
                     {
                         str.Append("REF:");
@@ -204,7 +204,7 @@ namespace RDFWrappers
                     }
                     break;
 
-                case enum_express_attr_type.__ENUMERATION:
+                case enum_express_data_type.__ENUMERATION:
                     if (domain != 0)
                     {
                         str.Append ("ENUM:" + Schema.GetNameOfDeclaration(domain));
@@ -215,7 +215,7 @@ namespace RDFWrappers
                     }
                     break;
 
-                case enum_express_attr_type.__SELECT:
+                case enum_express_data_type.__SELECT:
                     if (domain != 0)
                     {
                         str.Append ("SELECT:" + Schema.GetNameOfDeclaration(domain));
@@ -226,15 +226,15 @@ namespace RDFWrappers
                     }
                     break;
 
-                case enum_express_attr_type.__BINARY:
-                case enum_express_attr_type.__BINARY_32:
-                case enum_express_attr_type.__BOOLEAN:
-                case enum_express_attr_type.__INTEGER:
-                case enum_express_attr_type.__LOGICAL:
-                case enum_express_attr_type.__NUMBER:
-                case enum_express_attr_type.__REAL:
-                case enum_express_attr_type.__STRING:
-                    str.Append (attrType.ToString());
+                case enum_express_data_type.__BINARY:
+                case enum_express_data_type.__BINARY_32:
+                case enum_express_data_type.__BOOLEAN:
+                case enum_express_data_type.__INTEGER:
+                case enum_express_data_type.__LOGICAL:
+                case enum_express_data_type.__NUMBER:
+                case enum_express_data_type.__REAL:
+                case enum_express_data_type.__STRING:
+                    str.Append (dataType.ToString());
                     if(domain != 0)
                     {
                         str.Append("<-");

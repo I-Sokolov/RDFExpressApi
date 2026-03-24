@@ -34,31 +34,31 @@ namespace RDFWrappers
             }
         }
 
-        static public string GetPrimitiveType(enum_express_attr_type attr_Type)
+        static public string GetPrimitiveType(enum_express_data_type data_Type)
         {
-            switch (attr_Type)
+            switch (data_Type)
             {
-                case enum_express_attr_type.__BOOLEAN:
+                case enum_express_data_type.__BOOLEAN:
                     return "bool";
 
-                case enum_express_attr_type.__INTEGER:
+                case enum_express_data_type.__INTEGER:
                     return "IntValue";
 
-                case enum_express_attr_type.__NUMBER:
+                case enum_express_data_type.__NUMBER:
                     return "double";
 
-                case enum_express_attr_type.__REAL:
+                case enum_express_data_type.__REAL:
                     return "double";
 
-                case enum_express_attr_type.__STRING:
-                case enum_express_attr_type.__BINARY:
-                case enum_express_attr_type.__BINARY_32:
+                case enum_express_data_type.__STRING:
+                case enum_express_data_type.__BINARY:
+                case enum_express_data_type.__BINARY_32:
                     return "TextValue";
 
-                case enum_express_attr_type.__NONE:
-                case enum_express_attr_type.__LOGICAL:
-                case enum_express_attr_type.__ENUMERATION:
-                case enum_express_attr_type.__SELECT:
+                case enum_express_data_type.__NONE:
+                case enum_express_data_type.__LOGICAL:
+                case enum_express_data_type.__ENUMERATION:
+                case enum_express_data_type.__SELECT:
                     return null;
 
                 default:
@@ -67,33 +67,33 @@ namespace RDFWrappers
             }
         }
 
-        static public string GetSdaiType(enum_express_attr_type attr_Type)
+        static public string GetSdaiType(enum_express_data_type data_Type)
         {
-            switch (attr_Type)
+            switch (data_Type)
             {
-                case enum_express_attr_type.__BOOLEAN:
+                case enum_express_data_type.__BOOLEAN:
                     return "sdaiBOOLEAN";
 
-                case enum_express_attr_type.__INTEGER:
+                case enum_express_data_type.__INTEGER:
                     return "sdaiINTEGER";
 
-                case enum_express_attr_type.__LOGICAL:
+                case enum_express_data_type.__LOGICAL:
                     return "sdaiLOGICAL";
 
-                case enum_express_attr_type.__NUMBER:
-                case enum_express_attr_type.__REAL:
+                case enum_express_data_type.__NUMBER:
+                case enum_express_data_type.__REAL:
                     return "sdaiREAL";
 
-                case enum_express_attr_type.__STRING:
+                case enum_express_data_type.__STRING:
                     return "sdaiSTRING";
 
-                case enum_express_attr_type.__BINARY:
-                case enum_express_attr_type.__BINARY_32:
+                case enum_express_data_type.__BINARY:
+                case enum_express_data_type.__BINARY_32:
                     return "sdaiBINARY";
 
-                case enum_express_attr_type.__NONE:
-                case enum_express_attr_type.__ENUMERATION:
-                case enum_express_attr_type.__SELECT:
+                case enum_express_data_type.__NONE:
+                case enum_express_data_type.__ENUMERATION:
+                case enum_express_data_type.__SELECT:
                 default:
                     System.Diagnostics.Debug.Assert(false);
                     return null;

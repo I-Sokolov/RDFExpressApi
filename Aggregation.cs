@@ -221,7 +221,7 @@ namespace RDFWrappers
                 enumValues = enumeration.name + "_";
                 template = Generator.Template.AggregationOfEnum;
             }
-            else if (typeDef.domain == 0 && typeDef.attrType == RDF.enum_express_attr_type.__LOGICAL)
+            else if (typeDef.domain == 0 && typeDef.dataType == RDF.enum_express_data_type.__LOGICAL)
             {
                 elemIfcType = "LOGICAL_VALUE";
                 elemApiType = elemIfcType;
@@ -266,9 +266,9 @@ namespace RDFWrappers
                             template = Generator.Template.AggregationOfSelect;
                             break;
                         default:
-                            switch (foundation.attrType)
+                            switch (foundation.dataType)
                             {
-                                case enum_express_attr_type.__LOGICAL:
+                                case enum_express_data_type.__LOGICAL:
                                     elemIfcType = definedType.name;
                                     elemApiType = "LOGICAL_VALUE";
                                     sdaiType = "sdaiLOGICAL";
