@@ -6619,14 +6619,14 @@ namespace CIS2
     class set_of_analysis_results_set_combinedSerializer : AggrSerializerInstance<analysis_results_set_combined, set_of_analysis_results_set_combined> { }
     public class list_of_ratio_measure_with_unit : List<ratio_measure_with_unit> { }
     class list_of_ratio_measure_with_unitSerializer : AggrSerializerInstance<ratio_measure_with_unit, list_of_ratio_measure_with_unit> { }
-    public class set_of_assembly_component_select : List<assembly_component_select> { }
-    class set_of_assembly_component_selectSerializer : AggrSerializerSelect<assembly_component_select, set_of_assembly_component_select> { }
-    public class set_of_structural_frame_process : List<structural_frame_process> { }
-    class set_of_structural_frame_processSerializer : AggrSerializerInstance<structural_frame_process, set_of_structural_frame_process> { }
     public class bag_of_identifier : List<TextValue> { }
     class bag_of_identifierSerializer : AggrSerializerText<TextValue, bag_of_identifier> { public bag_of_identifierSerializer() : base(ifcengine.sdaiSTRING) { } }
     public class bag_of_label : List<TextValue> { }
     class bag_of_labelSerializer : AggrSerializerText<TextValue, bag_of_label> { public bag_of_labelSerializer() : base(ifcengine.sdaiSTRING) { } }
+    public class set_of_assembly_component_select : List<assembly_component_select> { }
+    class set_of_assembly_component_selectSerializer : AggrSerializerSelect<assembly_component_select, set_of_assembly_component_select> { }
+    public class set_of_structural_frame_process : List<structural_frame_process> { }
+    class set_of_structural_frame_processSerializer : AggrSerializerInstance<structural_frame_process, set_of_structural_frame_process> { }
     public class set_of_located_assembly : List<located_assembly> { }
     class set_of_located_assemblySerializer : AggrSerializerInstance<located_assembly, set_of_located_assembly> { }
     public class set_of_functional_role : List<functional_role> { }
@@ -18673,6 +18673,7 @@ namespace CIS2
 
         public override Entity ToExactEntity() { return edge_curve.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public curve edge_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "edge_geometry", ifcengine.sdaiINSTANCE, out inst); return curve.CreateExactEntity(inst); } 
@@ -18683,7 +18684,6 @@ namespace CIS2
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "edge_curve"; }
     };
@@ -20529,6 +20529,7 @@ namespace CIS2
 
         public override Entity ToExactEntity() { return face_surface.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public surface face_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "face_geometry", ifcengine.sdaiINSTANCE, out inst); return surface.CreateExactEntity(inst); } 
@@ -20539,7 +20540,6 @@ namespace CIS2
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "face_surface"; }
     };
@@ -35494,10 +35494,10 @@ namespace CIS2
 
         public override Entity ToExactEntity() { return poly_loop.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public list_of_cartesian_point polygon { get { return (new list_of_cartesian_pointSerializer()).FromAttr(m_instance, "polygon"); } }
         public void put_polygon(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
         public void put_polygon_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "poly_loop"; }
     };
@@ -43007,12 +43007,12 @@ namespace CIS2
 
         public override Entity ToExactEntity() { return vertex_point.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public point vertex_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, out inst); return point.CreateExactEntity(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, i); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "vertex_point"; }
     };

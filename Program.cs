@@ -17,13 +17,13 @@ namespace RDFWrappers
             [CommandLine.Option("schema", HelpText = "Generate wrapper for by EXPRESS file path or schema name")]
             public string schema { get; set; }
 
-            [CommandLine.Option("cs", HelpText = "Pathnamte of c# file to be generate, or '0' to suppress c# generation. Default is schema file name.")]
+            [CommandLine.Option("cs", HelpText = "Pathname of c# file to be generate, or '0' to suppress c# generation. Default is schema file name.")]
             public string csFile { get; set; }
 
             [CommandLine.Option('h', HelpText = "Pathname of c++ header file to be generated, or '0' to suppress c++ generation. Default is schema file name.")]
             public string hFile { get; set; }
             
-            [CommandLine.Option("namespace", HelpText = "Namespase. Default is schema file name.")]
+            [CommandLine.Option("namespace", HelpText = "Namespace for generating classes. Default is schema file name.")]
             public string Namespace { get; set; }
 
             [CommandLine.Option("printSchema", Default = false, HelpText = "Print parsed schema.")]
@@ -61,7 +61,7 @@ namespace RDFWrappers
                 if (!done)
                 {
                     Console.WriteLine("\nNothing generated.\nSpecify command line option --embedded or --schema.\n");
-                    Console.WriteLine("Use --help to ptint more information and visit http://www.rdf.bg.");
+                    Console.WriteLine("Use --help to print more information and visit http://www.rdf.bg.");
                     return -1;
                 }
 

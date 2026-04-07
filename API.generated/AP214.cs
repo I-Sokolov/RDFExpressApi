@@ -21056,6 +21056,7 @@ namespace AP214
 
         public override Entity ToExactEntity() { return face_surface.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public surface face_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "face_geometry", ifcengine.sdaiINSTANCE, out inst); return surface.CreateExactEntity(inst); } 
@@ -21066,7 +21067,6 @@ namespace AP214
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "face_surface"; }
     };
@@ -22946,10 +22946,10 @@ namespace AP214
 
         public override Entity ToExactEntity() { return annotation_plane.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public set_of_annotation_plane_element elements { get { return (new set_of_annotation_plane_elementSerializer()).FromAttr(m_instance, "elements"); } }
         public void put_elements(IEnumerable<annotation_plane_element> lst) { (new set_of_annotation_plane_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
         public void put_elements_untyped(IEnumerable lst) { (new set_of_annotation_plane_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "annotation_plane"; }
     };
@@ -39239,6 +39239,7 @@ namespace AP214
 
         public override Entity ToExactEntity() { return edge_curve.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public curve edge_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "edge_geometry", ifcengine.sdaiINSTANCE, out inst); return curve.CreateExactEntity(inst); } 
@@ -39249,7 +39250,6 @@ namespace AP214
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "edge_curve"; }
     };
@@ -51532,10 +51532,10 @@ namespace AP214
 
         public override Entity ToExactEntity() { return poly_loop.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public list_of_cartesian_point polygon { get { return (new list_of_cartesian_pointSerializer()).FromAttr(m_instance, "polygon"); } }
         public void put_polygon(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
         public void put_polygon_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "poly_loop"; }
     };
@@ -61986,6 +61986,7 @@ namespace AP214
 
         public override Entity ToExactEntity() { return vector_style.CreateExactEntity(m_instance); }
 
+        public set_of_founded_item_select users { get { return (new set_of_founded_item_selectSerializer()).FromAttr(m_instance, "users"); } }
 
         public curve_font_or_scaled_curve_font_select curve_font
             {
@@ -62001,7 +62002,6 @@ namespace AP214
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "curve_colour", ifcengine.sdaiINSTANCE, out inst); return colour.CreateExactEntity(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "curve_colour", ifcengine.sdaiINSTANCE, i); }
             }
-        public set_of_founded_item_select users { get { return (new set_of_founded_item_selectSerializer()).FromAttr(m_instance, "users"); } }
 
         protected override TextValue WrapperEntityName() { return "vector_style"; }
     };
@@ -62285,12 +62285,12 @@ namespace AP214
 
         public override Entity ToExactEntity() { return vertex_point.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public point vertex_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, out inst); return point.CreateExactEntity(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, i); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "vertex_point"; }
     };

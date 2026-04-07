@@ -81,7 +81,7 @@ namespace RDFWrappers
                     Int64 crdMin, crdMax;
                     bool optional, unique;
                     ifcengine.engiGetAggregationDefinition(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
-                    System.Diagnostics.Debug.Assert(!(aggregation != 0 && name != null), "test nested aggregation for definded type"); 
+                    System.Diagnostics.Debug.Assert(!(aggregation != 0 && name != null), "test nested aggregation for defined type"); 
 
                     string aggrName = (aggregation == 0) ? name : null; //use given name for outer aggregation
                     if (aggrName == null)
@@ -108,7 +108,7 @@ namespace RDFWrappers
                         generator.WriteByTemplate(template);
                     }
 
-                    //for outer aggregarion
+                    //for outer aggregation
                     elemIfcType = aggrName;
                     elemApiType = aggrName;
                     name = null;
@@ -221,7 +221,7 @@ namespace RDFWrappers
                 enumValues = enumeration.name + "_";
                 template = Generator.Template.AggregationOfEnum;
             }
-            else if (typeDef.domain == 0 && typeDef.dataType == RDF.enum_express_data_type.__LOGICAL)
+            else if (typeDef.domain == 0 && typeDef.expressType == RDF.enum_express_data_type.__LOGICAL)
             {
                 elemIfcType = "LOGICAL_VALUE";
                 elemApiType = elemIfcType;

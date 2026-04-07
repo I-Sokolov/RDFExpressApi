@@ -532,7 +532,7 @@ namespace RDFWrappers
             {
                 WriteSelectAttribute(attr, select.name);
             }
-            else if (attr.domain == 0 && attr.dataType == RDF.enum_express_data_type.__LOGICAL)
+            else if (attr.domain == 0 && attr.expressType == RDF.enum_express_data_type.__LOGICAL)
             {
                 WriteEnumAttribute(attr, "LOGICAL_VALUE", "LOGICAL_VALUE", "LOGICAL_VALUE_");
             }
@@ -673,7 +673,7 @@ namespace RDFWrappers
                             else
                             {
                                 part++;
-                                Verify(line.Contains(part.ToString()), string.Format("Expected line {0} contains '{1}' substing while parsing template fle {2}", nline, part.ToString(), templateName));
+                                Verify(line.Contains(part.ToString()), string.Format("Expected line {0} contains '{1}' sub-string while parsing template file {2}", nline, part.ToString(), templateName));
                             }
                         }
                         else

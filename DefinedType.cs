@@ -33,7 +33,7 @@ namespace RDFWrappers
 
             name = Schema.GetNameOfDeclaration(declaration);
 
-            dataType = ifcengine.engiGetDefinedType(declaration, out domain, out aggregation);
+            expressType = ifcengine.engiGetDefinedType(declaration, out domain, out aggregation);
         }
 
         public string GetBaseCSType()
@@ -56,7 +56,7 @@ namespace RDFWrappers
             }
             else
             {
-                return Schema.GetPrimitiveType(dataType);
+                return Schema.GetPrimitiveType(expressType);
             }
         }
 
@@ -81,12 +81,12 @@ namespace RDFWrappers
                         return refType.GetSdaiType();
 
                     default:
-                        throw new ApplicationException("unknonw express type " + domainType.ToString());
+                        throw new ApplicationException("unknown express type " + domainType.ToString());
                 }
             }
             else
             {
-                return Schema.GetSdaiType(dataType);
+                return Schema.GetSdaiType(expressType);
             }
         }
 
@@ -100,7 +100,7 @@ namespace RDFWrappers
             }
 
             var foundation = new Foundation();
-            foundation.dataType = dataType;
+            foundation.dataType = expressType;
 
             var referTypeName = "";
 
@@ -121,16 +121,16 @@ namespace RDFWrappers
                     foundation.declarationType = baseFoundation.declarationType;
                 }
             }
-            else if (dataType == RDF.enum_express_data_type.__LOGICAL)
+            else if (expressType == RDF.enum_express_data_type.__LOGICAL)
             {
                 generator.m_replacements[Generator.KWD_SimpleType] = "LOGICAL_VALUE";
             }
             else
             {
-                var csType = Schema.GetPrimitiveType(dataType);
+                var csType = Schema.GetPrimitiveType(expressType);
                 if (csType == null)
                 {
-                    Console.WriteLine("Defined type {0} is not supproted (primitive type is {1})", name, dataType.ToString());
+                    Console.WriteLine("Defined type {0} is not supported (primitive type is {1})", name, expressType.ToString());
                     return null;
                 }
 
@@ -196,10 +196,10 @@ namespace RDFWrappers
             Foundation foundation;
             if (!generator.m_writtenDefinedTyes.TryGetValue(declaration, out foundation))
             {
-                return; //defined type is not supported, message for definded type already done
+                return; //defined type is not supported, message for defined type already done
             }
 
-            switch (dataType)
+            switch (expressType)
             {
                 case RDF.enum_express_data_type.__LOGICAL:
                     generator.WriteEnumAttribute(attr, name, "LOGICAL_VALUE", "LOGICAL_VALUE_");

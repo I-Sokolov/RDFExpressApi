@@ -5322,14 +5322,14 @@ namespace CIS2
     template <typename TList> class set_of_analysis_results_set_combinedSerializer : public AggrSerializerInstance<TList, analysis_results_set_combined> {};
     typedef std::list<ratio_measure_with_unit> list_of_ratio_measure_with_unit;
     template <typename TList> class list_of_ratio_measure_with_unitSerializer : public AggrSerializerInstance<TList, ratio_measure_with_unit> {};
-    typedef std::list<assembly_component_select> set_of_assembly_component_select;
-    template <typename TList> class set_of_assembly_component_selectSerializer : public AggrSerializerSelect<TList, assembly_component_select> {};
-    typedef std::list<structural_frame_process> set_of_structural_frame_process;
-    template <typename TList> class set_of_structural_frame_processSerializer : public AggrSerializerInstance<TList, structural_frame_process> {};
     typedef std::list<StringValue> bag_of_identifier;
     template <typename TList> class bag_of_identifierSerializer : public AggrSerializerText<bag_of_identifier, identifier, sdaiSTRING> {};
     typedef std::list<StringValue> bag_of_label;
     template <typename TList> class bag_of_labelSerializer : public AggrSerializerText<bag_of_label, label, sdaiSTRING> {};
+    typedef std::list<assembly_component_select> set_of_assembly_component_select;
+    template <typename TList> class set_of_assembly_component_selectSerializer : public AggrSerializerSelect<TList, assembly_component_select> {};
+    typedef std::list<structural_frame_process> set_of_structural_frame_process;
+    template <typename TList> class set_of_structural_frame_processSerializer : public AggrSerializerInstance<TList, structural_frame_process> {};
     typedef std::list<located_assembly> set_of_located_assembly;
     template <typename TList> class set_of_located_assemblySerializer : public AggrSerializerInstance<TList, located_assembly> {};
     typedef std::list<functional_role> set_of_functional_role;

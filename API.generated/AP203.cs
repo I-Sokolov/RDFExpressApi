@@ -21977,6 +21977,7 @@ namespace AP203
 
         public override Entity ToExactEntity() { return face_surface.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public surface face_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "face_geometry", ifcengine.sdaiINSTANCE, out inst); return surface.CreateExactEntity(inst); } 
@@ -21987,7 +21988,6 @@ namespace AP203
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "face_surface"; }
     };
@@ -23749,10 +23749,10 @@ namespace AP203
 
         public override Entity ToExactEntity() { return annotation_plane.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public set_of_annotation_plane_element elements { get { return (new set_of_annotation_plane_elementSerializer()).FromAttr(m_instance, "elements"); } }
         public void put_elements(IEnumerable<annotation_plane_element> lst) { (new set_of_annotation_plane_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
         public void put_elements_untyped(IEnumerable lst) { (new set_of_annotation_plane_elementSerializer()).ToSdaiAggr(lst, m_instance, "elements"); }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "annotation_plane"; }
     };
@@ -42004,6 +42004,7 @@ namespace AP203
 
         public override Entity ToExactEntity() { return edge_curve.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public curve edge_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "edge_geometry", ifcengine.sdaiINSTANCE, out inst); return curve.CreateExactEntity(inst); } 
@@ -42014,7 +42015,6 @@ namespace AP203
             get { return get_bool("same_sense", ifcengine.sdaiBOOLEAN); }
             set { if (value.HasValue) { bool v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "same_sense", ifcengine.sdaiBOOLEAN, ref v); } else Debug.Assert(false); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "edge_curve"; }
     };
@@ -48094,13 +48094,13 @@ namespace AP203
 
         public override Entity ToExactEntity() { return integer_representation_item.CreateExactEntity(m_instance); }
 
+        public LOGICAL_VALUE? is_int { get { var str = get_string("is_int", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
+        public LOGICAL_VALUE? sql_mappable { get { var str = get_string("sql_mappable", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
         public double? the_value
             {
             get { return get_double("the_value", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "the_value", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
-        public LOGICAL_VALUE? is_int { get { var str = get_string("is_int", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
-        public LOGICAL_VALUE? sql_mappable { get { var str = get_string("sql_mappable", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
 
         protected override TextValue WrapperEntityName() { return "integer_representation_item"; }
     };
@@ -50548,9 +50548,9 @@ namespace AP203
 
         public override Entity ToExactEntity() { return min_and_major_ply_orientation_basis.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public axis2_placement_3d major_orientation_basis { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "major_orientation_basis", ifcengine.sdaiINSTANCE, out inst); return axis2_placement_3d.CreateExactEntity(inst); } }
         public axis2_placement_3d minor_orientation_basis { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "minor_orientation_basis", ifcengine.sdaiINSTANCE, out inst); return axis2_placement_3d.CreateExactEntity(inst); } }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "min_and_major_ply_orientation_basis"; }
     };
@@ -53878,10 +53878,10 @@ namespace AP203
 
         public override Entity ToExactEntity() { return poly_loop.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public list_of_cartesian_point polygon { get { return (new list_of_cartesian_pointSerializer()).FromAttr(m_instance, "polygon"); } }
         public void put_polygon(IEnumerable<cartesian_point> lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
         public void put_polygon_untyped(IEnumerable lst) { (new list_of_cartesian_pointSerializer()).ToSdaiAggr(lst, m_instance, "polygon"); }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "poly_loop"; }
     };
@@ -56917,11 +56917,11 @@ namespace AP203
 
         public override Entity ToExactEntity() { return rational_representation_item.CreateExactEntity(m_instance); }
 
+        public LOGICAL_VALUE? is_int { get { var str = get_string("is_int", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
+        public LOGICAL_VALUE? sql_mappable { get { var str = get_string("sql_mappable", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
         public list_of_generic_expression operands { get { return (new list_of_generic_expressionSerializer()).FromAttr(m_instance, "operands"); } }
         public void put_operands(IEnumerable<generic_expression> lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
         public void put_operands_untyped(IEnumerable lst) { (new list_of_generic_expressionSerializer()).ToSdaiAggr(lst, m_instance, "operands"); }
-        public LOGICAL_VALUE? is_int { get { var str = get_string("is_int", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
-        public LOGICAL_VALUE? sql_mappable { get { var str = get_string("sql_mappable", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
 
         protected override TextValue WrapperEntityName() { return "rational_representation_item"; }
     };
@@ -56998,13 +56998,13 @@ namespace AP203
 
         public override Entity ToExactEntity() { return real_representation_item.CreateExactEntity(m_instance); }
 
+        public LOGICAL_VALUE? is_int { get { var str = get_string("is_int", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
+        public LOGICAL_VALUE? sql_mappable { get { var str = get_string("sql_mappable", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
         public double? the_value
             {
             get { return get_double("the_value", ifcengine.sdaiREAL); }
             set { if (value.HasValue) { double v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "the_value", ifcengine.sdaiREAL, ref v); } else Debug.Assert(false); }
             }
-        public LOGICAL_VALUE? is_int { get { var str = get_string("is_int", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
-        public LOGICAL_VALUE? sql_mappable { get { var str = get_string("sql_mappable", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.LOGICAL_VALUE_); return EnumValue<LOGICAL_VALUE>.FromIndex(ind); } }
 
         protected override TextValue WrapperEntityName() { return "real_representation_item"; }
     };
@@ -66974,12 +66974,12 @@ namespace AP203
 
         public override Entity ToExactEntity() { return vertex_point.CreateExactEntity(m_instance); }
 
+        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
         public point vertex_geometry 
             {
             get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, out inst); return point.CreateExactEntity(inst); } 
             set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "vertex_geometry", ifcengine.sdaiINSTANCE, i); }
             }
-        public IntValue? dim { get { return get_IntValue("dim", ifcengine.sdaiINTEGER); } }
 
         protected override TextValue WrapperEntityName() { return "vertex_point"; }
     };

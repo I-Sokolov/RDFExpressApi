@@ -34,9 +34,9 @@ namespace RDFWrappers
             }
         }
 
-        static public string GetPrimitiveType(enum_express_data_type data_Type)
+        static public string GetPrimitiveType(enum_express_data_type dataType)
         {
-            switch (data_Type)
+            switch (dataType)
             {
                 case enum_express_data_type.__BOOLEAN:
                     return "bool";
@@ -67,9 +67,9 @@ namespace RDFWrappers
             }
         }
 
-        static public string GetSdaiType(enum_express_data_type data_Type)
+        static public string GetSdaiType(enum_express_data_type expressType)
         {
-            switch (data_Type)
+            switch (expressType)
             {
                 case enum_express_data_type.__BOOLEAN:
                     return "sdaiBOOLEAN";
@@ -147,7 +147,7 @@ namespace RDFWrappers
 
         public void ToConsole()
         {
-            Console.WriteLine("-------- Extracted shcema ----------------");
+            Console.WriteLine("-------- Extracted schema ----------------");
 
             Console.WriteLine("============= Defined Types ====================");
             var definedTypes = m_declarations[enum_express_declaration.__DEFINED_TYPE];

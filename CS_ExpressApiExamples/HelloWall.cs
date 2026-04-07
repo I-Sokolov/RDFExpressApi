@@ -28,7 +28,7 @@ namespace CS_IFC
             var project = IfcProject.Create(model);
             project.GlobalId = "1o1ykWxGT4ZxPjHNe4gayR";
             project.Name = "HelloWall project";
-            project.Description = "Example to demonstract early-binding abilities";
+            project.Description = "Example to demonstrate early-binding abilities";
 
             var ifcSite = IfcSite.Create(model);
             ifcSite.Name = "HelloWall site";

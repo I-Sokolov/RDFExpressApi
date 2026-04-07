@@ -159,7 +159,7 @@ enum class enum_express_declaration : unsigned char
 	__WHERE_RULE				= 8
 };
 
-enum class enum_express_attr_type : unsigned char
+enum class enum_express_data_type : unsigned char
 {
 	__NONE						= 0,					//	attribute type is unknown here but it may be defined by referenced domain entity
 	__BINARY					= 1,
@@ -202,7 +202,7 @@ enum class enum_validation_type : uint64_t
 	__ABSTRACT_ENTITY			= 1 << 11,  			//	abstract entity should not instantiate
 	__WHERE_RULE				= 1 << 12,  			//	where-rule check
 	__UNIQUE_RULE				= 1 << 13,				//	unique-rule check
-	__STAR_USAGE				= 1 << 14,  			//	* is used only for derived arguments
+	__STAR_USAGE				= 1 << 14,  			//	* must be used for and only for derived attributes
 	__CALL_ARGUMENT				= 1 << 15,  			//	validateModel/validateInstance function argument should be model/instance
 	__INVALID_TEXT_LITERAL		= 1 << 16,				//	invalid text literal string
 	__INTERNAL_ERROR			= UINT64_C(1) << 63   	//	unspecified error
@@ -220,7 +220,7 @@ enum class enum_validation_status : unsigned char
 	typedef unsigned char bool;
 	typedef unsigned char enum_string_encoding;
 	typedef unsigned char enum_express_declaration;
-	typedef unsigned char enum_express_attr_type;
+	typedef unsigned char enum_express_data_type;
 	typedef unsigned char enum_express_aggr;
 	typedef uint64_t	  enum_validation_type;
 	typedef unsigned char enum_validation_status;
@@ -1599,11 +1599,11 @@ SchemaDecl		DECL STDC	engiGetSelectElement(
 //				SchemaDecl				* referencedDeclaration				IN / OUT
 //				SchemaAggr				* aggregationDefinition				IN / OUT
 //
-//				enum_express_attr_type	returns								OUT
+//				enum_express_data_type	returns								OUT
 //
 //	This call returns a simple type for defined type handle and can inquire referenced type, if any.
 //
-enum_express_attr_type	DECL STDC	engiGetDefinedType(
+enum_express_data_type	DECL STDC	engiGetDefinedType(
 									SchemaDecl				definedType,
 									SchemaDecl				* referencedDeclaration,
 									SchemaAggr				* aggregationDefinition
@@ -1767,6 +1767,20 @@ static	inline	SdaiEntity	sdaiGetComplexEntityBN(
 //
 SdaiModel		DECL STDC	engiGetEntityModel(
 									SdaiEntity				entity
+								);
+
+//
+//		engiGetAttrStepIndex                                    (https://rdf.bg/ifcdoc/CP64/engiGetAttrStepIndex.html)
+//				SdaiEntity				entity								IN
+//				SdaiAttr				attribute							IN
+//
+//				int_t					returns								OUT
+//
+//	Get index in step file record when instance of the entity is written on step file as simple instance.
+//
+int_t			DECL STDC	engiGetAttrStepIndex(
+									SdaiEntity				entity,
+									SdaiAttr				attribute
 								);
 
 //
@@ -1985,6 +1999,7 @@ SdaiInteger		DECL STDC	engiGetEntityCount(
 									SdaiModel				model
 								);
 
+
 //
 //		engiGetEntityElement                                    (https://rdf.bg/ifcdoc/CP64/engiGetEntityElement.html)
 //				SdaiModel				model								IN
@@ -1998,6 +2013,7 @@ SdaiEntity		DECL STDC	engiGetEntityElement(
 									SdaiModel				model,
 									SdaiInteger				index
 								);
+
 
 //
 //		sdaiGetEntityExtent                                     (https://rdf.bg/ifcdoc/CP64/sdaiGetEntityExtent.html)
@@ -2050,6 +2066,49 @@ static	inline	SdaiAggr	sdaiGetEntityExtentBN(
 	return	sdaiGetEntityExtentBN(
 					model,
 					(SdaiString) entityName
+				);
+}
+
+//}} End C++ polymorphic versions
+	extern "C" {
+#endif
+
+//
+//		engiGetEntityNameEx                                     (https://rdf.bg/ifcdoc/CP64/engiGetEntityNameEx.html)
+//				SdaiEntity				entity								IN
+//				SdaiPrimitiveType		valueType							IN
+//				SdaiString				* entityName						IN / OUT
+//				bool					displayName							IN
+//
+//				SdaiString				returns								OUT
+//
+//	This call can be used to get the name of the given entity.
+//
+SdaiString		DECL STDC	engiGetEntityNameEx(
+									SdaiEntity				entity,
+									SdaiPrimitiveType		valueType,
+									SdaiString				* entityName,
+									bool					displayName
+								);
+
+#ifdef __cplusplus
+	}
+//{{ Begin C++ polymorphic versions
+
+//
+//
+static	inline	SdaiString	engiGetEntityNameEx(
+									SdaiEntity				entity,
+									SdaiPrimitiveType		valueType,
+									char					** entityName,
+									bool					displayName
+								)
+{
+	return	engiGetEntityNameEx(
+					entity,
+					valueType,
+					(SdaiString*) entityName,
+					displayName
 				);
 }
 
@@ -2177,13 +2236,30 @@ SdaiEntity		DECL STDC	engiGetEntityParentEx(
 								);
 
 //
+//		engiIsSupertypeOf                                      (https://rdf.bg/ifcdoc/CP64/engiIsSupertypeOf.html)
+//				SdaiEntity				superType							IN
+//				SdaiEntity				subType								IN
+//
+//				SdaiBoolean				returns								OUT
+//
+//	Checks if the entity is direct or indirect supertype of another entity.
+//  An entity is supertype of itself
+//
+SdaiBoolean		DECL STDC	engiIsSupertypeOf(
+									SdaiEntity				superType,
+									SdaiEntity				subType
+								);
+
+//
 //		engiGetAttrDerived                                      (https://rdf.bg/ifcdoc/CP64/engiGetAttrDerived.html)
 //				SdaiEntity				entity								IN
 //				const SdaiAttr			attribute							IN
 //
 //				ExpressScript			returns								OUT
 //
-//	This call can be used to check if an attribute is defined schema wise in the context of a certain entity.
+//	This function checks if the attribute is derived and returns a script to be used to calculate the value of the attribute.
+//  If entity is NULL it checks declaration in defining entity (the most common supertype where the attribute is first declared), 
+//  otherwise it also checks the actual redeclaration for specified entity. 
 //
 ExpressScript	DECL STDC	engiGetAttrDerived(
 									SdaiEntity				entity,
@@ -2343,6 +2419,23 @@ static	inline	SdaiBoolean	engiIsAttrOptionalBN(
 //}} End C++ polymorphic versions
 	extern "C" {
 #endif
+
+//
+//		engiGetAttrRedeclarationByIterator                      (https://rdf.bg/ifcdoc/CP64/engiGetAttrRedeclarationByIterator.html)
+//				SdaiEntity				entity								IN
+//				const SdaiAttr			attribute							IN
+//				const SdaiAttr			prevRedeclaration					IN
+//
+//				const SdaiAttr			returns								OUT
+//
+//	Iterates actual attribute redeclarations for given entity.
+// 	sdaiGetAttrDefinition and other functions returns the first definition in the most common supertype. This function allow to explore redeclarations by subtypes
+//
+const SdaiAttr	DECL STDC	engiGetAttrRedeclarationByIterator(
+									SdaiEntity				entity,
+									const SdaiAttr			attribute,
+									const SdaiAttr			prevRedeclaration
+								);
 
 //
 //		engiGetAttrDomainName                                   (https://rdf.bg/ifcdoc/CP64/engiGetAttrDomainName.html)
@@ -2841,10 +2934,15 @@ SdaiString		DECL STDC	sdaiGetADBTypePath(
 //		  requested valueType is matching with the value argument, a mismatch will lead to unpredictable results.
 //
 //	The Table 2 shows what valueType can be fulfilled depending on actual model data.
-//	If a get-function cannot get a value it will return 0, it may happen when model item is unset ($) or incompatible with requested valueType.
-//	To separate these cases you can use engiGetInstanceAttrType(BN), sdaiGetADBType and engiGetAggrType.
 //	On success get-function will return non-zero. More precisely, according to ISO 10303-24-2001 on success they return content of
 //	value argument (*value) for sdaiADB, sdaiAGGR, or sdaiINSTANCE or value argument itself for other types (it has no useful meaning for C#).
+//	All get-functions return NULL and set value to 0 if model data are incompatible with requested valueType.
+//	Furthermore:
+//	- for unset ($) data all get-functions return NULL and set value to 0, except when valueType = sdaiEXPRESSSTRING
+//	- for derived (*), depending on engiEnableDerivedAttributes, and except valueType = sdaiEXPRESSSTRING:
+//	   -- either calculate and follow these rues for calculated value
+//	   -- or handles it as unset ($)
+//	- if valueType = sdaiEXPRESSSTRING and data is unset ($) or derived (*), get-function will return NULL but set value to "$" or "*" respectively for any engiEnableDerivedAttributes state
 //
 //
 //	Table 1 – Required value buffer depending on valueType (on the example of sdaiGetADBValue but valid for all get-functions)
@@ -2899,22 +2997,22 @@ SdaiString		DECL STDC	sdaiGetADBTypePath(
 //	Table 2 - valueType can be requested depending on actual model data.
 //
 //	valueType		Works for following values in the model
-//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list		 $ (empty)
-//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .			 .
-//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .			 .
-//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .			 .
-//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .			 .
-//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .			 .
-//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes			 .
-//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .
-//	Note: sdaiGetAttr, stdaiGetAttrBN, engiGetElement will success with any model data, except non-set($)
-//		  (Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
+//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list
+//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .
+//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .
+//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .
+//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .
+//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .
+//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .
+//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes
+//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes
+//
+//	(Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
 //
 void			DECL * STDC	sdaiGetADBValue(
 									const SdaiADB			ADB,
@@ -3047,10 +3145,15 @@ void			DECL STDC	sdaiDeleteADB(
 //		  requested valueType is matching with the value argument, a mismatch will lead to unpredictable results.
 //
 //	The Table 2 shows what valueType can be fulfilled depending on actual model data.
-//	If a get-function cannot get a value it will return 0, it may happen when model item is unset ($) or incompatible with requested valueType.
-//	To separate these cases you can use engiGetInstanceAttrType(BN), sdaiGetADBType and engiGetAggrType.
 //	On success get-function will return non-zero. More precisely, according to ISO 10303-24-2001 on success they return content of
 //	value argument (*value) for sdaiADB, sdaiAGGR, or sdaiINSTANCE or value argument itself for other types (it has no useful meaning for C#).
+//	All get-functions return NULL and set value to 0 if model data are incompatible with requested valueType.
+//	Furthermore:
+//	- for unset ($) data all get-functions return NULL and set value to 0, except when valueType = sdaiEXPRESSSTRING
+//	- for derived (*), depending on engiEnableDerivedAttributes, and except valueType = sdaiEXPRESSSTRING:
+//	   -- either calculate and follow these rues for calculated value
+//	   -- or handles it as unset ($)
+//	- if valueType = sdaiEXPRESSSTRING and data is unset ($) or derived (*), get-function will return NULL but set value to "$" or "*" respectively for any engiEnableDerivedAttributes state
 //
 //
 //	Table 1 – Required value buffer depending on valueType (on the example of sdaiGetAggrByIndex but valid for all get-functions)
@@ -3105,22 +3208,22 @@ void			DECL STDC	sdaiDeleteADB(
 //	Table 2 - valueType can be requested depending on actual model data.
 //
 //	valueType		Works for following values in the model
-//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list		 $ (empty)
-//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .			 .
-//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .			 .
-//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .			 .
-//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .			 .
-//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .			 .
-//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes			 .
-//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .
-//	Note: sdaiGetAttr, stdaiGetAttrBN, engiGetElement will success with any model data, except non-set($)
-//		  (Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
+//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list
+//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .
+//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .
+//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .
+//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .
+//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .
+//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .
+//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes
+//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes
+//
+//	(Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
 //
 void			DECL * STDC	sdaiGetAggrByIndex(
 									const SdaiAggr			aggregate,
@@ -3344,10 +3447,15 @@ void			DECL STDC	engiGetAggrTypex(
 //		  requested valueType is matching with the value argument, a mismatch will lead to unpredictable results.
 //
 //	The Table 2 shows what valueType can be fulfilled depending on actual model data.
-//	If a get-function cannot get a value it will return 0, it may happen when model item is unset ($) or incompatible with requested valueType.
-//	To separate these cases you can use engiGetInstanceAttrType(BN), sdaiGetADBType and engiGetAggrType.
 //	On success get-function will return non-zero. More precisely, according to ISO 10303-24-2001 on success they return content of
 //	value argument (*value) for sdaiADB, sdaiAGGR, or sdaiINSTANCE or value argument itself for other types (it has no useful meaning for C#).
+//	All get-functions return NULL and set value to 0 if model data are incompatible with requested valueType.
+//	Furthermore:
+//	- for unset ($) data all get-functions return NULL and set value to 0, except when valueType = sdaiEXPRESSSTRING
+//	- for derived (*), depending on engiEnableDerivedAttributes, and except valueType = sdaiEXPRESSSTRING:
+//	   -- either calculate and follow these rues for calculated value
+//	   -- or handles it as unset ($)
+//	- if valueType = sdaiEXPRESSSTRING and data is unset ($) or derived (*), get-function will return NULL but set value to "$" or "*" respectively for any engiEnableDerivedAttributes state
 //
 //
 //	Table 1 – Required value buffer depending on valueType (on the example of sdaiGetAttr but valid for all get-functions)
@@ -3402,22 +3510,22 @@ void			DECL STDC	engiGetAggrTypex(
 //	Table 2 - valueType can be requested depending on actual model data.
 //
 //	valueType		Works for following values in the model
-//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list		 $ (empty)
-//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .			 .
-//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .			 .
-//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .			 .
-//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .			 .
-//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .			 .
-//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes			 .
-//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .
-//	Note: sdaiGetAttr, stdaiGetAttrBN, engiGetElement will success with any model data, except non-set($)
-//		  (Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
+//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list
+//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .
+//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .
+//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .
+//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .
+//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .
+//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .
+//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes
+//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes
+//
+//	(Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
 //
 void			DECL * STDC	sdaiGetAttr(
 									SdaiInstance			instance,
@@ -3482,10 +3590,15 @@ static	inline	SdaiInstance	sdaiGetAttr(
 //		  requested valueType is matching with the value argument, a mismatch will lead to unpredictable results.
 //
 //	The Table 2 shows what valueType can be fulfilled depending on actual model data.
-//	If a get-function cannot get a value it will return 0, it may happen when model item is unset ($) or incompatible with requested valueType.
-//	To separate these cases you can use engiGetInstanceAttrType(BN), sdaiGetADBType and engiGetAggrType.
 //	On success get-function will return non-zero. More precisely, according to ISO 10303-24-2001 on success they return content of
 //	value argument (*value) for sdaiADB, sdaiAGGR, or sdaiINSTANCE or value argument itself for other types (it has no useful meaning for C#).
+//	All get-functions return NULL and set value to 0 if model data are incompatible with requested valueType.
+//	Furthermore:
+//	- for unset ($) data all get-functions return NULL and set value to 0, except when valueType = sdaiEXPRESSSTRING
+//	- for derived (*), depending on engiEnableDerivedAttributes, and except valueType = sdaiEXPRESSSTRING:
+//	   -- either calculate and follow these rues for calculated value
+//	   -- or handles it as unset ($)
+//	- if valueType = sdaiEXPRESSSTRING and data is unset ($) or derived (*), get-function will return NULL but set value to "$" or "*" respectively for any engiEnableDerivedAttributes state
 //
 //
 //	Table 1 – Required value buffer depending on valueType (on the example of sdaiGetAttrBN but valid for all get-functions)
@@ -3540,22 +3653,22 @@ static	inline	SdaiInstance	sdaiGetAttr(
 //	Table 2 - valueType can be requested depending on actual model data.
 //
 //	valueType		Works for following values in the model
-//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list		 $ (empty)
-//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .			 .
-//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .			 .
-//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .			 .
-//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .			 .
-//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .			 .
-//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes			 .
-//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .
-//	Note: sdaiGetAttr, stdaiGetAttrBN, engiGetElement will success with any model data, except non-set($)
-//		  (Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
+//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list
+//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .
+//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .
+//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .
+//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .
+//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .
+//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .
+//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes
+//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes
+//
+//	(Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
 //
 //	Technically sdaiGetAttrBN will transform into the following call
 //		sdaiGetAttr(
@@ -3902,7 +4015,7 @@ static	inline	SdaiAttr	sdaiGetAttrDefinition(
 //				SdaiEntity				* definingEntity					IN / OUT
 //				SdaiBoolean				* isExplicit						IN / OUT
 //				SdaiBoolean				* isInverse							IN / OUT
-//				enum_express_attr_type	* attrType							IN / OUT
+//				enum_express_data_type	* attrType							IN / OUT
 //				SdaiEntity				* domainEntity						IN / OUT
 //				SchemaAggr				* aggregationDefinition				IN / OUT
 //				SdaiBoolean				* isOptional						IN / OUT
@@ -3917,7 +4030,7 @@ void			DECL STDC	engiGetAttrTraits(
 									SdaiEntity				* definingEntity,
 									SdaiBoolean				* isExplicit,
 									SdaiBoolean				* isInverse,
-									enum_express_attr_type	* attrType,
+									enum_express_data_type	* attrType,
 									SdaiEntity				* domainEntity,
 									SchemaAggr				* aggregationDefinition,
 									SdaiBoolean				* isOptional
@@ -3935,7 +4048,7 @@ static	inline	void	engiGetAttrTraits(
 								SdaiEntity				* definingEntity,
 								SdaiBoolean				* isExplicit,
 								SdaiBoolean				* isInverse,
-								enum_express_attr_type	* attrType,
+								enum_express_data_type	* attrType,
 								SdaiEntity				* domainEntity,
 								SchemaAggr				* aggregationDefinition,
 								SdaiBoolean				* isOptional
@@ -4188,6 +4301,30 @@ static	inline	SdaiPrimitiveType	engiGetAttrTypeBN(
 //}} End C++ polymorphic versions
 	extern "C" {
 #endif
+
+//
+//		engiGetAttrTypeBySchema                                 (https://rdf.bg/ifcdoc/CP64/engiGetAttrTypeBySchema.html)
+//				const SdaiAttr			attribute							IN
+//
+//				enum_express_data_type	returns								OUT
+//
+//	...
+//
+enum_express_data_type	DECL STDC	engiGetAttrTypeBySchema(
+									const SdaiAttr			attribute
+								);
+
+//
+//		engiGetAttrAggregation                                  (https://rdf.bg/ifcdoc/CP64/engiGetAttrAggregation.html)
+//				const SdaiAttr			attribute							IN
+//
+//				SchemaAggr				returns								OUT
+//
+//	...
+//
+SchemaAggr		DECL STDC	engiGetAttrAggregation(
+									const SdaiAttr			attribute
+								);
 
 //
 //		engiGetInstanceAttrType                                 (https://rdf.bg/ifcdoc/CP64/engiGetInstanceAttrType.html)
@@ -6943,6 +7080,19 @@ void			DECL STDC	engiEvaluateAllDerivedAttributes(
 								);
 
 //
+//		engiIsComplexEntity                                     (https://rdf.bg/ifcdoc/CP64/engiIsComplexEntity.html)
+//				SdaiEntity				entity								IN
+//
+//				bool					returns								OUT
+//
+//	The function checks if instances of the specified entity are complex instances.
+//	You can use engiGetEntityParentEx to list components.
+//
+bool			DECL STDC	engiIsComplexEntity(
+									SdaiEntity				entity
+								);
+
+//
 //		setSegmentation                                         (https://rdf.bg/ifcdoc/CP64/setSegmentation.html)
 //				SdaiModel				model								IN
 //				int_t					segmentationParts					IN
@@ -7747,10 +7897,15 @@ int_t			DECL STDC	iterateOverProperties(
 //		  requested valueType is matching with the value argument, a mismatch will lead to unpredictable results.
 //
 //	The Table 2 shows what valueType can be fulfilled depending on actual model data.
-//	If a get-function cannot get a value it will return 0, it may happen when model item is unset ($) or incompatible with requested valueType.
-//	To separate these cases you can use engiGetInstanceAttrType(BN), sdaiGetADBType and engiGetAggrType.
 //	On success get-function will return non-zero. More precisely, according to ISO 10303-24-2001 on success they return content of
 //	value argument (*value) for sdaiADB, sdaiAGGR, or sdaiINSTANCE or value argument itself for other types (it has no useful meaning for C#).
+//	All get-functions return NULL and set value to 0 if model data are incompatible with requested valueType.
+//	Furthermore:
+//	- for unset ($) data all get-functions return NULL and set value to 0, except when valueType = sdaiEXPRESSSTRING
+//	- for derived (*), depending on engiEnableDerivedAttributes, and except valueType = sdaiEXPRESSSTRING:
+//	   -- either calculate and follow these rues for calculated value
+//	   -- or handles it as unset ($)
+//	- if valueType = sdaiEXPRESSSTRING and data is unset ($) or derived (*), get-function will return NULL but set value to "$" or "*" respectively for any engiEnableDerivedAttributes state
 //
 //
 //	Table 1 – Required value buffer depending on valueType (on the example of sdaiGetAggrByIterator but valid for all get-functions)
@@ -7805,22 +7960,22 @@ int_t			DECL STDC	iterateOverProperties(
 //	Table 2 - valueType can be requested depending on actual model data.
 //
 //	valueType		Works for following values in the model
-//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list		 $ (empty)
-//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .			 .
-//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .			 .
-//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .			 .
-//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .			 .
-//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .			 .
-//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .			 .
-//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .			 .
-//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes			 .
-//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .
-//	Note: sdaiGetAttr, stdaiGetAttrBN, engiGetElement will success with any model data, except non-set($)
-//		  (Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
+//				 	  integer	   real		.T. or .F.	   .U.		other enum	  binary	  string	 instance	   list
+//	sdaiINTEGER			Yes			Yes *		 .			 .			 .			 .			 .			 .			 .
+//	sdaiREAL			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiNUMBER			Yes			Yes			 .			 .			 .			 .			 .			 .			 .
+//	sdaiBOOLEAN			 .			 .			Yes			 .			 .			 .			 .			 .			 .
+//	sdaiLOGICAL			 .			 .			Yes			Yes			 .			 .			 .			 .			 .
+//	sdaiENUM			 .			 .			Yes			Yes			Yes			 .			 .			 .			 .
+//	sdaiBINARY			 .			 .			 .			 .			 .			Yes			 .			 .			 .
+//	sdaiSTRING			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiUNICODE			Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiEXPRESSSTRING	Yes			Yes			Yes			Yes			Yes			Yes			Yes			 .			 .
+//	sdaiINSTANCE		 .			 .			 .			 .			 .			 .			 .			Yes			 .
+//	sdaiAGGR			 .			 .			 .			 .			 .			 .			 .			 .			Yes
+//	sdaiADB				Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes			Yes
+//
+//	(Non-standard extensions) sdaiGetADBValue: sdaiADB is allowed and will success when sdaiGetADBTypePath is not NULL, returning ABD value has type path element removed.
 //
 void			DECL * STDC	sdaiGetAggrByIterator(
 									SdaiIterator			iterator,
@@ -9009,7 +9164,7 @@ static	inline	int_t	engiGetEntityIsAbstractBN(
 //				SdaiEntity				* definingEntity					IN / OUT
 //				bool					* isExplicit						IN / OUT
 //				bool					* isInverse							IN / OUT
-//				enum_express_attr_type	* attrType							IN / OUT
+//				enum_express_data_type	* attrType							IN / OUT
 //				SdaiEntity				* domainEntity						IN / OUT
 //				SchemaAggr				* aggregationDefinition				IN / OUT
 //				bool					* isOptional						IN / OUT
@@ -9024,7 +9179,7 @@ void			DECL STDC	engiGetAttributeTraits(
 									SdaiEntity				* definingEntity,
 									bool					* isExplicit,
 									bool					* isInverse,
-									enum_express_attr_type	* attrType,
+									enum_express_data_type	* attrType,
 									SdaiEntity				* domainEntity,
 									SchemaAggr				* aggregationDefinition,
 									bool					* isOptional
@@ -9042,7 +9197,7 @@ static	inline	void	engiGetAttributeTraits(
 								SdaiEntity				* definingEntity,
 								bool					* isExplicit,
 								bool					* isInverse,
-								enum_express_attr_type	* attrType,
+								enum_express_data_type	* attrType,
 								SdaiEntity				* domainEntity,
 								SchemaAggr				* aggregationDefinition,
 								bool					* isOptional

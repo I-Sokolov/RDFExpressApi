@@ -101,7 +101,7 @@ namespace RDFWrappers
 
                     case enum_express_declaration.__DEFINED_TYPE:
                         var definedType = new DefinedType(variant);
-                        if (!definedType.IsAggregation () && definedType.dataType != enum_express_data_type.__LOGICAL)
+                        if (!definedType.IsAggregation () && definedType.expressType != enum_express_data_type.__LOGICAL)
                         {
                             var cstype = definedType.GetBaseCSType();
                             if (cstype != null)
@@ -140,7 +140,7 @@ namespace RDFWrappers
                     break;
 
                 default:
-                    Console.WriteLine("SELECT " + name + " has unexpected mested select of type " + declType.ToString());
+                    Console.WriteLine("SELECT " + name + " has unexpected nested select of type " + declType.ToString());
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
