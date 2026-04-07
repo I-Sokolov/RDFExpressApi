@@ -81,7 +81,6 @@ namespace RDFWrappers
                     Int64 crdMin, crdMax;
                     bool optional, unique;
                     ifcengine.engiGetAggregationDefinition(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
-                    System.Diagnostics.Debug.Assert(!(aggregation != 0 && name != null), "test nested aggregation for defined type"); 
 
                     string aggrName = (aggregation == 0) ? name : null; //use given name for outer aggregation
                     if (aggrName == null)
@@ -111,7 +110,6 @@ namespace RDFWrappers
                     //for outer aggregation
                     elemIfcType = aggrName;
                     elemApiType = aggrName;
-                    name = null;
                     template = Generator.Template.AggregationOfAggregation;
                 }
 

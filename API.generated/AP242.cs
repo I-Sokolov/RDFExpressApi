@@ -2123,8 +2123,8 @@ namespace AP242
     class spline_knot_valuesSerializer : AggrSerializer_double<double, spline_knot_values> { }
     public class list_of_uuid_attribute_select : List<uuid_attribute_select> { }
     class list_of_uuid_attribute_selectSerializer : AggrSerializerSelect<uuid_attribute_select, list_of_uuid_attribute_select> { }
-    public class list_of_list_of_uuid_attribute_select : List<list_of_uuid_attribute_select> { }
-    class list_of_list_of_uuid_attribute_selectSerializer : AggrSerializerAggr<list_of_uuid_attribute_select, list_of_uuid_attribute_selectSerializer, list_of_list_of_uuid_attribute_select> { }
+    public class uuid_list_item : List<list_of_uuid_attribute_select> { }
+    class uuid_list_itemSerializer : AggrSerializerAggr<list_of_uuid_attribute_select, list_of_uuid_attribute_selectSerializer, uuid_list_item> { }
     public class uuid_set_item : List<uuid_attribute_select> { }
     class uuid_set_itemSerializer : AggrSerializerSelect<uuid_attribute_select, uuid_set_item> { }
     public class ypr_rotation : List<double> { }

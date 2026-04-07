@@ -5139,8 +5139,8 @@ namespace AP242
     typedef TextValue uuid;
     typedef std::list<uuid_attribute_select> list_of_uuid_attribute_select;
     template <typename TList> class list_of_uuid_attribute_selectSerializer : public AggrSerializerSelect<TList, uuid_attribute_select> {};
-    typedef std::list<list_of_uuid_attribute_select> list_of_list_of_uuid_attribute_select;
-    template <typename TList> class list_of_list_of_uuid_attribute_selectSerializer : public AggrSerializerAggr<TList, list_of_uuid_attribute_select, list_of_uuid_attribute_selectSerializer<list_of_uuid_attribute_select>> {};
+    typedef std::list<list_of_uuid_attribute_select> uuid_list_item;
+    template <typename TList> class uuid_list_itemSerializer : public AggrSerializerAggr<TList, list_of_uuid_attribute_select, list_of_uuid_attribute_selectSerializer<list_of_uuid_attribute_select>> {};
     typedef std::list<uuid_attribute_select> uuid_set_item;
     template <typename TList> class uuid_set_itemSerializer : public AggrSerializerSelect<TList, uuid_attribute_select> {};
     typedef IntValue v_direction_count;
