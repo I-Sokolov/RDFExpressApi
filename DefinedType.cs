@@ -29,18 +29,18 @@ namespace RDFWrappers
         {
             this.declaration = declaration;
 
-            System.Diagnostics.Debug.Assert(ifcengine.engiGetDeclarationType(declaration) == enum_express_declaration.__DEFINED_TYPE);
+            System.Diagnostics.Debug.Assert(IFCEngine.engiGetDeclarationType(declaration) == enum_express_declaration.__DEFINED_TYPE);
 
             name = Schema.GetNameOfDeclaration(declaration);
 
-            expressType = ifcengine.engiGetDefinedType(declaration, out domain, out aggregation);
+            expressType = IFCEngine.engiGetDefinedType(declaration, out domain, out aggregation);
         }
 
         public string GetBaseCSType()
         {
             if (domain != 0)
             {
-                var domainType = ifcengine.engiGetDeclarationType(domain);
+                var domainType = IFCEngine.engiGetDeclarationType(domain);
                 switch (domainType)
                 {
                     case enum_express_declaration.__DEFINED_TYPE:
@@ -64,7 +64,7 @@ namespace RDFWrappers
         {
             if (domain != 0)
             {
-                var domainType = ifcengine.engiGetDeclarationType(domain);
+                var domainType = IFCEngine.engiGetDeclarationType(domain);
                 switch (domainType)
                 {
                     case enum_express_declaration.__ENTITY:
@@ -109,7 +109,7 @@ namespace RDFWrappers
                 referTypeName = Schema.GetNameOfDeclaration(domain);
                 generator.m_replacements[Generator.KWD_SimpleType] = referTypeName;
 
-                var referType = RDF.ifcengine.engiGetDeclarationType(domain);
+                var referType = RDF.IFCEngine.engiGetDeclarationType(domain);
                 foundation.declarationType = referType;
 
                 if (referType == RDF.enum_express_declaration.__DEFINED_TYPE)

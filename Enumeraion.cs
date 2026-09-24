@@ -29,7 +29,7 @@ namespace RDFWrappers
 
             int i = 0;
             var ptrValue = IntPtr.Zero;
-            while (IntPtr.Zero!=(ptrValue = ifcengine.engiGetEnumerationElement(inst, i++)))
+            while (IntPtr.Zero!=(ptrValue = IFCEngine.engiGetEnumerationElement(inst, i++)))
             {
                 string value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptrValue);
                 ret.Add(value);

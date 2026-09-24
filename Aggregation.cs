@@ -80,7 +80,7 @@ namespace RDFWrappers
                 {
                     Int64 crdMin, crdMax;
                     bool optional, unique;
-                    ifcengine.engiGetAggregationDefinition(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
+                    IFCEngine.engiGetAggregationDefinition(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
 
                     string aggrName = (aggregation == 0) ? name : null; //use given name for outer aggregation
                     if (aggrName == null)
@@ -314,7 +314,7 @@ namespace RDFWrappers
                         enum_express_aggr aggrType;
                         Int64 crdMin, crdMax;
                         bool optional, unique;
-                        ifcengine.engiGetAggregationDefinition(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
+                        IFCEngine.engiGetAggregationDefinition(aggregation, out aggrType, out crdMin, out crdMax, out optional, out unique, out aggregation);
                         aggrTypeName = MakeAggregationTypeName(aggrType, aggrTypeName);
                         if (aggregation != 0)
                         {
@@ -329,7 +329,7 @@ namespace RDFWrappers
                     Console.WriteLine("Aggregated attribute is not supported " + attrName + ": " + typeDef.ToString());
                 }
             }
-            else if (RDF.ifcengine.engiGetDeclarationType (typeDef.domain)==RDF.enum_express_declaration.__DEFINED_TYPE)
+            else if (RDF.IFCEngine.engiGetDeclarationType (typeDef.domain)==RDF.enum_express_declaration.__DEFINED_TYPE)
             {
                 if (generator.m_writtenDefinedTyes.ContainsKey(typeDef.domain))
                 {

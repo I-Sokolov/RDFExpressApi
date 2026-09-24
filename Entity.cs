@@ -29,18 +29,18 @@ namespace RDFWrappers
         {
             var ret = new List<Attribute>();
 
-            var model = ifcengine.engiGetEntityModel(sdaiEntity);
-            var modelName = ifcengine.GetSchemaName (model);
+            var model = IFCEngine.engiGetEntityModel(sdaiEntity);
+            var modelName = IFCEngine.GetSchemaName (model);
 
             ExpressHandle attribute = 0;
-            while (0 != (attribute = ifcengine.engiGetEntityAttributeByIterator(sdaiEntity, attribute)))
+            while (0 != (attribute = IFCEngine.engiGetEntityAttributeByIterator(sdaiEntity, attribute)))
             {
                 IntPtr ptrName = IntPtr.Zero;
                 Int64 definingEntity, domainEntity, aggregation;
                 enum_express_data_type exprsType;
                 bool inverse, explicit_, optional;
 
-                ifcengine.engiGetAttrTraits
+                IFCEngine.engiGetAttrTraits
                                 (attribute,
                                 out ptrName,
                                 out definingEntity, out explicit_, out inverse,
@@ -87,7 +87,7 @@ namespace RDFWrappers
             int ind = 0;
             while (true)
             {
-                var parentId = ifcengine.engiGetEntityParentEx(sdaiEntity, ind++);
+                var parentId = IFCEngine.engiGetEntityParentEx(sdaiEntity, ind++);
                 if (parentId == 0)
                     break;
                 ret.Add(parentId);
@@ -101,7 +101,7 @@ namespace RDFWrappers
             int ind = 0;
             while (true)
             {
-                var parentId = ifcengine.engiGetEntityParentEx(sdaiEntityChild, ind++);
+                var parentId = IFCEngine.engiGetEntityParentEx(sdaiEntityChild, ind++);
                 if (parentId == 0)
                     break;
                 if (parentId == sdaiEntity)
@@ -148,7 +148,7 @@ namespace RDFWrappers
 
         public bool IsAbstract()
         {
-            return 0!=ifcengine.engiGetEntityIsAbstract(sdaiEntity);
+            return 0!=IFCEngine.engiGetEntityIsAbstract(sdaiEntity);
         }
     }
 }

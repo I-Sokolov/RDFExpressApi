@@ -31,7 +31,7 @@ namespace RDFWrappers
 
             int i = 0;
             ExpressHandle variant;
-            while (0 != (variant = ifcengine.engiGetSelectElement(inst, i++)))
+            while (0 != (variant = IFCEngine.engiGetSelectElement(inst, i++)))
             {
                 if (!ret.Add(variant))
                 {
@@ -49,9 +49,9 @@ namespace RDFWrappers
 
             int i = 0;
             ExpressHandle variant;
-            while (0 != (variant = ifcengine.engiGetSelectElement(inst, i++)))
+            while (0 != (variant = IFCEngine.engiGetSelectElement(inst, i++)))
             {
-                var decl = ifcengine.engiGetDeclarationType(variant);
+                var decl = IFCEngine.engiGetDeclarationType(variant);
 
                 if (decl == enum_express_declaration.__DEFINED_TYPE)
                 {
@@ -77,9 +77,9 @@ namespace RDFWrappers
 
             int i = 0;
             ExpressHandle variant;
-            while (0 != (variant = ifcengine.engiGetSelectElement(inst, i++)))
+            while (0 != (variant = IFCEngine.engiGetSelectElement(inst, i++)))
             {
-                enum_express_declaration declType = ifcengine.engiGetDeclarationType(variant);
+                enum_express_declaration declType = IFCEngine.engiGetDeclarationType(variant);
 
                 switch (declType)
                 {
@@ -127,7 +127,7 @@ namespace RDFWrappers
 
         private void WriteNestedSelect (Generator generator, ExpressHandle declaration, HashSet<ExpressHandle> visitedSelects)
         {
-            var declType = ifcengine.engiGetDeclarationType(declaration);
+            var declType = IFCEngine.engiGetDeclarationType(declaration);
             switch (declType)
             {
                 case enum_express_declaration.__SELECT:
@@ -217,7 +217,7 @@ namespace RDFWrappers
 
         private void WriteAccessorMethod(Generator generator, ExpressHandle selectVariant, bool? bGet)
         {
-            var type = ifcengine.engiGetDeclarationType(selectVariant);
+            var type = IFCEngine.engiGetDeclarationType(selectVariant);
 
             switch (type)
             {
@@ -396,7 +396,7 @@ namespace RDFWrappers
             string elemType = baseType;
             if (definedType.domain != 0)
             {
-                if (!generator.m_cs || ifcengine.engiGetDeclarationType(definedType.domain) != enum_express_declaration.__DEFINED_TYPE)
+                if (!generator.m_cs || IFCEngine.engiGetDeclarationType(definedType.domain) != enum_express_declaration.__DEFINED_TYPE)
                 {
                     elemType = Schema.GetNameOfDeclaration(definedType.domain);
                 }
@@ -427,7 +427,7 @@ namespace RDFWrappers
                 enum_express_aggr aggr;
                 Int64 crdMin, crdMax, nestedAggr;
                 bool optional, unique;
-                ifcengine.engiGetAggregationDefinition(definedType.aggregation, out aggr, out crdMin, out crdMax, out optional, out unique, out nestedAggr);
+                IFCEngine.engiGetAggregationDefinition(definedType.aggregation, out aggr, out crdMin, out crdMax, out optional, out unique, out nestedAggr);
                 if (nestedAggr == 0 && sdaiType != null)
                 {
                     var tpl = Generator.Template.SelectAggregationPutArray;
@@ -458,7 +458,7 @@ namespace RDFWrappers
             foreach (var variant in GetVariants())
             {
                 var name = Schema.GetNameOfDeclaration(variant);
-                var type = ifcengine.engiGetDeclarationType(variant);
+                var type = IFCEngine.engiGetDeclarationType(variant);
 
                 str.AppendLine(string.Format("        {0} {1}", name, type.ToString()));
             }

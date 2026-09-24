@@ -122,9 +122,9 @@ namespace NAMESPACE_NAME
 
             if (m_adb == 0 && m_instance != 0 && m_attrName != null)
                 {
-                if (0 == ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiADB, out m_adb))
+                if (0 == IFCEngine.sdaiGetAttrBN(m_instance, m_attrName, IFCEngine.sdaiADB, out m_adb))
                     {
-                    ifcengine.sdaiDeleteADB(m_adb);
+                    IFCEngine.sdaiDeleteADB(m_adb);
                     m_adb = 0;
                     }
                 }
@@ -171,7 +171,7 @@ namespace NAMESPACE_NAME
 
                 if (m_instance != 0 && m_attrName != null)
                     {
-                    ifcengine.sdaiPutAttrBN(m_instance, m_attrName, ifcengine.sdaiADB, m_adb);
+                    IFCEngine.sdaiPutAttrBN(m_instance, m_attrName, IFCEngine.sdaiADB, m_adb);
                     }
                 }
             }
@@ -188,7 +188,7 @@ namespace NAMESPACE_NAME
                 return true; //any suitable
                 }
 
-            var pPath = ifcengine.sdaiGetADBTypePath(adb, 0);
+            var pPath = IFCEngine.sdaiGetADBTypePath(adb, 0);
             var path = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(pPath);
 
             return path != null && path == typeName;
@@ -204,7 +204,7 @@ namespace NAMESPACE_NAME
                     }
                 else
                     {
-                    return ifcengine.sdaiGetADBTypePathx(adb, 0);
+                    return IFCEngine.sdaiGetADBTypePathx(adb, 0);
                     }
                 }
             }
@@ -220,7 +220,7 @@ namespace NAMESPACE_NAME
             if (CheckADBType(adb, typeName))
                 {
                 IntValue val = 0;
-                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
+                if (IFCEngine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
                     {
                     ret = val;
                     }
@@ -233,8 +233,8 @@ namespace NAMESPACE_NAME
             if (value.HasValue)
                 {
                 IntValue v = value.Value;
-                var adb = ifcengine.sdaiCreateADB(sdaiType, ref v);
-                ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+                var adb = IFCEngine.sdaiCreateADB(sdaiType, ref v);
+                IFCEngine.sdaiPutADBTypePath(adb, 1, typeName);
                 SetADB(adb);
                 }
             else
@@ -251,7 +251,7 @@ namespace NAMESPACE_NAME
             if (CheckADBType(adb, typeName))
                 {
                 double val = 0;
-                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
+                if (IFCEngine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
                     {
                     ret = val;
                     }
@@ -260,13 +260,13 @@ namespace NAMESPACE_NAME
             }
         protected bool? get_bool(TextValue typeName, IntValue sdaiType)
             {
-            Debug.Assert(sdaiType == ifcengine.sdaiBOOLEAN);
+            Debug.Assert(sdaiType == IFCEngine.sdaiBOOLEAN);
             bool? ret = null;
             var adb = ADB();
             if (CheckADBType(adb, typeName))
                 {
                 bool val = false;
-                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
+                if (IFCEngine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
                     {
                     ret = val;
                     }
@@ -280,8 +280,8 @@ namespace NAMESPACE_NAME
             if (value.HasValue)
                 {
                 double v = value.Value;
-                var adb = ifcengine.sdaiCreateADB(sdaiType, ref v);
-                ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+                var adb = IFCEngine.sdaiCreateADB(sdaiType, ref v);
+                IFCEngine.sdaiPutADBTypePath(adb, 1, typeName);
                 SetADB(adb);
                 }
             else
@@ -294,9 +294,9 @@ namespace NAMESPACE_NAME
             if (value.HasValue)
                 {
                 bool v = value.Value;
-                Debug.Assert(sdaiType == ifcengine.sdaiBOOLEAN);
-                var adb = ifcengine.sdaiCreateADB(sdaiType, ref v);
-                ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+                Debug.Assert(sdaiType == IFCEngine.sdaiBOOLEAN);
+                var adb = IFCEngine.sdaiCreateADB(sdaiType, ref v);
+                IFCEngine.sdaiPutADBTypePath(adb, 1, typeName);
                 SetADB(adb);
                 }
             else
@@ -313,7 +313,7 @@ namespace NAMESPACE_NAME
             if (CheckADBType(adb, typeName))
                 {
                 string val;
-                if (ifcengine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
+                if (IFCEngine.sdaiGetADBValue(adb, sdaiType, out val) != 0)
                     {
                     ret = val;
                     }
@@ -324,8 +324,8 @@ namespace NAMESPACE_NAME
         //
         protected void putTextValue(TextValue typeName, IntValue sdaiType, TextValue value)
             {
-            var adb = ifcengine.sdaiCreateADB(sdaiType, value);
-            ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+            var adb = IFCEngine.sdaiCreateADB(sdaiType, value);
+            IFCEngine.sdaiPutADBTypePath(adb, 1, typeName);
             SetADB(adb);
             }
 
@@ -337,7 +337,7 @@ namespace NAMESPACE_NAME
             if (CheckADBType(adb, typeName))
                 {
                 string value;
-                if (0 != ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiENUM, out value))
+                if (0 != IFCEngine.sdaiGetADBValue(adb, IFCEngine.sdaiENUM, out value))
                     {
                     ret = EnumIndex.FromString(value, rEnumValues);
                     }
@@ -348,8 +348,8 @@ namespace NAMESPACE_NAME
         //
         protected void putEnumerationValue(TextValue typeName, TextValue value)
             {
-            var adb = ifcengine.sdaiCreateADB(ifcengine.sdaiENUM, value);
-            ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+            var adb = IFCEngine.sdaiCreateADB(IFCEngine.sdaiENUM, value);
+            IFCEngine.sdaiPutADBTypePath(adb, 1, typeName);
             SetADB(adb);
             }
 
@@ -361,9 +361,9 @@ namespace NAMESPACE_NAME
             if (adb != 0)
                 {
                 SdaiInstance inst = 0;
-                if (ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiINSTANCE, out inst) != 0)
+                if (IFCEngine.sdaiGetADBValue(adb, IFCEngine.sdaiINSTANCE, out inst) != 0)
                     {
-                    if (typeName == null || ifcengine.sdaiIsKindOfBN(inst, typeName) != 0)
+                    if (typeName == null || IFCEngine.sdaiIsKindOfBN(inst, typeName) != 0)
                         {
                         ret = inst;
                         }
@@ -375,9 +375,9 @@ namespace NAMESPACE_NAME
         //
         protected void putEntityInstance(TextValue typeName, SdaiInstance inst)
             {
-            if (inst == 0 || ifcengine.sdaiIsKindOfBN(inst, typeName) != 0)
+            if (inst == 0 || IFCEngine.sdaiIsKindOfBN(inst, typeName) != 0)
                 {
-                var adb = ifcengine.sdaiCreateADB(ifcengine.sdaiINSTANCE, inst);
+                var adb = IFCEngine.sdaiCreateADB(IFCEngine.sdaiINSTANCE, inst);
                 SetADB(adb);
                 }
             else
@@ -393,7 +393,7 @@ namespace NAMESPACE_NAME
             var adb = ADB();
             if (CheckADBType(adb, typeName))
                 {
-                if (ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiAGGR, out ret) == 0)
+                if (IFCEngine.sdaiGetADBValue(adb, IFCEngine.sdaiAGGR, out ret) == 0)
                     {
                     ret = 0;
                     }
@@ -404,8 +404,8 @@ namespace NAMESPACE_NAME
         //
         protected void putAggrValue(TextValue typeName, SdaiAggr value)
             {
-            var adb = ifcengine.sdaiCreateADB(ifcengine.sdaiAGGR, value);
-            ifcengine.sdaiPutADBTypePath(adb, 1, typeName);
+            var adb = IFCEngine.sdaiCreateADB(IFCEngine.sdaiAGGR, value);
+            IFCEngine.sdaiPutADBTypePath(adb, 1, typeName);
             SetADB(adb);
             }
 
@@ -422,9 +422,9 @@ namespace NAMESPACE_NAME
             if (adb != 0)
                 {
                 SdaiInstance inst = 0;
-                if (ifcengine.sdaiGetADBValue(adb, ifcengine.sdaiINSTANCE, out inst) != 0)
+                if (IFCEngine.sdaiGetADBValue(adb, IFCEngine.sdaiINSTANCE, out inst) != 0)
                     {
-                    if (ifcengine.sdaiIsKindOfBN(inst, typeName) != 0)
+                    if (IFCEngine.sdaiIsKindOfBN(inst, typeName) != 0)
                         {
                         return true;
                         }
@@ -452,7 +452,7 @@ namespace NAMESPACE_NAME
         public TList FromAttr(SdaiInstance instance, TextValue attrName)
             {
             SdaiAggr aggr = 0;
-            ifcengine.sdaiGetAttrBN(instance, attrName, ifcengine.sdaiAGGR, out aggr);
+            IFCEngine.sdaiGetAttrBN(instance, attrName, IFCEngine.sdaiAGGR, out aggr);
             return FromSdaiAggr(instance, aggr);
             }
 
@@ -460,7 +460,7 @@ namespace NAMESPACE_NAME
         public TList FromSdaiAggr(SdaiInstance inst, SdaiAggr aggr)
             {
             var ret = new TList();
-            IntValue cnt = ifcengine.sdaiGetMemberCount(aggr);
+            IntValue cnt = IFCEngine.sdaiGetMemberCount(aggr);
             for (IntValue i = 0; i < cnt; i++)
                 {
                 TElem elem;
@@ -474,7 +474,7 @@ namespace NAMESPACE_NAME
 
         public SdaiAggr ToSdaiAggr(IEnumerable<TElem> lst, SdaiInstance instance, TextValue attrName)
             {
-            SdaiAggr aggr = ifcengine.sdaiCreateAggrBN(instance, attrName);
+            SdaiAggr aggr = IFCEngine.sdaiCreateAggrBN(instance, attrName);
             foreach (var v in lst)
                 {
                 AppendAggrElement(instance, aggr, v);
@@ -484,7 +484,7 @@ namespace NAMESPACE_NAME
 
         public SdaiAggr ToSdaiAggr(IEnumerable lst, SdaiInstance instance, TextValue attrName)
             {
-            SdaiAggr aggr = ifcengine.sdaiCreateAggrBN(instance, attrName);
+            SdaiAggr aggr = IFCEngine.sdaiCreateAggrBN(instance, attrName);
             foreach (var v in lst)
                 {
                 AppendAggrElement(instance, aggr, (TElem)v);
@@ -509,12 +509,12 @@ namespace NAMESPACE_NAME
         {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out IntValue elem)
             {
-            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiINTEGER, out elem);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, IFCEngine.sdaiINTEGER, out elem);
             return true;
             }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue elem)
             {
-            ifcengine.sdaiAppend(aggr, ifcengine.sdaiINTEGER, ref elem);
+            IFCEngine.sdaiAppend(aggr, IFCEngine.sdaiINTEGER, ref elem);
             }
         };
 
@@ -526,12 +526,12 @@ namespace NAMESPACE_NAME
         {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out double elem)
             {
-            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiREAL, out elem);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, IFCEngine.sdaiREAL, out elem);
             return true;
             }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, double elem)
             {
-            ifcengine.sdaiAppend(aggr, ifcengine.sdaiREAL, ref elem);
+            IFCEngine.sdaiAppend(aggr, IFCEngine.sdaiREAL, ref elem);
             }
         };
 
@@ -543,12 +543,12 @@ namespace NAMESPACE_NAME
         {
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out bool elem)
             {
-            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiBOOLEAN, out elem);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, IFCEngine.sdaiBOOLEAN, out elem);
             return true;
             }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, bool elem)
             {
-            ifcengine.sdaiAppend(aggr, ifcengine.sdaiBOOLEAN, ref elem);
+            IFCEngine.sdaiAppend(aggr, IFCEngine.sdaiBOOLEAN, ref elem);
             }
         };
 
@@ -559,17 +559,17 @@ namespace NAMESPACE_NAME
 
         public AggrSerializerText(IntValue sdaiType)
             {
-            Debug.Assert(sdaiType == ifcengine.sdaiSTRING || sdaiType == ifcengine.sdaiBINARY);
+            Debug.Assert(sdaiType == IFCEngine.sdaiSTRING || sdaiType == IFCEngine.sdaiBINARY);
             m_sdaiType = sdaiType;
             }
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TextValue elem)
             {
-            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out elem);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out elem);
             return (elem != null);
             }
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, TextValue elem)
             {
-            ifcengine.sdaiAppend(aggr, m_sdaiType, elem);
+            IFCEngine.sdaiAppend(aggr, m_sdaiType, elem);
             }
         };
 
@@ -580,7 +580,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TElem elem)
             {
             SdaiInstance val = 0;
-            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiINSTANCE, out val);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, IFCEngine.sdaiINSTANCE, out val);
             elem = new TElem();
             elem.Set(val);
             elem = elem.ToExactEntity() as TElem;
@@ -589,7 +589,7 @@ namespace NAMESPACE_NAME
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, TElem elem)
             {
             SdaiInstance v = elem;
-            ifcengine.sdaiAppend(aggr, ifcengine.sdaiINSTANCE, v);
+            IFCEngine.sdaiAppend(aggr, IFCEngine.sdaiINSTANCE, v);
             }
         };
 
@@ -602,7 +602,7 @@ namespace NAMESPACE_NAME
 
         public AggrSerializerEnum(TextValue[] enumValues, IntValue sdaiType)
             {
-            Debug.Assert(sdaiType == ifcengine.sdaiENUM || sdaiType == ifcengine.sdaiLOGICAL);
+            Debug.Assert(sdaiType == IFCEngine.sdaiENUM || sdaiType == IFCEngine.sdaiLOGICAL);
             m_EnumValues = enumValues;
             m_sdaiType = sdaiType;
             }
@@ -611,7 +611,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TEnum elem)
             {
             string value;
-            ifcengine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out value);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, m_sdaiType, out value);
             var ind = EnumIndex.FromString(value, m_EnumValues);
             var val = EnumValue<TEnum>.FromIndex(ind);
             if (val.HasValue)
@@ -628,7 +628,7 @@ namespace NAMESPACE_NAME
         protected override void AppendAggrElement(SdaiInstance inst, SdaiAggr aggr, TEnum elem)
             {
             var value = EnumString<TEnum>.FromValue(elem, m_EnumValues);
-            ifcengine.sdaiAppend(aggr, m_sdaiType, value);
+            IFCEngine.sdaiAppend(aggr, m_sdaiType, value);
             }
         }
     /// <summary>
@@ -642,7 +642,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TNestedAggr elem)
             {
             SdaiAggr nested = 0;
-            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiAGGR, out nested);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, IFCEngine.sdaiAGGR, out nested);
             if (nested != 0)
                 {
                 var nestedSerializer = new TNestedSerializer();
@@ -659,7 +659,7 @@ namespace NAMESPACE_NAME
             {
             var nestedSerializer = new TNestedSerializer();
             SdaiAggr nested = nestedSerializer.ToSdaiAggr(elem, inst, null);
-            ifcengine.sdaiAppend(aggr, ifcengine.sdaiAGGR, nested);
+            IFCEngine.sdaiAppend(aggr, IFCEngine.sdaiAGGR, nested);
             }
         };
 
@@ -670,7 +670,7 @@ namespace NAMESPACE_NAME
         protected override bool GetAggrElement(SdaiInstance inst, SdaiAggr aggr, IntValue i, out TSelect elem)
             {
             IntValue adb = 0;
-            ifcengine.sdaiGetAggrByIndex(aggr, i, ifcengine.sdaiADB, out adb);
+            IFCEngine.sdaiGetAggrByIndex(aggr, i, IFCEngine.sdaiADB, out adb);
             if (adb != 0)
                 {
                 elem = new TSelect();
@@ -688,7 +688,7 @@ namespace NAMESPACE_NAME
             var adb = elem.ADB();
             if (adb != 0)
                 {
-                ifcengine.sdaiAppend((IntValue)aggr, ifcengine.sdaiADB, adb);
+                IFCEngine.sdaiAppend((IntValue)aggr, IFCEngine.sdaiADB, adb);
                 }
             }
         };
@@ -703,7 +703,7 @@ namespace NAMESPACE_NAME
         public static Entity CreateExactEntity(SdaiInstance instance) { System.Diagnostics.Debug.Assert(false); return null; }
         public virtual Entity ToExactEntity() { return Entity.CreateExactEntity(m_instance); }
         //
-        public Int64 StepID { get { return m_instance != 0 ? ifcengine.internalGetP21Line(m_instance) : 0; } }
+        public Int64 StepID { get { return m_instance != 0 ? IFCEngine.internalGetP21Line(m_instance) : 0; } }
 
         public bool IsNull { get { return m_instance == 0; } }
 
@@ -711,9 +711,9 @@ namespace NAMESPACE_NAME
                 {
                 if (m_instance != 0)
                     {
-                    var type = ifcengine.sdaiGetInstanceType(m_instance);
+                    var type = IFCEngine.sdaiGetInstanceType(m_instance);
                     if (type != 0)
-                        return ifcengine.engiGetEntityName(type);
+                        return IFCEngine.engiGetEntityName(type);
                     }
                 return null;
                 } }
@@ -732,7 +732,7 @@ namespace NAMESPACE_NAME
 
             if (m_instance != 0)
                 {
-                if (ifcengine.sdaiIsKindOfBN(m_instance, WrapperEntityName()) == 0)
+                if (IFCEngine.sdaiIsKindOfBN(m_instance, WrapperEntityName()) == 0)
                     {
                     m_instance = 0;
                     }
@@ -750,7 +750,7 @@ namespace NAMESPACE_NAME
         protected TextValue get_string(TextValue attrName, IntValue sdaiType)
             {
             string value;
-            if (0 != ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out value))
+            if (0 != IFCEngine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out value))
                 {
                 return value;
                 }
@@ -762,7 +762,7 @@ namespace NAMESPACE_NAME
         public double? get_double(TextValue attrName, IntValue sdaiType)
             {
             double val = 0;
-            if (ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out val) != 0)
+            if (IFCEngine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out val) != 0)
                 return val;
             else
                 return null;
@@ -770,7 +770,7 @@ namespace NAMESPACE_NAME
         public IntValue? get_IntValue(TextValue attrName, IntValue sdaiType)
             {
             IntValue val = 0;
-            if (ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out val) != 0)
+            if (IFCEngine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out val) != 0)
                 return val;
             else
                 return null;
@@ -778,7 +778,7 @@ namespace NAMESPACE_NAME
         public bool? get_bool(TextValue attrName, IntValue sdaiType)
             {
             bool val = false;
-            if (ifcengine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out val) != 0)
+            if (IFCEngine.sdaiGetAttrBN(m_instance, attrName, sdaiType, out val) != 0)
                 return val;
             else
                 return null;
@@ -887,14 +887,14 @@ namespace NAMESPACE_NAME
     class AggregationTYpeSerializer : AggrSerializer_SimpleType<SimpleType, AggregationTYpe> { }
     //## AggregationOfText
     public class Aggregationtype : List<TextValue> { }
-    class AggregationtypeSerializer : AggrSerializerText<TextValue, Aggregationtype> { public AggregationtypeSerializer() : base(ifcengine.sdaiTYPE) { } }
+    class AggregationtypeSerializer : AggrSerializerText<TextValue, Aggregationtype> { public AggregationtypeSerializer() : base(IFCEngine.sdaiTYPE) { } }
     //## AggregationOfInstance
     public class AggregationType : List<REF_ENTITY> { }
     class AggregationTypeSerializer : AggrSerializerInstance<REF_ENTITY, AggregationType> { }
     //## AggregationOfEnum
     public class AggregationTyPe : List<ENUMERATION_NAME> { }
-    class AggregationTyPeSerializer : AggrSerializerEnum<ENUMERATION_NAME, AggregationTyPe> { public AggregationTyPeSerializer() : base(EnumNames.ENUMERATION_VALUES_ARRAY, ifcengine.sdaiTYPE) { } };
-    //class AggregationTyPeSerializer : AggrSerializerEnum<ENUMERATION_NAME, AggregationTyPe> { public AggregationTyPeSerializer() : base(EnumNames.ENUMERATION_VALUES_ARRAY, ifcengine.sdaiENUM) { } };
+    class AggregationTyPeSerializer : AggrSerializerEnum<ENUMERATION_NAME, AggregationTyPe> { public AggregationTyPeSerializer() : base(EnumNames.ENUMERATION_VALUES_ARRAY, IFCEngine.sdaiTYPE) { } };
+    //class AggregationTyPeSerializer : AggrSerializerEnum<ENUMERATION_NAME, AggregationTyPe> { public AggregationTyPeSerializer() : base(EnumNames.ENUMERATION_VALUES_ARRAY, IFCEngine.sdaiENUM) { } };
     //## AggregationOfAggregation
     class SIMpleTypeSerializer : AggrSerializer_SimpleType<SimpleType, AggregationTYpe> { } //## IGNORE
     public class AggregationTYPe : List<SIMpleType> { }
@@ -934,26 +934,26 @@ namespace NAMESPACE_NAME
         public bool is_TypeNameIfc { get { return IsADBType("TypeNameUpper"); } }
         public BaseCType? TypeNameIfc
             {
-            get { return get_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE); }
+            get { return get_BaseCType("TypeNameUpper", IFCEngine.sdaiTYPE); }
             }
         //## SelectSimplePut
         public bool is_typeNameIfc { get { return IsADBType("TypeNameUpper"); } }
         public BaseCType? TypeNameifc
             {
-            set { put_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE, value); }
-            get { return get_BaseCType("TypeNameUpper", ifcengine.sdaiTYPE); }
+            set { put_BaseCType("TypeNameUpper", IFCEngine.sdaiTYPE, value); }
+            get { return get_BaseCType("TypeNameUpper", IFCEngine.sdaiTYPE); }
             }
         //## SelectTextGet
         public bool is_TypeNameIFC { get { return IsADBType("TypeNameUpper"); } }
         public TextValue TypeNameIFc
             {
-            get { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); }
+            get { return getTextValue("TypeNameUpper", IFCEngine.sdaiTYPE); }
             }
         //## SelectTextPut
         public bool is_typeNameIFC { get { return IsADBType("TypeNameUpper"); } }
         public TextValue TypeNameIFC { 
-            set { putTextValue("TypeNameUpper", ifcengine.sdaiTYPE, value); }
-            get { return getTextValue("TypeNameUpper", ifcengine.sdaiTYPE); } 
+            set { putTextValue("TypeNameUpper", IFCEngine.sdaiTYPE, value); }
+            get { return getTextValue("TypeNameUpper", IFCEngine.sdaiTYPE); } 
             }
         //## SelectEntityGet
         public bool is_REF_ENTITY { get { return IsADBEntity("REF_ENTITY"); } }
@@ -1009,13 +1009,13 @@ namespace NAMESPACE_NAME
         //## SelectNested
         public GEN_TYPE_NAME_accessor GEN_TYPE_NAME { get { return new GEN_TYPE_NAME_accessor(this); } }
         //## SelectGetAsDouble
-        public double? as_double { get { double val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiREAL, out val) != 0) return val; else return null; } }
+        public double? as_double { get { double val = 0; if (IFCEngine.sdaiGetAttrBN(m_instance, m_attrName, IFCEngine.sdaiREAL, out val) != 0) return val; else return null; } }
         //## SelectGetAsInt
-        public IntValue? as_int { get { IntValue val = 0; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiINTEGER, out val) != 0) return val; else return null; } }
+        public IntValue? as_int { get { IntValue val = 0; if (IFCEngine.sdaiGetAttrBN(m_instance, m_attrName, IFCEngine.sdaiINTEGER, out val) != 0) return val; else return null; } }
         //## SelectGetAsBool
-        public bool? as_bool { get { bool val = false; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiBOOLEAN, out val) != 0) return val; else return null; } }
+        public bool? as_bool { get { bool val = false; if (IFCEngine.sdaiGetAttrBN(m_instance, m_attrName, IFCEngine.sdaiBOOLEAN, out val) != 0) return val; else return null; } }
         //## SelectGetAsText
-        public TextValue as_text { get { string val = null; if (ifcengine.sdaiGetAttrBN(m_instance, m_attrName, ifcengine.sdaiSTRING, out val) != 0) return val; else return null; } }
+        public TextValue as_text { get { string val = null; if (IFCEngine.sdaiGetAttrBN(m_instance, m_attrName, IFCEngine.sdaiSTRING, out val) != 0) return val; else return null; } }
         //## SelectGetAsEntity
         public SdaiInstance as_instance { get { return getEntityInstance(null); } }
         //## SelectAccessorEnd
@@ -1048,7 +1048,7 @@ namespace NAMESPACE_NAME
         /// <summary>
         /// Create new instance of ENTITY_NAME and returns object of this class to interact with
         /// </summary>
-        public static new ENTITY_NAME Create(SdaiModel model) { SdaiInstance inst = ifcengine.sdaiCreateInstanceBN(model, "ENTITY_NAME"); Debug.Assert(inst != 0); return inst; }
+        public static new ENTITY_NAME Create(SdaiModel model) { SdaiInstance inst = IFCEngine.sdaiCreateInstanceBN(model, "ENTITY_NAME"); Debug.Assert(inst != 0); return inst; }
 
         //## CreateExactSubEntiyMethod
         /// <summary>
@@ -1057,7 +1057,7 @@ namespace NAMESPACE_NAME
         public new static ENTITY_NAME CreateExactEntity (SdaiInstance instance)
             {
         //## CreateExactSubEntiyCase
-            if (ifcengine.sdaiIsKindOfBN(instance, "SUBENTITY__NAME") != 0 )
+            if (IFCEngine.sdaiIsKindOfBN(instance, "SUBENTITY__NAME") != 0 )
                 {
                 return SUBENTITY__NAME.CreateExactEntity(instance);
                 }
@@ -1071,36 +1071,36 @@ namespace NAMESPACE_NAME
         public override Entity ToExactEntity() { return ENTITY_NAME.CreateExactEntity(m_instance); }
 
         //## AttributeSimpleGet
-        public BaseCType? aTTR_NAME { get { return get_BaseCType("ATTR_NAME", ifcengine.sdaiTYPE); } }
+        public BaseCType? aTTR_NAME { get { return get_BaseCType("ATTR_NAME", IFCEngine.sdaiTYPE); } }
         //## AttributeSimplePut
         public BaseCType? ATTR_NAME
             {
-            get { return get_BaseCType("ATTR_NAME", ifcengine.sdaiTYPE); }
-            set { if (value.HasValue) { BaseCType v = value.Value; ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiTYPE, ref v); } else Debug.Assert(false); }
+            get { return get_BaseCType("ATTR_NAME", IFCEngine.sdaiTYPE); }
+            set { if (value.HasValue) { BaseCType v = value.Value; IFCEngine.sdaiPutAttrBN(m_instance, "ATTR_NAME", IFCEngine.sdaiTYPE, ref v); } else Debug.Assert(false); }
             }
         //## AttributeTextGet
-        public TextValue attr_NAME { get { return get_string("ATTR_NAME", ifcengine.sdaiTYPE); } }
+        public TextValue attr_NAME { get { return get_string("ATTR_NAME", IFCEngine.sdaiTYPE); } }
         //## AttributeTextPut
         public TextValue aTtr_NAME
             {
-            get { return get_string("ATTR_NAME", ifcengine.sdaiTYPE); }
-            set { ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiTYPE, value); }
+            get { return get_string("ATTR_NAME", IFCEngine.sdaiTYPE); }
+            set { IFCEngine.sdaiPutAttrBN(m_instance, "ATTR_NAME", IFCEngine.sdaiTYPE, value); }
             }
         //## AttributeEntityGet
-        public REF_ENTITY Attr_nAME { get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, out inst); return REF_ENTITY.CreateExactEntity(inst); } }
+        public REF_ENTITY Attr_nAME { get { SdaiInstance inst = 0; IFCEngine.sdaiGetAttrBN(m_instance, "ATTR_NAME", IFCEngine.sdaiINSTANCE, out inst); return REF_ENTITY.CreateExactEntity(inst); } }
         //## AttributeEntityPut
         public REF_ENTITY Attr_NAME 
             {
-            get { SdaiInstance inst = 0; ifcengine.sdaiGetAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, out inst); return REF_ENTITY.CreateExactEntity(inst); } 
-            set { SdaiInstance i = value; ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiINSTANCE, i); }
+            get { SdaiInstance inst = 0; IFCEngine.sdaiGetAttrBN(m_instance, "ATTR_NAME", IFCEngine.sdaiINSTANCE, out inst); return REF_ENTITY.CreateExactEntity(inst); } 
+            set { SdaiInstance i = value; IFCEngine.sdaiPutAttrBN(m_instance, "ATTR_NAME", IFCEngine.sdaiINSTANCE, i); }
             }
         //## AttributeEnumGet
-        public ENUMERATION_NAME? ATtr_nAME { get { var str = get_string("ATTR_NAME", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); } }
+        public ENUMERATION_NAME? ATtr_nAME { get { var str = get_string("ATTR_NAME", IFCEngine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); } }
         //## AttributeEnumPut
         public ENUMERATION_NAME? ATtr_NAME 
             { 
-            get { var str = get_string("ATTR_NAME", ifcengine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); } 
-            set { if (value.HasValue) { var str = EnumString<ENUMERATION_NAME>.FromValue(value.Value, EnumNames.ENUMERATION_VALUES_ARRAY); ifcengine.sdaiPutAttrBN(m_instance, "ATTR_NAME", ifcengine.sdaiENUM, str); } else Debug.Assert(false); }
+            get { var str = get_string("ATTR_NAME", IFCEngine.sdaiENUM); var ind = EnumIndex.FromString(str, EnumNames.ENUMERATION_VALUES_ARRAY); return EnumValue<ENUMERATION_NAME>.FromIndex(ind); } 
+            set { if (value.HasValue) { var str = EnumString<ENUMERATION_NAME>.FromValue(value.Value, EnumNames.ENUMERATION_VALUES_ARRAY); IFCEngine.sdaiPutAttrBN(m_instance, "ATTR_NAME", IFCEngine.sdaiENUM, str); } else Debug.Assert(false); }
             }
         //## AttributeSelectAccessor        
         public GEN_TYPE_NAME_accessor ATtR_NAME

@@ -28,7 +28,7 @@ namespace RDFWrappers
 
             if (domain != 0)
             {
-                if (ifcengine.engiGetDeclarationType(domain) == enum_express_declaration.__DEFINED_TYPE)
+                if (IFCEngine.engiGetDeclarationType(domain) == enum_express_declaration.__DEFINED_TYPE)
                 {
                     DefinedType refer = new DefinedType(domain);
                     return refer.IsAggregation();
@@ -59,7 +59,7 @@ namespace RDFWrappers
             switch (exprsType)
             {
                 case enum_express_data_type.__NONE: //attribute type is defined by reference domain entity
-                    if (enum_express_declaration.__DEFINED_TYPE == ifcengine.engiGetDeclarationType(domainEntity))
+                    if (enum_express_declaration.__DEFINED_TYPE == IFCEngine.engiGetDeclarationType(domainEntity))
                     {
                         var domainType = new DefinedType(domainEntity);
                         string skip;
@@ -115,7 +115,7 @@ namespace RDFWrappers
 
             if (expressType == enum_express_data_type.__NONE)
             {
-                if (enum_express_declaration.__ENTITY == ifcengine.engiGetDeclarationType(domain))
+                if (enum_express_declaration.__ENTITY == IFCEngine.engiGetDeclarationType(domain))
                 {
                     entityName = Schema.GetNameOfDeclaration(domain);
                     return true;
@@ -128,7 +128,7 @@ namespace RDFWrappers
         {
             if (domain != 0)
             {
-                if (enum_express_declaration.__DEFINED_TYPE == ifcengine.engiGetDeclarationType(domain))
+                if (enum_express_declaration.__DEFINED_TYPE == IFCEngine.engiGetDeclarationType(domain))
                 {
                     var dt = new DefinedType(domain);
                     return dt;
@@ -141,7 +141,7 @@ namespace RDFWrappers
         {
             if (expressType == enum_express_data_type.__NONE || expressType == enum_express_data_type.__ENUMERATION)
             {
-                if (enum_express_declaration.__ENUM == ifcengine.engiGetDeclarationType(domain))
+                if (enum_express_declaration.__ENUM == IFCEngine.engiGetDeclarationType(domain))
                 {
                     var en = new Enumeraion(domain);
                     return en;
@@ -155,7 +155,7 @@ namespace RDFWrappers
         {
             if (expressType == enum_express_data_type.__NONE || expressType == enum_express_data_type.__SELECT)
             {
-                if (enum_express_declaration.__SELECT == ifcengine.engiGetDeclarationType(domain))
+                if (enum_express_declaration.__SELECT == IFCEngine.engiGetDeclarationType(domain))
                 {
                     var sel = new Select(domain);
                     return sel;
@@ -175,7 +175,7 @@ namespace RDFWrappers
                 enum_express_aggr aggrType;
                 Int64 cardMin, cardMax;
                 bool optional, unique;
-                ifcengine.engiGetAggregationDefinition(aggr, out aggrType, out cardMin, out cardMax, out optional, out unique, out aggr);
+                IFCEngine.engiGetAggregationDefinition(aggr, out aggrType, out cardMin, out cardMax, out optional, out unique, out aggr);
 
                 str.Append(aggrType.ToString() + "[" + cardMin.ToString() + ".." + cardMax.ToString() + "] OF ");
                 if (optional)
@@ -194,7 +194,7 @@ namespace RDFWrappers
                     if (domain != 0)
                     {
                         str.Append("REF:");
-                        str.Append(ifcengine.engiGetDeclarationType(domain));
+                        str.Append(IFCEngine.engiGetDeclarationType(domain));
                         str.Append(':');
                         str.Append (Schema.GetNameOfDeclaration(domain));
                     }

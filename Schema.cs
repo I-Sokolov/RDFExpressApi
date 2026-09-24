@@ -23,7 +23,7 @@ namespace RDFWrappers
             if (clsid!=0)
             {
                 var ptrName = IntPtr.Zero;
-                ifcengine.engiGetEntityName(clsid, ifcengine.sdaiSTRING, out ptrName);
+                IFCEngine.engiGetEntityName(clsid, IFCEngine.sdaiSTRING, out ptrName);
                 var name = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptrName);
 
                 return name;
@@ -117,7 +117,7 @@ namespace RDFWrappers
         /// <param name="schemaName"></param>
         public Schema (string schemaName)
         {
-            m_model = ifcengine.sdaiCreateModelBN(1, "", schemaName);
+            m_model = IFCEngine.sdaiCreateModelBN(1, "", schemaName);
 
             m_declarations.Add(enum_express_declaration.__DEFINED_TYPE, new DefinitionsList());
             m_declarations.Add(enum_express_declaration.__ENUM, new DefinitionsList());
@@ -133,12 +133,12 @@ namespace RDFWrappers
         private void CollectDefinitions()
         {
             Int64 it = 0;
-            while (0 != (it = ifcengine.engiGetNextTypeDeclarationIterator(m_model, it)))
+            while (0 != (it = IFCEngine.engiGetNextTypeDeclarationIterator(m_model, it)))
             {
-                ExpressHandle difenition = ifcengine.engiGetTypeDeclarationFromIterator(m_model, it);
+                ExpressHandle difenition = IFCEngine.engiGetTypeDeclarationFromIterator(m_model, it);
 
                 var name = GetNameOfDeclaration(difenition);
-                var type = ifcengine.engiGetDeclarationType(difenition);
+                var type = IFCEngine.engiGetDeclarationType(difenition);
 
                 var defs = m_declarations[type];
                 defs.Add(name, difenition);
